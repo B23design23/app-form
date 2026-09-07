@@ -21,6 +21,9 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   const [scoresQuizCours, setScoresQuizCours] = useState([])
   const [erreurScoresQuizCours, setErreurScoresQuizCours] = useState(null)
 
+  const [coursAvecQuiz, setCoursAvecQuiz] = useState([])
+  const [coursAvecChecklist, setCoursAvecChecklist] = useState([])
+
   useEffect(() => {
     let annule = false
 
@@ -51,6 +54,22 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         if (annule) return
         if (error) setErreurCours(error.message)
         else setCoursListe(data ?? [])
+      })
+
+    supabase
+      .from('questions')
+      .select('cours_id')
+      .then(({ data, error }) => {
+        if (annule) return
+        if (!error) setCoursAvecQuiz(data ?? [])
+      })
+
+    supabase
+      .from('etapes_checklist')
+      .select('cours_id')
+      .then(({ data, error }) => {
+        if (annule) return
+        if (!error) setCoursAvecChecklist(data ?? [])
       })
 
     supabase
@@ -89,7 +108,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
   if (erreurProfil) {
     return (
-      <div className="espace-page">
+      <div className="espace-page espace-page-etroit">
         <p className="message message-erreur">Impossible de charger ton profil ({erreurProfil}).</p>
       </div>
     )
@@ -97,7 +116,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
   if (!profil) {
     return (
-      <div className="espace-page">
+      <div className="espace-page espace-page-etroit">
         <p>Chargement…</p>
       </div>
     )
@@ -116,8 +135,31 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   const nbCoursQuizTermines = new Set(scoresQuizCours.map((s) => s.cours_id)).size
   const quizFlashDebloque = nbCoursQuizTermines >= 3
 
+  const idsCoursAvecQuiz = new Set(coursAvecQuiz.map((q) => q.cours_id))
+  const idsCoursAvecChecklist = new Set(coursAvecChecklist.map((e) => e.cours_id))
+  const idsCoursQuizFait = new Set(scoresQuizCours.map((s) => s.cours_id))
+
+  const statutCoursMisEnAvant = coursAMettreEnAvant ? statutParCoursId.get(coursAMettreEnAvant.id) : null
+  const recapCoursMisEnAvant = coursAMettreEnAvant
+    ? [
+        { cle: 'lecon', icone: '📖', label: 'Leçon', fait: statutCoursMisEnAvant === 'en_cours' || statutCoursMisEnAvant === 'termine' },
+        idsCoursAvecQuiz.has(coursAMettreEnAvant.id) && {
+          cle: 'quiz',
+          icone: '❓',
+          label: 'Quiz',
+          fait: idsCoursQuizFait.has(coursAMettreEnAvant.id),
+        },
+        idsCoursAvecChecklist.has(coursAMettreEnAvant.id) && {
+          cle: 'checklist',
+          icone: '✅',
+          label: 'Checklist',
+          fait: statutCoursMisEnAvant === 'termine',
+        },
+      ].filter(Boolean)
+    : []
+
   return (
-    <div className="espace-page apprenant-dashboard-grille">
+    <div className="espace-page espace-page-etroit apprenant-dashboard-grille">
       <div className="apprenant-entete">
         <h1>Salut, {profil.prenom} !</h1>
         <span className="apprenant-xp-pastille">
@@ -127,23 +169,28 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
       <div className="espace-carte espace-carte-continuer">
         <div className="apprenant-continuer-layout">
-          <svg viewBox="0 0 100 100" className="apprenant-continuer-anneau" aria-hidden="true">
-            <circle cx="50" cy="50" r="42" stroke="var(--color-anneau-fond)" strokeWidth="9" fill="none" />
+          <div className="apprenant-continuer-anneau-wrapper">
+            <svg viewBox="0 0 100 100" className="apprenant-continuer-anneau" aria-hidden="true">
+              <circle cx="50" cy="50" r="42" stroke="var(--color-anneau-fond)" strokeWidth="9" fill="none" />
+              {totalCours > 0 && (
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="42"
+                  stroke="var(--color-primary)"
+                  strokeWidth="9"
+                  fill="none"
+                  strokeDasharray={circonference}
+                  strokeDashoffset={circonference * (1 - ratioGlobal)}
+                  strokeLinecap="round"
+                  transform="rotate(-90 50 50)"
+                />
+              )}
+            </svg>
             {totalCours > 0 && (
-              <circle
-                cx="50"
-                cy="50"
-                r="42"
-                stroke="var(--color-primary)"
-                strokeWidth="9"
-                fill="none"
-                strokeDasharray={circonference}
-                strokeDashoffset={circonference * (1 - ratioGlobal)}
-                strokeLinecap="round"
-                transform="rotate(-90 50 50)"
-              />
+              <span className="apprenant-continuer-anneau-pourcentage">{Math.round(ratioGlobal * 100)}%</span>
             )}
-          </svg>
+          </div>
 
           <div className="apprenant-continuer-info">
             {erreurCours ? (
@@ -156,6 +203,21 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
                 {coursAMettreEnAvant ? (
                   <>
                     <p className="apprenant-continuer-titre">{coursAMettreEnAvant.titre}</p>
+
+                    {recapCoursMisEnAvant.length > 0 && (
+                      <ul className="apprenant-continuer-recap">
+                        {recapCoursMisEnAvant.map((item) => (
+                          <li
+                            key={item.cle}
+                            className={`apprenant-continuer-recap-puce${item.fait ? ' apprenant-continuer-recap-puce-faite' : ''}`}
+                          >
+                            <span aria-hidden="true">{item.fait ? '✓' : item.icone}</span>
+                            {item.label}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
                     <button
                       type="button"
                       className="bouton-primaire"

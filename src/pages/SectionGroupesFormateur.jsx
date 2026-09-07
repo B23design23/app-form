@@ -45,7 +45,7 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
   }
 
   return (
-    <div className="espace-page">
+    <div className="espace-page espace-page-etroit">
       <h1>Mes groupes</h1>
 
       {erreur ? (

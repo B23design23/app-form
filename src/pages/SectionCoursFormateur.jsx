@@ -26,7 +26,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
   }, [authUser.id])
 
   return (
-    <div className="espace-page">
+    <div className="espace-page espace-page-etroit">
       <h1>Mes cours</h1>
 
       {erreur ? (

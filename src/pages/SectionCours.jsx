@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import StatutBadge from '../components/StatutBadge'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
-
-const LABEL_STATUT = {
-  non_commence: 'Non commencé',
-  en_cours: 'En cours',
-  termine: 'Terminé',
-}
 
 function ListeCours({ cours, statutParCoursId, onOuvrirCours }) {
   return (
@@ -18,14 +13,7 @@ function ListeCours({ cours, statutParCoursId, onOuvrirCours }) {
           <li key={c.id}>
             <button type="button" className="espace-liste-item" onClick={() => onOuvrirCours(c.id)}>
               <span className="espace-liste-item-titre">{c.titre}</span>
-              <span className={`statut-badge statut-badge-${statut}`}>
-                {statut === 'termine' ? (
-                  <span aria-hidden="true">✓</span>
-                ) : (
-                  <span className="statut-badge-pastille" aria-hidden="true" />
-                )}
-                {LABEL_STATUT[statut]}
-              </span>
+              <StatutBadge statut={statut} />
             </button>
           </li>
         )
@@ -70,7 +58,7 @@ function SectionCours({ authUser, onOuvrirCours }) {
   const coursFormateur = (coursListe ?? []).filter((c) => c.visibilite === 'prive')
 
   return (
-    <div className="espace-page">
+    <div className="espace-page espace-page-etroit">
       <h1>Mes cours</h1>
 
       {erreurCours ? (

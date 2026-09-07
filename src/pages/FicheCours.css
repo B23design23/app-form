@@ -2,18 +2,15 @@
   gap: 16px;
 }
 
-.fiche-cours-statut-termine {
-  margin: -8px 0 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-success);
+.fiche-cours-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.fiche-cours-confirmation {
+.fiche-cours-entete h1 {
   margin: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-success);
 }
 
 .fiche-cours-onglets {
@@ -103,4 +100,43 @@
 
 .checklist-item-verrouillee {
   opacity: 0.5;
+}
+
+.checklist-consigne {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
+
+.checklist-item-reorder {
+  justify-content: space-between;
+}
+
+.checklist-item-texte {
+  flex: 1;
+}
+
+.checklist-item-fleches {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.checklist-bouton-fleche {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-badge);
+  border: 1px solid var(--color-border);
+  background: var(--color-background);
+  color: var(--color-ink);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.checklist-bouton-fleche:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }

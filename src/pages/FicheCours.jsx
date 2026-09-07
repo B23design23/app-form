@@ -4,6 +4,7 @@ import { ajouterXp, verifierBadges } from '../lib/gamification'
 import { melanger } from '../lib/shuffle'
 import ProgressBar from '../components/ProgressBar'
 import CompletionToast from '../components/CompletionToast'
+import StatutBadge from '../components/StatutBadge'
 import '../styles/shared.css'
 import '../styles/quiz.css'
 import './FicheCours.css'
@@ -55,12 +56,15 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
   const [etapesValidees, setEtapesValidees] = useState([])
   const [checklistTerminee, setChecklistTerminee] = useState(false)
 
+  const [ordreApprenant, setOrdreApprenant] = useState([])
+  const [feedbackOrdre, setFeedbackOrdre] = useState(null)
+
   useEffect(() => {
     let annule = false
 
     async function charger() {
       const [coursRes, questionsRes, etapesRes, progressionRes] = await Promise.all([
-        supabase.from('cours').select('id, titre, contenu').eq('id', coursId).single(),
+        supabase.from('cours').select('id, titre, contenu, checklist_mode').eq('id', coursId).single(),
         supabase
           .from('questions')
           .select('id, enonce, type_reponse, reponses(id, texte, est_correcte, explication)')
@@ -91,7 +95,16 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
 
       setCours(coursRes.data)
       setQuestions((questionsRes.data ?? []).map((q) => ({ ...q, reponses: melanger(q.reponses) })))
-      setEtapes(etapesRes.data ?? [])
+      const etapesData = etapesRes.data ?? []
+      setEtapes(etapesData)
+      if (coursRes.data.checklist_mode === 'reorder' && etapesData.length > 0) {
+        const idsOriginaux = etapesData.map((e) => e.id)
+        let idsMelanges = melanger(idsOriginaux)
+        for (let essai = 0; essai < 5 && idsOriginaux.length > 1 && idsMelanges.every((id, i) => id === idsOriginaux[i]); essai++) {
+          idsMelanges = melanger(idsOriginaux)
+        }
+        setOrdreApprenant(idsMelanges)
+      }
 
       const progressionActuelle = progressionRes.data
       setDejaTermineAuDepart(progressionActuelle?.statut === 'termine')
@@ -218,6 +231,33 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
     }
   }
 
+  function deplacerEtape(index, direction) {
+    setOrdreApprenant((prev) => {
+      const cible = index + direction
+      if (cible < 0 || cible >= prev.length) return prev
+      const nouveau = [...prev]
+      ;[nouveau[index], nouveau[cible]] = [nouveau[cible], nouveau[index]]
+      return nouveau
+    })
+    setFeedbackOrdre(null)
+  }
+
+  async function validerOrdre() {
+    const ordreCorrect = [...etapes].sort((a, b) => a.ordre - b.ordre).map((e) => e.id)
+    const estCorrect =
+      ordreApprenant.length === ordreCorrect.length && ordreApprenant.every((id, i) => id === ordreCorrect[i])
+
+    setFeedbackOrdre(estCorrect ? 'correct' : 'incorrect')
+
+    if (estCorrect && !checklistTerminee) {
+      if (!dejaTermineAuDepart) {
+        await ajouterXp(authUser, XP_CHECKLIST)
+        setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST, type: 'checklist' })
+      }
+      setChecklistTerminee(true)
+    }
+  }
+
   if (chargement) {
     return (
       <div className="flow-page">
@@ -231,9 +271,9 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
   if (erreur) {
     return (
       <div className="flow-page">
-        <div className="page-avec-lien-retour">
+        <div className="page-avec-lien-retour page-large">
           <button type="button" className="lien-retour" onClick={onRetour}>
-            ← Retour au tableau de bord
+            ← Retour
           </button>
           <div className="flow-card">
             <p className="message message-erreur">Impossible de charger ce cours ({erreur}).</p>
@@ -250,14 +290,16 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
 
   return (
     <div className="flow-page">
-      <div className="page-avec-lien-retour">
+      <div className="page-avec-lien-retour page-large">
         <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour au tableau de bord
+          ← Retour
         </button>
 
         <div className="flow-card fiche-cours-card">
-          <h1>{cours.titre}</h1>
-          {coursEstTermine && <p className="fiche-cours-statut-termine">✓ Cours terminé</p>}
+          <div className="fiche-cours-entete">
+            <h1>{cours.titre}</h1>
+            {coursEstTermine && <StatutBadge statut="termine" />}
+          </div>
 
           <div className="fiche-cours-onglets" role="tablist">
             <button
@@ -389,30 +431,86 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
           {sectionActive === 'checklist' && hasChecklist && (
             <div className="fiche-cours-section">
               <h2>Checklist terrain</h2>
-              {checklistTerminee && <p className="fiche-cours-confirmation">✓ Checklist terminée</p>}
-              <ul className="checklist-liste">
-                {etapes.map((etape, index) => {
-                  const verrouillee = etapes
-                    .slice(0, index)
-                    .some((precedente) => precedente.bloquante && !etapesValidees.includes(precedente.id))
-                  const validee = etapesValidees.includes(etape.id)
+              {checklistTerminee && <StatutBadge statut="termine" />}
 
-                  return (
-                    <li key={etape.id}>
-                      <label className={`checklist-item${verrouillee ? ' checklist-item-verrouillee' : ''}`}>
-                        <span className="checklist-item-numero">{index + 1}</span>
-                        <input
-                          type="checkbox"
-                          checked={validee}
-                          disabled={verrouillee}
-                          onChange={() => basculerEtape(etape.id)}
-                        />
-                        <span>{etape.intitule}</span>
-                      </label>
-                    </li>
-                  )
-                })}
-              </ul>
+              {cours.checklist_mode === 'reorder' ? (
+                <>
+                  <p className="checklist-consigne">Remets les étapes dans le bon ordre, puis valide.</p>
+                  <ul className="checklist-liste">
+                    {ordreApprenant.map((etapeId, index) => {
+                      const etape = etapes.find((e) => e.id === etapeId)
+                      if (!etape) return null
+
+                      return (
+                        <li key={etape.id}>
+                          <div className="checklist-item checklist-item-reorder">
+                            <span className="checklist-item-numero">{index + 1}</span>
+                            <span className="checklist-item-texte">{etape.intitule}</span>
+                            <div className="checklist-item-fleches">
+                              <button
+                                type="button"
+                                className="checklist-bouton-fleche"
+                                disabled={checklistTerminee || index === 0}
+                                onClick={() => deplacerEtape(index, -1)}
+                                aria-label="Monter"
+                              >
+                                ↑
+                              </button>
+                              <button
+                                type="button"
+                                className="checklist-bouton-fleche"
+                                disabled={checklistTerminee || index === ordreApprenant.length - 1}
+                                onClick={() => deplacerEtape(index, 1)}
+                                aria-label="Descendre"
+                              >
+                                ↓
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                      )
+                    })}
+                  </ul>
+
+                  {feedbackOrdre && (
+                    <p
+                      className={`quiz-feedback ${feedbackOrdre === 'correct' ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}
+                    >
+                      {feedbackOrdre === 'correct' ? 'Bon ordre !' : "Ce n'est pas encore le bon ordre, réessaie."}
+                    </p>
+                  )}
+
+                  {!checklistTerminee && (
+                    <button type="button" className="bouton-primaire" onClick={validerOrdre}>
+                      Valider l'ordre
+                    </button>
+                  )}
+                </>
+              ) : (
+                <ul className="checklist-liste">
+                  {etapes.map((etape, index) => {
+                    const verrouillee = etapes
+                      .slice(0, index)
+                      .some((precedente) => precedente.bloquante && !etapesValidees.includes(precedente.id))
+                    const validee = etapesValidees.includes(etape.id)
+
+                    return (
+                      <li key={etape.id}>
+                        <label className={`checklist-item${verrouillee ? ' checklist-item-verrouillee' : ''}`}>
+                          <span className="checklist-item-numero">{index + 1}</span>
+                          <input
+                            type="checkbox"
+                            checked={validee}
+                            disabled={verrouillee}
+                            onChange={() => basculerEtape(etape.id)}
+                          />
+                          <span>{etape.intitule}</span>
+                        </label>
+                      </li>
+                    )
+                  })}
+                </ul>
+              )}
             </div>
           )}
         </div>

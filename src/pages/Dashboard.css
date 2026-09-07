@@ -38,10 +38,28 @@
   gap: 20px;
 }
 
-.apprenant-continuer-anneau {
+.apprenant-continuer-anneau-wrapper {
+  position: relative;
   width: 88px;
   height: 88px;
   flex-shrink: 0;
+}
+
+.apprenant-continuer-anneau {
+  width: 88px;
+  height: 88px;
+}
+
+.apprenant-continuer-anneau-pourcentage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-ink);
 }
 
 .apprenant-continuer-info {
@@ -63,6 +81,34 @@
   font-weight: 600;
   font-size: 1.1rem;
   color: var(--color-ink);
+}
+
+.apprenant-continuer-recap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.apprenant-continuer-recap-puce {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.apprenant-continuer-recap-puce-faite {
+  background: var(--color-success-fond);
+  border-color: transparent;
+  color: var(--color-success);
 }
 
 .apprenant-continuer-info .bouton-primaire {

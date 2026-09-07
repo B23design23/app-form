@@ -81,7 +81,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
   if (erreur) {
     return (
       <div className="flow-page flow-page-formateur">
-        <div className="page-avec-lien-retour">
+        <div className="page-avec-lien-retour page-large">
           <button type="button" className="lien-retour" onClick={onRetour}>
             ← Retour
           </button>
@@ -97,7 +97,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
 
   return (
     <div className="flow-page flow-page-formateur">
-      <div className="page-avec-lien-retour">
+      <div className="page-avec-lien-retour page-large">
         <button type="button" className="lien-retour" onClick={onRetour}>
           ← Retour
         </button>

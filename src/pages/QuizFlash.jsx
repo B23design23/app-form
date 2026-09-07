@@ -156,11 +156,13 @@ function QuizFlash({ authUser, onRetour }) {
   if (erreur) {
     return (
       <div className="flow-page">
-        <div className="flow-card">
+        <div className="page-avec-lien-retour page-large">
           <button type="button" className="lien-retour" onClick={onRetour}>
-            ← Retour au tableau de bord
+            ← Retour
           </button>
-          <p className="message message-erreur">Impossible de charger le quiz flash ({erreur}).</p>
+          <div className="flow-card">
+            <p className="message message-erreur">Impossible de charger le quiz flash ({erreur}).</p>
+          </div>
         </div>
       </div>
     )
@@ -173,97 +175,99 @@ function QuizFlash({ authUser, onRetour }) {
 
   return (
     <div className="flow-page">
-      <div className="flow-card quiz-flash-card">
+      <div className="page-avec-lien-retour page-large">
         <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour au tableau de bord
+          ← Retour
         </button>
 
-        <h1>Quiz flash</h1>
+        <div className="flow-card quiz-flash-card">
+          <h1>Quiz flash</h1>
 
-        {questions.length === 0 ? (
-          <p className="message message-erreur">Aucune question disponible pour le quiz flash.</p>
-        ) : quizTermine ? (
-          <div className="quiz-resume">
-            <p>
-              Quiz flash terminé — {bonnesReponses}/{questions.length} bonnes réponses ({scoreFinal}%).
-            </p>
-            {scoreFinal >= SEUIL_REUSSITE ? (
-              <p>Réussi — {XP_QUIZ_FLASH} XP gagnés.</p>
-            ) : (
-              <p>Score en dessous de {SEUIL_REUSSITE}% — retente ta chance !</p>
-            )}
-          </div>
-        ) : (
-          questionCourante && (
-            <>
-              <ProgressBar
-                etapeActuelle={indexQuestion + 1}
-                totalEtapes={questions.length}
-                label={labelProgression}
-              />
-
-              <p className="quiz-enonce">{questionCourante.enonce}</p>
-
-              <div className="quiz-options">
-                {questionCourante.reponses.map((reponse) => {
-                  const estSelectionnee = selection.includes(reponse.id)
-                  let classeOption = 'quiz-option'
-                  if (valide) {
-                    classeOption += ' quiz-option-desactivee'
-                    if (reponse.est_correcte) classeOption += ' quiz-option-correcte'
-                    if (estSelectionnee && !reponse.est_correcte) classeOption += ' quiz-option-fausse'
-                  } else if (estSelectionnee) {
-                    classeOption += ' quiz-option-selectionnee'
-                  }
-
-                  return (
-                    <label key={reponse.id} className={classeOption}>
-                      <input
-                        type={questionCourante.type_reponse === 'simple' ? 'radio' : 'checkbox'}
-                        name={`question-${questionCourante.id}`}
-                        checked={estSelectionnee}
-                        disabled={valide}
-                        onChange={() => basculerSelection(reponse.id)}
-                      />
-                      <span>{reponse.texte}</span>
-                    </label>
-                  )
-                })}
-              </div>
-
-              {valide && (
-                <div
-                  className={`quiz-feedback ${derniereReponseCorrecte ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}
-                >
-                  <p>{derniereReponseCorrecte ? 'Bonne réponse !' : 'Réponse incorrecte.'}</p>
-                  {!derniereReponseCorrecte &&
-                    questionCourante.reponses
-                      .filter((r) => selection.includes(r.id) && !r.est_correcte && r.explication)
-                      .map((r) => (
-                        <p key={r.id} className="quiz-explication">
-                          {r.explication}
-                        </p>
-                      ))}
-                </div>
-              )}
-
-              {!valide ? (
-                <button
-                  type="button"
-                  className="bouton-primaire"
-                  disabled={selection.length === 0}
-                  onClick={validerReponse}
-                >
-                  Valider ma réponse
-                </button>
+          {questions.length === 0 ? (
+            <p className="message message-erreur">Aucune question disponible pour le quiz flash.</p>
+          ) : quizTermine ? (
+            <div className="quiz-resume">
+              <p>
+                Quiz flash terminé — {bonnesReponses}/{questions.length} bonnes réponses ({scoreFinal}%).
+              </p>
+              {scoreFinal >= SEUIL_REUSSITE ? (
+                <p>Réussi — {XP_QUIZ_FLASH} XP gagnés.</p>
               ) : (
-                <button type="button" className="bouton-primaire" onClick={questionSuivante}>
-                  {indexQuestion === questions.length - 1 ? 'Terminer le quiz' : 'Question suivante'}
-                </button>
+                <p>Score en dessous de {SEUIL_REUSSITE}% — retente ta chance !</p>
               )}
-            </>
-          )
-        )}
+            </div>
+          ) : (
+            questionCourante && (
+              <>
+                <ProgressBar
+                  etapeActuelle={indexQuestion + 1}
+                  totalEtapes={questions.length}
+                  label={labelProgression}
+                />
+
+                <p className="quiz-enonce">{questionCourante.enonce}</p>
+
+                <div className="quiz-options">
+                  {questionCourante.reponses.map((reponse) => {
+                    const estSelectionnee = selection.includes(reponse.id)
+                    let classeOption = 'quiz-option'
+                    if (valide) {
+                      classeOption += ' quiz-option-desactivee'
+                      if (reponse.est_correcte) classeOption += ' quiz-option-correcte'
+                      if (estSelectionnee && !reponse.est_correcte) classeOption += ' quiz-option-fausse'
+                    } else if (estSelectionnee) {
+                      classeOption += ' quiz-option-selectionnee'
+                    }
+
+                    return (
+                      <label key={reponse.id} className={classeOption}>
+                        <input
+                          type={questionCourante.type_reponse === 'simple' ? 'radio' : 'checkbox'}
+                          name={`question-${questionCourante.id}`}
+                          checked={estSelectionnee}
+                          disabled={valide}
+                          onChange={() => basculerSelection(reponse.id)}
+                        />
+                        <span>{reponse.texte}</span>
+                      </label>
+                    )
+                  })}
+                </div>
+
+                {valide && (
+                  <div
+                    className={`quiz-feedback ${derniereReponseCorrecte ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}
+                  >
+                    <p>{derniereReponseCorrecte ? 'Bonne réponse !' : 'Réponse incorrecte.'}</p>
+                    {!derniereReponseCorrecte &&
+                      questionCourante.reponses
+                        .filter((r) => selection.includes(r.id) && !r.est_correcte && r.explication)
+                        .map((r) => (
+                          <p key={r.id} className="quiz-explication">
+                            {r.explication}
+                          </p>
+                        ))}
+                  </div>
+                )}
+
+                {!valide ? (
+                  <button
+                    type="button"
+                    className="bouton-primaire"
+                    disabled={selection.length === 0}
+                    onClick={validerReponse}
+                  >
+                    Valider ma réponse
+                  </button>
+                ) : (
+                  <button type="button" className="bouton-primaire" onClick={questionSuivante}>
+                    {indexQuestion === questions.length - 1 ? 'Terminer le quiz' : 'Question suivante'}
+                  </button>
+                )}
+              </>
+            )
+          )}
+        </div>
       </div>
 
       <CompletionToast overlay={overlay} onFermer={() => setOverlay(null)} />

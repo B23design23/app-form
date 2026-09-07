@@ -37,6 +37,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
   const [questions, setQuestions] = useState(modeEdition ? [] : [nouvelleQuestion()])
 
   const [aChecklist, setAChecklist] = useState(false)
+  const [checklistMode, setChecklistMode] = useState('checkbox')
   const [etapes, setEtapes] = useState([])
 
   const [mesGroupes, setMesGroupes] = useState([])
@@ -66,7 +67,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
       const [coursRes, questionsRes, etapesRes] = await Promise.all([
         supabase
           .from('cours')
-          .select('id, titre, contenu, categorie, domaine, formateur_id, groupe_id')
+          .select('id, titre, contenu, categorie, domaine, formateur_id, groupe_id, checklist_mode')
           .eq('id', coursId)
           .single(),
         supabase
@@ -118,6 +119,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
       const etapesData = etapesRes.data ?? []
       setAChecklist(etapesData.length > 0)
+      setChecklistMode(coursRes.data.checklist_mode ?? 'checkbox')
       setEtapes(
         etapesData.map((e) => ({
           localId: crypto.randomUUID(),
@@ -238,6 +240,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           domaine: domaine.trim(),
           categorie: categorie.trim(),
           groupe_id: groupeIdSelectionne || null,
+          checklist_mode: aChecklist ? checklistMode : null,
         })
         .eq('id', coursId)
 
@@ -279,6 +282,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           visibilite: 'prive',
           formateur_id: authUser.id,
           groupe_id: groupeIdSelectionne || null,
+          checklist_mode: aChecklist ? checklistMode : null,
         })
         .select()
         .single()
@@ -538,6 +542,16 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
             </label>
 
             {aChecklist && (
+              <label className="champ">
+                <span>Mode de validation de la checklist</span>
+                <select value={checklistMode} onChange={(e) => setChecklistMode(e.target.value)}>
+                  <option value="checkbox">Cases à cocher</option>
+                  <option value="reorder">Réorganisation</option>
+                </select>
+              </label>
+            )}
+
+            {aChecklist && (
               <div className="creation-etapes">
                 {etapes.map((etape, ei) => (
                   <div className="creation-bloc" key={etape.localId}>
@@ -570,14 +584,16 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
                       />
                     </label>
 
-                    <label className="creation-checkbox">
-                      <input
-                        type="checkbox"
-                        checked={etape.bloquante}
-                        onChange={(e) => majEtape(etape.localId, 'bloquante', e.target.checked)}
-                      />
-                      Étape bloquante
-                    </label>
+                    {checklistMode !== 'reorder' && (
+                      <label className="creation-checkbox">
+                        <input
+                          type="checkbox"
+                          checked={etape.bloquante}
+                          onChange={(e) => majEtape(etape.localId, 'bloquante', e.target.checked)}
+                        />
+                        Étape bloquante
+                      </label>
+                    )}
                   </div>
                 ))}
 

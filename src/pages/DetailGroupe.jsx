@@ -26,6 +26,9 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
   const [ajoutEnCours, setAjoutEnCours] = useState(false)
   const [erreurAjout, setErreurAjout] = useState(null)
 
+  const [suppression, setSuppression] = useState(false)
+  const [erreurSuppression, setErreurSuppression] = useState(null)
+
   async function rechargerMembres() {
     const { data, error } = await supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId })
     if (error) {
@@ -157,6 +160,26 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     await rechargerSuivi(membresActuels)
   }
 
+  async function handleSupprimerGroupe() {
+    const confirme = window.confirm(
+      'Supprimer définitivement ce groupe ? Les élèves ne seront plus rattachés et perdront l\'accès aux cours privés associés. Cette action est irréversible.'
+    )
+    if (!confirme) return
+
+    setErreurSuppression(null)
+    setSuppression(true)
+
+    const { error } = await supabase.from('groupes').delete().eq('id', groupeId)
+
+    if (error) {
+      setSuppression(false)
+      setErreurSuppression(`Le groupe n'a pas pu être supprimé (${error.message}).`)
+      return
+    }
+
+    onRetour()
+  }
+
   if (chargement) {
     return (
       <div className="flow-page flow-page-formateur">
@@ -185,12 +208,24 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
   return (
     <div className="flow-page flow-page-formateur">
       <div className="page-avec-lien-retour page-large">
-        <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour
-        </button>
+        <div className="detail-groupe-entete">
+          <button type="button" className="lien-retour" onClick={onRetour}>
+            ← Retour
+          </button>
+          <button
+            type="button"
+            className="detail-bouton-supprimer"
+            onClick={handleSupprimerGroupe}
+            disabled={suppression}
+          >
+            {suppression ? 'Suppression…' : 'Supprimer ce groupe'}
+          </button>
+        </div>
 
-        <div className="flow-card">
+        <div className="flow-card detail-groupe-card">
           <h1>{groupe.nom}</h1>
+
+          {erreurSuppression && <p className="message message-erreur">{erreurSuppression}</p>}
 
           <div className="detail-groupe-grille">
             <section className="detail-section detail-groupe-section-eleves">

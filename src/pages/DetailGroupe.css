@@ -1,3 +1,17 @@
+.detail-groupe-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.detail-groupe-entete .detail-bouton-supprimer {
+  flex: none;
+  min-height: 36px;
+  padding: 0 20px;
+  font-size: 0.85rem;
+}
+
 .detail-groupe-membre {
   display: flex;
   align-items: center;
@@ -16,9 +30,19 @@
   color: var(--color-ink);
 }
 
+.detail-groupe-card {
+  gap: 24px;
+}
+
 .detail-groupe-grille {
   display: flex;
   flex-direction: column;
+  gap: 24px;
+}
+
+.detail-groupe-grille .detail-section {
+  padding-top: 0;
+  border-top: none;
 }
 
 @media (min-width: 768px) {
@@ -29,7 +53,7 @@
       'eleves suivi'
       'ajout suivi';
     align-items: start;
-    column-gap: 24px;
+    gap: 32px;
   }
 
   .detail-groupe-section-eleves {
