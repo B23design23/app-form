@@ -1,0 +1,143 @@
+.dashboard-card {
+  gap: 20px;
+}
+
+.dashboard-progression {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-anneau {
+  width: 96px;
+  height: 96px;
+}
+
+.dashboard-progression-legende {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #4b5768;
+  text-align: center;
+}
+
+.dashboard-xp {
+  align-self: center;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background: var(--color-accent-warm);
+  color: #fff;
+  border-radius: 999px;
+  padding: 8px 20px;
+}
+
+.dashboard-xp-valeur {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.dashboard-xp-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboard-section h2 {
+  font-size: 1rem;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.dashboard-etat-vide {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #4b5768;
+}
+
+.dashboard-liste {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.dashboard-liste-item-texte {
+  padding: 8px 12px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.dashboard-liste-item-bouton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.dashboard-liste-item-bouton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.dashboard-cours-titre {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-statut {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.dashboard-statut-pastille {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #c7ccd3;
+}
+
+.dashboard-statut-icone {
+  font-weight: 700;
+}
+
+.dashboard-statut-non_commence {
+  color: #8993a1;
+}
+
+.dashboard-statut-en_cours {
+  color: var(--color-primary);
+}
+
+.dashboard-statut-en_cours .dashboard-statut-pastille {
+  background: var(--color-primary);
+}
+
+.dashboard-statut-termine {
+  color: #1e6b38;
+}

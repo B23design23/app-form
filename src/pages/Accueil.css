@@ -1,0 +1,14 @@
+.accueil-card {
+  align-items: center;
+  text-align: center;
+}
+
+.accueil-illustration {
+  width: 120px;
+  height: 120px;
+  margin: 8px 0 4px;
+}
+
+.accueil-card h1 {
+  margin-top: 4px;
+}

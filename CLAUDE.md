@@ -104,8 +104,18 @@ Aucune pour l'instant — le champ `domaine` sur `cours` couvre déjà l'anticip
 
 ## Gamification — règles
 
-- XP attribué à la complétion d'un quiz et/ou d'une checklist (valeur exacte à définir en V1).
-- Badges débloqués sur jalons (ex. premier quiz réussi, 3 cours terminés, 100% sur un module) — condition stockée en texte dans `badges.condition_deblocage`, logique de déblocage à coder côté application (pas en trigger SQL pour rester simple en V1).
+- XP attribué à la complétion d'un quiz (20 XP) et/ou d'une checklist (15 XP).
+- Badges débloqués sur jalons, condition stockée en texte dans `badges.condition_deblocage`, logique de déblocage à coder côté application (pas en trigger SQL pour rester simple en V1).
+
+**Badges V1 (déjà en base) et leur condition exacte :**
+- `premier_quiz_complete` — 1re ligne dans `scores` avec `type = 'quiz_cours'` pour cet utilisateur
+- `premiere_checklist_completee` — 1re checklist menée à terme (toutes les étapes d'un cours cochées)
+- `trois_cours_termines` — `progression.statut = 'termine'` sur 3 cours différents
+- `quiz_100_pourcent` — une ligne `scores` avec `score = 100`
+- `premier_quiz_flash_reussi` — 1re ligne dans `scores` avec `type = 'quiz_flash'` et un score jugé réussi (seuil à définir, ex. ≥ 50%)
+
+Vérifier ces conditions après chaque écriture dans `scores` ou `progression`, et insérer dans `user_badges` si un jalon est nouvellement atteint (jamais en double, `unique(user_id, badge_id)` l'empêche déjà côté base).
+
 - Progression affichée par cours (`progression.statut`) et globalement (agrégat sur `profiles.xp_total`).
 
 ## Hors périmètre (rappel — voir PRD section 6)

@@ -25,7 +25,8 @@ Un apprenant a une progression et un dashboard unifiés, qu'il suive du contenu 
 - Dashboard : progression globale, XP total, badges obtenus
 - Fiches de cours (leçon + contenu théorique), catégorisées par thématique (ex : froid, électricité, sécurité)
 - QCM par cours (réponse simple ou multiple), correction immédiate par question, explication en cas d'erreur
-- Checklist terrain par cours (optionnelle, en complément ou seule) — étapes ordonnées, mode de validation par case à cocher ou remise en ordre (drag-and-drop)
+- Checklist terrain par cours (optionnelle, en complément ou seule) — étapes ordonnées et numérotées, mode de validation par case à cocher ou remise en ordre (drag-and-drop)
+- Mode terrain : accès direct à la checklist d'un cours depuis le Dashboard, sans repasser par la leçon ou le quiz — pensé pour un usage sur site
 - Un cours peut combiner : leçon + QCM, leçon + checklist, ou les deux
 - Gamification : progression par cours, XP à la complétion, badges débloqués sur jalons
 - Quiz flash : évaluation aléatoire mélangeant des questions de plusieurs cours déjà suivis (disponible après un minimum de cours complétés), avec bonus d'XP à la clé
@@ -65,3 +66,7 @@ Détail technique complet (schéma SQL, policies RLS, enums) documenté dans `CL
 - Au moins 1 checklist terrain fonctionnelle (ex : split mural)
 - Application déployée et accessible via un lien (pas seulement en local)
 - Schéma Supabase avec RLS fonctionnel (même si le formateur n'est pas encore actif côté UI)
+
+## 10. Backlog — à ne pas oublier avant de considérer le projet fini
+
+- **Images des cours** : colonne `image_url` ajoutée en base + bucket Storage configuré, mais l'affichage côté écran (fiche de cours + vignette Dashboard) n'est pas encore implémenté.

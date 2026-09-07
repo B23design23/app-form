@@ -1,0 +1,26 @@
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-bar-label {
+  font-size: 0.75rem;
+  color: #4b5768;
+}
+
+.progress-bar-track {
+  display: flex;
+  gap: 6px;
+}
+
+.progress-bar-segment {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: #e2e6ea;
+}
+
+.progress-bar-segment-remplie {
+  background: var(--color-primary);
+}
