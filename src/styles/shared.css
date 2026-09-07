@@ -1,17 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Direction artistique "Ludique" — statut validée, voir CLAUDE.md */
+  --color-background: #f5f3ff;
+  --color-surface: #ffffff;
+  --color-ink: #241d42;
+  --color-text-secondary: #7a7290;
+  --color-primary: #6c4ff6;
+  --color-accent-warm: #ff7a45;
+  --color-accent-star: #ffc93c;
+  --color-error: #e5484d;
+
+  --color-primary-fond: #ede9fe;
+  --color-anneau-fond: #ede9fe;
+  --color-success: #1e6b38;
+  --color-success-fond: #e8f7ec;
+  --color-error-fond: #fdeaea;
+  --color-border: #e4dff5;
+
+  --font-display: 'Baloo 2', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+
+  --radius-carte: 20px;
+  --radius-pill: 999px;
+  --radius-badge: 16px;
+
+  --espacement-bouton-pill: 26px;
+}
+
+.flow-page-formateur {
+  --color-background: #f4f4f6;
+}
+
+.espace-layout-formateur {
+  --color-background: #f4f4f6;
+}
+
+.dashboard-groupe-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.dashboard-groupe-form input {
+  flex: 1;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+}
+
+.dashboard-groupe-form .bouton-ajouter {
+  flex-shrink: 0;
+  align-self: stretch;
+  white-space: nowrap;
+}
+
 .flow-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   padding: 24px 16px;
+  background: var(--color-background);
 }
 
 .flow-card {
   width: 100%;
   max-width: 420px;
-  background: #fff;
-  border-radius: 16px;
+  background: var(--color-surface);
+  border-radius: var(--radius-carte);
   padding: 24px 20px 28px;
-  box-shadow: 0 1px 3px rgba(22, 35, 58, 0.08);
+  box-shadow: 0 1px 3px rgba(36, 29, 66, 0.08);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -20,6 +82,8 @@
 }
 
 .flow-card h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
   font-size: 1.5rem;
   margin: 0 0 4px;
   color: var(--color-ink);
@@ -27,7 +91,7 @@
 
 .flow-card p.souscription {
   margin: -8px 0 4px;
-  color: #4b5768;
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
 }
 
@@ -43,22 +107,22 @@
 .champ select {
   min-height: 48px;
   padding: 0 14px;
-  border: 1px solid #d6dbe2;
-  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
   font-size: 1rem;
   font-family: var(--font-body);
-  background: #fff;
+  background: var(--color-surface);
   color: var(--color-ink);
 }
 
 .champ textarea {
   min-height: 96px;
   padding: 12px 14px;
-  border: 1px solid #d6dbe2;
-  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
   font-size: 1rem;
   font-family: var(--font-body);
-  background: #fff;
+  background: var(--color-surface);
   color: var(--color-ink);
   resize: vertical;
 }
@@ -72,12 +136,13 @@
 
 .bouton-primaire {
   min-height: 48px;
+  padding: 0 var(--espacement-bouton-pill);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-pill);
   background: var(--color-primary);
-  color: #fff;
+  color: var(--color-surface);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font-body);
   cursor: pointer;
   margin-top: 8px;
@@ -90,12 +155,13 @@
 
 .bouton-secondaire {
   min-height: 48px;
-  border: 1px solid var(--color-primary);
-  border-radius: 10px;
-  background: #fff;
+  padding: 0 var(--espacement-bouton-pill);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
   color: var(--color-primary);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font-body);
   cursor: pointer;
 }
@@ -107,6 +173,7 @@
   padding: 0;
   color: var(--color-primary);
   font-family: var(--font-body);
+  font-weight: 600;
   font-size: 0.85rem;
   cursor: pointer;
 }
@@ -119,6 +186,7 @@
   margin-top: 4px;
   color: var(--color-primary);
   font-family: var(--font-body);
+  font-weight: 600;
   font-size: 0.85rem;
   cursor: pointer;
 }
@@ -140,14 +208,21 @@
 .bouton-ajouter {
   align-self: flex-start;
   background: none;
-  border: 1px dashed var(--color-primary);
-  border-radius: 8px;
-  padding: 8px 14px;
+  border: 2px dashed var(--color-primary);
+  border-radius: var(--radius-pill);
+  padding: 8px var(--espacement-bouton-pill);
   font-family: var(--font-body);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-primary);
   cursor: pointer;
+}
+
+.bouton-ajouter:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
 }
 
 .detail-section {
@@ -155,7 +230,7 @@
   flex-direction: column;
   gap: 10px;
   padding-top: 16px;
-  border-top: 1px solid #e2e6ea;
+  border-top: 1px solid var(--color-border);
 }
 
 .detail-section:first-of-type {
@@ -164,6 +239,8 @@
 }
 
 .detail-section h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: 1.1rem;
   margin: 0;
   color: var(--color-ink);
@@ -176,9 +253,41 @@
   padding: 2px 6px;
   font-family: var(--font-body);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-error);
   cursor: pointer;
+}
+
+.dashboard-deconnexion {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 4px 0;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.dashboard-deconnexion:hover {
+  text-decoration: underline;
+}
+
+.dashboard-etat-vide {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.dashboard-liste {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
 }
 
 .page-avec-lien-retour {
@@ -194,4 +303,15 @@
 .page-avec-lien-retour .flow-card {
   margin-top: 0;
   align-self: stretch;
+}
+
+@media (min-width: 768px) {
+  .page-large {
+    max-width: 1040px;
+    padding: 0 24px;
+  }
+
+  .page-large .flow-card {
+    max-width: none;
+  }
 }

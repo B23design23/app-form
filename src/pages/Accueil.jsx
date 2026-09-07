@@ -4,42 +4,28 @@ import './Accueil.css'
 function Accueil({ onCommencer, onSeConnecter }) {
   return (
     <div className="flow-page">
-      <div className="flow-card accueil-card">
-        <svg
-          className="accueil-illustration"
-          viewBox="0 0 120 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <circle cx="60" cy="60" r="52" stroke="#e2e6ea" strokeWidth="10" />
-          <circle
-            cx="60"
-            cy="60"
-            r="52"
-            stroke="var(--color-primary)"
-            strokeWidth="10"
-            strokeLinecap="round"
-            strokeDasharray="326.7"
-            strokeDashoffset="110"
-            transform="rotate(-90 60 60)"
-          />
-          <circle cx="60" cy="60" r="14" fill="var(--color-accent-warm)" />
-        </svg>
+      <div className="accueil-wrapper">
+        <div className="accueil-role-carte">
+          <span className="accueil-role-icone" aria-hidden="true">
+            📖
+          </span>
+          <h2>Apprenant</h2>
+          <p>Suis des cours, passe des quiz, progresse à ton rythme.</p>
+          <button type="button" className="bouton-primaire" onClick={() => onCommencer('apprenant')}>
+            Je suis apprenant
+          </button>
+        </div>
 
-        <h1>Progresse à ton rythme</h1>
-        <p className="souscription">
-          Des cours courts, des quiz et des checklists terrain pour monter en compétences,
-          où que tu sois.
-        </p>
-
-        <button type="button" className="bouton-primaire" onClick={() => onCommencer('apprenant')}>
-          Je suis apprenant
-        </button>
-
-        <button type="button" className="bouton-secondaire" onClick={() => onCommencer('formateur')}>
-          Je suis formateur
-        </button>
+        <div className="accueil-role-carte">
+          <span className="accueil-role-icone" aria-hidden="true">
+            🧑‍🏫
+          </span>
+          <h2>Formateur</h2>
+          <p>Crée du contenu et suis la progression de tes élèves.</p>
+          <button type="button" className="bouton-secondaire" onClick={() => onCommencer('formateur')}>
+            Je suis formateur
+          </button>
+        </div>
 
         <button type="button" className="lien-secondaire" onClick={onSeConnecter}>
           Déjà un compte ? Se connecter

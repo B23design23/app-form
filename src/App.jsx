@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabaseClient'
+import Introduction from './pages/Introduction'
 import Accueil from './pages/Accueil'
 import CreationCompte from './pages/CreationCompte'
 import Connexion from './pages/Connexion'
 import OnboardingFlow from './pages/onboarding/OnboardingFlow'
-import Dashboard from './pages/Dashboard'
-import DashboardFormateur from './pages/DashboardFormateur'
+import EspaceApprenant from './pages/EspaceApprenant'
+import EspaceFormateur from './pages/EspaceFormateur'
 import CreationCours from './pages/CreationCours'
 import DetailCoursFormateur from './pages/DetailCoursFormateur'
 import DetailGroupe from './pages/DetailGroupe'
@@ -15,7 +16,7 @@ import QuizFlash from './pages/QuizFlash'
 const ECRANS_PROTEGES = [
   'chargement',
   'onboarding',
-  'dashboard',
+  'espace-apprenant',
   'dashboard-formateur',
   'creation-cours',
   'detail-cours-formateur',
@@ -28,6 +29,8 @@ function App() {
   const [ecran, setEcran] = useState('chargement')
   const [authUser, setAuthUser] = useState(null)
   const [roleChoisi, setRoleChoisi] = useState('apprenant')
+  const [sectionApprenant, setSectionApprenant] = useState('dashboard')
+  const [sectionFormateur, setSectionFormateur] = useState('dashboard')
   const [coursSelectionneId, setCoursSelectionneId] = useState(null)
   const [sectionInitiale, setSectionInitiale] = useState(null)
   const [coursSelectionneIdFormateur, setCoursSelectionneIdFormateur] = useState(null)
@@ -35,12 +38,22 @@ function App() {
 
   useEffect(() => {
     let annule = false
+    // Le tout premier appel (au chargement de la page) mène à l'Introduction si aucune
+    // session n'existe ; une déconnexion en cours de session ramène directement à l'Accueil
+    // (l'utilisateur a déjà vu le pitch, pas besoin de le repasser).
+    let premiereResolution = true
 
     const resoudreDestination = async (user) => {
+      const estPremiereResolution = premiereResolution
+      premiereResolution = false
+
       if (!user) {
         if (annule) return
         setAuthUser(null)
-        setEcran((actuel) => (ECRANS_PROTEGES.includes(actuel) ? 'accueil' : actuel))
+        setEcran((actuel) => {
+          if (!ECRANS_PROTEGES.includes(actuel)) return actuel
+          return estPremiereResolution ? 'introduction' : 'accueil'
+        })
         return
       }
 
@@ -64,7 +77,7 @@ function App() {
       }
 
       setAuthUser({ id: user.id, email: user.email, role: profil.role })
-      setEcran(profil.role === 'formateur' ? 'dashboard-formateur' : 'dashboard')
+      setEcran(profil.role === 'formateur' ? 'dashboard-formateur' : 'espace-apprenant')
     }
 
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -92,6 +105,10 @@ function App() {
         </div>
       </div>
     )
+  }
+
+  if (ecran === 'introduction') {
+    return <Introduction onTermine={() => setEcran('accueil')} />
   }
 
   if (ecran === 'accueil') {
@@ -125,7 +142,7 @@ function App() {
       <OnboardingFlow
         authUser={authUser}
         role={authUser.role}
-        onTermine={() => setEcran(authUser.role === 'formateur' ? 'dashboard-formateur' : 'dashboard')}
+        onTermine={() => setEcran(authUser.role === 'formateur' ? 'dashboard-formateur' : 'espace-apprenant')}
         onRetourCompte={() => setEcran('compte')}
       />
     )
@@ -137,13 +154,13 @@ function App() {
         authUser={authUser}
         coursId={coursSelectionneId}
         sectionInitiale={sectionInitiale}
-        onRetour={() => setEcran('dashboard')}
+        onRetour={() => setEcran('espace-apprenant')}
       />
     )
   }
 
   if (ecran === 'quiz-flash') {
-    return <QuizFlash authUser={authUser} onRetour={() => setEcran('dashboard')} />
+    return <QuizFlash authUser={authUser} onRetour={() => setEcran('espace-apprenant')} />
   }
 
   if (ecran === 'creation-cours') {
@@ -186,8 +203,10 @@ function App() {
 
   if (ecran === 'dashboard-formateur') {
     return (
-      <DashboardFormateur
+      <EspaceFormateur
         authUser={authUser}
+        section={sectionFormateur}
+        onChangerSection={setSectionFormateur}
         onCreerCours={() => {
           setCoursSelectionneIdFormateur(null)
           setEcran('creation-cours')
@@ -205,8 +224,10 @@ function App() {
   }
 
   return (
-    <Dashboard
+    <EspaceApprenant
       authUser={authUser}
+      section={sectionApprenant}
+      onChangerSection={setSectionApprenant}
       onOuvrirCours={(coursId, section) => {
         setCoursSelectionneId(coursId)
         setSectionInitiale(section ?? null)

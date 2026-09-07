@@ -2,28 +2,23 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { iconeBadge } from '../lib/badges'
 import '../styles/shared.css'
+import '../styles/espace-layout.css'
 import './Dashboard.css'
 
-const LABEL_STATUT = {
-  non_commence: 'Non commencé',
-  en_cours: 'En cours',
-  termine: 'Terminé',
-}
-
-function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash }) {
+function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSection }) {
   const [profil, setProfil] = useState(null)
   const [erreurProfil, setErreurProfil] = useState(null)
 
-  const [progression, setProgression] = useState(null)
-  const [erreurProgression, setErreurProgression] = useState(null)
-
-  const [coursDisponibles, setCoursDisponibles] = useState(null)
+  const [progression, setProgression] = useState([])
+  const [coursListe, setCoursListe] = useState([])
   const [erreurCours, setErreurCours] = useState(null)
 
-  const [badgesObtenus, setBadgesObtenus] = useState(null)
+  const [tousBadges, setTousBadges] = useState([])
+  const [badgesObtenus, setBadgesObtenus] = useState([])
   const [erreurBadges, setErreurBadges] = useState(null)
+  const [badgeSelectionne, setBadgeSelectionne] = useState(null)
 
-  const [scoresQuizCours, setScoresQuizCours] = useState(null)
+  const [scoresQuizCours, setScoresQuizCours] = useState([])
   const [erreurScoresQuizCours, setErreurScoresQuizCours] = useState(null)
 
   useEffect(() => {
@@ -42,31 +37,38 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash }) {
 
     supabase
       .from('progression')
-      .select('cours_id, statut, cours(titre)')
+      .select('cours_id, statut')
       .eq('user_id', authUser.id)
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurProgression(error.message)
-        else setProgression(data)
+        if (!error) setProgression(data ?? [])
       })
 
     supabase
       .from('cours')
-      .select('id, titre, etapes_checklist(id)')
+      .select('id, titre')
       .then(({ data, error }) => {
         if (annule) return
         if (error) setErreurCours(error.message)
-        else setCoursDisponibles(data)
+        else setCoursListe(data ?? [])
+      })
+
+    supabase
+      .from('badges')
+      .select('id, nom, icone, description')
+      .then(({ data, error }) => {
+        if (annule) return
+        if (error) setErreurBadges(error.message)
+        else setTousBadges(data ?? [])
       })
 
     supabase
       .from('user_badges')
-      .select('badge_id, date_obtention, badges(nom, icone)')
+      .select('badge_id')
       .eq('user_id', authUser.id)
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurBadges(error.message)
-        else setBadgesObtenus(data)
+        if (!error) setBadgesObtenus(data ?? [])
       })
 
     supabase
@@ -77,7 +79,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash }) {
       .then(({ data, error }) => {
         if (annule) return
         if (error) setErreurScoresQuizCours(error.message)
-        else setScoresQuizCours(data)
+        else setScoresQuizCours(data ?? [])
       })
 
     return () => {
@@ -87,176 +89,155 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash }) {
 
   if (erreurProfil) {
     return (
-      <div className="flow-page">
-        <div className="flow-card">
-          <p className="message message-erreur">Impossible de charger ton profil ({erreurProfil}).</p>
-        </div>
+      <div className="espace-page">
+        <p className="message message-erreur">Impossible de charger ton profil ({erreurProfil}).</p>
       </div>
     )
   }
 
   if (!profil) {
     return (
-      <div className="flow-page">
-        <div className="flow-card">
-          <p>Chargement…</p>
-        </div>
+      <div className="espace-page">
+        <p>Chargement…</p>
       </div>
     )
   }
 
-  const coursAvecChecklist = (coursDisponibles ?? []).filter((cours) => (cours.etapes_checklist?.length ?? 0) > 0)
-  const statutParCoursId = new Map((progression ?? []).map((p) => [p.cours_id, p.statut]))
-  const nbCoursQuizTermines = new Set((scoresQuizCours ?? []).map((s) => s.cours_id)).size
+  const statutParCoursId = new Map(progression.map((p) => [p.cours_id, p.statut]))
+  const totalCours = coursListe.length
+  const coursTermines = coursListe.filter((c) => statutParCoursId.get(c.id) === 'termine').length
+  const ratioGlobal = totalCours > 0 ? coursTermines / totalCours : 0
+  const circonference = 2 * Math.PI * 42
+
+  const coursEnCours = coursListe.find((c) => statutParCoursId.get(c.id) === 'en_cours')
+  const coursNonCommence = coursListe.find((c) => statutParCoursId.get(c.id) !== 'termine' && statutParCoursId.get(c.id) !== 'en_cours')
+  const coursAMettreEnAvant = coursEnCours ?? coursNonCommence ?? null
+  const idsObtenus = new Set(badgesObtenus.map((b) => b.badge_id))
+  const nbCoursQuizTermines = new Set(scoresQuizCours.map((s) => s.cours_id)).size
   const quizFlashDebloque = nbCoursQuizTermines >= 3
 
-  const coursCommences = progression?.length ?? 0
-  const coursTermines = (progression ?? []).filter((p) => p.statut === 'termine').length
-  const ratioMaitrise = coursCommences > 0 ? coursTermines / coursCommences : 0
-  const circonference = 2 * Math.PI * 52
-  const decalage = circonference * (1 - ratioMaitrise)
-
   return (
-    <div className="flow-page">
-      <div className="flow-card dashboard-card">
-        <div className="dashboard-header">
-          <h1>Bienvenue, {profil.prenom}</h1>
-          <button
-            type="button"
-            className="dashboard-deconnexion"
-            onClick={() => supabase.auth.signOut()}
-          >
-            Se déconnecter
-          </button>
-        </div>
+    <div className="espace-page apprenant-dashboard-grille">
+      <div className="apprenant-entete">
+        <h1>Salut, {profil.prenom} !</h1>
+        <span className="apprenant-xp-pastille">
+          <span aria-hidden="true">⚡</span> {profil.xp_total} XP
+        </span>
+      </div>
 
-        <div className="dashboard-progression">
-          <svg viewBox="0 0 120 120" className="dashboard-anneau" aria-hidden="true">
-            <circle cx="60" cy="60" r="52" stroke="#e2e6ea" strokeWidth="10" fill="none" />
-            {coursCommences > 0 && (
+      <div className="espace-carte espace-carte-continuer">
+        <div className="apprenant-continuer-layout">
+          <svg viewBox="0 0 100 100" className="apprenant-continuer-anneau" aria-hidden="true">
+            <circle cx="50" cy="50" r="42" stroke="var(--color-anneau-fond)" strokeWidth="9" fill="none" />
+            {totalCours > 0 && (
               <circle
-                cx="60"
-                cy="60"
-                r="52"
+                cx="50"
+                cy="50"
+                r="42"
                 stroke="var(--color-primary)"
-                strokeWidth="10"
+                strokeWidth="9"
                 fill="none"
                 strokeDasharray={circonference}
-                strokeDashoffset={decalage}
+                strokeDashoffset={circonference * (1 - ratioGlobal)}
                 strokeLinecap="round"
-                transform="rotate(-90 60 60)"
+                transform="rotate(-90 50 50)"
               />
             )}
           </svg>
-          {erreurProgression ? (
-            <p className="message message-erreur">
-              Impossible de charger ta progression ({erreurProgression}).
-            </p>
-          ) : coursCommences === 0 ? (
-            <p className="dashboard-progression-legende">Aucun cours commencé pour l'instant</p>
-          ) : (
-            <p className="dashboard-progression-legende">
-              {coursTermines} / {coursCommences} cours terminés
-            </p>
-          )}
-        </div>
 
-        <div className="dashboard-xp">
-          <span className="dashboard-xp-valeur">{profil.xp_total}</span>
-          <span className="dashboard-xp-label">XP</span>
-        </div>
-
-        <section className="dashboard-section">
-          <h2>Badges</h2>
-          {erreurBadges ? (
-            <p className="message message-erreur">Impossible de charger tes badges ({erreurBadges}).</p>
-          ) : (badgesObtenus ?? []).length === 0 ? (
-            <p className="dashboard-etat-vide">Aucun badge débloqué pour l'instant.</p>
-          ) : (
-            <ul className="dashboard-liste">
-              {badgesObtenus.map((userBadge) => (
-                <li key={userBadge.badge_id} className="dashboard-liste-item-texte">
-                  {iconeBadge(userBadge.badges?.icone)} {userBadge.badges?.nom}
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-
-        <section className="dashboard-section">
-          <h2>Mes cours</h2>
-          {erreurCours ? (
-            <p className="message message-erreur">Impossible de charger les cours ({erreurCours}).</p>
-          ) : (coursDisponibles ?? []).length === 0 ? (
-            <p className="dashboard-etat-vide">Aucun cours disponible pour le moment.</p>
-          ) : (
-            <ul className="dashboard-liste">
-              {coursDisponibles.map((cours) => {
-                const statut = statutParCoursId.get(cours.id) ?? 'non_commence'
-                return (
-                  <li key={cours.id}>
+          <div className="apprenant-continuer-info">
+            {erreurCours ? (
+              <p className="message message-erreur">Impossible de charger tes cours ({erreurCours}).</p>
+            ) : (
+              <>
+                <p className="apprenant-continuer-legende">
+                  {coursTermines}/{totalCours} cours terminés
+                </p>
+                {coursAMettreEnAvant ? (
+                  <>
+                    <p className="apprenant-continuer-titre">{coursAMettreEnAvant.titre}</p>
                     <button
                       type="button"
-                      className="dashboard-liste-item-bouton"
-                      onClick={() => onOuvrirCours(cours.id)}
+                      className="bouton-primaire"
+                      onClick={() => onOuvrirCours(coursAMettreEnAvant.id)}
                     >
-                      <span className="dashboard-cours-titre">{cours.titre}</span>
-                      <span className={`dashboard-statut dashboard-statut-${statut}`}>
-                        {statut === 'termine' ? (
-                          <span className="dashboard-statut-icone" aria-hidden="true">
-                            ✓
-                          </span>
-                        ) : (
-                          <span className="dashboard-statut-pastille" aria-hidden="true" />
-                        )}
-                        {LABEL_STATUT[statut]}
-                      </span>
+                      Continuer
                     </button>
-                  </li>
-                )
-              })}
-            </ul>
-          )}
-        </section>
-
-        <section className="dashboard-section">
-          <h2>Mode terrain</h2>
-          {erreurCours ? (
-            <p className="message message-erreur">Impossible de charger les checklists ({erreurCours}).</p>
-          ) : coursAvecChecklist.length === 0 ? (
-            <p className="dashboard-etat-vide">Aucune checklist terrain disponible pour le moment.</p>
-          ) : (
-            <ul className="dashboard-liste">
-              {coursAvecChecklist.map((cours) => (
-                <li key={cours.id}>
-                  <button
-                    type="button"
-                    className="dashboard-liste-item-bouton"
-                    onClick={() => onOuvrirCours(cours.id, 'checklist')}
-                  >
-                    {cours.titre}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
-
-        <section className="dashboard-section">
-          <h2>Quiz flash</h2>
-          {erreurScoresQuizCours ? (
-            <p className="message message-erreur">
-              Impossible de vérifier le quiz flash ({erreurScoresQuizCours}).
-            </p>
-          ) : quizFlashDebloque ? (
-            <button type="button" className="dashboard-liste-item-bouton" onClick={onOuvrirQuizFlash}>
-              <span className="dashboard-cours-titre">Lancer le quiz flash</span>
-            </button>
-          ) : (
-            <p className="dashboard-etat-vide">🔒 Termine 3 quiz pour débloquer le quiz flash</p>
-          )}
-        </section>
+                  </>
+                ) : totalCours > 0 ? (
+                  <>
+                    <p className="apprenant-continuer-titre">Bravo, tous tes cours sont terminés !</p>
+                    <button type="button" className="bouton-primaire" onClick={() => onChangerSection('cours')}>
+                      Revoir mes cours
+                    </button>
+                  </>
+                ) : (
+                  <p className="apprenant-continuer-titre">Aucun cours disponible pour le moment.</p>
+                )}
+              </>
+            )}
+          </div>
+        </div>
       </div>
+
+      <div className="espace-carte espace-carte-badges">
+        <h2>Badges</h2>
+        {erreurBadges ? (
+          <p className="message message-erreur">Impossible de charger tes badges ({erreurBadges}).</p>
+        ) : (
+          <div className="apprenant-badges-rangee">
+            {tousBadges.map((badge) => {
+              const obtenu = idsObtenus.has(badge.id)
+              return (
+                <button
+                  key={badge.id}
+                  type="button"
+                  className={`apprenant-badge${obtenu ? ' apprenant-badge-obtenu' : ' apprenant-badge-verrouille'}`}
+                  title={obtenu ? badge.nom : `${badge.nom} (verrouillé)`}
+                  onClick={() => setBadgeSelectionne({ ...badge, obtenu })}
+                >
+                  <span aria-hidden="true">{obtenu ? iconeBadge(badge.icone) : '🔒'}</span>
+                </button>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
+      <div className="espace-carte apprenant-banniere-quizflash">
+        {erreurScoresQuizCours ? (
+          <p className="message message-erreur">
+            Impossible de vérifier le quiz flash ({erreurScoresQuizCours}).
+          </p>
+        ) : quizFlashDebloque ? (
+          <>
+            <p>Un petit quiz flash pour tester tes connaissances et gratter de l'XP ?</p>
+            <button type="button" className="bouton-primaire" onClick={onOuvrirQuizFlash}>
+              Lancer le quiz flash
+            </button>
+          </>
+        ) : (
+          <p className="apprenant-banniere-verrouillee">🔒 Termine 3 quiz pour débloquer le quiz flash</p>
+        )}
+      </div>
+
+      {badgeSelectionne && (
+        <div className="badge-modal-overlay" onClick={() => setBadgeSelectionne(null)}>
+          <div className="badge-modal" onClick={(e) => e.stopPropagation()}>
+            <div
+              className={`apprenant-badge badge-modal-icone${badgeSelectionne.obtenu ? ' apprenant-badge-obtenu' : ' apprenant-badge-verrouille'}`}
+              aria-hidden="true"
+            >
+              {badgeSelectionne.obtenu ? iconeBadge(badgeSelectionne.icone) : '🔒'}
+            </div>
+            <h3>{badgeSelectionne.nom}</h3>
+            <p>{badgeSelectionne.obtenu ? badgeSelectionne.description : `Verrouillé — ${badgeSelectionne.description}`}</p>
+            <button type="button" className="bouton-primaire" onClick={() => setBadgeSelectionne(null)}>
+              Fermer
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

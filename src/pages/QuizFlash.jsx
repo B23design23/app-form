@@ -121,12 +121,16 @@ function QuizFlash({ authUser, onRetour }) {
         titre: `Quiz flash terminé — ${bonnesReponses}/${questions.length} (${score}%)`,
         xp: XP_QUIZ_FLASH,
         badges: nouveauxBadges,
+        type: 'quiz',
+        score,
       })
     } else {
       setOverlay({
         titre: `Quiz flash terminé — ${bonnesReponses}/${questions.length} (${score}%)`,
         xp: null,
         badges: [],
+        type: 'quiz',
+        score,
       })
     }
 

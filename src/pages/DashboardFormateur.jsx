@@ -1,30 +1,33 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import '../styles/shared.css'
-import './Dashboard.css'
+import '../styles/espace-layout.css'
+import './DashboardFormateur.css'
 
-function DashboardFormateur({ authUser, onCreerCours, onOuvrirCours, onOuvrirGroupe }) {
+function formaterDateRelative(dateIso) {
+  const diffMs = Date.now() - new Date(dateIso).getTime()
+  const diffMin = Math.floor(diffMs / 60000)
+  const diffH = Math.floor(diffMin / 60)
+  const diffJours = Math.floor(diffH / 24)
+
+  if (diffMin < 1) return "À l'instant"
+  if (diffMin < 60) return `Il y a ${diffMin} min`
+  if (diffH < 24) return `Il y a ${diffH}h`
+  if (diffJours === 1) return 'Hier'
+  return `Il y a ${diffJours} jours`
+}
+
+function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
   const [profil, setProfil] = useState(null)
   const [erreurProfil, setErreurProfil] = useState(null)
 
-  const [mesCours, setMesCours] = useState(null)
-  const [erreurCours, setErreurCours] = useState(null)
+  const [nbCours, setNbCours] = useState(null)
+  const [nbGroupes, setNbGroupes] = useState(null)
+  const [nbEleves, setNbEleves] = useState(null)
+  const [erreurMetriques, setErreurMetriques] = useState(null)
 
-  const [mesGroupes, setMesGroupes] = useState(null)
-  const [erreurGroupes, setErreurGroupes] = useState(null)
-  const [nomNouveauGroupe, setNomNouveauGroupe] = useState('')
-  const [creationGroupeEnCours, setCreationGroupeEnCours] = useState(false)
-
-  function rechargerGroupes() {
-    return supabase
-      .from('groupes')
-      .select('id, nom')
-      .eq('formateur_id', authUser.id)
-      .then(({ data, error }) => {
-        if (error) setErreurGroupes(error.message)
-        else setMesGroupes(data)
-      })
-  }
+  const [activite, setActivite] = useState(null)
+  const [erreurActivite, setErreurActivite] = useState(null)
 
   useEffect(() => {
     let annule = false
@@ -40,131 +43,209 @@ function DashboardFormateur({ authUser, onCreerCours, onOuvrirCours, onOuvrirGro
         else setProfil(data)
       })
 
-    supabase
-      .from('cours')
-      .select('id, titre')
-      .eq('formateur_id', authUser.id)
-      .then(({ data, error }) => {
-        if (annule) return
-        if (error) setErreurCours(error.message)
-        else setMesCours(data)
-      })
+    // La lecture directe de profiles pour un apprenant qui n'est pas soi-même est bloquée par
+    // sa RLS (auth.uid() = id uniquement) — comme pour DetailGroupe.jsx, on résout les prénoms
+    // via get_membres_groupe (déjà en place), pas de nouvelle fonction nécessaire.
+    async function chargerActivite(groupeIds) {
+      const prenomParApprenant = new Map()
 
-    rechargerGroupes()
+      for (const groupeId of groupeIds) {
+        const { data, error } = await supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId })
+        if (!error) {
+          for (const membre of data ?? []) {
+            prenomParApprenant.set(membre.id, membre.prenom)
+          }
+        }
+      }
+
+      const apprenantIds = [...prenomParApprenant.keys()]
+      if (apprenantIds.length === 0) {
+        if (!annule) setActivite([])
+        return
+      }
+
+      const { data: progressionData, error: erreurProgression } = await supabase
+        .from('progression')
+        .select('id, statut, updated_at, user_id, cours(titre)')
+        .in('user_id', apprenantIds)
+        .order('updated_at', { ascending: false })
+        .limit(5)
+
+      if (annule) return
+
+      if (erreurProgression) {
+        setErreurActivite(erreurProgression.message)
+        return
+      }
+
+      setActivite(
+        (progressionData ?? []).map((ligne) => ({
+          id: ligne.id,
+          prenom: prenomParApprenant.get(ligne.user_id) ?? 'Un élève',
+          statut: ligne.statut,
+          titreCours: ligne.cours?.titre ?? 'un cours',
+          updatedAt: ligne.updated_at,
+        }))
+      )
+    }
+
+    async function chargerMetriques() {
+      const [coursRes, groupesRes] = await Promise.all([
+        supabase.from('cours').select('id', { count: 'exact', head: true }).eq('formateur_id', authUser.id),
+        supabase.from('groupes').select('id').eq('formateur_id', authUser.id),
+      ])
+
+      if (annule) return
+
+      if (coursRes.error || groupesRes.error) {
+        setErreurMetriques(coursRes.error?.message ?? groupesRes.error?.message)
+        return
+      }
+
+      setNbCours(coursRes.count ?? 0)
+
+      const groupeIds = (groupesRes.data ?? []).map((g) => g.id)
+      setNbGroupes(groupeIds.length)
+
+      if (groupeIds.length === 0) {
+        setNbEleves(0)
+        setActivite([])
+        return
+      }
+
+      const { count, error } = await supabase
+        .from('groupe_membres')
+        .select('id', { count: 'exact', head: true })
+        .in('groupe_id', groupeIds)
+
+      if (annule) return
+      if (error) {
+        setErreurMetriques(error.message)
+        return
+      }
+      setNbEleves(count ?? 0)
+
+      await chargerActivite(groupeIds)
+    }
+
+    chargerMetriques()
 
     return () => {
       annule = true
     }
   }, [authUser.id])
 
-  async function handleCreerGroupe(e) {
-    e.preventDefault()
-    if (nomNouveauGroupe.trim().length === 0) return
-
-    setCreationGroupeEnCours(true)
-    const { error } = await supabase
-      .from('groupes')
-      .insert({ nom: nomNouveauGroupe.trim(), formateur_id: authUser.id })
-    setCreationGroupeEnCours(false)
-
-    if (error) {
-      setErreurGroupes(error.message)
-      return
-    }
-
-    setNomNouveauGroupe('')
-    rechargerGroupes()
-  }
-
   if (erreurProfil) {
     return (
-      <div className="flow-page">
-        <div className="flow-card">
-          <p className="message message-erreur">Impossible de charger ton profil ({erreurProfil}).</p>
-        </div>
+      <div className="espace-page formateur-dashboard-page">
+        <p className="message message-erreur">Impossible de charger ton profil ({erreurProfil}).</p>
       </div>
     )
   }
 
   if (!profil) {
     return (
-      <div className="flow-page">
-        <div className="flow-card">
-          <p>Chargement…</p>
-        </div>
+      <div className="espace-page formateur-dashboard-page">
+        <p>Chargement…</p>
       </div>
     )
   }
 
   return (
-    <div className="flow-page">
-      <div className="flow-card dashboard-card">
-        <div className="dashboard-header">
-          <h1>Bienvenue, {profil.prenom}</h1>
-          <button type="button" className="dashboard-deconnexion" onClick={() => supabase.auth.signOut()}>
-            Se déconnecter
-          </button>
-        </div>
-        <p className="souscription">Espace formateur</p>
+    <div className="espace-page formateur-dashboard-page">
+      <div className="formateur-dashboard-entete">
+        <h1>Bienvenue, {profil.prenom}</h1>
+      </div>
 
-        <section className="dashboard-section">
-          <h2>Mes cours</h2>
-          {erreurCours ? (
-            <p className="message message-erreur">Impossible de charger tes cours ({erreurCours}).</p>
-          ) : (mesCours ?? []).length === 0 ? (
-            <p className="dashboard-etat-vide">Aucun cours pour le moment.</p>
-          ) : (
-            <ul className="dashboard-liste">
-              {mesCours.map((cours) => (
-                <li key={cours.id}>
+      <div className="formateur-dashboard-gauche">
+        {erreurMetriques ? (
+          <p className="message message-erreur">
+            Impossible de charger tes statistiques ({erreurMetriques}).
+          </p>
+        ) : (
+          <div className="formateur-metriques">
+            <div
+              className={`espace-carte formateur-metrique${nbCours === 0 ? ' formateur-metrique-large' : ''}`}
+            >
+              {nbCours === 0 ? (
+                <div className="formateur-metrique-vide">
+                  <p>Crée ton premier cours</p>
+                  <button type="button" className="bouton-ajouter" onClick={onCreerCours}>
+                    + Nouveau cours
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <span className="formateur-metrique-valeur">{nbCours ?? '—'}</span>
+                  <span className="formateur-metrique-label">Cours créés</span>
+                </>
+              )}
+            </div>
+            <div
+              className={`espace-carte formateur-metrique${nbGroupes === 0 ? ' formateur-metrique-large' : ''}`}
+            >
+              {nbGroupes === 0 ? (
+                <div className="formateur-metrique-vide">
+                  <p>Crée ton premier groupe</p>
                   <button
                     type="button"
-                    className="dashboard-liste-item-bouton"
-                    onClick={() => onOuvrirCours(cours.id)}
+                    className="bouton-ajouter"
+                    onClick={() => onChangerSection('groupes')}
                   >
-                    <span className="dashboard-cours-titre">{cours.titre}</span>
+                    + Nouveau groupe
                   </button>
-                </li>
-              ))}
-            </ul>
-          )}
-          <button type="button" className="bouton-ajouter" onClick={onCreerCours}>
-            + Créer un cours
-          </button>
-        </section>
+                </div>
+              ) : (
+                <>
+                  <span className="formateur-metrique-valeur">{nbGroupes ?? '—'}</span>
+                  <span className="formateur-metrique-label">Groupes</span>
+                </>
+              )}
+            </div>
+            <div className="espace-carte formateur-metrique">
+              <span className="formateur-metrique-valeur">{nbEleves ?? '—'}</span>
+              <span className="formateur-metrique-label">Élèves au total</span>
+            </div>
+          </div>
+        )}
 
-        <section className="dashboard-section">
-          <h2>Mes groupes</h2>
-          {erreurGroupes ? (
-            <p className="message message-erreur">Impossible de charger tes groupes ({erreurGroupes}).</p>
-          ) : (mesGroupes ?? []).length === 0 ? (
-            <p className="dashboard-etat-vide">Aucun groupe pour le moment.</p>
-          ) : (
-            <ul className="dashboard-liste">
-              {mesGroupes.map((groupe) => (
-                <li key={groupe.id}>
-                  <button
-                    type="button"
-                    className="dashboard-liste-item-bouton"
-                    onClick={() => onOuvrirGroupe(groupe.id)}
-                  >
-                    <span className="dashboard-cours-titre">{groupe.nom}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-          <form className="dashboard-groupe-form" onSubmit={handleCreerGroupe}>
-            <input
-              type="text"
-              placeholder="Nom du groupe"
-              value={nomNouveauGroupe}
-              onChange={(e) => setNomNouveauGroupe(e.target.value)}
-            />
-            <button type="submit" className="bouton-ajouter" disabled={creationGroupeEnCours}>
-              + Créer un groupe
+        <div className="formateur-actions">
+          <h2>Actions rapides</h2>
+          <div className="formateur-actions-rapides">
+            <button type="button" className="bouton-primaire" onClick={onCreerCours}>
+              + Nouveau cours
             </button>
-          </form>
+            <button type="button" className="bouton-secondaire" onClick={() => onChangerSection('groupes')}>
+              + Nouveau groupe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="formateur-dashboard-droite">
+        <section className="formateur-activite">
+          <h2>Activité récente</h2>
+          {erreurActivite ? (
+            <p className="message message-erreur">
+              Impossible de charger l'activité récente ({erreurActivite}).
+            </p>
+          ) : activite === null ? (
+            <p>Chargement…</p>
+          ) : activite.length === 0 ? (
+            <p className="dashboard-etat-vide">Aucune activité récente.</p>
+          ) : (
+            <ul className="formateur-activite-liste">
+              {activite.map((ligne) => (
+                <li key={ligne.id} className="formateur-activite-ligne">
+                  <span className="formateur-activite-texte">
+                    <strong>{ligne.prenom}</strong> a {ligne.statut === 'termine' ? 'terminé' : 'commencé'}{' '}
+                    <strong>{ligne.titreCours}</strong>
+                  </span>
+                  <span className="formateur-activite-date">{formaterDateRelative(ligne.updatedAt)}</span>
+                </li>
+              ))}
+            </ul>
+          )}
         </section>
       </div>
     </div>

@@ -70,7 +70,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
 
   if (chargement) {
     return (
-      <div className="flow-page">
+      <div className="flow-page flow-page-formateur">
         <div className="flow-card">
           <p>Chargement…</p>
         </div>
@@ -80,10 +80,10 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
 
   if (erreur) {
     return (
-      <div className="flow-page">
+      <div className="flow-page flow-page-formateur">
         <div className="page-avec-lien-retour">
           <button type="button" className="lien-retour" onClick={onRetour}>
-            ← Retour au tableau de bord
+            ← Retour
           </button>
           <div className="flow-card">
             <p className="message message-erreur">{erreur}</p>
@@ -96,10 +96,10 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
   const estProprietaire = cours.formateur_id === authUser.id
 
   return (
-    <div className="flow-page">
+    <div className="flow-page flow-page-formateur">
       <div className="page-avec-lien-retour">
         <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour au tableau de bord
+          ← Retour
         </button>
 
         <div className="flow-card detail-cours-card">

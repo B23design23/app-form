@@ -6,7 +6,7 @@
 
 .progress-bar-label {
   font-size: 0.75rem;
-  color: #4b5768;
+  color: var(--color-text-secondary);
 }
 
 .progress-bar-track {
@@ -17,8 +17,8 @@
 .progress-bar-segment {
   flex: 1;
   height: 4px;
-  border-radius: 2px;
-  background: #e2e6ea;
+  border-radius: var(--radius-pill);
+  background: var(--color-border);
 }
 
 .progress-bar-segment-remplie {

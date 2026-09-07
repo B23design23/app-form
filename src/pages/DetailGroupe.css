@@ -4,8 +4,8 @@
   justify-content: space-between;
   gap: 12px;
   padding: 8px 12px;
-  background: #fff;
-  border-radius: 8px;
+  background: var(--color-surface);
+  border-radius: var(--radius-badge);
 }
 
 .detail-groupe-membre-info {
@@ -14,6 +14,37 @@
   white-space: nowrap;
   font-size: 0.9rem;
   color: var(--color-ink);
+}
+
+.detail-groupe-grille {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .detail-groupe-grille {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    grid-template-areas:
+      'eleves suivi'
+      'ajout suivi';
+    align-items: start;
+    column-gap: 24px;
+  }
+
+  .detail-groupe-section-eleves {
+    grid-area: eleves;
+  }
+
+  .detail-groupe-section-ajout {
+    grid-area: ajout;
+  }
+
+  .detail-groupe-section-suivi {
+    grid-area: suivi;
+    border-top: none;
+    padding-top: 0;
+  }
 }
 
 .detail-suivi-scroll {
@@ -34,7 +65,7 @@
 .detail-suivi-table td {
   padding: 8px 10px;
   text-align: left;
-  border-bottom: 1px solid #e2e6ea;
+  border-bottom: 1px solid var(--color-border);
   white-space: nowrap;
 }
 
@@ -53,7 +84,7 @@
 }
 
 .detail-suivi-statut-non_commence {
-  color: #8993a1;
+  color: var(--color-text-secondary);
 }
 
 .detail-suivi-statut-en_cours {
@@ -61,5 +92,5 @@
 }
 
 .detail-suivi-statut-termine {
-  color: #1e6b38;
+  color: var(--color-success);
 }

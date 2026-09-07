@@ -159,7 +159,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
 
   if (chargement) {
     return (
-      <div className="flow-page">
+      <div className="flow-page flow-page-formateur">
         <div className="flow-card">
           <p>Chargement…</p>
         </div>
@@ -169,10 +169,10 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
 
   if (erreur) {
     return (
-      <div className="flow-page">
-        <div className="page-avec-lien-retour">
+      <div className="flow-page flow-page-formateur">
+        <div className="page-avec-lien-retour page-large">
           <button type="button" className="lien-retour" onClick={onRetour}>
-            ← Retour au tableau de bord
+            ← Retour
           </button>
           <div className="flow-card">
             <p className="message message-erreur">{erreur}</p>
@@ -183,106 +183,108 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
   }
 
   return (
-    <div className="flow-page">
-      <div className="page-avec-lien-retour">
+    <div className="flow-page flow-page-formateur">
+      <div className="page-avec-lien-retour page-large">
         <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour au tableau de bord
+          ← Retour
         </button>
 
         <div className="flow-card">
           <h1>{groupe.nom}</h1>
 
-          <section className="detail-section">
-            <h2>Élèves ({membres.length})</h2>
-            {erreurMembres ? (
-              <p className="message message-erreur">
-                Impossible de charger les élèves ({erreurMembres}).
-              </p>
-            ) : membres.length === 0 ? (
-              <p className="dashboard-etat-vide">Aucun élève dans ce groupe.</p>
-            ) : (
-              <ul className="dashboard-liste">
-                {membres.map((membre) => (
-                  <li key={membre.id} className="detail-groupe-membre">
-                    <span className="detail-groupe-membre-info">
-                      {membre.prenom} {membre.nom ?? ''} — {membre.email}
-                    </span>
-                    <button
-                      type="button"
-                      className="creation-bouton-supprimer"
-                      onClick={() => handleRetirer(membre.id)}
-                    >
-                      Retirer
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
+          <div className="detail-groupe-grille">
+            <section className="detail-section detail-groupe-section-eleves">
+              <h2>Élèves ({membres.length})</h2>
+              {erreurMembres ? (
+                <p className="message message-erreur">
+                  Impossible de charger les élèves ({erreurMembres}).
+                </p>
+              ) : membres.length === 0 ? (
+                <p className="dashboard-etat-vide">Aucun élève dans ce groupe.</p>
+              ) : (
+                <ul className="dashboard-liste">
+                  {membres.map((membre) => (
+                    <li key={membre.id} className="detail-groupe-membre">
+                      <span className="detail-groupe-membre-info">
+                        {membre.prenom} {membre.nom ?? ''} — {membre.email}
+                      </span>
+                      <button
+                        type="button"
+                        className="creation-bouton-supprimer"
+                        onClick={() => handleRetirer(membre.id)}
+                      >
+                        Retirer
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
 
-          <section className="detail-section">
-            <h2>Suivi de progression</h2>
-            {erreurSuivi ? (
-              <p className="message message-erreur">Impossible de charger le suivi ({erreurSuivi}).</p>
-            ) : membres.length === 0 ? (
-              <p className="dashboard-etat-vide">Aucun élève à suivre pour le moment.</p>
-            ) : (
-              <div className="detail-suivi-scroll">
-                <table className="detail-suivi-table">
-                  <thead>
-                    <tr>
-                      <th>Élève</th>
-                      {coursDuGroupe.map((cours) => (
-                        <th key={cours.id} title={cours.titre}>
-                          {cours.titre}
-                        </th>
-                      ))}
-                      <th>XP</th>
-                      <th>Badges</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {membres.map((membre) => (
-                      <tr key={membre.id}>
-                        <td>
-                          {membre.prenom} {membre.nom ?? ''}
-                        </td>
-                        {coursDuGroupe.map((cours) => {
-                          const statut = progressionParCle.get(`${membre.id}_${cours.id}`) ?? 'non_commence'
-                          return (
-                            <td key={cours.id}>
-                              <span className={`detail-suivi-statut detail-suivi-statut-${statut}`}>
-                                {LABEL_STATUT[statut]}
-                              </span>
-                            </td>
-                          )
-                        })}
-                        <td>{membre.xp_total}</td>
-                        <td>{badgesParApprenant.get(membre.id) ?? 0}</td>
+            <section className="detail-section detail-groupe-section-suivi">
+              <h2>Suivi de progression</h2>
+              {erreurSuivi ? (
+                <p className="message message-erreur">Impossible de charger le suivi ({erreurSuivi}).</p>
+              ) : membres.length === 0 ? (
+                <p className="dashboard-etat-vide">Aucun élève à suivre pour le moment.</p>
+              ) : (
+                <div className="detail-suivi-scroll">
+                  <table className="detail-suivi-table">
+                    <thead>
+                      <tr>
+                        <th>Élève</th>
+                        {coursDuGroupe.map((cours) => (
+                          <th key={cours.id} title={cours.titre}>
+                            {cours.titre}
+                          </th>
+                        ))}
+                        <th>XP</th>
+                        <th>Badges</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </section>
+                    </thead>
+                    <tbody>
+                      {membres.map((membre) => (
+                        <tr key={membre.id}>
+                          <td>
+                            {membre.prenom} {membre.nom ?? ''}
+                          </td>
+                          {coursDuGroupe.map((cours) => {
+                            const statut = progressionParCle.get(`${membre.id}_${cours.id}`) ?? 'non_commence'
+                            return (
+                              <td key={cours.id}>
+                                <span className={`detail-suivi-statut detail-suivi-statut-${statut}`}>
+                                  {LABEL_STATUT[statut]}
+                                </span>
+                              </td>
+                            )
+                          })}
+                          <td>{membre.xp_total}</td>
+                          <td>{badgesParApprenant.get(membre.id) ?? 0}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </section>
 
-          <section className="detail-section">
-            <h2>Ajouter un élève</h2>
-            <form className="dashboard-groupe-form" onSubmit={handleAjouterEleve}>
-              <input
-                type="email"
-                required
-                placeholder="Email de l'élève"
-                value={emailAjout}
-                onChange={(e) => setEmailAjout(e.target.value)}
-              />
-              <button type="submit" className="bouton-ajouter" disabled={ajoutEnCours}>
-                {ajoutEnCours ? 'Recherche…' : 'Ajouter'}
-              </button>
-            </form>
-            {erreurAjout && <p className="message message-erreur">{erreurAjout}</p>}
-          </section>
+            <section className="detail-section detail-groupe-section-ajout">
+              <h2>Ajouter un élève</h2>
+              <form className="dashboard-groupe-form" onSubmit={handleAjouterEleve}>
+                <input
+                  type="email"
+                  required
+                  placeholder="Email de l'élève"
+                  value={emailAjout}
+                  onChange={(e) => setEmailAjout(e.target.value)}
+                />
+                <button type="submit" className="bouton-ajouter" disabled={ajoutEnCours}>
+                  {ajoutEnCours ? 'Recherche…' : 'Ajouter'}
+                </button>
+              </form>
+              {erreurAjout && <p className="message message-erreur">{erreurAjout}</p>}
+            </section>
+          </div>
         </div>
       </div>
     </div>

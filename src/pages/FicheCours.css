@@ -6,20 +6,20 @@
   margin: -8px 0 0;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #1e6b38;
+  color: var(--color-success);
 }
 
 .fiche-cours-confirmation {
   margin: 0;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #1e6b38;
+  color: var(--color-success);
 }
 
 .fiche-cours-onglets {
   display: flex;
   gap: 6px;
-  border-bottom: 1px solid #e2e6ea;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .fiche-cours-onglet {
@@ -29,19 +29,19 @@
   padding: 10px 8px;
   font-family: var(--font-body);
   font-size: 0.85rem;
-  font-weight: 600;
-  color: #4b5768;
+  font-weight: 700;
+  color: var(--color-text-secondary);
   cursor: pointer;
-  border-radius: 8px 8px 0 0;
+  border-radius: 14px 14px 0 0;
 }
 
 .fiche-cours-onglet:hover {
-  background: #f0f5f8;
+  background: var(--color-primary-fond);
 }
 
 .fiche-cours-onglet-actif {
   color: var(--color-primary);
-  background: #eef4f7;
+  background: var(--color-primary-fond);
 }
 
 .fiche-cours-contenu {
@@ -58,6 +58,8 @@
 }
 
 .fiche-cours-section h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: 1.1rem;
   margin: 0;
   color: var(--color-ink);
@@ -77,9 +79,9 @@
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  background: #fff;
-  border: 1px solid #d6dbe2;
-  border-radius: 10px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-badge);
   font-size: 0.9rem;
   color: var(--color-ink);
 }
@@ -88,12 +90,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-badge);
   background: var(--color-background);
-  border: 1px solid #d6dbe2;
+  border: 1px solid var(--color-border);
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--color-ink);

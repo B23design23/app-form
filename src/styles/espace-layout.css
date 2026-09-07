@@ -1,0 +1,249 @@
+.espace-layout {
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.espace-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: space-around;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: 6px 0 max(6px, env(safe-area-inset-bottom));
+}
+
+.espace-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 6px 4px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.espace-nav-icone {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.espace-nav-item-actif {
+  color: var(--color-primary);
+}
+
+.espace-contenu {
+  min-width: 0;
+  padding: 20px 16px calc(76px + env(safe-area-inset-bottom));
+}
+
+.espace-nav-menu-wrapper {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+
+.espace-nav-menu-wrapper .espace-nav-item {
+  width: 100%;
+}
+
+.espace-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+}
+
+.espace-menu-dropdown {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 8px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+  padding: 8px;
+  background: var(--color-surface);
+  border-radius: var(--radius-badge);
+  box-shadow: 0 4px 16px rgba(36, 29, 66, 0.18);
+}
+
+.espace-menu-item {
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.espace-menu-item:hover {
+  background: var(--color-primary-fond);
+}
+
+.espace-page {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.espace-page h1 {
+  font-size: 1.4rem;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.espace-page section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.espace-page h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.espace-carte {
+  background: var(--color-surface);
+  border-radius: var(--radius-carte);
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(36, 29, 66, 0.08);
+}
+
+.espace-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.espace-liste-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  box-shadow: 0 1px 3px rgba(36, 29, 66, 0.08);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.espace-liste-item:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.espace-liste-item-titre {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.espace-liste-item-chevron {
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.statut-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.statut-badge-pastille {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.statut-badge-non_commence {
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.statut-badge-en_cours {
+  background: var(--color-primary-fond);
+  color: var(--color-primary);
+}
+
+.statut-badge-termine {
+  background: var(--color-success-fond);
+  color: var(--color-success);
+}
+
+@media (min-width: 768px) {
+  .espace-nav {
+    top: 0;
+    bottom: auto;
+    justify-content: center;
+    gap: 8px;
+    border-top: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: 10px 24px;
+  }
+
+  .espace-nav-item {
+    flex: 0 0 auto;
+    flex-direction: row;
+    gap: 10px;
+    padding: 10px 22px;
+    border-radius: var(--radius-pill);
+    font-size: 0.9rem;
+  }
+
+  .espace-nav-item-actif {
+    background: var(--color-primary-fond);
+  }
+
+  .espace-nav-menu-wrapper {
+    flex: 0 0 auto;
+  }
+
+  .espace-menu-dropdown {
+    bottom: auto;
+    top: calc(100% + 8px);
+    right: 0;
+  }
+
+  .espace-contenu {
+    padding: 96px 40px 40px;
+  }
+}

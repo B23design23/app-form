@@ -1,194 +1,198 @@
-.dashboard-card {
+.apprenant-dashboard-grille {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
-.dashboard-groupe-form {
-  display: flex;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.dashboard-groupe-form input {
-  flex: 1;
-  min-height: 40px;
-  padding: 0 12px;
-  border: 1px solid #d6dbe2;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-family: var(--font-body);
-  color: var(--color-ink);
-}
-
-.dashboard-groupe-form .bouton-ajouter {
-  flex-shrink: 0;
-  align-self: stretch;
-  white-space: nowrap;
-}
-
-.dashboard-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 8px 12px;
-}
-
-.dashboard-header h1 {
-  margin: 0;
-}
-
-.dashboard-deconnexion {
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  padding: 4px 0;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  cursor: pointer;
-}
-
-.dashboard-deconnexion:hover {
-  text-decoration: underline;
-}
-
-.dashboard-progression {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.dashboard-anneau {
-  width: 96px;
-  height: 96px;
-}
-
-.dashboard-progression-legende {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #4b5768;
-  text-align: center;
-}
-
-.dashboard-xp {
-  align-self: center;
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  background: var(--color-accent-warm);
-  color: #fff;
-  border-radius: 999px;
-  padding: 8px 20px;
-}
-
-.dashboard-xp-valeur {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.dashboard-xp-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.dashboard-section {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.dashboard-section h2 {
-  font-size: 1rem;
-  margin: 0;
-  color: var(--color-ink);
-}
-
-.dashboard-etat-vide {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #4b5768;
-}
-
-.dashboard-liste {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.9rem;
-}
-
-.dashboard-liste-item-texte {
-  padding: 8px 12px;
-  background: #fff;
-  border-radius: 8px;
-}
-
-.dashboard-liste-item-bouton {
+.apprenant-entete {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  width: 100%;
-  text-align: left;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 8px;
-  background: #fff;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--color-ink);
-  cursor: pointer;
 }
 
-.dashboard-liste-item-bouton:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 1px;
-}
-
-.dashboard-cours-titre {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.dashboard-statut {
-  display: flex;
+.apprenant-xp-pastille {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
-  font-size: 0.75rem;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.dashboard-statut-pastille {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #c7ccd3;
-}
-
-.dashboard-statut-icone {
+  background: var(--color-accent-star);
+  color: var(--color-ink);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
   font-weight: 700;
+  font-size: 0.9rem;
 }
 
-.dashboard-statut-non_commence {
-  color: #8993a1;
+.espace-carte h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 12px;
+  color: var(--color-ink);
 }
 
-.dashboard-statut-en_cours {
-  color: var(--color-primary);
+.apprenant-continuer-layout {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.dashboard-statut-en_cours .dashboard-statut-pastille {
-  background: var(--color-primary);
+.apprenant-continuer-anneau {
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
 }
 
-.dashboard-statut-termine {
-  color: #1e6b38;
+.apprenant-continuer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.apprenant-continuer-legende {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.apprenant-continuer-titre {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--color-ink);
+}
+
+.apprenant-continuer-info .bouton-primaire {
+  align-self: flex-start;
+  margin-top: 0;
+}
+
+.apprenant-badges-rangee {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.apprenant-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: var(--radius-badge);
+  font-size: 1.4rem;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.apprenant-badge-obtenu {
+  background: var(--color-accent-star);
+}
+
+.apprenant-badge-verrouille {
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+}
+
+.badge-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(36, 29, 66, 0.45);
+  padding: 20px;
+}
+
+.badge-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  padding: 28px 24px;
+  background: var(--color-surface);
+  border-radius: var(--radius-carte);
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(36, 29, 66, 0.25);
+}
+
+.badge-modal-icone {
+  width: 84px;
+  height: 84px;
+  font-size: 2.4rem;
+  cursor: default;
+  margin-bottom: 4px;
+}
+
+.badge-modal h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0;
+  color: var(--color-ink);
+}
+
+.badge-modal p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.apprenant-banniere-quizflash {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--color-primary-fond);
+}
+
+.apprenant-banniere-quizflash p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.apprenant-banniere-quizflash .bouton-primaire {
+  margin-top: 0;
+}
+
+.apprenant-banniere-verrouillee {
+  color: var(--color-text-secondary) !important;
+}
+
+@media (min-width: 768px) {
+  .apprenant-dashboard-grille {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas:
+      'entete entete'
+      'continuer badges'
+      'continuer quizflash';
+    align-items: start;
+  }
+
+  .apprenant-entete {
+    grid-area: entete;
+  }
+
+  .espace-carte-continuer {
+    grid-area: continuer;
+  }
+
+  .espace-carte-badges {
+    grid-area: badges;
+  }
+
+  .apprenant-banniere-quizflash {
+    grid-area: quizflash;
+  }
 }

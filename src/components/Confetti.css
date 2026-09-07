@@ -1,0 +1,38 @@
+.confetti-conteneur {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  opacity: 1;
+  animation-name: confetti-chute;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+
+.confetti-piece-carre {
+  border-radius: 2px;
+}
+
+.confetti-piece-cercle {
+  border-radius: 50%;
+}
+
+@keyframes confetti-chute {
+  0% {
+    transform: translate(0, 0) rotate(var(--rotation-depart, 0deg));
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--derive, 0px), 100vh) rotate(var(--rotation-fin, 360deg));
+    opacity: 0;
+  }
+}

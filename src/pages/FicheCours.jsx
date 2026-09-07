@@ -100,7 +100,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
       if (!progressionActuelle || progressionActuelle.statut === 'non_commence') {
         const nouveauxBadges = await marquerProgression(authUser, coursId, 'en_cours')
         if (!annule && nouveauxBadges.length > 0) {
-          setOverlay({ titre: 'Nouveau badge', xp: null, badges: nouveauxBadges })
+          setOverlay({ titre: 'Nouveau badge', xp: null, badges: nouveauxBadges, type: 'badge' })
         }
       }
 
@@ -129,6 +129,8 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
           titre: actuel?.titre ?? 'Cours terminé',
           xp: actuel?.xp ?? null,
           badges: [...(actuel?.badges ?? []), ...nouveauxBadges],
+          type: actuel?.type ?? 'badge',
+          score: actuel?.score,
         }))
       })
     }
@@ -144,7 +146,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
     const nouveauxBadges = await marquerProgression(authUser, coursId, 'termine')
     setCoursEstTermine(true)
     if (nouveauxBadges.length > 0) {
-      setOverlay({ titre: 'Cours terminé', xp: null, badges: nouveauxBadges })
+      setOverlay({ titre: 'Cours terminé', xp: null, badges: nouveauxBadges, type: 'badge' })
     }
   }
 
@@ -193,7 +195,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
       })
       await ajouterXp(authUser, XP_QUIZ)
       const nouveauxBadges = await verifierBadges(authUser)
-      setOverlay({ titre: 'Quiz terminé', xp: XP_QUIZ, badges: nouveauxBadges })
+      setOverlay({ titre: 'Quiz terminé', xp: XP_QUIZ, badges: nouveauxBadges, type: 'quiz', score: scoreFinal })
     }
 
     setQuizTermine(true)
@@ -210,7 +212,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
     if (!checklistTerminee && !dejaValidee && nouvelleListe.length === etapes.length) {
       if (!dejaTermineAuDepart) {
         await ajouterXp(authUser, XP_CHECKLIST)
-        setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST })
+        setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST, type: 'checklist' })
       }
       setChecklistTerminee(true)
     }

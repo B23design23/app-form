@@ -342,11 +342,11 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
     onTermine()
   }
 
-  const labelRetour = modeEdition ? '← Retour à la fiche du cours' : '← Retour au tableau de bord'
+  const labelRetour = '← Retour'
 
   if (chargement) {
     return (
-      <div className="flow-page">
+      <div className="flow-page flow-page-formateur">
         <div className="flow-card">
           <p>Chargement…</p>
         </div>
@@ -356,8 +356,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
   if (erreurChargement) {
     return (
-      <div className="flow-page">
-        <div className="page-avec-lien-retour">
+      <div className="flow-page flow-page-formateur">
+        <div className="page-avec-lien-retour page-large">
           <button type="button" className="lien-retour" onClick={onRetour}>
             {labelRetour}
           </button>
@@ -370,8 +370,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
   }
 
   return (
-    <div className="flow-page">
-      <div className="page-avec-lien-retour">
+    <div className="flow-page flow-page-formateur">
+      <div className="page-avec-lien-retour page-large">
         <button type="button" className="lien-retour" onClick={onRetour}>
           {labelRetour}
         </button>
@@ -382,45 +382,49 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           <section className="creation-section">
             <h2>Infos générales</h2>
 
-            <label className="champ">
-              <span>Titre</span>
-              <input type="text" required value={titre} onChange={(e) => setTitre(e.target.value)} />
-            </label>
+            <div className="creation-ligne-champs">
+              <label className="champ">
+                <span>Titre</span>
+                <input type="text" required value={titre} onChange={(e) => setTitre(e.target.value)} />
+              </label>
+
+              <label className="champ">
+                <span>Catégorie</span>
+                <input
+                  type="text"
+                  placeholder="ex. Froid, Électricité, Sécurité"
+                  value={categorie}
+                  onChange={(e) => setCategorie(e.target.value)}
+                />
+              </label>
+            </div>
 
             <label className="champ">
               <span>Contenu de la leçon</span>
               <textarea value={contenu} onChange={(e) => setContenu(e.target.value)} />
             </label>
 
-            <label className="champ">
-              <span>Catégorie</span>
-              <input
-                type="text"
-                placeholder="ex. Froid, Électricité, Sécurité"
-                value={categorie}
-                onChange={(e) => setCategorie(e.target.value)}
-              />
-            </label>
+            <div className="creation-ligne-champs">
+              <label className="champ">
+                <span>Domaine</span>
+                <input type="text" value={domaine} onChange={(e) => setDomaine(e.target.value)} />
+              </label>
 
-            <label className="champ">
-              <span>Domaine</span>
-              <input type="text" value={domaine} onChange={(e) => setDomaine(e.target.value)} />
-            </label>
-
-            <label className="champ">
-              <span>Assigner à un groupe (optionnel)</span>
-              <select
-                value={groupeIdSelectionne}
-                onChange={(e) => setGroupeIdSelectionne(e.target.value)}
-              >
-                <option value="">— Aucun —</option>
-                {mesGroupes.map((groupe) => (
-                  <option key={groupe.id} value={groupe.id}>
-                    {groupe.nom}
-                  </option>
-                ))}
-              </select>
-            </label>
+              <label className="champ">
+                <span>Assigner à un groupe (optionnel)</span>
+                <select
+                  value={groupeIdSelectionne}
+                  onChange={(e) => setGroupeIdSelectionne(e.target.value)}
+                >
+                  <option value="">— Aucun —</option>
+                  {mesGroupes.map((groupe) => (
+                    <option key={groupe.id} value={groupe.id}>
+                      {groupe.nom}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
           </section>
 
           <section className="creation-section">
