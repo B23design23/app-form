@@ -1,55 +1,15 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import { iconeBadge } from '../lib/badges'
+import { ajouterXp, verifierBadges } from '../lib/gamification'
+import { melanger } from '../lib/shuffle'
 import ProgressBar from '../components/ProgressBar'
+import CompletionToast from '../components/CompletionToast'
 import '../styles/shared.css'
+import '../styles/quiz.css'
 import './FicheCours.css'
 
 const XP_QUIZ = 20
 const XP_CHECKLIST = 15
-const SEUIL_QUIZ_FLASH_REUSSI = 50
-
-async function verifierBadges(authUser) {
-  const [badgesRes, userBadgesRes, scoresRes, progressionRes] = await Promise.all([
-    supabase.from('badges').select('id, nom, icone, condition_deblocage'),
-    supabase.from('user_badges').select('badge_id').eq('user_id', authUser.id),
-    supabase.from('scores').select('type, score').eq('user_id', authUser.id),
-    supabase.from('progression').select('statut, cours(etapes_checklist(id))').eq('user_id', authUser.id),
-  ])
-
-  if (badgesRes.error || userBadgesRes.error || scoresRes.error || progressionRes.error) {
-    return []
-  }
-
-  const idsDejaObtenus = new Set((userBadgesRes.data ?? []).map((ub) => ub.badge_id))
-  const scores = scoresRes.data ?? []
-  const coursTermines = (progressionRes.data ?? []).filter((p) => p.statut === 'termine')
-
-  const conditionsRemplies = {
-    premier_quiz_complete: scores.some((s) => s.type === 'quiz_cours'),
-    premiere_checklist_completee: coursTermines.some((p) => (p.cours?.etapes_checklist?.length ?? 0) > 0),
-    trois_cours_termines: coursTermines.length >= 3,
-    quiz_100_pourcent: scores.some((s) => s.score === 100),
-    premier_quiz_flash_reussi: scores.some(
-      (s) => s.type === 'quiz_flash' && s.score >= SEUIL_QUIZ_FLASH_REUSSI
-    ),
-  }
-
-  const nouveauxBadges = []
-  for (const badge of badgesRes.data ?? []) {
-    if (idsDejaObtenus.has(badge.id)) continue
-    if (!conditionsRemplies[badge.condition_deblocage]) continue
-
-    const { error } = await supabase.from('user_badges').insert({
-      user_id: authUser.id,
-      badge_id: badge.id,
-      date_obtention: new Date().toISOString(),
-    })
-    if (!error) nouveauxBadges.push(badge)
-  }
-
-  return nouveauxBadges
-}
 
 async function marquerProgression(authUser, coursId, statut) {
   const { data: existante } = await supabase
@@ -69,12 +29,6 @@ async function marquerProgression(authUser, coursId, statut) {
   }
 
   return verifierBadges(authUser)
-}
-
-async function ajouterXp(authUser, montant) {
-  const { data } = await supabase.from('profiles').select('xp_total').eq('id', authUser.id).single()
-  const nouveauTotal = (data?.xp_total ?? 0) + montant
-  await supabase.from('profiles').update({ xp_total: nouveauTotal }).eq('id', authUser.id)
 }
 
 function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
@@ -136,7 +90,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
       }
 
       setCours(coursRes.data)
-      setQuestions(questionsRes.data ?? [])
+      setQuestions((questionsRes.data ?? []).map((q) => ({ ...q, reponses: melanger(q.reponses) })))
       setEtapes(etapesRes.data ?? [])
 
       const progressionActuelle = progressionRes.data
@@ -275,11 +229,13 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
   if (erreur) {
     return (
       <div className="flow-page">
-        <div className="flow-card">
+        <div className="page-avec-lien-retour">
           <button type="button" className="lien-retour" onClick={onRetour}>
             ← Retour au tableau de bord
           </button>
-          <p className="message message-erreur">Impossible de charger ce cours ({erreur}).</p>
+          <div className="flow-card">
+            <p className="message message-erreur">Impossible de charger ce cours ({erreur}).</p>
+          </div>
         </div>
       </div>
     )
@@ -292,185 +248,175 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
 
   return (
     <div className="flow-page">
-      <div className="flow-card fiche-cours-card">
+      <div className="page-avec-lien-retour">
         <button type="button" className="lien-retour" onClick={onRetour}>
           ← Retour au tableau de bord
         </button>
 
-        <h1>{cours.titre}</h1>
-        {coursEstTermine && <p className="fiche-cours-statut-termine">✓ Cours terminé</p>}
+        <div className="flow-card fiche-cours-card">
+          <h1>{cours.titre}</h1>
+          {coursEstTermine && <p className="fiche-cours-statut-termine">✓ Cours terminé</p>}
 
-        <div className="fiche-cours-onglets" role="tablist">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={sectionActive === 'lecon'}
-            className={`fiche-cours-onglet${sectionActive === 'lecon' ? ' fiche-cours-onglet-actif' : ''}`}
-            onClick={() => setSectionActive('lecon')}
-          >
-            Leçon
-          </button>
-          {hasQuiz && (
+          <div className="fiche-cours-onglets" role="tablist">
             <button
               type="button"
               role="tab"
-              aria-selected={sectionActive === 'quiz'}
-              className={`fiche-cours-onglet${sectionActive === 'quiz' ? ' fiche-cours-onglet-actif' : ''}`}
-              onClick={() => setSectionActive('quiz')}
+              aria-selected={sectionActive === 'lecon'}
+              className={`fiche-cours-onglet${sectionActive === 'lecon' ? ' fiche-cours-onglet-actif' : ''}`}
+              onClick={() => setSectionActive('lecon')}
             >
-              Quiz
+              Leçon
             </button>
-          )}
-          {hasChecklist && (
-            <button
-              type="button"
-              role="tab"
-              aria-selected={sectionActive === 'checklist'}
-              className={`fiche-cours-onglet${sectionActive === 'checklist' ? ' fiche-cours-onglet-actif' : ''}`}
-              onClick={() => setSectionActive('checklist')}
-            >
-              Checklist
-            </button>
-          )}
-        </div>
-
-        {sectionActive === 'lecon' && (
-          <div className="fiche-cours-section">
-            <div className="fiche-cours-contenu">{cours.contenu}</div>
-            {!hasQuiz && !hasChecklist && !coursEstTermine && (
-              <button type="button" className="bouton-primaire" onClick={terminerCoursSansQuizNiChecklist}>
-                Terminer le cours
+            {hasQuiz && (
+              <button
+                type="button"
+                role="tab"
+                aria-selected={sectionActive === 'quiz'}
+                className={`fiche-cours-onglet${sectionActive === 'quiz' ? ' fiche-cours-onglet-actif' : ''}`}
+                onClick={() => setSectionActive('quiz')}
+              >
+                Quiz
+              </button>
+            )}
+            {hasChecklist && (
+              <button
+                type="button"
+                role="tab"
+                aria-selected={sectionActive === 'checklist'}
+                className={`fiche-cours-onglet${sectionActive === 'checklist' ? ' fiche-cours-onglet-actif' : ''}`}
+                onClick={() => setSectionActive('checklist')}
+              >
+                Checklist
               </button>
             )}
           </div>
-        )}
 
-        {sectionActive === 'quiz' && hasQuiz && (
-          <div className="fiche-cours-section">
-            {quizTermine ? (
-              <div className="quiz-resume">
-                <p>
-                  Quiz terminé — {bonnesReponses}/{questions.length} bonnes réponses ({scoreQuizFinal}%).
-                </p>
-              </div>
-            ) : (
-              questionCourante && (
-                <>
-                  <ProgressBar
-                    etapeActuelle={indexQuestion + 1}
-                    totalEtapes={questions.length}
-                    label={labelProgressionQuiz}
-                  />
+          {sectionActive === 'lecon' && (
+            <div className="fiche-cours-section">
+              <div className="fiche-cours-contenu">{cours.contenu}</div>
+              {!hasQuiz && !hasChecklist && !coursEstTermine && (
+                <button type="button" className="bouton-primaire" onClick={terminerCoursSansQuizNiChecklist}>
+                  Terminer le cours
+                </button>
+              )}
+            </div>
+          )}
 
-                  <p className="quiz-enonce">{questionCourante.enonce}</p>
+          {sectionActive === 'quiz' && hasQuiz && (
+            <div className="fiche-cours-section">
+              {quizTermine ? (
+                <div className="quiz-resume">
+                  <p>
+                    Quiz terminé — {bonnesReponses}/{questions.length} bonnes réponses ({scoreQuizFinal}%).
+                  </p>
+                </div>
+              ) : (
+                questionCourante && (
+                  <>
+                    <ProgressBar
+                      etapeActuelle={indexQuestion + 1}
+                      totalEtapes={questions.length}
+                      label={labelProgressionQuiz}
+                    />
 
-                  <div className="quiz-options">
-                    {questionCourante.reponses.map((reponse) => {
-                      const estSelectionnee = selection.includes(reponse.id)
-                      let classeOption = 'quiz-option'
-                      if (valide) {
-                        classeOption += ' quiz-option-desactivee'
-                        if (reponse.est_correcte) classeOption += ' quiz-option-correcte'
-                        if (estSelectionnee && !reponse.est_correcte) classeOption += ' quiz-option-fausse'
-                      } else if (estSelectionnee) {
-                        classeOption += ' quiz-option-selectionnee'
-                      }
+                    <p className="quiz-enonce">{questionCourante.enonce}</p>
 
-                      return (
-                        <label key={reponse.id} className={classeOption}>
-                          <input
-                            type={questionCourante.type_reponse === 'simple' ? 'radio' : 'checkbox'}
-                            name={`question-${questionCourante.id}`}
-                            checked={estSelectionnee}
-                            disabled={valide}
-                            onChange={() => basculerSelection(reponse.id)}
-                          />
-                          <span>{reponse.texte}</span>
-                        </label>
-                      )
-                    })}
-                  </div>
+                    <div className="quiz-options">
+                      {questionCourante.reponses.map((reponse) => {
+                        const estSelectionnee = selection.includes(reponse.id)
+                        let classeOption = 'quiz-option'
+                        if (valide) {
+                          classeOption += ' quiz-option-desactivee'
+                          if (reponse.est_correcte) classeOption += ' quiz-option-correcte'
+                          if (estSelectionnee && !reponse.est_correcte) classeOption += ' quiz-option-fausse'
+                        } else if (estSelectionnee) {
+                          classeOption += ' quiz-option-selectionnee'
+                        }
 
-                  {valide && (
-                    <div
-                      className={`quiz-feedback ${derniereReponseCorrecte ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}
-                    >
-                      <p>{derniereReponseCorrecte ? 'Bonne réponse !' : 'Réponse incorrecte.'}</p>
-                      {!derniereReponseCorrecte &&
-                        questionCourante.reponses
-                          .filter((r) => selection.includes(r.id) && !r.est_correcte && r.explication)
-                          .map((r) => (
-                            <p key={r.id} className="quiz-explication">
-                              {r.explication}
-                            </p>
-                          ))}
+                        return (
+                          <label key={reponse.id} className={classeOption}>
+                            <input
+                              type={questionCourante.type_reponse === 'simple' ? 'radio' : 'checkbox'}
+                              name={`question-${questionCourante.id}`}
+                              checked={estSelectionnee}
+                              disabled={valide}
+                              onChange={() => basculerSelection(reponse.id)}
+                            />
+                            <span>{reponse.texte}</span>
+                          </label>
+                        )
+                      })}
                     </div>
-                  )}
 
-                  {!valide ? (
-                    <button
-                      type="button"
-                      className="bouton-primaire"
-                      disabled={selection.length === 0}
-                      onClick={validerReponse}
-                    >
-                      Valider ma réponse
-                    </button>
-                  ) : (
-                    <button type="button" className="bouton-primaire" onClick={questionSuivante}>
-                      {indexQuestion === questions.length - 1 ? 'Terminer le quiz' : 'Question suivante'}
-                    </button>
-                  )}
-                </>
-              )
-            )}
-          </div>
-        )}
+                    {valide && (
+                      <div
+                        className={`quiz-feedback ${derniereReponseCorrecte ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}
+                      >
+                        <p>{derniereReponseCorrecte ? 'Bonne réponse !' : 'Réponse incorrecte.'}</p>
+                        {!derniereReponseCorrecte &&
+                          questionCourante.reponses
+                            .filter((r) => selection.includes(r.id) && !r.est_correcte && r.explication)
+                            .map((r) => (
+                              <p key={r.id} className="quiz-explication">
+                                {r.explication}
+                              </p>
+                            ))}
+                      </div>
+                    )}
 
-        {sectionActive === 'checklist' && hasChecklist && (
-          <div className="fiche-cours-section">
-            <h2>Checklist terrain</h2>
-            {checklistTerminee && <p className="fiche-cours-confirmation">✓ Checklist terminée</p>}
-            <ul className="checklist-liste">
-              {etapes.map((etape, index) => {
-                const verrouillee = etapes
-                  .slice(0, index)
-                  .some((precedente) => precedente.bloquante && !etapesValidees.includes(precedente.id))
-                const validee = etapesValidees.includes(etape.id)
-
-                return (
-                  <li key={etape.id}>
-                    <label className={`checklist-item${verrouillee ? ' checklist-item-verrouillee' : ''}`}>
-                      <span className="checklist-item-numero">{index + 1}</span>
-                      <input
-                        type="checkbox"
-                        checked={validee}
-                        disabled={verrouillee}
-                        onChange={() => basculerEtape(etape.id)}
-                      />
-                      <span>{etape.intitule}</span>
-                    </label>
-                  </li>
+                    {!valide ? (
+                      <button
+                        type="button"
+                        className="bouton-primaire"
+                        disabled={selection.length === 0}
+                        onClick={validerReponse}
+                      >
+                        Valider ma réponse
+                      </button>
+                    ) : (
+                      <button type="button" className="bouton-primaire" onClick={questionSuivante}>
+                        {indexQuestion === questions.length - 1 ? 'Terminer le quiz' : 'Question suivante'}
+                      </button>
+                    )}
+                  </>
                 )
-              })}
-            </ul>
-          </div>
-        )}
+              )}
+            </div>
+          )}
+
+          {sectionActive === 'checklist' && hasChecklist && (
+            <div className="fiche-cours-section">
+              <h2>Checklist terrain</h2>
+              {checklistTerminee && <p className="fiche-cours-confirmation">✓ Checklist terminée</p>}
+              <ul className="checklist-liste">
+                {etapes.map((etape, index) => {
+                  const verrouillee = etapes
+                    .slice(0, index)
+                    .some((precedente) => precedente.bloquante && !etapesValidees.includes(precedente.id))
+                  const validee = etapesValidees.includes(etape.id)
+
+                  return (
+                    <li key={etape.id}>
+                      <label className={`checklist-item${verrouillee ? ' checklist-item-verrouillee' : ''}`}>
+                        <span className="checklist-item-numero">{index + 1}</span>
+                        <input
+                          type="checkbox"
+                          checked={validee}
+                          disabled={verrouillee}
+                          onChange={() => basculerEtape(etape.id)}
+                        />
+                        <span>{etape.intitule}</span>
+                      </label>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
 
-      {overlay && (
-        <div className="completion-toast" role="status" onClick={() => setOverlay(null)}>
-          <div className="completion-toast-ligne">
-            <span className="completion-toast-titre">{overlay.titre}</span>
-            {overlay.xp != null && <span className="completion-toast-xp">+{overlay.xp} XP</span>}
-          </div>
-          {(overlay.badges ?? []).map((badge) => (
-            <span key={badge.id} className="completion-toast-badge">
-              {iconeBadge(badge.icone)} Badge débloqué : {badge.nom}
-            </span>
-          ))}
-        </div>
-      )}
+      <CompletionToast overlay={overlay} onFermer={() => setOverlay(null)} />
     </div>
   )
 }

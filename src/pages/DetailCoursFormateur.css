@@ -1,0 +1,133 @@
+.detail-cours-card {
+  gap: 16px;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.detail-actions .bouton-secondaire {
+  flex: 1;
+  min-height: 40px;
+}
+
+.detail-bouton-supprimer {
+  flex: 1;
+  min-height: 40px;
+  border: 1px solid var(--color-error);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--color-error);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.detail-bouton-supprimer:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.detail-confirmation-suppression {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--color-error);
+  border-radius: 10px;
+  background: #fbeceb;
+}
+
+.detail-confirmation-suppression p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-ink);
+}
+
+.detail-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #4b5768;
+}
+
+.detail-contenu {
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+
+.detail-bloc {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid #d6dbe2;
+  border-radius: 10px;
+  background: var(--color-background);
+}
+
+.detail-question-enonce {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.detail-question-type {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #4b5768;
+}
+
+.detail-reponses {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.detail-reponse-correcte {
+  color: #1e6b38;
+  font-weight: 600;
+}
+
+.detail-reponse-fausse {
+  color: var(--color-ink);
+}
+
+.detail-explication {
+  font-weight: 400;
+  color: #4b5768;
+}
+
+.detail-etapes {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.detail-badge-bloquante {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--color-accent-warm);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.detail-critere {
+  margin: 2px 0 0;
+  font-size: 0.8rem;
+  color: #4b5768;
+}

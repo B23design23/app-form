@@ -1,0 +1,65 @@
+.detail-groupe-membre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.detail-groupe-membre-info {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.detail-suivi-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -20px;
+  padding: 0 20px;
+}
+
+.detail-suivi-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 420px;
+  font-size: 0.85rem;
+}
+
+.detail-suivi-table th,
+.detail-suivi-table td {
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid #e2e6ea;
+  white-space: nowrap;
+}
+
+.detail-suivi-table th {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  color: var(--color-ink);
+  background: var(--color-background);
+}
+
+.detail-suivi-statut {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.detail-suivi-statut-non_commence {
+  color: #8993a1;
+}
+
+.detail-suivi-statut-en_cours {
+  color: var(--color-primary);
+}
+
+.detail-suivi-statut-termine {
+  color: #1e6b38;
+}

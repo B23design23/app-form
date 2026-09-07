@@ -44,10 +44,12 @@ Aucune pour l'instant — le champ `domaine` sur `cours` couvre déjà l'anticip
 - `nom`, `email`
 - `role` (enum : `apprenant` | `formateur`)
 - `xp_total` (int, défaut 0)
-- `prenom` (obligatoire à l'inscription)
-- `tranche_age` (enum, obligatoire — ex. `-18`, `18-25`, `26-35`, `36-50`, `50+`)
-- `profession` (enum, obligatoire — ex. `apprenti`, `en_poste`, `reconversion`, `autre`)
-- `motivation` (enum ou texte court, obligatoire — pourquoi l'utilisateur utilise l'app)
+- `prenom` (obligatoire à l'inscription, tous rôles)
+- `tranche_age` (enum, obligatoire si `role = apprenant` uniquement — nullable en base, validé côté app)
+- `profession` (enum, obligatoire si `role = apprenant` uniquement — nullable en base, validé côté app)
+- `motivation` (texte, obligatoire si `role = apprenant` uniquement — nullable en base, validé côté app)
+- `organisme` (texte, obligatoire si `role = formateur` uniquement)
+- `specialite` (texte, obligatoire si `role = formateur` uniquement)
 - `created_at`
 
 ### `cours`
@@ -55,6 +57,7 @@ Aucune pour l'instant — le champ `domaine` sur `cours` couvre déjà l'anticip
 - `domaine` (texte, défaut `climatisation` — prépare un futur multi-domaine sans coût de migration)
 - `categorie` (enum ou texte libre : ex. Froid, Électricité, Sécurité)
 - `visibilite` (enum : `public` | `prive`)
+- `checklist_mode` (texte : `checkbox` | `reorder`, nullable — s'applique à toute la checklist du cours, pas étape par étape)
 - `formateur_id` (FK → profiles, nullable — rempli seulement si `visibilite = prive`)
 - `groupe_id` (FK → groupes, nullable — rempli seulement si privé et assigné à un groupe)
 - `created_at`
@@ -71,8 +74,8 @@ Aucune pour l'instant — le champ `domaine` sur `cours` couvre déjà l'anticip
 ### `etapes_checklist`
 - `id`, `cours_id` (FK), `ordre` (int)
 - `intitule`, `critere_validation` (texte)
-- `mode_validation` (enum : `checkbox` | `reorder`)
-- `bloquante` (bool — empêche de continuer si non validée)
+- `mode_validation` (colonne conservée mais non utilisée — le mode se pilote désormais via `cours.checklist_mode`, au niveau de toute la checklist)
+- `bloquante` (bool — empêche de continuer si non validée ; concept applicable uniquement en mode `checkbox`, ignoré en mode `reorder`)
 
 ### `scores`
 - `id`, `user_id` (FK), `cours_id` (FK, nullable — vide si `type = quiz_flash`)
@@ -117,6 +120,17 @@ Aucune pour l'instant — le champ `domaine` sur `cours` couvre déjà l'anticip
 Vérifier ces conditions après chaque écriture dans `scores` ou `progression`, et insérer dans `user_badges` si un jalon est nouvellement atteint (jamais en double, `unique(user_id, badge_id)` l'empêche déjà côté base).
 
 - Progression affichée par cours (`progression.statut`) et globalement (agrégat sur `profiles.xp_total`).
+
+## Gestion des groupes — recherche d'élève
+
+Un formateur n'a pas accès en lecture au profil d'un autre utilisateur (RLS `profiles` limité à `auth.uid() = id`). Pour ajouter un élève à un groupe par email, l'app appelle la fonction RPC `find_apprenant_id_by_email(p_email)` (SECURITY DEFINER, ne retourne que l'id, uniquement pour `role = 'apprenant'`) plutôt qu'une requête directe sur `profiles`.
+
+## Quiz flash — règles
+
+- Débloqué quand l'utilisateur a terminé le quiz d'au moins 3 cours différents (`scores` avec `type = 'quiz_cours'` sur 3 `cours_id` distincts).
+- Pioche 10 questions aléatoires parmi celles des cours dont l'utilisateur a déjà terminé le quiz (table `questions`, jointes via `cours_id`).
+- À la fin, écrit une ligne dans `scores` (`type = 'quiz_flash'`, `cours_id = null`).
+- Si le score est ≥ 50%, attribue 30 XP bonus et déclenche la vérification du badge `premier_quiz_flash_reussi`.
 
 ## Hors périmètre (rappel — voir PRD section 6)
 

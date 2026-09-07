@@ -10,7 +10,7 @@ const LABEL_STATUT = {
   termine: 'Terminé',
 }
 
-function Dashboard({ authUser, onOuvrirCours }) {
+function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash }) {
   const [profil, setProfil] = useState(null)
   const [erreurProfil, setErreurProfil] = useState(null)
 
@@ -22,6 +22,9 @@ function Dashboard({ authUser, onOuvrirCours }) {
 
   const [badgesObtenus, setBadgesObtenus] = useState(null)
   const [erreurBadges, setErreurBadges] = useState(null)
+
+  const [scoresQuizCours, setScoresQuizCours] = useState(null)
+  const [erreurScoresQuizCours, setErreurScoresQuizCours] = useState(null)
 
   useEffect(() => {
     let annule = false
@@ -66,6 +69,17 @@ function Dashboard({ authUser, onOuvrirCours }) {
         else setBadgesObtenus(data)
       })
 
+    supabase
+      .from('scores')
+      .select('cours_id')
+      .eq('user_id', authUser.id)
+      .eq('type', 'quiz_cours')
+      .then(({ data, error }) => {
+        if (annule) return
+        if (error) setErreurScoresQuizCours(error.message)
+        else setScoresQuizCours(data)
+      })
+
     return () => {
       annule = true
     }
@@ -93,6 +107,8 @@ function Dashboard({ authUser, onOuvrirCours }) {
 
   const coursAvecChecklist = (coursDisponibles ?? []).filter((cours) => (cours.etapes_checklist?.length ?? 0) > 0)
   const statutParCoursId = new Map((progression ?? []).map((p) => [p.cours_id, p.statut]))
+  const nbCoursQuizTermines = new Set((scoresQuizCours ?? []).map((s) => s.cours_id)).size
+  const quizFlashDebloque = nbCoursQuizTermines >= 3
 
   const coursCommences = progression?.length ?? 0
   const coursTermines = (progression ?? []).filter((p) => p.statut === 'termine').length
@@ -103,7 +119,16 @@ function Dashboard({ authUser, onOuvrirCours }) {
   return (
     <div className="flow-page">
       <div className="flow-card dashboard-card">
-        <h1>Bienvenue, {profil.prenom}</h1>
+        <div className="dashboard-header">
+          <h1>Bienvenue, {profil.prenom}</h1>
+          <button
+            type="button"
+            className="dashboard-deconnexion"
+            onClick={() => supabase.auth.signOut()}
+          >
+            Se déconnecter
+          </button>
+        </div>
 
         <div className="dashboard-progression">
           <svg viewBox="0 0 120 120" className="dashboard-anneau" aria-hidden="true">
@@ -214,6 +239,21 @@ function Dashboard({ authUser, onOuvrirCours }) {
                 </li>
               ))}
             </ul>
+          )}
+        </section>
+
+        <section className="dashboard-section">
+          <h2>Quiz flash</h2>
+          {erreurScoresQuizCours ? (
+            <p className="message message-erreur">
+              Impossible de vérifier le quiz flash ({erreurScoresQuizCours}).
+            </p>
+          ) : quizFlashDebloque ? (
+            <button type="button" className="dashboard-liste-item-bouton" onClick={onOuvrirQuizFlash}>
+              <span className="dashboard-cours-titre">Lancer le quiz flash</span>
+            </button>
+          ) : (
+            <p className="dashboard-etat-vide">🔒 Termine 3 quiz pour débloquer le quiz flash</p>
           )}
         </section>
       </div>

@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 import ProgressBar from '../../components/ProgressBar'
 import '../../styles/shared.css'
-
-const TOTAL_ETAPES = 4
+import './OnboardingFlow.css'
 
 const TRANCHES_AGE = [
   { value: '-18', label: 'Moins de 18 ans' },
@@ -34,9 +33,13 @@ const REPONSES_INITIALES = {
   profession: '',
   motivation: '',
   motivationAutre: '',
+  organisme: '',
+  specialite: '',
 }
 
-function OnboardingFlow({ authUser, onTermine }) {
+function OnboardingFlow({ authUser, role = 'apprenant', onTermine, onRetourCompte }) {
+  const totalEtapes = role === 'formateur' ? 3 : 4
+
   const [etape, setEtape] = useState(1)
   const [reponses, setReponses] = useState(REPONSES_INITIALES)
   const [loading, setLoading] = useState(false)
@@ -48,6 +51,13 @@ function OnboardingFlow({ authUser, onTermine }) {
 
   const peutContinuer = () => {
     if (etape === 1) return reponses.prenom.trim().length > 0
+
+    if (role === 'formateur') {
+      if (etape === 2) return reponses.organisme.trim().length > 0
+      if (etape === 3) return reponses.specialite.trim().length > 0
+      return false
+    }
+
     if (etape === 2) return reponses.trancheAge !== ''
     if (etape === 3) return reponses.profession !== ''
     if (etape === 4) {
@@ -66,7 +76,7 @@ function OnboardingFlow({ authUser, onTermine }) {
   const handleSuivant = async () => {
     if (!peutContinuer()) return
 
-    if (etape < TOTAL_ETAPES) {
+    if (etape < totalEtapes) {
       setEtape((e) => e + 1)
       return
     }
@@ -74,17 +84,29 @@ function OnboardingFlow({ authUser, onTermine }) {
     setErreur(null)
     setLoading(true)
 
-    const motivation =
-      reponses.motivation === 'autre' ? reponses.motivationAutre.trim() : reponses.motivation
-
-    const { error } = await supabase.from('profiles').insert({
+    const payloadBase = {
       id: authUser.id,
       email: authUser.email,
+      role,
       prenom: reponses.prenom.trim(),
-      tranche_age: reponses.trancheAge,
-      profession: reponses.profession,
-      motivation,
-    })
+    }
+
+    const payload =
+      role === 'formateur'
+        ? {
+            ...payloadBase,
+            organisme: reponses.organisme.trim(),
+            specialite: reponses.specialite.trim(),
+          }
+        : {
+            ...payloadBase,
+            tranche_age: reponses.trancheAge,
+            profession: reponses.profession,
+            motivation:
+              reponses.motivation === 'autre' ? reponses.motivationAutre.trim() : reponses.motivation,
+          }
+
+    const { error } = await supabase.from('profiles').insert(payload)
 
     setLoading(false)
 
@@ -99,13 +121,13 @@ function OnboardingFlow({ authUser, onTermine }) {
   return (
     <div className="flow-page">
       <div className="flow-card">
-        {etape > 1 ? (
-          <button type="button" className="lien-retour" onClick={handleRetour}>
+        {etape === 1 ? (
+          <button type="button" className="lien-retour" onClick={onRetourCompte}>
             ← Retour
           </button>
         ) : null}
 
-        <ProgressBar etapeActuelle={etape} totalEtapes={TOTAL_ETAPES} />
+        <ProgressBar etapeActuelle={etape} totalEtapes={totalEtapes} />
 
         {etape === 1 && (
           <>
@@ -124,85 +146,130 @@ function OnboardingFlow({ authUser, onTermine }) {
           </>
         )}
 
-        {etape === 2 && (
+        {role === 'formateur' ? (
           <>
-            <h1>Quelle est ta tranche d'âge ?</h1>
-            <label className="champ">
-              <span>Tranche d'âge</span>
-              <select required value={reponses.trancheAge} onChange={majReponse('trancheAge')}>
-                <option value="" disabled>
-                  Sélectionner
-                </option>
-                {TRANCHES_AGE.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            {etape === 2 && (
+              <>
+                <h1>Dans quel organisme enseignes-tu ?</h1>
+                <label className="champ">
+                  <span>Organisme</span>
+                  <input
+                    type="text"
+                    required
+                    autoFocus
+                    value={reponses.organisme}
+                    onChange={majReponse('organisme')}
+                  />
+                </label>
+              </>
+            )}
+
+            {etape === 3 && (
+              <>
+                <h1>Quelle spécialité enseignes-tu ?</h1>
+                <label className="champ">
+                  <span>Spécialité</span>
+                  <input
+                    type="text"
+                    required
+                    autoFocus
+                    value={reponses.specialite}
+                    onChange={majReponse('specialite')}
+                  />
+                </label>
+              </>
+            )}
           </>
-        )}
-
-        {etape === 3 && (
+        ) : (
           <>
-            <h1>Quel est ton statut ?</h1>
-            <label className="champ">
-              <span>Profession / statut</span>
-              <select required value={reponses.profession} onChange={majReponse('profession')}>
-                <option value="" disabled>
-                  Sélectionner
-                </option>
-                {PROFESSIONS.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </>
-        )}
+            {etape === 2 && (
+              <>
+                <h1>Quelle est ta tranche d'âge ?</h1>
+                <label className="champ">
+                  <span>Tranche d'âge</span>
+                  <select required value={reponses.trancheAge} onChange={majReponse('trancheAge')}>
+                    <option value="" disabled>
+                      Sélectionner
+                    </option>
+                    {TRANCHES_AGE.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </>
+            )}
 
-        {etape === 4 && (
-          <>
-            <h1>Pourquoi utilises-tu l'app ?</h1>
-            <label className="champ">
-              <span>Motivation</span>
-              <select required value={reponses.motivation} onChange={majReponse('motivation')}>
-                <option value="" disabled>
-                  Sélectionner
-                </option>
-                {MOTIVATIONS.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            {etape === 3 && (
+              <>
+                <h1>Quel est ton statut ?</h1>
+                <label className="champ">
+                  <span>Profession / statut</span>
+                  <select required value={reponses.profession} onChange={majReponse('profession')}>
+                    <option value="" disabled>
+                      Sélectionner
+                    </option>
+                    {PROFESSIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </>
+            )}
 
-            {reponses.motivation === 'autre' && (
-              <label className="champ">
-                <span>Précise</span>
-                <input
-                  type="text"
-                  required
-                  value={reponses.motivationAutre}
-                  onChange={majReponse('motivationAutre')}
-                />
-              </label>
+            {etape === 4 && (
+              <>
+                <h1>Pourquoi utilises-tu l'app ?</h1>
+                <label className="champ">
+                  <span>Motivation</span>
+                  <select required value={reponses.motivation} onChange={majReponse('motivation')}>
+                    <option value="" disabled>
+                      Sélectionner
+                    </option>
+                    {MOTIVATIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                {reponses.motivation === 'autre' && (
+                  <label className="champ">
+                    <span>Précise</span>
+                    <input
+                      type="text"
+                      required
+                      value={reponses.motivationAutre}
+                      onChange={majReponse('motivationAutre')}
+                    />
+                  </label>
+                )}
+              </>
             )}
           </>
         )}
 
         {erreur && <p className="message message-erreur">{erreur}</p>}
 
-        <button
-          type="button"
-          className="bouton-primaire"
-          disabled={!peutContinuer() || loading}
-          onClick={handleSuivant}
-        >
-          {loading ? 'Enregistrement…' : etape < TOTAL_ETAPES ? 'Suivant' : 'Terminer'}
-        </button>
+        <div className="onboarding-actions">
+          {etape > 1 && (
+            <button type="button" className="bouton-secondaire" onClick={handleRetour} disabled={loading}>
+              Précédent
+            </button>
+          )}
+          <button
+            type="button"
+            className="bouton-primaire"
+            disabled={!peutContinuer() || loading}
+            onClick={handleSuivant}
+          >
+            {loading ? 'Enregistrement…' : etape < totalEtapes ? 'Suivant' : 'Terminer'}
+          </button>
+        </div>
       </div>
     </div>
   )

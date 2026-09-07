@@ -1,0 +1,11 @@
+.onboarding-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.onboarding-actions .bouton-primaire,
+.onboarding-actions .bouton-secondaire {
+  flex: 1;
+  margin-top: 0;
+}

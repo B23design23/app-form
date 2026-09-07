@@ -33,8 +33,12 @@ function Accueil({ onCommencer, onSeConnecter }) {
           où que tu sois.
         </p>
 
-        <button type="button" className="bouton-primaire" onClick={onCommencer}>
-          Commencer
+        <button type="button" className="bouton-primaire" onClick={() => onCommencer('apprenant')}>
+          Je suis apprenant
+        </button>
+
+        <button type="button" className="bouton-secondaire" onClick={() => onCommencer('formateur')}>
+          Je suis formateur
         </button>
 
         <button type="button" className="lien-secondaire" onClick={onSeConnecter}>

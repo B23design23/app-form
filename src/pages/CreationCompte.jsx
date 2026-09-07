@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import '../styles/shared.css'
 
-function CreationCompte({ onRetour, onSeConnecter }) {
+function CreationCompte({ role, onRetour, onSeConnecter }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -15,7 +15,11 @@ function CreationCompte({ onRetour, onSeConnecter }) {
     setInfo(null)
     setLoading(true)
 
-    const { data, error } = await supabase.auth.signUp({ email, password })
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { role } },
+    })
 
     setLoading(false)
 
@@ -33,7 +37,7 @@ function CreationCompte({ onRetour, onSeConnecter }) {
     <div className="flow-page">
       <form className="flow-card" onSubmit={handleSubmit}>
         <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour
+          ← Retour à l'accueil
         </button>
 
         <h1>Créer mon compte</h1>
