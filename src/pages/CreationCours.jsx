@@ -26,12 +26,24 @@ function nouvelleEtape() {
   }
 }
 
-async function notifierMakeNouveauCours(titreCours, groupeId) {
+async function notifierMakeNouveauCours(titreCours, groupeIds) {
   try {
-    const { data, error } = await supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId })
-    if (error || !data || data.length === 0) return
+    const resultats = await Promise.all(
+      groupeIds.map((groupeId) => supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId }))
+    )
 
-    const membres = data.map((m) => ({ email: m.email, prenom: m.prenom }))
+    const membresParEmail = new Map()
+    for (const { data, error } of resultats) {
+      if (error) continue
+      for (const m of data ?? []) {
+        if (m.email && !membresParEmail.has(m.email)) {
+          membresParEmail.set(m.email, { email: m.email, prenom: m.prenom })
+        }
+      }
+    }
+
+    const membres = [...membresParEmail.values()]
+    if (membres.length === 0) return
 
     fetch(import.meta.env.VITE_MAKE_WEBHOOK_NOUVEAU_COURS_URL, {
       method: 'POST',
@@ -58,7 +70,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
   const [etapes, setEtapes] = useState([])
 
   const [mesGroupes, setMesGroupes] = useState([])
-  const [groupeIdSelectionne, setGroupeIdSelectionne] = useState('')
+  const [groupeIdsSelectionnes, setGroupeIdsSelectionnes] = useState([])
 
   const [chargement, setChargement] = useState(modeEdition)
   const [erreurChargement, setErreurChargement] = useState(null)
@@ -81,10 +93,10 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
     let annule = false
 
     async function charger() {
-      const [coursRes, questionsRes, etapesRes] = await Promise.all([
+      const [coursRes, questionsRes, etapesRes, coursGroupesRes] = await Promise.all([
         supabase
           .from('cours')
-          .select('id, titre, contenu, categorie, domaine, formateur_id, groupe_id, checklist_mode')
+          .select('id, titre, contenu, categorie, domaine, formateur_id, checklist_mode')
           .eq('id', coursId)
           .single(),
         supabase
@@ -97,11 +109,19 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           .select('id, ordre, intitule, critere_validation, bloquante')
           .eq('cours_id', coursId)
           .order('ordre'),
+        supabase
+          .from('cours_groupes')
+          .select('groupe_id')
+          .eq('cours_id', coursId),
       ])
 
       if (annule) return
 
-      const premiereErreur = coursRes.error?.message ?? questionsRes.error?.message ?? etapesRes.error?.message
+      const premiereErreur =
+        coursRes.error?.message ??
+        questionsRes.error?.message ??
+        etapesRes.error?.message ??
+        coursGroupesRes.error?.message
       if (premiereErreur) {
         setErreurChargement(premiereErreur)
         setChargement(false)
@@ -118,7 +138,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
       setContenu(coursRes.data.contenu ?? '')
       setCategorie(coursRes.data.categorie ?? '')
       setDomaine(coursRes.data.domaine ?? '')
-      setGroupeIdSelectionne(coursRes.data.groupe_id ?? '')
+      setGroupeIdsSelectionnes((coursGroupesRes.data ?? []).map((cg) => cg.groupe_id))
 
       setQuestions(
         (questionsRes.data ?? []).map((q) => ({
@@ -196,6 +216,12 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
     )
   }
 
+  function toggleGroupe(groupeId) {
+    setGroupeIdsSelectionnes((prev) =>
+      prev.includes(groupeId) ? prev.filter((id) => id !== groupeId) : [...prev, groupeId]
+    )
+  }
+
   function ajouterEtape() {
     setEtapes((prev) => [...prev, nouvelleEtape()])
   }
@@ -256,7 +282,6 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           contenu: contenu.trim(),
           domaine: domaine.trim(),
           categorie: categorie.trim(),
-          groupe_id: groupeIdSelectionne || null,
           checklist_mode: aChecklist ? checklistMode : null,
         })
         .eq('id', coursId)
@@ -267,8 +292,9 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
         return
       }
 
-      // Plutôt qu'un diff ligne par ligne, on repart de zéro : questions/reponses/etapes_checklist
-      // n'ont pas de dépendances externes en dehors du cours, donc supprimer puis réinsérer est sûr.
+      // Plutôt qu'un diff ligne par ligne, on repart de zéro : questions/reponses/etapes_checklist/
+      // cours_groupes n'ont pas de dépendances externes en dehors du cours, donc supprimer puis
+      // réinsérer est sûr.
       const { error: erreurSuppressionQuestions } = await supabase
         .from('questions')
         .delete()
@@ -288,6 +314,16 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
         setErreur(`L'ancienne checklist n'a pas pu être supprimée (${erreurSuppressionEtapes.message}).`)
         return
       }
+
+      const { error: erreurSuppressionGroupes } = await supabase
+        .from('cours_groupes')
+        .delete()
+        .eq('cours_id', coursId)
+      if (erreurSuppressionGroupes) {
+        setEnregistrement(false)
+        setErreur(`Les anciens groupes assignés n'ont pas pu être supprimés (${erreurSuppressionGroupes.message}).`)
+        return
+      }
     } else {
       const { data: coursCree, error: erreurCours } = await supabase
         .from('cours')
@@ -298,7 +334,6 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           categorie: categorie.trim(),
           visibilite: 'prive',
           formateur_id: authUser.id,
-          groupe_id: groupeIdSelectionne || null,
           checklist_mode: aChecklist ? checklistMode : null,
         })
         .select()
@@ -359,8 +394,22 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
       }
     }
 
-    if (!modeEdition && groupeIdSelectionne) {
-      notifierMakeNouveauCours(titre.trim(), groupeIdSelectionne)
+    if (groupeIdsSelectionnes.length > 0) {
+      const groupesAInserer = groupeIdsSelectionnes.map((groupeId) => ({
+        cours_id: coursIdActuel,
+        groupe_id: groupeId,
+      }))
+
+      const { error: erreurGroupes } = await supabase.from('cours_groupes').insert(groupesAInserer)
+      if (erreurGroupes) {
+        setEnregistrement(false)
+        setErreur(`Les groupes assignés n'ont pas pu être enregistrés (${erreurGroupes.message}).`)
+        return
+      }
+    }
+
+    if (!modeEdition && groupeIdsSelectionnes.length > 0) {
+      notifierMakeNouveauCours(titre.trim(), groupeIdsSelectionnes)
     }
 
     setEnregistrement(false)
@@ -429,26 +478,29 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
               <textarea value={contenu} onChange={(e) => setContenu(e.target.value)} />
             </label>
 
-            <div className="creation-ligne-champs">
-              <label className="champ">
-                <span>Domaine</span>
-                <input type="text" value={domaine} onChange={(e) => setDomaine(e.target.value)} />
-              </label>
+            <label className="champ">
+              <span>Domaine</span>
+              <input type="text" value={domaine} onChange={(e) => setDomaine(e.target.value)} />
+            </label>
 
-              <label className="champ">
-                <span>Assigner à un groupe (optionnel)</span>
-                <select
-                  value={groupeIdSelectionne}
-                  onChange={(e) => setGroupeIdSelectionne(e.target.value)}
-                >
-                  <option value="">— Aucun —</option>
-                  {mesGroupes.map((groupe) => (
-                    <option key={groupe.id} value={groupe.id}>
+            <div className="champ">
+              <span>Assigner à des groupes (optionnel)</span>
+              <div className="creation-groupes-liste">
+                {mesGroupes.length === 0 ? (
+                  <p className="dashboard-etat-vide">Tu n'as pas encore de groupe.</p>
+                ) : (
+                  mesGroupes.map((groupe) => (
+                    <label className="creation-checkbox" key={groupe.id}>
+                      <input
+                        type="checkbox"
+                        checked={groupeIdsSelectionnes.includes(groupe.id)}
+                        onChange={() => toggleGroupe(groupe.id)}
+                      />
                       {groupe.nom}
-                    </option>
-                  ))}
-                </select>
-              </label>
+                    </label>
+                  ))
+                )}
+              </div>
             </div>
           </section>
 

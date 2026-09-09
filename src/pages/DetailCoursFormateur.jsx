@@ -10,6 +10,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
   const [cours, setCours] = useState(null)
   const [questions, setQuestions] = useState([])
   const [etapes, setEtapes] = useState([])
+  const [groupesAssignes, setGroupesAssignes] = useState([])
 
   const [suppression, setSuppression] = useState(false)
   const [confirmationSuppression, setConfirmationSuppression] = useState(false)
@@ -18,7 +19,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
     let annule = false
 
     async function charger() {
-      const [coursRes, questionsRes, etapesRes] = await Promise.all([
+      const [coursRes, questionsRes, etapesRes, coursGroupesRes] = await Promise.all([
         supabase.from('cours').select('id, titre, contenu, categorie, domaine, formateur_id').eq('id', coursId).single(),
         supabase
           .from('questions')
@@ -30,11 +31,13 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
           .select('id, ordre, intitule, critere_validation, bloquante')
           .eq('cours_id', coursId)
           .order('ordre'),
+        supabase.from('cours_groupes').select('groupes(id, nom)').eq('cours_id', coursId),
       ])
 
       if (annule) return
 
-      const premiereErreur = coursRes.error?.message ?? questionsRes.error?.message ?? etapesRes.error?.message
+      const premiereErreur =
+        coursRes.error?.message ?? questionsRes.error?.message ?? etapesRes.error?.message ?? coursGroupesRes.error?.message
       if (premiereErreur) {
         setErreur(premiereErreur)
         setChargement(false)
@@ -44,6 +47,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
       setCours(coursRes.data)
       setQuestions(questionsRes.data ?? [])
       setEtapes(etapesRes.data ?? [])
+      setGroupesAssignes((coursGroupesRes.data ?? []).map((cg) => cg.groupes).filter(Boolean))
       setChargement(false)
     }
 
@@ -149,6 +153,12 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
             <p className="detail-meta">
               Domaine : {cours.domaine || '—'} · Catégorie : {cours.categorie || '—'}
             </p>
+            {estProprietaire && (
+              <p className="detail-meta">
+                Groupes assignés :{' '}
+                {groupesAssignes.length > 0 ? groupesAssignes.map((g) => g.nom).join(', ') : 'Aucun'}
+              </p>
+            )}
             <div className="detail-contenu">{cours.contenu}</div>
           </section>
 

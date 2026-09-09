@@ -66,8 +66,11 @@ Aucune pour l'instant — le champ `domaine` sur `cours` couvre déjà l'anticip
 - `visibilite` (enum : `public` | `prive`)
 - `checklist_mode` (texte : `checkbox` | `reorder`, nullable — s'applique à toute la checklist du cours, pas étape par étape)
 - `formateur_id` (FK → profiles, nullable — rempli seulement si `visibilite = prive`)
-- `groupe_id` (FK → groupes, nullable — rempli seulement si privé et assigné à un groupe)
 - `created_at`
+
+### `cours_groupes` (table de liaison — un cours peut être assigné à plusieurs groupes)
+- `id`, `cours_id` (FK → cours), `groupe_id` (FK → groupes)
+- Contrainte unique sur (cours_id, groupe_id)
 
 ### `questions`
 - `id`, `cours_id` (FK), `enonce`

@@ -11,12 +11,20 @@ const LABEL_STATUT = {
 
 async function notifierMakeNouvelEleve(apprenantId, groupeId) {
   try {
-    const [{ data: membresData, error: erreurMembres }, { data: coursData, error: erreurCours }] = await Promise.all([
-      supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId }),
-      supabase.from('cours').select('titre').eq('groupe_id', groupeId).eq('visibilite', 'prive'),
-    ])
+    const [{ data: membresData, error: erreurMembres }, { data: coursGroupesData, error: erreurCours }] =
+      await Promise.all([
+        supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId }),
+        supabase.from('cours_groupes').select('cours(titre, visibilite)').eq('groupe_id', groupeId),
+      ])
 
-    if (erreurMembres || erreurCours || !coursData || coursData.length === 0) return
+    if (erreurMembres || erreurCours) return
+
+    const titresCoursPrives = (coursGroupesData ?? [])
+      .map((cg) => cg.cours)
+      .filter((c) => c && c.visibilite === 'prive')
+      .map((c) => c.titre)
+
+    if (titresCoursPrives.length === 0) return
 
     const nouveauMembre = (membresData ?? []).find((m) => m.id === apprenantId)
     if (!nouveauMembre) return
@@ -28,7 +36,7 @@ async function notifierMakeNouvelEleve(apprenantId, groupeId) {
         type: 'nouvel_eleve',
         prenom: nouveauMembre.prenom,
         email: nouveauMembre.email,
-        cours: coursData.map((c) => c.titre),
+        cours: titresCoursPrives,
       }),
     }).catch((err) => console.error('Notification Make échouée:', err))
   } catch (err) {
@@ -67,16 +75,17 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
   }
 
   async function rechargerSuivi(membresActuels) {
-    const { data: coursData, error: erreurCoursSuivi } = await supabase
-      .from('cours')
-      .select('id, titre')
+    const { data: coursGroupesData, error: erreurCoursSuivi } = await supabase
+      .from('cours_groupes')
+      .select('cours(id, titre)')
       .eq('groupe_id', groupeId)
 
     if (erreurCoursSuivi) {
       setErreurSuivi(erreurCoursSuivi.message)
       return
     }
-    setCoursDuGroupe(coursData ?? [])
+    const coursData = (coursGroupesData ?? []).map((cg) => cg.cours).filter(Boolean)
+    setCoursDuGroupe(coursData)
 
     if (membresActuels.length === 0) return
 
