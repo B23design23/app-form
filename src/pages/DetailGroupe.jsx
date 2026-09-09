@@ -9,6 +9,33 @@ const LABEL_STATUT = {
   termine: 'Terminé',
 }
 
+async function notifierMakeNouvelEleve(apprenantId, groupeId) {
+  try {
+    const [{ data: membresData, error: erreurMembres }, { data: coursData, error: erreurCours }] = await Promise.all([
+      supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId }),
+      supabase.from('cours').select('titre').eq('groupe_id', groupeId).eq('visibilite', 'prive'),
+    ])
+
+    if (erreurMembres || erreurCours || !coursData || coursData.length === 0) return
+
+    const nouveauMembre = (membresData ?? []).find((m) => m.id === apprenantId)
+    if (!nouveauMembre) return
+
+    fetch(import.meta.env.VITE_MAKE_WEBHOOK_NOUVEAU_COURS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'nouvel_eleve',
+        prenom: nouveauMembre.prenom,
+        email: nouveauMembre.email,
+        cours: coursData.map((c) => c.titre),
+      }),
+    }).catch((err) => console.error('Notification Make échouée:', err))
+  } catch (err) {
+    console.error('Notification Make échouée:', err)
+  }
+}
+
 function DetailGroupe({ authUser, groupeId, onRetour }) {
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState(null)
@@ -150,6 +177,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     }
 
     setEmailAjout('')
+    notifierMakeNouvelEleve(apprenantId, groupeId)
     const membresActuels = await rechargerMembres()
     await rechargerSuivi(membresActuels)
   }

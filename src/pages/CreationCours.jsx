@@ -26,6 +26,23 @@ function nouvelleEtape() {
   }
 }
 
+async function notifierMakeNouveauCours(titreCours, groupeId) {
+  try {
+    const { data, error } = await supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId })
+    if (error || !data || data.length === 0) return
+
+    const membres = data.map((m) => ({ email: m.email, prenom: m.prenom }))
+
+    fetch(import.meta.env.VITE_MAKE_WEBHOOK_NOUVEAU_COURS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'nouveau_cours', titre: titreCours, membres }),
+    }).catch((err) => console.error('Notification Make échouée:', err))
+  } catch (err) {
+    console.error('Notification Make échouée:', err)
+  }
+}
+
 function CreationCours({ authUser, coursId, onTermine, onRetour }) {
   const modeEdition = Boolean(coursId)
 
@@ -340,6 +357,10 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
         setErreur(`La checklist n'a pas pu être enregistrée (${erreurEtapes.message}).`)
         return
       }
+    }
+
+    if (!modeEdition && groupeIdSelectionne) {
+      notifierMakeNouveauCours(titre.trim(), groupeIdSelectionne)
     }
 
     setEnregistrement(false)
