@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import iconeEdit from '../Assets/edit.svg'
+import iconeTrash from '../Assets/trash.svg'
 import '../styles/shared.css'
 import './DetailCoursFormateur.css'
 
@@ -107,22 +109,26 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
         </button>
 
         <div className="flow-card detail-cours-card">
-          <h1>{cours.titre}</h1>
+          <div className="detail-entete">
+            <h1>{cours.titre}</h1>
 
-          {estProprietaire && !confirmationSuppression && (
-            <div className="detail-actions">
-              <button type="button" className="bouton-secondaire" onClick={onModifier}>
-                Modifier
-              </button>
-              <button
-                type="button"
-                className="detail-bouton-supprimer"
-                onClick={() => setConfirmationSuppression(true)}
-              >
-                Supprimer
-              </button>
-            </div>
-          )}
+            {estProprietaire && !confirmationSuppression && (
+              <div className="detail-actions detail-actions-titre">
+                <button type="button" className="bouton-secondaire" onClick={onModifier}>
+                  <img className="cta-icone" src={iconeEdit} alt="" aria-hidden="true" />
+                  Modifier
+                </button>
+                <button
+                  type="button"
+                  className="detail-bouton-supprimer"
+                  onClick={() => setConfirmationSuppression(true)}
+                >
+                  <img className="cta-icone" src={iconeTrash} alt="" aria-hidden="true" />
+                  Supprimer
+                </button>
+              </div>
+            )}
+          </div>
 
           {estProprietaire && confirmationSuppression && (
             <div className="detail-confirmation-suppression">

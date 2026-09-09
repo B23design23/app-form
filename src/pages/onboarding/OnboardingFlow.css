@@ -1,3 +1,14 @@
+.onboarding-lien-retour-invisible {
+  visibility: hidden;
+}
+
+.onboarding-step {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 240px;
+}
+
 .onboarding-actions {
   display: flex;
   gap: 12px;

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import Dropdown from '../components/Dropdown'
+import iconeTrash from '../Assets/trash.svg'
 import '../styles/shared.css'
 import './DetailGroupe.css'
 
@@ -7,6 +9,23 @@ const LABEL_STATUT = {
   non_commence: 'Non commencé',
   en_cours: 'En cours',
   termine: 'Terminé',
+}
+
+const OPTIONS_FILTRE_STATUT = [
+  { value: 'tous', label: 'Tous' },
+  { value: 'non_commence', label: 'Non commencé' },
+  { value: 'en_cours', label: 'En cours' },
+  { value: 'termine', label: 'Terminé' },
+]
+
+function correspondRecherche(membre, terme) {
+  const t = terme.trim().toLowerCase()
+  if (!t) return true
+  return (
+    (membre.prenom ?? '').toLowerCase().includes(t) ||
+    (membre.nom ?? '').toLowerCase().includes(t) ||
+    (membre.email ?? '').toLowerCase().includes(t)
+  )
 }
 
 async function notifierMakeNouvelEleve(apprenantId, groupeId) {
@@ -63,6 +82,17 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
 
   const [suppression, setSuppression] = useState(false)
   const [erreurSuppression, setErreurSuppression] = useState(null)
+
+  const [rechercheEleve, setRechercheEleve] = useState('')
+  const [filtreStatut, setFiltreStatut] = useState('tous')
+  const [tri, setTri] = useState({ colonne: null, direction: 'desc' })
+
+  function handleTriColonne(colonne) {
+    setTri((prev) => {
+      if (prev.colonne !== colonne) return { colonne, direction: 'desc' }
+      return { colonne, direction: prev.direction === 'desc' ? 'asc' : 'desc' }
+    })
+  }
 
   async function rechargerMembres() {
     const { data, error } = await supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId })
@@ -217,6 +247,23 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     onRetour()
   }
 
+  const membresRecherches = membres.filter((m) => correspondRecherche(m, rechercheEleve))
+
+  const membresSuivi = membresRecherches.filter((membre) => {
+    if (filtreStatut === 'tous') return true
+    return coursDuGroupe.some(
+      (cours) => (progressionParCle.get(`${membre.id}_${cours.id}`) ?? 'non_commence') === filtreStatut
+    )
+  })
+
+  const membresSuiviTries = tri.colonne
+    ? [...membresSuivi].sort((a, b) => {
+        const valeur = (m) => (tri.colonne === 'xp' ? m.xp_total : badgesParApprenant.get(m.id) ?? 0)
+        const diff = valeur(a) - valeur(b)
+        return tri.direction === 'asc' ? diff : -diff
+      })
+    : membresSuivi
+
   if (chargement) {
     return (
       <div className="flow-page flow-page-formateur">
@@ -255,6 +302,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
             onClick={handleSupprimerGroupe}
             disabled={suppression}
           >
+            <img className="cta-icone" src={iconeTrash} alt="" aria-hidden="true" />
             {suppression ? 'Suppression…' : 'Supprimer ce groupe'}
           </button>
         </div>
@@ -267,15 +315,18 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
           <div className="detail-groupe-grille">
             <section className="detail-section detail-groupe-section-eleves">
               <h2>Élèves ({membres.length})</h2>
+
               {erreurMembres ? (
                 <p className="message message-erreur">
                   Impossible de charger les élèves ({erreurMembres}).
                 </p>
               ) : membres.length === 0 ? (
                 <p className="dashboard-etat-vide">Aucun élève dans ce groupe.</p>
+              ) : membresRecherches.length === 0 ? (
+                <p className="dashboard-etat-vide">Aucun élève trouvé pour « {rechercheEleve.trim()} ».</p>
               ) : (
                 <ul className="dashboard-liste">
-                  {membres.map((membre) => (
+                  {membresRecherches.map((membre) => (
                     <li key={membre.id} className="detail-groupe-membre">
                       <span className="detail-groupe-membre-info">
                         {membre.prenom} {membre.nom ?? ''} — {membre.email}
@@ -293,12 +344,53 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
               )}
             </section>
 
+            <section className="detail-section detail-groupe-section-ajout">
+              <h2>Ajouter un élève</h2>
+              <form className="dashboard-groupe-form" onSubmit={handleAjouterEleve}>
+                <input
+                  type="email"
+                  required
+                  placeholder="Email de l'élève"
+                  value={emailAjout}
+                  onChange={(e) => setEmailAjout(e.target.value)}
+                />
+                <button type="submit" className="bouton-ajouter" disabled={ajoutEnCours}>
+                  {ajoutEnCours ? 'Recherche…' : 'Ajouter'}
+                </button>
+              </form>
+              {erreurAjout && <p className="message message-erreur">{erreurAjout}</p>}
+            </section>
+
             <section className="detail-section detail-groupe-section-suivi">
               <h2>Suivi de progression</h2>
+
+              {membres.length > 0 && (
+                <div className="detail-suivi-controles">
+                  <label className="champ detail-groupe-recherche">
+                    <span>Rechercher un élève</span>
+                    <input
+                      type="text"
+                      placeholder="Nom, prénom ou email"
+                      value={rechercheEleve}
+                      onChange={(e) => setRechercheEleve(e.target.value)}
+                    />
+                  </label>
+
+                  <label className="champ detail-groupe-filtre-statut">
+                    <span>Filtrer par statut</span>
+                    <Dropdown value={filtreStatut} onChange={setFiltreStatut} options={OPTIONS_FILTRE_STATUT} />
+                  </label>
+                </div>
+              )}
+
               {erreurSuivi ? (
                 <p className="message message-erreur">Impossible de charger le suivi ({erreurSuivi}).</p>
               ) : membres.length === 0 ? (
                 <p className="dashboard-etat-vide">Aucun élève à suivre pour le moment.</p>
+              ) : membresRecherches.length === 0 ? (
+                <p className="dashboard-etat-vide">Aucun élève trouvé pour « {rechercheEleve.trim()} ».</p>
+              ) : membresSuiviTries.length === 0 ? (
+                <p className="dashboard-etat-vide">Aucun élève ne correspond au filtre sélectionné.</p>
               ) : (
                 <div className="detail-suivi-scroll">
                   <table className="detail-suivi-table">
@@ -310,12 +402,38 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                             {cours.titre}
                           </th>
                         ))}
-                        <th>XP</th>
-                        <th>Badges</th>
+                        <th>
+                          <button
+                            type="button"
+                            className="detail-suivi-th-bouton"
+                            onClick={() => handleTriColonne('xp')}
+                          >
+                            XP
+                            {tri.colonne === 'xp' && (
+                              <span className="detail-suivi-tri-fleche" aria-hidden="true">
+                                {tri.direction === 'desc' ? '▼' : '▲'}
+                              </span>
+                            )}
+                          </button>
+                        </th>
+                        <th>
+                          <button
+                            type="button"
+                            className="detail-suivi-th-bouton"
+                            onClick={() => handleTriColonne('badges')}
+                          >
+                            Badges
+                            {tri.colonne === 'badges' && (
+                              <span className="detail-suivi-tri-fleche" aria-hidden="true">
+                                {tri.direction === 'desc' ? '▼' : '▲'}
+                              </span>
+                            )}
+                          </button>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {membres.map((membre) => (
+                      {membresSuiviTries.map((membre) => (
                         <tr key={membre.id}>
                           <td>
                             {membre.prenom} {membre.nom ?? ''}
@@ -338,23 +456,6 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                   </table>
                 </div>
               )}
-            </section>
-
-            <section className="detail-section detail-groupe-section-ajout">
-              <h2>Ajouter un élève</h2>
-              <form className="dashboard-groupe-form" onSubmit={handleAjouterEleve}>
-                <input
-                  type="email"
-                  required
-                  placeholder="Email de l'élève"
-                  value={emailAjout}
-                  onChange={(e) => setEmailAjout(e.target.value)}
-                />
-                <button type="submit" className="bouton-ajouter" disabled={ajoutEnCours}>
-                  {ajoutEnCours ? 'Recherche…' : 'Ajouter'}
-                </button>
-              </form>
-              {erreurAjout && <p className="message message-erreur">{erreurAjout}</p>}
             </section>
           </div>
         </div>

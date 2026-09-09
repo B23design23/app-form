@@ -2,13 +2,16 @@ import NavigationEspace from '../components/NavigationEspace'
 import DashboardFormateur from './DashboardFormateur'
 import SectionCoursFormateur from './SectionCoursFormateur'
 import SectionGroupesFormateur from './SectionGroupesFormateur'
+import iconeDashboard from '../Assets/dashboard.svg'
+import iconeCours from '../Assets/book.svg'
+import iconeGroupes from '../Assets/Users.svg'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 
 const ONGLETS = [
-  { id: 'dashboard', label: 'Dashboard', icone: '🏠' },
-  { id: 'cours', label: 'Cours', icone: '📚' },
-  { id: 'groupes', label: 'Groupes', icone: '👥' },
+  { id: 'dashboard', label: 'Dashboard', icone: iconeDashboard },
+  { id: 'cours', label: 'Cours', icone: iconeCours },
+  { id: 'groupes', label: 'Groupes', icone: iconeGroupes },
 ]
 
 function EspaceFormateur({ authUser, section, onChangerSection, onCreerCours, onOuvrirCours, onOuvrirGroupe }) {

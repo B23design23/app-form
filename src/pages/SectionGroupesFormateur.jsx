@@ -6,8 +6,11 @@ import '../styles/espace-layout.css'
 function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
   const [mesGroupes, setMesGroupes] = useState(null)
   const [erreur, setErreur] = useState(null)
+
+  const [modalOuverte, setModalOuverte] = useState(false)
   const [nomNouveauGroupe, setNomNouveauGroupe] = useState('')
   const [creationEnCours, setCreationEnCours] = useState(false)
+  const [erreurCreation, setErreurCreation] = useState(null)
 
   function rechargerGroupes() {
     return supabase
@@ -25,10 +28,22 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser.id])
 
+  function ouvrirModal() {
+    setErreurCreation(null)
+    setNomNouveauGroupe('')
+    setModalOuverte(true)
+  }
+
+  function fermerModal() {
+    if (creationEnCours) return
+    setModalOuverte(false)
+  }
+
   async function handleCreerGroupe(e) {
     e.preventDefault()
     if (nomNouveauGroupe.trim().length === 0) return
 
+    setErreurCreation(null)
     setCreationEnCours(true)
     const { error } = await supabase
       .from('groupes')
@@ -36,17 +51,23 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
     setCreationEnCours(false)
 
     if (error) {
-      setErreur(error.message)
+      setErreurCreation(error.message)
       return
     }
 
     setNomNouveauGroupe('')
+    setModalOuverte(false)
     rechargerGroupes()
   }
 
   return (
     <div className="espace-page espace-page-etroit">
-      <h1>Mes groupes</h1>
+      <div className="section-formateur-entete">
+        <h1>Mes groupes</h1>
+        <button type="button" className="bouton-secondaire" onClick={ouvrirModal}>
+          + Créer un groupe
+        </button>
+      </div>
 
       {erreur ? (
         <p className="message message-erreur">Impossible de charger tes groupes ({erreur}).</p>
@@ -69,21 +90,34 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
         </ul>
       )}
 
-      <form className="dashboard-groupe-form" onSubmit={handleCreerGroupe}>
-        <input
-          type="text"
-          placeholder="Nom du groupe"
-          value={nomNouveauGroupe}
-          onChange={(e) => setNomNouveauGroupe(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="bouton-ajouter"
-          disabled={creationEnCours || nomNouveauGroupe.trim().length === 0}
-        >
-          + Créer un groupe
-        </button>
-      </form>
+      {modalOuverte && (
+        <div className="modal-overlay" onClick={fermerModal}>
+          <div className="modal-carte" onClick={(e) => e.stopPropagation()}>
+            <h2>Créer un nouveau groupe</h2>
+            <form onSubmit={handleCreerGroupe}>
+              <label className="champ">
+                <span>Nom du groupe</span>
+                <input
+                  type="text"
+                  autoFocus
+                  value={nomNouveauGroupe}
+                  onChange={(e) => setNomNouveauGroupe(e.target.value)}
+                />
+              </label>
+
+              {erreurCreation && <p className="message message-erreur">{erreurCreation}</p>}
+
+              <button
+                type="submit"
+                className="bouton-primaire"
+                disabled={creationEnCours || nomNouveauGroupe.trim().length === 0}
+              >
+                {creationEnCours ? 'Création…' : 'Valider'}
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

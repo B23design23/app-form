@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import { iconeBadge } from '../lib/badges'
+import { iconeBadge, libelleCondition } from '../lib/badges'
+import { salutation } from '../lib/salutation'
+import iconeXp from '../Assets/badge/Iconxp.svg'
+import iconeFlash from '../Assets/flash.svg'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './Dashboard.css'
@@ -74,7 +77,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
     supabase
       .from('badges')
-      .select('id, nom, icone, description')
+      .select('id, nom, icone, description, condition_deblocage')
       .then(({ data, error }) => {
         if (annule) return
         if (error) setErreurBadges(error.message)
@@ -158,14 +161,74 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
       ].filter(Boolean)
     : []
 
+  const LIMITE_RECOMMANDES = 6
+  const coursNonCommences = coursListe.filter((c) => {
+    const statut = statutParCoursId.get(c.id)
+    return (!statut || statut === 'non_commence') && c.id !== coursAMettreEnAvant?.id
+  })
+  const coursRecommandes = coursNonCommences.slice(0, LIMITE_RECOMMANDES)
+
   return (
     <div className="espace-page espace-page-etroit apprenant-dashboard-grille">
       <div className="apprenant-entete">
-        <h1>Salut, {profil.prenom} !</h1>
-        <span className="apprenant-xp-pastille">
-          <span aria-hidden="true">⚡</span> {profil.xp_total} XP
-        </span>
+        <h1>{salutation()} {profil.prenom} !</h1>
       </div>
+
+      <div className="apprenant-metriques">
+        <div className="espace-carte apprenant-metrique apprenant-metrique-xp">
+          <span className="apprenant-metrique-valeur apprenant-metrique-valeur-xp">
+            <img className="apprenant-xp-icone" src={iconeXp} alt="" aria-hidden="true" />
+            {profil.xp_total}
+          </span>
+          <span className="apprenant-metrique-label">XP total</span>
+        </div>
+        <div className="espace-carte apprenant-metrique">
+          <span className="apprenant-metrique-valeur">{coursTermines}</span>
+          <span className="apprenant-metrique-label">Cours terminés</span>
+        </div>
+        <div className="espace-carte apprenant-metrique">
+          <span className="apprenant-metrique-valeur">
+            {badgesObtenus.length}/{tousBadges.length}
+          </span>
+          <span className="apprenant-metrique-label">Badges obtenus</span>
+        </div>
+      </div>
+
+      <section className="espace-carte apprenant-section-badges">
+        <h2>Badges</h2>
+        {erreurBadges ? (
+          <p className="message message-erreur">Impossible de charger tes badges ({erreurBadges}).</p>
+        ) : (
+          <div className="apprenant-badges-rangee">
+            {tousBadges.map((badge) => {
+              const obtenu = idsObtenus.has(badge.id)
+              return (
+                <button
+                  key={badge.id}
+                  type="button"
+                  className="apprenant-badge-tuile"
+                  title={obtenu ? badge.nom : `${badge.nom} (verrouillé)`}
+                  onClick={() => setBadgeSelectionne({ ...badge, obtenu })}
+                >
+                  <span className={`apprenant-badge${obtenu ? ' apprenant-badge-obtenu' : ' apprenant-badge-verrouille'}`}>
+                    {obtenu ? (
+                      <img
+                        className="apprenant-badge-icone"
+                        src={iconeBadge(badge.icone)}
+                        alt=""
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <span aria-hidden="true">🔒</span>
+                    )}
+                  </span>
+                  <span className="apprenant-badge-nom">{badge.nom}</span>
+                </button>
+              )
+            })}
+          </div>
+        )}
+      </section>
 
       <div className="espace-carte espace-carte-continuer">
         <div className="apprenant-continuer-layout">
@@ -242,30 +305,6 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         </div>
       </div>
 
-      <div className="espace-carte espace-carte-badges">
-        <h2>Badges</h2>
-        {erreurBadges ? (
-          <p className="message message-erreur">Impossible de charger tes badges ({erreurBadges}).</p>
-        ) : (
-          <div className="apprenant-badges-rangee">
-            {tousBadges.map((badge) => {
-              const obtenu = idsObtenus.has(badge.id)
-              return (
-                <button
-                  key={badge.id}
-                  type="button"
-                  className={`apprenant-badge${obtenu ? ' apprenant-badge-obtenu' : ' apprenant-badge-verrouille'}`}
-                  title={obtenu ? badge.nom : `${badge.nom} (verrouillé)`}
-                  onClick={() => setBadgeSelectionne({ ...badge, obtenu })}
-                >
-                  <span aria-hidden="true">{obtenu ? iconeBadge(badge.icone) : '🔒'}</span>
-                </button>
-              )
-            })}
-          </div>
-        )}
-      </div>
-
       <div className="espace-carte apprenant-banniere-quizflash">
         {erreurScoresQuizCours ? (
           <p className="message message-erreur">
@@ -274,7 +313,8 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         ) : quizFlashDebloque ? (
           <>
             <p>Un petit quiz flash pour tester tes connaissances et gratter de l'XP ?</p>
-            <button type="button" className="bouton-primaire" onClick={onOuvrirQuizFlash}>
+            <button type="button" className="bouton-secondaire" onClick={onOuvrirQuizFlash}>
+              <img className="cta-icone" src={iconeFlash} alt="" aria-hidden="true" />
               Lancer le quiz flash
             </button>
           </>
@@ -283,6 +323,37 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         )}
       </div>
 
+      <section className="apprenant-section-recommandes">
+        <h2>Cours recommandés</h2>
+
+        {erreurCours ? (
+          <p className="message message-erreur">Impossible de charger les cours recommandés ({erreurCours}).</p>
+        ) : coursRecommandes.length === 0 ? (
+          <p className="dashboard-etat-vide">Tu as déjà commencé tous les cours disponibles, bravo !</p>
+        ) : (
+          <>
+            <ul className="espace-liste dashboard-recommandes-grille">
+              {coursRecommandes.map((cours) => (
+                <li key={cours.id}>
+                  <button type="button" className="espace-liste-item" onClick={() => onOuvrirCours(cours.id)}>
+                    <span className="espace-liste-item-titre">{cours.titre}</span>
+                    <span className="espace-liste-item-chevron" aria-hidden="true">
+                      ›
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            {coursNonCommences.length > LIMITE_RECOMMANDES && (
+              <button type="button" className="lien-secondaire" onClick={() => onChangerSection('cours')}>
+                Voir tous les cours
+              </button>
+            )}
+          </>
+        )}
+      </section>
+
       {badgeSelectionne && (
         <div className="badge-modal-overlay" onClick={() => setBadgeSelectionne(null)}>
           <div className="badge-modal" onClick={(e) => e.stopPropagation()}>
@@ -290,10 +361,18 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
               className={`apprenant-badge badge-modal-icone${badgeSelectionne.obtenu ? ' apprenant-badge-obtenu' : ' apprenant-badge-verrouille'}`}
               aria-hidden="true"
             >
-              {badgeSelectionne.obtenu ? iconeBadge(badgeSelectionne.icone) : '🔒'}
+              {badgeSelectionne.obtenu ? (
+                <img className="apprenant-badge-icone" src={iconeBadge(badgeSelectionne.icone)} alt="" />
+              ) : (
+                '🔒'
+              )}
             </div>
             <h3>{badgeSelectionne.nom}</h3>
-            <p>{badgeSelectionne.obtenu ? badgeSelectionne.description : `Verrouillé — ${badgeSelectionne.description}`}</p>
+            <p>
+              {badgeSelectionne.obtenu
+                ? badgeSelectionne.description
+                : `Verrouillé — ${libelleCondition(badgeSelectionne.condition_deblocage)}`}
+            </p>
             <button type="button" className="bouton-primaire" onClick={() => setBadgeSelectionne(null)}>
               Fermer
             </button>

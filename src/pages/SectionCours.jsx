@@ -6,7 +6,7 @@ import '../styles/espace-layout.css'
 
 function ListeCours({ cours, statutParCoursId, onOuvrirCours }) {
   return (
-    <ul className="espace-liste">
+    <ul className="espace-liste espace-liste-grille">
       {cours.map((c) => {
         const statut = statutParCoursId.get(c.id) ?? 'non_commence'
         return (

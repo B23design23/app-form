@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import skilloLogo from '../Assets/Skillogo.svg'
 import '../styles/shared.css'
 import './Introduction.css'
 
@@ -35,43 +36,47 @@ function Introduction({ onTermine }) {
 
   return (
     <div className="flow-page">
-      <div className="flow-card introduction-card">
-        <div className="introduction-illustration-wrapper">
-          <svg viewBox="0 0 120 120" className="introduction-illustration" aria-hidden="true">
-            <circle cx="60" cy="60" r="52" stroke="var(--color-anneau-fond)" strokeWidth="10" fill="none" />
-            <circle
-              cx="60"
-              cy="60"
-              r="52"
-              stroke="var(--color-primary)"
-              strokeWidth="10"
-              fill="none"
-              strokeLinecap="round"
-              strokeDasharray="326.7"
-              strokeDashoffset="110"
-              transform="rotate(-90 60 60)"
-            />
-          </svg>
-          <span className="introduction-icone" aria-hidden="true">
-            {slide.icone}
-          </span>
+      <div className="page-logo-wrapper">
+        <img src={skilloLogo} alt="Skillo" className="page-logo" />
+
+        <div className="flow-card introduction-card">
+          <div className="introduction-illustration-wrapper">
+            <svg viewBox="0 0 120 120" className="introduction-illustration" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" stroke="var(--color-anneau-fond)" strokeWidth="10" fill="none" />
+              <circle
+                cx="60"
+                cy="60"
+                r="52"
+                stroke="var(--color-primary)"
+                strokeWidth="10"
+                fill="none"
+                strokeLinecap="round"
+                strokeDasharray="326.7"
+                strokeDashoffset="110"
+                transform="rotate(-90 60 60)"
+              />
+            </svg>
+            <span className="introduction-icone" aria-hidden="true">
+              {slide.icone}
+            </span>
+          </div>
+
+          <h1>{slide.titre}</h1>
+          <p className="souscription">{slide.texte}</p>
+
+          <div className="introduction-pagination" aria-hidden="true">
+            {SLIDES.map((_, i) => (
+              <span
+                key={i}
+                className={`introduction-point${i === slideActuelle ? ' introduction-point-actif' : ''}`}
+              />
+            ))}
+          </div>
+
+          <button type="button" className="bouton-primaire" onClick={handleSuivant}>
+            {derniere ? 'Commencer' : 'Suivant'}
+          </button>
         </div>
-
-        <h1>{slide.titre}</h1>
-        <p className="souscription">{slide.texte}</p>
-
-        <div className="introduction-pagination" aria-hidden="true">
-          {SLIDES.map((_, i) => (
-            <span
-              key={i}
-              className={`introduction-point${i === slideActuelle ? ' introduction-point-actif' : ''}`}
-            />
-          ))}
-        </div>
-
-        <button type="button" className="bouton-primaire" onClick={handleSuivant}>
-          {derniere ? 'Commencer' : 'Suivant'}
-        </button>
       </div>
     </div>
   )

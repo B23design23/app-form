@@ -1,7 +1,19 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import Dropdown from '../components/Dropdown'
+import iconeTrash from '../Assets/trash.svg'
 import '../styles/shared.css'
 import './CreationCours.css'
+
+const TYPES_REPONSE = [
+  { value: 'simple', label: 'Réponse unique' },
+  { value: 'multiple', label: 'Réponses multiples' },
+]
+
+const MODES_CHECKLIST = [
+  { value: 'checkbox', label: 'Cases à cocher' },
+  { value: 'reorder', label: 'Réorganisation' },
+]
 
 function nouvelleReponse() {
   return { localId: crypto.randomUUID(), texte: '', estCorrecte: false, explication: '' }
@@ -13,6 +25,7 @@ function nouvelleQuestion() {
     enonce: '',
     typeReponse: 'simple',
     reponses: [nouvelleReponse(), nouvelleReponse()],
+    estOuverte: true,
   }
 }
 
@@ -145,6 +158,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           localId: crypto.randomUUID(),
           enonce: q.enonce,
           typeReponse: q.type_reponse,
+          estOuverte: false,
           reponses: q.reponses.map((r) => ({
             localId: crypto.randomUUID(),
             texte: r.texte,
@@ -187,6 +201,22 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
   function majQuestion(questionId, champ, valeur) {
     setQuestions((prev) => prev.map((q) => (q.localId === questionId ? { ...q, [champ]: valeur } : q)))
+  }
+
+  function toggleQuestion(questionId) {
+    setQuestions((prev) =>
+      prev.map((q) => (q.localId === questionId ? { ...q, estOuverte: !q.estOuverte } : q))
+    )
+  }
+
+  function marquerSeuleCorrecte(questionId, reponseId) {
+    setQuestions((prev) =>
+      prev.map((q) =>
+        q.localId === questionId
+          ? { ...q, reponses: q.reponses.map((r) => ({ ...r, estCorrecte: r.localId === reponseId })) }
+          : q
+      )
+    )
   }
 
   function ajouterReponse(questionId) {
@@ -510,94 +540,125 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
             {questions.map((question, qi) => (
               <div className="creation-bloc" key={question.localId}>
                 <div className="creation-bloc-header">
-                  <h3>Question {qi + 1}</h3>
+                  <button
+                    type="button"
+                    className="creation-question-toggle"
+                    onClick={() => toggleQuestion(question.localId)}
+                    aria-expanded={question.estOuverte}
+                  >
+                    <span
+                      className={`creation-question-chevron${question.estOuverte ? ' creation-question-chevron-ouvert' : ''}`}
+                      aria-hidden="true"
+                    >
+                      ›
+                    </span>
+                    <h3 className="creation-question-titre">
+                      Question {qi + 1}
+                      {question.enonce.trim() ? ` : ${question.enonce.trim()}` : ''}
+                    </h3>
+                  </button>
                   {questions.length > 1 && (
                     <button
                       type="button"
                       className="creation-bouton-supprimer"
                       onClick={() => supprimerQuestion(question.localId)}
                     >
+                      <img className="cta-icone" src={iconeTrash} alt="" aria-hidden="true" />
                       Supprimer
                     </button>
                   )}
                 </div>
 
-                <label className="champ">
-                  <span>Énoncé</span>
-                  <textarea
-                    value={question.enonce}
-                    onChange={(e) => majQuestion(question.localId, 'enonce', e.target.value)}
-                  />
-                </label>
+                {question.estOuverte && (
+                  <>
+                    <label className="champ">
+                      <span>Énoncé</span>
+                      <textarea
+                        value={question.enonce}
+                        onChange={(e) => majQuestion(question.localId, 'enonce', e.target.value)}
+                      />
+                    </label>
 
-                <label className="champ">
-                  <span>Type de réponse</span>
-                  <select
-                    value={question.typeReponse}
-                    onChange={(e) => majQuestion(question.localId, 'typeReponse', e.target.value)}
-                  >
-                    <option value="simple">Réponse unique</option>
-                    <option value="multiple">Réponses multiples</option>
-                  </select>
-                </label>
+                    <label className="champ">
+                      <span>Type de réponse</span>
+                      <Dropdown
+                        value={question.typeReponse}
+                        onChange={(valeur) => majQuestion(question.localId, 'typeReponse', valeur)}
+                        options={TYPES_REPONSE}
+                      />
+                    </label>
 
-                <div className="creation-reponses">
-                  {question.reponses.map((reponse, ri) => (
-                    <div className="creation-reponse" key={reponse.localId}>
-                      <div className="creation-reponse-ligne">
-                        <input
-                          type="text"
-                          className="creation-reponse-texte"
-                          placeholder={`Réponse ${ri + 1}`}
-                          value={reponse.texte}
-                          onChange={(e) =>
-                            majReponse(question.localId, reponse.localId, 'texte', e.target.value)
-                          }
-                        />
-                        {question.reponses.length > 2 && (
-                          <button
-                            type="button"
-                            className="creation-bouton-supprimer"
-                            onClick={() => supprimerReponse(question.localId, reponse.localId)}
-                          >
-                            ×
-                          </button>
-                        )}
-                      </div>
+                    <div className="creation-reponses">
+                      {question.reponses.map((reponse, ri) => {
+                        const lettre = String.fromCharCode(65 + ri)
+                        return (
+                          <div className="creation-reponse" key={reponse.localId}>
+                            <div className="creation-reponse-ligne">
+                              <span className="creation-reponse-lettre" aria-hidden="true">
+                                {lettre}
+                              </span>
+                              <input
+                                type="text"
+                                className="creation-reponse-texte"
+                                placeholder={`Réponse ${lettre}`}
+                                value={reponse.texte}
+                                onChange={(e) =>
+                                  majReponse(question.localId, reponse.localId, 'texte', e.target.value)
+                                }
+                              />
+                              {question.reponses.length > 2 && (
+                                <button
+                                  type="button"
+                                  className="creation-bouton-x"
+                                  aria-label="Supprimer cette réponse"
+                                  onClick={() => supprimerReponse(question.localId, reponse.localId)}
+                                >
+                                  ×
+                                </button>
+                              )}
+                            </div>
 
-                      <label className="creation-checkbox">
-                        <input
-                          type="checkbox"
-                          checked={reponse.estCorrecte}
-                          onChange={(e) =>
-                            majReponse(question.localId, reponse.localId, 'estCorrecte', e.target.checked)
-                          }
-                        />
-                        Réponse correcte
-                      </label>
+                            <label className="creation-checkbox">
+                              <input
+                                type={question.typeReponse === 'simple' ? 'radio' : 'checkbox'}
+                                name={
+                                  question.typeReponse === 'simple' ? `correcte-${question.localId}` : undefined
+                                }
+                                checked={reponse.estCorrecte}
+                                onChange={(e) =>
+                                  question.typeReponse === 'simple'
+                                    ? marquerSeuleCorrecte(question.localId, reponse.localId)
+                                    : majReponse(question.localId, reponse.localId, 'estCorrecte', e.target.checked)
+                                }
+                              />
+                              Réponse correcte
+                            </label>
 
-                      {!reponse.estCorrecte && (
-                        <input
-                          type="text"
-                          className="creation-reponse-explication"
-                          placeholder="Explication si cette réponse est choisie (optionnel)"
-                          value={reponse.explication}
-                          onChange={(e) =>
-                            majReponse(question.localId, reponse.localId, 'explication', e.target.value)
-                          }
-                        />
-                      )}
+                            {!reponse.estCorrecte && (
+                              <input
+                                type="text"
+                                className="creation-reponse-explication"
+                                placeholder="Explication si cette réponse est choisie (optionnel)"
+                                value={reponse.explication}
+                                onChange={(e) =>
+                                  majReponse(question.localId, reponse.localId, 'explication', e.target.value)
+                                }
+                              />
+                            )}
+                          </div>
+                        )
+                      })}
+
+                      <button
+                        type="button"
+                        className="bouton-ajouter"
+                        onClick={() => ajouterReponse(question.localId)}
+                      >
+                        + Ajouter une réponse
+                      </button>
                     </div>
-                  ))}
-
-                  <button
-                    type="button"
-                    className="bouton-ajouter"
-                    onClick={() => ajouterReponse(question.localId)}
-                  >
-                    + Ajouter une réponse
-                  </button>
-                </div>
+                  </>
+                )}
               </div>
             ))}
 
@@ -617,10 +678,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
             {aChecklist && (
               <label className="champ">
                 <span>Mode de validation de la checklist</span>
-                <select value={checklistMode} onChange={(e) => setChecklistMode(e.target.value)}>
-                  <option value="checkbox">Cases à cocher</option>
-                  <option value="reorder">Réorganisation</option>
-                </select>
+                <Dropdown value={checklistMode} onChange={setChecklistMode} options={MODES_CHECKLIST} />
               </label>
             )}
 
@@ -635,6 +693,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
                         className="creation-bouton-supprimer"
                         onClick={() => supprimerEtape(etape.localId)}
                       >
+                        <img className="cta-icone" src={iconeTrash} alt="" aria-hidden="true" />
                         Supprimer
                       </button>
                     </div>

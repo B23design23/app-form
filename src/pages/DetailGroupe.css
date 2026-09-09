@@ -48,10 +48,10 @@
 @media (min-width: 768px) {
   .detail-groupe-grille {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-areas:
-      'eleves suivi'
-      'ajout suivi';
+      'eleves ajout'
+      'suivi suivi';
     align-items: start;
     gap: 32px;
   }
@@ -68,6 +68,24 @@
     grid-area: suivi;
     border-top: none;
     padding-top: 0;
+  }
+}
+
+.detail-suivi-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .detail-suivi-controles {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .detail-suivi-controles > * {
+    flex: 1;
+    min-width: 0;
   }
 }
 
@@ -100,6 +118,25 @@
   font-weight: 600;
   color: var(--color-ink);
   background: var(--color-background);
+}
+
+.detail-suivi-th-bouton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.detail-suivi-tri-fleche {
+  font-size: 0.7rem;
+  color: var(--color-primary);
 }
 
 .detail-suivi-statut {

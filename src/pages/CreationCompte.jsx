@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import skilloLogo from '../Assets/Skillogo.svg'
 import '../styles/shared.css'
 
 function CreationCompte({ role, onRetour, onSeConnecter }) {
@@ -35,47 +36,51 @@ function CreationCompte({ role, onRetour, onSeConnecter }) {
 
   return (
     <div className="flow-page">
-      <form className="flow-card" onSubmit={handleSubmit}>
-        <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour à l'accueil
-        </button>
+      <div className="page-logo-wrapper">
+        <img src={skilloLogo} alt="Skillo" className="page-logo" />
 
-        <h1>Créer mon compte</h1>
+        <form className="flow-card" onSubmit={handleSubmit}>
+          <button type="button" className="lien-retour" onClick={onRetour}>
+            ← Retour à l'accueil
+          </button>
 
-        <label className="champ">
-          <span>Email</span>
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-          />
-        </label>
+          <h1>Créer mon compte</h1>
 
-        <label className="champ">
-          <span>Mot de passe</span>
-          <input
-            type="password"
-            required
-            minLength={6}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="new-password"
-          />
-        </label>
+          <label className="champ">
+            <span>Email</span>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+          </label>
 
-        {erreur && <p className="message message-erreur">{erreur}</p>}
-        {info && <p className="message message-info">{info}</p>}
+          <label className="champ">
+            <span>Mot de passe</span>
+            <input
+              type="password"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
+            />
+          </label>
 
-        <button type="submit" className="bouton-primaire" disabled={loading}>
-          {loading ? 'Création en cours…' : 'Continuer'}
-        </button>
+          {erreur && <p className="message message-erreur">{erreur}</p>}
+          {info && <p className="message message-info">{info}</p>}
 
-        <button type="button" className="lien-secondaire" onClick={onSeConnecter}>
-          Déjà un compte ? Se connecter
-        </button>
-      </form>
+          <button type="submit" className="bouton-primaire" disabled={loading}>
+            {loading ? 'Création en cours…' : 'Continuer'}
+          </button>
+
+          <button type="button" className="lien-secondaire" onClick={onSeConnecter}>
+            Déjà un compte ? Se connecter
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

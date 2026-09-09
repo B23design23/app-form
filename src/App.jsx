@@ -118,7 +118,6 @@ function App() {
           setRoleChoisi(role)
           setEcran('compte')
         }}
-        onSeConnecter={() => setEcran('connexion')}
       />
     )
   }

@@ -1,27 +1,76 @@
 .apprenant-dashboard-grille {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 28px;
 }
 
 .apprenant-entete {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
 }
 
-.apprenant-xp-pastille {
-  display: inline-flex;
+.apprenant-xp-icone {
+  width: 24px;
+  height: 24px;
+}
+
+@media (min-width: 768px) {
+  .apprenant-xp-icone {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.apprenant-metriques {
+  display: flex;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .apprenant-metriques {
+    gap: 16px;
+  }
+}
+
+.apprenant-metrique {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  background: var(--color-accent-star);
-  color: var(--color-ink);
-  border-radius: var(--radius-pill);
-  padding: 8px 16px;
+  gap: 4px;
+  text-align: center;
+}
+
+.apprenant-metrique-valeur {
+  font-family: var(--font-display);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 2rem;
+  color: var(--color-primary);
+}
+
+.apprenant-metrique-label {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.apprenant-metrique-xp {
+  background: #fff3c4;
+}
+
+.apprenant-metrique-valeur-xp {
+  position: relative;
+  display: inline-block;
+  color: var(--color-ink);
+}
+
+.apprenant-metrique-valeur-xp .apprenant-xp-icone {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-right: 6px;
+  transform: translateY(-50%);
 }
 
 .espace-carte h2 {
@@ -116,34 +165,89 @@
   margin-top: 0;
 }
 
+.apprenant-section-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .apprenant-badges-rangee {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.apprenant-badge-tuile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 88px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body);
+  cursor: pointer;
 }
 
 .apprenant-badge {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  border: none;
+  width: 72px;
+  height: 72px;
   border-radius: var(--radius-badge);
-  font-size: 1.4rem;
-  font-family: inherit;
-  cursor: pointer;
-  padding: 0;
+  font-size: 1.8rem;
+}
+
+.apprenant-badge-icone {
+  width: 72px;
+  height: 72px;
+}
+
+@media (min-width: 768px) {
+  .apprenant-badge-tuile {
+    width: 150px;
+  }
+
+  .apprenant-badge {
+    width: 130px;
+    height: 130px;
+    font-size: 2.6rem;
+  }
+
+  .apprenant-badge-icone {
+    width: 130px;
+    height: 130px;
+  }
 }
 
 .apprenant-badge-obtenu {
-  background: var(--color-accent-star);
+  background: none;
 }
 
 .apprenant-badge-verrouille {
   background: var(--color-border);
   color: var(--color-text-secondary);
-  opacity: 0.8;
+}
+
+.apprenant-badges-rangee .apprenant-badge-verrouille {
+  opacity: 0.35;
+}
+
+.apprenant-badge-nom {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--color-ink);
+  text-align: center;
+  line-height: 1.2;
+}
+
+.badge-modal-icone .apprenant-badge-icone {
+  width: 200px;
+  height: 200px;
 }
 
 .badge-modal-overlay {
@@ -163,7 +267,7 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  max-width: 320px;
+  max-width: 360px;
   padding: 28px 24px;
   background: var(--color-surface);
   border-radius: var(--radius-carte);
@@ -172,9 +276,9 @@
 }
 
 .badge-modal-icone {
-  width: 84px;
-  height: 84px;
-  font-size: 2.4rem;
+  width: 200px;
+  height: 200px;
+  font-size: 4rem;
   cursor: default;
   margin-bottom: 4px;
 }
@@ -196,8 +300,10 @@
 .apprenant-banniere-quizflash {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  text-align: center;
   background: var(--color-primary-fond);
 }
 
@@ -215,14 +321,28 @@
   color: var(--color-text-secondary) !important;
 }
 
+.apprenant-section-recommandes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dashboard-recommandes-grille {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 @media (min-width: 768px) {
   .apprenant-dashboard-grille {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-areas:
       'entete entete'
-      'continuer badges'
-      'continuer quizflash';
+      'metriques metriques'
+      'badges badges'
+      'continuer quizflash'
+      'recommandes recommandes';
     align-items: start;
   }
 
@@ -230,15 +350,31 @@
     grid-area: entete;
   }
 
-  .espace-carte-continuer {
-    grid-area: continuer;
+  .apprenant-metriques {
+    grid-area: metriques;
   }
 
-  .espace-carte-badges {
+  .apprenant-section-badges {
     grid-area: badges;
+  }
+
+  .espace-carte-continuer {
+    grid-area: continuer;
+    align-self: stretch;
   }
 
   .apprenant-banniere-quizflash {
     grid-area: quizflash;
+    align-self: stretch;
+  }
+
+  .apprenant-section-recommandes {
+    grid-area: recommandes;
+  }
+
+  .dashboard-recommandes-grille {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
   }
 }

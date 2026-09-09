@@ -27,7 +27,12 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
 
   return (
     <div className="espace-page espace-page-etroit">
-      <h1>Mes cours</h1>
+      <div className="section-formateur-entete">
+        <h1>Mes cours</h1>
+        <button type="button" className="bouton-secondaire" onClick={onCreerCours}>
+          + Créer un cours
+        </button>
+      </div>
 
       {erreur ? (
         <p className="message message-erreur">Impossible de charger tes cours ({erreur}).</p>
@@ -36,7 +41,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
       ) : mesCours.length === 0 ? (
         <p className="dashboard-etat-vide">Aucun cours pour le moment.</p>
       ) : (
-        <ul className="espace-liste">
+        <ul className="espace-liste espace-liste-grille">
           {mesCours.map((cours) => (
             <li key={cours.id}>
               <button type="button" className="espace-liste-item" onClick={() => onOuvrirCours(cours.id)}>
@@ -49,10 +54,6 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
           ))}
         </ul>
       )}
-
-      <button type="button" className="bouton-ajouter" onClick={onCreerCours}>
-        + Créer un cours
-      </button>
     </div>
   )
 }

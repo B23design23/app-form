@@ -8,39 +8,89 @@
   .formateur-dashboard-page {
     max-width: 1040px;
     padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'entete entete'
-      'gauche droite';
-    align-items: start;
     gap: 24px;
   }
+}
 
-  .formateur-dashboard-entete {
-    grid-area: entete;
+/* Ligne 1 — Visualisation : taux de complétion (mis en avant) + 3 stats compactes */
+
+.formateur-ligne-visualisation {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .formateur-ligne-visualisation {
+    flex-direction: row;
+    align-items: stretch;
   }
 
-  .formateur-dashboard-gauche {
-    grid-area: gauche;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  .formateur-taux-carte {
+    flex: 1.2 1 0;
   }
 
-  .formateur-dashboard-droite {
-    grid-area: droite;
+  .formateur-metriques {
+    flex: 2 1 0;
   }
+}
+
+.formateur-taux-carte {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.formateur-taux-valeur {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1;
+}
+
+.formateur-taux-label {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.formateur-taux-souscription {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.formateur-taux-valeur-error {
+  color: var(--color-error);
+}
+
+.formateur-taux-valeur-warm {
+  color: var(--color-accent-warm);
+}
+
+.formateur-taux-valeur-star {
+  color: var(--color-accent-star);
+}
+
+.formateur-taux-valeur-neutre {
+  color: var(--color-text-secondary);
 }
 
 .formateur-metriques {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  gap: 8px;
+}
+
+@media (min-width: 768px) {
+  .formateur-metriques {
+    gap: 16px;
+  }
 }
 
 .formateur-metrique {
-  flex: 1 1 140px;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,7 +99,7 @@
 }
 
 .formateur-metrique-large {
-  flex: 1 1 220px;
+  flex: 1.4 1 0;
 }
 
 .formateur-metrique-valeur {
@@ -78,18 +128,83 @@
   color: var(--color-ink);
 }
 
-.formateur-actions {
+/* Ligne 2 — Actions : élèves à relancer + actions rapides */
+
+.formateur-ligne-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .formateur-ligne-actions {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .formateur-relance,
+  .formateur-actions {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 156px;
+  }
+}
+
+.formateur-relance {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+.formateur-relance h2,
 .formateur-actions h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  line-height: 1.4;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1.05rem;
   margin: 0;
   color: var(--color-ink);
+}
+
+.formateur-relance-liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formateur-relance-ligne {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  background: var(--color-background);
+  border-radius: var(--radius-badge);
+  border-left: 3px solid var(--color-accent-warm);
+  font-size: 0.9rem;
+  color: var(--color-ink);
+}
+
+.formateur-relance-texte {
+  line-height: 1.4;
+}
+
+.formateur-relance-date {
+  font-size: 0.78rem;
+  color: var(--color-accent-warm);
+  font-weight: 600;
+}
+
+.formateur-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .formateur-actions-rapides {
@@ -103,6 +218,8 @@
   flex: 1 1 160px;
   margin-top: 0;
 }
+
+/* Ligne 3 — Historique : activité récente en pleine largeur, mosaïque */
 
 .formateur-activite {
   display: flex;
@@ -118,15 +235,52 @@
   color: var(--color-ink);
 }
 
+.formateur-activite-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formateur-activite-filtres {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 12px;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.formateur-activite-filtres .champ {
+  flex: 0 1 190px;
+  min-width: 150px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .formateur-activite-controles {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .formateur-activite-recherche {
+    flex: 0 1 220px;
+  }
+
+  .formateur-activite-filtres {
+    margin-left: auto;
+  }
+}
+
 .formateur-activite-liste {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  max-height: 420px;
-  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
 }
 
 .formateur-activite-ligne {
@@ -134,7 +288,7 @@
   flex-direction: column;
   gap: 2px;
   padding: 10px 14px;
-  background: var(--color-surface);
+  background: var(--color-background);
   border-radius: var(--radius-badge);
   font-size: 0.9rem;
   color: var(--color-ink);

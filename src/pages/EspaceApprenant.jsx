@@ -2,13 +2,16 @@ import NavigationEspace from '../components/NavigationEspace'
 import Dashboard from './Dashboard'
 import SectionCours from './SectionCours'
 import SectionModeTerrain from './SectionModeTerrain'
+import iconeDashboard from '../Assets/dashboard.svg'
+import iconeCours from '../Assets/book.svg'
+import iconeModeTerrain from '../Assets/rocket.svg'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 
 const ONGLETS = [
-  { id: 'dashboard', label: 'Dashboard', icone: '🏠' },
-  { id: 'cours', label: 'Cours', icone: '📚' },
-  { id: 'mode-terrain', label: 'Mode terrain', icone: '🧰' },
+  { id: 'dashboard', label: 'Dashboard', icone: iconeDashboard },
+  { id: 'cours', label: 'Cours', icone: iconeCours },
+  { id: 'mode-terrain', label: 'Mode terrain', icone: iconeModeTerrain },
 ]
 
 function EspaceApprenant({ authUser, section, onChangerSection, onOuvrirCours, onOuvrirQuizFlash }) {

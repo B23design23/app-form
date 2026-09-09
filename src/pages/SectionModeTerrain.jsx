@@ -49,7 +49,7 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
       ) : coursAvecChecklist.length === 0 ? (
         <p className="dashboard-etat-vide">Aucune checklist terrain disponible pour le moment.</p>
       ) : (
-        <ul className="espace-liste">
+        <ul className="espace-liste espace-liste-grille">
           {coursAvecChecklist.map((cours) => {
             const statut = statutParCoursId.get(cours.id) ?? 'non_commence'
             return (
