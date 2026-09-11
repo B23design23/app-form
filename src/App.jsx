@@ -4,6 +4,8 @@ import Introduction from './pages/Introduction'
 import Accueil from './pages/Accueil'
 import CreationCompte from './pages/CreationCompte'
 import Connexion from './pages/Connexion'
+import MotDePasseOublie from './pages/MotDePasseOublie'
+import NouveauMotDePasse from './pages/NouveauMotDePasse'
 import OnboardingFlow from './pages/onboarding/OnboardingFlow'
 import EspaceApprenant from './pages/EspaceApprenant'
 import EspaceFormateur from './pages/EspaceFormateur'
@@ -35,6 +37,7 @@ function App() {
   const [sectionInitiale, setSectionInitiale] = useState(null)
   const [coursSelectionneIdFormateur, setCoursSelectionneIdFormateur] = useState(null)
   const [groupeSelectionneId, setGroupeSelectionneId] = useState(null)
+  const [messageConnexion, setMessageConnexion] = useState(null)
 
   useEffect(() => {
     let annule = false
@@ -117,6 +120,31 @@ function App() {
         onCommencer={(role) => {
           setRoleChoisi(role)
           setEcran('compte')
+        }}
+        onMotDePasseOublie={() => {
+          setMessageConnexion(null)
+          setEcran('mot-de-passe-oublie')
+        }}
+        messageConfirmation={messageConnexion}
+      />
+    )
+  }
+
+  if (ecran === 'mot-de-passe-oublie') {
+    return (
+      <MotDePasseOublie
+        onRetour={() => setEcran('accueil')}
+        onSimulerLien={() => setEcran('nouveau-mot-de-passe')}
+      />
+    )
+  }
+
+  if (ecran === 'nouveau-mot-de-passe') {
+    return (
+      <NouveauMotDePasse
+        onTermine={() => {
+          setMessageConnexion('Mot de passe mis à jour, tu peux te connecter.')
+          setEcran('accueil')
         }}
       />
     )

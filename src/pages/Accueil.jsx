@@ -6,7 +6,7 @@ import iconeFormateur from '../Assets/badge/teacher.svg'
 import '../styles/shared.css'
 import './Accueil.css'
 
-function Accueil({ onCommencer }) {
+function Accueil({ onCommencer, onMotDePasseOublie, messageConfirmation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
@@ -34,6 +34,8 @@ function Accueil({ onCommencer }) {
         <form className="accueil-carte" onSubmit={handleSubmit}>
           <h1>Se connecter</h1>
 
+          {messageConfirmation && <p className="message message-info">{messageConfirmation}</p>}
+
           <label className="champ">
             <span>Email</span>
             <input
@@ -60,6 +62,10 @@ function Accueil({ onCommencer }) {
 
           <button type="submit" className="bouton-primaire" disabled={loading}>
             {loading ? 'Connexion en cours…' : 'Se connecter'}
+          </button>
+
+          <button type="button" className="lien-secondaire" onClick={onMotDePasseOublie}>
+            Mot de passe oublié ?
           </button>
         </form>
 
