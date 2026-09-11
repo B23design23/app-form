@@ -74,7 +74,7 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
       ) : mesGroupes === null ? (
         <p>Chargement…</p>
       ) : mesGroupes.length === 0 ? (
-        <p className="dashboard-etat-vide">Aucun groupe pour le moment.</p>
+        <p className="dashboard-etat-vide dashboard-etat-vide-centre">Aucun groupe pour le moment.</p>
       ) : (
         <ul className="espace-liste">
           {mesGroupes.map((groupe) => (

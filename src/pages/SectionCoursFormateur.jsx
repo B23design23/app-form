@@ -39,7 +39,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
       ) : mesCours === null ? (
         <p>Chargement…</p>
       ) : mesCours.length === 0 ? (
-        <p className="dashboard-etat-vide">Aucun cours pour le moment.</p>
+        <p className="dashboard-etat-vide dashboard-etat-vide-centre">Aucun cours pour le moment.</p>
       ) : (
         <ul className="espace-liste espace-liste-grille">
           {mesCours.map((cours) => (

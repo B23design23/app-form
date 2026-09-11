@@ -70,7 +70,7 @@
 
 .espace-contenu {
   min-width: 0;
-  padding: 20px 16px calc(76px + env(safe-area-inset-bottom));
+  padding: calc(env(safe-area-inset-top) + 20px) 16px calc(76px + env(safe-area-inset-bottom));
 }
 
 .espace-nav-menu-wrapper {

@@ -154,6 +154,12 @@
   font-weight: 600;
 }
 
+.apprenant-continuer-recap-icone {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
 .apprenant-continuer-recap-puce-faite {
   background: var(--color-success-fond);
   border-color: transparent;
@@ -171,11 +177,64 @@
   gap: 12px;
 }
 
+.apprenant-badges-entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.apprenant-badges-entete h2 {
+  margin: 0;
+}
+
+.apprenant-badges-fleches {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.apprenant-badges-fleche {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-primary-fond);
+  color: var(--color-primary);
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.apprenant-badges-fleche-icone {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.apprenant-badges-fleche:hover:not(.apprenant-badges-fleche-desactivee) {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.apprenant-badges-fleche-desactivee {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
 .apprenant-badges-rangee {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-wrap: nowrap;
   gap: 20px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .apprenant-badge-tuile {
@@ -183,7 +242,8 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 88px;
+  flex: 0 0 calc((100% - 3 * 20px) / 4);
+  min-width: 0;
   background: none;
   border: none;
   padding: 0;
@@ -208,7 +268,7 @@
 
 @media (min-width: 768px) {
   .apprenant-badge-tuile {
-    width: 150px;
+    flex-basis: calc((100% - 4 * 20px) / 5);
   }
 
   .apprenant-badge {

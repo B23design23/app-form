@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import skilloLogo from '../Assets/Skillogo.svg'
+import iconeApprenant from '../Assets/badge/student.svg'
+import iconeFormateur from '../Assets/badge/teacher.svg'
 import '../styles/shared.css'
 import './Accueil.css'
 
@@ -62,12 +64,10 @@ function Accueil({ onCommencer }) {
         </form>
 
         <div className="accueil-carte accueil-roles-carte">
-          <h2 className="accueil-roles-titre">Nouveau sur skillo? vous êtes :</h2>
+          <h2 className="accueil-roles-titre">Nouveau sur Skillo ? Vous êtes :</h2>
 
           <div className="accueil-role-carte">
-            <span className="accueil-role-icone" aria-hidden="true">
-              📖
-            </span>
+            <img className="accueil-role-icone" src={iconeApprenant} alt="" aria-hidden="true" />
             <h2>Apprenant</h2>
             <p>Suis des cours, passe des quiz, progresse à ton rythme.</p>
             <button type="button" className="bouton-primaire" onClick={() => onCommencer('apprenant')}>
@@ -76,9 +76,7 @@ function Accueil({ onCommencer }) {
           </div>
 
           <div className="accueil-role-carte">
-            <span className="accueil-role-icone" aria-hidden="true">
-              🧑‍🏫
-            </span>
+            <img className="accueil-role-icone" src={iconeFormateur} alt="" aria-hidden="true" />
             <h2>Formateur</h2>
             <p>Crée du contenu et suis la progression de tes élèves.</p>
             <button type="button" className="bouton-secondaire" onClick={() => onCommencer('formateur')}>

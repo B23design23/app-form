@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { salutation } from '../lib/salutation'
 import Dropdown from '../components/Dropdown'
+import iconeTarget from '../Assets/badge/Target.svg'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './DashboardFormateur.css'
@@ -320,11 +321,14 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
 
       <div className="formateur-ligne-visualisation">
         <div className="espace-carte formateur-taux-carte">
-          <span className={`formateur-taux-valeur ${classeCouleurTaux(tauxCompletion)}`}>
-            {tauxCompletion === null ? '—' : `${tauxCompletion}%`}
-          </span>
-          <span className="formateur-taux-label">Taux de complétion moyen</span>
-          <span className="formateur-taux-souscription">Sur l'ensemble de vos groupes</span>
+          <img className="formateur-taux-icone" src={iconeTarget} alt="" aria-hidden="true" />
+          <div className="formateur-taux-texte">
+            <span className={`formateur-taux-valeur ${classeCouleurTaux(tauxCompletion)}`}>
+              {tauxCompletion === null ? '—' : `${tauxCompletion}%`}
+            </span>
+            <span className="formateur-taux-label">Taux de complétion moyen</span>
+            <span className="formateur-taux-souscription">Sur l'ensemble de vos groupes</span>
+          </div>
         </div>
 
         {erreurMetriques ? (
@@ -339,8 +343,13 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
               {nbCours === 0 ? (
                 <div className="formateur-metrique-vide">
                   <p>Crée ton premier cours</p>
-                  <button type="button" className="bouton-ajouter" onClick={onCreerCours}>
-                    + Nouveau cours
+                  <button
+                    type="button"
+                    className="bouton-ajouter bouton-ajouter-rond"
+                    onClick={onCreerCours}
+                    aria-label="Nouveau cours"
+                  >
+                    +
                   </button>
                 </div>
               ) : (
@@ -358,10 +367,11 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
                   <p>Crée ton premier groupe</p>
                   <button
                     type="button"
-                    className="bouton-ajouter"
+                    className="bouton-ajouter bouton-ajouter-rond"
                     onClick={() => onChangerSection('groupes')}
+                    aria-label="Nouveau groupe"
                   >
-                    + Nouveau groupe
+                    +
                   </button>
                 </div>
               ) : (

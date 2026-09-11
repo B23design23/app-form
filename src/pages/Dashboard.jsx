@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { iconeBadge, libelleCondition } from '../lib/badges'
 import { salutation } from '../lib/salutation'
@@ -7,6 +7,29 @@ import iconeFlash from '../Assets/flash.svg'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './Dashboard.css'
+
+function IconePuce({ chemin, className }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d={chemin} />
+    </svg>
+  )
+}
+
+const CHEMIN_ICONE_CHECK = 'M20 6L9 17L4 12'
+const CHEMIN_ICONE_QUESTION =
+  'M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13M12 17H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z'
+const CHEMIN_ICONE_LOADER =
+  'M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93'
 
 function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSection }) {
   const [profil, setProfil] = useState(null)
@@ -109,6 +132,38 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
     }
   }, [authUser.id])
 
+  const badgesTrackRef = useRef(null)
+  const [badgesVisibles, setBadgesVisibles] = useState(4)
+  const [peutReculerBadges, setPeutReculerBadges] = useState(false)
+  const [peutAvancerBadges, setPeutAvancerBadges] = useState(false)
+
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 768px)')
+    const majBadgesVisibles = () => setBadgesVisibles(mql.matches ? 5 : 4)
+    majBadgesVisibles()
+    mql.addEventListener('change', majBadgesVisibles)
+    return () => mql.removeEventListener('change', majBadgesVisibles)
+  }, [])
+
+  const majEtatFlechesBadges = () => {
+    const piste = badgesTrackRef.current
+    if (!piste) return
+    setPeutReculerBadges(piste.scrollLeft > 2)
+    setPeutAvancerBadges(piste.scrollLeft + piste.clientWidth < piste.scrollWidth - 2)
+  }
+
+  useEffect(() => {
+    majEtatFlechesBadges()
+  }, [tousBadges.length, badgesVisibles])
+
+  const defilerBadges = (direction) => {
+    const piste = badgesTrackRef.current
+    if (!piste) return
+    const premiereTuile = piste.firstElementChild
+    const pas = premiereTuile ? premiereTuile.getBoundingClientRect().width + 20 : piste.clientWidth
+    piste.scrollBy({ left: direction * pas, behavior: 'smooth' })
+  }
+
   if (erreurProfil) {
     return (
       <div className="espace-page espace-page-etroit">
@@ -145,16 +200,16 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   const statutCoursMisEnAvant = coursAMettreEnAvant ? statutParCoursId.get(coursAMettreEnAvant.id) : null
   const recapCoursMisEnAvant = coursAMettreEnAvant
     ? [
-        { cle: 'lecon', icone: '📖', label: 'Leçon', fait: statutCoursMisEnAvant === 'en_cours' || statutCoursMisEnAvant === 'termine' },
+        { cle: 'lecon', icone: CHEMIN_ICONE_CHECK, label: 'Leçon', fait: statutCoursMisEnAvant === 'en_cours' || statutCoursMisEnAvant === 'termine' },
         idsCoursAvecQuiz.has(coursAMettreEnAvant.id) && {
           cle: 'quiz',
-          icone: '❓',
+          icone: CHEMIN_ICONE_QUESTION,
           label: 'Quiz',
           fait: idsCoursQuizFait.has(coursAMettreEnAvant.id),
         },
         idsCoursAvecChecklist.has(coursAMettreEnAvant.id) && {
           cle: 'checklist',
-          icone: '✅',
+          icone: CHEMIN_ICONE_LOADER,
           label: 'Checklist',
           fait: statutCoursMisEnAvant === 'termine',
         },
@@ -195,11 +250,57 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
       </div>
 
       <section className="espace-carte apprenant-section-badges">
-        <h2>Badges</h2>
+        <div className="apprenant-badges-entete">
+          <h2>Badges</h2>
+          {tousBadges.length > badgesVisibles && (
+            <div className="apprenant-badges-fleches">
+              <button
+                type="button"
+                className={`apprenant-badges-fleche${peutReculerBadges ? '' : ' apprenant-badges-fleche-desactivee'}`}
+                onClick={() => defilerBadges(-1)}
+                aria-label="Badges précédents"
+                aria-disabled={!peutReculerBadges}
+              >
+                <svg
+                  className="apprenant-badges-fleche-icone"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className={`apprenant-badges-fleche${peutAvancerBadges ? '' : ' apprenant-badges-fleche-desactivee'}`}
+                onClick={() => defilerBadges(1)}
+                aria-label="Badges suivants"
+                aria-disabled={!peutAvancerBadges}
+              >
+                <svg
+                  className="apprenant-badges-fleche-icone"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          )}
+        </div>
         {erreurBadges ? (
           <p className="message message-erreur">Impossible de charger tes badges ({erreurBadges}).</p>
         ) : (
-          <div className="apprenant-badges-rangee">
+          <div className="apprenant-badges-rangee" ref={badgesTrackRef} onScroll={majEtatFlechesBadges}>
             {tousBadges.map((badge) => {
               const obtenu = idsObtenus.has(badge.id)
               return (
@@ -274,7 +375,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
                             key={item.cle}
                             className={`apprenant-continuer-recap-puce${item.fait ? ' apprenant-continuer-recap-puce-faite' : ''}`}
                           >
-                            <span aria-hidden="true">{item.fait ? '✓' : item.icone}</span>
+                            <IconePuce className="apprenant-continuer-recap-icone" chemin={item.icone} />
                             {item.label}
                           </li>
                         ))}

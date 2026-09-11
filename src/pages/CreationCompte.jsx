@@ -41,7 +41,7 @@ function CreationCompte({ role, onRetour, onSeConnecter }) {
 
         <form className="flow-card" onSubmit={handleSubmit}>
           <button type="button" className="lien-retour" onClick={onRetour}>
-            ← Retour à l'accueil
+            ← Retour
           </button>
 
           <h1>Créer mon compte</h1>

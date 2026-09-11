@@ -36,6 +36,26 @@
 }
 
 .formateur-taux-carte {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: stretch;
+  gap: 18px;
+}
+
+.formateur-taux-icone {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-height: 120px;
+}
+
+@media (max-width: 399px) {
+  .formateur-taux-icone {
+    display: none;
+  }
+}
+
+.formateur-taux-texte {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -126,6 +146,19 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--color-ink);
+}
+
+.formateur-metrique-vide .bouton-ajouter-rond {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 /* Ligne 2 — Actions : élèves à relancer + actions rapides */

@@ -39,8 +39,9 @@
 }
 
 .accueil-role-icone {
-  font-size: 2.2rem;
-  line-height: 1;
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
 }
 
 .accueil-role-carte h2 {

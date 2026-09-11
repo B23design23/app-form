@@ -26,6 +26,7 @@ export async function verifierBadges(authUser) {
     premier_quiz_complete: scores.some((s) => s.type === 'quiz_cours'),
     premiere_checklist_completee: coursTermines.some((p) => (p.cours?.etapes_checklist?.length ?? 0) > 0),
     trois_cours_termines: coursTermines.length >= 3,
+    dix_cours_termines: coursTermines.length >= 10,
     quiz_100_pourcent: scores.some((s) => s.score === 100),
     premier_quiz_flash_reussi: scores.some((s) => s.type === 'quiz_flash' && s.score >= 50),
   }
