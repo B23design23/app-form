@@ -1,0 +1,20 @@
+.section-cours-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .section-cours-controles {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .section-cours-recherche {
+    flex: 1;
+  }
+
+  .section-cours-filtre-statut {
+    flex: 0 0 200px;
+  }
+}
