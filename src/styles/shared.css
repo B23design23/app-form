@@ -261,6 +261,9 @@
 }
 
 .bouton-ajouter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   align-self: flex-start;
   background: none;
   border: 2px dashed var(--color-primary);
@@ -320,6 +323,44 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.modal-carte-large {
+  max-width: 640px;
+}
+
+.modal-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modal-entete h2 {
+  margin: 0;
+}
+
+.modal-fermer {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal-fermer:hover {
+  background: var(--color-primary-fond);
+  color: var(--color-primary);
+}
+
+.modal-contenu-scroll {
+  overflow-y: auto;
+  max-height: 65vh;
 }
 
 .detail-section {

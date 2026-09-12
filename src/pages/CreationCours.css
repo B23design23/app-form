@@ -23,6 +23,51 @@
   color: var(--color-ink);
 }
 
+.creation-contenu-aide {
+  margin: -6px 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.creation-textarea-contenu {
+  min-height: 260px;
+}
+
+.creation-actions-contenu {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.creation-champ-type-reponse {
+  margin-top: 16px;
+}
+
+.creation-apercu {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+}
+
+.creation-apercu-vide {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.creation-badge-officiel {
+  align-self: flex-start;
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-fond);
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
 .creation-ligne-champs {
   display: flex;
   flex-direction: column;

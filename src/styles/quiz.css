@@ -5,6 +5,10 @@
   color: var(--color-ink);
 }
 
+.quiz-enonce.contenu-markdown p {
+  margin: 0;
+}
+
 .quiz-options {
   display: flex;
   flex-direction: column;

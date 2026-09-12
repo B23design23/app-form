@@ -5,6 +5,7 @@ import { melanger } from '../lib/shuffle'
 import ProgressBar from '../components/ProgressBar'
 import CompletionToast from '../components/CompletionToast'
 import StatutBadge from '../components/StatutBadge'
+import ContenuMarkdown from '../components/ContenuMarkdown'
 import '../styles/shared.css'
 import '../styles/quiz.css'
 import './FicheCours.css'
@@ -337,7 +338,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
 
           {sectionActive === 'lecon' && (
             <div className="fiche-cours-section">
-              <div className="fiche-cours-contenu">{cours.contenu}</div>
+              <ContenuMarkdown texte={cours.contenu} className="fiche-cours-contenu" />
               {!hasQuiz && !hasChecklist && !coursEstTermine && (
                 <button type="button" className="bouton-primaire" onClick={terminerCoursSansQuizNiChecklist}>
                   Terminer le cours
@@ -363,7 +364,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
                       label={labelProgressionQuiz}
                     />
 
-                    <p className="quiz-enonce">{questionCourante.enonce}</p>
+                    <ContenuMarkdown texte={questionCourante.enonce} className="quiz-enonce" />
 
                     <div className="quiz-options">
                       {questionCourante.reponses.map((reponse) => {
@@ -445,7 +446,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
                         <li key={etape.id}>
                           <div className="checklist-item checklist-item-reorder">
                             <span className="checklist-item-numero">{index + 1}</span>
-                            <span className="checklist-item-texte">{etape.intitule}</span>
+                            <ContenuMarkdown texte={etape.intitule} className="checklist-item-texte" />
                             <div className="checklist-item-fleches">
                               <button
                                 type="button"
@@ -504,7 +505,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
                             disabled={verrouillee}
                             onChange={() => basculerEtape(etape.id)}
                           />
-                          <span>{etape.intitule}</span>
+                          <ContenuMarkdown texte={etape.intitule} className="checklist-item-texte" />
                         </label>
                       </li>
                     )

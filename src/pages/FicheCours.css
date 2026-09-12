@@ -42,9 +42,8 @@
 }
 
 .fiche-cours-contenu {
-  white-space: pre-wrap;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--color-ink);
 }
 
@@ -114,6 +113,10 @@
 
 .checklist-item-texte {
   flex: 1;
+}
+
+.checklist-item-texte.contenu-markdown p {
+  margin: 0;
 }
 
 .checklist-item-fleches {

@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import Dropdown from '../components/Dropdown'
+import ContenuMarkdown from '../components/ContenuMarkdown'
 import iconeTrash from '../Assets/trash.svg'
+import iconeOeil from '../Assets/eye.svg'
 import '../styles/shared.css'
 import './CreationCours.css'
 
@@ -85,11 +87,23 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
   const [mesGroupes, setMesGroupes] = useState([])
   const [groupeIdsSelectionnes, setGroupeIdsSelectionnes] = useState([])
 
+  const [estAdmin, setEstAdmin] = useState(false)
+
   const [chargement, setChargement] = useState(modeEdition)
   const [erreurChargement, setErreurChargement] = useState(null)
 
   const [enregistrement, setEnregistrement] = useState(false)
   const [erreur, setErreur] = useState(null)
+
+  const contenuTextareaRef = useRef(null)
+  const enonceTextareaRefs = useRef({})
+  const etapeInputRefs = useRef({})
+  const inputImageRef = useRef(null)
+  const [cibleUpload, setCibleUpload] = useState(null)
+  const [uploadCibleEnCours, setUploadCibleEnCours] = useState(null)
+  const [erreurUploadImage, setErreurUploadImage] = useState(null)
+  const [erreurUploadCle, setErreurUploadCle] = useState(null)
+  const [apercuOuvert, setApercuOuvert] = useState(false)
 
   useEffect(() => {
     supabase
@@ -98,6 +112,17 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
       .eq('formateur_id', authUser.id)
       .then(({ data, error }) => {
         if (!error) setMesGroupes(data ?? [])
+      })
+  }, [authUser.id])
+
+  useEffect(() => {
+    supabase
+      .from('profiles')
+      .select('est_admin')
+      .eq('id', authUser.id)
+      .single()
+      .then(({ data, error }) => {
+        if (!error) setEstAdmin(Boolean(data?.est_admin))
       })
   }, [authUser.id])
 
@@ -264,6 +289,55 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
     setEtapes((prev) => prev.map((e) => (e.localId === etapeId ? { ...e, [champ]: valeur } : e)))
   }
 
+  function ouvrirSelecteurImage(cible) {
+    setCibleUpload(cible)
+    inputImageRef.current?.click()
+  }
+
+  async function handleFichierImage(e) {
+    const fichier = e.target.files?.[0]
+    e.target.value = ''
+    const cible = cibleUpload
+    if (!fichier || !cible) return
+
+    setErreurUploadImage(null)
+    setErreurUploadCle(null)
+    setUploadCibleEnCours(cible.cle)
+
+    const extension = fichier.name.includes('.') ? fichier.name.split('.').pop() : 'jpg'
+    const nomFichier = `${crypto.randomUUID()}.${extension}`
+
+    const { error: erreurEnvoi } = await supabase.storage.from('lecons-media').upload(nomFichier, fichier)
+
+    if (erreurEnvoi) {
+      setUploadCibleEnCours(null)
+      setErreurUploadCle(cible.cle)
+      setErreurUploadImage(`L'image n'a pas pu être envoyée (${erreurEnvoi.message}).`)
+      return
+    }
+
+    const {
+      data: { publicUrl },
+    } = supabase.storage.from('lecons-media').getPublicUrl(nomFichier)
+
+    const description = fichier.name.replace(/\.[^/.]+$/, '')
+    const markdownImage = `![${description}](${publicUrl})`
+
+    const element = cible.obtenirElement()
+    const positionCurseur = element ? element.selectionStart : cible.valeurActuelle.length
+    const nouvelleValeur = `${cible.valeurActuelle.slice(0, positionCurseur)}${markdownImage}${cible.valeurActuelle.slice(positionCurseur)}`
+
+    cible.definirValeur(nouvelleValeur)
+    setUploadCibleEnCours(null)
+
+    requestAnimationFrame(() => {
+      if (!element) return
+      const nouvellePosition = positionCurseur + markdownImage.length
+      element.focus()
+      element.setSelectionRange(nouvellePosition, nouvellePosition)
+    })
+  }
+
   function validerFormulaire() {
     if (titre.trim().length === 0) return 'Le titre du cours est obligatoire.'
     if (questions.length === 0) return 'Ajoute au moins une question au QCM.'
@@ -305,6 +379,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
     let coursIdActuel = coursId
 
     if (modeEdition) {
+      // visibilite n'est jamais réécrite ici : elle est fixée à la création (public pour un compte
+      // admin, privé sinon) et doit rester intacte quel que soit qui modifie le cours ensuite.
       const { error: erreurMaj } = await supabase
         .from('cours')
         .update({
@@ -362,7 +438,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           contenu: contenu.trim(),
           domaine: domaine.trim(),
           categorie: categorie.trim(),
-          visibilite: 'prive',
+          visibilite: estAdmin ? 'public' : 'prive',
           formateur_id: authUser.id,
           checklist_mode: aChecklist ? checklistMode : null,
         })
@@ -424,7 +500,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
       }
     }
 
-    if (groupeIdsSelectionnes.length > 0) {
+    if (!estAdmin && groupeIdsSelectionnes.length > 0) {
       const groupesAInserer = groupeIdsSelectionnes.map((groupeId) => ({
         cours_id: coursIdActuel,
         groupe_id: groupeId,
@@ -438,7 +514,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
       }
     }
 
-    if (!modeEdition && groupeIdsSelectionnes.length > 0) {
+    if (!estAdmin && !modeEdition && groupeIdsSelectionnes.length > 0) {
       notifierMakeNouveauCours(titre.trim(), groupeIdsSelectionnes)
     }
 
@@ -505,33 +581,82 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
             <label className="champ">
               <span>Contenu de la leçon</span>
-              <textarea value={contenu} onChange={(e) => setContenu(e.target.value)} />
+              <textarea
+                className="creation-textarea-contenu"
+                ref={contenuTextareaRef}
+                value={contenu}
+                onChange={(e) => setContenu(e.target.value)}
+              />
             </label>
+
+            <input
+              type="file"
+              accept="image/*"
+              ref={inputImageRef}
+              onChange={handleFichierImage}
+              style={{ display: 'none' }}
+            />
+
+            <div className="creation-actions-contenu">
+              <button
+                type="button"
+                className="bouton-ajouter"
+                disabled={uploadCibleEnCours === 'contenu'}
+                onClick={() =>
+                  ouvrirSelecteurImage({
+                    cle: 'contenu',
+                    valeurActuelle: contenu,
+                    definirValeur: setContenu,
+                    obtenirElement: () => contenuTextareaRef.current,
+                  })
+                }
+              >
+                {uploadCibleEnCours === 'contenu' ? 'Envoi en cours…' : '+ Insérer une image'}
+              </button>
+
+              <button type="button" className="bouton-ajouter" onClick={() => setApercuOuvert(true)}>
+                <img className="cta-icone" src={iconeOeil} alt="" aria-hidden="true" />
+                Aperçu de la leçon
+              </button>
+            </div>
+
+            {erreurUploadCle === 'contenu' && erreurUploadImage && (
+              <p className="message message-erreur">{erreurUploadImage}</p>
+            )}
+
+            <p className="creation-contenu-aide">
+              Laisse une ligne vide entre deux paragraphes. Colle un lien YouTube ou Vimeo pour l'intégrer
+              automatiquement.
+            </p>
 
             <label className="champ">
               <span>Domaine</span>
               <input type="text" value={domaine} onChange={(e) => setDomaine(e.target.value)} />
             </label>
 
-            <div className="champ">
-              <span>Assigner à des groupes (optionnel)</span>
-              <div className="creation-groupes-liste">
-                {mesGroupes.length === 0 ? (
-                  <p className="dashboard-etat-vide">Tu n'as pas encore de groupe.</p>
-                ) : (
-                  mesGroupes.map((groupe) => (
-                    <label className="creation-checkbox" key={groupe.id}>
-                      <input
-                        type="checkbox"
-                        checked={groupeIdsSelectionnes.includes(groupe.id)}
-                        onChange={() => toggleGroupe(groupe.id)}
-                      />
-                      {groupe.nom}
-                    </label>
-                  ))
-                )}
+            {estAdmin ? (
+              <p className="creation-badge-officiel">Compte officiel : ce cours sera public</p>
+            ) : (
+              <div className="champ">
+                <span>Assigner à des groupes (optionnel)</span>
+                <div className="creation-groupes-liste">
+                  {mesGroupes.length === 0 ? (
+                    <p className="dashboard-etat-vide">Tu n'as pas encore de groupe.</p>
+                  ) : (
+                    mesGroupes.map((groupe) => (
+                      <label className="creation-checkbox" key={groupe.id}>
+                        <input
+                          type="checkbox"
+                          checked={groupeIdsSelectionnes.includes(groupe.id)}
+                          onChange={() => toggleGroupe(groupe.id)}
+                        />
+                        {groupe.nom}
+                      </label>
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </section>
 
           <section className="creation-section">
@@ -574,12 +699,37 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
                     <label className="champ">
                       <span>Énoncé</span>
                       <textarea
+                        ref={(el) => {
+                          enonceTextareaRefs.current[question.localId] = el
+                        }}
                         value={question.enonce}
                         onChange={(e) => majQuestion(question.localId, 'enonce', e.target.value)}
                       />
                     </label>
 
-                    <label className="champ">
+                    <button
+                      type="button"
+                      className="bouton-ajouter"
+                      disabled={uploadCibleEnCours === `enonce-${question.localId}`}
+                      onClick={() =>
+                        ouvrirSelecteurImage({
+                          cle: `enonce-${question.localId}`,
+                          valeurActuelle: question.enonce,
+                          definirValeur: (valeur) => majQuestion(question.localId, 'enonce', valeur),
+                          obtenirElement: () => enonceTextareaRefs.current[question.localId],
+                        })
+                      }
+                    >
+                      {uploadCibleEnCours === `enonce-${question.localId}`
+                        ? 'Envoi en cours…'
+                        : '+ Insérer une image'}
+                    </button>
+
+                    {erreurUploadCle === `enonce-${question.localId}` && erreurUploadImage && (
+                      <p className="message message-erreur">{erreurUploadImage}</p>
+                    )}
+
+                    <label className="champ creation-champ-type-reponse">
                       <span>Type de réponse</span>
                       <Dropdown
                         value={question.typeReponse}
@@ -702,10 +852,33 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
                       <span>Intitulé</span>
                       <input
                         type="text"
+                        ref={(el) => {
+                          etapeInputRefs.current[etape.localId] = el
+                        }}
                         value={etape.intitule}
                         onChange={(e) => majEtape(etape.localId, 'intitule', e.target.value)}
                       />
                     </label>
+
+                    <button
+                      type="button"
+                      className="bouton-ajouter"
+                      disabled={uploadCibleEnCours === `etape-${etape.localId}`}
+                      onClick={() =>
+                        ouvrirSelecteurImage({
+                          cle: `etape-${etape.localId}`,
+                          valeurActuelle: etape.intitule,
+                          definirValeur: (valeur) => majEtape(etape.localId, 'intitule', valeur),
+                          obtenirElement: () => etapeInputRefs.current[etape.localId],
+                        })
+                      }
+                    >
+                      {uploadCibleEnCours === `etape-${etape.localId}` ? 'Envoi en cours…' : '+ Insérer une image'}
+                    </button>
+
+                    {erreurUploadCle === `etape-${etape.localId}` && erreurUploadImage && (
+                      <p className="message message-erreur">{erreurUploadImage}</p>
+                    )}
 
                     <label className="champ">
                       <span>Critère de validation (optionnel)</span>
@@ -747,6 +920,32 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
           </button>
         </div>
       </div>
+
+      {apercuOuvert && (
+        <div className="modal-overlay" onClick={() => setApercuOuvert(false)}>
+          <div className="modal-carte modal-carte-large" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-entete">
+              <h2>Aperçu de la leçon</h2>
+              <button
+                type="button"
+                className="modal-fermer"
+                onClick={() => setApercuOuvert(false)}
+                aria-label="Fermer l'aperçu"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="modal-contenu-scroll">
+              {contenu.trim() ? (
+                <ContenuMarkdown texte={contenu} className="creation-apercu" />
+              ) : (
+                <p className="creation-apercu-vide">Rien à afficher pour l'instant.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
