@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient'
 import { salutation } from '../lib/salutation'
 import Dropdown from '../components/Dropdown'
 import iconeTarget from '../Assets/badge/Target.svg'
+import iconeSend from '../Assets/Iconex/Broken/Send.svg'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './DashboardFormateur.css'
@@ -59,6 +60,7 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
   const [tauxCompletion, setTauxCompletion] = useState(null)
   const [relances, setRelances] = useState(null)
   const [relanceEtendue, setRelanceEtendue] = useState(false)
+  const [relanceConfirmee, setRelanceConfirmee] = useState(null)
   const [erreurVueEnsemble, setErreurVueEnsemble] = useState(null)
 
   const [activite, setActivite] = useState(null)
@@ -74,6 +76,18 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
     const t = setTimeout(() => setRechercheActiviteDebouncee(rechercheActivite), 300)
     return () => clearTimeout(t)
   }, [rechercheActivite])
+
+  useEffect(() => {
+    if (!relanceConfirmee) return
+    const t = setTimeout(() => setRelanceConfirmee(null), 2500)
+    return () => clearTimeout(t)
+  }, [relanceConfirmee])
+
+  // Retour visuel uniquement pour l'instant — l'envoi réel de la relance sera branché
+  // sur l'automatisation Make dédiée (backlog), pas d'appel réseau ici.
+  function handleRelancer(eleve) {
+    setRelanceConfirmee({ id: eleve.id, prenom: eleve.prenom })
+  }
 
   useEffect(() => {
     let annule = false
@@ -404,10 +418,26 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
               <ul className="formateur-relance-liste">
                 {relancesAffichees.map((eleve) => (
                   <li key={eleve.id} className="formateur-relance-ligne">
-                    <span className="formateur-relance-texte">
-                      <strong>{eleve.prenom}</strong> n'a pas commencé <strong>{eleve.titreCours}</strong>
-                    </span>
-                    <span className="formateur-relance-date">{formaterDateRelative(eleve.updatedAt)}</span>
+                    <div className="formateur-relance-info">
+                      <span className="formateur-relance-texte">
+                        <strong>{eleve.prenom}</strong> n'a pas commencé <strong>{eleve.titreCours}</strong>
+                      </span>
+                      {relanceConfirmee?.id === eleve.id ? (
+                        <span className="formateur-relance-confirmation">
+                          Relance envoyée à {relanceConfirmee.prenom}
+                        </span>
+                      ) : (
+                        <span className="formateur-relance-date">{formaterDateRelative(eleve.updatedAt)}</span>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      className="formateur-relance-bouton"
+                      onClick={() => handleRelancer(eleve)}
+                      aria-label={`Relancer ${eleve.prenom}`}
+                    >
+                      <img className="formateur-relance-bouton-icone" src={iconeSend} alt="" aria-hidden="true" />
+                    </button>
                   </li>
                 ))}
               </ul>

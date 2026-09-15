@@ -215,14 +215,22 @@
 
 .formateur-relance-ligne {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   padding: 10px 14px;
   background: var(--color-background);
   border-radius: var(--radius-badge);
-  border-left: 3px solid var(--color-accent-warm);
   font-size: 0.9rem;
   color: var(--color-ink);
+}
+
+.formateur-relance-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 .formateur-relance-texte {
@@ -233,6 +241,36 @@
   font-size: 0.78rem;
   color: var(--color-accent-warm);
   font-weight: 600;
+}
+
+.formateur-relance-confirmation {
+  font-size: 0.78rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.formateur-relance-bouton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.formateur-relance-bouton:hover {
+  background: var(--color-primary-fond);
+}
+
+.formateur-relance-bouton-icone {
+  width: 18px;
+  height: 18px;
 }
 
 .formateur-actions {
