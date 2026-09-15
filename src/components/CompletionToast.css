@@ -41,6 +41,8 @@
   background: var(--color-accent-warm);
   color: var(--color-surface);
   font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .completion-toast-badge {
