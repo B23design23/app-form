@@ -51,7 +51,7 @@
 
 @media (max-width: 399px) {
   .formateur-taux-icone {
-    display: none;
+    max-height: 80px;
   }
 }
 

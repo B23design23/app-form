@@ -412,14 +412,14 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
                     {!valide ? (
                       <button
                         type="button"
-                        className="bouton-primaire"
+                        className="bouton-primaire quiz-bouton-valider"
                         disabled={selection.length === 0}
                         onClick={validerReponse}
                       >
                         Valider ma réponse
                       </button>
                     ) : (
-                      <button type="button" className="bouton-primaire" onClick={questionSuivante}>
+                      <button type="button" className="bouton-primaire quiz-bouton-valider" onClick={questionSuivante}>
                         {indexQuestion === questions.length - 1 ? 'Terminer le quiz' : 'Question suivante'}
                       </button>
                     )}
