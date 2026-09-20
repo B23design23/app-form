@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import { THEMATIQUES } from '../lib/thematiques'
 import Dropdown from '../components/Dropdown'
 import ContenuMarkdown from '../components/ContenuMarkdown'
 import iconeTrash from '../Assets/trash.svg'
@@ -16,6 +17,10 @@ const MODES_CHECKLIST = [
   { value: 'checkbox', label: 'Cases à cocher' },
   { value: 'reorder', label: 'Réorganisation' },
 ]
+
+// Cohérent avec la contrainte cours_categorie_publique_valide (migration 0002) : seuls les
+// cours publics (créés par un compte admin) sont limités à ces 12 thèmes.
+const THEMATIQUES_PUBLIQUES = THEMATIQUES.map((nom) => ({ value: nom, label: nom }))
 
 function nouvelleReponse() {
   return { localId: crypto.randomUUID(), texte: '', estCorrecte: false, explication: '' }
@@ -340,6 +345,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
   function validerFormulaire() {
     if (titre.trim().length === 0) return 'Le titre du cours est obligatoire.'
+    if (estAdmin && categorie.trim().length === 0) return 'Choisis un thème pour ce cours public.'
     if (questions.length === 0) return 'Ajoute au moins une question au QCM.'
 
     for (const [index, question] of questions.entries()) {
@@ -570,12 +576,21 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
               <label className="champ">
                 <span>Catégorie</span>
-                <input
-                  type="text"
-                  placeholder="ex. Froid, Électricité, Sécurité"
-                  value={categorie}
-                  onChange={(e) => setCategorie(e.target.value)}
-                />
+                {estAdmin ? (
+                  <Dropdown
+                    value={categorie}
+                    onChange={setCategorie}
+                    options={THEMATIQUES_PUBLIQUES}
+                    placeholder="Choisir un thème"
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    placeholder="ex. Froid, Électricité, Sécurité"
+                    value={categorie}
+                    onChange={(e) => setCategorie(e.target.value)}
+                  />
+                )}
               </label>
             </div>
 

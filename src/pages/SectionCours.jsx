@@ -1,27 +1,18 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import { THEMATIQUES, COULEUR_ANNEAU_THEME, numeroTheme } from '../lib/thematiques'
 import StatutBadge from '../components/StatutBadge'
-import Dropdown from '../components/Dropdown'
+import AnneauProgression from '../components/AnneauProgression'
+import CarteCours from '../components/CarteCours'
+import DetailTheme from './DetailTheme'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './SectionCours.css'
-
-const OPTIONS_FILTRE_STATUT = [
-  { value: 'tous', label: 'Tous' },
-  { value: 'non_commence', label: 'Non commencé' },
-  { value: 'en_cours', label: 'En cours' },
-  { value: 'termine', label: 'Terminé' },
-]
 
 function correspondRecherche(cours, terme) {
   const t = terme.trim().toLowerCase()
   if (!t) return true
   return cours.titre.toLowerCase().includes(t)
-}
-
-function correspondStatut(cours, statutParCoursId, filtreStatut) {
-  if (filtreStatut === 'tous') return true
-  return (statutParCoursId.get(cours.id) ?? 'non_commence') === filtreStatut
 }
 
 function ListeCours({ cours, statutParCoursId, onOuvrirCours }) {
@@ -42,20 +33,29 @@ function ListeCours({ cours, statutParCoursId, onOuvrirCours }) {
   )
 }
 
-function SectionCoursGroupe({ titre, coursBase, coursRecherches, coursFiltres, recherche, statutParCoursId, onOuvrirCours }) {
+function CarteTheme({ nom, index, termines, total, onClick }) {
+  const ratio = total > 0 ? termines / total : 0
+
   return (
-    <section>
-      <h2>{titre}</h2>
-      {coursBase.length === 0 ? (
-        <p className="dashboard-etat-vide">Aucun cours disponible pour le moment.</p>
-      ) : coursRecherches.length === 0 ? (
-        <p className="dashboard-etat-vide">Aucun cours trouvé pour « {recherche.trim()} ».</p>
-      ) : coursFiltres.length === 0 ? (
-        <p className="dashboard-etat-vide">Aucun cours ne correspond au filtre sélectionné.</p>
-      ) : (
-        <ListeCours cours={coursFiltres} statutParCoursId={statutParCoursId} onOuvrirCours={onOuvrirCours} />
-      )}
-    </section>
+    <button type="button" className="theme-carte" onClick={onClick}>
+      <AnneauProgression
+        radius={18}
+        strokeWidth={4}
+        ratio={ratio}
+        afficherTrait={total > 0}
+        trackColor="#F4F4F6"
+        progressColor={COULEUR_ANNEAU_THEME}
+        wrapperClassName="theme-carte-anneau"
+      >
+        <span className="theme-carte-numero" style={{ color: COULEUR_ANNEAU_THEME }}>
+          {numeroTheme(index)}
+        </span>
+      </AnneauProgression>
+      <span className="theme-carte-titre">{nom}</span>
+      <span className="theme-carte-compte">
+        {termines}/{total} cours
+      </span>
+    </button>
   )
 }
 
@@ -63,16 +63,15 @@ function SectionCours({ authUser, onOuvrirCours }) {
   const [coursListe, setCoursListe] = useState(null)
   const [erreurCours, setErreurCours] = useState(null)
   const [progression, setProgression] = useState([])
-
   const [recherche, setRecherche] = useState('')
-  const [filtreStatut, setFiltreStatut] = useState('tous')
+  const [themeSelectionneIndex, setThemeSelectionneIndex] = useState(null)
 
   useEffect(() => {
     let annule = false
 
     supabase
       .from('cours')
-      .select('id, titre, visibilite')
+      .select('id, titre, visibilite, categorie, contenu, questions(id), etapes_checklist(id)')
       .then(({ data, error }) => {
         if (annule) return
         if (error) setErreurCours(error.message)
@@ -97,41 +96,36 @@ function SectionCours({ authUser, onOuvrirCours }) {
   const coursPublics = (coursListe ?? []).filter((c) => c.visibilite === 'public')
   const coursFormateur = (coursListe ?? []).filter((c) => c.visibilite === 'prive')
 
-  const coursPublicsRecherches = coursPublics.filter((c) => correspondRecherche(c, recherche))
-  const coursPublicsFiltres = coursPublicsRecherches.filter((c) => correspondStatut(c, statutParCoursId, filtreStatut))
+  const coursFormateurFiltres = coursFormateur.filter((c) => correspondRecherche(c, recherche))
+  const coursPubliquesResultats = coursPublics.filter((c) => correspondRecherche(c, recherche))
 
-  const coursFormateurRecherches = coursFormateur.filter((c) => correspondRecherche(c, recherche))
-  const coursFormateurFiltres = coursFormateurRecherches.filter((c) =>
-    correspondStatut(c, statutParCoursId, filtreStatut)
-  )
+  const rechercheActive = recherche.trim().length > 0
 
-  const sectionPublics = (
-    <SectionCoursGroupe
-      titre="Cours publics"
-      coursBase={coursPublics}
-      coursRecherches={coursPublicsRecherches}
-      coursFiltres={coursPublicsFiltres}
-      recherche={recherche}
-      statutParCoursId={statutParCoursId}
-      onOuvrirCours={onOuvrirCours}
-    />
-  )
-
-  const sectionFormateur = coursFormateur.length > 0 && (
-    <SectionCoursGroupe
-      titre="Cours de mon formateur"
-      coursBase={coursFormateur}
-      coursRecherches={coursFormateurRecherches}
-      coursFiltres={coursFormateurFiltres}
-      recherche={recherche}
-      statutParCoursId={statutParCoursId}
-      onOuvrirCours={onOuvrirCours}
-    />
-  )
+  if (themeSelectionneIndex !== null) {
+    return (
+      <DetailTheme
+        authUser={authUser}
+        nom={THEMATIQUES[themeSelectionneIndex]}
+        index={themeSelectionneIndex}
+        onRetour={() => setThemeSelectionneIndex(null)}
+        onOuvrirCours={onOuvrirCours}
+      />
+    )
+  }
 
   return (
     <div className="espace-page espace-page-etroit">
-      <h1>Mes cours</h1>
+      <h1 className="page-cours-titre">Cours</h1>
+
+      <label className="champ">
+        <span>Rechercher un cours</span>
+        <input
+          type="text"
+          placeholder="Rechercher un cours..."
+          value={recherche}
+          onChange={(e) => setRecherche(e.target.value)}
+        />
+      </label>
 
       {erreurCours ? (
         <p className="message message-erreur">Impossible de charger les cours ({erreurCours}).</p>
@@ -139,32 +133,60 @@ function SectionCours({ authUser, onOuvrirCours }) {
         <p>Chargement…</p>
       ) : (
         <>
-          {coursListe.length > 0 && (
-            <div className="section-cours-controles">
-              <label className="champ section-cours-recherche">
-                <span>Rechercher un cours</span>
-                <input
-                  type="text"
-                  placeholder="Titre du cours"
-                  value={recherche}
-                  onChange={(e) => setRecherche(e.target.value)}
-                />
-              </label>
-
-              <label className="champ section-cours-filtre-statut">
-                <span>Filtrer par statut</span>
-                <Dropdown value={filtreStatut} onChange={setFiltreStatut} options={OPTIONS_FILTRE_STATUT} />
-              </label>
-            </div>
+          {coursFormateur.length > 0 && (
+            <section>
+              <h2>Cours de mon formateur</h2>
+              {coursFormateurFiltres.length === 0 ? (
+                <p className="dashboard-etat-vide">Aucun cours trouvé pour « {recherche.trim()} ».</p>
+              ) : (
+                <ListeCours cours={coursFormateurFiltres} statutParCoursId={statutParCoursId} onOuvrirCours={onOuvrirCours} />
+              )}
+            </section>
           )}
 
-          {coursFormateur.length > 0 ? (
-            <>
-              {sectionFormateur}
-              {sectionPublics}
-            </>
+          {rechercheActive ? (
+            <section>
+              <h2>Résultats</h2>
+              {coursPubliquesResultats.length === 0 ? (
+                <p className="dashboard-etat-vide">Aucun cours trouvé pour « {recherche.trim()} ».</p>
+              ) : (
+                <div className="carte-cours-grille">
+                  {coursPubliquesResultats.map((cours) => (
+                    <CarteCours
+                      key={cours.id}
+                      cours={cours}
+                      statut={statutParCoursId.get(cours.id) ?? 'non_commence'}
+                      onClick={() => onOuvrirCours(cours.id)}
+                    />
+                  ))}
+                </div>
+              )}
+            </section>
           ) : (
-            sectionPublics
+            <section>
+              <div className="cours-bibliotheque-entete">
+                <h2>Bibliothèque publique</h2>
+                <span className="cours-badge-nb-themes">12 thèmes</span>
+              </div>
+              <div className="cours-grille-themes">
+                {THEMATIQUES.map((nom, index) => {
+                  const coursDuTheme = coursPublics.filter((c) => c.categorie === nom)
+                  const termines = coursDuTheme.filter(
+                    (c) => (statutParCoursId.get(c.id) ?? 'non_commence') === 'termine'
+                  ).length
+                  return (
+                    <CarteTheme
+                      key={nom}
+                      nom={nom}
+                      index={index}
+                      termines={termines}
+                      total={coursDuTheme.length}
+                      onClick={() => setThemeSelectionneIndex(index)}
+                    />
+                  )
+                })}
+              </div>
+            </section>
           )}
         </>
       )}

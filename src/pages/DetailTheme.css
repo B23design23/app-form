@@ -1,0 +1,42 @@
+.theme-detail-entete {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.theme-detail-anneau {
+  position: relative;
+  width: clamp(40px, 5vw, 64px);
+  height: clamp(40px, 5vw, 64px);
+  flex-shrink: 0;
+}
+
+.theme-detail-numero {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(12px, 1.2vw, 16px);
+}
+
+/* Sélecteur .espace-page .theme-detail-titre pour l'emporter sur la spécificité de la règle
+   globale .espace-page h1 (même raison que .page-cours-titre dans SectionCours.css). */
+.espace-page .theme-detail-titre {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.theme-detail-compte {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  color: #6b6580;
+  margin: 4px 0 0;
+}
+

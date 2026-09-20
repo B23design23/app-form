@@ -228,6 +228,7 @@
   flex-shrink: 0;
   padding: 5px 12px;
   border-radius: var(--radius-pill);
+  font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 700;
   white-space: nowrap;

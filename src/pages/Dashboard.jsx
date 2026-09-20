@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { iconeBadge, libelleCondition } from '../lib/badges'
 import { salutation } from '../lib/salutation'
+import AnneauProgression from '../components/AnneauProgression'
 import iconeXp from '../Assets/badge/Iconxp.svg'
 import iconeFlash from '../Assets/flash.svg'
 import '../styles/shared.css'
@@ -184,7 +185,6 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   const totalCours = coursListe.length
   const coursTermines = coursListe.filter((c) => statutParCoursId.get(c.id) === 'termine').length
   const ratioGlobal = totalCours > 0 ? coursTermines / totalCours : 0
-  const circonference = 2 * Math.PI * 42
 
   const coursEnCours = coursListe.find((c) => statutParCoursId.get(c.id) === 'en_cours')
   const coursNonCommence = coursListe.find((c) => statutParCoursId.get(c.id) !== 'termine' && statutParCoursId.get(c.id) !== 'en_cours')
@@ -333,28 +333,18 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
       <div className="espace-carte espace-carte-continuer">
         <div className="apprenant-continuer-layout">
-          <div className="apprenant-continuer-anneau-wrapper">
-            <svg viewBox="0 0 100 100" className="apprenant-continuer-anneau" aria-hidden="true">
-              <circle cx="50" cy="50" r="42" stroke="var(--color-anneau-fond)" strokeWidth="9" fill="none" />
-              {totalCours > 0 && (
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="42"
-                  stroke="var(--color-primary)"
-                  strokeWidth="9"
-                  fill="none"
-                  strokeDasharray={circonference}
-                  strokeDashoffset={circonference * (1 - ratioGlobal)}
-                  strokeLinecap="round"
-                  transform="rotate(-90 50 50)"
-                />
-              )}
-            </svg>
+          <AnneauProgression
+            radius={42}
+            strokeWidth={9}
+            ratio={ratioGlobal}
+            afficherTrait={totalCours > 0}
+            wrapperClassName="apprenant-continuer-anneau-wrapper"
+            svgClassName="apprenant-continuer-anneau"
+          >
             {totalCours > 0 && (
               <span className="apprenant-continuer-anneau-pourcentage">{Math.round(ratioGlobal * 100)}%</span>
             )}
-          </div>
+          </AnneauProgression>
 
           <div className="apprenant-continuer-info">
             {erreurCours ? (

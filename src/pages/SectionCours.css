@@ -1,20 +1,100 @@
-.section-cours-controles {
+/* Sélecteur .espace-page .page-cours-titre (et non juste .page-cours-titre) pour l'emporter
+   sur la spécificité de la règle globale .espace-page h1 (font-size/couleur par défaut). */
+.espace-page .page-cours-titre {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 26px;
+  color: #241e3d;
+  margin: 0;
+}
+
+.cours-bibliotheque-entete {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cours-badge-nb-themes {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-fond);
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.cours-grille-themes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
 @media (min-width: 768px) {
-  .section-cours-controles {
-    flex-direction: row;
-    gap: 16px;
-  }
-
-  .section-cours-recherche {
-    flex: 1;
-  }
-
-  .section-cours-filtre-statut {
-    flex: 0 0 200px;
+  .cours-grille-themes {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
+
+.theme-carte {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  background: var(--color-surface);
+  border: 1.5px solid #e7e3f5;
+  border-radius: 18px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.theme-carte:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(36, 29, 66, 0.1);
+}
+
+.theme-carte:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.theme-carte-anneau {
+  position: relative;
+  width: clamp(40px, 5vw, 64px);
+  height: clamp(40px, 5vw, 64px);
+  flex-shrink: 0;
+}
+
+.theme-carte-numero {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(12px, 1.2vw, 16px);
+}
+
+.theme-carte-titre {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--color-ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.theme-carte-compte {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 11px;
+  color: #6b6580;
+}
+
