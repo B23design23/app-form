@@ -92,6 +92,8 @@
 }
 
 .theme-carte-compte {
+  margin-top: auto; /* ancré en bas : alignement identique quelle que soit la longueur du titre */
+  padding-top: 4px;
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 11px;
