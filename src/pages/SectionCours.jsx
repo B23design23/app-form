@@ -59,12 +59,12 @@ function CarteTheme({ nom, index, termines, total, onClick }) {
   )
 }
 
-function SectionCours({ authUser, onOuvrirCours }) {
+// themeSelectionneIndex vit dans App : l'état survit à l'ouverture d'une fiche de cours (retour → thème)
+function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChangerTheme: setThemeSelectionneIndex }) {
   const [coursListe, setCoursListe] = useState(null)
   const [erreurCours, setErreurCours] = useState(null)
   const [progression, setProgression] = useState([])
   const [recherche, setRecherche] = useState('')
-  const [themeSelectionneIndex, setThemeSelectionneIndex] = useState(null)
 
   useEffect(() => {
     let annule = false

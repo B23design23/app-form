@@ -14,7 +14,7 @@ const ONGLETS = [
   { id: 'mode-terrain', label: 'Mode terrain', icone: iconeModeTerrain },
 ]
 
-function EspaceApprenant({ authUser, section, onChangerSection, onOuvrirCours, onOuvrirQuizFlash }) {
+function EspaceApprenant({ authUser, section, onChangerSection, onOuvrirCours, onOuvrirQuizFlash, themeCoursIndex, onChangerTheme }) {
   return (
     <div className="espace-layout">
       <NavigationEspace onglets={ONGLETS} section={section} onChangerSection={onChangerSection} />
@@ -28,7 +28,14 @@ function EspaceApprenant({ authUser, section, onChangerSection, onOuvrirCours, o
             onChangerSection={onChangerSection}
           />
         )}
-        {section === 'cours' && <SectionCours authUser={authUser} onOuvrirCours={onOuvrirCours} />}
+        {section === 'cours' && (
+          <SectionCours
+            authUser={authUser}
+            onOuvrirCours={onOuvrirCours}
+            themeSelectionneIndex={themeCoursIndex}
+            onChangerTheme={onChangerTheme}
+          />
+        )}
         {section === 'mode-terrain' && <SectionModeTerrain authUser={authUser} onOuvrirCours={onOuvrirCours} />}
       </div>
     </div>

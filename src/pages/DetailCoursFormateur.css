@@ -92,7 +92,6 @@
 }
 
 .detail-contenu {
-  white-space: pre-wrap;
   font-size: 0.9rem;
   line-height: 1.5;
   color: var(--color-ink);

@@ -34,6 +34,7 @@ function App() {
   const [sectionApprenant, setSectionApprenant] = useState('dashboard')
   const [sectionFormateur, setSectionFormateur] = useState('dashboard')
   const [coursSelectionneId, setCoursSelectionneId] = useState(null)
+  const [themeCoursIndex, setThemeCoursIndex] = useState(null)
   const [sectionInitiale, setSectionInitiale] = useState(null)
   const [coursSelectionneIdFormateur, setCoursSelectionneIdFormateur] = useState(null)
   const [groupeSelectionneId, setGroupeSelectionneId] = useState(null)
@@ -254,7 +255,12 @@ function App() {
     <EspaceApprenant
       authUser={authUser}
       section={sectionApprenant}
-      onChangerSection={setSectionApprenant}
+      onChangerSection={(s) => {
+        setSectionApprenant(s)
+        setThemeCoursIndex(null)
+      }}
+      themeCoursIndex={themeCoursIndex}
+      onChangerTheme={setThemeCoursIndex}
       onOuvrirCours={(coursId, section) => {
         setCoursSelectionneId(coursId)
         setSectionInitiale(section ?? null)

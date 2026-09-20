@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import ContenuMarkdown from '../components/ContenuMarkdown'
 import iconeEdit from '../Assets/edit.svg'
 import iconeTrash from '../Assets/trash.svg'
 import '../styles/shared.css'
@@ -165,7 +166,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
                 {groupesAssignes.length > 0 ? groupesAssignes.map((g) => g.nom).join(', ') : 'Aucun'}
               </p>
             )}
-            <div className="detail-contenu">{cours.contenu}</div>
+            <ContenuMarkdown texte={cours.contenu} className="detail-contenu" />
           </section>
 
           <section className="detail-section">

@@ -125,9 +125,18 @@ alter table groupe_membres disable trigger nouvel_eleve_dans_groupe;
 - `visibilite` (enum : `public` | `prive`)
 - `checklist_mode` (texte : `checkbox` | `reorder`, nullable — s'applique à toute la checklist du cours, pas étape par étape)
 - `formateur_id` (FK → profiles, nullable — rempli seulement si `visibilite = prive`)
-- `groupe_id` (FK → groupes, nullable — rempli seulement si privé et assigné à un groupe)
+- `ordre` (int, nullable — tri des cours au sein d'un thème, migration 0002)
+- ~~`groupe_id`~~ : n'existe **pas** sur `cours`. L'association cours ↔ groupe passe par la table de liaison `cours_groupes` (un cours peut être assigné à plusieurs groupes).
 - `created_at`
 
+
+
+### `cours_groupes` (table de liaison)
+
+- `cours_id` (FK → cours), `groupe_id` (FK → groupes)
+- Utilisée dans `CreationCours.jsx`, `DetailGroupe.jsx`, `DetailCoursFormateur.jsx`.
+
+**Contrainte** `cours_categorie_publique_valide` : pour `visibilite = 'public'`, `categorie` doit être l'une des 12 thématiques de `src/lib/thematiques.js` (texte libre pour les cours privés).
 
 
 ### `questions`
@@ -197,7 +206,7 @@ alter table groupe_membres disable trigger nouvel_eleve_dans_groupe;
 
 ## Row Level Security (logique à implémenter)
 
-- `cours` : visible si `visibilite = 'public'` OU (`visibilite = 'prive'` ET l'utilisateur appartient à `groupe_membres` du `groupe_id` associé) OU l'utilisateur est le `formateur_id` du cours.
+- `cours` : visible si `visibilite = 'public'` OU (`visibilite = 'prive'` ET l'utilisateur appartient à `groupe_membres` d'un groupe lié au cours via `cours_groupes`) OU l'utilisateur est le `formateur_id` du cours.
 - `progression` **/** `scores` **/** `user_badges` : un apprenant ne voit/modifie que ses propres lignes (`user_id = auth.uid()`). Un formateur peut lire (pas modifier) les lignes des apprenants de ses groupes.
 - `groupes` **/** `groupe_membres` : lecture/écriture réservée au `formateur_id` propriétaire du groupe.
 

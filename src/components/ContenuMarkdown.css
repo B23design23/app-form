@@ -1,5 +1,32 @@
 .contenu-markdown p {
   margin: 0 0 16px;
+  /* Rétrocompat : les cours en texte brut gardent leurs retours à la ligne simples */
+  white-space: pre-line;
+}
+
+.contenu-markdown h1,
+.contenu-markdown h2,
+.contenu-markdown h3 {
+  margin: 20px 0 8px;
+  line-height: 1.25;
+}
+
+.contenu-markdown h1 { font-size: 1.4rem; }
+.contenu-markdown h2 { font-size: 1.2rem; }
+.contenu-markdown h3 { font-size: 1.05rem; }
+
+.contenu-markdown > :first-child {
+  margin-top: 0;
+}
+
+.contenu-markdown ul,
+.contenu-markdown ol {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+
+.contenu-markdown li {
+  margin-bottom: 4px;
 }
 
 .contenu-markdown p:last-child {
