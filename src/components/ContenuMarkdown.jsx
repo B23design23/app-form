@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import './ContenuMarkdown.css'
 
 function obtenirUrlEmbedVideo(url) {
@@ -65,8 +66,14 @@ function ContenuMarkdown({ texte, className = '' }) {
   return (
     <div className={`contenu-markdown ${className}`.trim()}>
       <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
         components={{
           a: LienMarkdown,
+          table: ({ children }) => (
+            <div className="contenu-markdown-table-wrap">
+              <table>{children}</table>
+            </div>
+          ),
           img: ({ src, alt }) => (
             <img
               src={src}

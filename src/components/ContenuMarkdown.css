@@ -82,3 +82,34 @@
   max-height: 100%;
   border-radius: 16px;
 }
+
+.contenu-markdown-table-wrap {
+  overflow-x: auto;
+  margin: 12px 0;
+  border: 1px solid #EDE9FE;
+  border-radius: 12px;
+}
+
+.contenu-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.contenu-markdown th,
+.contenu-markdown td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #EDE9FE;
+}
+
+.contenu-markdown th {
+  background: #EDE9FE;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.contenu-markdown tbody tr:last-child td {
+  border-bottom: none;
+}
