@@ -33,6 +33,16 @@ async function marquerProgression(authUser, coursId, statut) {
   return verifierBadges(authUser)
 }
 
+async function marquerChecklistTerminee(authUser, coursId) {
+  await supabase
+    .from('progression')
+    .update({ checklist_terminee: true })
+    .eq('user_id', authUser.id)
+    .eq('cours_id', coursId)
+
+  return verifierBadges(authUser)
+}
+
 function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState(null)
@@ -78,7 +88,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
           .order('ordre'),
         supabase
           .from('progression')
-          .select('id, statut')
+          .select('id, statut, checklist_terminee')
           .eq('user_id', authUser.id)
           .eq('cours_id', coursId)
           .maybeSingle(),
@@ -110,6 +120,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
       const progressionActuelle = progressionRes.data
       setDejaTermineAuDepart(progressionActuelle?.statut === 'termine')
       setCoursEstTermine(progressionActuelle?.statut === 'termine')
+      setChecklistTerminee(progressionActuelle?.checklist_terminee === true)
 
       if (!progressionActuelle || progressionActuelle.statut === 'non_commence') {
         const nouveauxBadges = await marquerProgression(authUser, coursId, 'en_cours')
@@ -225,11 +236,10 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
     setEtapesValidees(nouvelleListe)
 
     if (!checklistTerminee && !dejaValidee && nouvelleListe.length === etapes.length) {
-      if (!dejaTermineAuDepart) {
-        await ajouterXp(authUser, XP_CHECKLIST)
-        setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST, type: 'checklist' })
-      }
+      await ajouterXp(authUser, XP_CHECKLIST)
       setChecklistTerminee(true)
+      const nouveauxBadges = await marquerChecklistTerminee(authUser, coursId)
+      setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST, badges: nouveauxBadges, type: 'checklist' })
     }
   }
 
@@ -252,11 +262,10 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
     setFeedbackOrdre(estCorrect ? 'correct' : 'incorrect')
 
     if (estCorrect && !checklistTerminee) {
-      if (!dejaTermineAuDepart) {
-        await ajouterXp(authUser, XP_CHECKLIST)
-        setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST, type: 'checklist' })
-      }
+      await ajouterXp(authUser, XP_CHECKLIST)
       setChecklistTerminee(true)
+      const nouveauxBadges = await marquerChecklistTerminee(authUser, coursId)
+      setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST, badges: nouveauxBadges, type: 'checklist' })
     }
   }
 

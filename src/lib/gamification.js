@@ -11,7 +11,7 @@ export async function verifierBadges(authUser) {
     supabase.from('badges').select('id, nom, icone, condition_deblocage'),
     supabase.from('user_badges').select('badge_id').eq('user_id', authUser.id),
     supabase.from('scores').select('type, score').eq('user_id', authUser.id),
-    supabase.from('progression').select('statut, cours(etapes_checklist(id))').eq('user_id', authUser.id),
+    supabase.from('progression').select('statut, checklist_terminee').eq('user_id', authUser.id),
   ])
 
   if (badgesRes.error || userBadgesRes.error || scoresRes.error || progressionRes.error) {
@@ -24,7 +24,7 @@ export async function verifierBadges(authUser) {
 
   const conditionsRemplies = {
     premier_quiz_complete: scores.some((s) => s.type === 'quiz_cours'),
-    premiere_checklist_completee: coursTermines.some((p) => (p.cours?.etapes_checklist?.length ?? 0) > 0),
+    premiere_checklist_completee: (progressionRes.data ?? []).some((p) => p.checklist_terminee),
     trois_cours_termines: coursTermines.length >= 3,
     dix_cours_termines: coursTermines.length >= 10,
     quiz_100_pourcent: scores.some((s) => s.score === 100),

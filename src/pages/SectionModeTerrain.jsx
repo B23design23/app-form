@@ -23,7 +23,7 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
 
     supabase
       .from('progression')
-      .select('cours_id, statut')
+      .select('cours_id, statut, checklist_terminee')
       .eq('user_id', authUser.id)
       .then(({ data, error }) => {
         if (annule) return
@@ -35,7 +35,7 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
     }
   }, [authUser.id])
 
-  const statutParCoursId = new Map(progression.map((p) => [p.cours_id, p.statut]))
+  const checklistFaiteParCoursId = new Map(progression.map((p) => [p.cours_id, p.checklist_terminee === true]))
   const coursAvecChecklist = (coursListe ?? []).filter((cours) => (cours.etapes_checklist?.length ?? 0) > 0)
 
   return (
@@ -51,7 +51,7 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
       ) : (
         <ul className="espace-liste espace-liste-grille">
           {coursAvecChecklist.map((cours) => {
-            const statut = statutParCoursId.get(cours.id) ?? 'non_commence'
+            const statut = checklistFaiteParCoursId.get(cours.id) ? 'termine' : 'non_commence'
             return (
               <li key={cours.id}>
                 <button

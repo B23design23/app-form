@@ -67,7 +67,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
     supabase
       .from('progression')
-      .select('cours_id, statut')
+      .select('cours_id, statut, checklist_terminee')
       .eq('user_id', authUser.id)
       .then(({ data, error }) => {
         if (annule) return
@@ -182,6 +182,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   }
 
   const statutParCoursId = new Map(progression.map((p) => [p.cours_id, p.statut]))
+  const idsChecklistFaite = new Set(progression.filter((p) => p.checklist_terminee).map((p) => p.cours_id))
   const totalCours = coursListe.length
   const coursTermines = coursListe.filter((c) => statutParCoursId.get(c.id) === 'termine').length
   const ratioGlobal = totalCours > 0 ? coursTermines / totalCours : 0
@@ -211,7 +212,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
           cle: 'checklist',
           icone: CHEMIN_ICONE_LOADER,
           label: 'Checklist',
-          fait: statutCoursMisEnAvant === 'termine',
+          fait: idsChecklistFaite.has(coursAMettreEnAvant.id),
         },
       ].filter(Boolean)
     : []
