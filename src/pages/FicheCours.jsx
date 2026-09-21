@@ -134,7 +134,8 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
   useEffect(() => {
     if (chargement || coursEstTermine || !(hasQuiz || hasChecklist)) return
 
-    const complet = (!hasQuiz || quizTermine) && (!hasChecklist || checklistTerminee)
+    // Si le cours a un QCM, il suffit à valider la leçon ; la checklist ne compte que sans QCM.
+    const complet = hasQuiz ? quizTermine : checklistTerminee
     if (complet) {
       setCoursEstTermine(true)
       marquerProgression(authUser, coursId, 'termine').then((nouveauxBadges) => {
