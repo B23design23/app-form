@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Children, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import './ContenuMarkdown.css'
@@ -58,6 +58,30 @@ function LienMarkdown({ href, children }) {
   )
 }
 
+// Un titre Markdown (##) tient sur une seule ligne : on y autorise <br> comme retour à la ligne.
+const SEPARATEUR_TITRE = '\u2028'
+
+function preparerTitres(texte) {
+  return texte
+    .split('\n')
+    .map((ligne) => (/^\s{0,3}#{1,6}\s/.test(ligne) ? ligne.replace(/<br\s*\/?>/gi, SEPARATEUR_TITRE) : ligne))
+    .join('\n')
+}
+
+function avecRetoursALaLigne(children) {
+  return Children.toArray(children).flatMap((enfant, i) =>
+    typeof enfant === 'string'
+      ? enfant.split(SEPARATEUR_TITRE).flatMap((morceau, j) => (j === 0 ? [morceau] : [<br key={`${i}-${j}`} />, morceau]))
+      : [enfant]
+  )
+}
+
+function titre(Balise) {
+  return function Titre({ children }) {
+    return <Balise>{avecRetoursALaLigne(children)}</Balise>
+  }
+}
+
 function ContenuMarkdown({ texte, className = '' }) {
   const [imageAgrandie, setImageAgrandie] = useState(null)
 
@@ -69,6 +93,10 @@ function ContenuMarkdown({ texte, className = '' }) {
         remarkPlugins={[remarkGfm]}
         components={{
           a: LienMarkdown,
+          h1: titre('h1'),
+          h2: titre('h2'),
+          h3: titre('h3'),
+          h4: titre('h4'),
           table: ({ children }) => (
             <div className="contenu-markdown-table-wrap">
               <table>{children}</table>
@@ -87,7 +115,7 @@ function ContenuMarkdown({ texte, className = '' }) {
           ),
         }}
       >
-        {texte}
+        {preparerTitres(texte)}
       </ReactMarkdown>
 
       {imageAgrandie && (
