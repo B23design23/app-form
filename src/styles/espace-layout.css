@@ -323,3 +323,22 @@
     gap: 16px;
   }
 }
+
+.section-formateur-filtre {
+  max-width: 320px;
+  margin: 16px 0;
+}
+
+/* Mode terrain : rayon fixe (la carte peut être haute), badge en haut à droite, titre limité à 2 lignes */
+.espace-liste-item-terrain {
+  align-items: flex-start;
+  border-radius: 20px;
+}
+
+.espace-liste-item-terrain .espace-liste-item-titre {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}

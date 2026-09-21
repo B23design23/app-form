@@ -56,10 +56,12 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
               <li key={cours.id}>
                 <button
                   type="button"
-                  className="espace-liste-item"
+                  className="espace-liste-item espace-liste-item-terrain"
                   onClick={() => onOuvrirCours(cours.id, 'checklist')}
                 >
-                  <span className="espace-liste-item-titre">{cours.titre}</span>
+                  <span className="espace-liste-item-titre" title={cours.titre}>
+                    {cours.titre}
+                  </span>
                   <StatutBadge statut={statut} />
                 </button>
               </li>
