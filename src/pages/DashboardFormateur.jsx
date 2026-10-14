@@ -2,11 +2,18 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { salutation } from '../lib/salutation'
 import Dropdown from '../components/Dropdown'
-import iconeTarget from '../Assets/badge/Target.svg'
-import iconeSend from '../Assets/Iconex/Broken/Send.svg'
+import AnneauProgression from '../components/AnneauProgression'
+import iconeCours from '../Assets/book.svg?raw'
+import iconeGroupes from '../Assets/Users.svg?raw'
+import iconeEleve from '../Assets/user.svg?raw'
+import iconeAlerte from '../Assets/alert.svg?raw'
+import iconeCoche from '../Assets/check.svg?raw'
+import iconeLecture from '../Assets/play.svg?raw'
+import iconeSend from '../Assets/Iconex/Broken/Send.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './DashboardFormateur.css'
+import Icone from '../components/Icone'
 
 const OPTIONS_STATUT_ACTIVITE = [
   { value: 'tous', label: 'Tous' },
@@ -21,6 +28,8 @@ const OPTIONS_TRI_ACTIVITE = [
 
 const LIMITE_ACTIVITE_FETCH = 50
 const LIMITE_ACTIVITE_AFFICHEE = 6
+const LIMITE_ACTIVITE_AFFICHEE_MOBILE = 3
+const REQUETE_MOBILE = '(max-width: 767px)'
 const LIMITE_RELANCE_AFFICHEE = 5
 const SEUIL_RELANCE_JOURS = 3
 
@@ -37,12 +46,47 @@ function formaterDateRelative(dateIso) {
   return `Il y a ${diffJours} jours`
 }
 
-// Pas de vert "succès" dans la DA : on réutilise error/accent-warm/accent-star comme échelle de couleur.
-function classeCouleurTaux(taux) {
-  if (taux === null) return 'formateur-taux-valeur-neutre'
-  if (taux < 40) return 'formateur-taux-valeur-error'
-  if (taux < 70) return 'formateur-taux-valeur-warm'
-  return 'formateur-taux-valeur-star'
+// Format court de la liste Activité récente : « Aujourd'hui », « Hier », « 29 j ».
+function formaterDateCourte(dateIso) {
+  const debutJour = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime()
+  const diffJours = Math.round((debutJour(new Date()) - debutJour(new Date(dateIso))) / 86400000)
+
+  if (diffJours <= 0) return "Aujourd'hui"
+  if (diffJours === 1) return 'Hier'
+  return `${diffJours} j`
+}
+
+function useEstMobile() {
+  const [estMobile, setEstMobile] = useState(() => window.matchMedia(REQUETE_MOBILE).matches)
+
+  useEffect(() => {
+    const requete = window.matchMedia(REQUETE_MOBILE)
+    const onChange = (e) => setEstMobile(e.matches)
+    requete.addEventListener('change', onChange)
+    return () => requete.removeEventListener('change', onChange)
+  }, [])
+
+  return estMobile
+}
+
+// En-tête des cartes chiffres : icône blanche dans une pastille ronde violette + libellé
+// (libellé court optionnel affiché sous 768 px).
+function EnteteMetrique({ icone, label, labelCourt }) {
+  return (
+    <div className="formateur-metrique-entete">
+      <span className="formateur-metrique-pastille">
+        <Icone svg={icone} className="formateur-metrique-pastille-icone" />
+      </span>
+      {labelCourt ? (
+        <span className="formateur-metrique-label">
+          <span className="formateur-metrique-label-long">{label}</span>
+          <span className="formateur-metrique-label-court">{labelCourt}</span>
+        </span>
+      ) : (
+        <span className="formateur-metrique-label">{label}</span>
+      )}
+    </div>
+  )
 }
 
 function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
@@ -66,6 +110,7 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
   const [activite, setActivite] = useState(null)
   const [erreurActivite, setErreurActivite] = useState(null)
   const [activiteEtendue, setActiviteEtendue] = useState(false)
+  const estMobile = useEstMobile()
 
   const [rechercheActivite, setRechercheActivite] = useState('')
   const [rechercheActiviteDebouncee, setRechercheActiviteDebouncee] = useState('')
@@ -324,8 +369,10 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
   const relancesAffichees = relanceEtendue ? relances ?? [] : (relances ?? []).slice(0, LIMITE_RELANCE_AFFICHEE)
   const relancePeutEtendre = (relances?.length ?? 0) > LIMITE_RELANCE_AFFICHEE
 
-  const activiteAffichee = activiteEtendue ? activite ?? [] : (activite ?? []).slice(0, LIMITE_ACTIVITE_AFFICHEE)
-  const activitePeutEtendre = (activite?.length ?? 0) > LIMITE_ACTIVITE_AFFICHEE
+  const limiteActivite = estMobile ? LIMITE_ACTIVITE_AFFICHEE_MOBILE : LIMITE_ACTIVITE_AFFICHEE
+  const activiteAffichee = activiteEtendue ? activite ?? [] : (activite ?? []).slice(0, limiteActivite)
+  const activitePeutEtendre = (activite?.length ?? 0) > limiteActivite
+  const activiteMasquee = (activite?.length ?? 0) - activiteAffichee.length
 
   return (
     <div className="espace-page formateur-dashboard-page">
@@ -335,13 +382,30 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
 
       <div className="formateur-ligne-visualisation">
         <div className="espace-carte formateur-taux-carte">
-          <img className="formateur-taux-icone" src={iconeTarget} alt="" aria-hidden="true" />
-          <div className="formateur-taux-texte">
-            <span className={`formateur-taux-valeur ${classeCouleurTaux(tauxCompletion)}`}>
+          <AnneauProgression
+            radius={46}
+            strokeWidth={12}
+            ratio={(tauxCompletion ?? 0) / 100}
+            afficherTrait={tauxCompletion !== null}
+            wrapperClassName="formateur-taux-anneau"
+          >
+            <span className="formateur-taux-valeur">
               {tauxCompletion === null ? '—' : `${tauxCompletion}%`}
             </span>
+          </AnneauProgression>
+          <div className="formateur-taux-texte">
             <span className="formateur-taux-label">Taux de complétion moyen</span>
             <span className="formateur-taux-souscription">Sur l'ensemble de vos groupes</span>
+            {tauxCompletion !== null && tauxCompletion < 40 && (
+              <span className="formateur-taux-pastille formateur-taux-pastille-alerte">
+                <Icone svg={iconeAlerte} className="formateur-taux-pastille-icone" />À surveiller
+              </span>
+            )}
+            {tauxCompletion !== null && tauxCompletion >= 70 && (
+              <span className="formateur-taux-pastille formateur-taux-pastille-succes">
+                <Icone svg={iconeCoche} className="formateur-taux-pastille-icone" />Bon rythme
+              </span>
+            )}
           </div>
         </div>
 
@@ -352,8 +416,9 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
         ) : (
           <div className="formateur-metriques">
             <div
-              className={`espace-carte formateur-metrique${nbCours === 0 ? ' formateur-metrique-large' : ''}`}
+              className={`formateur-metrique${nbCours === 0 ? ' formateur-metrique-large' : ''}`}
             >
+              <EnteteMetrique icone={iconeCours} label="Cours créés" />
               {nbCours === 0 ? (
                 <div className="formateur-metrique-vide">
                   <p>Crée ton premier cours</p>
@@ -367,15 +432,13 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
                   </button>
                 </div>
               ) : (
-                <>
-                  <span className="formateur-metrique-valeur">{nbCours ?? '—'}</span>
-                  <span className="formateur-metrique-label">Cours créés</span>
-                </>
+                <span className="formateur-metrique-valeur">{nbCours ?? '—'}</span>
               )}
             </div>
             <div
-              className={`espace-carte formateur-metrique${nbGroupes === 0 ? ' formateur-metrique-large' : ''}`}
+              className={`formateur-metrique${nbGroupes === 0 ? ' formateur-metrique-large' : ''}`}
             >
+              <EnteteMetrique icone={iconeGroupes} label="Groupes" />
               {nbGroupes === 0 ? (
                 <div className="formateur-metrique-vide">
                   <p>Crée ton premier groupe</p>
@@ -389,15 +452,12 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
                   </button>
                 </div>
               ) : (
-                <>
-                  <span className="formateur-metrique-valeur">{nbGroupes ?? '—'}</span>
-                  <span className="formateur-metrique-label">Groupes</span>
-                </>
+                <span className="formateur-metrique-valeur">{nbGroupes ?? '—'}</span>
               )}
             </div>
-            <div className="espace-carte formateur-metrique">
+            <div className="formateur-metrique">
+              <EnteteMetrique icone={iconeEleve} label="Élèves au total" labelCourt="Élèves" />
               <span className="formateur-metrique-valeur">{nbEleves ?? '—'}</span>
-              <span className="formateur-metrique-label">Élèves au total</span>
             </div>
           </div>
         )}
@@ -436,7 +496,7 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
                       onClick={() => handleRelancer(eleve)}
                       aria-label={`Relancer ${eleve.prenom}`}
                     >
-                      <img className="formateur-relance-bouton-icone" src={iconeSend} alt="" aria-hidden="true" />
+                      <Icone svg={iconeSend} className="formateur-relance-bouton-icone" />
                     </button>
                   </li>
                 ))}
@@ -515,17 +575,27 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
             <ul className="formateur-activite-liste">
               {activiteAffichee.map((ligne) => (
                 <li key={ligne.id} className="formateur-activite-ligne">
+                  <span
+                    className={`formateur-activite-pastille formateur-activite-pastille-${
+                      ligne.statut === 'termine' ? 'termine' : 'en_cours'
+                    }`}
+                  >
+                    <Icone
+                      svg={ligne.statut === 'termine' ? iconeCoche : iconeLecture}
+                      className="formateur-activite-pastille-icone"
+                    />
+                  </span>
                   <span className="formateur-activite-texte">
                     <strong>{ligne.prenom}</strong> a {ligne.statut === 'termine' ? 'terminé' : 'commencé'}{' '}
                     <strong>{ligne.titreCours}</strong>
                   </span>
-                  <span className="formateur-activite-date">{formaterDateRelative(ligne.updatedAt)}</span>
+                  <span className="formateur-activite-date">{formaterDateCourte(ligne.updatedAt)}</span>
                 </li>
               ))}
             </ul>
             {activitePeutEtendre && !activiteEtendue && (
               <button type="button" className="lien-secondaire" onClick={() => setActiviteEtendue(true)}>
-                Voir plus
+                {estMobile ? `Voir plus (${activiteMasquee})` : 'Voir plus'}
               </button>
             )}
           </>

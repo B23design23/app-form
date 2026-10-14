@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import { COULEUR_ANNEAU_THEME, numeroTheme } from '../lib/thematiques'
-import AnneauProgression from '../components/AnneauProgression'
-import CarteCours from '../components/CarteCours'
+import { imageTheme } from '../lib/thematiques'
+import { contenuCours } from '../lib/cours'
+import Icone from '../components/Icone'
+import StatutBadge from '../components/StatutBadge'
+import iconeChevron from '../Assets/chevron-right.svg?raw'
+import iconeRetour from '../Assets/chevron-left.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './DetailTheme.css'
@@ -47,35 +50,21 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
   const termines = (coursListe ?? []).filter(
     (c) => (statutParCoursId.get(c.id) ?? 'non_commence') === 'termine'
   ).length
-  const ratio = total > 0 ? termines / total : 0
 
   return (
-    <div className="espace-page espace-page-etroit">
-      <button type="button" className="lien-retour" onClick={onRetour}>
-        ← Retour
+    <div className="espace-page espace-page-etroit page-theme">
+      <button type="button" className="theme-retour" onClick={onRetour}>
+        <Icone svg={iconeRetour} className="theme-retour-icone" />
+        Cours
       </button>
 
-      <div className="theme-detail-entete">
-        <AnneauProgression
-          radius={29}
-          strokeWidth={6}
-          ratio={ratio}
-          afficherTrait={total > 0}
-          trackColor="#F4F4F6"
-          progressColor={COULEUR_ANNEAU_THEME}
-          wrapperClassName="theme-detail-anneau"
-        >
-          <span className="theme-detail-numero" style={{ color: COULEUR_ANNEAU_THEME }}>
-            {numeroTheme(index)}
-          </span>
-        </AnneauProgression>
-
-        <div>
-          <h1 className="theme-detail-titre">{nom}</h1>
-          <p className="theme-detail-compte">
-            {termines}/{total} cours terminés
-          </p>
-        </div>
+      <div className="theme-entete">
+        <img className="theme-entete-objet" src={imageTheme(nom)} alt="" />
+        <span className="theme-entete-numero">Thème {index + 1}</span>
+        <h1 className="theme-entete-titre">{nom}</h1>
+        <p className="theme-entete-compte">
+          {termines} cours terminé{termines > 1 ? 's' : ''} sur {total}
+        </p>
       </div>
 
       {erreur ? (
@@ -85,16 +74,21 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
       ) : coursListe.length === 0 ? (
         <p className="dashboard-etat-vide">Aucun cours pour le moment dans ce thème.</p>
       ) : (
-        <div className="carte-cours-grille">
+        // Ordre pédagogique (cours.ordre) : le cours en cours ne remonte pas, sa pastille le signale.
+        <ul className="theme-liste">
           {coursListe.map((cours) => (
-            <CarteCours
-              key={cours.id}
-              cours={cours}
-              statut={statutParCoursId.get(cours.id) ?? 'non_commence'}
-              onClick={() => onOuvrirCours(cours.id)}
-            />
+            <li key={cours.id}>
+              <button type="button" className="theme-ligne" onClick={() => onOuvrirCours(cours.id)}>
+                <span className="theme-ligne-texte">
+                  <span className="theme-ligne-titre">{cours.titre}</span>
+                  <span className="theme-ligne-contenu">{contenuCours(cours)}</span>
+                </span>
+                <StatutBadge statut={statutParCoursId.get(cours.id) ?? 'non_commence'} />
+                <Icone svg={iconeChevron} className="chevron-ligne" />
+              </button>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   )

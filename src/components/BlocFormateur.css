@@ -1,0 +1,137 @@
+/* Bloc « De ton formateur » (dashboard apprenant et page Cours) */
+.bloc-formateur {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px 10px;
+  border-radius: var(--radius-carte);
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.bloc-formateur-entete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.espace-page .bloc-formateur-entete h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.bloc-formateur-pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.bloc-formateur-pastille-icone {
+  width: 18px;
+  height: 18px;
+}
+
+.bloc-formateur-compteur {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.bloc-formateur-liste {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bloc-formateur-liste li + li {
+  border-top: 1px solid var(--color-separateur);
+}
+
+.bloc-formateur-ligne {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 0;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.bloc-formateur-ligne:hover .bloc-formateur-titre {
+  color: var(--color-primary-texte);
+}
+
+/* Mobile (et dashboard) : titre puis pastille sur la même ligne */
+.bloc-formateur-texte {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.bloc-formateur-titre {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  transition: all 0.15s ease;
+}
+
+/* Page Cours, desktop : lignes sur 3 colonnes, pastille sous le titre, séparateurs entre rangées */
+@media (min-width: 768px) {
+  .bloc-formateur-grille .bloc-formateur-liste {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 28px;
+  }
+
+  .bloc-formateur-grille .bloc-formateur-liste li + li {
+    border-top: none;
+  }
+
+  .bloc-formateur-grille .bloc-formateur-liste li {
+    border-bottom: 1px solid var(--color-separateur);
+  }
+
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(3n + 1):nth-last-child(-n + 3),
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(3n + 1):nth-last-child(-n + 3) ~ li {
+    border-bottom: none;
+  }
+
+  /* Contenu des lignes aligné en haut (titres d'une rangée à la même hauteur), chevron centré
+     sur la vignette de 48 px */
+  .bloc-formateur-grille .bloc-formateur-ligne {
+    align-items: flex-start;
+  }
+
+  .bloc-formateur-grille .bloc-formateur-ligne .chevron-ligne {
+    margin-top: 14px;
+  }
+
+  .bloc-formateur-grille .bloc-formateur-texte {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .bloc-formateur-grille .bloc-formateur-titre {
+    flex: none;
+  }
+}

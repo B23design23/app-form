@@ -2,16 +2,23 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { ajouterXp, verifierBadges } from '../lib/gamification'
 import { melanger } from '../lib/shuffle'
-import ProgressBar from '../components/ProgressBar'
+import { imageTheme } from '../lib/thematiques'
 import CompletionToast from '../components/CompletionToast'
-import StatutBadge from '../components/StatutBadge'
-import ContenuMarkdown from '../components/ContenuMarkdown'
+import EcranLecon from './fiche/EcranLecon'
+import EcranQuiz from './fiche/EcranQuiz'
+import EcranFinQuiz, { SEUIL_REUSSITE } from './fiche/EcranFinQuiz'
+import EcranChecklist from './fiche/EcranChecklist'
+import EcranRecap from './fiche/EcranRecap'
+import { useQuiz } from './fiche/useQuiz'
 import '../styles/shared.css'
-import '../styles/quiz.css'
 import './FicheCours.css'
+
+// Fiche de cours en parcours guidé : Leçon → Quiz → (fin de quiz) → Checklist, puis récap.
+// Les étapes dépendent du contenu du cours. Voir CLAUDE.md, section « Fiche de cours ».
 
 const XP_QUIZ = 20
 const XP_CHECKLIST = 15
+const MOTS_PAR_MINUTE = 200
 
 async function marquerProgression(authUser, coursId, statut) {
   const { data: existante } = await supabase
@@ -33,49 +40,134 @@ async function marquerProgression(authUser, coursId, statut) {
   return verifierBadges(authUser)
 }
 
+// Checklist terminée. Sans ligne de progression (accès direct depuis Mode terrain, leçon non
+// ouverte), on en crée une en « non_commence » : la leçon n'est pas comptée comme lue.
 async function marquerChecklistTerminee(authUser, coursId) {
-  await supabase
+  const { data: existante } = await supabase
     .from('progression')
-    .update({ checklist_terminee: true })
+    .select('id')
     .eq('user_id', authUser.id)
     .eq('cours_id', coursId)
+    .maybeSingle()
+
+  if (existante) {
+    await supabase.from('progression').update({ checklist_terminee: true }).eq('id', existante.id)
+  } else {
+    await supabase
+      .from('progression')
+      .insert({ user_id: authUser.id, cours_id: coursId, statut: 'non_commence', checklist_terminee: true })
+  }
 
   return verifierBadges(authUser)
 }
 
-function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
+// Temps de lecture : 200 mots par minute, arrondi à la minute supérieure (images et liens exclus).
+function tempsLecture(contenu) {
+  const texte = (contenu ?? '').replace(/!\[[^\]]*\]\([^)]*\)/g, ' ').replace(/https?:\/\/\S+/g, ' ')
+  const mots = texte.split(/\s+/).filter((m) => /[\p{L}\p{N}]/u.test(m)).length
+  return Math.max(1, Math.ceil(mots / MOTS_PAR_MINUTE))
+}
+
+// Score d'un passage : « 4/5 » si le détail est enregistré (migration 0007), sinon « 80 % ».
+function libelleScore(passage) {
+  if (!passage) return null
+  if (passage.bonnes_reponses != null && passage.nb_questions != null) {
+    return `${passage.bonnes_reponses}/${passage.nb_questions}`
+  }
+  return `${passage.score} %`
+}
+
+// Meilleur passage : score le plus haut ; à score égal, celui qui a le détail « x/y ».
+function meilleurPassage(passages) {
+  return passages.reduce((meilleur, p) => {
+    if (!meilleur || p.score > meilleur.score) return p
+    if (p.score === meilleur.score && meilleur.nb_questions == null && p.nb_questions != null) return p
+    return meilleur
+  }, null)
+}
+
+// État d'une checklist en cours (étapes validées / passées), mémorisé dans le navigateur par
+// utilisateur et par cours. Stockage indisponible : l'app fonctionne sans mémorisation.
+const cleChecklistLocale = (userId, coursId) => `skillo:checklist:${userId}:${coursId}`
+
+function lireChecklistLocale(userId, coursId) {
+  try {
+    const brut = window.localStorage.getItem(cleChecklistLocale(userId, coursId))
+    const donnees = brut ? JSON.parse(brut) : null
+    return {
+      validees: Array.isArray(donnees?.validees) ? donnees.validees : [],
+      passees: Array.isArray(donnees?.passees) ? donnees.passees : [],
+    }
+  } catch {
+    return { validees: [], passees: [] }
+  }
+}
+
+function ecrireChecklistLocale(userId, coursId, validees, passees) {
+  try {
+    window.localStorage.setItem(cleChecklistLocale(userId, coursId), JSON.stringify({ validees, passees }))
+  } catch {
+    // stockage indisponible (navigation privée, quota…) : pas de mémorisation
+  }
+}
+
+function effacerChecklistLocale(userId, coursId) {
+  try {
+    window.localStorage.removeItem(cleChecklistLocale(userId, coursId))
+  } catch {
+    // idem
+  }
+}
+
+// Fin de quiz de cours : étape suivante en bouton principal ; sous 50 %, « Refaire le quiz »
+// passe en principal et l'étape suivante en lien.
+function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire }) {
+  const reussi = resultat.score >= SEUIL_REUSSITE
+  return (
+    <EcranFinQuiz
+      libelle={`Quiz terminé · ${cours.titre}`}
+      resultat={resultat}
+      actionPrincipale={reussi ? etapeSuivante : { bouton: 'Refaire le quiz', onClick: onRefaire }}
+      liens={reussi ? [] : [etapeSuivante]}
+    />
+  )
+}
+
+function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onOuvrirCours, navigationDesktop }) {
+  const accesTerrain = sectionInitiale === 'checklist'
+
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState(null)
 
   const [cours, setCours] = useState(null)
   const [questions, setQuestions] = useState([])
   const [etapes, setEtapes] = useState([])
-  const [dejaTermineAuDepart, setDejaTermineAuDepart] = useState(false)
-  const [coursEstTermine, setCoursEstTermine] = useState(false)
+  const [progression, setProgression] = useState(null)
+  const [meilleurScore, setMeilleurScore] = useState(null)
+  const [passageMeilleur, setPassageMeilleur] = useState(null)
+  const [suiteTheme, setSuiteTheme] = useState(null)
 
-  const [sectionActive, setSectionActive] = useState(sectionInitiale === 'checklist' ? 'checklist' : 'lecon')
+  const [ecran, setEcran] = useState(null)
   const [overlay, setOverlay] = useState(null)
 
-  const [indexQuestion, setIndexQuestion] = useState(0)
-  const [selection, setSelection] = useState([])
-  const [valide, setValide] = useState(false)
-  const [derniereReponseCorrecte, setDerniereReponseCorrecte] = useState(false)
-  const [bonnesReponses, setBonnesReponses] = useState(0)
-  const [quizTermine, setQuizTermine] = useState(false)
-  const [scoreQuizFinal, setScoreQuizFinal] = useState(null)
+  const [finQuiz, setFinQuiz] = useState(null)
+  const [finQuizEnCours, setFinQuizEnCours] = useState(false)
 
   const [etapesValidees, setEtapesValidees] = useState([])
-  const [checklistTerminee, setChecklistTerminee] = useState(false)
-
+  // Étapes non bloquantes passées (« Passer cette étape ») : comptent pour terminer la checklist
+  const [etapesPassees, setEtapesPassees] = useState([])
   const [ordreApprenant, setOrdreApprenant] = useState([])
   const [feedbackOrdre, setFeedbackOrdre] = useState(null)
+
+  // --- Chargement --------------------------------------------------------------------------
 
   useEffect(() => {
     let annule = false
 
     async function charger() {
-      const [coursRes, questionsRes, etapesRes, progressionRes] = await Promise.all([
-        supabase.from('cours').select('id, titre, contenu, checklist_mode').eq('id', coursId).single(),
+      const [coursRes, questionsRes, etapesRes, progressionRes, scoresRes] = await Promise.all([
+        // select('*') : tolère l'absence de la colonne a_retenir tant que la migration 0006 n'est pas jouée
+        supabase.from('cours').select('*').eq('id', coursId).single(),
         supabase
           .from('questions')
           .select('id, enonce, type_reponse, reponses(id, texte, est_correcte, explication)')
@@ -83,7 +175,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
           .order('id'),
         supabase
           .from('etapes_checklist')
-          .select('id, ordre, intitule, mode_validation, bloquante')
+          .select('id, ordre, intitule, critere_validation, bloquante')
           .eq('cours_id', coursId)
           .order('ordre'),
         supabase
@@ -92,23 +184,55 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
           .eq('user_id', authUser.id)
           .eq('cours_id', coursId)
           .maybeSingle(),
+        supabase
+          .from('scores')
+          // select('*') : tolère l'absence des colonnes de la migration 0007
+          .select('*')
+          .eq('user_id', authUser.id)
+          .eq('cours_id', coursId)
+          .eq('type', 'quiz_cours'),
       ])
 
       if (annule) return
 
       const premiereErreur =
-        coursRes.error?.message ?? questionsRes.error?.message ?? etapesRes.error?.message ?? progressionRes.error?.message
+        coursRes.error?.message ??
+        questionsRes.error?.message ??
+        etapesRes.error?.message ??
+        progressionRes.error?.message ??
+        scoresRes.error?.message
       if (premiereErreur) {
         setErreur(premiereErreur)
         setChargement(false)
         return
       }
 
-      setCours(coursRes.data)
-      setQuestions((questionsRes.data ?? []).map((q) => ({ ...q, reponses: melanger(q.reponses) })))
+      const coursData = coursRes.data
+      const questionsData = (questionsRes.data ?? []).map((q) => ({ ...q, reponses: melanger(q.reponses) }))
       const etapesData = etapesRes.data ?? []
+      const progressionData = progressionRes.data ?? null
+      const scoresData = scoresRes.data ?? []
+      const passage = meilleurPassage(scoresData)
+      const meilleur = passage ? passage.score : null
+
+      setCours(coursData)
+      setQuestions(questionsData)
       setEtapes(etapesData)
-      if (coursRes.data.checklist_mode === 'reorder' && etapesData.length > 0) {
+      setProgression(progressionData)
+      setMeilleurScore(meilleur)
+      setPassageMeilleur(passage)
+
+      if (progressionData?.checklist_terminee) {
+        setEtapesValidees(etapesData.map((e) => e.id))
+        effacerChecklistLocale(authUser.id, coursId)
+      } else if (coursData.checklist_mode !== 'reorder') {
+        // Reprise d'une checklist en cours (seules les étapes qui existent encore sont gardées)
+        const ids = new Set(etapesData.map((e) => e.id))
+        const local = lireChecklistLocale(authUser.id, coursId)
+        setEtapesValidees(local.validees.filter((id) => ids.has(id)))
+        setEtapesPassees(local.passees.filter((id) => ids.has(id) && !local.validees.includes(id)))
+      }
+      if (coursData.checklist_mode === 'reorder' && etapesData.length > 0) {
         const idsOriginaux = etapesData.map((e) => e.id)
         let idsMelanges = melanger(idsOriginaux)
         for (let essai = 0; essai < 5 && idsOriginaux.length > 1 && idsMelanges.every((id, i) => id === idsOriginaux[i]); essai++) {
@@ -117,19 +241,42 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
         setOrdreApprenant(idsMelanges)
       }
 
-      const progressionActuelle = progressionRes.data
-      setDejaTermineAuDepart(progressionActuelle?.statut === 'termine')
-      setCoursEstTermine(progressionActuelle?.statut === 'termine')
-      setChecklistTerminee(progressionActuelle?.checklist_terminee === true)
+      // Point d'entrée : Mode terrain → checklist ; cours entièrement terminé → récap ;
+      // sinon la première étape non terminée.
+      const aQuiz = questionsData.length > 0
+      const aChecklist = etapesData.length > 0
+      const leconLue = !!progressionData && progressionData.statut !== 'non_commence'
+      const quizFait = meilleur !== null
+      const checklistFaite = progressionData?.checklist_terminee === true
+      const complet =
+        progressionData?.statut === 'termine' && (!aQuiz || quizFait) && (!aChecklist || checklistFaite)
 
-      if (!progressionActuelle || progressionActuelle.statut === 'non_commence') {
-        const nouveauxBadges = await marquerProgression(authUser, coursId, 'en_cours')
-        if (!annule && nouveauxBadges.length > 0) {
-          setOverlay({ titre: 'Nouveau badge', xp: null, badges: nouveauxBadges, type: 'badge' })
-        }
-      }
+      let ecranInitial = 'lecon'
+      if (accesTerrain && aChecklist) ecranInitial = 'checklist'
+      else if (sectionInitiale === 'lecon') ecranInitial = 'lecon'
+      else if (complet) ecranInitial = 'recap'
+      else if (!leconLue) ecranInitial = 'lecon'
+      else if (aQuiz && !quizFait) ecranInitial = 'quiz'
+      else if (aChecklist && !checklistFaite) ecranInitial = 'checklist'
+      setEcran(ecranInitial)
 
-      if (!annule) setChargement(false)
+      // Suite du thème : cours publics du même thème, ordre pédagogique
+      const { data: coursTheme } = await supabase
+        .from('cours')
+        .select('id, titre, ordre, created_at, contenu, questions(id), etapes_checklist(id)')
+        .eq('visibilite', 'public')
+        .eq('categorie', coursData.categorie)
+        .order('ordre', { ascending: true, nullsFirst: false })
+        .order('created_at', { ascending: true })
+      const idsTheme = (coursTheme ?? []).map((c) => c.id)
+      const { data: progressionTheme } = idsTheme.length
+        ? await supabase.from('progression').select('cours_id, statut').eq('user_id', authUser.id).in('cours_id', idsTheme)
+        : { data: [] }
+      if (annule) return
+      const termines = new Set((progressionTheme ?? []).filter((p) => p.statut === 'termine').map((p) => p.cours_id))
+      setSuiteTheme((coursTheme ?? []).find((c) => c.id !== coursId && !termines.has(c.id)) ?? null)
+
+      setChargement(false)
     }
 
     charger()
@@ -137,30 +284,24 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
     return () => {
       annule = true
     }
-  }, [authUser, coursId])
+  }, [authUser, coursId, accesTerrain, sectionInitiale])
 
-  const hasQuiz = questions.length > 0
-  const hasChecklist = etapes.length > 0
+  const aQuiz = questions.length > 0
+  const aChecklist = etapes.length > 0
+  const leconLue = !!progression && progression.statut !== 'non_commence'
+  const quizFait = meilleurScore !== null
+  const checklistFaite = progression?.checklist_terminee === true
+  const coursTermine = progression?.statut === 'termine'
+  const coursComplet = coursTermine && (!aQuiz || quizFait) && (!aChecklist || checklistFaite)
 
+  // Ouvrir la leçon la marque comme lue (comportement conservé).
   useEffect(() => {
-    if (chargement || coursEstTermine || !(hasQuiz || hasChecklist)) return
-
-    // Si le cours a un QCM, il suffit à valider la leçon ; la checklist ne compte que sans QCM.
-    const complet = hasQuiz ? quizTermine : checklistTerminee
-    if (complet) {
-      setCoursEstTermine(true)
-      marquerProgression(authUser, coursId, 'termine').then((nouveauxBadges) => {
-        if (nouveauxBadges.length === 0) return
-        setOverlay((actuel) => ({
-          titre: actuel?.titre ?? 'Cours terminé',
-          xp: actuel?.xp ?? null,
-          badges: [...(actuel?.badges ?? []), ...nouveauxBadges],
-          type: actuel?.type ?? 'badge',
-          score: actuel?.score,
-        }))
-      })
-    }
-  }, [chargement, coursEstTermine, hasQuiz, hasChecklist, quizTermine, checklistTerminee, authUser, coursId])
+    if (ecran !== 'lecon' || chargement || leconLue) return
+    setProgression((p) => ({ ...(p ?? {}), statut: 'en_cours' }))
+    marquerProgression(authUser, coursId, 'en_cours').then((nouveauxBadges) => {
+      if (nouveauxBadges.length > 0) setOverlay({ titre: 'Nouveau badge', xp: null, badges: nouveauxBadges, type: 'badge' })
+    })
+  }, [ecran, chargement, leconLue, authUser, coursId])
 
   useEffect(() => {
     if (!overlay) return
@@ -168,79 +309,99 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
     return () => clearTimeout(minuteur)
   }, [overlay])
 
-  async function terminerCoursSansQuizNiChecklist() {
-    const nouveauxBadges = await marquerProgression(authUser, coursId, 'termine')
-    setCoursEstTermine(true)
-    if (nouveauxBadges.length > 0) {
-      setOverlay({ titre: 'Cours terminé', xp: null, badges: nouveauxBadges, type: 'badge' })
-    }
-  }
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [ecran])
 
-  function basculerSelection(reponseId) {
-    if (valide) return
-    const question = questions[indexQuestion]
-    if (question.type_reponse === 'simple') {
-      setSelection([reponseId])
-    } else {
-      setSelection((prev) =>
-        prev.includes(reponseId) ? prev.filter((id) => id !== reponseId) : [...prev, reponseId]
-      )
-    }
-  }
+  // --- Quiz ---------------------------------------------------------------------------------
 
-  function validerReponse() {
-    const question = questions[indexQuestion]
-    const idsCorrects = question.reponses.filter((r) => r.est_correcte).map((r) => r.id)
-    const estCorrecte =
-      selection.length === idsCorrects.length && selection.every((id) => idsCorrects.includes(id))
-    setDerniereReponseCorrecte(estCorrecte)
-    if (estCorrecte) setBonnesReponses((n) => n + 1)
-    setValide(true)
+  const { quiz, enCours: quizEnCours, reinitialiser, basculer, valider, suivante } = useQuiz(questions)
+
+  function ouvrirQuiz({ recommencer = false } = {}) {
+    if (recommencer || !quizEnCours) reinitialiser()
+    setEcran('quiz')
   }
 
   async function questionSuivante() {
-    const dernierQuestion = indexQuestion === questions.length - 1
-
-    if (!dernierQuestion) {
-      setIndexQuestion((i) => i + 1)
-      setSelection([])
-      setValide(false)
-      return
-    }
-
-    const scoreFinal = Math.round((bonnesReponses / questions.length) * 100)
-    setScoreQuizFinal(scoreFinal)
-
-    if (!dejaTermineAuDepart) {
-      await supabase.from('scores').insert({
-        user_id: authUser.id,
-        cours_id: coursId,
-        type: 'quiz_cours',
-        score: scoreFinal,
-        date: new Date().toISOString(),
-      })
-      await ajouterXp(authUser, XP_QUIZ)
-      const nouveauxBadges = await verifierBadges(authUser)
-      setOverlay({ titre: 'Quiz terminé', xp: XP_QUIZ, badges: nouveauxBadges, type: 'quiz', score: scoreFinal })
-    }
-
-    setQuizTermine(true)
+    const historique = suivante()
+    if (historique) await finirQuiz(historique)
   }
 
-  async function basculerEtape(etapeId) {
-    const dejaValidee = etapesValidees.includes(etapeId)
-    const nouvelleListe = dejaValidee
-      ? etapesValidees.filter((id) => id !== etapeId)
-      : [...etapesValidees, etapeId]
+  async function finirQuiz(historique) {
+    if (finQuizEnCours) return
+    setFinQuizEnCours(true)
 
-    setEtapesValidees(nouvelleListe)
+    const bonnes = historique.filter((h) => h.correcte).length
+    const score = Math.round((bonnes / questions.length) * 100)
+    const premierQuiz = meilleurScore === null
 
-    if (!checklistTerminee && !dejaValidee && nouvelleListe.length === etapes.length) {
-      await ajouterXp(authUser, XP_CHECKLIST)
-      setChecklistTerminee(true)
-      const nouveauxBadges = await marquerChecklistTerminee(authUser, coursId)
-      setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST, badges: nouveauxBadges, type: 'checklist' })
+    // Chaque passage est enregistré (le meilleur score est conservé) ; l'XP n'est donné qu'une fois.
+    // Détail « x/y » (migration 0007) ; si la colonne n'existe pas encore, on réessaie sans.
+    const ligneScore = { user_id: authUser.id, cours_id: coursId, type: 'quiz_cours', score, date: new Date().toISOString() }
+    const detail = { bonnes_reponses: bonnes, nb_questions: questions.length }
+    const { error: erreurDetail } = await supabase.from('scores').insert({ ...ligneScore, ...detail })
+    if (erreurDetail) {
+      console.error('scores (détail x/y)', erreurDetail.message)
+      await supabase.from('scores').insert(ligneScore)
     }
+    if (premierQuiz) await ajouterXp(authUser, XP_QUIZ)
+
+    // Le QCM suffit à terminer le cours (règle existante).
+    const nouveauxBadges = coursTermine ? await verifierBadges(authUser) : await marquerProgression(authUser, coursId, 'termine')
+
+    setProgression((p) => ({ ...(p ?? {}), statut: 'termine' }))
+    setMeilleurScore((m) => (m === null ? score : Math.max(m, score)))
+    setPassageMeilleur((p) => meilleurPassage([...(p ? [p] : []), { score, ...(erreurDetail ? {} : detail) }]))
+    setFinQuiz({ bonnes, total: questions.length, score, xpGagne: premierQuiz ? XP_QUIZ : 0, badges: nouveauxBadges, historique })
+    setFinQuizEnCours(false)
+    setEcran('fin-quiz')
+  }
+
+  // --- Checklist ----------------------------------------------------------------------------
+
+  async function terminerChecklist() {
+    let nouveauxBadges = []
+    let xp = null
+    if (!checklistFaite) {
+      await ajouterXp(authUser, XP_CHECKLIST)
+      xp = XP_CHECKLIST
+      nouveauxBadges = await marquerChecklistTerminee(authUser, coursId)
+    }
+    effacerChecklistLocale(authUser.id, coursId)
+    let statut = progression?.statut ?? 'non_commence'
+    // Sans QCM, la checklist termine le cours (règle existante).
+    if (!aQuiz && statut !== 'termine') {
+      nouveauxBadges = [...nouveauxBadges, ...(await marquerProgression(authUser, coursId, 'termine'))]
+      statut = 'termine'
+    }
+    setProgression((p) => ({ ...(p ?? {}), statut, checklist_terminee: true }))
+    if (xp !== null || nouveauxBadges.length > 0) {
+      setOverlay({ titre: 'Checklist terminée', xp, badges: nouveauxBadges, type: 'checklist' })
+    }
+    if (statut === 'termine' && (!aQuiz || quizFait)) setEcran('recap')
+  }
+
+  // Mémorise l'avancement local tant que la checklist n'est pas terminée en base.
+  useEffect(() => {
+    if (chargement || checklistFaite || cours?.checklist_mode === 'reorder') return
+    if (etapesValidees.length === 0 && etapesPassees.length === 0) return
+    ecrireChecklistLocale(authUser.id, coursId, etapesValidees, etapesPassees)
+  }, [chargement, checklistFaite, cours, etapesValidees, etapesPassees, authUser.id, coursId])
+
+  // La checklist est terminée quand toutes les étapes sont validées ou passées.
+  function validerEtape(etapeId) {
+    if (etapesValidees.includes(etapeId) || etapesPassees.includes(etapeId)) return
+    const nouvelles = [...etapesValidees, etapeId]
+    setEtapesValidees(nouvelles)
+    if (nouvelles.length + etapesPassees.length === etapes.length) terminerChecklist()
+  }
+
+  function passerEtape(etapeId) {
+    const etape = etapes.find((e) => e.id === etapeId)
+    if (!etape || etape.bloquante || etapesValidees.includes(etapeId) || etapesPassees.includes(etapeId)) return
+    const nouvelles = [...etapesPassees, etapeId]
+    setEtapesPassees(nouvelles)
+    if (etapesValidees.length + nouvelles.length === etapes.length) terminerChecklist()
   }
 
   function deplacerEtape(index, direction) {
@@ -254,278 +415,191 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour }) {
     setFeedbackOrdre(null)
   }
 
-  async function validerOrdre() {
+  function validerOrdre() {
     const ordreCorrect = [...etapes].sort((a, b) => a.ordre - b.ordre).map((e) => e.id)
     const estCorrect =
       ordreApprenant.length === ordreCorrect.length && ordreApprenant.every((id, i) => id === ordreCorrect[i])
-
     setFeedbackOrdre(estCorrect ? 'correct' : 'incorrect')
-
-    if (estCorrect && !checklistTerminee) {
-      await ajouterXp(authUser, XP_CHECKLIST)
-      setChecklistTerminee(true)
-      const nouveauxBadges = await marquerChecklistTerminee(authUser, coursId)
-      setOverlay({ titre: 'Checklist terminée', xp: XP_CHECKLIST, badges: nouveauxBadges, type: 'checklist' })
+    if (estCorrect) {
+      setEtapesValidees(etapes.map((e) => e.id))
+      terminerChecklist()
     }
   }
 
-  if (chargement) {
-    return (
-      <div className="flow-page">
-        <div className="flow-card">
-          <p>Chargement…</p>
-        </div>
-      </div>
-    )
+  async function terminerCoursSansQuizNiChecklist() {
+    const nouveauxBadges = await marquerProgression(authUser, coursId, 'termine')
+    setProgression((p) => ({ ...(p ?? {}), statut: 'termine' }))
+    if (nouveauxBadges.length > 0) setOverlay({ titre: 'Cours terminé', xp: null, badges: nouveauxBadges, type: 'badge' })
+    setEcran('recap')
   }
+
+  // --- Rendu --------------------------------------------------------------------------------
 
   if (erreur) {
     return (
-      <div className="flow-page">
-        <div className="page-avec-lien-retour page-large">
-          <button type="button" className="lien-retour" onClick={onRetour}>
-            ← Retour
+      <div className="fiche-page">
+        <div className="fiche-colonne">
+          <button type="button" className="fiche-retour" onClick={onRetour}>
+            Retour
           </button>
-          <div className="flow-card">
-            <p className="message message-erreur">Impossible de charger ce cours ({erreur}).</p>
-          </div>
+          <p className="message message-erreur">Impossible de charger ce cours ({erreur}).</p>
         </div>
       </div>
     )
   }
 
-  const questionCourante = questions[indexQuestion]
-  const questionsRepondues = valide ? indexQuestion + 1 : indexQuestion
-  const pluriel = bonnesReponses > 1 ? 's' : ''
-  const labelProgressionQuiz = `Question ${indexQuestion + 1}/${questions.length} · ${bonnesReponses} bonne${pluriel} réponse${pluriel} sur ${questionsRepondues}`
+  if (chargement || !ecran) {
+    return (
+      <div className="fiche-page">
+        <p>Chargement…</p>
+      </div>
+    )
+  }
+
+  const scoreMeilleur = libelleScore(passageMeilleur)
+  const parties = ['lecon', ...(aQuiz ? ['quiz'] : []), ...(aChecklist ? ['checklist'] : [])]
+  const estFaite = { lecon: leconLue, quiz: quizFait, checklist: checklistFaite }
+
+  const allerA = (partie) => {
+    if (partie === 'quiz') ouvrirQuiz({ recommencer: !quizEnCours })
+    else setEcran(partie)
+  }
+
+  // Repère d'étapes : étape de l'écran = en cours ; faite = lien ; à venir = non cliquable, sauf
+  // leçon et quiz depuis la checklist ouverte par Mode terrain.
+  // Toutes les parties faites : toutes les étapes en « faite », aucune en cours (même sur l'écran
+  // de la checklist d'un cours terminé).
+  const toutFait = parties.every((partie) => estFaite[partie])
+  const construireReper = (partieCourante) =>
+    parties.length < 2
+      ? null
+      : parties.map((partie) => {
+          const etat = toutFait
+            ? 'faite'
+            : partie === partieCourante
+              ? 'courante'
+              : estFaite[partie]
+                ? 'faite'
+                : 'a-venir'
+          const exceptionTerrain = accesTerrain && partieCourante === 'checklist' && partie !== 'checklist'
+          return {
+            cle: partie,
+            libelle:
+              partie === 'lecon'
+                ? 'Leçon'
+                : partie === 'quiz'
+                  ? quizFait
+                    ? `Quiz · ${scoreMeilleur}`
+                    : 'Quiz'
+                  : 'Checklist',
+            etat,
+            cliquable: etat === 'faite' || (etat === 'a-venir' && exceptionTerrain),
+            onClick: () => allerA(partie),
+          }
+        })
+
+  // Étape suivante après la leçon (ou après la checklist si le quiz reste à faire)
+  const etapeQuiz = {
+    titre: 'Vérifie ce que tu as retenu',
+    detail: `${questions.length} question${questions.length > 1 ? 's' : ''} · +${XP_QUIZ} XP`,
+    bouton: quizEnCours ? 'Reprendre le quiz' : 'Passer au quiz',
+    onClick: () => ouvrirQuiz(),
+  }
+  const etapeChecklist = {
+    titre: 'Passe à la pratique',
+    detail: `${etapes.length} étape${etapes.length > 1 ? 's' : ''} · +${XP_CHECKLIST} XP`,
+    bouton: 'Passer à la checklist',
+    onClick: () => setEcran('checklist'),
+  }
+  const etapeSuivanteLecon =
+    aQuiz && !quizFait ? etapeQuiz : aChecklist && !checklistFaite ? etapeChecklist : null
+
+  const xpGagnes = (quizFait ? XP_QUIZ : 0) + (checklistFaite ? XP_CHECKLIST : 0)
+  const afficheNavigation = ecran !== 'quiz' && ecran !== 'fin-quiz'
 
   return (
-    <div className="flow-page">
-      <div className="page-avec-lien-retour page-large">
-        <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour
-        </button>
+    <div className={`fiche-page${afficheNavigation && navigationDesktop ? ' fiche-page-avec-nav' : ''}`}>
+      {afficheNavigation && navigationDesktop}
 
-        <div className="flow-card fiche-cours-card">
-          <div className="fiche-cours-entete">
-            <h1>{cours.titre}</h1>
-            {coursEstTermine && <StatutBadge statut="termine" />}
-          </div>
+      {ecran === 'lecon' && (
+        <EcranLecon
+          cours={cours}
+          reper={construireReper('lecon')}
+          minutesLecture={tempsLecture(cours.contenu)}
+          etapeSuivante={etapeSuivanteLecon}
+          coursComplet={coursComplet}
+          sansQuizNiChecklist={!aQuiz && !aChecklist}
+          coursTermine={coursTermine}
+          onTerminerCours={terminerCoursSansQuizNiChecklist}
+          onVoirRecap={() => setEcran('recap')}
+          onRetour={onRetour}
+        />
+      )}
 
-          <div className="fiche-cours-onglets" role="tablist">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={sectionActive === 'lecon'}
-              className={`fiche-cours-onglet${sectionActive === 'lecon' ? ' fiche-cours-onglet-actif' : ''}`}
-              onClick={() => setSectionActive('lecon')}
-            >
-              Leçon
-            </button>
-            {hasQuiz && (
-              <button
-                type="button"
-                role="tab"
-                aria-selected={sectionActive === 'quiz'}
-                className={`fiche-cours-onglet${sectionActive === 'quiz' ? ' fiche-cours-onglet-actif' : ''}`}
-                onClick={() => setSectionActive('quiz')}
-              >
-                Quiz
-              </button>
-            )}
-            {hasChecklist && (
-              <button
-                type="button"
-                role="tab"
-                aria-selected={sectionActive === 'checklist'}
-                className={`fiche-cours-onglet${sectionActive === 'checklist' ? ' fiche-cours-onglet-actif' : ''}`}
-                onClick={() => setSectionActive('checklist')}
-              >
-                Checklist
-              </button>
-            )}
-          </div>
+      {ecran === 'quiz' && (
+        <EcranQuiz
+          questions={questions}
+          libelleQuestion={() => cours.titre}
+          imageQuestion={() => imageTheme(cours.categorie)}
+          labelQuitter="Quitter le quiz"
+          quiz={quiz}
+          envoiEnCours={finQuizEnCours}
+          onBasculer={basculer}
+          onValider={valider}
+          onSuivante={questionSuivante}
+          onQuitter={() => setEcran('lecon')}
+          onRevoirLecon={() => setEcran('lecon')}
+        />
+      )}
 
-          {sectionActive === 'lecon' && (
-            <div className="fiche-cours-section">
-              <ContenuMarkdown texte={cours.contenu} className="fiche-cours-contenu" />
-              {!hasQuiz && !hasChecklist && !coursEstTermine && (
-                <button type="button" className="bouton-primaire" onClick={terminerCoursSansQuizNiChecklist}>
-                  Terminer le cours
-                </button>
-              )}
-            </div>
-          )}
+      {ecran === 'fin-quiz' && finQuiz && (
+        <EcranFinQuizCours
+          cours={cours}
+          resultat={finQuiz}
+          etapeSuivante={
+            aChecklist && !checklistFaite
+              ? { bouton: 'Passer à la checklist', onClick: () => setEcran('checklist') }
+              : { bouton: 'Terminer le cours', onClick: () => setEcran('recap') }
+          }
+          onRefaire={() => ouvrirQuiz({ recommencer: true })}
+        />
+      )}
 
-          {sectionActive === 'quiz' && hasQuiz && (
-            <div className="fiche-cours-section">
-              {quizTermine ? (
-                <div className="quiz-resume">
-                  <p>
-                    Quiz terminé — {bonnesReponses}/{questions.length} bonnes réponses ({scoreQuizFinal}%).
-                  </p>
-                </div>
-              ) : (
-                questionCourante && (
-                  <>
-                    <ProgressBar
-                      etapeActuelle={indexQuestion + 1}
-                      totalEtapes={questions.length}
-                      label={labelProgressionQuiz}
-                    />
+      {ecran === 'checklist' && (
+        <EcranChecklist
+          cours={cours}
+          etapes={etapes}
+          reper={construireReper('checklist')}
+          etapesValidees={etapesValidees}
+          etapesPassees={etapesPassees}
+          checklistFaite={checklistFaite}
+          ordreApprenant={ordreApprenant}
+          feedbackOrdre={feedbackOrdre}
+          etapeSuivante={checklistFaite && aQuiz && !quizFait ? etapeQuiz : null}
+          onValiderEtape={validerEtape}
+          onPasserEtape={passerEtape}
+          onDeplacer={deplacerEtape}
+          onValiderOrdre={validerOrdre}
+          onRetour={onRetour}
+        />
+      )}
 
-                    <ContenuMarkdown texte={questionCourante.enonce} className="quiz-enonce" />
-
-                    <div className="quiz-options">
-                      {questionCourante.reponses.map((reponse) => {
-                        const estSelectionnee = selection.includes(reponse.id)
-                        let classeOption = 'quiz-option'
-                        if (valide) {
-                          classeOption += ' quiz-option-desactivee'
-                          if (reponse.est_correcte) classeOption += ' quiz-option-correcte'
-                          if (estSelectionnee && !reponse.est_correcte) classeOption += ' quiz-option-fausse'
-                        } else if (estSelectionnee) {
-                          classeOption += ' quiz-option-selectionnee'
-                        }
-
-                        return (
-                          <label key={reponse.id} className={classeOption}>
-                            <input
-                              type={questionCourante.type_reponse === 'simple' ? 'radio' : 'checkbox'}
-                              name={`question-${questionCourante.id}`}
-                              checked={estSelectionnee}
-                              disabled={valide}
-                              onChange={() => basculerSelection(reponse.id)}
-                            />
-                            <span>{reponse.texte}</span>
-                          </label>
-                        )
-                      })}
-                    </div>
-
-                    {valide && (
-                      <div
-                        className={`quiz-feedback ${derniereReponseCorrecte ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}
-                      >
-                        <p>{derniereReponseCorrecte ? 'Bonne réponse !' : 'Réponse incorrecte.'}</p>
-                        {!derniereReponseCorrecte &&
-                          questionCourante.reponses
-                            .filter((r) => selection.includes(r.id) && !r.est_correcte && r.explication)
-                            .map((r) => (
-                              <p key={r.id} className="quiz-explication">
-                                {r.explication}
-                              </p>
-                            ))}
-                      </div>
-                    )}
-
-                    {!valide ? (
-                      <button
-                        type="button"
-                        className="bouton-primaire quiz-bouton-valider"
-                        disabled={selection.length === 0}
-                        onClick={validerReponse}
-                      >
-                        Valider ma réponse
-                      </button>
-                    ) : (
-                      <button type="button" className="bouton-primaire quiz-bouton-valider" onClick={questionSuivante}>
-                        {indexQuestion === questions.length - 1 ? 'Terminer le quiz' : 'Question suivante'}
-                      </button>
-                    )}
-                  </>
-                )
-              )}
-            </div>
-          )}
-
-          {sectionActive === 'checklist' && hasChecklist && (
-            <div className="fiche-cours-section">
-              <h2>Checklist terrain</h2>
-              {checklistTerminee && <StatutBadge statut="termine" />}
-
-              {cours.checklist_mode === 'reorder' ? (
-                <>
-                  <p className="checklist-consigne">Remets les étapes dans le bon ordre, puis valide.</p>
-                  <ul className="checklist-liste">
-                    {ordreApprenant.map((etapeId, index) => {
-                      const etape = etapes.find((e) => e.id === etapeId)
-                      if (!etape) return null
-
-                      return (
-                        <li key={etape.id}>
-                          <div className="checklist-item checklist-item-reorder">
-                            <span className="checklist-item-numero">{index + 1}</span>
-                            <ContenuMarkdown texte={etape.intitule} className="checklist-item-texte" />
-                            <div className="checklist-item-fleches">
-                              <button
-                                type="button"
-                                className="checklist-bouton-fleche"
-                                disabled={checklistTerminee || index === 0}
-                                onClick={() => deplacerEtape(index, -1)}
-                                aria-label="Monter"
-                              >
-                                ↑
-                              </button>
-                              <button
-                                type="button"
-                                className="checklist-bouton-fleche"
-                                disabled={checklistTerminee || index === ordreApprenant.length - 1}
-                                onClick={() => deplacerEtape(index, 1)}
-                                aria-label="Descendre"
-                              >
-                                ↓
-                              </button>
-                            </div>
-                          </div>
-                        </li>
-                      )
-                    })}
-                  </ul>
-
-                  {feedbackOrdre && (
-                    <p
-                      className={`quiz-feedback ${feedbackOrdre === 'correct' ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}
-                    >
-                      {feedbackOrdre === 'correct' ? 'Bon ordre !' : "Ce n'est pas encore le bon ordre, réessaie."}
-                    </p>
-                  )}
-
-                  {!checklistTerminee && (
-                    <button type="button" className="bouton-primaire" onClick={validerOrdre}>
-                      Valider l'ordre
-                    </button>
-                  )}
-                </>
-              ) : (
-                <ul className="checklist-liste">
-                  {etapes.map((etape, index) => {
-                    const verrouillee = etapes
-                      .slice(0, index)
-                      .some((precedente) => precedente.bloquante && !etapesValidees.includes(precedente.id))
-                    const validee = etapesValidees.includes(etape.id)
-
-                    return (
-                      <li key={etape.id}>
-                        <label className={`checklist-item${verrouillee ? ' checklist-item-verrouillee' : ''}`}>
-                          <span className="checklist-item-numero">{index + 1}</span>
-                          <input
-                            type="checkbox"
-                            checked={validee}
-                            disabled={verrouillee}
-                            onChange={() => basculerEtape(etape.id)}
-                          />
-                          <ContenuMarkdown texte={etape.intitule} className="checklist-item-texte" />
-                        </label>
-                      </li>
-                    )
-                  })}
-                </ul>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
+      {ecran === 'recap' && (
+        <EcranRecap
+          cours={cours}
+          parties={parties}
+          minutesLecture={tempsLecture(cours.contenu)}
+          meilleur={quizFait ? scoreMeilleur : null}
+          nbEtapes={etapes.length}
+          xpGagnes={xpGagnes}
+          suiteTheme={suiteTheme}
+          onRelire={() => setEcran('lecon')}
+          onRefaireQuiz={() => ouvrirQuiz({ recommencer: true })}
+          onRevoirChecklist={() => setEcran('checklist')}
+          onOuvrirCours={onOuvrirCours}
+          onRetour={onRetour}
+        />
+      )}
 
       <CompletionToast overlay={overlay} onFermer={() => setOverlay(null)} />
     </div>

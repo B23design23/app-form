@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import skilloLogo from '../Assets/Skillogo.svg'
+import Logo from '../components/Logo'
 import illustrationSlide1 from '../Assets/badge/onboarding-1.svg'
 import illustrationSlide2 from '../Assets/badge/onboarding-2.svg'
 import illustrationSlide3 from '../Assets/badge/onboarding-3.svg'
@@ -67,7 +67,7 @@ function Introduction({ onTermine }) {
   return (
     <div className="flow-page">
       <div className="page-logo-wrapper">
-        <img src={skilloLogo} alt="Skillo" className="page-logo" />
+        <Logo className="page-logo" />
 
         <div
           className="flow-card introduction-card"

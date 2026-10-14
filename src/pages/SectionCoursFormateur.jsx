@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import Dropdown from '../components/Dropdown'
 import { THEMATIQUES } from '../lib/thematiques'
+import Icone from '../components/Icone'
+import iconeChevron from '../Assets/chevron-right.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 
@@ -84,9 +86,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
             <li key={cours.id}>
               <button type="button" className="espace-liste-item" onClick={() => onOuvrirCours(cours.id)}>
                 <span className="espace-liste-item-titre">{cours.titre}</span>
-                <span className="espace-liste-item-chevron" aria-hidden="true">
-                  ›
-                </span>
+                <Icone svg={iconeChevron} className="espace-liste-item-chevron" />
               </button>
             </li>
           ))}

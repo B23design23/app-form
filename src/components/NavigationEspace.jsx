@@ -1,18 +1,21 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import iconeMenu from '../Assets/burger.svg'
-import skilloLogo from '../Assets/Skillogo.svg'
+import iconeBurger from '../Assets/burger.svg?raw'
+import Logo from './Logo'
 import '../styles/espace-layout.css'
+import Icone from './Icone'
 
 // Nav partagée entre espace apprenant et espace formateur : mêmes 3 entrées de contenu
 // (fournies via `onglets`) + un 4e item "Menu" identique dans les deux espaces.
-function NavigationEspace({ onglets, section, onChangerSection }) {
+// Icônes inline en currentColor (composant Icone) pour suivre l'état actif/inactif.
+// `iconeMenu` : icône du 4e item (SVG brut), burger par défaut.
+function NavigationEspace({ onglets, iconeMenu = iconeBurger, section, onChangerSection }) {
   const [menuOuvert, setMenuOuvert] = useState(false)
 
   return (
     <nav className="espace-nav" aria-label="Navigation principale">
       <div className="espace-nav-conteneur">
-        <img className="espace-nav-logo" src={skilloLogo} alt="Skillo" />
+        <Logo variante="fonce" className="espace-nav-logo" />
 
         <div className="espace-nav-items">
           {onglets.map((onglet) => (
@@ -23,7 +26,7 @@ function NavigationEspace({ onglets, section, onChangerSection }) {
               onClick={() => onChangerSection(onglet.id)}
               aria-current={section === onglet.id ? 'page' : undefined}
             >
-              <img className="espace-nav-icone" src={onglet.icone} alt="" aria-hidden="true" />
+              <Icone svg={onglet.icone} className="espace-nav-icone" />
               <span>{onglet.label}</span>
             </button>
           ))}
@@ -36,7 +39,7 @@ function NavigationEspace({ onglets, section, onChangerSection }) {
               aria-haspopup="menu"
               aria-expanded={menuOuvert}
             >
-              <img className="espace-nav-icone" src={iconeMenu} alt="" aria-hidden="true" />
+              <Icone svg={iconeMenu} className="espace-nav-icone" />
               <span>Menu</span>
             </button>
 

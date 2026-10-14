@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
+import Icone from '../components/Icone'
+import iconeChevron from '../Assets/chevron-right.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 
@@ -81,9 +83,7 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
             <li key={groupe.id}>
               <button type="button" className="espace-liste-item" onClick={() => onOuvrirGroupe(groupe.id)}>
                 <span className="espace-liste-item-titre">{groupe.nom}</span>
-                <span className="espace-liste-item-chevron" aria-hidden="true">
-                  ›
-                </span>
+                <Icone svg={iconeChevron} className="espace-liste-item-chevron" />
               </button>
             </li>
           ))}

@@ -1,39 +1,82 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Nunito:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Direction artistique "Ludique" — statut validée, voir CLAUDE.md */
-  --color-background: #f5f3ff;
-  --color-surface: #ffffff;
-  --color-ink: #241d42;
-  --color-text-secondary: #7a7290;
-  --color-primary: #6c4ff6;
-  --color-accent-warm: #ff7a45;
-  --color-accent-star: #ffc93c;
-  --color-error: #e5484d;
+  /* Direction artistique Skillo — source unique des tokens, voir CLAUDE.md */
+  --color-creme: #f5eee4;
+  --color-background: var(--color-creme); /* fond de page apprenant */
+  --color-fond-formateur: #f4f4f6; /* fond de page de tout l'espace formateur */
+  --color-surface: #ffffff; /* cartes, champs */
+  --color-ink: #1e1a33; /* texte principal, tab bar, cartes sombres */
+  --color-text-secondary: #5c566e;
 
-  --color-primary-fond: #ede9fe;
-  --color-anneau-fond: #ede9fe;
-  --color-success: #1e6b38;
-  --color-success-fond: #e8f7ec;
-  --color-error-fond: #fdeaea;
-  --color-border: #e4dff5;
+  --color-primary: #5b3fe0; /* action principale */
+  --color-primary-hover: #4630b8;
+  --color-primary-profond: #4630b8; /* fond d'anneau sur carte violette */
+  --color-primary-texte: #4a2fd0; /* libellés violets sur fond clair */
+  --color-lavande: #e4deff; /* surfaces secondaires, onglet actif, survol des boutons contour */
+  --color-lavande-pale: #eeeaff; /* fond des cartes chiffres du dashboard formateur */
 
-  --font-display: 'Baloo 2', sans-serif;
-  --font-body: 'Nunito', sans-serif;
+  /* Textes secondaires des maquettes du dashboard apprenant (sur fonds violet, encre et clair) */
+  --color-texte-sur-violet: #dcd4ff;
+  --color-texte-sur-violet-doux: #ece8ff;
+  --color-texte-sur-encre: #d3cee3;
+  --color-texte-attenue: #3b3550;
+  --color-texte-sur-encre-clair: #e6e3ec; /* explication du quiz sur bloc encre */
 
-  --radius-carte: 20px;
+  --color-orange: #f6a55e; /* récompense (XP, quiz flash, badges) — toujours avec du texte encre */
+  --color-orange-survol: #ee9446; /* survol du bouton orange */
+
+  --color-error: #b4232a;
+  --color-error-fond: #fde3e1;
+  --color-success: #17663f;
+  --color-success-fond: #dff3e7;
+
+  --color-contour-imbrique: #e4e4ea; /* carte posée sur une carte blanche (seule exception à la règle sans bordure) */
+  --color-contour-etape: #d9d2c6; /* contour des étapes à venir (repère d'étapes, checklist) */
+  --color-separateur: #efe9e0; /* uniquement les lignes de séparation entre éléments d'une liste */
+  --color-separateur-formateur: #ececf0; /* valeur du séparateur dans l'espace formateur */
+  --color-neutre-pale: #efe9e0; /* fond de la pastille "Non commencé" (apprenant) */
+  --color-neutre-pale-formateur: #ececf0; /* fond de la pastille "Non commencé" (formateur) */
+
+  /* Fond d'un champ posé sur une carte blanche : crème côté apprenant, gris côté formateur */
+  --color-fond-champ: var(--color-creme);
+
+  /* Seule ombre de l'app, réservée aux éléments flottants (menu de la nav, listes déroulantes, toast) */
+  --ombre-flottante: 0 12px 32px rgba(30, 26, 51, 0.16);
+
+  --font-display: 'Urbanist', sans-serif;
+  --font-body: 'Urbanist', sans-serif;
+
+  --radius-carte: 28px;
+  --radius-carte-petite: 26px;
+  --radius-reponse: 20px;
   --radius-pill: 999px;
   --radius-badge: 16px;
 
   --espacement-bouton-pill: 26px;
+
+  /* H1 = titres de page ; titre-cours = titres de cours et noms de thème dans les fiches */
+  --taille-h1: 34px;
+  --taille-titre-cours: 28px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --taille-h1: 44px;
+    --taille-titre-cours: 32px;
+  }
 }
 
 .flow-page-formateur {
-  --color-background: #f4f4f6;
+  --color-background: var(--color-fond-formateur);
+  --color-fond-champ: var(--color-fond-formateur);
+  --color-separateur: var(--color-separateur-formateur);
 }
 
 .espace-layout-formateur {
-  --color-background: #f4f4f6;
+  --color-background: var(--color-fond-formateur);
+  --color-fond-champ: var(--color-fond-formateur);
+  --color-separateur: var(--color-separateur-formateur);
 }
 
 .dashboard-groupe-form {
@@ -44,18 +87,25 @@
 
 .dashboard-groupe-form input {
   flex: 1;
-  min-height: 40px;
-  padding: 0 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-family: var(--font-body);
+  background: var(--color-fond-champ);
   color: var(--color-ink);
 }
 
-.dashboard-groupe-form .bouton-ajouter {
+.dashboard-groupe-form input:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 0;
+}
+
+.dashboard-groupe-form .bouton-primaire {
   flex-shrink: 0;
-  align-self: stretch;
+  min-height: 44px;
+  margin-top: 0;
   white-space: nowrap;
 }
 
@@ -73,7 +123,6 @@
   background: var(--color-surface);
   border-radius: var(--radius-carte);
   padding: 24px 20px 28px;
-  box-shadow: 0 1px 3px rgba(36, 29, 66, 0.08);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -106,8 +155,9 @@
 
 .flow-card h1 {
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.5rem;
+  font-weight: 800;
+  font-size: var(--taille-h1);
+  line-height: 1.1;
   margin: 0 0 4px;
   color: var(--color-ink);
 }
@@ -128,23 +178,23 @@
 
 .champ input {
   min-height: 48px;
-  padding: 0 14px;
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
+  padding: 0 18px;
+  border: none;
+  border-radius: var(--radius-pill);
   font-size: 1rem;
   font-family: var(--font-body);
-  background: var(--color-surface);
+  background: var(--color-fond-champ);
   color: var(--color-ink);
 }
 
 .champ textarea {
   min-height: 96px;
-  padding: 12px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: var(--radius-reponse);
   font-size: 1rem;
   font-family: var(--font-body);
-  background: var(--color-surface);
+  background: var(--color-fond-champ);
   color: var(--color-ink);
   resize: vertical;
 }
@@ -152,7 +202,35 @@
 .champ input:focus,
 .champ textarea:focus {
   outline: 2px solid var(--color-primary);
-  outline-offset: 1px;
+  outline-offset: 0;
+}
+
+/* Règle de contraste par le fond : sur une carte blanche, un champ prend --color-fond-champ (crème
+   côté apprenant, gris côté formateur) ; posé directement sur un fond non blanc (page, bloc), il
+   prend le fond blanc. */
+.espace-page > .champ input,
+.espace-page > .champ .dropdown-trigger,
+.creation-bloc .champ input,
+.creation-bloc .champ textarea,
+.creation-bloc .dropdown-trigger {
+  background: var(--color-surface);
+}
+
+/* Autoremplissage navigateur : neutralise le fond jaune, le champ garde son fond (--color-fond-champ
+   sur carte blanche, blanc sur fond non blanc) et le texte encre. Le box-shadow inset est le seul
+   moyen de recouvrir ce fond : c'est un aplat, pas une ombre. */
+.champ input:-webkit-autofill,
+.dashboard-groupe-form input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-fond-champ) inset;
+  box-shadow: 0 0 0 1000px var(--color-fond-champ) inset;
+  -webkit-text-fill-color: var(--color-ink);
+  caret-color: var(--color-ink);
+}
+
+.espace-page > .champ input:-webkit-autofill,
+.creation-bloc .champ input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
+  box-shadow: 0 0 0 1000px var(--color-surface) inset;
 }
 
 .bouton-primaire {
@@ -175,7 +253,7 @@
 }
 
 .bouton-primaire:hover:not(:disabled) {
-  background: #5638d6;
+  background: var(--color-primary-hover);
 }
 
 .bouton-primaire:disabled {
@@ -192,8 +270,8 @@
   padding: 0 var(--espacement-bouton-pill);
   border: 2px solid var(--color-primary);
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  color: var(--color-primary);
+  background: transparent;
+  color: var(--color-primary-texte);
   font-size: 1rem;
   font-weight: 700;
   font-family: var(--font-body);
@@ -202,7 +280,68 @@
 }
 
 .bouton-secondaire:hover:not(:disabled) {
-  background: var(--color-primary-fond);
+  background: var(--color-lavande);
+}
+
+/* Bouton orange : réservé au lancement du quiz flash, texte encre (jamais blanc sur orange) */
+.bouton-orange {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 var(--espacement-bouton-pill);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.bouton-orange:hover:not(:disabled) {
+  background: var(--color-orange-survol);
+}
+
+/* Sur une carte foncée (violette ou encre) : bouton blanc, texte encre */
+.surface-foncee .bouton-primaire,
+.surface-foncee .bouton-secondaire {
+  border: none;
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.surface-foncee .bouton-primaire:hover:not(:disabled),
+.surface-foncee .bouton-secondaire:hover:not(:disabled) {
+  background: var(--color-lavande);
+}
+
+/* Zone cliquable étendue à 44 × 44 px minimum sans changer le rendu des petits boutons icône */
+.zone-tactile,
+.modal-fermer,
+.introduction-retour,
+.creation-bouton-x,
+.formateur-relance-bouton,
+.detail-suivi-th-bouton {
+  position: relative;
+}
+
+.zone-tactile::after,
+.modal-fermer::after,
+.introduction-retour::after,
+.creation-bouton-x::after,
+.formateur-relance-bouton::after,
+.detail-suivi-th-bouton::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
 }
 
 .cta-icone {
@@ -212,11 +351,14 @@
 }
 
 .lien-retour {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   align-self: flex-start;
   background: none;
   border: none;
   padding: 0;
-  color: var(--color-primary);
+  color: var(--color-primary-texte);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
@@ -225,16 +367,18 @@
 }
 
 .lien-retour:hover {
-  color: #5638d6;
+  color: var(--color-primary-hover);
 }
 
 .lien-secondaire {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   align-self: center;
   background: none;
   border: none;
   padding: 0;
-  margin-top: 4px;
-  color: var(--color-primary);
+  color: var(--color-primary-texte);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
@@ -243,7 +387,7 @@
 }
 
 .lien-secondaire:hover {
-  color: #5638d6;
+  color: var(--color-primary-hover);
 }
 
 .message {
@@ -257,12 +401,13 @@
 }
 
 .message-info {
-  color: var(--color-primary);
+  color: var(--color-primary-texte);
 }
 
 .bouton-ajouter {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 6px;
   align-self: flex-start;
   background: none;
@@ -272,7 +417,7 @@
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-primary-texte);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -284,7 +429,7 @@
 .bouton-ajouter:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  border-color: var(--color-border);
+  border-color: var(--color-text-secondary);
   color: var(--color-text-secondary);
 }
 
@@ -295,7 +440,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(36, 29, 66, 0.45);
+  background: rgba(30, 26, 51, 0.45);
   padding: 20px;
 }
 
@@ -308,12 +453,11 @@
   padding: 24px 20px 28px;
   background: var(--color-surface);
   border-radius: var(--radius-carte);
-  box-shadow: 0 8px 32px rgba(36, 29, 66, 0.25);
 }
 
 .modal-carte h2 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 1.3rem;
   margin: 0;
   color: var(--color-ink);
@@ -354,8 +498,8 @@
 }
 
 .modal-fermer:hover {
-  background: var(--color-primary-fond);
-  color: var(--color-primary);
+  background: var(--color-lavande);
+  color: var(--color-primary-texte);
 }
 
 .modal-contenu-scroll {
@@ -367,18 +511,11 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding-top: 16px;
-  border-top: 1px solid var(--color-border);
-}
-
-.detail-section:first-of-type {
-  padding-top: 0;
-  border-top: none;
 }
 
 .detail-section h2 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 800;
   font-size: 1.1rem;
   margin: 0;
   color: var(--color-ink);
@@ -387,12 +524,13 @@
 .creation-bouton-supprimer {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 6px;
   flex-shrink: 0;
   background: none;
   border: none;
-  border-radius: 8px;
-  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+  padding: 2px 10px;
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 700;
@@ -402,7 +540,7 @@
 }
 
 .creation-bouton-supprimer:hover:not(:disabled) {
-  background: #fee2e2;
+  background: var(--color-error-fond);
 }
 
 .creation-bouton-supprimer .cta-icone {
@@ -412,13 +550,14 @@
 
 .dashboard-deconnexion {
   flex-shrink: 0;
+  min-height: 44px;
   background: none;
   border: none;
   padding: 4px 0;
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--color-primary-texte);
   cursor: pointer;
 }
 
@@ -472,4 +611,42 @@
   .page-large .flow-card {
     max-width: none;
   }
+}
+
+/* Icônes SVG inline (composant Icone) : les tracés en currentColor suivent la couleur du texte */
+.icone {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.icone svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Vignette crème d'un cours (objet 3D du thème) dans les listes : dashboard, Cours, Terrain */
+.vignette-theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-badge);
+  background: var(--color-creme);
+}
+
+.vignette-theme img {
+  width: 36px;
+  height: 36px;
+}
+
+/* Chevron à droite d'une ligne cliquable (icône currentColor) */
+.chevron-ligne {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
 }

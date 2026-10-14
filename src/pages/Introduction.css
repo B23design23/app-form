@@ -41,26 +41,40 @@
   margin-top: 4px;
 }
 
+/* Chaque point : zone cliquable 24 × 44 px, points espacés de 24 px de centre à centre.
+   Marges négatives pour conserver l'espacement vertical d'origine (point de 8 px + 2 × 4 px). */
 .introduction-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin: 4px 0;
+  gap: 0;
+  margin: -14px 0;
 }
 
 .introduction-point {
-  width: 8px;
-  height: 8px;
+  position: relative;
+  width: 24px;
+  height: 44px;
   padding: 0;
   border: none;
-  border-radius: var(--radius-pill);
-  background: var(--color-border);
+  background: none;
   cursor: pointer;
-  transition: width 0.15s ease, background 0.15s ease;
 }
 
-.introduction-point-actif {
+.introduction-point::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-lavande);
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
+
+.introduction-point-actif::before {
   width: 20px;
   background: var(--color-primary);
 }

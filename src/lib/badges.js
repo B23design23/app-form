@@ -1,21 +1,19 @@
-import award from '../Assets/badge/award.svg'
-import bolt from '../Assets/badge/bolt.svg'
-import flame from '../Assets/badge/flame.svg'
-import star from '../Assets/badge/star.svg'
-import ten from '../Assets/badge/ten.svg'
-import fallback from '../Assets/badge/fallback.svg'
-
-const ICONES_BADGE = {
-  award,
-  check: fallback,
-  flame,
-  star,
-  bolt,
-  ten,
+// Objets 3D des badges (Fluent Emoji, Microsoft, licence MIT), servis depuis public/illustrations.
+// Choisis par condition de déblocage (stable), pas par la colonne badges.icone. Les anciennes
+// illustrations SVG (src/Assets/badge/) restent dans le dépôt mais ne sont plus utilisées.
+const IMAGES_BADGE = {
+  premier_quiz_complete: 'premier-pas',
+  premiere_checklist_completee: 'sur-le-terrain',
+  trois_cours_termines: 'perseverant',
+  quiz_100_pourcent: 'sans-faute',
+  premier_quiz_flash_reussi: 'eclair',
+  dix_cours_termines: 'expert',
 }
 
-export function iconeBadge(icone) {
-  return ICONES_BADGE[icone] ?? fallback
+const IMAGE_BADGE_DEFAUT = 'premier-pas'
+
+export function iconeBadge(badge) {
+  return `/illustrations/badges/${IMAGES_BADGE[badge?.condition_deblocage] ?? IMAGE_BADGE_DEFAUT}.png`
 }
 
 const LIBELLES_CONDITION = {
@@ -29,4 +27,18 @@ const LIBELLES_CONDITION = {
 
 export function libelleCondition(conditionDeblocage) {
   return LIBELLES_CONDITION[conditionDeblocage] ?? 'Continue ta progression pour débloquer ce badge.'
+}
+
+// Condition en clair et courte (dashboard, modale « Mes badges », fin de quiz).
+const CONDITIONS_COURTES = {
+  premier_quiz_complete: 'Réussis ton premier quiz',
+  trois_cours_termines: 'Termine 3 cours',
+  dix_cours_termines: 'Termine 10 cours',
+  premiere_checklist_completee: 'Termine une checklist terrain',
+  premier_quiz_flash_reussi: 'Réussis un quiz flash',
+  quiz_100_pourcent: 'Fais 100 % à un quiz',
+}
+
+export function conditionCourteBadge(conditionDeblocage) {
+  return CONDITIONS_COURTES[conditionDeblocage] ?? libelleCondition(conditionDeblocage)
 }

@@ -1,0 +1,95 @@
+/* En-tête lavande des pages Cours et Terrain */
+.entete-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px 20px 20px;
+  border-radius: 32px;
+  background: var(--color-lavande);
+}
+
+/* Objet 3D : en haut à droite, dans le cadre (pas de débord, réservé au bloc de tête du dashboard) */
+.entete-page-objet {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 88px;
+  height: 88px;
+  pointer-events: none;
+}
+
+.entete-page-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 92px;
+}
+
+.espace-page .entete-page h1 {
+  margin: 0;
+}
+
+.entete-page-sous-titre {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-texte-attenue);
+}
+
+.entete-page-recherche {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 20px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-ink);
+}
+
+.entete-page-recherche:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 0;
+}
+
+.entete-page-recherche:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
+  box-shadow: 0 0 0 1000px var(--color-surface) inset;
+  -webkit-text-fill-color: var(--color-ink);
+}
+
+@media (min-width: 768px) {
+  .entete-page {
+    padding: 32px 36px;
+    border-radius: 36px;
+  }
+
+  /* Objet centré verticalement, à 48 px du bord droit (152 px Cours, 140 px Terrain) */
+  .entete-page-objet {
+    top: 50%;
+    right: 48px;
+    width: 152px;
+    height: 152px;
+    transform: translateY(-50%);
+  }
+
+  .entete-page-terrain .entete-page-objet {
+    width: 140px;
+    height: 140px;
+  }
+
+  .entete-page-texte {
+    padding-right: 200px;
+  }
+
+  .entete-page-sous-titre {
+    font-size: 16px;
+  }
+
+  .entete-page-recherche {
+    width: 480px;
+    max-width: calc(100% - 200px);
+  }
+}

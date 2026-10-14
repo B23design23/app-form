@@ -34,7 +34,7 @@
 }
 
 .contenu-markdown a {
-  color: var(--color-primary);
+  color: var(--color-primary-texte);
   font-weight: 600;
 }
 
@@ -72,7 +72,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(36, 29, 66, 0.85);
+  background: rgba(30, 26, 51, 0.85);
   padding: 24px;
   cursor: zoom-out;
 }
@@ -86,7 +86,6 @@
 .contenu-markdown-table-wrap {
   overflow-x: auto;
   margin: 12px 0;
-  border: 1px solid #EDE9FE;
   border-radius: 12px;
 }
 
@@ -100,13 +99,13 @@
 .contenu-markdown td {
   padding: 10px 12px;
   text-align: left;
-  border-bottom: 1px solid #EDE9FE;
+  border-bottom: 1px solid var(--color-separateur);
 }
 
 .contenu-markdown th {
-  background: #EDE9FE;
-  font-family: 'Baloo 2', sans-serif;
-  font-weight: 600;
+  background: var(--color-lavande);
+  font-family: var(--font-display);
+  font-weight: 800;
   white-space: nowrap;
 }
 

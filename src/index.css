@@ -7,9 +7,11 @@ body {
   background: var(--color-background);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
   font-family: var(--font-display);
+  font-weight: 800;
 }

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import ContenuMarkdown from '../components/ContenuMarkdown'
-import iconeEdit from '../Assets/edit.svg'
-import iconeTrash from '../Assets/trash.svg'
+import iconeEdit from '../Assets/edit.svg?raw'
+import iconeTrash from '../Assets/trash.svg?raw'
 import '../styles/shared.css'
 import './DetailCoursFormateur.css'
+import Icone from '../components/Icone'
 
 function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
   const [chargement, setChargement] = useState(true)
@@ -116,7 +117,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
             {estProprietaire && !confirmationSuppression && (
               <div className="detail-actions detail-actions-titre">
                 <button type="button" className="bouton-secondaire" onClick={onModifier}>
-                  <img className="cta-icone" src={iconeEdit} alt="" aria-hidden="true" />
+                  <Icone svg={iconeEdit} className="cta-icone" />
                   Modifier
                 </button>
                 <button
@@ -124,7 +125,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
                   className="detail-bouton-supprimer"
                   onClick={() => setConfirmationSuppression(true)}
                 >
-                  <img className="cta-icone" src={iconeTrash} alt="" aria-hidden="true" />
+                  <Icone svg={iconeTrash} className="cta-icone" />
                   Supprimer
                 </button>
               </div>
@@ -178,9 +179,10 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
             ) : (
               questions.map((question, qi) => (
                 <div className="detail-bloc" key={question.id}>
-                  <p className="detail-question-enonce">
-                    {qi + 1}. {question.enonce}
-                  </p>
+                  <div className="detail-question-enonce">
+                    <span>{qi + 1}.</span>
+                    <ContenuMarkdown texte={question.enonce} />
+                  </div>
                   <p className="detail-question-type">
                     {question.type_reponse === 'simple' ? 'Réponse unique' : 'Réponses multiples'}
                   </p>
@@ -208,7 +210,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
               <ol className="detail-etapes">
                 {etapes.map((etape) => (
                   <li key={etape.id}>
-                    <span>{etape.intitule}</span>
+                    <ContenuMarkdown texte={etape.intitule} className="detail-etape-intitule" />
                     {etape.bloquante && <span className="detail-badge-bloquante">Bloquante</span>}
                     {etape.critere_validation && (
                       <p className="detail-critere">Critère : {etape.critere_validation}</p>

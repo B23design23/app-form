@@ -20,9 +20,9 @@
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-badge);
-  background: var(--color-surface);
+  border: 2px solid transparent;
+  border-radius: var(--radius-reponse);
+  background: var(--color-creme);
   font-size: 0.9rem;
   color: var(--color-ink);
   cursor: pointer;
@@ -30,12 +30,11 @@
 }
 
 .quiz-option:not(.quiz-option-desactivee):hover {
-  border-color: var(--color-primary);
-  background: var(--color-primary-fond);
+  background: var(--color-lavande);
 }
 
 .quiz-option:not(.quiz-option-desactivee):active {
-  background: var(--color-primary-fond);
+  background: var(--color-lavande);
 }
 
 .quiz-option input {
@@ -47,7 +46,11 @@
 
 .quiz-option-selectionnee {
   border-color: var(--color-primary);
-  background: var(--color-primary-fond);
+  background: var(--color-lavande);
+}
+
+.quiz-option-selectionnee input {
+  accent-color: var(--color-primary);
 }
 
 .quiz-option-desactivee {
@@ -57,15 +60,25 @@
 .quiz-option-correcte {
   border-color: var(--color-success);
   background: var(--color-success-fond);
+  color: var(--color-success);
+}
+
+.quiz-option-correcte input {
+  accent-color: var(--color-success);
 }
 
 .quiz-option-fausse {
   border-color: var(--color-error);
   background: var(--color-error-fond);
+  color: var(--color-error);
+}
+
+.quiz-option-fausse input {
+  accent-color: var(--color-error);
 }
 
 .quiz-feedback {
-  border-radius: var(--radius-badge);
+  border-radius: var(--radius-reponse);
   padding: 12px 14px;
   font-size: 0.85rem;
 }
@@ -94,8 +107,8 @@
 
 .quiz-resume {
   padding: 14px 16px;
-  border-radius: var(--radius-badge);
-  background: var(--color-primary-fond);
+  border-radius: var(--radius-reponse);
+  background: var(--color-lavande);
   font-size: 0.9rem;
   color: var(--color-ink);
 }

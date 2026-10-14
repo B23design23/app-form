@@ -1,55 +1,139 @@
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import { iconeBadge, libelleCondition } from '../lib/badges'
-import { salutation } from '../lib/salutation'
+import { iconeBadge, conditionCourteBadge } from '../lib/badges'
+import { THEMATIQUES, imageTheme, IMAGE_QUIZ_FLASH, IMAGE_BIBLIOTHEQUE_TERMINEE } from '../lib/thematiques'
 import AnneauProgression from '../components/AnneauProgression'
-import iconeXp from '../Assets/badge/Iconxp.svg'
-import iconeFlash from '../Assets/flash.svg'
+import Icone from '../components/Icone'
+import BlocFormateur from '../components/BlocFormateur'
+import { joursDepuis, statutCoursAssigne } from '../lib/coursAssignes'
+import iconeFleche from '../Assets/arrow-right.svg?raw'
+import iconeFormateur from '../Assets/graduation.svg?raw'
+import iconeCadenas from '../Assets/lock.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './Dashboard.css'
 
-function IconePuce({ chemin, className }) {
+// Dashboard apprenant : une suite de blocs qui poussent chacun à une action. Les blocs affichés
+// et leur ordre dépendent de la situation de l'élève (voir determinerBlocs et CLAUDE.md).
+
+const SEUIL_QUIZ_FLASH = 3
+
+// Ordre d'affichage des badges (rangée, vitrine) et ordre de priorité pour « Prochain badge ».
+const ORDRE_AFFICHAGE_BADGES = [
+  'premier_quiz_complete',
+  'premiere_checklist_completee',
+  'trois_cours_termines',
+  'quiz_100_pourcent',
+  'premier_quiz_flash_reussi',
+  'dix_cours_termines',
+]
+const PRIORITE_PROCHAIN_BADGE = [
+  'premier_quiz_complete',
+  'trois_cours_termines',
+  'dix_cours_termines',
+  'premiere_checklist_completee',
+  'premier_quiz_flash_reussi',
+  'quiz_100_pourcent',
+]
+
+function rangDans(liste, valeur) {
+  const rang = liste.indexOf(valeur)
+  return rang === -1 ? liste.length : rang
+}
+
+// Condition en clair + progression chiffrée du prochain badge.
+function objectifBadge(condition, { nbQuiz, nbTermines, checklistFaite, quizFlashReussi, quiz100 }) {
+  const texte = conditionCourteBadge(condition)
+  switch (condition) {
+    case 'premier_quiz_complete':
+      return { texte, valeur: Math.min(nbQuiz, 1), cible: 1, unite: 'quiz' }
+    case 'trois_cours_termines':
+      return { texte, valeur: Math.min(nbTermines, 3), cible: 3, unite: 'cours' }
+    case 'dix_cours_termines':
+      return { texte, valeur: Math.min(nbTermines, 10), cible: 10, unite: 'cours' }
+    case 'premiere_checklist_completee':
+      return { texte, valeur: checklistFaite ? 1 : 0, cible: 1, unite: 'checklist' }
+    case 'premier_quiz_flash_reussi':
+      return { texte, valeur: quizFlashReussi ? 1 : 0, cible: 1, unite: 'quiz flash' }
+    case 'quiz_100_pourcent':
+      return { texte, valeur: quiz100 ? 1 : 0, cible: 1, unite: 'quiz' }
+    default:
+      return { texte, valeur: 0, cible: 1, unite: '' }
+  }
+}
+
+function libelleAjoute(dateIso) {
+  const jours = joursDepuis(dateIso)
+  if (jours === null) return null
+  if (jours <= 0) return "ajouté aujourd'hui"
+  if (jours === 1) return 'ajouté hier'
+  return `ajouté il y a ${jours} jours`
+}
+
+// Étapes d'un cours en cours (calcul existant : la leçon compte comme faite dès que le cours
+// est ouvert, le quiz via scores, la checklist via progression.checklist_terminee).
+function etatCoursEnCours(cours, { quizFait, checklistFaite }) {
+  const aQuiz = (cours.questions?.length ?? 0) > 0
+  const aChecklist = (cours.etapes_checklist?.length ?? 0) > 0
+  const etapes = [true, aQuiz && quizFait, aChecklist && checklistFaite]
+  const total = 1 + (aQuiz ? 1 : 0) + (aChecklist ? 1 : 0)
+  const faites = etapes.filter(Boolean).length
+  const ratio = total > 0 ? faites / total : 0
+
+  const resteQuiz = aQuiz && !quizFait
+  const resteChecklist = aChecklist && !checklistFaite
+  let phrase
+  if (resteQuiz && resteChecklist) phrase = 'Leçon lue. Restent le quiz et la checklist pour finir ce cours.'
+  else if (resteQuiz) phrase = 'Leçon lue. Reste le quiz pour finir ce cours.'
+  else if (resteChecklist) phrase = 'Leçon lue. Reste la checklist pour finir ce cours.'
+  else phrase = 'Leçon en cours. Termine-la pour finir ce cours.'
+
+  return { ratio, phrase }
+}
+
+function PastilleFormateur() {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d={chemin} />
-    </svg>
+    <span className="dash-pastille-formateur">
+      <Icone svg={iconeFormateur} className="dash-pastille-formateur-icone" />
+      De ton formateur
+    </span>
   )
 }
 
-const CHEMIN_ICONE_CHECK = 'M20 6L9 17L4 12'
-const CHEMIN_ICONE_QUESTION =
-  'M9.09 9C9.3251 8.33167 9.78915 7.76811 10.4 7.40913C11.0108 7.05016 11.7289 6.91894 12.4272 7.03871C13.1255 7.15849 13.7588 7.52152 14.2151 8.06353C14.6713 8.60553 14.9211 9.29152 14.92 10C14.92 12 11.92 13 11.92 13M12 17H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z'
-const CHEMIN_ICONE_LOADER =
-  'M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93'
+function BoutonFleche({ children, onClick }) {
+  return (
+    <button type="button" className="dash-bouton-fleche" onClick={onClick}>
+      {children}
+      <span className="dash-bouton-fleche-rond">
+        <Icone svg={iconeFleche} className="dash-bouton-fleche-icone" />
+      </span>
+    </button>
+  )
+}
 
-function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSection }) {
+function Cadenas({ className }) {
+  return (
+    <span className={`dash-cadenas ${className ?? ''}`}>
+      <Icone svg={iconeCadenas} className="dash-cadenas-icone" />
+    </span>
+  )
+}
+
+function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSection, onVoirCoursFormateur }) {
   const [profil, setProfil] = useState(null)
   const [erreurProfil, setErreurProfil] = useState(null)
 
   const [progression, setProgression] = useState([])
-  const [coursListe, setCoursListe] = useState([])
+  const [coursListe, setCoursListe] = useState(null)
   const [erreurCours, setErreurCours] = useState(null)
+  const [assignations, setAssignations] = useState([])
 
   const [tousBadges, setTousBadges] = useState([])
   const [badgesObtenus, setBadgesObtenus] = useState([])
-  const [erreurBadges, setErreurBadges] = useState(null)
-  const [badgeSelectionne, setBadgeSelectionne] = useState(null)
+  // Modale « Mes badges » : null = fermée ; { badgeId } = ouverte (badgeId : badge à mettre en évidence)
+  const [modaleBadges, setModaleBadges] = useState(null)
 
-  const [scoresQuizCours, setScoresQuizCours] = useState([])
-  const [erreurScoresQuizCours, setErreurScoresQuizCours] = useState(null)
-
-  const [coursAvecQuiz, setCoursAvecQuiz] = useState([])
-  const [coursAvecChecklist, setCoursAvecChecklist] = useState([])
+  const [scores, setScores] = useState([])
 
   useEffect(() => {
     let annule = false
@@ -67,7 +151,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
     supabase
       .from('progression')
-      .select('cours_id, statut, checklist_terminee')
+      .select('cours_id, statut, checklist_terminee, updated_at')
       .eq('user_id', authUser.id)
       .then(({ data, error }) => {
         if (annule) return
@@ -76,41 +160,32 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
     supabase
       .from('cours')
-      .select('id, titre')
+      .select('id, titre, categorie, ordre, visibilite, questions(id), etapes_checklist(id)')
       .then(({ data, error }) => {
         if (annule) return
         if (error) setErreurCours(error.message)
         else setCoursListe(data ?? [])
       })
 
-    supabase
-      .from('questions')
-      .select('cours_id')
-      .then(({ data, error }) => {
-        if (annule) return
-        if (!error) setCoursAvecQuiz(data ?? [])
-      })
-
-    supabase
-      .from('etapes_checklist')
-      .select('cours_id')
-      .then(({ data, error }) => {
-        if (annule) return
-        if (!error) setCoursAvecChecklist(data ?? [])
-      })
+    // Dates d'assignation (migration 0004). En cas d'échec (migration non jouée), les cours
+    // privés restent traités comme assignés, sans date.
+    supabase.rpc('mes_cours_assignes').then(({ data, error }) => {
+      if (annule) return
+      if (error) console.error('mes_cours_assignes', error.message)
+      else setAssignations(data ?? [])
+    })
 
     supabase
       .from('badges')
       .select('id, nom, icone, description, condition_deblocage')
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurBadges(error.message)
-        else setTousBadges(data ?? [])
+        if (!error) setTousBadges(data ?? [])
       })
 
     supabase
       .from('user_badges')
-      .select('badge_id')
+      .select('badge_id, date_obtention')
       .eq('user_id', authUser.id)
       .then(({ data, error }) => {
         if (annule) return
@@ -119,51 +194,17 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
     supabase
       .from('scores')
-      .select('cours_id')
+      .select('cours_id, type, score')
       .eq('user_id', authUser.id)
-      .eq('type', 'quiz_cours')
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurScoresQuizCours(error.message)
-        else setScoresQuizCours(data ?? [])
+        if (!error) setScores(data ?? [])
       })
 
     return () => {
       annule = true
     }
   }, [authUser.id])
-
-  const badgesTrackRef = useRef(null)
-  const [badgesVisibles, setBadgesVisibles] = useState(4)
-  const [peutReculerBadges, setPeutReculerBadges] = useState(false)
-  const [peutAvancerBadges, setPeutAvancerBadges] = useState(false)
-
-  useEffect(() => {
-    const mql = window.matchMedia('(min-width: 768px)')
-    const majBadgesVisibles = () => setBadgesVisibles(mql.matches ? 5 : 4)
-    majBadgesVisibles()
-    mql.addEventListener('change', majBadgesVisibles)
-    return () => mql.removeEventListener('change', majBadgesVisibles)
-  }, [])
-
-  const majEtatFlechesBadges = () => {
-    const piste = badgesTrackRef.current
-    if (!piste) return
-    setPeutReculerBadges(piste.scrollLeft > 2)
-    setPeutAvancerBadges(piste.scrollLeft + piste.clientWidth < piste.scrollWidth - 2)
-  }
-
-  useEffect(() => {
-    majEtatFlechesBadges()
-  }, [tousBadges.length, badgesVisibles])
-
-  const defilerBadges = (direction) => {
-    const piste = badgesTrackRef.current
-    if (!piste) return
-    const premiereTuile = piste.firstElementChild
-    const pas = premiereTuile ? premiereTuile.getBoundingClientRect().width + 20 : piste.clientWidth
-    piste.scrollBy({ left: direction * pas, behavior: 'smooth' })
-  }
 
   if (erreurProfil) {
     return (
@@ -173,7 +214,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
     )
   }
 
-  if (!profil) {
+  if (!profil || (coursListe === null && !erreurCours)) {
     return (
       <div className="espace-page espace-page-etroit">
         <p>Chargement…</p>
@@ -181,296 +222,488 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
     )
   }
 
-  const statutParCoursId = new Map(progression.map((p) => [p.cours_id, p.statut]))
-  const idsChecklistFaite = new Set(progression.filter((p) => p.checklist_terminee).map((p) => p.cours_id))
-  const totalCours = coursListe.length
-  const coursTermines = coursListe.filter((c) => statutParCoursId.get(c.id) === 'termine').length
-  const ratioGlobal = totalCours > 0 ? coursTermines / totalCours : 0
+  // --- Données dérivées -------------------------------------------------------------------
 
-  const coursEnCours = coursListe.find((c) => statutParCoursId.get(c.id) === 'en_cours')
-  const coursNonCommence = coursListe.find((c) => statutParCoursId.get(c.id) !== 'termine' && statutParCoursId.get(c.id) !== 'en_cours')
-  const coursAMettreEnAvant = coursEnCours ?? coursNonCommence ?? null
-  const idsObtenus = new Set(badgesObtenus.map((b) => b.badge_id))
-  const nbCoursQuizTermines = new Set(scoresQuizCours.map((s) => s.cours_id)).size
-  const quizFlashDebloque = nbCoursQuizTermines >= 3
+  const cours = coursListe ?? []
+  const progressionParCours = new Map(progression.map((p) => [p.cours_id, p]))
+  const statutDe = (c) => progressionParCours.get(c.id)?.statut ?? 'non_commence'
+  const dateAssignation = new Map(assignations.map((a) => [a.cours_id, a.assigne_le]))
 
-  const idsCoursAvecQuiz = new Set(coursAvecQuiz.map((q) => q.cours_id))
-  const idsCoursAvecChecklist = new Set(coursAvecChecklist.map((e) => e.cours_id))
-  const idsCoursQuizFait = new Set(scoresQuizCours.map((s) => s.cours_id))
+  const scoresQuizCours = scores.filter((s) => s.type === 'quiz_cours')
+  const idsQuizFait = new Set(scoresQuizCours.map((s) => s.cours_id))
+  const nbCoursQuizTermines = idsQuizFait.size
+  const quizFlashDebloque = nbCoursQuizTermines >= SEUIL_QUIZ_FLASH
 
-  const statutCoursMisEnAvant = coursAMettreEnAvant ? statutParCoursId.get(coursAMettreEnAvant.id) : null
-  const recapCoursMisEnAvant = coursAMettreEnAvant
-    ? [
-        { cle: 'lecon', icone: CHEMIN_ICONE_CHECK, label: 'Leçon', fait: statutCoursMisEnAvant === 'en_cours' || statutCoursMisEnAvant === 'termine' },
-        idsCoursAvecQuiz.has(coursAMettreEnAvant.id) && {
-          cle: 'quiz',
-          icone: CHEMIN_ICONE_QUESTION,
-          label: 'Quiz',
-          fait: idsCoursQuizFait.has(coursAMettreEnAvant.id),
-        },
-        idsCoursAvecChecklist.has(coursAMettreEnAvant.id) && {
-          cle: 'checklist',
-          icone: CHEMIN_ICONE_LOADER,
-          label: 'Checklist',
-          fait: idsChecklistFaite.has(coursAMettreEnAvant.id),
-        },
-      ].filter(Boolean)
-    : []
+  const coursTermines = cours.filter((c) => statutDe(c) === 'termine')
+  const aCommenceQuelqueChose = cours.some((c) => statutDe(c) !== 'non_commence')
+  const tousTermines = cours.length > 0 && coursTermines.length === cours.length
 
-  const LIMITE_RECOMMANDES = 6
-  const coursNonCommences = coursListe.filter((c) => {
-    const statut = statutParCoursId.get(c.id)
-    return (!statut || statut === 'non_commence') && c.id !== coursAMettreEnAvant?.id
+  // Cours en cours : le plus récemment modifié.
+  const coursEnCours =
+    cours
+      .filter((c) => statutDe(c) === 'en_cours')
+      .sort((a, b) =>
+        (progressionParCours.get(b.id)?.updated_at ?? '').localeCompare(progressionParCours.get(a.id)?.updated_at ?? '')
+      )[0] ?? null
+
+  // Cours assignés par le formateur (privés visibles via RLS), non terminés, du plus ancien au plus récent.
+  const assignesAFaire = cours
+    .filter((c) => c.visibilite === 'prive' && statutDe(c) !== 'termine')
+    .sort((a, b) => (dateAssignation.get(a.id) ?? '').localeCompare(dateAssignation.get(b.id) ?? ''))
+
+  // Prochain cours conseillé : premier cours public non commencé, ordre des thèmes puis cours.ordre.
+  const coursConseille =
+    cours
+      .filter((c) => c.visibilite === 'public' && statutDe(c) === 'non_commence')
+      .sort(
+        (a, b) =>
+          rangDans(THEMATIQUES, a.categorie) - rangDans(THEMATIQUES, b.categorie) ||
+          (a.ordre ?? Infinity) - (b.ordre ?? Infinity) ||
+          a.titre.localeCompare(b.titre)
+      )[0] ?? null
+
+  // Badges
+  const idsBadgesObtenus = new Set(badgesObtenus.map((b) => b.badge_id))
+  const dateObtentionParBadge = new Map(badgesObtenus.map((b) => [b.badge_id, b.date_obtention]))
+  const badgesTries = [...tousBadges].sort(
+    (a, b) =>
+      rangDans(ORDRE_AFFICHAGE_BADGES, a.condition_deblocage) - rangDans(ORDRE_AFFICHAGE_BADGES, b.condition_deblocage)
+  )
+  const nbBadgesObtenus = tousBadges.filter((b) => idsBadgesObtenus.has(b.id)).length
+  const collectionComplete = tousBadges.length > 0 && nbBadgesObtenus === tousBadges.length
+  const prochainBadge =
+    [...tousBadges]
+      .filter((b) => !idsBadgesObtenus.has(b.id))
+      .sort(
+        (a, b) =>
+          rangDans(PRIORITE_PROCHAIN_BADGE, a.condition_deblocage) -
+          rangDans(PRIORITE_PROCHAIN_BADGE, b.condition_deblocage)
+      )[0] ?? null
+
+  const statsBadges = {
+    nbQuiz: nbCoursQuizTermines,
+    nbTermines: coursTermines.length,
+    checklistFaite: progression.some((p) => p.checklist_terminee),
+    quizFlashReussi: scores.some((s) => s.type === 'quiz_flash' && s.score >= 50),
+    quiz100: scores.some((s) => s.score === 100),
+  }
+  const ouvrirBadges = (badge = null) => setModaleBadges({ badgeId: badge?.id ?? null })
+
+  // --- Blocs --------------------------------------------------------------------------------
+
+  const blocCoursEnCours = (c) => {
+    const { ratio, phrase } = etatCoursEnCours(c, {
+      quizFait: idsQuizFait.has(c.id),
+      checklistFaite: progressionParCours.get(c.id)?.checklist_terminee === true,
+    })
+    const pourcentage = Math.round(ratio * 100)
+    return (
+      <div className="dash-carte dash-carte-violette dash-carte-tete dash-avec-objet dash-en-cours">
+        <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
+        <div className="dash-tete-rangee">
+          <AnneauProgression
+            radius={32}
+            strokeWidth={9}
+            ratio={ratio}
+            trackColor="var(--color-primary-profond)"
+            progressColor="var(--color-surface)"
+            wrapperClassName="dash-anneau"
+          >
+            <span className="dash-anneau-valeur" aria-label={`${pourcentage} % du cours`}>
+              {pourcentage} %
+            </span>
+          </AnneauProgression>
+        </div>
+        <div className="dash-tete-texte">
+          {c.visibilite === 'prive' && <PastilleFormateur />}
+          <span className="dash-libelle-sur-violet">Tu en es là</span>
+          <h2 className="dash-titre-tete" title={c.titre}>
+            {c.titre}
+          </h2>
+          <p className="dash-en-cours-phrase">{phrase}</p>
+        </div>
+        <BoutonFleche onClick={() => onOuvrirCours(c.id)}>Continuer le cours</BoutonFleche>
+      </div>
+    )
+  }
+
+  // B en tête (premier cours / prochain cours conseillé) : même structure que les autres blocs de
+  // tête (objet qui déborde en rangée 1, texte pleine largeur en rangée 2, bouton en rangée 3).
+  const blocCoursConseilleTete = (c, premier) => (
+    <div className="dash-carte dash-carte-blanche dash-carte-tete dash-avec-objet dash-conseille-tete">
+      <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
+      <div className="dash-tete-rangee">
+        <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
+      </div>
+      <div className="dash-tete-texte">
+        <h2 className="dash-titre-tete" title={c.titre}>
+          {c.titre}
+        </h2>
+        <span className="dash-sous-texte">{c.categorie}</span>
+      </div>
+      <button type="button" className="bouton-primaire dash-conseille-bouton" onClick={() => onOuvrirCours(c.id)}>
+        Commencer
+      </button>
+    </div>
+  )
+
+  const blocCoursConseille = (c, premier) => (
+    <div className="dash-carte dash-carte-blanche dash-conseille">
+      <img className="dash-objet-coin" src={imageTheme(c.categorie)} alt="" />
+      <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
+      <h2 className="dash-titre-carte">{c.titre}</h2>
+      <span className="dash-sous-texte">{c.categorie}</span>
+      <button type="button" className="bouton-primaire dash-conseille-bouton" onClick={() => onOuvrirCours(c.id)}>
+        Commencer
+      </button>
+    </div>
+  )
+
+  const blocAssigneEnTete = (c) => {
+    const ajoute = libelleAjoute(dateAssignation.get(c.id))
+    return (
+      <div className="dash-carte dash-carte-violette dash-carte-tete dash-avec-objet dash-assigne">
+        <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
+        <div className="dash-tete-rangee">
+          <PastilleFormateur />
+        </div>
+        <div className="dash-tete-texte">
+          <h2 className="dash-titre-tete" title={c.titre}>
+            {c.titre}
+          </h2>
+          <p className="dash-assigne-meta">{ajoute ? `${c.categorie} · ${ajoute}` : c.categorie}</p>
+        </div>
+        <BoutonFleche onClick={() => onOuvrirCours(c.id)}>Commencer le cours</BoutonFleche>
+      </div>
+    )
+  }
+
+  // Tri du bloc « De ton formateur » : Nouveau, puis En cours, puis À faire ; à statut égal, du
+  // plus récemment assigné au plus ancien (sans date connue : en fin de groupe).
+  const RANG_STATUT_ASSIGNE = { nouveau: 0, en_cours: 1, a_faire: 2 }
+  const blocFormateur = (liste) => {
+    const lignes = liste
+      .map((c) => ({ cours: c, statut: statutCoursAssigne(statutDe(c), dateAssignation.get(c.id)) }))
+      .sort(
+        (a, b) =>
+          RANG_STATUT_ASSIGNE[a.statut] - RANG_STATUT_ASSIGNE[b.statut] ||
+          (dateAssignation.get(b.cours.id) ?? '').localeCompare(dateAssignation.get(a.cours.id) ?? '')
+      )
+    return (
+      <BlocFormateur
+        lignes={lignes}
+        onOuvrirCours={onOuvrirCours}
+        actionEntete={
+          <button type="button" className="dash-lien" onClick={onVoirCoursFormateur}>
+            Tout voir
+          </button>
+        }
+      />
+    )
+  }
+
+  const blocQuizFlashTete = () => (
+    <div className="dash-carte dash-carte-encre dash-carte-tete dash-avec-objet dash-flash-tete">
+      <img className="dash-objet-deborde dash-objet-incline" src={IMAGE_QUIZ_FLASH} alt="" />
+      <span className="dash-pastille-orange">Défi du jour</span>
+      <h2 className="dash-flash-tete-titre">Quiz flash</h2>
+      <p className="dash-flash-tete-texte">
+        10 questions sur tes {nbCoursQuizTermines} cours terminés. 5 bonnes réponses pour gagner 30 XP.
+      </p>
+      <button type="button" className="bouton-orange dash-bouton-large" onClick={onOuvrirQuizFlash}>
+        Lancer le quiz flash
+      </button>
+    </div>
+  )
+
+  const blocQuizFlashLigne = () => (
+    <div className="dash-carte dash-carte-encre dash-flash-ligne">
+      <img className="dash-flash-ligne-objet" src={IMAGE_QUIZ_FLASH} alt="" />
+      <div className="dash-flash-ligne-texte">
+        <h2>Quiz flash</h2>
+        <span className="dash-flash-ligne-meta">10 questions · +30 XP</span>
+        <p className="dash-flash-ligne-phrase">
+          10 questions sur tes cours terminés. 5 bonnes réponses pour gagner 30 XP.
+        </p>
+      </div>
+      <button type="button" className="bouton-orange dash-flash-ligne-bouton" onClick={onOuvrirQuizFlash}>
+        <span className="dash-flash-ligne-bouton-court">Lancer</span>
+        <span className="dash-flash-ligne-bouton-long">Lancer le quiz flash</span>
+      </button>
+    </div>
+  )
+
+  const blocQuizFlashVerrouille = () => (
+    <div className="dash-carte dash-carte-blanche dash-flash-verrouille">
+      <span className="dash-flash-verrouille-objet">
+        <img src={IMAGE_QUIZ_FLASH} alt="" />
+        <Cadenas />
+      </span>
+      <div className="dash-flash-verrouille-texte">
+        <h2>Quiz flash</h2>
+        <span className="dash-flash-verrouille-consigne">Réussis 3 quiz de cours pour le débloquer</span>
+        <div className="dash-barre-ligne">
+          <span className="dash-barre dash-barre-fine">
+            <span
+              className="dash-barre-remplissage"
+              style={{ width: `${(Math.min(nbCoursQuizTermines, SEUIL_QUIZ_FLASH) / SEUIL_QUIZ_FLASH) * 100}%` }}
+            />
+          </span>
+          <span className="dash-barre-compteur dash-barre-compteur-petit">
+            {Math.min(nbCoursQuizTermines, SEUIL_QUIZ_FLASH)} / {SEUIL_QUIZ_FLASH}
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+
+  const blocProchainBadge = () => {
+    const objectif = objectifBadge(prochainBadge.condition_deblocage, statsBadges)
+    return (
+      <div className="dash-carte dash-carte-lavande dash-badge">
+        <div className="dash-badge-entete">
+          <button
+            type="button"
+            className="dash-badge-vignette"
+            aria-label={`${prochainBadge.nom}, verrouillé`}
+            onClick={() => ouvrirBadges(prochainBadge)}
+          >
+            <img className="dash-badge-gris" src={iconeBadge(prochainBadge)} alt="" />
+            <Cadenas />
+          </button>
+          <div className="dash-badge-texte">
+            <span className="dash-libelle-violet">Prochain badge</span>
+            <h2 className="dash-titre-carte">{prochainBadge.nom}</h2>
+            <span className="dash-sous-texte">{objectif.texte}</span>
+          </div>
+        </div>
+        <div className="dash-barre-ligne">
+          <span className="dash-barre dash-barre-epaisse">
+            <span className="dash-barre-remplissage" style={{ width: `${(objectif.valeur / objectif.cible) * 100}%` }} />
+          </span>
+          <span className="dash-barre-compteur">
+            {objectif.valeur} / {objectif.cible} {objectif.unite}
+          </span>
+        </div>
+        <div className="dash-badge-rangee">
+          {badgesTries.map((b) => (
+            <button
+              key={b.id}
+              type="button"
+              className="dash-badge-mini-bouton"
+              aria-label={idsBadgesObtenus.has(b.id) ? b.nom : `${b.nom}, verrouillé`}
+              onClick={() => ouvrirBadges(b)}
+            >
+              <img
+                className={`dash-badge-mini${idsBadgesObtenus.has(b.id) ? '' : ' dash-badge-mini-verrouille'}`}
+                src={iconeBadge(b)}
+                alt=""
+              />
+            </button>
+          ))}
+          <button type="button" className="dash-lien dash-badge-lien" onClick={() => ouvrirBadges()}>
+            Mes badges · {nbBadgesObtenus}/{tousBadges.length}
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  const blocCollectionVitrine = () => (
+    <div className="dash-carte dash-carte-lavande dash-collection">
+      <div className="dash-collection-entete">
+        <div className="dash-badge-texte">
+          <span className="dash-libelle-violet">Collection complète</span>
+          <h2 className="dash-titre-carte">
+            {tousBadges.length} badges sur {tousBadges.length}
+          </h2>
+        </div>
+        <button type="button" className="dash-lien" onClick={() => ouvrirBadges()}>
+          Voir mes badges
+        </button>
+      </div>
+      <div className="dash-collection-rangee">
+        {badgesTries.map((b) => (
+          <button key={b.id} type="button" className="dash-collection-badge" aria-label={b.nom} onClick={() => ouvrirBadges(b)}>
+            <img src={iconeBadge(b)} alt="" />
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+
+  const blocBibliothequeTerminee = () => (
+    <div className="dash-carte dash-carte-blanche dash-bibliotheque">
+      <img className="dash-objet-coin" src={IMAGE_BIBLIOTHEQUE_TERMINEE} alt="" />
+      <span className="dash-libelle-violet">Bibliothèque terminée</span>
+      <h2 className="dash-titre-carte">Tu as fini les {cours.length} cours</h2>
+      <span className="dash-sous-texte">De nouveaux cours arrivent. Le quiz flash garde tes acquis au chaud.</span>
+    </div>
+  )
+
+  // --- Situation → liste ordonnée de blocs ---------------------------------------------------
+
+  const blocQuizFlashSecondaire = () =>
+    quizFlashDebloque ? { cle: 'flash', rendu: blocQuizFlashLigne } : { cle: 'flash-verrouille', rendu: blocQuizFlashVerrouille }
+
+  const blocs = []
+  if (tousTermines) {
+    // 7. Tous les cours accessibles terminés
+    blocs.push(quizFlashDebloque ? { cle: 'flash-tete', rendu: blocQuizFlashTete } : blocQuizFlashSecondaire())
+    blocs.push({ cle: 'bibliotheque', rendu: blocBibliothequeTerminee })
+  } else if (coursEnCours) {
+    // 2 et 3. Un cours en cours : jamais de deuxième cours à commencer
+    blocs.push({ cle: 'en-cours', rendu: () => blocCoursEnCours(coursEnCours) })
+    const autresAssignes = assignesAFaire.filter((c) => c.id !== coursEnCours.id)
+    if (autresAssignes.length > 0) blocs.push({ cle: 'formateur', rendu: () => blocFormateur(autresAssignes) })
+    blocs.push(blocQuizFlashSecondaire())
+  } else if (assignesAFaire.length > 0) {
+    // 4. Rien en cours, des cours assignés : la consigne du formateur passe en tête
+    const [premierAssigne, ...autresAssignes] = assignesAFaire
+    blocs.push({ cle: 'assigne', rendu: () => blocAssigneEnTete(premierAssigne) })
+    if (autresAssignes.length > 0) blocs.push({ cle: 'formateur', rendu: () => blocFormateur(autresAssignes) })
+    blocs.push(blocQuizFlashSecondaire())
+  } else if (coursConseille) {
+    // 1, 5 et 6. Rien en cours, rien d'assigné
+    const premier = !aCommenceQuelqueChose
+    if (quizFlashDebloque && !premier) {
+      blocs.push({ cle: 'flash-tete', rendu: blocQuizFlashTete })
+      blocs.push({ cle: 'conseille', rendu: () => blocCoursConseille(coursConseille, false) })
+    } else {
+      blocs.push({ cle: 'conseille', rendu: () => blocCoursConseilleTete(coursConseille, premier) })
+      blocs.push(blocQuizFlashSecondaire())
+    }
+  }
+
+  // Bloc badges : H tant que la collection n'est pas complète, puis la vitrine I (permanente).
+  if (prochainBadge) blocs.push({ cle: 'badge', rendu: blocProchainBadge })
+  else if (collectionComplete) blocs.push({ cle: 'collection', rendu: blocCollectionVitrine })
+
+  // Placement desktop (grille 2fr / 1fr) : rangée 1 = bloc de tête + bloc quiz flash à droite
+  // (ou le bloc suivant si le quiz flash est déjà en tête) ; rangées suivantes = blocs restants
+  // dans l'ordre, un bloc seul en fin de rangée prenant toute la largeur. Sur mobile, les blocs
+  // restent dans l'ordre de la situation (ordre du DOM).
+  const estQuizFlash = (bloc) => bloc.cle.startsWith('flash')
+  const [blocTete, ...autresBlocs] = blocs
+  const blocCote = blocTete && !estQuizFlash(blocTete) ? autresBlocs.find(estQuizFlash) ?? autresBlocs[0] : autresBlocs[0]
+  const blocsSuite = autresBlocs.filter((b) => b !== blocCote)
+  const placementDesktop = new Map()
+  if (blocTete) placementDesktop.set(blocTete, { ligne: 1, colonne: blocCote ? '1' : '1 / -1', classe: 'dash-cellule-tete' })
+  if (blocCote) placementDesktop.set(blocCote, { ligne: 1, colonne: '2', classe: 'dash-cellule-tete dash-cellule-cote' })
+  blocsSuite.forEach((bloc, i) => {
+    const seulEnFin = i % 2 === 0 && i === blocsSuite.length - 1
+    placementDesktop.set(bloc, {
+      ligne: 2 + Math.floor(i / 2),
+      colonne: seulEnFin ? '1 / -1' : i % 2 === 0 ? '1' : '2',
+      classe: '',
+    })
   })
-  const coursRecommandes = coursNonCommences.slice(0, LIMITE_RECOMMANDES)
 
   return (
-    <div className="espace-page espace-page-etroit apprenant-dashboard-grille">
-      <div className="apprenant-entete">
-        <h1>{salutation()} {profil.prenom} !</h1>
-      </div>
+    <div className="espace-page espace-page-etroit dash-page">
+      <header className="dash-entete">
+        <h1>Salut {profil.prenom}</h1>
+        <span className="dash-xp">
+          <img src={IMAGE_QUIZ_FLASH} alt="" />
+          {profil.xp_total} XP
+        </span>
+      </header>
 
-      <div className="apprenant-metriques">
-        <div className="espace-carte apprenant-metrique apprenant-metrique-xp">
-          <span className="apprenant-metrique-valeur apprenant-metrique-valeur-xp">
-            <img className="apprenant-xp-icone" src={iconeXp} alt="" aria-hidden="true" />
-            {profil.xp_total}
-          </span>
-          <span className="apprenant-metrique-label">XP total</span>
-        </div>
-        <div className="espace-carte apprenant-metrique">
-          <span className="apprenant-metrique-valeur">{coursTermines}</span>
-          <span className="apprenant-metrique-label">Cours terminés</span>
-        </div>
-        <div className="espace-carte apprenant-metrique">
-          <span className="apprenant-metrique-valeur">
-            {badgesObtenus.length}/{tousBadges.length}
-          </span>
-          <span className="apprenant-metrique-label">Badges obtenus</span>
-        </div>
-      </div>
+      {erreurCours && <p className="message message-erreur">Impossible de charger tes cours ({erreurCours}).</p>}
 
-      <section className="espace-carte apprenant-section-badges">
-        <div className="apprenant-badges-entete">
-          <h2>Badges</h2>
-          {tousBadges.length > badgesVisibles && (
-            <div className="apprenant-badges-fleches">
-              <button
-                type="button"
-                className={`apprenant-badges-fleche${peutReculerBadges ? '' : ' apprenant-badges-fleche-desactivee'}`}
-                onClick={() => defilerBadges(-1)}
-                aria-label="Badges précédents"
-                aria-disabled={!peutReculerBadges}
+      {blocs.length > 0 && (
+        <div className="dash-blocs">
+          {blocs.map((bloc) => {
+            const placement = placementDesktop.get(bloc)
+            return (
+              <div
+                key={bloc.cle}
+                className={`dash-cellule ${placement.classe}${
+                  bloc.cle === 'badge' || bloc.cle === 'collection' ? ' dash-cellule-badges' : ''
+                }${placement.colonne === '1 / -1' ? ' dash-cellule-pleine' : ''}`}
+                style={{ '--dash-ligne': placement.ligne, '--dash-colonne': placement.colonne }}
               >
-                <svg
-                  className="apprenant-badges-fleche-icone"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                className={`apprenant-badges-fleche${peutAvancerBadges ? '' : ' apprenant-badges-fleche-desactivee'}`}
-                onClick={() => defilerBadges(1)}
-                aria-label="Badges suivants"
-                aria-disabled={!peutAvancerBadges}
-              >
-                <svg
-                  className="apprenant-badges-fleche-icone"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-            </div>
-          )}
-        </div>
-        {erreurBadges ? (
-          <p className="message message-erreur">Impossible de charger tes badges ({erreurBadges}).</p>
-        ) : (
-          <div className="apprenant-badges-rangee" ref={badgesTrackRef} onScroll={majEtatFlechesBadges}>
-            {tousBadges.map((badge) => {
-              const obtenu = idsObtenus.has(badge.id)
-              return (
-                <button
-                  key={badge.id}
-                  type="button"
-                  className="apprenant-badge-tuile"
-                  title={obtenu ? badge.nom : `${badge.nom} (verrouillé)`}
-                  onClick={() => setBadgeSelectionne({ ...badge, obtenu })}
-                >
-                  <span className={`apprenant-badge${obtenu ? ' apprenant-badge-obtenu' : ' apprenant-badge-verrouille'}`}>
-                    {obtenu ? (
-                      <img
-                        className="apprenant-badge-icone"
-                        src={iconeBadge(badge.icone)}
-                        alt=""
-                        aria-hidden="true"
-                      />
-                    ) : (
-                      <span aria-hidden="true">🔒</span>
-                    )}
-                  </span>
-                  <span className="apprenant-badge-nom">{badge.nom}</span>
-                </button>
-              )
-            })}
-          </div>
-        )}
-      </section>
-
-      <div className="espace-carte espace-carte-continuer">
-        <div className="apprenant-continuer-layout">
-          <AnneauProgression
-            radius={42}
-            strokeWidth={9}
-            ratio={ratioGlobal}
-            afficherTrait={totalCours > 0}
-            wrapperClassName="apprenant-continuer-anneau-wrapper"
-            svgClassName="apprenant-continuer-anneau"
-          >
-            {totalCours > 0 && (
-              <span className="apprenant-continuer-anneau-pourcentage">{Math.round(ratioGlobal * 100)}%</span>
-            )}
-          </AnneauProgression>
-
-          <div className="apprenant-continuer-info">
-            {erreurCours ? (
-              <p className="message message-erreur">Impossible de charger tes cours ({erreurCours}).</p>
-            ) : (
-              <>
-                <p className="apprenant-continuer-legende">
-                  {coursTermines}/{totalCours} cours terminés
-                </p>
-                {coursAMettreEnAvant ? (
-                  <>
-                    <p className="apprenant-continuer-titre">{coursAMettreEnAvant.titre}</p>
-
-                    {recapCoursMisEnAvant.length > 0 && (
-                      <ul className="apprenant-continuer-recap">
-                        {recapCoursMisEnAvant.map((item) => (
-                          <li
-                            key={item.cle}
-                            className={`apprenant-continuer-recap-puce${item.fait ? ' apprenant-continuer-recap-puce-faite' : ''}`}
-                          >
-                            <IconePuce className="apprenant-continuer-recap-icone" chemin={item.icone} />
-                            {item.label}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    <button
-                      type="button"
-                      className="bouton-primaire"
-                      onClick={() => onOuvrirCours(coursAMettreEnAvant.id)}
-                    >
-                      Continuer
-                    </button>
-                  </>
-                ) : totalCours > 0 ? (
-                  <>
-                    <p className="apprenant-continuer-titre">Bravo, tous tes cours sont terminés !</p>
-                    <button type="button" className="bouton-primaire" onClick={() => onChangerSection('cours')}>
-                      Revoir mes cours
-                    </button>
-                  </>
-                ) : (
-                  <p className="apprenant-continuer-titre">Aucun cours disponible pour le moment.</p>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="espace-carte apprenant-banniere-quizflash">
-        {erreurScoresQuizCours ? (
-          <p className="message message-erreur">
-            Impossible de vérifier le quiz flash ({erreurScoresQuizCours}).
-          </p>
-        ) : quizFlashDebloque ? (
-          <>
-            <p>Un petit quiz flash pour tester tes connaissances et gratter de l'XP ?</p>
-            <button type="button" className="bouton-secondaire" onClick={onOuvrirQuizFlash}>
-              <img className="cta-icone" src={iconeFlash} alt="" aria-hidden="true" />
-              Lancer le quiz flash
-            </button>
-          </>
-        ) : (
-          <p className="apprenant-banniere-verrouillee">🔒 Termine 3 quiz pour débloquer le quiz flash</p>
-        )}
-      </div>
-
-      <section className="apprenant-section-recommandes">
-        <h2>Cours recommandés</h2>
-
-        {erreurCours ? (
-          <p className="message message-erreur">Impossible de charger les cours recommandés ({erreurCours}).</p>
-        ) : coursRecommandes.length === 0 ? (
-          <p className="dashboard-etat-vide">Tu as déjà commencé tous les cours disponibles, bravo !</p>
-        ) : (
-          <>
-            <ul className="espace-liste dashboard-recommandes-grille">
-              {coursRecommandes.map((cours) => (
-                <li key={cours.id}>
-                  <button type="button" className="espace-liste-item" onClick={() => onOuvrirCours(cours.id)}>
-                    <span className="espace-liste-item-titre">{cours.titre}</span>
-                    <span className="espace-liste-item-chevron" aria-hidden="true">
-                      ›
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-
-            {coursNonCommences.length > LIMITE_RECOMMANDES && (
-              <button type="button" className="lien-secondaire" onClick={() => onChangerSection('cours')}>
-                Voir tous les cours
-              </button>
-            )}
-          </>
-        )}
-      </section>
-
-      {badgeSelectionne && (
-        <div className="badge-modal-overlay" onClick={() => setBadgeSelectionne(null)}>
-          <div className="badge-modal" onClick={(e) => e.stopPropagation()}>
-            <div
-              className={`apprenant-badge badge-modal-icone${badgeSelectionne.obtenu ? ' apprenant-badge-obtenu' : ' apprenant-badge-verrouille'}`}
-              aria-hidden="true"
-            >
-              {badgeSelectionne.obtenu ? (
-                <img className="apprenant-badge-icone" src={iconeBadge(badgeSelectionne.icone)} alt="" />
-              ) : (
-                '🔒'
-              )}
-            </div>
-            <h3>{badgeSelectionne.nom}</h3>
-            <p>
-              {badgeSelectionne.obtenu
-                ? badgeSelectionne.description
-                : `Verrouillé — ${libelleCondition(badgeSelectionne.condition_deblocage)}`}
-            </p>
-            <button type="button" className="bouton-primaire" onClick={() => setBadgeSelectionne(null)}>
-              Fermer
-            </button>
-          </div>
+                {bloc.rendu()}
+              </div>
+            )
+          })}
         </div>
       )}
+
+      {modaleBadges && (
+        <ModaleBadges
+          badges={badgesTries}
+          idsBadgesObtenus={idsBadgesObtenus}
+          dateObtentionParBadge={dateObtentionParBadge}
+          conditionEnClair={(badge) => objectifBadge(badge.condition_deblocage, statsBadges).texte}
+          badgeIdEnEvidence={modaleBadges.badgeId}
+          onFermer={() => setModaleBadges(null)}
+        />
+      )}
+    </div>
+  )
+}
+
+function formaterDateObtention(dateIso) {
+  if (!dateIso) return null
+  return new Date(dateIso).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })
+}
+
+// Modale « Mes badges » : grille de tous les badges (obtenus avec leur date, verrouillés grisés
+// avec cadenas). Ouverte sur un badge précis, elle défile jusqu'à lui et le met en évidence 1 s.
+function ModaleBadges({ badges, idsBadgesObtenus, dateObtentionParBadge, conditionEnClair, badgeIdEnEvidence, onFermer }) {
+  const refsBadges = useRef(new Map())
+  const [enEvidence, setEnEvidence] = useState(badgeIdEnEvidence)
+
+  useEffect(() => {
+    if (!badgeIdEnEvidence) return
+    refsBadges.current.get(badgeIdEnEvidence)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    const minuteur = setTimeout(() => setEnEvidence(null), 1000)
+    return () => clearTimeout(minuteur)
+  }, [badgeIdEnEvidence])
+
+  const nbObtenus = badges.filter((b) => idsBadgesObtenus.has(b.id)).length
+
+  return (
+    <div className="modal-overlay" onClick={onFermer}>
+      <div
+        className="dash-modale-badges"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dash-modale-badges-titre"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="dash-modale-badges-entete">
+          <h2 id="dash-modale-badges-titre">Mes badges</h2>
+          <span className="dash-modale-badges-compteur">
+            {nbObtenus}/{badges.length}
+          </span>
+          <button type="button" className="modal-fermer" onClick={onFermer} aria-label="Fermer">
+            ×
+          </button>
+        </div>
+        <ul className="dash-modale-badges-grille">
+          {badges.map((badge) => {
+            const obtenu = idsBadgesObtenus.has(badge.id)
+            const date = formaterDateObtention(dateObtentionParBadge.get(badge.id))
+            return (
+              <li
+                key={badge.id}
+                ref={(el) => (el ? refsBadges.current.set(badge.id, el) : refsBadges.current.delete(badge.id))}
+                className={`dash-modale-badge${enEvidence === badge.id ? ' dash-modale-badge-evidence' : ''}`}
+              >
+                <span className="dash-modale-badge-pastille">
+                  <img className={obtenu ? '' : 'dash-badge-gris'} src={iconeBadge(badge)} alt="" />
+                  {!obtenu && <Cadenas />}
+                </span>
+                <span className="dash-modale-badge-nom">{badge.nom}</span>
+                <span className="dash-modale-badge-condition">{conditionEnClair(badge)}</span>
+                {obtenu && <span className="dash-modale-badge-etat">{date ? `Obtenu le ${date}` : 'Obtenu'}</span>}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
     </div>
   )
 }

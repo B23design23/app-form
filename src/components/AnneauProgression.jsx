@@ -8,7 +8,7 @@ function AnneauProgression({
   strokeWidth = 9,
   ratio = 0,
   afficherTrait = true,
-  trackColor = 'var(--color-anneau-fond)',
+  trackColor = 'var(--color-lavande)',
   progressColor = 'var(--color-primary)',
   wrapperClassName = 'anneau-progression',
   svgClassName = 'anneau-progression-svg',

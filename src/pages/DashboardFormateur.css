@@ -38,20 +38,25 @@
 .formateur-taux-carte {
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: stretch;
+  align-items: center;
   gap: 18px;
 }
 
-.formateur-taux-icone {
-  display: block;
-  height: 100%;
-  width: auto;
-  max-height: 120px;
+/* Anneau de progression : piste lavande, arc violet, pourcentage au centre */
+.formateur-taux-anneau {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
 }
 
 @media (max-width: 399px) {
-  .formateur-taux-icone {
-    max-height: 80px;
+  .formateur-taux-anneau {
+    width: 88px;
+    height: 88px;
   }
 }
 
@@ -65,10 +70,22 @@
 }
 
 .formateur-taux-valeur {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 2.6rem;
+  font-weight: 800;
+  font-size: 1.75rem;
   line-height: 1;
+  color: var(--color-ink);
+}
+
+@media (max-width: 399px) {
+  .formateur-taux-valeur {
+    font-size: 1.3rem;
+  }
 }
 
 .formateur-taux-label {
@@ -81,20 +98,31 @@
   color: var(--color-text-secondary);
 }
 
-.formateur-taux-valeur-error {
+.formateur-taux-pastille {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.formateur-taux-pastille-icone {
+  width: 14px;
+  height: 14px;
+}
+
+.formateur-taux-pastille-alerte {
+  background: var(--color-error-fond);
   color: var(--color-error);
 }
 
-.formateur-taux-valeur-warm {
-  color: var(--color-accent-warm);
-}
-
-.formateur-taux-valeur-star {
-  color: var(--color-accent-star);
-}
-
-.formateur-taux-valeur-neutre {
-  color: var(--color-text-secondary);
+.formateur-taux-pastille-succes {
+  background: var(--color-success-fond);
+  color: var(--color-success);
 }
 
 .formateur-metriques {
@@ -108,38 +136,101 @@
   }
 }
 
+/* Cartes chiffres : fond lavande pâle, contour 2 px violet (exception explicite à la règle
+   "pas de bordure sur les cartes"), en-tête icône + libellé, chiffre centré. */
 .formateur-metrique {
   flex: 1 1 0;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  text-align: center;
+  gap: 8px;
+  padding: 16px;
+  background: var(--color-lavande-pale);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-carte);
 }
 
 .formateur-metrique-large {
   flex: 1.4 1 0;
 }
 
-.formateur-metrique-valeur {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 2.5rem;
-  color: var(--color-primary);
+.formateur-metrique-entete {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.formateur-metrique-pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.formateur-metrique-pastille-icone {
+  width: 18px;
+  height: 18px;
 }
 
 .formateur-metrique-label {
+  min-width: 0;
   font-size: 0.85rem;
-  color: var(--color-text-secondary);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+.formateur-metrique-label-court {
+  display: none;
+}
+
+/* Mobile : trois cartes côte à côte, icône au-dessus du libellé (centrés), libellé court */
+@media (max-width: 767px) {
+  .formateur-metrique {
+    padding: 14px 8px;
+  }
+
+  .formateur-metrique-entete {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+
+  .formateur-metrique-label-long {
+    display: none;
+  }
+
+  .formateur-metrique-label-court {
+    display: inline;
+  }
+}
+
+.formateur-metrique-valeur {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 1;
+  color: var(--color-ink);
 }
 
 .formateur-metrique-vide {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  text-align: center;
 }
 
 .formateur-metrique-vide p {
@@ -198,7 +289,7 @@
   min-height: 24px;
   line-height: 1.4;
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 800;
   font-size: 1.05rem;
   margin: 0;
   color: var(--color-ink);
@@ -239,17 +330,18 @@
 
 .formateur-relance-date {
   font-size: 0.78rem;
-  color: var(--color-accent-warm);
+  color: var(--color-error);
   font-weight: 600;
 }
 
 .formateur-relance-confirmation {
   font-size: 0.78rem;
-  color: var(--color-primary);
+  color: var(--color-primary-texte);
   font-weight: 600;
 }
 
 .formateur-relance-bouton {
+  color: var(--color-primary-texte);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -265,7 +357,7 @@
 }
 
 .formateur-relance-bouton:hover {
-  background: var(--color-primary-fond);
+  background: var(--color-lavande);
 }
 
 .formateur-relance-bouton-icone {
@@ -301,7 +393,7 @@
 
 .formateur-activite h2 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 800;
   font-size: 1.05rem;
   margin: 0;
   color: var(--color-ink);
@@ -346,31 +438,87 @@
   }
 }
 
+/* Liste à deux colonnes (une sous 768 px), lecture ligne par ligne ; séparateur sous chaque
+   ligne sauf la dernière de chaque colonne. */
 .formateur-activite-liste {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .formateur-activite-liste {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .formateur-activite-ligne {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 10px 14px;
-  background: var(--color-background);
-  border-radius: var(--radius-badge);
-  font-size: 0.9rem;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-separateur);
+  font-size: 14px;
   color: var(--color-ink);
 }
 
+.formateur-activite-ligne:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 768px) {
+  .formateur-activite-ligne:nth-last-child(2) {
+    border-bottom: none;
+  }
+}
+
+.formateur-activite-pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.formateur-activite-pastille-termine {
+  background: var(--color-success-fond);
+  color: var(--color-success);
+}
+
+.formateur-activite-pastille-en_cours {
+  background: var(--color-lavande);
+  color: var(--color-primary-texte);
+}
+
+.formateur-activite-pastille-icone {
+  width: 14px;
+  height: 14px;
+}
+
 .formateur-activite-texte {
-  line-height: 1.4;
+  flex: 1;
+  min-width: 0;
+  font-weight: 500;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.formateur-activite-texte strong {
+  font-weight: 800;
 }
 
 .formateur-activite-date {
-  font-size: 0.78rem;
+  flex-shrink: 0;
+  font-size: 12px;
   color: var(--color-text-secondary);
+  white-space: nowrap;
 }

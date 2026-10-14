@@ -1,18 +1,22 @@
 import '../styles/espace-layout.css'
 
+// Pastille de statut partagée par toute l'app (une seule règle, voir CLAUDE.md) :
+// Non commencé / À faire = neutre, Nouveau = orange, En cours = violet plein,
+// Terminé = mention sans fond (coche + mot, en vert). Pas de point avant le texte : la couleur
+// et le mot suffisent.
 const LABEL_STATUT = {
   non_commence: 'Non commencé',
+  a_faire: 'À faire',
+  nouveau: 'Nouveau',
   en_cours: 'En cours',
   termine: 'Terminé',
 }
 
-// Même tracé que Assets/check.svg, inliné pour hériter la couleur du badge via currentColor
-// (un <img src> ne le permettrait pas).
+// Même tracé que Assets/check.svg, inliné pour hériter la couleur via currentColor.
 function IconeCheck() {
   return (
     <svg
-      width="11"
-      height="11"
+      className="statut-badge-coche"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -29,7 +33,7 @@ function IconeCheck() {
 function StatutBadge({ statut }) {
   return (
     <span className={`statut-badge statut-badge-${statut}`}>
-      {statut === 'termine' ? <IconeCheck /> : <span className="statut-badge-pastille" aria-hidden="true" />}
+      {statut === 'termine' && <IconeCheck />}
       {LABEL_STATUT[statut]}
     </span>
   )

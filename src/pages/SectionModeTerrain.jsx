@@ -1,8 +1,25 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import StatutBadge from '../components/StatutBadge'
+import { THEMATIQUES, libelleCourtTheme, IMAGE_TERRAIN } from '../lib/thematiques'
+import EntetePage from '../components/EntetePage'
+import { ListeCours, LigneCours } from '../components/LigneCours'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
+import './SectionModeTerrain.css'
+
+function rangTheme(categorie) {
+  const rang = THEMATIQUES.indexOf(categorie)
+  return rang === -1 ? THEMATIQUES.length : rang
+}
+
+// Statut d'une checklist : « Terminé » via progression.checklist_terminee (logique existante).
+// Il n'existe pas de suivi « checklist commencée » : « En cours » reprend le statut de
+// progression du cours (en_cours). Rien n'est affiché pour une checklist non commencée.
+function statutChecklist(progressionCours) {
+  if (progressionCours?.checklist_terminee) return 'termine'
+  if (progressionCours?.statut === 'en_cours') return 'en_cours'
+  return null
+}
 
 function SectionModeTerrain({ authUser, onOuvrirCours }) {
   const [coursListe, setCoursListe] = useState(null)
@@ -14,7 +31,7 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
 
     supabase
       .from('cours')
-      .select('id, titre, etapes_checklist(id)')
+      .select('id, titre, categorie, ordre, visibilite, etapes_checklist(id)')
       .then(({ data, error }) => {
         if (annule) return
         if (error) setErreurCours(error.message)
@@ -35,39 +52,52 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
     }
   }, [authUser.id])
 
-  const checklistFaiteParCoursId = new Map(progression.map((p) => [p.cours_id, p.checklist_terminee === true]))
-  const coursAvecChecklist = (coursListe ?? []).filter((cours) => (cours.etapes_checklist?.length ?? 0) > 0)
+  const progressionParCours = new Map(progression.map((p) => [p.cours_id, p]))
+
+  // Tous les cours à checklist (publics et assignés) : en cours d'abord, puis ordre des thèmes,
+  // puis ordre du cours dans le thème.
+  const checklists = (coursListe ?? [])
+    .filter((cours) => (cours.etapes_checklist?.length ?? 0) > 0)
+    .map((cours) => ({ cours, statut: statutChecklist(progressionParCours.get(cours.id)) }))
+    .sort(
+      (a, b) =>
+        (a.statut === 'en_cours' ? 0 : 1) - (b.statut === 'en_cours' ? 0 : 1) ||
+        rangTheme(a.cours.categorie) - rangTheme(b.cours.categorie) ||
+        (a.cours.ordre ?? Infinity) - (b.cours.ordre ?? Infinity) ||
+        a.cours.titre.localeCompare(b.cours.titre)
+    )
 
   return (
-    <div className="espace-page espace-page-etroit">
-      <h1>Mode terrain</h1>
+    <div className="espace-page espace-page-etroit page-terrain">
+      <EntetePage
+        titre="Terrain"
+        sousTitre="Les checklists à suivre sur le chantier, étape par étape."
+        image={IMAGE_TERRAIN}
+        variante="terrain"
+      />
 
       {erreurCours ? (
         <p className="message message-erreur">Impossible de charger les checklists ({erreurCours}).</p>
       ) : coursListe === null ? (
         <p>Chargement…</p>
-      ) : coursAvecChecklist.length === 0 ? (
+      ) : checklists.length === 0 ? (
         <p className="dashboard-etat-vide">Aucune checklist terrain disponible pour le moment.</p>
       ) : (
-        <ul className="espace-liste espace-liste-grille">
-          {coursAvecChecklist.map((cours) => {
-            const statut = checklistFaiteParCoursId.get(cours.id) ? 'termine' : 'non_commence'
+        <ListeCours>
+          {checklists.map(({ cours, statut }) => {
+            const nbEtapes = cours.etapes_checklist.length
+            const origine = cours.visibilite === 'prive' ? 'De ton formateur' : libelleCourtTheme(cours.categorie)
             return (
-              <li key={cours.id}>
-                <button
-                  type="button"
-                  className="espace-liste-item espace-liste-item-terrain"
-                  onClick={() => onOuvrirCours(cours.id, 'checklist')}
-                >
-                  <span className="espace-liste-item-titre" title={cours.titre}>
-                    {cours.titre}
-                  </span>
-                  <StatutBadge statut={statut} />
-                </button>
-              </li>
+              <LigneCours
+                key={cours.id}
+                cours={cours}
+                meta={`${origine} · ${nbEtapes} étape${nbEtapes > 1 ? 's' : ''}`}
+                statut={statut}
+                onClick={() => onOuvrirCours(cours.id, 'checklist')}
+              />
             )
           })}
-        </ul>
+        </ListeCours>
       )}
     </div>
   )

@@ -1,0 +1,107 @@
+/* Repère d'étapes (fiche de cours) */
+.reper-etapes {
+  position: relative;
+  padding: 14px 8px 12px;
+  border-radius: 22px;
+  background: var(--color-surface);
+}
+
+/* Ligne de 3 px reliant les centres des pastilles (pastille 28 px, padding haut 14 px) */
+.reper-liaison {
+  position: absolute;
+  top: calc(14px + 14px - 1.5px);
+  height: 3px;
+  background: var(--color-separateur);
+}
+
+.reper-liaison-faite {
+  background: var(--color-primary);
+}
+
+.reper-liste {
+  position: relative;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reper-bouton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+button.reper-bouton {
+  cursor: pointer;
+}
+
+.reper-pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+  transition: all 0.15s ease;
+}
+
+.reper-pastille svg {
+  width: 14px;
+  height: 14px;
+}
+
+.reper-libelle {
+  line-height: 1.2;
+}
+
+/* Étape en cours : pastille violette pleine, numéro blanc, halo lavande de 4 px */
+.reper-etape-courante .reper-pastille {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  box-shadow: 0 0 0 4px var(--color-lavande);
+}
+
+.reper-etape-courante .reper-libelle {
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+/* Étape faite : pastille violette + coche, libellé violet souligné (lien) */
+.reper-etape-faite .reper-pastille {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.reper-etape-faite .reper-libelle {
+  font-weight: 700;
+  color: var(--color-primary-texte);
+  text-decoration: underline;
+}
+
+.reper-etape-faite button.reper-bouton:hover .reper-libelle {
+  color: var(--color-primary-hover);
+}
+
+/* Étape à venir : pastille blanche, contour 2 px */
+.reper-etape-a-venir .reper-pastille {
+  border: 2px solid var(--color-contour-etape);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+}
+
+.reper-etape-a-venir .reper-libelle {
+  font-weight: 600;
+}

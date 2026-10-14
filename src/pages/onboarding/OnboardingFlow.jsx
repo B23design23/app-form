@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 import ProgressBar from '../../components/ProgressBar'
 import Dropdown from '../../components/Dropdown'
-import skilloLogo from '../../Assets/Skillogo.svg'
+import Logo from '../../components/Logo'
 import '../../styles/shared.css'
 import './OnboardingFlow.css'
 
@@ -124,7 +124,7 @@ function OnboardingFlow({ authUser, role = 'apprenant', onTermine, onRetourCompt
   return (
     <div className="flow-page">
       <div className="page-logo-wrapper">
-        <img src={skilloLogo} alt="Skillo" className="page-logo" />
+        <Logo className="page-logo" />
 
         <div className="flow-card">
           <button

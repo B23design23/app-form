@@ -2,34 +2,36 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { ajouterXp, verifierBadges } from '../lib/gamification'
 import { melanger } from '../lib/shuffle'
-import ProgressBar from '../components/ProgressBar'
-import CompletionToast from '../components/CompletionToast'
+import { imageTheme } from '../lib/thematiques'
+import EcranQuiz from './fiche/EcranQuiz'
+import EcranFinQuiz, { SEUIL_REUSSITE } from './fiche/EcranFinQuiz'
+import { useQuiz } from './fiche/useQuiz'
 import '../styles/shared.css'
-import '../styles/quiz.css'
-import './QuizFlash.css'
+import './FicheCours.css'
 
+// Quiz flash : même composant que le quiz de cours (mode concentré, réponses, correction) et
+// même écran de fin. Questions tirées parmi les cours dont l'apprenant a fait le quiz.
 const NB_QUESTIONS = 10
 const XP_QUIZ_FLASH = 30
-const SEUIL_REUSSITE = 50
 
-function QuizFlash({ authUser, onRetour }) {
+function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
+  const [essai, setEssai] = useState(0)
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState(null)
   const [questions, setQuestions] = useState([])
+  const [resultat, setResultat] = useState(null)
+  const [envoiEnCours, setEnvoiEnCours] = useState(false)
 
-  const [indexQuestion, setIndexQuestion] = useState(0)
-  const [selection, setSelection] = useState([])
-  const [valide, setValide] = useState(false)
-  const [derniereReponseCorrecte, setDerniereReponseCorrecte] = useState(false)
-  const [bonnesReponses, setBonnesReponses] = useState(0)
-  const [quizTermine, setQuizTermine] = useState(false)
-  const [scoreFinal, setScoreFinal] = useState(null)
-  const [overlay, setOverlay] = useState(null)
+  const { quiz, reinitialiser, basculer, valider, suivante } = useQuiz(questions)
 
   useEffect(() => {
     let annule = false
 
     async function charger() {
+      setChargement(true)
+      setResultat(null)
+      reinitialiser()
+
       const { data: scoresQuizCours, error: erreurScores } = await supabase
         .from('scores')
         .select('cours_id')
@@ -47,7 +49,7 @@ function QuizFlash({ authUser, onRetour }) {
 
       const { data: questionsDisponibles, error: erreurQuestions } = await supabase
         .from('questions')
-        .select('id, enonce, type_reponse, reponses(id, texte, est_correcte, explication)')
+        .select('id, enonce, type_reponse, cours_id, cours(titre, categorie), reponses(id, texte, est_correcte, explication)')
         .in('cours_id', coursIds)
 
       if (annule) return
@@ -57,10 +59,11 @@ function QuizFlash({ authUser, onRetour }) {
         return
       }
 
-      const tirage = melanger(questionsDisponibles ?? [])
-        .slice(0, NB_QUESTIONS)
-        .map((q) => ({ ...q, reponses: melanger(q.reponses) }))
-      setQuestions(tirage)
+      setQuestions(
+        melanger(questionsDisponibles ?? [])
+          .slice(0, NB_QUESTIONS)
+          .map((q) => ({ ...q, reponses: melanger(q.reponses) }))
+      )
       setChargement(false)
     }
 
@@ -69,43 +72,17 @@ function QuizFlash({ authUser, onRetour }) {
     return () => {
       annule = true
     }
-  }, [authUser])
-
-  function basculerSelection(reponseId) {
-    if (valide) return
-    const question = questions[indexQuestion]
-    if (question.type_reponse === 'simple') {
-      setSelection([reponseId])
-    } else {
-      setSelection((prev) =>
-        prev.includes(reponseId) ? prev.filter((id) => id !== reponseId) : [...prev, reponseId]
-      )
-    }
-  }
-
-  function validerReponse() {
-    const question = questions[indexQuestion]
-    const idsCorrects = question.reponses.filter((r) => r.est_correcte).map((r) => r.id)
-    const estCorrecte =
-      selection.length === idsCorrects.length && selection.every((id) => idsCorrects.includes(id))
-    setDerniereReponseCorrecte(estCorrecte)
-    if (estCorrecte) setBonnesReponses((n) => n + 1)
-    setValide(true)
-  }
+    // reinitialiser est stable dans son usage (remet l'état initial)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUser, essai])
 
   async function questionSuivante() {
-    const dernierQuestion = indexQuestion === questions.length - 1
+    const historique = suivante()
+    if (!historique || envoiEnCours) return
+    setEnvoiEnCours(true)
 
-    if (!dernierQuestion) {
-      setIndexQuestion((i) => i + 1)
-      setSelection([])
-      setValide(false)
-      return
-    }
-
-    const score = Math.round((bonnesReponses / questions.length) * 100)
-    setScoreFinal(score)
-
+    const bonnes = historique.filter((h) => h.correcte).length
+    const score = Math.round((bonnes / questions.length) * 100)
     await supabase.from('scores').insert({
       user_id: authUser.id,
       cours_id: null,
@@ -114,163 +91,80 @@ function QuizFlash({ authUser, onRetour }) {
       date: new Date().toISOString(),
     })
 
+    // 50 % et plus : 30 XP et vérification des badges (Éclair)
+    let badges = []
     if (score >= SEUIL_REUSSITE) {
       await ajouterXp(authUser, XP_QUIZ_FLASH)
-      const nouveauxBadges = await verifierBadges(authUser)
-      setOverlay({
-        titre: `Quiz flash terminé — ${bonnesReponses}/${questions.length} (${score}%)`,
-        xp: XP_QUIZ_FLASH,
-        badges: nouveauxBadges,
-        type: 'quiz',
-        score,
-      })
-    } else {
-      setOverlay({
-        titre: `Quiz flash terminé — ${bonnesReponses}/${questions.length} (${score}%)`,
-        xp: null,
-        badges: [],
-        type: 'quiz',
-        score,
-      })
+      badges = await verifierBadges(authUser)
     }
 
-    setQuizTermine(true)
+    setResultat({
+      bonnes,
+      total: questions.length,
+      score,
+      xpGagne: score >= SEUIL_REUSSITE ? XP_QUIZ_FLASH : 0,
+      badges,
+      historique,
+    })
+    setEnvoiEnCours(false)
   }
-
-  useEffect(() => {
-    if (!overlay) return
-    const minuteur = setTimeout(() => setOverlay(null), 3500)
-    return () => clearTimeout(minuteur)
-  }, [overlay])
 
   if (chargement) {
     return (
-      <div className="flow-page">
-        <div className="flow-card">
-          <p>Chargement…</p>
-        </div>
+      <div className="fiche-page">
+        <p>Chargement…</p>
       </div>
     )
   }
 
-  if (erreur) {
+  if (erreur || questions.length === 0) {
     return (
-      <div className="flow-page">
-        <div className="page-avec-lien-retour page-large">
-          <button type="button" className="lien-retour" onClick={onRetour}>
-            ← Retour
+      <div className="fiche-page">
+        <div className="fiche-colonne">
+          <button type="button" className="fiche-retour" onClick={onRetour}>
+            Retour à l'accueil
           </button>
-          <div className="flow-card">
-            <p className="message message-erreur">Impossible de charger le quiz flash ({erreur}).</p>
-          </div>
+          <p className="message message-erreur">
+            {erreur ? `Impossible de charger le quiz flash (${erreur}).` : 'Aucune question disponible pour le quiz flash.'}
+          </p>
         </div>
       </div>
     )
   }
 
-  const questionCourante = questions[indexQuestion]
-  const questionsRepondues = valide ? indexQuestion + 1 : indexQuestion
-  const pluriel = bonnesReponses > 1 ? 's' : ''
-  const labelProgression = `Question ${indexQuestion + 1}/${questions.length} · ${bonnesReponses} bonne${pluriel} réponse${pluriel} sur ${questionsRepondues}`
+  if (resultat) {
+    const reussi = resultat.score >= SEUIL_REUSSITE
+    const relancer = { bouton: 'Relancer un quiz flash', onClick: () => setEssai((n) => n + 1) }
+    const accueil = { bouton: "Retour à l'accueil", onClick: onRetour }
+    return (
+      <div className="fiche-page">
+        <EcranFinQuiz
+          libelle="Quiz flash terminé"
+          resultat={resultat}
+          titre={reussi ? undefined : 'Tu y es presque'}
+          sousTitre={reussi ? undefined : `${Math.ceil((SEUIL_REUSSITE / 100) * resultat.total)} bonnes réponses pour gagner ${XP_QUIZ_FLASH} XP.`}
+          actionPrincipale={reussi ? accueil : relancer}
+          liens={reussi ? [] : [accueil]}
+        />
+      </div>
+    )
+  }
 
   return (
-    <div className="flow-page">
-      <div className="page-avec-lien-retour page-large">
-        <button type="button" className="lien-retour" onClick={onRetour}>
-          ← Retour
-        </button>
-
-        <div className="flow-card quiz-flash-card">
-          <h1>Quiz flash</h1>
-
-          {questions.length === 0 ? (
-            <p className="message message-erreur">Aucune question disponible pour le quiz flash.</p>
-          ) : quizTermine ? (
-            <div className="quiz-resume">
-              <p>
-                Quiz flash terminé — {bonnesReponses}/{questions.length} bonnes réponses ({scoreFinal}%).
-              </p>
-              {scoreFinal >= SEUIL_REUSSITE ? (
-                <p>Réussi — {XP_QUIZ_FLASH} XP gagnés.</p>
-              ) : (
-                <p>Score en dessous de {SEUIL_REUSSITE}% — retente ta chance !</p>
-              )}
-            </div>
-          ) : (
-            questionCourante && (
-              <>
-                <ProgressBar
-                  etapeActuelle={indexQuestion + 1}
-                  totalEtapes={questions.length}
-                  label={labelProgression}
-                />
-
-                <p className="quiz-enonce">{questionCourante.enonce}</p>
-
-                <div className="quiz-options">
-                  {questionCourante.reponses.map((reponse) => {
-                    const estSelectionnee = selection.includes(reponse.id)
-                    let classeOption = 'quiz-option'
-                    if (valide) {
-                      classeOption += ' quiz-option-desactivee'
-                      if (reponse.est_correcte) classeOption += ' quiz-option-correcte'
-                      if (estSelectionnee && !reponse.est_correcte) classeOption += ' quiz-option-fausse'
-                    } else if (estSelectionnee) {
-                      classeOption += ' quiz-option-selectionnee'
-                    }
-
-                    return (
-                      <label key={reponse.id} className={classeOption}>
-                        <input
-                          type={questionCourante.type_reponse === 'simple' ? 'radio' : 'checkbox'}
-                          name={`question-${questionCourante.id}`}
-                          checked={estSelectionnee}
-                          disabled={valide}
-                          onChange={() => basculerSelection(reponse.id)}
-                        />
-                        <span>{reponse.texte}</span>
-                      </label>
-                    )
-                  })}
-                </div>
-
-                {valide && (
-                  <div
-                    className={`quiz-feedback ${derniereReponseCorrecte ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}
-                  >
-                    <p>{derniereReponseCorrecte ? 'Bonne réponse !' : 'Réponse incorrecte.'}</p>
-                    {!derniereReponseCorrecte &&
-                      questionCourante.reponses
-                        .filter((r) => selection.includes(r.id) && !r.est_correcte && r.explication)
-                        .map((r) => (
-                          <p key={r.id} className="quiz-explication">
-                            {r.explication}
-                          </p>
-                        ))}
-                  </div>
-                )}
-
-                {!valide ? (
-                  <button
-                    type="button"
-                    className="bouton-primaire quiz-bouton-valider"
-                    disabled={selection.length === 0}
-                    onClick={validerReponse}
-                  >
-                    Valider ma réponse
-                  </button>
-                ) : (
-                  <button type="button" className="bouton-primaire quiz-bouton-valider" onClick={questionSuivante}>
-                    {indexQuestion === questions.length - 1 ? 'Terminer le quiz' : 'Question suivante'}
-                  </button>
-                )}
-              </>
-            )
-          )}
-        </div>
-      </div>
-
-      <CompletionToast overlay={overlay} onFermer={() => setOverlay(null)} />
+    <div className="fiche-page">
+      <EcranQuiz
+        questions={questions}
+        quiz={quiz}
+        libelleQuestion={(question) => question.cours?.titre ?? ''}
+        imageQuestion={(question) => imageTheme(question.cours?.categorie)}
+        labelQuitter="Quitter le quiz flash"
+        envoiEnCours={envoiEnCours}
+        onBasculer={basculer}
+        onValider={valider}
+        onSuivante={questionSuivante}
+        onQuitter={onRetour}
+        onRevoirLecon={(question) => onOuvrirLecon(question.cours_id)}
+      />
     </div>
   )
 }

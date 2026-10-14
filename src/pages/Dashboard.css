@@ -1,440 +1,986 @@
-.apprenant-dashboard-grille {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
+/* Dashboard apprenant — blocs d'action (voir CLAUDE.md, section « Dashboard apprenant »).
+   Valeurs issues des maquettes docs/maquettes/apprenant-*. */
 
-.apprenant-entete {
-  display: flex;
-  align-items: center;
+.dash-page {
   gap: 12px;
 }
 
-.apprenant-xp-icone {
-  width: 24px;
-  height: 24px;
+.espace-page.dash-page > *:first-child {
+  margin-bottom: 0;
 }
 
-@media (min-width: 768px) {
-  .apprenant-xp-icone {
-    width: 40px;
-    height: 40px;
-  }
-}
-
-.apprenant-metriques {
-  display: flex;
-  gap: 8px;
-}
-
-@media (min-width: 768px) {
-  .apprenant-metriques {
-    gap: 16px;
-  }
-}
-
-.apprenant-metrique {
-  flex: 1 1 0;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  text-align: center;
-}
-
-.apprenant-metrique-valeur {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 2rem;
-  color: var(--color-primary);
-}
-
-.apprenant-metrique-label {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
-}
-
-.apprenant-metrique-xp {
-  background: #fff3c4;
-}
-
-.apprenant-metrique-valeur-xp {
-  position: relative;
-  display: inline-block;
-  color: var(--color-ink);
-}
-
-.apprenant-metrique-valeur-xp .apprenant-xp-icone {
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  margin-right: 6px;
-  transform: translateY(-50%);
-}
-
-.espace-carte h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1rem;
-  margin: 0 0 12px;
-  color: var(--color-ink);
-}
-
-.apprenant-continuer-layout {
+/* En-tête : salutation à gauche, XP à droite */
+.dash-entete {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.apprenant-continuer-anneau-wrapper {
-  position: relative;
-  width: 88px;
-  height: 88px;
-  flex-shrink: 0;
+.dash-entete h1 {
+  letter-spacing: -0.5px;
+  line-height: 1;
 }
 
-.apprenant-continuer-anneau {
-  width: 88px;
-  height: 88px;
-}
-
-.apprenant-continuer-anneau-pourcentage {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--color-ink);
-}
-
-.apprenant-continuer-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-
-.apprenant-continuer-legende {
-  margin: 0;
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
-}
-
-.apprenant-continuer-titre {
-  margin: 0 0 8px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--color-ink);
-}
-
-.apprenant-continuer-recap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 12px;
-  padding: 0;
-  list-style: none;
-}
-
-.apprenant-continuer-recap-puce {
+.dash-xp {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-secondary);
-  border-radius: var(--radius-pill);
-  padding: 4px 12px;
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-.apprenant-continuer-recap-icone {
-  width: 15px;
-  height: 15px;
+  gap: 4px;
   flex-shrink: 0;
+  font-size: 17px;
+  font-weight: 800;
 }
 
-.apprenant-continuer-recap-puce-faite {
-  background: var(--color-success-fond);
-  border-color: transparent;
-  color: var(--color-success);
+.dash-xp img {
+  width: 26px;
+  height: 26px;
 }
 
-.apprenant-continuer-info .bouton-primaire {
-  align-self: flex-start;
-  margin-top: 0;
-}
-
-.apprenant-section-badges {
+/* Blocs : une colonne sur mobile (ordre du DOM), grille 2fr / 1fr à partir de 768 px avec un
+   placement explicite (--dash-ligne / --dash-colonne, calculés dans Dashboard.jsx). */
+.dash-blocs {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.apprenant-badges-entete {
+.dash-cellule {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  min-width: 0;
 }
 
-.apprenant-badges-entete h2 {
-  margin: 0;
+.dash-cellule > * {
+  flex: 1;
 }
 
-.apprenant-badges-fleches {
+/* Cartes */
+.dash-carte {
+  position: relative;
   display: flex;
-  gap: 8px;
-  flex-shrink: 0;
+  flex-direction: column;
+  border-radius: var(--radius-carte);
+  padding: 18px 20px;
 }
 
-.apprenant-badges-fleche {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 32px;
-  height: 32px;
-  padding: 0;
+.dash-page .dash-carte h2 {
   margin: 0;
-  border-radius: 50%;
-  border: none;
-  background: var(--color-primary-fond);
-  color: var(--color-primary);
-  line-height: 1;
-  cursor: pointer;
-  transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+  color: inherit;
 }
 
-.apprenant-badges-fleche-icone {
-  display: block;
-  width: 16px;
-  height: 16px;
-  margin: 0;
+.dash-carte-blanche {
+  background: var(--color-surface);
+  color: var(--color-ink);
 }
 
-.apprenant-badges-fleche:hover:not(.apprenant-badges-fleche-desactivee) {
+.dash-carte-lavande {
+  background: var(--color-lavande);
+  color: var(--color-ink);
+}
+
+.dash-carte-violette {
   background: var(--color-primary);
   color: var(--color-surface);
 }
 
-.apprenant-badges-fleche-desactivee {
-  opacity: 0.35;
+.dash-carte-encre {
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.dash-carte-tete {
+  border-radius: 32px;
+}
+
+/* Objet 3D qui déborde au-dessus du cadre, en haut à droite (30 px de marge au-dessus du bloc) */
+.dash-avec-objet {
+  margin-top: 30px;
+}
+
+.dash-objet-deborde {
+  position: absolute;
+  right: -6px;
+  top: -30px;
+  width: 128px;
+  height: 128px;
+  pointer-events: none;
+  /* Ombre d'illustration : seconde exception à la règle « une seule ombre » (objets qui débordent) */
+  filter: drop-shadow(0 14px 16px rgba(20, 10, 60, 0.35));
+}
+
+.dash-objet-incline {
+  top: -36px;
+  width: 140px;
+  height: 140px;
+  transform: rotate(12deg);
+  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.4));
+}
+
+/* Objet 3D contenu dans la carte, en bas à droite */
+.dash-objet-coin {
+  position: absolute;
+  right: -6px;
+  bottom: -8px;
+  width: 108px;
+  height: 108px;
   pointer-events: none;
 }
 
-.apprenant-badges-rangee {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 20px;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
+/* Textes communs */
+.dash-libelle-violet {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary-texte);
 }
 
-.apprenant-badge-tuile {
-  display: flex;
-  flex-direction: column;
+.dash-libelle-sur-violet {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-texte-sur-violet);
+}
+
+.dash-page .dash-titre-carte {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.dash-sous-texte {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-texte-attenue);
+}
+
+.dash-lien {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  flex: 0 0 calc((100% - 3 * 20px) / 4);
-  min-width: 0;
-  background: none;
-  border: none;
+  min-height: 44px;
   padding: 0;
-  font-family: var(--font-body);
-  cursor: pointer;
-}
-
-.apprenant-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  border-radius: var(--radius-badge);
-  font-size: 1.8rem;
-}
-
-.apprenant-badge-icone {
-  width: 72px;
-  height: 72px;
-}
-
-@media (min-width: 768px) {
-  .apprenant-badge-tuile {
-    flex-basis: calc((100% - 4 * 20px) / 5);
-  }
-
-  .apprenant-badge {
-    width: 130px;
-    height: 130px;
-    font-size: 2.6rem;
-  }
-
-  .apprenant-badge-icone {
-    width: 130px;
-    height: 130px;
-  }
-}
-
-.apprenant-badge-obtenu {
+  border: none;
   background: none;
-}
-
-.apprenant-badge-verrouille {
-  background: var(--color-border);
-  color: var(--color-text-secondary);
-}
-
-.apprenant-badges-rangee .apprenant-badge-verrouille {
-  opacity: 0.35;
-}
-
-.apprenant-badge-nom {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 0.85rem;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 800;
   color: var(--color-ink);
-  text-align: center;
-  line-height: 1.2;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.badge-modal-icone .apprenant-badge-icone {
-  width: 200px;
-  height: 200px;
+.dash-lien:hover {
+  color: var(--color-primary);
 }
 
-.badge-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
+/* Pastille encre « De ton formateur » */
+.dash-pastille-formateur {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px 6px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-ink);
+  color: var(--color-surface);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.dash-pastille-formateur-icone {
+  width: 14px;
+  height: 14px;
+}
+
+.dash-pastille-orange {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* Bouton blanc pleine largeur avec pastille encre et flèche (sur carte violette) */
+.dash-bouton-fleche {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: rgba(36, 29, 66, 0.45);
-  padding: 20px;
-}
-
-.badge-modal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  justify-content: space-between;
   width: 100%;
-  max-width: 360px;
-  padding: 28px 24px;
+  height: 54px;
+  padding: 0 6px 0 22px;
+  border: none;
+  border-radius: var(--radius-pill);
   background: var(--color-surface);
-  border-radius: var(--radius-carte);
-  text-align: center;
-  box-shadow: 0 8px 32px rgba(36, 29, 66, 0.25);
-}
-
-.badge-modal-icone {
-  width: 200px;
-  height: 200px;
-  font-size: 4rem;
-  cursor: default;
-  margin-bottom: 4px;
-}
-
-.badge-modal h3 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.15rem;
-  margin: 0;
   color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.badge-modal p {
-  margin: 0 0 8px;
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
+.dash-bouton-fleche:hover {
+  background: var(--color-lavande);
 }
 
-.apprenant-banniere-quizflash {
-  display: flex;
-  flex-direction: column;
+.dash-bouton-fleche-rond {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  text-align: center;
-  background: var(--color-primary-fond);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  color: var(--color-surface);
 }
 
-.apprenant-banniere-quizflash p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--color-ink);
+.dash-bouton-fleche-icone {
+  width: 18px;
+  height: 18px;
 }
 
-.apprenant-banniere-quizflash .bouton-primaire {
-  margin-top: 0;
+.dash-bouton-large {
+  width: 100%;
+  min-height: 54px;
+  margin-top: auto;
+  font-size: 16px;
+  font-weight: 800;
 }
 
-.apprenant-banniere-verrouillee {
-  color: var(--color-text-secondary) !important;
+/* Cadenas encre en pastille (badge ou quiz flash verrouillé) */
+.dash-cadenas {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  color: var(--color-surface);
 }
 
-.apprenant-section-recommandes {
+.dash-cadenas-icone {
+  width: 12px;
+  height: 12px;
+}
+
+/* Barres de progression */
+.dash-barre-ligne {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.dashboard-recommandes-grille {
-  display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
 
+.dash-barre {
+  flex: 1;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+}
+
+.dash-barre-remplissage {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+}
+
+.dash-barre-fine {
+  height: 6px;
+  background: var(--color-neutre-pale);
+}
+
+.dash-barre-fine .dash-barre-remplissage {
+  background: var(--color-ink);
+}
+
+.dash-barre-epaisse {
+  height: 10px;
+  background: var(--color-surface);
+}
+
+.dash-barre-epaisse .dash-barre-remplissage {
+  background: var(--color-primary);
+}
+
+.dash-barre-compteur {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.dash-barre-compteur-petit {
+  font-size: 12px;
+}
+
+/* Blocs de tête A, B (en tête) et C : structure en 3 rangées pour que l'objet 3D ne gêne jamais
+   le texte. Rangée 1 : anneau (ou pastille / libellé) à gauche, objet à droite qui déborde
+   au-dessus du cadre sans descendre plus bas que la rangée ; rangée 2 : texte pleine largeur ;
+   rangée 3 : bouton. */
+.dash-en-cours,
+.dash-assigne,
+.dash-conseille-tete {
+  gap: 14px;
+  padding: 20px;
+}
+
+.dash-tete-rangee {
+  display: flex;
+  align-items: flex-start;
+  /* hauteur visible de l'objet sous le bord haut de la carte : 128 - 30 (débord) - 20 (padding) */
+  min-height: 78px;
+  padding-right: 120px;
+}
+
+.dash-tete-texte {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Titre du bloc de tête : 26 px (32 desktop), 3 lignes max, pas de césure automatique */
+.dash-page .dash-titre-tete {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.05;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+
+.dash-anneau {
+  position: relative;
+  display: inline-flex;
+  width: 78px;
+  height: 78px;
+}
+
+.dash-anneau-valeur {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.dash-en-cours-phrase {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-texte-sur-violet-doux);
+}
+
+/* B. Premier cours / prochain cours conseillé (hors tête : objet contenu en bas à droite) */
+.dash-conseille {
+  overflow: hidden;
+  min-height: 128px;
+  gap: 6px;
+}
+
+.dash-conseille .dash-titre-carte,
+.dash-conseille .dash-sous-texte {
+  max-width: 210px;
+}
+
+.dash-conseille-bouton {
+  align-self: flex-start;
+  min-height: 46px;
+  margin-top: 10px;
+  padding: 0 22px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.dash-conseille-tete .dash-conseille-bouton {
+  margin-top: 0;
+}
+
+/* C. Cours assigné en tête */
+.dash-assigne-meta {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-texte-sur-violet-doux);
+}
+
+/* E. Quiz flash débloqué, en tête */
+.dash-flash-tete {
+  min-height: 248px;
+  gap: 8px;
+  padding: 22px 20px 20px;
+}
+
+.dash-page .dash-flash-tete-titre {
+  max-width: 200px;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.dash-flash-tete-texte {
+  max-width: 210px;
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-texte-sur-encre);
+}
+
+/* F. Quiz flash débloqué, en ligne */
+.dash-flash-ligne {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 18px 18px 20px;
+}
+
+.dash-flash-ligne-objet {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.dash-flash-ligne-texte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dash-page .dash-flash-ligne-texte h2 {
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.dash-flash-ligne-meta {
+  font-size: 13px;
+  color: var(--color-texte-sur-encre);
+}
+
+.dash-flash-ligne-phrase,
+.dash-flash-ligne-bouton-long {
+  display: none;
+}
+
+.dash-flash-ligne-bouton {
+  flex-shrink: 0;
+  min-height: 46px;
+  padding: 0 18px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+/* G. Quiz flash verrouillé */
+.dash-flash-verrouille {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px 16px 16px;
+}
+
+.dash-flash-verrouille-objet {
+  position: relative;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+}
+
+.dash-flash-verrouille-objet img {
+  width: 52px;
+  height: 52px;
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+
+.dash-flash-verrouille-objet .dash-cadenas {
+  width: 22px;
+  height: 22px;
+}
+
+.dash-flash-verrouille-objet .dash-cadenas-icone {
+  width: 11px;
+  height: 11px;
+}
+
+.dash-flash-verrouille-texte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.dash-page .dash-flash-verrouille-texte h2 {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.dash-flash-verrouille-consigne {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.dash-flash-verrouille .dash-barre-ligne {
+  gap: 8px;
+}
+
+/* H. Prochain badge */
+.dash-badge {
+  gap: 12px;
+  padding: 18px 18px 18px 20px;
+}
+
+.dash-badge-entete {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dash-badge-vignette {
+  position: relative;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 68px;
+  height: 68px;
+  border-radius: 22px;
+  background: var(--color-surface);
+}
+
+.dash-badge-gris {
+  width: 48px;
+  height: 48px;
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.dash-badge-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.dash-badge-rangee {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dash-badge-mini-bouton {
+  position: relative;
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dash-badge-mini-bouton:hover {
+  transform: scale(1.15);
+}
+
+/* Zone cliquable étendue en hauteur (44 px) sans chevaucher les badges voisins */
+.dash-badge-mini-bouton::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  right: -3px;
+  height: 44px;
+  transform: translateY(-50%);
+}
+
+.dash-badge-mini {
+  width: 26px;
+  height: 26px;
+}
+
+.dash-badge-mini-verrouille {
+  filter: grayscale(1);
+  opacity: 0.35;
+}
+
+.dash-badge-lien {
+  margin-left: auto;
+}
+
+/* I. Collection complète, vitrine (permanente) */
+.dash-collection {
+  gap: 14px;
+}
+
+.dash-collection-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dash-collection-rangee {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.dash-collection-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-badge);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dash-collection-badge:hover {
+  background: var(--color-creme);
+}
+
+.dash-collection-badge img {
+  width: 36px;
+  height: 36px;
+}
+
+/* K. Bibliothèque terminée */
+.dash-bibliotheque {
+  overflow: hidden;
+  min-height: 128px;
+  gap: 6px;
+}
+
+.dash-bibliotheque .dash-titre-carte,
+.dash-bibliotheque .dash-sous-texte {
+  max-width: 210px;
+}
+
+/* Desktop */
 @media (min-width: 768px) {
-  .apprenant-dashboard-grille {
+  .dash-page {
+    gap: 24px;
+  }
+
+  .dash-entete {
+    padding: 12px 4px 0;
+  }
+
+  .dash-entete h1 {
+    letter-spacing: -0.8px;
+  }
+
+  .dash-xp {
+    gap: 6px;
+    font-size: 20px;
+  }
+
+  .dash-xp img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .dash-blocs {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-areas:
-      'entete entete'
-      'metriques metriques'
-      'badges badges'
-      'continuer quizflash'
-      'recommandes recommandes';
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 20px;
     align-items: start;
+    margin-top: 24px;
   }
 
-  .apprenant-entete {
-    grid-area: entete;
+  .dash-cellule {
+    grid-row: var(--dash-ligne);
+    grid-column: var(--dash-colonne);
   }
 
-  .apprenant-metriques {
-    grid-area: metriques;
-  }
-
-  .apprenant-section-badges {
-    grid-area: badges;
-  }
-
-  .espace-carte-continuer {
-    grid-area: continuer;
+  .dash-cellule-tete {
     align-self: stretch;
   }
 
-  .apprenant-banniere-quizflash {
-    grid-area: quizflash;
+  .dash-cellule-tete .dash-avec-objet {
+    margin-top: 0;
+  }
+
+  .dash-carte-tete,
+  .dash-cellule-tete .dash-carte {
+    border-radius: 36px;
+  }
+
+  /* Objet du bloc de tête : coin supérieur droit, 24 px du bord droit, 30 px de débord au-dessus,
+     160 px (ne descend pas plus bas que l'anneau de 120 px) */
+  .dash-objet-deborde {
+    right: 24px;
+    top: -30px;
+    width: 160px;
+    height: 160px;
+    filter: drop-shadow(0 18px 20px rgba(20, 10, 60, 0.35));
+  }
+
+  .dash-objet-incline {
+    filter: drop-shadow(0 18px 20px rgba(0, 0, 0, 0.4));
+  }
+
+  /* Rangée 2 : le bloc badges prend la hauteur de son voisin */
+  .dash-cellule-badges {
     align-self: stretch;
   }
 
-  .apprenant-section-recommandes {
-    grid-area: recommandes;
+  .dash-cellule-badges .dash-badge {
+    justify-content: space-between;
   }
 
-  .dashboard-recommandes-grille {
+  /* Vitrine en colonne étroite : grille 3 × 2, pastilles 64 px, réparties sur la hauteur.
+     Seule en pleine largeur, elle garde la rangée de 6. */
+  .dash-cellule-badges:not(.dash-cellule-pleine) .dash-collection-rangee {
+    flex: 1;
     display: grid;
+    grid-template-columns: repeat(3, 64px);
+    justify-content: space-between;
+    align-content: space-evenly;
+    row-gap: 12px;
+  }
+
+  .dash-cellule-badges:not(.dash-cellule-pleine) .dash-collection-badge {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+  }
+
+  .dash-cellule-badges:not(.dash-cellule-pleine) .dash-collection-badge img {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Blocs de tête, desktop : anneau 120 px, titre 32 px, bouton non pleine largeur */
+  .dash-en-cours,
+  .dash-assigne,
+  .dash-conseille-tete,
+  .dash-flash-tete {
+    padding: 32px;
+  }
+
+  .dash-tete-rangee {
+    /* 160 - 30 (débord) - 32 (padding) = 98 px visibles ; l'anneau de 120 px fixe la hauteur */
+    min-height: 98px;
+    padding-right: 200px;
+  }
+
+  .dash-anneau {
+    width: 120px;
+    height: 120px;
+  }
+
+  .dash-anneau-valeur {
+    font-size: 26px;
+  }
+
+  .dash-tete-texte {
+    gap: 6px;
+  }
+
+  .dash-libelle-sur-violet {
+    font-size: 15px;
+  }
+
+  .dash-page .dash-titre-tete {
+    font-size: var(--taille-titre-cours);
+    line-height: 1.1;
+  }
+
+  .dash-en-cours-phrase {
+    font-size: 15px;
+  }
+
+  .dash-en-cours .dash-bouton-fleche,
+  .dash-assigne .dash-bouton-fleche {
+    align-self: flex-start;
+    width: auto;
+    min-width: 320px;
+    height: 56px;
+    padding: 0 6px 0 24px;
+  }
+
+  .dash-en-cours .dash-bouton-fleche-rond,
+  .dash-assigne .dash-bouton-fleche-rond {
+    width: 44px;
+    height: 44px;
+  }
+
+  .dash-page .dash-flash-tete-titre {
+    max-width: calc(100% - 200px);
+  }
+
+  /* F. Quiz flash placé dans la colonne étroite de la rangée de tête : version verticale */
+  .dash-cellule-cote .dash-flash-ligne {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 28px;
+  }
+
+  .dash-cellule-cote .dash-flash-ligne-objet {
+    width: 72px;
+    height: 72px;
+  }
+
+  .dash-cellule-cote .dash-flash-ligne-texte {
+    flex: 0;
+    gap: 10px;
+  }
+
+  .dash-page .dash-cellule-cote .dash-flash-ligne-texte h2 {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .dash-cellule-cote .dash-flash-ligne-meta {
+    display: none;
+  }
+
+  .dash-cellule-cote .dash-flash-ligne-phrase {
+    display: block;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-texte-sur-encre);
+  }
+
+  .dash-cellule-cote .dash-flash-ligne-bouton {
+    margin-top: auto;
+    min-height: 54px;
+    font-size: 16px;
+  }
+
+  .dash-cellule-cote .dash-flash-ligne-bouton-court {
+    display: none;
+  }
+
+  .dash-cellule-cote .dash-flash-ligne-bouton-long {
+    display: inline;
+  }
+}
+
+/* Modale « Mes badges » : grille de tous les badges (3 colonnes desktop, 2 mobile) */
+.dash-modale-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 640px;
+  max-height: calc(100vh - 40px);
+  padding: 24px 20px;
+  border-radius: 32px;
+  background: var(--color-surface);
+  box-shadow: var(--ombre-flottante);
+}
+
+.dash-modale-badges-entete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dash-modale-badges-entete h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.dash-modale-badges-compteur {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-text-secondary);
+}
+
+.dash-modale-badges-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 12px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.dash-modale-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border: 2px solid transparent;
+  border-radius: 24px;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.dash-modale-badge-evidence {
+  border-color: var(--color-primary);
+}
+
+.dash-modale-badge-pastille {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 6px;
+  border-radius: 20px;
+  /* Pastille sur la modale blanche : fond crème (règle de contraste par le fond) */
+  background: var(--color-creme);
+}
+
+.dash-modale-badge-pastille img {
+  width: 72px;
+  height: 72px;
+}
+
+.dash-modale-badge-nom {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.dash-modale-badge-condition {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.dash-modale-badge-etat {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-success);
+}
+
+@media (min-width: 768px) {
+  .dash-modale-badges {
+    padding: 28px;
+  }
+
+  .dash-modale-badges-grille {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
   }
 }

@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import Dropdown from '../components/Dropdown'
-import iconeTrash from '../Assets/trash.svg'
+import iconeTrash from '../Assets/trash.svg?raw'
 import '../styles/shared.css'
 import './DetailGroupe.css'
-
-const LABEL_STATUT = {
-  non_commence: 'Non commencé',
-  en_cours: 'En cours',
-  termine: 'Terminé',
-}
+import Icone from '../components/Icone'
+import StatutBadge from '../components/StatutBadge'
 
 const OPTIONS_FILTRE_STATUT = [
   { value: 'tous', label: 'Tous' },
@@ -302,7 +298,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
             onClick={handleSupprimerGroupe}
             disabled={suppression}
           >
-            <img className="cta-icone" src={iconeTrash} alt="" aria-hidden="true" />
+            <Icone svg={iconeTrash} className="cta-icone" />
             {suppression ? 'Suppression…' : 'Supprimer ce groupe'}
           </button>
         </div>
@@ -325,11 +321,14 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
               ) : membresRecherches.length === 0 ? (
                 <p className="dashboard-etat-vide">Aucun élève trouvé pour « {rechercheEleve.trim()} ».</p>
               ) : (
-                <ul className="dashboard-liste">
+                <ul className="dashboard-liste detail-groupe-membres">
                   {membresRecherches.map((membre) => (
                     <li key={membre.id} className="detail-groupe-membre">
                       <span className="detail-groupe-membre-info">
-                        {membre.prenom} {membre.nom ?? ''} — {membre.email}
+                        <span className="detail-groupe-membre-nom">
+                          {membre.prenom} {membre.nom ?? ''}
+                        </span>
+                        <span className="detail-groupe-membre-email">{membre.email}</span>
                       </span>
                       <button
                         type="button"
@@ -354,7 +353,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                   value={emailAjout}
                   onChange={(e) => setEmailAjout(e.target.value)}
                 />
-                <button type="submit" className="bouton-ajouter" disabled={ajoutEnCours}>
+                <button type="submit" className="bouton-primaire" disabled={ajoutEnCours}>
                   {ajoutEnCours ? 'Recherche…' : 'Ajouter'}
                 </button>
               </form>
@@ -442,9 +441,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                             const statut = progressionParCle.get(`${membre.id}_${cours.id}`) ?? 'non_commence'
                             return (
                               <td key={cours.id}>
-                                <span className={`detail-suivi-statut detail-suivi-statut-${statut}`}>
-                                  {LABEL_STATUT[statut]}
-                                </span>
+                                <StatutBadge statut={statut} />
                               </td>
                             )
                           })}

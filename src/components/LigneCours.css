@@ -1,0 +1,108 @@
+/* Liste de cours en lignes (Mode terrain, résultats de recherche) */
+.liste-cours {
+  margin: 0;
+  padding: 4px 16px;
+  list-style: none;
+  border-radius: var(--radius-carte);
+  background: var(--color-surface);
+}
+
+.liste-cours li + li {
+  border-top: 1px solid var(--color-separateur);
+}
+
+/* Contenu aligné en haut : vignette, texte et statut démarrent au même niveau ; le chevron
+   reste centré sur la vignette (48 px → décalage de 14 px pour un chevron de 20 px). */
+.ligne-cours {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ligne-cours:hover .ligne-cours-titre {
+  color: var(--color-primary-texte);
+}
+
+.ligne-cours-texte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.ligne-cours-titre {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.2;
+  transition: all 0.15s ease;
+}
+
+.ligne-cours-meta {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.ligne-cours-statut {
+  flex-shrink: 0;
+  display: inline-flex;
+}
+
+.ligne-cours-chevron {
+  margin-top: 14px;
+}
+
+/* Desktop : une seule carte, lignes sur 2 colonnes (écart 40 px), contenu aligné en haut,
+   pas de séparateur sous la dernière ligne de chaque colonne */
+@media (min-width: 768px) {
+  .liste-cours {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* stretch : les cellules d'une rangée ont la même hauteur (séparateurs alignés) et leur
+       contenu reste aligné en haut */
+    align-items: stretch;
+    column-gap: 40px;
+    padding: 8px 28px;
+  }
+
+  .liste-cours li + li {
+    border-top: none;
+  }
+
+  .liste-cours li {
+    border-bottom: 1px solid var(--color-separateur);
+  }
+
+  .liste-cours li:last-child,
+  .liste-cours li:nth-last-child(2) {
+    border-bottom: none;
+  }
+
+  .ligne-cours-vignette {
+    width: 52px;
+    height: 52px;
+  }
+
+  .ligne-cours-vignette img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .ligne-cours-titre {
+    font-size: 16px;
+  }
+
+  .ligne-cours-chevron {
+    margin-top: 16px;
+  }
+}

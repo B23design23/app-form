@@ -3,10 +3,11 @@ import { supabase } from '../lib/supabaseClient'
 import { THEMATIQUES } from '../lib/thematiques'
 import Dropdown from '../components/Dropdown'
 import ContenuMarkdown from '../components/ContenuMarkdown'
-import iconeTrash from '../Assets/trash.svg'
-import iconeOeil from '../Assets/eye.svg'
+import iconeTrash from '../Assets/trash.svg?raw'
+import iconeOeil from '../Assets/eye.svg?raw'
 import '../styles/shared.css'
 import './CreationCours.css'
+import Icone from '../components/Icone'
 
 const TYPES_REPONSE = [
   { value: 'simple', label: 'Réponse unique' },
@@ -18,9 +19,9 @@ const MODES_CHECKLIST = [
   { value: 'reorder', label: 'Réorganisation' },
 ]
 
-// Cohérent avec la contrainte cours_categorie_publique_valide (migration 0002) : seuls les
-// cours publics (créés par un compte admin) sont limités à ces 12 thèmes.
-const THEMATIQUES_PUBLIQUES = THEMATIQUES.map((nom) => ({ value: nom, label: nom }))
+// Cohérent avec la contrainte cours_categorie_publique_valide (migrations 0002 et 0005) : tous
+// les cours, publics comme privés, ont l'un des 12 thèmes.
+const OPTIONS_THEMES = THEMATIQUES.map((nom) => ({ value: nom, label: nom }))
 
 function nouvelleReponse() {
   return { localId: crypto.randomUUID(), texte: '', estCorrecte: false, explication: '' }
@@ -80,6 +81,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
   const [titre, setTitre] = useState('')
   const [contenu, setContenu] = useState('')
+  const [aRetenir, setARetenir] = useState('')
+  const [aRetenirInitial, setARetenirInitial] = useState('')
   const [categorie, setCategorie] = useState('')
   const [domaine, setDomaine] = useState('climatisation')
 
@@ -139,7 +142,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
       const [coursRes, questionsRes, etapesRes, coursGroupesRes] = await Promise.all([
         supabase
           .from('cours')
-          .select('id, titre, contenu, categorie, domaine, formateur_id, checklist_mode')
+          // select('*') : tolère l'absence de la colonne a_retenir tant que la migration 0006 n'est pas jouée
+          .select('*')
           .eq('id', coursId)
           .single(),
         supabase
@@ -179,7 +183,11 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
       setTitre(coursRes.data.titre ?? '')
       setContenu(coursRes.data.contenu ?? '')
-      setCategorie(coursRes.data.categorie ?? '')
+      setARetenir(coursRes.data.a_retenir ?? '')
+      setARetenirInitial(coursRes.data.a_retenir ?? '')
+      // Ancienne catégorie libre (cours privé antérieur à la migration 0005) : le formateur doit
+      // choisir un thème à l'enregistrement.
+      setCategorie(THEMATIQUES.includes(coursRes.data.categorie) ? coursRes.data.categorie : '')
       setDomaine(coursRes.data.domaine ?? '')
       setGroupeIdsSelectionnes((coursGroupesRes.data ?? []).map((cg) => cg.groupe_id))
 
@@ -345,7 +353,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
 
   function validerFormulaire() {
     if (titre.trim().length === 0) return 'Le titre du cours est obligatoire.'
-    if (estAdmin && categorie.trim().length === 0) return 'Choisis un thème pour ce cours public.'
+    if (!THEMATIQUES.includes(categorie)) return 'Choisis un thème pour ce cours.'
     if (questions.length === 0) return 'Ajoute au moins une question au QCM.'
 
     for (const [index, question] of questions.entries()) {
@@ -392,6 +400,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
         .update({
           titre: titre.trim(),
           contenu: contenu.trim(),
+          // Envoyé seulement s'il y a quelque chose à écrire ou à effacer (colonne de la migration 0006)
+          ...(aRetenir.trim() || aRetenirInitial ? { a_retenir: aRetenir.trim() || null } : {}),
           domaine: domaine.trim(),
           categorie: categorie.trim(),
           checklist_mode: aChecklist ? checklistMode : null,
@@ -442,6 +452,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
         .insert({
           titre: titre.trim(),
           contenu: contenu.trim(),
+          // Envoyé seulement s'il y a quelque chose à écrire ou à effacer (colonne de la migration 0006)
+          ...(aRetenir.trim() || aRetenirInitial ? { a_retenir: aRetenir.trim() || null } : {}),
           domaine: domaine.trim(),
           categorie: categorie.trim(),
           visibilite: estAdmin ? 'public' : 'prive',
@@ -575,22 +587,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
               </label>
 
               <label className="champ">
-                <span>Catégorie</span>
-                {estAdmin ? (
-                  <Dropdown
-                    value={categorie}
-                    onChange={setCategorie}
-                    options={THEMATIQUES_PUBLIQUES}
-                    placeholder="Choisir un thème"
-                  />
-                ) : (
-                  <input
-                    type="text"
-                    placeholder="ex. Froid, Électricité, Sécurité"
-                    value={categorie}
-                    onChange={(e) => setCategorie(e.target.value)}
-                  />
-                )}
+                <span>Thème</span>
+                <Dropdown value={categorie} onChange={setCategorie} options={OPTIONS_THEMES} placeholder="Choisir un thème" />
               </label>
             </div>
 
@@ -630,7 +628,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
               </button>
 
               <button type="button" className="bouton-ajouter" onClick={() => setApercuOuvert(true)}>
-                <img className="cta-icone" src={iconeOeil} alt="" aria-hidden="true" />
+                <Icone svg={iconeOeil} className="cta-icone" />
                 Aperçu de la leçon
               </button>
             </div>
@@ -643,6 +641,12 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
               Laisse une ligne vide entre deux paragraphes. Colle un lien YouTube ou Vimeo pour l'intégrer
               automatiquement.
             </p>
+
+            <label className="champ">
+              <span>À retenir</span>
+              <textarea value={aRetenir} onChange={(e) => setARetenir(e.target.value)} />
+            </label>
+            <p className="creation-contenu-aide">Un point par ligne, 3 à 5 points conseillés.</p>
 
             <label className="champ">
               <span>Domaine</span>
@@ -703,7 +707,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
                       className="creation-bouton-supprimer"
                       onClick={() => supprimerQuestion(question.localId)}
                     >
-                      <img className="cta-icone" src={iconeTrash} alt="" aria-hidden="true" />
+                      <Icone svg={iconeTrash} className="cta-icone" />
                       Supprimer
                     </button>
                   )}
@@ -858,7 +862,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
                         className="creation-bouton-supprimer"
                         onClick={() => supprimerEtape(etape.localId)}
                       >
-                        <img className="cta-icone" src={iconeTrash} alt="" aria-hidden="true" />
+                        <Icone svg={iconeTrash} className="cta-icone" />
                         Supprimer
                       </button>
                     </div>

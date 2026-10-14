@@ -1,145 +1,1314 @@
-.fiche-cours-card {
-  gap: 16px;
+/* Fiche de cours en parcours guidé (leçon, quiz, fin de quiz, checklist, récap).
+   Pas de tab bar ; sur desktop, la barre encre du haut est conservée (sauf quiz et fin de quiz). */
+
+.fiche-page {
+  min-height: 100vh;
+  padding: calc(env(safe-area-inset-top) + 20px) 16px calc(40px + env(safe-area-inset-bottom));
+  background: var(--color-background);
+  color: var(--color-ink);
 }
 
-.fiche-cours-entete {
+.fiche-page > .espace-nav {
+  display: none;
+}
+
+.fiche-colonne {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.fiche-carte {
+  border-radius: var(--radius-carte);
+  background: var(--color-surface);
+}
+
+.fiche-bouton-large {
+  width: 100%;
+  margin-top: 0;
+}
+
+/* Barre de progression (quiz : fond blanc 10 px ; checklist : 8 px) */
+.fiche-barre {
+  flex: 1;
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.fiche-barre-fine {
+  display: block;
+  height: 8px;
+  background: var(--color-neutre-pale);
+}
+
+.fiche-barre-remplissage {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+/* Bouton rond blanc (quitter le quiz : 46 px ; retour checklist : 44 px) */
+.fiche-bouton-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fiche-bouton-rond:hover {
+  background: var(--color-lavande);
+}
+
+.fiche-bouton-rond-44 {
+  width: 44px;
+  height: 44px;
+}
+
+.fiche-bouton-rond-icone {
+  width: 20px;
+  height: 20px;
+}
+
+/* Barre d'action fixée en bas (quiz, et fin de quiz sur mobile) : fond de page, marges 16 px,
+   dégradé de 24 px au-dessus pour adoucir le contenu qui défile dessous. */
+.fiche-barre-action {
+  --fond-barre: var(--color-creme);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: 0 16px calc(16px + env(safe-area-inset-bottom));
+  background: var(--fond-barre);
+}
+
+.fiche-barre-action::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -24px;
+  height: 24px;
+  background: linear-gradient(to bottom, transparent, var(--fond-barre));
+  pointer-events: none;
+}
+
+.fiche-barre-action-contenu {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* --- En-tête leçon / récap ---------------------------------------------------------------- */
+
+.fiche-retour {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 18px 0 12px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fiche-retour:hover {
+  background: var(--color-lavande);
+}
+
+.fiche-retour-icone {
+  width: 18px;
+  height: 18px;
+}
+
+.fiche-entete {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 20px 20px;
+  border-radius: 32px;
+  background: var(--color-lavande);
+}
+
+.fiche-entete-objet {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 92px;
+  height: 92px;
+  pointer-events: none;
+}
+
+.fiche-entete-theme,
+.fiche-entete-titre,
+.fiche-entete-sous-titre {
+  padding-right: 100px;
+}
+
+.fiche-entete-theme {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary-texte);
+}
+
+.fiche-entete-titre {
+  margin: 0;
+  font-size: var(--taille-titre-cours);
+  font-weight: 800;
+  line-height: 1.1;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.fiche-entete-sous-titre {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-texte-attenue);
+}
+
+.fiche-entete .reper-etapes {
+  margin-top: 10px;
+}
+
+/* --- Leçon ----------------------------------------------------------------------------------- */
+
+.fiche-lecon {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 22px 20px;
+}
+
+.fiche-lecon-contenu {
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.fiche-lecon-contenu.contenu-markdown h2 {
+  margin: 28px 0 10px;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.fiche-lecon-contenu .contenu-markdown-image,
+.fiche-lecon-contenu .contenu-markdown-video {
+  border-radius: 20px;
+}
+
+/* Encadré « À retenir » */
+.fiche-retenir {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 20px;
+  border-radius: 24px;
+  background: var(--color-lavande);
+}
+
+.fiche-retenir-entete {
   display: flex;
   align-items: center;
+  gap: 10px;
+}
+
+.fiche-retenir-entete h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.fiche-retenir-pastille {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.fiche-retenir-icone {
+  width: 18px;
+  height: 18px;
+}
+
+.fiche-retenir ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding-left: 22px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Carte encre « Étape suivante » */
+.fiche-suivante {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px;
+  border-radius: var(--radius-carte);
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.fiche-suivante-libelle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-texte-sur-encre);
+}
+
+.fiche-suivante-titre {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.fiche-suivante-detail {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--color-texte-sur-encre);
+}
+
+/* Bouton blanc pleine largeur avec pastille encre et flèche */
+.fiche-bouton-blanc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 54px;
+  padding: 0 6px 0 22px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fiche-bouton-blanc:hover {
+  background: var(--color-lavande);
+}
+
+.fiche-bouton-blanc-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.fiche-bouton-blanc-icone {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- Quiz ------------------------------------------------------------------------------------ */
+
+.fiche-quiz-haut {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fiche-quiz-compteur {
+  flex-shrink: 0;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+/* Question et réponses posées directement sur le fond de page (plus de carte blanche) */
+.fiche-quiz-question-bloc {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 8px;
+}
+
+.fiche-quiz-cours {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary-texte);
+}
+
+.fiche-quiz-question {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.fiche-quiz-question.contenu-markdown p {
+  margin: 0;
+}
+
+.fiche-quiz-aide {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.fiche-reponses {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Réponse : bouton blanc, rayon 20, min 56 px, sans contour au repos */
+.fiche-reponse {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 12px 16px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-reponse);
+  background: var(--color-surface);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fiche-reponse:hover {
+  background: var(--color-lavande);
+}
+
+.fiche-reponse:focus-within {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* La case native reste accessible mais masquée : le repère visuel est .fiche-reponse-controle */
+.fiche-reponse-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Repère du type de question : rond (réponse unique) ou carré arrondi (réponses multiples) */
+.fiche-reponse-controle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-contour-etape);
+  background: var(--color-surface);
+  color: var(--color-surface);
+  transition: all 0.15s ease;
+}
+
+.fiche-reponse-controle-rond {
+  border-radius: 50%;
+}
+
+.fiche-reponse-controle-carre {
+  border-radius: 6px;
+}
+
+.fiche-reponse-controle svg {
+  width: 14px;
+  height: 14px;
+}
+
+.fiche-reponse-texte {
+  flex: 1;
+}
+
+.fiche-reponse-selectionnee,
+.fiche-reponse-selectionnee:hover {
+  border-color: var(--color-primary);
+  background: var(--color-lavande);
+}
+
+.fiche-reponse-selectionnee .fiche-reponse-controle {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+/* Rond sélectionné : violet plein avec un point blanc au centre */
+.fiche-reponse-selectionnee .fiche-reponse-controle-rond::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+
+.fiche-reponse-correcte,
+.fiche-reponse-fausse,
+.fiche-reponse-neutre {
+  cursor: default;
+}
+
+.fiche-reponse-correcte,
+.fiche-reponse-correcte:hover {
+  border-color: var(--color-success);
+  background: var(--color-success-fond);
+}
+
+.fiche-reponse-fausse,
+.fiche-reponse-fausse:hover {
+  border-color: var(--color-error);
+  background: var(--color-error-fond);
+}
+
+.fiche-reponse-neutre,
+.fiche-reponse-neutre:hover {
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+}
+
+.fiche-reponse-pastille {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  color: var(--color-surface);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.fiche-reponse-pastille-correcte {
+  background: var(--color-success);
+}
+
+.fiche-reponse-pastille-fausse {
+  background: var(--color-error);
+}
+
+.fiche-reponse-pastille-icone {
+  width: 12px;
+  height: 12px;
+}
+
+/* Bloc encre de correction, objet 3D qui déborde de 30 px en haut à droite */
+.fiche-feedback {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 30px;
+  padding: 22px 20px;
+  border-radius: 30px;
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.fiche-feedback-objet {
+  position: absolute;
+  top: -30px;
+  right: 16px;
+  width: 96px;
+  height: 96px;
+  pointer-events: none;
+  /* Ombre d'illustration : exception réservée aux objets 3D qui débordent */
+  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.4));
+}
+
+.fiche-feedback-titre {
+  margin: 0;
+  /* Réserve de 72 px : aucun mot sous l'objet qui déborde */
+  padding-right: 72px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-orange);
+}
+
+.fiche-feedback-texte {
+  margin: 0;
+  padding-right: 72px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--color-texte-sur-encre-clair);
+}
+
+.fiche-feedback-lien {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-orange);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.fiche-bouton-quiz {
+  width: 100%;
+  min-height: 58px;
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Marge basse du quiz = hauteur de la barre fixe (bouton 58 px + marge 16 px) : la correction ne
+   passe jamais sous le bouton */
+.fiche-quiz {
+  padding-bottom: calc(58px + 16px);
+}
+
+/* --- Fin de quiz ------------------------------------------------------------------------------ */
+
+.fin-quiz {
+  min-height: 100vh;
+  margin: calc(-1 * (env(safe-area-inset-top) + 20px)) -16px calc(-1 * (40px + env(safe-area-inset-bottom)));
+  padding: calc(env(safe-area-inset-top) + 32px) 16px calc(40px + env(safe-area-inset-bottom));
+  background: var(--color-lavande);
+}
+
+/* Colonne centrée de 420 px (mobile et desktop) ; espacements fixés par le lot retouches-quiz.
+   Mobile : le groupe du score est centré verticalement au-dessus de la barre d'actions fixe. */
+.fin-quiz {
+  display: flex;
+  flex-direction: column;
+}
+
+.fin-quiz-colonne {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  /* hauteur de la barre d'actions (bouton 58 + liens 52 + marge 16) */
+  padding-bottom: 126px;
+  text-align: center;
+}
+
+.fin-quiz-contenu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.fin-quiz-actions {
+  --fond-barre: var(--color-lavande);
+}
+
+.fin-quiz-actions .fiche-barre-action-contenu {
+  max-width: 420px;
+}
+
+.fin-quiz-libelle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary-texte);
+}
+
+/* Repère du centre de l'anneau (origine des confettis) */
+.fin-quiz-anneau-repere {
+  display: inline-flex;
+  margin-top: 16px;
+}
+
+.fin-quiz-anneau {
+  position: relative;
+  display: inline-flex;
+  width: 168px;
+  height: 168px;
+}
+
+.fin-quiz-anneau circle + circle {
+  transition: stroke-dashoffset 0.7s ease-out;
+}
+
+.fin-quiz-anneau-centre {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fin-quiz-anneau-score {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.fin-quiz-anneau-pourcent {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-texte-attenue);
+}
+
+.espace-page .fin-quiz-titre,
+.fin-quiz-titre {
+  margin: 28px 0 0;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.fin-quiz-sous-titre {
+  margin: 8px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-texte-attenue);
+}
+
+.fin-quiz-xp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  padding: 6px 16px 6px 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-size: 16px;
+  font-weight: 800;
+  animation: fin-quiz-rebond 0.45s ease-out 0.9s both;
+}
+
+.fin-quiz-xp img {
+  width: 28px;
+  height: 28px;
+}
+
+/* Carte badge : objet du badge qui déborde au-dessus du cadre (32 px avant la carte + débord) */
+.fin-quiz-badge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: calc(32px + 40px);
+  padding: 20px 20px 20px 136px;
+  border-radius: 30px;
+  background: var(--color-ink);
+  color: var(--color-surface);
+  text-align: left;
+  animation: fin-quiz-glisse 0.45s ease-out 1.1s both;
+}
+
+.fin-quiz-badge + .fin-quiz-badge {
+  margin-top: calc(16px + 40px);
+}
+
+.fin-quiz-badge-objet {
+  position: absolute;
+  left: 12px;
+  top: -40px;
+  width: 116px;
+  height: 116px;
+  pointer-events: none;
+  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.4));
+}
+
+.fin-quiz-badge-texte {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.fin-quiz-badge-pastille {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-orange);
+  color: var(--color-ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.fin-quiz-badge-nom {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.fin-quiz-badge-condition {
+  font-size: 14px;
+  color: var(--color-texte-sur-encre);
+}
+
+/* Bouton principal : largeur de la colonne, 32 px au-dessus */
+.fin-quiz-bouton {
+  width: 100%;
+  min-height: 58px;
+  margin-top: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* Liens secondaires : 8 px sous le bouton, sur une seule ligne, séparés de 24 px */
+.fin-quiz-liens {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 24px;
+  margin-top: 8px;
+}
+
+.fin-quiz-lien {
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fin-quiz-lien:hover {
+  color: var(--color-primary-hover);
+}
+
+.fin-quiz-erreurs {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.fin-quiz-erreur {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px;
+}
+
+.fin-quiz-erreur-question {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.fin-quiz-erreur-question.contenu-markdown p {
+  margin: 0;
+}
+
+.fin-quiz-erreur-ligne {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.fin-quiz-erreur-fausse {
+  color: var(--color-error);
+}
+
+.fin-quiz-erreur-bonne {
+  color: var(--color-success);
+}
+
+.fin-quiz-erreur-explication {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+@keyframes fin-quiz-rebond {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fin-quiz-glisse {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fin-quiz-xp,
+  .fin-quiz-badge {
+    animation: none;
+  }
+
+  .fin-quiz-anneau circle + circle {
+    transition: none;
+  }
+}
+
+/* --- Checklist -------------------------------------------------------------------------------- */
+
+.fiche-checklist-entete {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fiche-checklist-entete-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fiche-checklist-theme {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-primary-texte);
+}
+
+.fiche-checklist-titre {
+  margin: 0;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 800;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.fiche-checklist-progression {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px;
+}
+
+.fiche-checklist-progression-ligne {
+  display: flex;
+  align-items: baseline;
   justify-content: space-between;
   gap: 12px;
 }
 
-.fiche-cours-entete h1 {
-  margin: 0;
+.fiche-checklist-compte {
+  font-size: 20px;
+  font-weight: 800;
 }
 
-.fiche-cours-onglets {
-  display: flex;
-  gap: 6px;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.fiche-cours-onglet {
-  flex: 1;
-  background: none;
-  border: none;
-  padding: 10px 8px;
-  font-family: var(--font-body);
-  font-size: 0.85rem;
+.fiche-checklist-xp {
+  font-size: 14px;
   font-weight: 700;
   color: var(--color-text-secondary);
-  cursor: pointer;
-  border-radius: 14px 14px 0 0;
 }
 
-.fiche-cours-onglet:hover {
-  background: var(--color-primary-fond);
-}
-
-.fiche-cours-onglet-actif {
-  color: var(--color-primary);
-  background: var(--color-primary-fond);
-}
-
-.fiche-cours-contenu {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--color-ink);
-}
-
-.fiche-cours-section {
+.fiche-checklist-liste-carte {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
+  padding: 10px 16px;
 }
 
-.fiche-cours-section h2 {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin: 0;
-  color: var(--color-ink);
+.fiche-checklist-consigne {
+  margin: 8px 0 0;
+  font-size: 15px;
+  color: var(--color-text-secondary);
 }
 
-.checklist-liste {
+.fiche-checklist-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
-.checklist-item {
+.fiche-etape {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-badge);
-  font-size: 0.9rem;
-  color: var(--color-ink);
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
 }
 
-.checklist-item-numero {
-  display: flex;
+.fiche-etape-pastille {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
   flex-shrink: 0;
-  border-radius: var(--radius-badge);
-  background: var(--color-background);
-  border: 1px solid var(--color-border);
-  font-size: 0.75rem;
-  font-weight: 700;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.fiche-etape-pastille svg {
+  width: 14px;
+  height: 14px;
+}
+
+.fiche-etape-pastille-faite {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.fiche-etape-pastille-courante {
+  border: 2px solid var(--color-primary);
+  background: var(--color-surface);
+  color: var(--color-primary-texte);
+}
+
+.fiche-etape-pastille-a-venir {
+  border: 2px solid var(--color-contour-etape);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+}
+
+.fiche-etape-pastille-passee {
+  border: 2px solid var(--color-contour-etape);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+}
+
+.fiche-etape-pastille-icone {
+  width: 14px;
+  height: 14px;
+}
+
+/* Lien « Passer cette étape » (étapes non bloquantes uniquement) */
+.fiche-etape-passer {
+  align-self: center;
+  min-height: 44px;
+  padding: 0 8px;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fiche-etape-passer:hover {
+  color: var(--color-primary-hover);
+}
+
+.fiche-etape-intitule {
+  flex: 1;
+  min-width: 0;
+  padding-top: 3px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.fiche-etape-intitule.contenu-markdown p {
+  margin: 0;
+}
+
+.fiche-etape-faite .fiche-etape-intitule,
+.fiche-etape-a-venir .fiche-etape-intitule {
+  color: var(--color-text-secondary);
+}
+
+/* Étape en cours : bloc crème qui déborde légèrement de la liste */
+.fiche-etape-courante {
+  margin: 4px -8px;
+  padding: 16px 14px;
+  border-radius: 22px;
+  background: var(--color-creme);
+}
+
+.fiche-etape-corps {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fiche-etape-courante .fiche-etape-intitule {
+  padding-top: 2px;
+  font-size: 17px;
+  font-weight: 800;
   color: var(--color-ink);
 }
 
-.checklist-item-verrouillee {
-  opacity: 0.5;
+.fiche-etape-bloquante {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-error-fond);
+  color: var(--color-error);
+  font-size: 12px;
+  font-weight: 800;
 }
 
-.checklist-consigne {
+.fiche-etape-critere {
   margin: 0;
+  font-size: 14px;
   color: var(--color-text-secondary);
-  font-size: 0.9rem;
 }
 
-.checklist-item-reorder {
-  justify-content: space-between;
+.fiche-etape-corps .fiche-bouton-large {
+  margin-top: 4px;
 }
 
-.checklist-item-texte {
-  flex: 1;
+.fiche-etape-reorder {
+  align-items: center;
 }
 
-.checklist-item-texte.contenu-markdown p {
-  margin: 0;
-}
-
-.checklist-item-fleches {
+.fiche-etape-fleches {
   display: flex;
   gap: 6px;
   flex-shrink: 0;
 }
 
-.checklist-bouton-fleche {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-badge);
-  border: 1px solid var(--color-border);
-  background: var(--color-background);
-  color: var(--color-ink);
+.fiche-etape-fleche {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-creme);
   font-size: 1rem;
+  color: var(--color-ink);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.checklist-bouton-fleche:disabled {
+.fiche-etape-fleche:hover:not(:disabled) {
+  background: var(--color-lavande);
+}
+
+.fiche-etape-fleche:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+/* --- Récap ------------------------------------------------------------------------------------ */
+
+.fiche-recap-statut {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.fiche-recap-xp {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.fiche-recap-xp img {
+  width: 22px;
+  height: 22px;
+}
+
+.fiche-recap-liste {
+  margin: 0;
+  padding: 4px 18px;
+  list-style: none;
+}
+
+.fiche-recap-ligne {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+}
+
+.fiche-recap-ligne + .fiche-recap-ligne {
+  border-top: 1px solid var(--color-separateur);
+}
+
+.fiche-recap-ligne-texte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fiche-recap-ligne-titre {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.fiche-recap-ligne-detail {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.fiche-recap-bouton {
+  min-height: 44px;
+  padding: 0 18px;
+  font-size: 14px;
+}
+
+/* Carte violette « Suite du thème » (bouton blanc inversé via .surface-foncee) */
+.fiche-suite {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 22px 20px;
+  border-radius: var(--radius-carte);
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.fiche-suite-libelle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-texte-sur-violet);
+}
+
+.fiche-suite-titre {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.fiche-suite-contenu {
+  font-size: 14px;
+  color: var(--color-texte-sur-violet-doux);
+}
+
+.fiche-suite-bouton {
+  margin-top: 10px;
+}
+
+/* --- Desktop ---------------------------------------------------------------------------------- */
+
+@media (min-width: 768px) {
+  .fiche-page {
+    padding: 40px 40px 56px;
+  }
+
+  .fiche-page-avec-nav {
+    padding-top: 104px;
+  }
+
+  .fiche-page > .espace-nav {
+    display: block;
+  }
+
+  .fiche-entete {
+    padding: 28px 32px;
+    border-radius: 36px;
+  }
+
+  .fiche-entete-objet {
+    width: 120px;
+    height: 120px;
+    top: 20px;
+    right: 24px;
+  }
+
+  .fiche-entete-theme,
+  .fiche-entete-titre,
+  .fiche-entete-sous-titre {
+    padding-right: 150px;
+  }
+
+  .fiche-lecon {
+    padding: 32px 36px;
+  }
+
+  .fiche-lecon-contenu {
+    font-size: 18px;
+  }
+
+  /* Quiz : colonne centrée de 680 px (question, réponses, correction, bouton) */
+  .fiche-quiz {
+    max-width: 680px;
+  }
+
+  .fiche-lecon-contenu.contenu-markdown h2 {
+    font-size: 24px;
+  }
+
+  /* Desktop : colonne de 420 px centrée verticalement, actions sous le contenu sans barre fixe */
+  .fin-quiz {
+    justify-content: center;
+    margin: -40px -40px -56px;
+    padding: 56px 40px;
+  }
+
+  .fin-quiz-colonne {
+    flex: 0;
+    padding-bottom: 0;
+  }
+
+  .fin-quiz-actions {
+    position: static;
+    width: 100%;
+    padding: 0;
+    background: none;
+  }
+
+  .fin-quiz-actions::before {
+    display: none;
+  }
+
+  .fin-quiz-bouton {
+    margin-top: 32px;
+  }
 }

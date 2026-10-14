@@ -7,7 +7,8 @@ import Connexion from './pages/Connexion'
 import MotDePasseOublie from './pages/MotDePasseOublie'
 import NouveauMotDePasse from './pages/NouveauMotDePasse'
 import OnboardingFlow from './pages/onboarding/OnboardingFlow'
-import EspaceApprenant from './pages/EspaceApprenant'
+import EspaceApprenant, { ONGLETS, ICONE_MENU_APPRENANT } from './pages/EspaceApprenant'
+import NavigationEspace from './components/NavigationEspace'
 import EspaceFormateur from './pages/EspaceFormateur'
 import CreationCours from './pages/CreationCours'
 import DetailCoursFormateur from './pages/DetailCoursFormateur'
@@ -179,16 +180,45 @@ function App() {
   if (ecran === 'fiche-cours') {
     return (
       <FicheCours
+        key={coursSelectionneId}
         authUser={authUser}
         coursId={coursSelectionneId}
         sectionInitiale={sectionInitiale}
         onRetour={() => setEcran('espace-apprenant')}
+        onOuvrirCours={(coursId) => {
+          setCoursSelectionneId(coursId)
+          setSectionInitiale(null)
+        }}
+        // Barre encre du haut conservée sur desktop (masquée sur mobile : pas de tab bar dans la fiche)
+        navigationDesktop={
+          <NavigationEspace
+            onglets={ONGLETS}
+            iconeMenu={ICONE_MENU_APPRENANT}
+            section={null}
+            onChangerSection={(s) => {
+              setSectionApprenant(s)
+              setThemeCoursIndex(null)
+              setEcran('espace-apprenant')
+            }}
+          />
+        }
       />
     )
   }
 
   if (ecran === 'quiz-flash') {
-    return <QuizFlash authUser={authUser} onRetour={() => setEcran('espace-apprenant')} />
+    return (
+      <QuizFlash
+        authUser={authUser}
+        onRetour={() => setEcran('espace-apprenant')}
+        // « Revoir la leçon » : ouvre la leçon du cours d'origine de la question
+        onOuvrirLecon={(coursId) => {
+          setCoursSelectionneId(coursId)
+          setSectionInitiale('lecon')
+          setEcran('fiche-cours')
+        }}
+      />
+    )
   }
 
   if (ecran === 'creation-cours') {

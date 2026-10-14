@@ -7,9 +7,13 @@
 
 .detail-groupe-entete .detail-bouton-supprimer {
   flex: none;
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 20px;
   font-size: 0.85rem;
+}
+
+.detail-groupe-membres {
+  gap: 0;
 }
 
 .detail-groupe-membre {
@@ -17,17 +21,37 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 8px 12px;
+  padding: 10px 0;
   background: var(--color-surface);
-  border-radius: var(--radius-badge);
+}
+
+.detail-groupe-membre + .detail-groupe-membre {
+  border-top: 1px solid var(--color-separateur);
 }
 
 .detail-groupe-membre-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.detail-groupe-membre-nom,
+.detail-groupe-membre-email {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.9rem;
+}
+
+.detail-groupe-membre-nom {
+  font-size: 15px;
+  font-weight: 700;
   color: var(--color-ink);
+}
+
+.detail-groupe-membre-email {
+  font-size: 13px;
+  color: var(--color-text-secondary);
 }
 
 .detail-groupe-card {
@@ -107,7 +131,7 @@
 .detail-suivi-table td {
   padding: 8px 10px;
   text-align: left;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-separateur);
   white-space: nowrap;
 }
 
@@ -136,22 +160,7 @@
 
 .detail-suivi-tri-fleche {
   font-size: 0.7rem;
-  color: var(--color-primary);
+  color: var(--color-primary-texte);
 }
 
-.detail-suivi-statut {
-  font-size: 0.8rem;
-  font-weight: 600;
-}
 
-.detail-suivi-statut-non_commence {
-  color: var(--color-text-secondary);
-}
-
-.detail-suivi-statut-en_cours {
-  color: var(--color-primary);
-}
-
-.detail-suivi-statut-termine {
-  color: var(--color-success);
-}

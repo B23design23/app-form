@@ -15,9 +15,52 @@ export const THEMATIQUES = [
   'Efficacité énergétique',
 ]
 
-// Couleur unique (marque) pour le trait et le numéro de tous les anneaux de thème.
-export const COULEUR_ANNEAU_THEME = '#6C4FF6'
 
-export function numeroTheme(index) {
-  return String(index + 1).padStart(2, '0')
+// Objets 3D des thèmes (Fluent Emoji, Microsoft, licence MIT), servis depuis public/illustrations.
+const IMAGES_THEMES = {
+  Thermodynamique: 'thermodynamique',
+  'Fluides frigorigènes & environnement': 'fluides-frigorigenes',
+  'Cycle frigorifique & composants': 'cycle-frigorifique',
+  'Psychrométrie & confort': 'psychrometrie',
+  'Technologies & systèmes clim': 'technologies-systemes',
+  Dimensionnement: 'dimensionnement',
+  'Installation & mise en service': 'installation',
+  'Brasage & dudgeon': 'brasage-dudgeon',
+  'Entretien & maintenance': 'entretien-maintenance',
+  'Diagnostic & dépannage': 'diagnostic-depannage',
+  'Réglementation & sécurité': 'reglementation-securite',
+  'Efficacité énergétique': 'efficacite-energetique',
 }
+
+const IMAGE_THEME_DEFAUT = 'technologies-systemes'
+
+export const IMAGE_QUIZ_FLASH = '/illustrations/quiz-flash.png'
+export const IMAGE_BIBLIOTHEQUE_TERMINEE = '/illustrations/bibliotheque-terminee.png'
+
+// Image d'un cours d'après sa categorie ; un cours privé hors des 12 thèmes reçoit l'image par défaut.
+export function imageTheme(categorie) {
+  return `/illustrations/themes/${IMAGES_THEMES[categorie] ?? IMAGE_THEME_DEFAUT}.png`
+}
+
+// Libellés courts des thèmes (sous-titres de lignes, ex. Mode terrain).
+const LIBELLES_COURTS = {
+  Thermodynamique: 'Thermodynamique',
+  'Fluides frigorigènes & environnement': 'Fluides',
+  'Cycle frigorifique & composants': 'Cycle frigorifique',
+  'Psychrométrie & confort': 'Psychrométrie',
+  'Technologies & systèmes clim': 'Technologies',
+  Dimensionnement: 'Dimensionnement',
+  'Installation & mise en service': 'Installation',
+  'Brasage & dudgeon': 'Brasage',
+  'Entretien & maintenance': 'Entretien',
+  'Diagnostic & dépannage': 'Diagnostic',
+  'Réglementation & sécurité': 'Sécurité',
+  'Efficacité énergétique': 'Efficacité énergétique',
+}
+
+export function libelleCourtTheme(categorie) {
+  return LIBELLES_COURTS[categorie] ?? categorie
+}
+
+export const IMAGE_COURS = '/illustrations/cours.png'
+export const IMAGE_TERRAIN = '/illustrations/terrain.png'

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import skilloLogo from '../Assets/Skillogo.svg'
+import Logo from '../components/Logo'
 import '../styles/shared.css'
 
 function NouveauMotDePasse({ onTermine }) {
@@ -14,7 +14,7 @@ function NouveauMotDePasse({ onTermine }) {
   return (
     <div className="flow-page">
       <div className="page-logo-wrapper">
-        <img src={skilloLogo} alt="Skillo" className="page-logo" />
+        <Logo className="page-logo" />
 
         <form className="flow-card" onSubmit={handleSubmit}>
           <h1>Nouveau mot de passe</h1>
