@@ -167,8 +167,10 @@
   transition: all 0.15s ease;
 }
 
-.dash-lien:hover {
-  color: var(--color-primary);
+@media (hover: hover) {
+  .dash-lien:hover {
+    color: var(--color-primary);
+  }
 }
 
 /* Pastille encre « De ton formateur » */
@@ -219,8 +221,10 @@
   transition: all 0.15s ease;
 }
 
-.dash-bouton-fleche:hover {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .dash-bouton-fleche:hover {
+    background: var(--color-lavande);
+  }
 }
 
 .dash-bouton-fleche-rond {
@@ -594,8 +598,10 @@
   transition: all 0.15s ease;
 }
 
-.dash-badge-mini-bouton:hover {
-  transform: scale(1.15);
+@media (hover: hover) {
+  .dash-badge-mini-bouton:hover {
+    transform: scale(1.15);
+  }
 }
 
 /* Zone cliquable étendue en hauteur (44 px) sans chevaucher les badges voisins */
@@ -655,8 +661,10 @@
   transition: all 0.15s ease;
 }
 
-.dash-collection-badge:hover {
-  background: var(--color-creme);
+@media (hover: hover) {
+  .dash-collection-badge:hover {
+    background: var(--color-creme);
+  }
 }
 
 .dash-collection-badge img {

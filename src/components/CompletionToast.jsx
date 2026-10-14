@@ -28,7 +28,7 @@ function CompletionToast({ overlay, onFermer }) {
           {(overlay.badges ?? []).map((badge) => (
             <span key={badge.id} className="completion-toast-badge">
               <img className="completion-toast-badge-icone" src={iconeBadge(badge)} alt="" />
-              Badge débloqué : {badge.nom}
+              Badge débloqué : {badge.nom}
             </span>
           ))}
         </div>

@@ -14,4 +14,8 @@ body {
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: 800;
+  /* Titres : pas de césure automatique, lignes équilibrées */
+  hyphens: manual;
+  -webkit-hyphens: manual;
+  text-wrap: balance;
 }

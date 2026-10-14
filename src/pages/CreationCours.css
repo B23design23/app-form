@@ -188,15 +188,18 @@
   transition: all 0.15s ease;
 }
 
-.creation-bouton-x:hover {
-  background: var(--color-error-fond);
+@media (hover: hover) {
+  .creation-bouton-x:hover {
+    background: var(--color-error-fond);
+  }
 }
 
 .creation-reponse-texte {
   flex: 1;
   min-height: 44px;
   padding: 0 16px;
-  border: none;
+  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
+  border: 2px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--color-fond-champ);
   font-size: 0.9rem;
@@ -207,7 +210,8 @@
 .creation-reponse-explication {
   min-height: 44px;
   padding: 0 16px;
-  border: none;
+  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
+  border: 2px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--color-fond-champ);
   font-size: 0.85rem;
@@ -217,8 +221,8 @@
 
 .creation-reponse-texte:focus,
 .creation-reponse-explication:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 0;
+  border-color: var(--color-primary);
+  outline: none;
 }
 
 .creation-checkbox {

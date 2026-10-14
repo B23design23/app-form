@@ -8,6 +8,7 @@ import iconeOeil from '../Assets/eye.svg?raw'
 import '../styles/shared.css'
 import './CreationCours.css'
 import Icone from '../components/Icone'
+import { typo } from '../lib/typographie'
 
 const TYPES_REPONSE = [
   { value: 'simple', label: 'Réponse unique' },
@@ -654,7 +655,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
             </label>
 
             {estAdmin ? (
-              <p className="creation-badge-officiel">Compte officiel : ce cours sera public</p>
+              <p className="creation-badge-officiel">Compte officiel : ce cours sera public</p>
             ) : (
               <div className="champ">
                 <span>Assigner à des groupes (optionnel)</span>
@@ -698,7 +699,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour }) {
                     </span>
                     <h3 className="creation-question-titre">
                       Question {qi + 1}
-                      {question.enonce.trim() ? ` : ${question.enonce.trim()}` : ''}
+                      {question.enonce.trim() ? ` : ${typo(question.enonce.trim())}` : ''}
                     </h3>
                   </button>
                   {questions.length > 1 && (

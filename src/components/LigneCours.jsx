@@ -3,6 +3,7 @@ import StatutBadge from './StatutBadge'
 import { imageTheme } from '../lib/thematiques'
 import iconeChevron from '../Assets/chevron-right.svg?raw'
 import './LigneCours.css'
+import { typo } from '../lib/typographie'
 
 // Liste de cours en lignes dans une carte blanche (Mode terrain, résultats de recherche de Cours) :
 // vignette crème + objet du thème, titre, sous-ligne, statut optionnel, chevron. Desktop :
@@ -19,7 +20,7 @@ export function LigneCours({ cours, meta, statut, onClick }) {
           <img src={imageTheme(cours.categorie)} alt="" />
         </span>
         <span className="ligne-cours-texte">
-          <span className="ligne-cours-titre">{cours.titre}</span>
+          <span className="ligne-cours-titre">{typo(cours.titre)}</span>
           <span className="ligne-cours-meta">{meta}</span>
         </span>
         {statut && (

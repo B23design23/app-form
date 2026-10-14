@@ -139,7 +139,8 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
     return (
       <div className="fiche-page">
         <EcranFinQuiz
-          libelle="Quiz flash terminé"
+          titreBarre="Quiz flash"
+          onRetour={onRetour}
           resultat={resultat}
           titre={reussi ? undefined : 'Tu y es presque'}
           sousTitre={reussi ? undefined : `${Math.ceil((SEUIL_REUSSITE / 100) * resultat.total)} bonnes réponses pour gagner ${XP_QUIZ_FLASH} XP.`}

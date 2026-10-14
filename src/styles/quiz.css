@@ -29,8 +29,10 @@
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
-.quiz-option:not(.quiz-option-desactivee):hover {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .quiz-option:not(.quiz-option-desactivee):hover {
+    background: var(--color-lavande);
+  }
 }
 
 .quiz-option:not(.quiz-option-desactivee):active {

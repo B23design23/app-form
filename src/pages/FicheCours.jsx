@@ -121,11 +121,12 @@ function effacerChecklistLocale(userId, coursId) {
 
 // Fin de quiz de cours : étape suivante en bouton principal ; sous 50 %, « Refaire le quiz »
 // passe en principal et l'étape suivante en lien.
-function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire }) {
+function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire, onRetour }) {
   const reussi = resultat.score >= SEUIL_REUSSITE
   return (
     <EcranFinQuiz
-      libelle={`Quiz terminé · ${cours.titre}`}
+      titreBarre={cours.titre}
+      onRetour={onRetour}
       resultat={resultat}
       actionPrincipale={reussi ? etapeSuivante : { bouton: 'Refaire le quiz', onClick: onRefaire }}
       liens={reussi ? [] : [etapeSuivante]}
@@ -133,7 +134,7 @@ function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire }) {
   )
 }
 
-function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onOuvrirCours, navigationDesktop }) {
+function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourTheme, onOuvrirCours, navigationDesktop }) {
   const accesTerrain = sectionInitiale === 'checklist'
 
   const [chargement, setChargement] = useState(true)
@@ -562,6 +563,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onOuvrirCour
               : { bouton: 'Terminer le cours', onClick: () => setEcran('recap') }
           }
           onRefaire={() => ouvrirQuiz({ recommencer: true })}
+          onRetour={() => onRetourTheme(cours.categorie)}
         />
       )}
 

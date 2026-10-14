@@ -2,6 +2,7 @@ import StatutBadge from '../../components/StatutBadge'
 import { contenuCours } from '../../lib/cours'
 import { IMAGE_QUIZ_FLASH } from '../../lib/thematiques'
 import EnteteFiche from './EnteteFiche'
+import { typo } from '../../lib/typographie'
 
 // Récap d'un cours terminé : mention Terminé + XP gagnés, une ligne par partie du cours,
 // puis la suite du thème (prochain cours non terminé, ordre pédagogique).
@@ -21,7 +22,7 @@ function EcranRecap({
 }) {
   const lignes = {
     lecon: { titre: 'Leçon', detail: `${minutesLecture} min de lecture`, action: 'Relire', onClick: onRelire },
-    quiz: { titre: 'Quiz', detail: `Meilleur score : ${meilleur}`, action: 'Refaire', onClick: onRefaireQuiz },
+    quiz: { titre: 'Quiz', detail: `Meilleur score : ${meilleur}`, action: 'Refaire', onClick: onRefaireQuiz },
     checklist: {
       titre: 'Checklist',
       detail: `${nbEtapes} étape${nbEtapes > 1 ? 's' : ''} validée${nbEtapes > 1 ? 's' : ''}`,
@@ -64,7 +65,7 @@ function EcranRecap({
       {suiteTheme && (
         <div className="fiche-suite surface-foncee">
           <span className="fiche-suite-libelle">Suite du thème</span>
-          <h2 className="fiche-suite-titre">{suiteTheme.titre}</h2>
+          <h2 className="fiche-suite-titre">{typo(suiteTheme.titre)}</h2>
           <span className="fiche-suite-contenu">{contenuCours(suiteTheme)}</span>
           <button type="button" className="bouton-primaire fiche-suite-bouton" onClick={() => onOuvrirCours(suiteTheme.id)}>
             Commencer

@@ -2,6 +2,7 @@ import ContenuMarkdown from '../../components/ContenuMarkdown'
 import Icone from '../../components/Icone'
 import iconeCroix from '../../Assets/croix.svg?raw'
 import iconeCoche from '../../Assets/check.svg?raw'
+import { typo } from '../../lib/typographie'
 
 // Objet 3D de la bonne réponse : la cible (même image que le badge « Sans faute »).
 const IMAGE_CIBLE = '/illustrations/badges/sans-faute.png'
@@ -39,7 +40,7 @@ function EcranQuiz({
   const explications = resultat
     ? question.reponses
         .filter((r) => (resultat.correcte ? r.est_correcte : quiz.selection.includes(r.id) && !r.est_correcte))
-        .map((r) => r.explication)
+        .map((r) => typo(r.explication))
         .filter(Boolean)
     : []
   const progression = ((quiz.index + (quiz.valide ? 1 : 0)) / questions.length) * 100
@@ -59,7 +60,7 @@ function EcranQuiz({
       </div>
 
       <div className="fiche-quiz-question-bloc">
-        <span className="fiche-quiz-cours">{libelleQuestion(question)}</span>
+        <span className="fiche-quiz-cours">{typo(libelleQuestion(question))}</span>
         <ContenuMarkdown texte={question.enonce} className="fiche-quiz-question" />
         {multiple && <span className="fiche-quiz-aide">Plusieurs réponses possibles</span>}
       </div>
@@ -89,7 +90,7 @@ function EcranQuiz({
                   )}
                 </span>
               )}
-              <span className="fiche-reponse-texte">{reponse.texte}</span>
+              <span className="fiche-reponse-texte">{typo(reponse.texte)}</span>
               {statut?.texte && (
                 <span className={`fiche-reponse-pastille fiche-reponse-pastille-${statut.classe}`}>
                   <Icone svg={statut.icone} className="fiche-reponse-pastille-icone" />

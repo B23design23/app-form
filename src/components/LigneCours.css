@@ -29,8 +29,10 @@
   transition: all 0.15s ease;
 }
 
-.ligne-cours:hover .ligne-cours-titre {
-  color: var(--color-primary-texte);
+@media (hover: hover) {
+  .ligne-cours:hover .ligne-cours-titre {
+    color: var(--color-primary-texte);
+  }
 }
 
 .ligne-cours-texte {

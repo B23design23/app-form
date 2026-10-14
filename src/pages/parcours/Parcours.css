@@ -1,0 +1,218 @@
+/* Écrans du parcours d'entrée (le gabarit commun est dans components/GabaritParcours.css) */
+
+.parcours-formulaire {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.parcours-champ-groupe {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.parcours-aide {
+  padding-left: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.parcours-lien-droite {
+  align-self: flex-end;
+  margin-top: -8px;
+  padding: 0;
+}
+
+/* --- Introduction ----------------------------------------------------------------------------- */
+
+/* La slide remplit la hauteur disponible : le bloc lavande rétrécit en premier (300 → 160 px)
+   pour que tout tienne sans défilement, même sur un écran de 667 px de haut */
+.intro-slide {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.intro-slide > :not(.intro-bloc) {
+  flex-shrink: 0;
+}
+
+.intro-logo-petit {
+  height: 28px;
+  width: auto;
+}
+
+.intro-logo-grand {
+  align-self: center;
+  flex-shrink: 0;
+  height: 44px;
+  width: auto;
+}
+
+/* Bloc lavande flexible (160 à 300 px), objet 3D centré à ~60 % de sa hauteur (sans anneau),
+   petite ombre d'illustration */
+.intro-bloc {
+  display: flex;
+  flex: 0 1 300px;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  max-height: 300px;
+  border-radius: 36px;
+  background: var(--color-lavande);
+}
+
+.intro-objet {
+  height: 60%;
+  width: auto;
+  max-width: 80%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 16px rgba(20, 10, 60, 0.25));
+}
+
+/* Points de pagination : dans la zone d'action, juste au-dessus du bouton */
+.introduction-point {
+  position: relative;
+  width: 24px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.introduction-point::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--color-contour-etape);
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease;
+}
+
+.introduction-point-actif::before {
+  width: 24px;
+  background: var(--color-primary);
+}
+
+/* --- Choix du profil ------------------------------------------------------------------------- */
+
+.profil-cartes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profil-carte {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 30px;
+  background: var(--color-surface);
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+@media (hover: hover) {
+  .profil-carte:hover {
+    background: var(--color-lavande);
+  }
+}
+
+.profil-carte:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.profil-carte-objet {
+  flex-shrink: 0;
+  width: 76px;
+  height: 76px;
+}
+
+.profil-carte-texte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.profil-carte-titre {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.profil-carte-description {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-text-secondary);
+}
+
+/* --- Création du compte ---------------------------------------------------------------------- */
+
+.compte-bloc {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 128px 22px 20px;
+  border-radius: 32px;
+  background: var(--color-lavande);
+}
+
+.compte-bloc-objet {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  width: 100px;
+  height: 100px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.compte-bloc-titre {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.compte-bloc-texte {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-texte-attenue);
+}
+
+/* Barre de la Connexion : bouton retour à gauche, petit logo centré dans l'écran (la colonne) */
+.connexion-barre {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.connexion-barre-logo {
+  position: absolute;
+  left: 50%;
+  height: 28px;
+  width: auto;
+  transform: translateX(-50%);
+}

@@ -5,6 +5,7 @@ import iconeRetour from '../../Assets/chevron-left.svg?raw'
 import iconePasser from '../../Assets/fleche-passer.svg?raw'
 import CarteEtapeSuivante from './CarteEtapeSuivante'
 import '../../styles/quiz.css'
+import { typo } from '../../lib/typographie'
 
 function Coche() {
   return (
@@ -47,7 +48,7 @@ function EcranChecklist({
         </button>
         <div className="fiche-checklist-entete-texte">
           <span className="fiche-checklist-theme">{cours.categorie}</span>
-          <h1 className="fiche-checklist-titre">{cours.titre}</h1>
+          <h1 className="fiche-checklist-titre">{typo(cours.titre)}</h1>
         </div>
       </div>
 
@@ -102,7 +103,7 @@ function EcranChecklist({
           </ol>
           {feedbackOrdre && (
             <p className={`quiz-feedback ${feedbackOrdre === 'correct' ? 'quiz-feedback-correcte' : 'quiz-feedback-fausse'}`}>
-              {feedbackOrdre === 'correct' ? 'Bon ordre !' : "Ce n'est pas encore le bon ordre, réessaie."}
+              {feedbackOrdre === 'correct' ? 'Bon ordre !' : "Ce n'est pas encore le bon ordre, réessaie."}
             </p>
           )}
           {!checklistFaite && (
@@ -124,7 +125,7 @@ function EcranChecklist({
                     <div className="fiche-etape-corps">
                       <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" />
                       {etape.bloquante && <span className="fiche-etape-bloquante">Bloquante</span>}
-                      {etape.critere_validation && <p className="fiche-etape-critere">{etape.critere_validation}</p>}
+                      {etape.critere_validation && <p className="fiche-etape-critere">{typo(etape.critere_validation)}</p>}
                       <button type="button" className="bouton-primaire fiche-bouton-large" onClick={() => onValiderEtape(etape.id)}>
                         Valider l'étape
                       </button>

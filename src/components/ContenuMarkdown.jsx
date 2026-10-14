@@ -2,6 +2,7 @@ import { Children, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import './ContenuMarkdown.css'
+import { typo } from '../lib/typographie'
 
 function obtenirUrlEmbedVideo(url) {
   if (!url) return null
@@ -115,7 +116,7 @@ function ContenuMarkdown({ texte, className = '' }) {
           ),
         }}
       >
-        {preparerTitres(texte)}
+        {preparerTitres(typo(texte))}
       </ReactMarkdown>
 
       {imageAgrandie && (

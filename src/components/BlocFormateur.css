@@ -72,8 +72,10 @@
   transition: all 0.15s ease;
 }
 
-.bloc-formateur-ligne:hover .bloc-formateur-titre {
-  color: var(--color-primary-texte);
+@media (hover: hover) {
+  .bloc-formateur-ligne:hover .bloc-formateur-titre {
+    color: var(--color-primary-texte);
+  }
 }
 
 /* Mobile (et dashboard) : titre puis pastille sur la même ligne */

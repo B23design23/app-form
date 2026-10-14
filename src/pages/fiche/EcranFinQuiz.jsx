@@ -4,6 +4,9 @@ import { ConfettiPastilles, salvesConfettiScore } from '../../components/Confett
 import ContenuMarkdown from '../../components/ContenuMarkdown'
 import { iconeBadge, conditionCourteBadge } from '../../lib/badges'
 import { IMAGE_QUIZ_FLASH } from '../../lib/thematiques'
+import Icone from '../../components/Icone'
+import iconeRetour from '../../Assets/chevron-left.svg?raw'
+import { typo } from '../../lib/typographie'
 
 // Fin de quiz (quiz de cours et quiz flash) : écran complet. Animation ~1,5 s :
 // anneau + compteur (0,7 s), confettis, pastille XP (rebond), cartes badge (glissement).
@@ -16,8 +19,8 @@ function mouvementReduit() {
 }
 
 function titreScore(score) {
-  if (score === 100) return 'Sans faute !'
-  if (score >= 60) return 'Belle maîtrise !'
+  if (score === 100) return 'Sans faute !'
+  if (score >= 60) return 'Belle maîtrise !'
   return 'Tu y es presque'
 }
 
@@ -27,7 +30,9 @@ function sousTitreErreurs(nbErreurs) {
   return `${nbErreurs} erreurs à revoir.`
 }
 
-// libelle : petit libellé du haut ; titre / sousTitre : remplacent les textes par défaut ;
+// titreBarre : texte de la barre du haut (titre du cours, une ligne) ; onRetour : bouton retour
+// rond de la barre (thème du cours / dashboard) ; libelle : petit libellé au-dessus de l'anneau ;
+// titre / sousTitre : remplacent les textes par défaut ;
 // actionPrincipale : { bouton, onClick } ; liens : liens secondaires ({ bouton, onClick }), affichés
 // avec « Revoir mes erreurs » sur une seule ligne.
 // Questions ratées avec ta réponse, la bonne réponse et l'explication (« Revoir mes erreurs »).
@@ -37,15 +42,15 @@ function ListeErreurs({ erreurs }) {
       {erreurs.map(({ question, selection }) => {
         const choisies = question.reponses.filter((r) => selection.includes(r.id))
         const bonnesReponses = question.reponses.filter((r) => r.est_correcte)
-        const explications = choisies.filter((r) => !r.est_correcte && r.explication).map((r) => r.explication)
+        const explications = choisies.filter((r) => !r.est_correcte && r.explication).map((r) => typo(r.explication))
         return (
           <li key={question.id} className="fiche-carte fin-quiz-erreur">
             <ContenuMarkdown texte={question.enonce} className="fin-quiz-erreur-question" />
             <p className="fin-quiz-erreur-ligne fin-quiz-erreur-fausse">
-              Ta réponse : {choisies.map((r) => r.texte).join(', ') || '—'}
+              Ta réponse : {typo(choisies.map((r) => r.texte).join(', ')) || '—'}
             </p>
             <p className="fin-quiz-erreur-ligne fin-quiz-erreur-bonne">
-              Bonne réponse : {bonnesReponses.map((r) => r.texte).join(', ')}
+              Bonne réponse : {typo(bonnesReponses.map((r) => r.texte).join(', '))}
             </p>
             {explications.map((texte) => (
               <p key={texte} className="fin-quiz-erreur-explication">
@@ -59,7 +64,7 @@ function ListeErreurs({ erreurs }) {
   )
 }
 
-function EcranFinQuiz({ libelle, resultat, titre, sousTitre, actionPrincipale, liens = [] }) {
+function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resultat, titre, sousTitre, actionPrincipale, liens = [] }) {
   const { bonnes, total, score, xpGagne, badges, historique } = resultat
   const reduit = mouvementReduit()
   const [compteur, setCompteur] = useState(reduit ? bonnes : 0)
@@ -96,6 +101,14 @@ function EcranFinQuiz({ libelle, resultat, titre, sousTitre, actionPrincipale, l
   return (
     <div className="fin-quiz">
       <ConfettiPastilles declencheur={declencheurConfetti} origineRef={anneauRef} salves={salves} />
+
+      {/* Même barre du haut que pendant le quiz : retour à gauche, titre du cours à la place de la barre */}
+      <div className="fiche-quiz-haut fin-quiz-haut">
+        <button type="button" className="fiche-bouton-rond" onClick={onRetour} aria-label="Retour">
+          <Icone svg={iconeRetour} className="fiche-bouton-rond-icone" />
+        </button>
+        <span className="fin-quiz-haut-titre">{typo(titreBarre)}</span>
+      </div>
 
       <div className="fin-quiz-colonne">
         {/* Groupe du score : centré verticalement au-dessus des actions sur mobile */}

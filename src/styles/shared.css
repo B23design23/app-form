@@ -89,7 +89,8 @@
   flex: 1;
   min-height: 44px;
   padding: 0 16px;
-  border: none;
+  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
+  border: 2px solid transparent;
   border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-family: var(--font-body);
@@ -98,8 +99,8 @@
 }
 
 .dashboard-groupe-form input:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 0;
+  border-color: var(--color-primary);
+  outline: none;
 }
 
 .dashboard-groupe-form .bouton-primaire {
@@ -179,7 +180,8 @@
 .champ input {
   min-height: 48px;
   padding: 0 18px;
-  border: none;
+  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
+  border: 2px solid transparent;
   border-radius: var(--radius-pill);
   font-size: 1rem;
   font-family: var(--font-body);
@@ -190,7 +192,8 @@
 .champ textarea {
   min-height: 96px;
   padding: 12px 18px;
-  border: none;
+  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
+  border: 2px solid transparent;
   border-radius: var(--radius-reponse);
   font-size: 1rem;
   font-family: var(--font-body);
@@ -201,8 +204,8 @@
 
 .champ input:focus,
 .champ textarea:focus {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 0;
+  border-color: var(--color-primary);
+  outline: none;
 }
 
 /* Règle de contraste par le fond : sur une carte blanche, un champ prend --color-fond-champ (crème
@@ -252,8 +255,10 @@
   transition: all 0.15s ease;
 }
 
-.bouton-primaire:hover:not(:disabled) {
-  background: var(--color-primary-hover);
+@media (hover: hover) {
+  .bouton-primaire:hover:not(:disabled) {
+    background: var(--color-primary-hover);
+  }
 }
 
 .bouton-primaire:disabled {
@@ -279,8 +284,10 @@
   transition: all 0.15s ease;
 }
 
-.bouton-secondaire:hover:not(:disabled) {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .bouton-secondaire:hover:not(:disabled) {
+    background: var(--color-lavande);
+  }
 }
 
 /* Bouton orange : réservé au lancement du quiz flash, texte encre (jamais blanc sur orange) */
@@ -302,8 +309,10 @@
   transition: all 0.15s ease;
 }
 
-.bouton-orange:hover:not(:disabled) {
-  background: var(--color-orange-survol);
+@media (hover: hover) {
+  .bouton-orange:hover:not(:disabled) {
+    background: var(--color-orange-survol);
+  }
 }
 
 /* Sur une carte foncée (violette ou encre) : bouton blanc, texte encre */
@@ -314,15 +323,16 @@
   color: var(--color-ink);
 }
 
-.surface-foncee .bouton-primaire:hover:not(:disabled),
-.surface-foncee .bouton-secondaire:hover:not(:disabled) {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .surface-foncee .bouton-primaire:hover:not(:disabled),
+  .surface-foncee .bouton-secondaire:hover:not(:disabled) {
+    background: var(--color-lavande);
+  }
 }
 
 /* Zone cliquable étendue à 44 × 44 px minimum sans changer le rendu des petits boutons icône */
 .zone-tactile,
 .modal-fermer,
-.introduction-retour,
 .creation-bouton-x,
 .formateur-relance-bouton,
 .detail-suivi-th-bouton {
@@ -331,7 +341,6 @@
 
 .zone-tactile::after,
 .modal-fermer::after,
-.introduction-retour::after,
 .creation-bouton-x::after,
 .formateur-relance-bouton::after,
 .detail-suivi-th-bouton::after {
@@ -366,8 +375,10 @@
   transition: all 0.15s ease;
 }
 
-.lien-retour:hover {
-  color: var(--color-primary-hover);
+@media (hover: hover) {
+  .lien-retour:hover {
+    color: var(--color-primary-hover);
+  }
 }
 
 .lien-secondaire {
@@ -386,8 +397,10 @@
   transition: all 0.15s ease;
 }
 
-.lien-secondaire:hover {
-  color: var(--color-primary-hover);
+@media (hover: hover) {
+  .lien-secondaire:hover {
+    color: var(--color-primary-hover);
+  }
 }
 
 .message {
@@ -422,8 +435,10 @@
   transition: all 0.15s ease;
 }
 
-.bouton-ajouter:hover:not(:disabled) {
-  border-style: solid;
+@media (hover: hover) {
+  .bouton-ajouter:hover:not(:disabled) {
+    border-style: solid;
+  }
 }
 
 .bouton-ajouter:disabled {
@@ -497,9 +512,11 @@
   transition: all 0.15s ease;
 }
 
-.modal-fermer:hover {
-  background: var(--color-lavande);
-  color: var(--color-primary-texte);
+@media (hover: hover) {
+  .modal-fermer:hover {
+    background: var(--color-lavande);
+    color: var(--color-primary-texte);
+  }
 }
 
 .modal-contenu-scroll {
@@ -539,8 +556,10 @@
   transition: all 0.15s ease;
 }
 
-.creation-bouton-supprimer:hover:not(:disabled) {
-  background: var(--color-error-fond);
+@media (hover: hover) {
+  .creation-bouton-supprimer:hover:not(:disabled) {
+    background: var(--color-error-fond);
+  }
 }
 
 .creation-bouton-supprimer .cta-icone {
@@ -561,8 +580,10 @@
   cursor: pointer;
 }
 
-.dashboard-deconnexion:hover {
-  text-decoration: underline;
+@media (hover: hover) {
+  .dashboard-deconnexion:hover {
+    text-decoration: underline;
+  }
 }
 
 .dashboard-etat-vide {
@@ -649,4 +670,38 @@
   height: 20px;
   flex-shrink: 0;
   color: var(--color-text-secondary);
+}
+
+/* Retour tactile : les survols sont réservés à la souris (@media (hover: hover)) ; sur écran
+   tactile, seul l'appui (:active) donne un retour, qui disparaît au relâchement. Pas de surlignage
+   gris natif au tap ; le focus visuel ne s'affiche qu'au clavier (:focus-visible). */
+button,
+a,
+label {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bouton-primaire:active:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.bouton-secondaire:active:not(:disabled),
+.surface-foncee .bouton-primaire:active:not(:disabled),
+.surface-foncee .bouton-secondaire:active:not(:disabled),
+.dash-bouton-fleche:active,
+.fiche-bouton-blanc:active,
+.fiche-retour:active,
+.fiche-bouton-rond:active,
+.parcours-bouton-rond:active,
+.theme-retour:active,
+.theme-carte:active,
+.espace-liste-item:active,
+.profil-carte:active,
+.parcours-choix-ligne:active,
+.fiche-reponse:not(.fiche-reponse-correcte):not(.fiche-reponse-fausse):not(.fiche-reponse-neutre):active {
+  background: var(--color-lavande);
+}
+
+.bouton-orange:active:not(:disabled) {
+  background: var(--color-orange-survol);
 }

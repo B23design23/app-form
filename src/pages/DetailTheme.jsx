@@ -9,6 +9,7 @@ import iconeRetour from '../Assets/chevron-left.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './DetailTheme.css'
+import { typo } from '../lib/typographie'
 
 function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
   const [coursListe, setCoursListe] = useState(null)
@@ -80,7 +81,7 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
             <li key={cours.id}>
               <button type="button" className="theme-ligne" onClick={() => onOuvrirCours(cours.id)}>
                 <span className="theme-ligne-texte">
-                  <span className="theme-ligne-titre">{cours.titre}</span>
+                  <span className="theme-ligne-titre">{typo(cours.titre)}</span>
                   <span className="theme-ligne-contenu">{contenuCours(cours)}</span>
                 </span>
                 <StatutBadge statut={statutParCoursId.get(cours.id) ?? 'non_commence'} />

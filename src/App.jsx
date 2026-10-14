@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabaseClient'
-import Introduction from './pages/Introduction'
-import Accueil from './pages/Accueil'
-import CreationCompte from './pages/CreationCompte'
-import Connexion from './pages/Connexion'
+import Introduction, { introductionDejaVue } from './pages/parcours/Introduction'
+import Connexion from './pages/parcours/Connexion'
+import ChoixProfil from './pages/parcours/ChoixProfil'
+import Inscription from './pages/parcours/Inscription'
+import { useParcours } from './pages/parcours/ParcoursContext'
 import MotDePasseOublie from './pages/MotDePasseOublie'
 import NouveauMotDePasse from './pages/NouveauMotDePasse'
-import OnboardingFlow from './pages/onboarding/OnboardingFlow'
 import EspaceApprenant, { ONGLETS, ICONE_MENU_APPRENANT } from './pages/EspaceApprenant'
+import { THEMATIQUES } from './lib/thematiques'
 import NavigationEspace from './components/NavigationEspace'
 import EspaceFormateur from './pages/EspaceFormateur'
 import CreationCours from './pages/CreationCours'
@@ -18,7 +19,7 @@ import QuizFlash from './pages/QuizFlash'
 
 const ECRANS_PROTEGES = [
   'chargement',
-  'onboarding',
+  'completer-profil',
   'espace-apprenant',
   'dashboard-formateur',
   'creation-cours',
@@ -28,10 +29,21 @@ const ECRANS_PROTEGES = [
   'quiz-flash',
 ]
 
+// Ligne profiles à partir des réponses du parcours passées en métadonnées au signUp.
+function profilDepuisMetadonnees(user, meta) {
+  const role = meta.role === 'formateur' ? 'formateur' : 'apprenant'
+  const base = { id: user.id, email: user.email, role, prenom: String(meta.prenom).trim() }
+  return role === 'formateur'
+    ? { ...base, organisme: meta.organisme ?? null, specialite: meta.specialite ?? null }
+    : { ...base, tranche_age: meta.tranche_age ?? null, profession: meta.profession ?? null, motivation: meta.motivation ?? null }
+}
+
 function App() {
   const [ecran, setEcran] = useState('chargement')
   const [authUser, setAuthUser] = useState(null)
-  const [roleChoisi, setRoleChoisi] = useState('apprenant')
+  const parcours = useParcours()
+  const [slideIntroduction, setSlideIntroduction] = useState(0)
+  const [retourChoixProfil, setRetourChoixProfil] = useState('introduction')
   const [sectionApprenant, setSectionApprenant] = useState('dashboard')
   const [sectionFormateur, setSectionFormateur] = useState('dashboard')
   const [coursSelectionneId, setCoursSelectionneId] = useState(null)
@@ -43,9 +55,8 @@ function App() {
 
   useEffect(() => {
     let annule = false
-    // Le tout premier appel (au chargement de la page) mène à l'Introduction si aucune
-    // session n'existe ; une déconnexion en cours de session ramène directement à l'Accueil
-    // (l'utilisateur a déjà vu le pitch, pas besoin de le repasser).
+    // Sans session : Introduction à la toute première visite sur l'appareil (clé locale), sinon
+    // Connexion ; une déconnexion en cours de session ramène aussi à la Connexion.
     let premiereResolution = true
 
     const resoudreDestination = async (user) => {
@@ -57,7 +68,7 @@ function App() {
         setAuthUser(null)
         setEcran((actuel) => {
           if (!ECRANS_PROTEGES.includes(actuel)) return actuel
-          return estPremiereResolution ? 'introduction' : 'accueil'
+          return estPremiereResolution && !introductionDejaVue() ? 'introduction' : 'connexion'
         })
         return
       }
@@ -73,11 +84,26 @@ function App() {
       if (annule) return
 
       if (!profil) {
-        // Pas encore de profil : le rôle choisi à l'Accueil vit dans les métadonnées
-        // auth (persistées par Supabase) plutôt qu'un state React, pour survivre à un refresh.
-        const roleMetadata = user.user_metadata?.role === 'formateur' ? 'formateur' : 'apprenant'
+        // Pas encore de profil : les réponses du parcours ont été passées en métadonnées au
+        // signUp ; on écrit la ligne profiles ici, avec la session ouverte (RLS insert own).
+        // Fonctionne que la confirmation d'email soit active ou non (première connexion).
+        const meta = user.user_metadata ?? {}
+        const roleMetadata = meta.role === 'formateur' ? 'formateur' : 'apprenant'
+        if (meta.prenom) {
+          const { error } = await supabase.from('profiles').insert(profilDepuisMetadonnees(user, meta))
+          if (annule) return
+          // 23505 : ligne déjà créée par une résolution concurrente (getSession + onAuthStateChange)
+          if (!error || error.code === '23505') {
+            setAuthUser({ id: user.id, email: user.email, role: roleMetadata })
+            setEcran(roleMetadata === 'formateur' ? 'dashboard-formateur' : 'espace-apprenant')
+            return
+          }
+          console.error('profiles (métadonnées)', error.message)
+        }
+        // Compte sans réponses (inscription antérieure inachevée) : questions, puis enregistrement
         setAuthUser({ id: user.id, email: user.email, role: roleMetadata })
-        setEcran('onboarding')
+        parcours.choisirRole(roleMetadata)
+        setEcran('completer-profil')
         return
       }
 
@@ -113,21 +139,71 @@ function App() {
   }
 
   if (ecran === 'introduction') {
-    return <Introduction onTermine={() => setEcran('accueil')} />
+    return (
+      <Introduction
+        slideInitiale={slideIntroduction}
+        onCreerCompte={() => {
+          setRetourChoixProfil('introduction')
+          setEcran('choix-profil')
+        }}
+        onSeConnecter={() => setEcran('connexion')}
+      />
+    )
   }
 
-  if (ecran === 'accueil') {
+  if (ecran === 'connexion') {
     return (
-      <Accueil
-        onCommencer={(role) => {
-          setRoleChoisi(role)
-          setEcran('compte')
+      <Connexion
+        messageConfirmation={messageConnexion}
+        onRetour={() => {
+          setSlideIntroduction(2)
+          setEcran('introduction')
+        }}
+        onCreerCompte={() => {
+          setRetourChoixProfil('connexion')
+          setEcran('choix-profil')
         }}
         onMotDePasseOublie={() => {
           setMessageConnexion(null)
           setEcran('mot-de-passe-oublie')
         }}
-        messageConfirmation={messageConnexion}
+      />
+    )
+  }
+
+  if (ecran === 'choix-profil') {
+    return (
+      <ChoixProfil
+        onRetour={() => {
+          setSlideIntroduction(2)
+          setEcran(retourChoixProfil)
+        }}
+        onChoisir={(role) => {
+          if (parcours.role !== role) parcours.choisirRole(role)
+          setEcran('inscription')
+        }}
+        onSeConnecter={() => setEcran('connexion')}
+      />
+    )
+  }
+
+  if (ecran === 'inscription') {
+    // Après signUp, onAuthStateChange écrit le profil et ouvre le dashboard (voir plus haut)
+    return (
+      <Inscription
+        onRetourChoixProfil={() => setEcran('choix-profil')}
+        onSeConnecter={() => setEcran('connexion')}
+      />
+    )
+  }
+
+  if (ecran === 'completer-profil') {
+    return (
+      <Inscription
+        authUser={authUser}
+        onRetourChoixProfil={() => supabase.auth.signOut()}
+        onSeConnecter={() => supabase.auth.signOut()}
+        onProfilCree={() => setEcran(authUser.role === 'formateur' ? 'dashboard-formateur' : 'espace-apprenant')}
       />
     )
   }
@@ -135,7 +211,7 @@ function App() {
   if (ecran === 'mot-de-passe-oublie') {
     return (
       <MotDePasseOublie
-        onRetour={() => setEcran('accueil')}
+        onRetour={() => setEcran('connexion')}
         onSimulerLien={() => setEcran('nouveau-mot-de-passe')}
       />
     )
@@ -146,33 +222,8 @@ function App() {
       <NouveauMotDePasse
         onTermine={() => {
           setMessageConnexion('Mot de passe mis à jour, tu peux te connecter.')
-          setEcran('accueil')
+          setEcran('connexion')
         }}
-      />
-    )
-  }
-
-  if (ecran === 'compte') {
-    return (
-      <CreationCompte
-        role={roleChoisi}
-        onRetour={() => setEcran('accueil')}
-        onSeConnecter={() => setEcran('connexion')}
-      />
-    )
-  }
-
-  if (ecran === 'connexion') {
-    return <Connexion onRetour={() => setEcran('accueil')} onCreerCompte={() => setEcran('compte')} />
-  }
-
-  if (ecran === 'onboarding') {
-    return (
-      <OnboardingFlow
-        authUser={authUser}
-        role={authUser.role}
-        onTermine={() => setEcran(authUser.role === 'formateur' ? 'dashboard-formateur' : 'espace-apprenant')}
-        onRetourCompte={() => setEcran('compte')}
       />
     )
   }
@@ -185,6 +236,13 @@ function App() {
         coursId={coursSelectionneId}
         sectionInitiale={sectionInitiale}
         onRetour={() => setEcran('espace-apprenant')}
+        // Retour de fin de quiz : détail du thème du cours (Cours → thème)
+        onRetourTheme={(categorie) => {
+          const index = THEMATIQUES.indexOf(categorie)
+          setSectionApprenant('cours')
+          setThemeCoursIndex(index === -1 ? null : index)
+          setEcran('espace-apprenant')
+        }}
         onOuvrirCours={(coursId) => {
           setCoursSelectionneId(coursId)
           setSectionInitiale(null)
@@ -210,7 +268,10 @@ function App() {
     return (
       <QuizFlash
         authUser={authUser}
-        onRetour={() => setEcran('espace-apprenant')}
+        onRetour={() => {
+          setSectionApprenant('dashboard')
+          setEcran('espace-apprenant')
+        }}
         // « Revoir la leçon » : ouvre la leçon du cours d'origine de la question
         onOuvrirLecon={(coursId) => {
           setCoursSelectionneId(coursId)

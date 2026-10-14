@@ -12,6 +12,7 @@ import iconeCadenas from '../Assets/lock.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './Dashboard.css'
+import { typo } from '../lib/typographie'
 
 // Dashboard apprenant : une suite de blocs qui poussent chacun à une action. Les blocs affichés
 // et leur ordre dépendent de la situation de l'élève (voir determinerBlocs et CLAUDE.md).
@@ -317,8 +318,8 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         <div className="dash-tete-texte">
           {c.visibilite === 'prive' && <PastilleFormateur />}
           <span className="dash-libelle-sur-violet">Tu en es là</span>
-          <h2 className="dash-titre-tete" title={c.titre}>
-            {c.titre}
+          <h2 className="dash-titre-tete" title={typo(c.titre)}>
+            {typo(c.titre)}
           </h2>
           <p className="dash-en-cours-phrase">{phrase}</p>
         </div>
@@ -336,8 +337,8 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
       </div>
       <div className="dash-tete-texte">
-        <h2 className="dash-titre-tete" title={c.titre}>
-          {c.titre}
+        <h2 className="dash-titre-tete" title={typo(c.titre)}>
+          {typo(c.titre)}
         </h2>
         <span className="dash-sous-texte">{c.categorie}</span>
       </div>
@@ -351,7 +352,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
     <div className="dash-carte dash-carte-blanche dash-conseille">
       <img className="dash-objet-coin" src={imageTheme(c.categorie)} alt="" />
       <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
-      <h2 className="dash-titre-carte">{c.titre}</h2>
+      <h2 className="dash-titre-carte">{typo(c.titre)}</h2>
       <span className="dash-sous-texte">{c.categorie}</span>
       <button type="button" className="bouton-primaire dash-conseille-bouton" onClick={() => onOuvrirCours(c.id)}>
         Commencer
@@ -368,8 +369,8 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
           <PastilleFormateur />
         </div>
         <div className="dash-tete-texte">
-          <h2 className="dash-titre-tete" title={c.titre}>
-            {c.titre}
+          <h2 className="dash-titre-tete" title={typo(c.titre)}>
+            {typo(c.titre)}
           </h2>
           <p className="dash-assigne-meta">{ajoute ? `${c.categorie} · ${ajoute}` : c.categorie}</p>
         </div>

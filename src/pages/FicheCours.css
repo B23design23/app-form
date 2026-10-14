@@ -71,8 +71,10 @@
   transition: all 0.15s ease;
 }
 
-.fiche-bouton-rond:hover {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .fiche-bouton-rond:hover {
+    background: var(--color-lavande);
+  }
 }
 
 .fiche-bouton-rond-44 {
@@ -134,8 +136,10 @@
   transition: all 0.15s ease;
 }
 
-.fiche-retour:hover {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .fiche-retour:hover {
+    background: var(--color-lavande);
+  }
 }
 
 .fiche-retour-icone {
@@ -181,8 +185,9 @@
   line-height: 1.1;
   word-break: normal;
   overflow-wrap: normal;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+  text-wrap: balance;
 }
 
 .fiche-entete-sous-titre {
@@ -208,6 +213,13 @@
 .fiche-lecon-contenu {
   font-size: 17px;
   line-height: 1.55;
+}
+
+/* Césure gardée sur le texte courant de la leçon (page en lang="fr"), jamais sur les titres */
+.fiche-lecon-contenu p,
+.fiche-lecon-contenu li {
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 .fiche-lecon-contenu.contenu-markdown h2 {
@@ -321,8 +333,10 @@
   transition: all 0.15s ease;
 }
 
-.fiche-bouton-blanc:hover {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .fiche-bouton-blanc:hover {
+    background: var(--color-lavande);
+  }
 }
 
 .fiche-bouton-blanc-rond {
@@ -373,6 +387,9 @@
   font-size: 24px;
   font-weight: 800;
   line-height: 1.15;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+  text-wrap: balance;
 }
 
 .fiche-quiz-question.contenu-markdown p {
@@ -409,13 +426,21 @@
   transition: all 0.15s ease;
 }
 
-.fiche-reponse:hover {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .fiche-reponse:hover {
+    background: var(--color-lavande);
+  }
 }
 
-.fiche-reponse:focus-within {
+/* Focus visible seulement au clavier (pas après un clic ou un toucher) ; une réponse déjà
+   sélectionnée garde son seul contour de sélection */
+.fiche-reponse:has(.fiche-reponse-input:focus-visible) {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
+}
+
+.fiche-reponse-selectionnee:has(.fiche-reponse-input:focus-visible) {
+  outline: none;
 }
 
 /* La case native reste accessible mais masquée : le repère visuel est .fiche-reponse-controle */
@@ -458,10 +483,16 @@
   flex: 1;
 }
 
-.fiche-reponse-selectionnee,
-.fiche-reponse-selectionnee:hover {
+.fiche-reponse-selectionnee {
   border-color: var(--color-primary);
   background: var(--color-lavande);
+}
+
+@media (hover: hover) {
+  .fiche-reponse-selectionnee:hover {
+    border-color: var(--color-primary);
+    background: var(--color-lavande);
+  }
 }
 
 .fiche-reponse-selectionnee .fiche-reponse-controle {
@@ -484,22 +515,40 @@
   cursor: default;
 }
 
-.fiche-reponse-correcte,
-.fiche-reponse-correcte:hover {
+.fiche-reponse-correcte {
   border-color: var(--color-success);
   background: var(--color-success-fond);
 }
 
-.fiche-reponse-fausse,
-.fiche-reponse-fausse:hover {
+@media (hover: hover) {
+  .fiche-reponse-correcte:hover {
+    border-color: var(--color-success);
+    background: var(--color-success-fond);
+  }
+}
+
+.fiche-reponse-fausse {
   border-color: var(--color-error);
   background: var(--color-error-fond);
 }
 
-.fiche-reponse-neutre,
-.fiche-reponse-neutre:hover {
+@media (hover: hover) {
+  .fiche-reponse-fausse:hover {
+    border-color: var(--color-error);
+    background: var(--color-error-fond);
+  }
+}
+
+.fiche-reponse-neutre {
   background: var(--color-surface);
   color: var(--color-text-secondary);
+}
+
+@media (hover: hover) {
+  .fiche-reponse-neutre:hover {
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+  }
 }
 
 .fiche-reponse-pastille {
@@ -602,8 +651,29 @@
 .fin-quiz {
   min-height: 100vh;
   margin: calc(-1 * (env(safe-area-inset-top) + 20px)) -16px calc(-1 * (40px + env(safe-area-inset-bottom)));
-  padding: calc(env(safe-area-inset-top) + 32px) 16px calc(40px + env(safe-area-inset-bottom));
+  /* même marge haute que la fiche (zone de sécurité comprise) : la barre du haut est à la même
+     place que pendant le quiz */
+  padding: calc(env(safe-area-inset-top) + 20px) 16px calc(40px + env(safe-area-inset-bottom));
   background: var(--color-lavande);
+}
+
+/* Barre du haut de la fin de quiz : bouton rond retour + titre du cours (même taille et graisse
+   que le libellé au-dessus de la question), dans la même colonne que le quiz */
+.fin-quiz-haut {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.fin-quiz-haut-titre {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-primary-texte);
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* Colonne centrée de 420 px (mobile et desktop) ; espacements fixés par le lot retouches-quiz.
@@ -646,7 +716,7 @@
 .fin-quiz-libelle {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--color-texte-attenue);
 }
 
 /* Repère du centre de l'anneau (origine des confettis) */
@@ -809,8 +879,10 @@
   transition: all 0.15s ease;
 }
 
-.fin-quiz-lien:hover {
-  color: var(--color-primary-hover);
+@media (hover: hover) {
+  .fin-quiz-lien:hover {
+    color: var(--color-primary-hover);
+  }
 }
 
 .fin-quiz-erreurs {
@@ -1041,8 +1113,10 @@
   transition: all 0.15s ease;
 }
 
-.fiche-etape-passer:hover {
-  color: var(--color-primary-hover);
+@media (hover: hover) {
+  .fiche-etape-passer:hover {
+    color: var(--color-primary-hover);
+  }
 }
 
 .fiche-etape-intitule {
@@ -1128,8 +1202,10 @@
   transition: all 0.15s ease;
 }
 
-.fiche-etape-fleche:hover:not(:disabled) {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .fiche-etape-fleche:hover:not(:disabled) {
+    background: var(--color-lavande);
+  }
 }
 
 .fiche-etape-fleche:disabled {
@@ -1287,14 +1363,18 @@
 
   /* Desktop : colonne de 420 px centrée verticalement, actions sous le contenu sans barre fixe */
   .fin-quiz {
-    justify-content: center;
     margin: -40px -40px -56px;
-    padding: 56px 40px;
+    padding: 40px 40px 56px;
   }
 
+  /* La barre reste en haut ; la colonne de 420 px est centrée verticalement dessous */
   .fin-quiz-colonne {
-    flex: 0;
+    justify-content: center;
     padding-bottom: 0;
+  }
+
+  .fin-quiz-contenu {
+    flex: none;
   }
 
   .fin-quiz-actions {

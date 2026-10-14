@@ -6,6 +6,7 @@ import '../styles/shared.css'
 import './DetailGroupe.css'
 import Icone from '../components/Icone'
 import StatutBadge from '../components/StatutBadge'
+import { typo } from '../lib/typographie'
 
 const OPTIONS_FILTRE_STATUT = [
   { value: 'tous', label: 'Tous' },
@@ -225,7 +226,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
 
   async function handleSupprimerGroupe() {
     const confirme = window.confirm(
-      'Supprimer définitivement ce groupe ? Les élèves ne seront plus rattachés et perdront l\'accès aux cours privés associés. Cette action est irréversible.'
+      'Supprimer définitivement ce groupe ? Les élèves ne seront plus rattachés et perdront l\'accès aux cours privés associés. Cette action est irréversible.'
     )
     if (!confirme) return
 
@@ -398,7 +399,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                         <th>Élève</th>
                         {coursDuGroupe.map((cours) => (
                           <th key={cours.id} title={cours.titre}>
-                            {cours.titre}
+                            {typo(cours.titre)}
                           </th>
                         ))}
                         <th>

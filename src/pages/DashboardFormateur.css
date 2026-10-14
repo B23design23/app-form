@@ -356,8 +356,10 @@
   transition: background 0.15s ease;
 }
 
-.formateur-relance-bouton:hover {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .formateur-relance-bouton:hover {
+    background: var(--color-lavande);
+  }
 }
 
 .formateur-relance-bouton-icone {

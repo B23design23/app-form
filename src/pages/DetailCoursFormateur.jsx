@@ -6,6 +6,7 @@ import iconeTrash from '../Assets/trash.svg?raw'
 import '../styles/shared.css'
 import './DetailCoursFormateur.css'
 import Icone from '../components/Icone'
+import { typo } from '../lib/typographie'
 
 function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
   const [chargement, setChargement] = useState(true)
@@ -112,7 +113,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
 
         <div className="flow-card detail-cours-card">
           <div className="detail-entete">
-            <h1>{cours.titre}</h1>
+            <h1>{typo(cours.titre)}</h1>
 
             {estProprietaire && !confirmationSuppression && (
               <div className="detail-actions detail-actions-titre">
@@ -134,7 +135,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
 
           {estProprietaire && confirmationSuppression && (
             <div className="detail-confirmation-suppression">
-              <p>Supprimer définitivement ce cours ? Cette action est irréversible.</p>
+              <p>Supprimer définitivement ce cours ? Cette action est irréversible.</p>
               <div className="detail-actions">
                 <button
                   type="button"
@@ -159,11 +160,11 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
           <section className="detail-section">
             <h2>Leçon</h2>
             <p className="detail-meta">
-              Domaine : {cours.domaine || '—'} · Catégorie : {cours.categorie || '—'}
+              Domaine : {cours.domaine || '—'} · Catégorie : {cours.categorie || '—'}
             </p>
             {estProprietaire && (
               <p className="detail-meta">
-                Groupes assignés :{' '}
+                Groupes assignés :{' '}
                 {groupesAssignes.length > 0 ? groupesAssignes.map((g) => g.nom).join(', ') : 'Aucun'}
               </p>
             )}
@@ -192,9 +193,9 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
                         key={reponse.id}
                         className={reponse.est_correcte ? 'detail-reponse-correcte' : 'detail-reponse-fausse'}
                       >
-                        {reponse.est_correcte ? '✓' : '—'} {reponse.texte}
+                        {reponse.est_correcte ? '✓' : '—'} {typo(reponse.texte)}
                         {!reponse.est_correcte && reponse.explication && (
-                          <span className="detail-explication"> — {reponse.explication}</span>
+                          <span className="detail-explication"> — {typo(reponse.explication)}</span>
                         )}
                       </li>
                     ))}
@@ -213,7 +214,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour }) {
                     <ContenuMarkdown texte={etape.intitule} className="detail-etape-intitule" />
                     {etape.bloquante && <span className="detail-badge-bloquante">Bloquante</span>}
                     {etape.critere_validation && (
-                      <p className="detail-critere">Critère : {etape.critere_validation}</p>
+                      <p className="detail-critere">Critère : {typo(etape.critere_validation)}</p>
                     )}
                   </li>
                 ))}

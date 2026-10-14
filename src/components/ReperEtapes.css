@@ -91,8 +91,10 @@ button.reper-bouton {
   text-decoration: underline;
 }
 
-.reper-etape-faite button.reper-bouton:hover .reper-libelle {
-  color: var(--color-primary-hover);
+@media (hover: hover) {
+  .reper-etape-faite button.reper-bouton:hover .reper-libelle {
+    color: var(--color-primary-hover);
+  }
 }
 
 /* Étape à venir : pastille blanche, contour 2 px */

@@ -6,6 +6,7 @@ import Icone from '../components/Icone'
 import iconeChevron from '../Assets/chevron-right.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
+import { typo } from '../lib/typographie'
 
 const CLE_FILTRE_THEME = 'skillo:filtre-theme-cours-formateur'
 const TOUS_THEMES = 'tous'
@@ -85,7 +86,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
           {coursAffiches.map((cours) => (
             <li key={cours.id}>
               <button type="button" className="espace-liste-item" onClick={() => onOuvrirCours(cours.id)}>
-                <span className="espace-liste-item-titre">{cours.titre}</span>
+                <span className="espace-liste-item-titre">{typo(cours.titre)}</span>
                 <Icone svg={iconeChevron} className="espace-liste-item-chevron" />
               </button>
             </li>

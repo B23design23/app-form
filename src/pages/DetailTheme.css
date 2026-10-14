@@ -26,8 +26,10 @@
   transition: all 0.15s ease;
 }
 
-.theme-retour:hover {
-  background: var(--color-lavande);
+@media (hover: hover) {
+  .theme-retour:hover {
+    background: var(--color-lavande);
+  }
 }
 
 .theme-retour-icone {
@@ -76,8 +78,9 @@
   color: var(--color-ink);
   word-break: normal;
   overflow-wrap: normal;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+  text-wrap: balance;
 }
 
 .theme-entete-compte {
@@ -115,8 +118,10 @@
   transition: all 0.15s ease;
 }
 
-.theme-ligne:hover .theme-ligne-titre {
-  color: var(--color-primary-texte);
+@media (hover: hover) {
+  .theme-ligne:hover .theme-ligne-titre {
+    color: var(--color-primary-texte);
+  }
 }
 
 .theme-ligne-texte {

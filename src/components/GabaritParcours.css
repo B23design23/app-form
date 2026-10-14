@@ -1,0 +1,420 @@
+/* Gabarit du parcours d'entrée (Introduction, Connexion, Choix du profil, questions, Création
+   du compte) : même mise en page sur mobile et desktop, colonne de 440 px. */
+
+.parcours {
+  /* hauteur réelle de la zone d'action, mesurée en JS (repli : bouton 58 + écart 10 + 58) */
+  --hauteur-actions: 126px;
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-ink);
+}
+
+/* Mobile : la colonne occupe l'écran ; le contenu défile au-dessus de la zone d'action fixe avec
+   une marge basse égale à sa hauteur réelle + sa marge de 24 px + zone de sécurité (ajusté pour
+   que la slide 1 de l'Introduction tienne sans défilement sur un écran de 667 px) */
+.parcours-colonne {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 440px;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0 auto;
+  padding: calc(env(safe-area-inset-top) + 20px) 16px
+    calc(var(--hauteur-actions) + 24px + env(safe-area-inset-bottom));
+}
+
+.parcours-colonne-barre-serree {
+  gap: 8px;
+}
+
+.parcours-barre {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-height: 56px;
+}
+
+.parcours-barre:empty {
+  display: none;
+}
+
+.parcours-contenu {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+/* Zone d'action : position identique sur tous les écrans (fixée en bas sur mobile ; le clavier
+   la recouvre, elle ne remonte pas). Points de pagination éventuels au-dessus du bouton. */
+.parcours-actions {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 408px;
+  margin: 0 auto;
+}
+
+.parcours-points {
+  display: flex;
+  justify-content: center;
+  height: 44px;
+}
+
+.parcours-action-principale,
+.parcours-action-secondaire {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+}
+
+.parcours-bouton {
+  width: 100%;
+  min-height: 58px;
+  margin-top: 0;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+/* Bouton désactivé (rien choisi, champ vide) : lavande, texte atténué, non cliquable */
+.parcours-bouton.bouton-primaire:disabled {
+  background: var(--color-lavande);
+  color: var(--color-texte-attenue);
+  opacity: 1;
+}
+
+.parcours-bouton.bouton-secondaire {
+  background: transparent;
+}
+
+.parcours-lien {
+  min-height: 44px;
+  padding: 0 8px;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.parcours-lien strong {
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  text-decoration: underline;
+}
+
+@media (hover: hover) {
+  .parcours-lien:hover strong {
+    color: var(--color-primary-hover);
+  }
+}
+
+/* « Passer » : en haut à droite de la colonne, au niveau de la barre */
+.parcours-passer {
+  position: absolute;
+  top: calc(env(safe-area-inset-top) + 20px);
+  right: 16px;
+  min-height: 56px;
+  padding: 0 8px;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  cursor: pointer;
+}
+
+/* Barre du haut des questions (identique au quiz) */
+.parcours-barre-etapes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.parcours-bouton-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+@media (hover: hover) {
+  .parcours-bouton-rond:hover {
+    background: var(--color-lavande);
+  }
+}
+
+.parcours-bouton-rond-icone {
+  width: 22px;
+  height: 22px;
+}
+
+.parcours-progression {
+  flex: 1;
+  height: 14px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.parcours-progression-remplissage {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  transition: all 0.3s ease;
+}
+
+.parcours-compteur {
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* Titres */
+.parcours-titres {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.parcours-titre {
+  margin: 0;
+  font-size: var(--taille-h1);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.parcours-sous-titre {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+/* Champs */
+.parcours-champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.parcours-champ-libelle {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.parcours-champ-libelle-masque {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.parcours-input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 22px;
+  /* contour de focus à l'intérieur du champ (bordure transparente au repos) : jamais rogné */
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.parcours-input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.parcours-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
+  box-shadow: 0 0 0 1000px var(--color-surface) inset;
+  -webkit-text-fill-color: var(--color-ink);
+}
+
+.parcours-champ-grand .parcours-input {
+  min-height: 64px;
+  padding: 0 20px;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Lignes de choix (radiogroup) */
+.parcours-choix {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.parcours-choix-2-colonnes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.parcours-choix-ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 64px;
+  padding: 10px 16px 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: var(--color-surface);
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+@media (hover: hover) {
+  .parcours-choix-ligne:hover {
+    background: var(--color-lavande);
+  }
+}
+
+.parcours-choix-ligne:focus {
+  outline: none;
+}
+
+.parcours-choix-ligne:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.parcours-choix-ligne-choisie {
+  border-color: var(--color-primary);
+  background: var(--color-lavande);
+  font-weight: 700;
+}
+
+@media (hover: hover) {
+  .parcours-choix-ligne-choisie:hover {
+    border-color: var(--color-primary);
+    background: var(--color-lavande);
+    font-weight: 700;
+  }
+}
+
+.parcours-choix-ligne-choisie:focus-visible {
+  outline: none;
+}
+
+.parcours-choix-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-contour-etape);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-surface);
+  transition: all 0.15s ease;
+}
+
+.parcours-choix-ligne-choisie .parcours-choix-rond {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: var(--color-primary);
+}
+
+.parcours-choix-rond svg {
+  width: 14px;
+  height: 14px;
+}
+
+.parcours-message-erreur {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-error);
+}
+
+/* Desktop (≥ 768 px) : même mise en page que sur mobile, colonne de 440 px centrée, hauteur fixe
+   (~720 px) centrée verticalement ; fenêtre moins haute : calée en haut avec 32 px de marge.
+   La zone d'action est ancrée en bas de la colonne. */
+@media (min-width: 768px) {
+  /* Colonne centrée verticalement si elle tient, sinon calée en haut avec 48 px de marge (la page
+     défile, rien n'est coupé) */
+  .parcours {
+    display: flex;
+    padding: 48px 16px;
+  }
+
+  .parcours-colonne {
+    width: 440px;
+    height: auto;
+    margin: auto;
+    padding: 0;
+  }
+
+  .parcours-contenu {
+    flex: none;
+    overflow: visible;
+  }
+
+  /* Le bouton suit le contenu : 32 px sous le dernier élément (24 px d'écart de colonne + 8),
+     lien secondaire 8 px sous le bouton ; emplacements vides repliés */
+  .parcours-actions {
+    position: static;
+    flex-shrink: 0;
+    gap: 8px;
+    max-width: none;
+    margin: 8px 0 0;
+  }
+
+  .parcours-action-secondaire {
+    height: auto;
+  }
+
+  .parcours-colonne-barre-serree .parcours-actions {
+    margin-top: 24px;
+  }
+
+  .parcours-action-principale:empty,
+  .parcours-action-secondaire:empty {
+    display: none;
+  }
+
+  .parcours-passer {
+    top: 0;
+    right: 0;
+  }
+}

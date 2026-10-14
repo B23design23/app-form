@@ -14,6 +14,7 @@ import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './DashboardFormateur.css'
 import Icone from '../components/Icone'
+import { typo } from '../lib/typographie'
 
 const OPTIONS_STATUT_ACTIVITE = [
   { value: 'tous', label: 'Tous' },
@@ -480,7 +481,7 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
                   <li key={eleve.id} className="formateur-relance-ligne">
                     <div className="formateur-relance-info">
                       <span className="formateur-relance-texte">
-                        <strong>{eleve.prenom}</strong> n'a pas commencé <strong>{eleve.titreCours}</strong>
+                        <strong>{eleve.prenom}</strong> n'a pas commencé <strong>{typo(eleve.titreCours)}</strong>
                       </span>
                       {relanceConfirmee?.id === eleve.id ? (
                         <span className="formateur-relance-confirmation">
@@ -587,7 +588,7 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection }) {
                   </span>
                   <span className="formateur-activite-texte">
                     <strong>{ligne.prenom}</strong> a {ligne.statut === 'termine' ? 'terminé' : 'commencé'}{' '}
-                    <strong>{ligne.titreCours}</strong>
+                    <strong>{typo(ligne.titreCours)}</strong>
                   </span>
                   <span className="formateur-activite-date">{formaterDateCourte(ligne.updatedAt)}</span>
                 </li>
