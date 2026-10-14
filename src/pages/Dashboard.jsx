@@ -328,15 +328,14 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
     )
   }
 
-  // B en tête (premier cours / prochain cours conseillé) : même structure que les autres blocs de
-  // tête (objet qui déborde en rangée 1, texte pleine largeur en rangée 2, bouton en rangée 3).
+  // B en tête (premier cours / prochain cours conseillé) : objet qui déborde en haut à droite,
+  // libellé puis titre directement dessous (pas de rangée d'anneau), avec une réserve à droite
+  // pour que le texte ne passe pas sous l'objet ; bouton dessous.
   const blocCoursConseilleTete = (c, premier) => (
     <div className="dash-carte dash-carte-blanche dash-carte-tete dash-avec-objet dash-conseille-tete">
       <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
-      <div className="dash-tete-rangee">
-        <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
-      </div>
       <div className="dash-tete-texte">
+        <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
         <h2 className="dash-titre-tete" title={typo(c.titre)}>
           {typo(c.titre)}
         </h2>
@@ -441,8 +440,10 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         <Cadenas />
       </span>
       <div className="dash-flash-verrouille-texte">
-        <h2>Quiz flash</h2>
-        <span className="dash-flash-verrouille-consigne">Réussis 3 quiz de cours pour le débloquer</span>
+        <div className="dash-flash-verrouille-titres">
+          <h2>Quiz flash</h2>
+          <span className="dash-flash-verrouille-consigne">Réussis 3 quiz de cours pour le débloquer</span>
+        </div>
         <div className="dash-barre-ligne">
           <span className="dash-barre dash-barre-fine">
             <span
@@ -584,17 +585,43 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   // (ou le bloc suivant si le quiz flash est déjà en tête) ; rangées suivantes = blocs restants
   // dans l'ordre, un bloc seul en fin de rangée prenant toute la largeur. Sur mobile, les blocs
   // restent dans l'ordre de la situation (ordre du DOM).
+  // Quiz flash verrouillé (desktop) : le bloc badges (prochain badge en version verticale, ou
+  // collection complète) passe à droite du bloc de tête, et le quiz flash verrouillé devient une
+  // bande pleine largeur sous la rangée 1 ; les autres blocs suivent dans l'ordre.
   const estQuizFlash = (bloc) => bloc.cle.startsWith('flash')
-  const [blocTete, ...autresBlocs] = blocs
-  const blocCote = blocTete && !estQuizFlash(blocTete) ? autresBlocs.find(estQuizFlash) ?? autresBlocs[0] : autresBlocs[0]
-  const blocsSuite = autresBlocs.filter((b) => b !== blocCote)
+  const estBlocBadges = (bloc) => bloc.cle === 'badge' || bloc.cle === 'collection'
+  const blocBadges = blocs.find(estBlocBadges)
+  const blocFlashVerrouille = blocs.find((b) => b.cle === 'flash-verrouille')
+  const dispositionVerrouillee = !quizFlashDebloque && blocBadges && blocFlashVerrouille
+  let blocTete, blocCote, bandes, blocsSuite
+  if (dispositionVerrouillee) {
+    const restants = blocs.filter((b) => b !== blocBadges && b !== blocFlashVerrouille)
+    blocTete = restants[0] ?? null
+    blocCote = blocBadges
+    bandes = [blocFlashVerrouille]
+    blocsSuite = restants.slice(1)
+  } else {
+    const [tete, ...autresBlocs] = blocs
+    blocTete = tete
+    blocCote = tete && !estQuizFlash(tete) ? autresBlocs.find(estQuizFlash) ?? autresBlocs[0] : autresBlocs[0]
+    bandes = []
+    blocsSuite = autresBlocs.filter((b) => b !== blocCote)
+  }
   const placementDesktop = new Map()
   if (blocTete) placementDesktop.set(blocTete, { ligne: 1, colonne: blocCote ? '1' : '1 / -1', classe: 'dash-cellule-tete' })
-  if (blocCote) placementDesktop.set(blocCote, { ligne: 1, colonne: '2', classe: 'dash-cellule-tete dash-cellule-cote' })
+  if (blocCote) {
+    placementDesktop.set(blocCote, {
+      ligne: 1,
+      colonne: blocTete ? '2' : '1 / -1',
+      classe: `dash-cellule-tete dash-cellule-cote${dispositionVerrouillee ? ' dash-cellule-badges-verticale' : ''}`,
+    })
+  }
+  bandes.forEach((bloc, i) => placementDesktop.set(bloc, { ligne: 2 + i, colonne: '1 / -1', classe: 'dash-cellule-bande' }))
+  const premiereLigneSuite = 2 + bandes.length
   blocsSuite.forEach((bloc, i) => {
     const seulEnFin = i % 2 === 0 && i === blocsSuite.length - 1
     placementDesktop.set(bloc, {
-      ligne: 2 + Math.floor(i / 2),
+      ligne: premiereLigneSuite + Math.floor(i / 2),
       colonne: seulEnFin ? '1 / -1' : i % 2 === 0 ? '1' : '2',
       classe: '',
     })

@@ -296,7 +296,7 @@
 }
 
 .dash-barre-fine .dash-barre-remplissage {
-  background: var(--color-ink);
+  background: var(--color-primary);
 }
 
 .dash-barre-epaisse {
@@ -410,6 +410,11 @@
   margin-top: 0;
 }
 
+/* B en tête : pas de rangée d'anneau, le titre suit le libellé ; réserve à droite (objet 128 px) */
+.dash-conseille-tete .dash-tete-texte {
+  padding-right: 120px;
+}
+
 /* C. Cours assigné en tête */
 .dash-assigne-meta {
   margin: 4px 0 0;
@@ -520,6 +525,13 @@
 
 .dash-flash-verrouille-texte {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.dash-flash-verrouille-titres {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -779,6 +791,65 @@
     height: 48px;
   }
 
+  /* Quiz flash verrouillé : « Prochain badge » en version verticale à droite du bloc de tête
+     (même hauteur) — badge 120 px en haut dans sa pastille blanche, textes, barre, puis la rangée
+     des 6 badges et le lien en bas */
+  .dash-cellule-badges-verticale .dash-badge {
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 24px;
+  }
+
+  .dash-cellule-badges-verticale .dash-badge-entete {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .dash-cellule-badges-verticale .dash-badge-vignette {
+    width: 148px;
+    height: 148px;
+    border-radius: 32px;
+  }
+
+  .dash-cellule-badges-verticale .dash-badge-gris {
+    width: 120px;
+    height: 120px;
+  }
+
+  .dash-cellule-badges-verticale .dash-badge-vignette .dash-cadenas {
+    right: -6px;
+    bottom: -6px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .dash-cellule-badges-verticale .dash-badge-vignette .dash-cadenas-icone {
+    width: 16px;
+    height: 16px;
+  }
+
+  .dash-cellule-badges-verticale .dash-badge-rangee {
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+
+  /* Quiz flash verrouillé en bande pleine largeur, contenu sur une ligne, hauteur au contenu */
+  .dash-cellule-bande .dash-flash-verrouille {
+    padding: 18px 24px 18px 20px;
+  }
+
+  .dash-cellule-bande .dash-flash-verrouille-texte {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .dash-cellule-bande .dash-barre-ligne {
+    flex: 0 1 320px;
+  }
+
   /* Blocs de tête, desktop : anneau 120 px, titre 32 px, bouton non pleine largeur */
   .dash-en-cours,
   .dash-assigne,
@@ -804,6 +875,11 @@
 
   .dash-tete-texte {
     gap: 6px;
+  }
+
+  /* B en tête, desktop : réserve à droite portée à la largeur de l'objet (160 px) */
+  .dash-conseille-tete .dash-tete-texte {
+    padding-right: 200px;
   }
 
   .dash-libelle-sur-violet {

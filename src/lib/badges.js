@@ -2,7 +2,7 @@
 // Choisis par condition de déblocage (stable), pas par la colonne badges.icone. Les anciennes
 // illustrations SVG (src/Assets/badge/) restent dans le dépôt mais ne sont plus utilisées.
 const IMAGES_BADGE = {
-  premier_quiz_complete: 'premier-pas',
+  premier_quiz_complete: 'chaussure-course',
   premiere_checklist_completee: 'sur-le-terrain',
   trois_cours_termines: 'perseverant',
   quiz_100_pourcent: 'sans-faute',
@@ -10,7 +10,7 @@ const IMAGES_BADGE = {
   dix_cours_termines: 'expert',
 }
 
-const IMAGE_BADGE_DEFAUT = 'premier-pas'
+const IMAGE_BADGE_DEFAUT = 'chaussure-course'
 
 export function iconeBadge(badge) {
   return `/illustrations/badges/${IMAGES_BADGE[badge?.condition_deblocage] ?? IMAGE_BADGE_DEFAUT}.png`

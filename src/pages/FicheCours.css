@@ -17,7 +17,8 @@
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  max-width: 800px;
+  /* leçon, checklist, récap : 880 px max, centrés (le quiz a sa colonne de 680 px) */
+  max-width: 880px;
   margin: 0 auto;
 }
 
@@ -293,6 +294,12 @@
   border-radius: var(--radius-carte);
   background: var(--color-ink);
   color: var(--color-surface);
+}
+
+.fiche-suivante-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .fiche-suivante-libelle {
@@ -1350,6 +1357,31 @@
 
   .fiche-lecon-contenu {
     font-size: 18px;
+  }
+
+  /* Carte « Étape suivante » : texte à gauche, bouton à droite sur la même ligne, centrés
+     verticalement ; le bouton prend la largeur de son contenu (24 px de marge intérieure à gauche) */
+  .fiche-suivante {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 24px 24px 28px;
+  }
+
+  .fiche-suivante-texte {
+    min-width: 0;
+  }
+
+  .fiche-suivante-detail {
+    margin-bottom: 0;
+  }
+
+  .fiche-suivante .fiche-bouton-blanc {
+    flex-shrink: 0;
+    width: auto;
+    gap: 16px;
+    padding: 0 6px 0 24px;
   }
 
   /* Quiz : colonne centrée de 680 px (question, réponses, correction, bouton) */
