@@ -88,6 +88,44 @@
   height: 20px;
 }
 
+/* Aperçu élève (formateur) : bandeau encre en haut, rien n'est enregistré */
+.fiche-apercu-bandeau {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: calc(-1 * (env(safe-area-inset-top) + 20px)) -16px 16px;
+  padding: calc(env(safe-area-inset-top) + 8px) 16px 8px;
+  background: var(--color-ink);
+  color: var(--color-surface);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.fiche-apercu-quitter {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .fiche-apercu-bandeau {
+    margin: -40px -40px 24px;
+    padding: 10px 40px;
+  }
+}
+
 /* Barre d'action fixée en bas (quiz, et fin de quiz sur mobile) : fond de page, marges 16 px,
    dégradé de 24 px au-dessus pour adoucir le contenu qui défile dessous. */
 .fiche-barre-action {

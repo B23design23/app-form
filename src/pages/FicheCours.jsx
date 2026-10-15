@@ -12,13 +12,13 @@ import EcranRecap from './fiche/EcranRecap'
 import { useQuiz } from './fiche/useQuiz'
 import '../styles/shared.css'
 import './FicheCours.css'
+import { tempsLecture } from '../lib/cours'
 
 // Fiche de cours en parcours guidé : Leçon → Quiz → (fin de quiz) → Checklist, puis récap.
 // Les étapes dépendent du contenu du cours. Voir CLAUDE.md, section « Fiche de cours ».
 
 const XP_QUIZ = 20
 const XP_CHECKLIST = 15
-const MOTS_PAR_MINUTE = 200
 
 async function marquerProgression(authUser, coursId, statut) {
   const { data: existante } = await supabase
@@ -40,33 +40,36 @@ async function marquerProgression(authUser, coursId, statut) {
   return verifierBadges(authUser)
 }
 
-// Checklist terminée. Sans ligne de progression (accès direct depuis Mode terrain, leçon non
-// ouverte), on en crée une en « non_commence » : la leçon n'est pas comptée comme lue.
+// Checklist terminée (y compris depuis Mode terrain, leçon non ouverte) : le cours passe en
+// « en_cours » s'il était « non_commence » ou sans ligne ; « termine » reste « termine ». updated_at
+// est toujours mis à jour (activité visible du formateur, sortie des « Élèves à relancer »).
 async function marquerChecklistTerminee(authUser, coursId) {
   const { data: existante } = await supabase
     .from('progression')
-    .select('id')
+    .select('id, statut')
     .eq('user_id', authUser.id)
     .eq('cours_id', coursId)
     .maybeSingle()
 
+  const maintenant = new Date().toISOString()
   if (existante) {
-    await supabase.from('progression').update({ checklist_terminee: true }).eq('id', existante.id)
+    await supabase
+      .from('progression')
+      .update({
+        checklist_terminee: true,
+        updated_at: maintenant,
+        ...(existante.statut === 'non_commence' ? { statut: 'en_cours' } : {}),
+      })
+      .eq('id', existante.id)
   } else {
     await supabase
       .from('progression')
-      .insert({ user_id: authUser.id, cours_id: coursId, statut: 'non_commence', checklist_terminee: true })
+      .insert({ user_id: authUser.id, cours_id: coursId, statut: 'en_cours', checklist_terminee: true, updated_at: maintenant })
   }
 
   return verifierBadges(authUser)
 }
 
-// Temps de lecture : 200 mots par minute, arrondi à la minute supérieure (images et liens exclus).
-function tempsLecture(contenu) {
-  const texte = (contenu ?? '').replace(/!\[[^\]]*\]\([^)]*\)/g, ' ').replace(/https?:\/\/\S+/g, ' ')
-  const mots = texte.split(/\s+/).filter((m) => /[\p{L}\p{N}]/u.test(m)).length
-  return Math.max(1, Math.ceil(mots / MOTS_PAR_MINUTE))
-}
 
 // Score d'un passage : « 4/5 » si le détail est enregistré (migration 0007), sinon « 80 % ».
 function libelleScore(passage) {
@@ -74,7 +77,7 @@ function libelleScore(passage) {
   if (passage.bonnes_reponses != null && passage.nb_questions != null) {
     return `${passage.bonnes_reponses}/${passage.nb_questions}`
   }
-  return `${passage.score} %`
+  return `${passage.score} %`
 }
 
 // Meilleur passage : score le plus haut ; à score égal, celui qui a le détail « x/y ».
@@ -134,7 +137,31 @@ function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire, onRetour
   )
 }
 
-function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourTheme, onOuvrirCours, navigationDesktop }) {
+// apercu : « Voir comme un élève » (formateur) — vraie fiche, mais aucune écriture dans
+// progression, scores, user_badges ni dans le stockage du navigateur ; bandeau en haut.
+function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourTheme, onOuvrirCours, navigationDesktop, apercu = false }) {
+  // Toutes les écritures passent par cet objet, neutralisé en aperçu
+  const ecritures = apercu
+    ? {
+        progression: async () => [],
+        checklistTerminee: async () => [],
+        xp: async () => {},
+        badges: async () => [],
+        score: async () => ({ error: null }),
+        lireLocale: () => ({ validees: [], passees: [] }),
+        ecrireLocale: () => {},
+        effacerLocale: () => {},
+      }
+    : {
+        progression: (statut) => marquerProgression(authUser, coursId, statut),
+        checklistTerminee: () => marquerChecklistTerminee(authUser, coursId),
+        xp: (montant) => ajouterXp(authUser, montant),
+        badges: () => verifierBadges(authUser),
+        score: (ligne) => supabase.from('scores').insert(ligne),
+        lireLocale: () => lireChecklistLocale(authUser.id, coursId),
+        ecrireLocale: (validees, passees) => ecrireChecklistLocale(authUser.id, coursId, validees, passees),
+        effacerLocale: () => effacerChecklistLocale(authUser.id, coursId),
+      }
   const accesTerrain = sectionInitiale === 'checklist'
 
   const [chargement, setChargement] = useState(true)
@@ -179,19 +206,23 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
           .select('id, ordre, intitule, critere_validation, bloquante')
           .eq('cours_id', coursId)
           .order('ordre'),
-        supabase
-          .from('progression')
-          .select('id, statut, checklist_terminee')
-          .eq('user_id', authUser.id)
-          .eq('cours_id', coursId)
-          .maybeSingle(),
-        supabase
-          .from('scores')
-          // select('*') : tolère l'absence des colonnes de la migration 0007
-          .select('*')
-          .eq('user_id', authUser.id)
-          .eq('cours_id', coursId)
-          .eq('type', 'quiz_cours'),
+        apercu
+          ? Promise.resolve({ data: null, error: null })
+          : supabase
+              .from('progression')
+              .select('id, statut, checklist_terminee')
+              .eq('user_id', authUser.id)
+              .eq('cours_id', coursId)
+              .maybeSingle(),
+        apercu
+          ? Promise.resolve({ data: [], error: null })
+          : supabase
+              .from('scores')
+              // select('*') : tolère l'absence des colonnes de la migration 0007
+              .select('*')
+              .eq('user_id', authUser.id)
+              .eq('cours_id', coursId)
+              .eq('type', 'quiz_cours'),
       ])
 
       if (annule) return
@@ -225,11 +256,11 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
 
       if (progressionData?.checklist_terminee) {
         setEtapesValidees(etapesData.map((e) => e.id))
-        effacerChecklistLocale(authUser.id, coursId)
+        ecritures.effacerLocale()
       } else if (coursData.checklist_mode !== 'reorder') {
         // Reprise d'une checklist en cours (seules les étapes qui existent encore sont gardées)
         const ids = new Set(etapesData.map((e) => e.id))
-        const local = lireChecklistLocale(authUser.id, coursId)
+        const local = ecritures.lireLocale()
         setEtapesValidees(local.validees.filter((id) => ids.has(id)))
         setEtapesPassees(local.passees.filter((id) => ids.has(id) && !local.validees.includes(id)))
       }
@@ -299,7 +330,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
   useEffect(() => {
     if (ecran !== 'lecon' || chargement || leconLue) return
     setProgression((p) => ({ ...(p ?? {}), statut: 'en_cours' }))
-    marquerProgression(authUser, coursId, 'en_cours').then((nouveauxBadges) => {
+    ecritures.progression('en_cours').then((nouveauxBadges) => {
       if (nouveauxBadges.length > 0) setOverlay({ titre: 'Nouveau badge', xp: null, badges: nouveauxBadges, type: 'badge' })
     })
   }, [ecran, chargement, leconLue, authUser, coursId])
@@ -340,17 +371,19 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
     // Détail « x/y » (migration 0007) ; si la colonne n'existe pas encore, on réessaie sans.
     const ligneScore = { user_id: authUser.id, cours_id: coursId, type: 'quiz_cours', score, date: new Date().toISOString() }
     const detail = { bonnes_reponses: bonnes, nb_questions: questions.length }
-    const { error: erreurDetail } = await supabase.from('scores').insert({ ...ligneScore, ...detail })
+    const { error: erreurDetail } = await ecritures.score({ ...ligneScore, ...detail })
     if (erreurDetail) {
       console.error('scores (détail x/y)', erreurDetail.message)
-      await supabase.from('scores').insert(ligneScore)
+      await ecritures.score(ligneScore)
     }
-    if (premierQuiz) await ajouterXp(authUser, XP_QUIZ)
+    if (premierQuiz) await ecritures.xp(XP_QUIZ)
 
-    // Le QCM suffit à terminer le cours (règle existante).
-    const nouveauxBadges = coursTermine ? await verifierBadges(authUser) : await marquerProgression(authUser, coursId, 'termine')
+    // Le cours n'est terminé que quand toutes ses parties sont faites : avec une checklist pas
+    // encore faite, le quiz laisse le cours « en cours ».
+    const statutApresQuiz = coursTermine || !aChecklist || checklistFaite ? 'termine' : 'en_cours'
+    const nouveauxBadges = coursTermine ? await ecritures.badges() : await ecritures.progression(statutApresQuiz)
 
-    setProgression((p) => ({ ...(p ?? {}), statut: 'termine' }))
+    setProgression((p) => ({ ...(p ?? {}), statut: statutApresQuiz }))
     setMeilleurScore((m) => (m === null ? score : Math.max(m, score)))
     setPassageMeilleur((p) => meilleurPassage([...(p ? [p] : []), { score, ...(erreurDetail ? {} : detail) }]))
     setFinQuiz({ bonnes, total: questions.length, score, xpGagne: premierQuiz ? XP_QUIZ : 0, badges: nouveauxBadges, historique })
@@ -364,15 +397,16 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
     let nouveauxBadges = []
     let xp = null
     if (!checklistFaite) {
-      await ajouterXp(authUser, XP_CHECKLIST)
+      await ecritures.xp(XP_CHECKLIST)
       xp = XP_CHECKLIST
-      nouveauxBadges = await marquerChecklistTerminee(authUser, coursId)
+      nouveauxBadges = await ecritures.checklistTerminee()
     }
-    effacerChecklistLocale(authUser.id, coursId)
-    let statut = progression?.statut ?? 'non_commence'
-    // Sans QCM, la checklist termine le cours (règle existante).
-    if (!aQuiz && statut !== 'termine') {
-      nouveauxBadges = [...nouveauxBadges, ...(await marquerProgression(authUser, coursId, 'termine'))]
+    ecritures.effacerLocale()
+    // La checklist fait passer un cours non commencé en « en cours » (écrit par checklistTerminee).
+    let statut = progression?.statut && progression.statut !== 'non_commence' ? progression.statut : 'en_cours'
+    // Le cours est terminé quand toutes ses parties sont faites : sans QCM, ou QCM déjà fait.
+    if ((!aQuiz || quizFait) && statut !== 'termine') {
+      nouveauxBadges = [...nouveauxBadges, ...(await ecritures.progression('termine'))]
       statut = 'termine'
     }
     setProgression((p) => ({ ...(p ?? {}), statut, checklist_terminee: true }))
@@ -386,7 +420,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
   useEffect(() => {
     if (chargement || checklistFaite || cours?.checklist_mode === 'reorder') return
     if (etapesValidees.length === 0 && etapesPassees.length === 0) return
-    ecrireChecklistLocale(authUser.id, coursId, etapesValidees, etapesPassees)
+    ecritures.ecrireLocale(etapesValidees, etapesPassees)
   }, [chargement, checklistFaite, cours, etapesValidees, etapesPassees, authUser.id, coursId])
 
   // La checklist est terminée quand toutes les étapes sont validées ou passées.
@@ -428,7 +462,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
   }
 
   async function terminerCoursSansQuizNiChecklist() {
-    const nouveauxBadges = await marquerProgression(authUser, coursId, 'termine')
+    const nouveauxBadges = await ecritures.progression('termine')
     setProgression((p) => ({ ...(p ?? {}), statut: 'termine' }))
     if (nouveauxBadges.length > 0) setOverlay({ titre: 'Cours terminé', xp: null, badges: nouveauxBadges, type: 'badge' })
     setEcran('recap')
@@ -519,8 +553,21 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
   const afficheNavigation = ecran !== 'quiz' && ecran !== 'fin-quiz'
 
   return (
-    <div className={`fiche-page${afficheNavigation && navigationDesktop ? ' fiche-page-avec-nav' : ''}`}>
+    <div
+      className={`fiche-page${afficheNavigation && navigationDesktop ? ' fiche-page-avec-nav' : ''}${
+        apercu ? ' fiche-page-apercu' : ''
+      }`}
+    >
       {afficheNavigation && navigationDesktop}
+
+      {apercu && (
+        <div className="fiche-apercu-bandeau" role="status">
+          <span>Aperçu élève · rien n'est enregistré</span>
+          <button type="button" className="fiche-apercu-quitter" onClick={onRetour}>
+            Quitter l'aperçu
+          </button>
+        </div>
+      )}
 
       {ecran === 'lecon' && (
         <EcranLecon
@@ -594,7 +641,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
           meilleur={quizFait ? scoreMeilleur : null}
           nbEtapes={etapes.length}
           xpGagnes={xpGagnes}
-          suiteTheme={suiteTheme}
+          suiteTheme={apercu ? null : suiteTheme}
           onRelire={() => setEcran('lecon')}
           onRefaireQuiz={() => ouvrirQuiz({ recommencer: true })}
           onRevoirChecklist={() => setEcran('checklist')}

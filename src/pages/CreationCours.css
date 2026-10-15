@@ -1,54 +1,230 @@
-.creation-cours-card {
-  gap: 20px;
-}
+/* Création / modification d'un cours (lot formateur-creation). Mode concentré : pas de barre de
+   navigation ; fond #F4F4F6, une carte blanche par section, barre d'enregistrement fixe.
+   Mobile et tablette < 1024 px, desktop ≥ 1024 px. */
 
-.creation-section {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.creation-section h2 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.1rem;
-  margin: 0;
+.cc-page {
+  min-height: 100vh;
+  /* marge basse : la barre d'enregistrement ne cache jamais le dernier bouton */
+  padding: calc(env(safe-area-inset-top) + 16px) 16px calc(150px + env(safe-area-inset-bottom));
+  background: var(--color-fond-formateur);
   color: var(--color-ink);
 }
 
-.creation-contenu-aide {
-  margin: -6px 0 0;
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
+.cc-etat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.creation-textarea-contenu {
-  min-height: 260px;
+.cc-icone-16 {
+  width: 16px;
+  height: 16px;
 }
 
-.creation-actions-contenu {
+.cc-icone-20 {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.cc-libelle-court {
+  display: none;
+}
+
+/* --- En-tête mobile + pastilles collantes ---------------------------------------------------- */
+
+.cc-entete-mobile {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 12px;
 }
 
-.creation-champ-type-reponse {
-  margin-top: 16px;
+.cc-entete-mobile-titres {
+  flex: 1;
+  min-width: 0;
 }
 
-.creation-apercu {
+.cc-entete-mobile h1 {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--color-ink);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
-.creation-apercu-vide {
-  margin: 0;
+.cc-entete-mobile p {
+  margin: 2px 0 0;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--color-text-secondary);
-  font-style: italic;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
+
+.cc-pastilles {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+  margin: 0 -16px;
+  padding: calc(env(safe-area-inset-top) + 12px) 16px 12px;
+  overflow-x: auto;
+  background: var(--color-fond-formateur);
+  scrollbar-width: none;
+}
+
+.cc-pastilles::-webkit-scrollbar {
+  display: none;
+}
+
+.cc-pastille {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-pastille-compteur {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.cc-pastille-active {
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.cc-pastille-active .cc-pastille-compteur {
+  color: var(--color-texte-sur-encre);
+}
+
+/* --- Grille, colonne de gauche (desktop) ----------------------------------------------------- */
+
+.cc-grille {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cc-cote,
+.cc-entete-desktop {
+  display: none;
+}
+
+.cc-contenu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.cc-retour {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.cc-retour-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  transition: all 0.15s ease;
+}
+
+.cc-sommaire {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 26px;
+  background: var(--color-surface);
+}
+
+.cc-sommaire-entree {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-sommaire-compteur {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.cc-sommaire-actif {
+  background: var(--color-lavande);
+}
+
+.cc-lien-apercu,
+.cc-lien {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  cursor: pointer;
+}
+
+.cc-lien-apercu {
+  align-self: flex-start;
+  min-height: 44px;
+  padding: 0 8px;
+}
+
+.cc-lien {
+  display: inline;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- Cartes de section ----------------------------------------------------------------------- */
 
 .creation-badge-officiel {
   align-self: flex-start;
@@ -57,197 +233,1098 @@
   border-radius: var(--radius-pill);
   background: var(--color-lavande);
   color: var(--color-primary-texte);
-  font-size: 0.85rem;
+  font-size: 14px;
   font-weight: 700;
 }
 
-.creation-ligne-champs {
+.cc-carte {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 18px;
+  padding: 26px 16px;
+  border-radius: 30px;
+  background: var(--color-surface);
+  /* sous les pastilles collantes lors du défilement vers une section */
+  scroll-margin-top: calc(env(safe-area-inset-top) + 76px);
 }
 
-@media (min-width: 768px) {
-  .creation-ligne-champs {
-    flex-direction: row;
-  }
-
-  .creation-ligne-champs .champ {
-    flex: 1;
-  }
-}
-
-.creation-bloc {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px;
-  border-radius: var(--radius-badge);
-  background: var(--color-background);
-}
-
-.creation-bloc-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.creation-bloc-header h3 {
+.cc-carte h2 {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.cc-carte-entete {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cc-libelle {
+  font-size: 0.9rem;
   color: var(--color-ink);
 }
 
-.creation-question-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-  min-width: 0;
-  background: none;
-  border: none;
-  padding: 0;
-  min-height: 44px;
-  text-align: left;
-  cursor: pointer;
+.cc-aide {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
 }
 
-.creation-question-titre {
+.cc-erreur {
+  font-weight: 700;
+}
+
+/* Champs multilignes ajustés au contenu (titre, intitulés d'étape) */
+.cc-champ-titre textarea,
+.cc-etape-intitule {
+  min-height: 48px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  resize: none;
+  line-height: 1.35;
 }
 
-.creation-question-chevron {
-  flex-shrink: 0;
-  color: var(--color-primary-texte);
-  font-size: 1.1rem;
-  line-height: 1;
-  transition: transform 0.15s ease;
+.cc-champ-titre textarea {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 24px;
 }
 
-.creation-question-chevron-ouvert {
-  transform: rotate(90deg);
+.cc-ligne-champs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.creation-reponses {
+/* --- Choix : boutons à sélection (groupes, type de réponse, mode de checklist) ----------------- */
+
+.cc-groupes {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.creation-reponses > .bouton-ajouter {
-  align-self: center;
-}
-
-.creation-reponse {
+.cc-groupes-liste {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 10px;
-  border-radius: var(--radius-badge);
-  background: var(--color-surface);
-}
-
-.creation-reponse-ligne {
-  display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
-.creation-reponse-lettre {
-  flex-shrink: 0;
+.cc-choix-groupe,
+.cc-choix {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--color-lavande);
-  color: var(--color-primary-texte);
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--color-fond-formateur);
+  font-family: var(--font-body);
+  font-size: 15px;
   font-weight: 700;
-  font-size: 0.85rem;
-}
-
-.creation-bouton-x {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: none;
-  border: none;
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--color-error);
+  color: var(--color-ink);
+  text-align: left;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
-@media (hover: hover) {
-  .creation-bouton-x:hover {
-    background: var(--color-error-fond);
-  }
+.cc-choix-groupe {
+  padding-left: 12px;
 }
 
-.creation-reponse-texte {
-  flex: 1;
-  min-height: 44px;
-  padding: 0 16px;
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
-  border-radius: var(--radius-pill);
-  background: var(--color-fond-champ);
-  font-size: 0.9rem;
-  font-family: var(--font-body);
-  color: var(--color-ink);
-}
-
-.creation-reponse-explication {
-  min-height: 44px;
-  padding: 0 16px;
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
-  border-radius: var(--radius-pill);
-  background: var(--color-fond-champ);
-  font-size: 0.85rem;
-  font-family: var(--font-body);
-  color: var(--color-ink);
-}
-
-.creation-reponse-texte:focus,
-.creation-reponse-explication:focus {
-  border-color: var(--color-primary);
-  outline: none;
-}
-
-.creation-checkbox {
-  display: flex;
+.cc-rond {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
-  color: var(--color-ink);
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-contour-etape);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-surface);
 }
 
-.creation-checkbox input {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--color-primary);
+.cc-choisi {
+  border-color: var(--color-primary);
+  background: var(--color-lavande);
+}
+
+.cc-choisi .cc-rond {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+}
+
+.cc-coche {
+  width: 14px;
+  height: 14px;
   flex-shrink: 0;
 }
 
-.creation-etapes {
+.cc-coche svg path {
+  stroke-width: 3.2;
+}
+
+/* --- Leçon : éditeur ----------------------------------------------------------------------- */
+
+.cc-editeur {
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 22px;
+  background: var(--color-fond-formateur);
+  transition: border-color 0.15s ease;
+}
+
+.cc-editeur:has(.cc-editeur-texte:focus) {
+  border-color: var(--color-primary);
+}
+
+.cc-editeur-outils {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--color-separateur-formateur);
+}
+
+.cc-onglets {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.cc-onglet {
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-onglet-actif {
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.cc-editeur-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.cc-bouton-outil {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-bouton-outil:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.cc-editeur-texte {
+  display: block;
+  width: 100%;
+  min-height: 320px;
+  padding: 16px 18px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--color-ink);
+  resize: vertical;
+}
+
+.cc-editeur-texte:focus {
+  outline: none;
+}
+
+.cc-apercu {
+  padding: 12px;
+}
+
+.cc-apercu > .fm-texte {
+  padding: 8px;
+}
+
+/* Étiquettes d'image : miniature 64 × 44, nom du fichier, croix */
+.cc-images-lecon {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cc-miniatures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-etiquette-image {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  padding: 4px 4px 4px 4px;
+  border-radius: 16px;
+  background: var(--color-fond-formateur);
+}
+
+.cc-question .cc-etiquette-image,
+.cc-etape .cc-etiquette-image {
+  background: var(--color-surface);
+}
+
+.cc-etiquette-image img {
+  flex-shrink: 0;
+  width: 64px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.cc-etiquette-nom {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cc-bouton-croix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-bouton-croix:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.cc-libelle-ligne {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.cc-champ-retenir textarea {
+  border-radius: 20px;
+}
+
+/* --- QCM ------------------------------------------------------------------------------------- */
+
+.cc-questions {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.creation-groupes-liste {
+.cc-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-ink);
+  transition: all 0.15s ease;
+}
+
+.cc-numero-actif {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.cc-chevron {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  transition: transform 0.15s ease;
+}
+
+.cc-chevron-ouvert {
+  transform: rotate(-90deg);
+}
+
+.cc-question-repliee {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 10px 14px 10px 12px;
+  border: none;
+  border-radius: 20px;
+  background: var(--color-fond-formateur);
+  font-family: var(--font-body);
+  text-align: left;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-question-repliee .cc-chevron {
+  transform: rotate(90deg);
+}
+
+.cc-question-enonce {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 15px;
+  font-weight: 800;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cc-question-meta {
+  display: none;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.cc-question {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 24px;
+  background: var(--color-fond-formateur);
+}
+
+.cc-question-entete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cc-question-entete h3 {
+  flex: 1;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.cc-question-entete .fm-bouton-rond {
+  background: var(--color-surface);
+}
+
+/* Champs posés sur le bloc gris : fond blanc */
+.cc-question .champ textarea,
+.cc-question .champ input,
+.cc-etape .champ input,
+.cc-etape-intitule {
+  background: var(--color-surface);
+}
+
+.cc-champ-avec-bouton {
+  position: relative;
+  display: block;
+}
+
+.cc-champ-avec-bouton textarea {
+  display: block;
+  width: 100%;
+  min-height: 56px;
+  padding-right: 60px;
+  resize: vertical;
+}
+
+.cc-bouton-image-interne {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-fond-formateur);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-type-reponse {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.cc-type-reponse .cc-choix,
+.cc-modes .cc-choix {
+  justify-content: center;
+  background: var(--color-surface);
+}
+
+.cc-type-reponse .cc-choisi,
+.cc-modes .cc-choisi {
+  background: var(--color-lavande);
+}
+
+.cc-reponses {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.cc-reponse {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 20px;
+  background: var(--color-surface);
+}
+
+.cc-reponse-ligne {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-lettre {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-lavande);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-lettre[aria-pressed='true'] {
+  background: var(--color-success);
+  color: var(--color-surface);
+}
+
+.cc-lettre .cc-coche {
+  width: 18px;
+  height: 18px;
+}
+
+.cc-reponse-texte,
+.cc-reponse-explication {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 16px;
+  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--color-fond-formateur);
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--color-ink);
+}
+
+.cc-reponse-explication {
+  min-height: 40px;
+  /* décalé sous le texte de la réponse, pas sous la lettre */
+  margin-left: 48px;
+  font-size: 14px;
+}
+
+.cc-reponse-texte:focus,
+.cc-reponse-explication:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.cc-bonne-reponse {
+  display: none;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-success);
+}
+
+.cc-ajouter-reponse {
+  align-self: center;
+}
+
+.cc-ajouter-large {
+  justify-content: center;
+  align-self: stretch;
+}
+
+/* --- Checklist ------------------------------------------------------------------------------- */
+
+.cc-modes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.cc-modes .cc-mode {
+  justify-content: space-between;
+  min-height: 48px;
+  border-radius: 20px;
+  background: var(--color-fond-formateur);
+}
+
+.cc-modes .cc-choisi {
+  background: var(--color-lavande);
+}
+
+.cc-mode .cc-coche {
+  width: 20px;
+  height: 20px;
+  color: var(--color-primary-texte);
+}
+
+.cc-mode-textes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cc-mode-libelle {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.cc-mode-detail {
+  display: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.cc-etapes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-etape {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  /* contour intérieur : transparent au repos, violet sur l'étape en cours d'édition */
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: var(--color-fond-formateur);
+  transition: border-color 0.15s ease;
+}
+
+.cc-etape-active {
+  border-color: var(--color-primary);
+}
+
+.cc-etape-cible {
+  border-style: dashed;
+  border-color: var(--color-primary);
+}
+
+.cc-etape-ligne {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.cc-etape-ligne > .cc-numero,
+.cc-etape-ligne > .fm-menu {
+  margin-top: 4px;
+}
+
+.cc-etape-ligne > .cc-numero {
+  margin-top: 8px;
+}
+
+.cc-poignee {
+  display: none;
+}
+
+.cc-etape-intitule {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  border: 2px solid transparent;
+  border-radius: 24px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.cc-etape-intitule.cc-champ-multiligne,
+.cc-champ-titre textarea.cc-champ-multiligne {
+  border-radius: 20px;
+}
+
+.cc-etape-intitule:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.cc-etape .fm-menu .fm-bouton-rond {
+  background: var(--color-surface);
+}
+
+.cc-etape-outils-desktop {
+  display: none;
+}
+
+.cc-etape-outils-mobile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  /* décalés sous l'intitulé (numéro 32 px + écart 8 px) */
+  padding-left: 40px;
+}
+
+.cc-etape-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 40px;
+}
+
+.cc-etape-details:empty {
+  display: none;
+}
+
+.cc-bloquante {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 2px solid var(--color-contour-etape);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-bloquante-active {
+  border-color: var(--color-error-fond);
+  background: var(--color-error-fond);
+  color: var(--color-error);
+}
+
+.cc-bouton-etape-image {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cc-etape-outils-mobile .cc-libelle-court {
+  display: inline;
+}
+
+/* --- Barre d'enregistrement ------------------------------------------------------------------ */
+
+.cc-barre-zone {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+}
+
+.cc-barre {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px calc(16px + env(safe-area-inset-bottom));
+  border-radius: 26px 26px 0 0;
+  background: var(--color-surface);
+  box-shadow: var(--ombre-flottante);
+}
+
+.cc-barre-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.cc-barre-aucune {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.cc-point-orange {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-orange);
+}
+
+.cc-barre-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-barre-actions .cc-enregistrer {
+  flex: 1;
+  min-height: 52px;
+  margin-top: 0;
+}
+
+.cc-enregistrer:disabled {
+  background: var(--color-lavande);
+  color: var(--color-texte-attenue);
+  opacity: 1;
+}
+
+/* --- Retours tactiles et survol --------------------------------------------------------------- */
+
+.cc-pastille:active,
+.cc-sommaire-entree:active,
+.cc-choix-groupe:active,
+.cc-choix:active,
+.cc-onglet:not(.cc-onglet-actif):active,
+.cc-bouton-outil:active,
+.cc-bouton-etape-image:active,
+.cc-bouton-image-interne:active,
+.cc-question-repliee:active,
+.cc-retour:active .cc-retour-rond {
+  background: var(--color-lavande);
+}
+
+.cc-bouton-croix:active:not(:disabled) {
+  background: var(--color-error-fond);
+  color: var(--color-error);
+}
+
+.cc-lettre:active {
+  transform: scale(0.95);
+}
+
+.cc-page button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .cc-pastille:not(.cc-pastille-active):hover,
+  .cc-sommaire-entree:not(.cc-sommaire-actif):hover,
+  .cc-choix-groupe:not(.cc-choisi):hover,
+  .cc-choix:not(.cc-choisi):hover,
+  .cc-onglet:not(.cc-onglet-actif):hover,
+  .cc-bouton-outil:hover:not(:disabled),
+  .cc-bouton-etape-image:hover:not(:disabled),
+  .cc-bouton-image-interne:hover:not(:disabled),
+  .cc-question-repliee:hover,
+  .cc-retour:hover .cc-retour-rond {
+    background: var(--color-lavande);
+  }
+
+  .cc-lettre[aria-pressed='false']:hover {
+    background: var(--color-primary);
+    color: var(--color-surface);
+  }
+
+  .cc-bouton-croix:hover:not(:disabled) {
+    background: var(--color-error-fond);
+    color: var(--color-error);
+  }
+
+  .cc-bloquante:not(.cc-bloquante-active):hover {
+    border-color: var(--color-error);
+    color: var(--color-error);
+  }
+
+  .cc-lien-apercu:hover,
+  .cc-lien:hover {
+    color: var(--color-primary-hover);
+  }
+}
+
+/* --- Tablette (≥ 768 px) : champs côte à côte, libellés longs --------------------------------- */
+
+@media (min-width: 768px) {
+  .cc-page {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .cc-pastilles {
+    margin: 0 -32px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .cc-carte {
+    padding: 28px;
+  }
+
+  .cc-ligne-champs {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+  }
+
+  .cc-question-meta,
+  .cc-bonne-reponse,
+  .cc-mode-detail {
+    display: inline;
+  }
+
+  .cc-modes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cc-modes .cc-mode {
+    min-height: 64px;
+    padding: 10px 16px;
+  }
+
+  .cc-question {
+    padding: 18px;
+  }
+
+  .cc-ajouter-large {
+    align-self: flex-start;
+  }
+
+  .cc-champ-titre textarea {
+    border-radius: var(--radius-pill);
+  }
+
+  /* Étapes sur une ligne : poignée, numéro, intitulé, Bloquante, image, menu */
+  .cc-etape-ligne {
+    align-items: center;
+  }
+
+  .cc-etape-ligne > .cc-numero,
+  .cc-etape-ligne > .fm-menu {
+    margin-top: 0;
+  }
+
+  .cc-poignee {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 40px;
+    color: var(--color-text-secondary);
+    cursor: grab;
+  }
+
+  .cc-poignee:active {
+    cursor: grabbing;
+  }
+
+  .cc-etape-intitule {
+    min-height: 44px;
+    padding: 10px 16px;
+    border-radius: 22px;
+  }
+
+  .cc-etape-outils-desktop {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .cc-etape-outils-desktop .cc-bouton-etape-image {
+    width: 40px;
+    padding: 0;
+  }
+
+  .cc-etape-outils-mobile {
+    display: none;
+  }
+
+  /* sous l'intitulé : poignée 28 + numéro 32 + 2 écarts de 8 px */
+  .cc-etape-details {
+    padding-left: 76px;
+  }
+
+  .cc-barre-zone {
+    bottom: 24px;
+    padding: 0 32px;
+  }
+
+  .cc-barre-grille {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cc-barre {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 10px 10px 24px;
+    border-radius: var(--radius-pill);
+  }
+
+  .cc-barre-actions .cc-enregistrer {
+    flex: none;
+    min-height: 48px;
+  }
+}
+
+@media (max-width: 767px) {
+  .cc-libelle-long {
+    display: none;
+  }
+
+  .cc-libelle-court {
+    display: inline;
+  }
+
+  .cc-bouton-outil {
+    padding: 0;
+  }
+
+  .cc-reponse-explication {
+    margin-left: 48px;
+  }
+}
+
+/* --- Desktop (≥ 1024 px) : sommaire collant à gauche ------------------------------------------ */
+
+@media (min-width: 1024px) {
+  .cc-page {
+    padding: 28px 40px 140px;
+  }
+
+  .cc-entete-mobile,
+  .cc-pastilles {
+    display: none;
+  }
+
+  .cc-grille,
+  .cc-barre-grille {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .cc-barre-zone {
+    padding: 0 40px;
+  }
+
+  .cc-barre {
+    grid-column: 2;
+  }
+
+  .cc-cote {
+    position: sticky;
+    top: 28px;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cc-entete-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .cc-entete-desktop h1 {
+    margin: 0;
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+
+  .cc-contenu {
+    gap: 20px;
+  }
+
+  .cc-carte {
+    scroll-margin-top: 28px;
+  }
 }

@@ -36,7 +36,7 @@ const CONDITIONS_COURTES = {
   dix_cours_termines: 'Termine 10 cours',
   premiere_checklist_completee: 'Termine une checklist terrain',
   premier_quiz_flash_reussi: 'Réussis un quiz flash',
-  quiz_100_pourcent: 'Fais 100 % à un quiz',
+  quiz_100_pourcent: 'Fais 100 % à un quiz',
 }
 
 export function conditionCourteBadge(conditionDeblocage) {

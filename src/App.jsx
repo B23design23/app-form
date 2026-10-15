@@ -26,6 +26,7 @@ const ECRANS_PROTEGES = [
   'detail-cours-formateur',
   'detail-groupe',
   'fiche-cours',
+  'apercu-cours',
   'quiz-flash',
 ]
 
@@ -51,7 +52,10 @@ function App() {
   const [sectionInitiale, setSectionInitiale] = useState(null)
   const [coursSelectionneIdFormateur, setCoursSelectionneIdFormateur] = useState(null)
   const [groupeSelectionneId, setGroupeSelectionneId] = useState(null)
+  const [retourApercu, setRetourApercu] = useState('detail-cours-formateur')
   const [messageConnexion, setMessageConnexion] = useState(null)
+  // Connexion atteinte par « Passer » dans l'intro : pas de flèche de retour
+  const [connexionSansRetour, setConnexionSansRetour] = useState(false)
 
   useEffect(() => {
     let annule = false
@@ -77,7 +81,8 @@ function App() {
 
       const { data: profil } = await supabase
         .from('profiles')
-        .select('id, role')
+        // est_admin : compte officiel (navigation formateur sans « Groupes », dashboard admin)
+        .select('id, role, est_admin')
         .eq('id', user.id)
         .maybeSingle()
 
@@ -107,7 +112,7 @@ function App() {
         return
       }
 
-      setAuthUser({ id: user.id, email: user.email, role: profil.role })
+      setAuthUser({ id: user.id, email: user.email, role: profil.role, estAdmin: profil.est_admin === true })
       setEcran(profil.role === 'formateur' ? 'dashboard-formateur' : 'espace-apprenant')
     }
 
@@ -128,6 +133,17 @@ function App() {
     }
   }, [])
 
+  // Compte officiel : pas de groupe. Une section « Groupes » ou un Détail groupe ouverts quand même
+  // ramènent au dashboard.
+  useEffect(() => {
+    if (!authUser?.estAdmin) return
+    if (sectionFormateur === 'groupes') setSectionFormateur('dashboard')
+    if (ecran === 'detail-groupe') {
+      setSectionFormateur('dashboard')
+      setEcran('dashboard-formateur')
+    }
+  }, [authUser, sectionFormateur, ecran])
+
   if (ecran === 'chargement') {
     return (
       <div className="flow-page">
@@ -146,7 +162,14 @@ function App() {
           setRetourChoixProfil('introduction')
           setEcran('choix-profil')
         }}
-        onSeConnecter={() => setEcran('connexion')}
+        onSeConnecter={() => {
+          setConnexionSansRetour(false)
+          setEcran('connexion')
+        }}
+        onPasser={() => {
+          setConnexionSansRetour(true)
+          setEcran('connexion')
+        }}
       />
     )
   }
@@ -155,10 +178,14 @@ function App() {
     return (
       <Connexion
         messageConfirmation={messageConnexion}
-        onRetour={() => {
-          setSlideIntroduction(2)
-          setEcran('introduction')
-        }}
+        onRetour={
+          connexionSansRetour
+            ? undefined
+            : () => {
+                setSlideIntroduction(2)
+                setEcran('introduction')
+              }
+        }
         onCreerCompte={() => {
           setRetourChoixProfil('connexion')
           setEcran('choix-profil')
@@ -282,41 +309,90 @@ function App() {
     )
   }
 
+  // Création : retour sur « Mes cours » ; modification : retour sur le détail du cours
+  function quitterCreationCours() {
+    if (coursSelectionneIdFormateur) {
+      setEcran('detail-cours-formateur')
+    } else {
+      setSectionFormateur('cours')
+      setEcran('dashboard-formateur')
+    }
+  }
+
   if (ecran === 'creation-cours') {
     return (
       <CreationCours
         authUser={authUser}
         coursId={coursSelectionneIdFormateur}
-        onTermine={() => setEcran(coursSelectionneIdFormateur ? 'detail-cours-formateur' : 'dashboard-formateur')}
-        onRetour={() => setEcran(coursSelectionneIdFormateur ? 'detail-cours-formateur' : 'dashboard-formateur')}
+        onTermine={quitterCreationCours}
+        onRetour={quitterCreationCours}
+        // « Voir comme un élève » (cours déjà enregistré) : l'aperçu ramène à la modification
+        onApercu={() => {
+          setRetourApercu('creation-cours')
+          setEcran('apercu-cours')
+        }}
+        onCreerGroupe={() => {
+          setSectionFormateur('groupes')
+          setEcran('dashboard-formateur')
+        }}
       />
     )
   }
 
+  // Pages de détail formateur : barre de navigation (desktop) / tab bar (mobile), onglet parent actif
+  const allerSectionFormateur = (s) => {
+    setSectionFormateur(s)
+    setEcran('dashboard-formateur')
+  }
+
   if (ecran === 'detail-cours-formateur') {
     return (
-      <DetailCoursFormateur
+      <EspaceFormateur authUser={authUser} section="cours" onChangerSection={allerSectionFormateur}>
+        <DetailCoursFormateur
+          authUser={authUser}
+          coursId={coursSelectionneIdFormateur}
+          onApercu={() => {
+            setRetourApercu('detail-cours-formateur')
+            setEcran('apercu-cours')
+          }}
+          onModifier={() => setEcran('creation-cours')}
+          onRetour={() => {
+            setCoursSelectionneIdFormateur(null)
+            allerSectionFormateur('cours')
+          }}
+        />
+      </EspaceFormateur>
+    )
+  }
+
+  // « Voir comme un élève » : la vraie fiche apprenant, sans aucune écriture (mode aperçu)
+  if (ecran === 'apercu-cours') {
+    return (
+      <FicheCours
+        key={`apercu-${coursSelectionneIdFormateur}`}
+        apercu
         authUser={authUser}
         coursId={coursSelectionneIdFormateur}
-        onModifier={() => setEcran('creation-cours')}
-        onRetour={() => {
-          setCoursSelectionneIdFormateur(null)
-          setEcran('dashboard-formateur')
-        }}
+        sectionInitiale="lecon"
+        onRetour={() => setEcran(retourApercu)}
+        onRetourTheme={() => setEcran(retourApercu)}
+        onOuvrirCours={() => {}}
       />
     )
   }
 
   if (ecran === 'detail-groupe') {
     return (
-      <DetailGroupe
-        authUser={authUser}
-        groupeId={groupeSelectionneId}
-        onRetour={() => {
-          setGroupeSelectionneId(null)
-          setEcran('dashboard-formateur')
-        }}
-      />
+      <EspaceFormateur authUser={authUser} section="groupes" onChangerSection={allerSectionFormateur}>
+        <DetailGroupe
+          authUser={authUser}
+          groupeId={groupeSelectionneId}
+          onRetour={() => {
+            setGroupeSelectionneId(null)
+            allerSectionFormateur('groupes')
+          }}
+        />
+      </EspaceFormateur>
     )
   }
 

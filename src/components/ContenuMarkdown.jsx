@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm'
 import './ContenuMarkdown.css'
 import { typo } from '../lib/typographie'
 
-function obtenirUrlEmbedVideo(url) {
+export function obtenirUrlEmbedVideo(url) {
   if (!url) return null
 
   let u

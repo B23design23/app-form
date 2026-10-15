@@ -124,11 +124,11 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
               progressColor="var(--color-primary)"
               wrapperClassName="fin-quiz-anneau"
             >
-              <span className="fin-quiz-anneau-centre" aria-label={`${bonnes} sur ${total}, ${score} %`}>
+              <span className="fin-quiz-anneau-centre" aria-label={`${bonnes} sur ${total}, ${score} %`}>
                 <span className="fin-quiz-anneau-score">
                   {compteur}/{total}
                 </span>
-                <span className="fin-quiz-anneau-pourcent">{score} %</span>
+                <span className="fin-quiz-anneau-pourcent">{score} %</span>
               </span>
             </AnneauProgression>
           </span>

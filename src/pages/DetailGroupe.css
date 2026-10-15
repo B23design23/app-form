@@ -1,166 +1,380 @@
-.detail-groupe-entete {
+/* Détail d'un groupe (lot formateur-listes) */
+
+.dg-barre-haut {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-.detail-groupe-entete .detail-bouton-supprimer {
-  flex: none;
-  min-height: 44px;
-  padding: 0 20px;
-  font-size: 0.85rem;
-}
-
-.detail-groupe-membres {
-  gap: 0;
-}
-
-.detail-groupe-membre {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 0;
-  background: var(--color-surface);
-}
-
-.detail-groupe-membre + .detail-groupe-membre {
-  border-top: 1px solid var(--color-separateur);
-}
-
-.detail-groupe-membre-info {
-  display: flex;
+.dg-entete {
   flex-direction: column;
-  gap: 2px;
+  align-items: stretch;
+}
+
+/* Ajout d'un élève : champ blanc avec enveloppe (sur le fond gris) + bouton violet */
+.dg-ajout {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.dg-ajout-champ {
+  position: relative;
+  flex: 1;
   min-width: 0;
 }
 
-.detail-groupe-membre-nom,
-.detail-groupe-membre-email {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.dg-ajout-icone {
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  width: 20px;
+  height: 20px;
+  color: var(--color-text-secondary);
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
-.detail-groupe-membre-nom {
-  font-size: 15px;
-  font-weight: 700;
+.dg-ajout-champ input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 18px 0 48px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
   color: var(--color-ink);
 }
 
-.detail-groupe-membre-email {
-  font-size: 13px;
-  color: var(--color-text-secondary);
+.dg-ajout-champ input:focus {
+  border-color: var(--color-primary);
+  outline: none;
 }
 
-.detail-groupe-card {
-  gap: 24px;
+.dg-ajout-bouton {
+  flex-shrink: 0;
+  min-height: 52px;
+  margin-top: 0;
 }
 
-.detail-groupe-grille {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.detail-groupe-grille .detail-section {
-  padding-top: 0;
-  border-top: none;
-}
-
-@media (min-width: 768px) {
-  .detail-groupe-grille {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas:
-      'eleves ajout'
-      'suivi suivi';
-    align-items: start;
-    gap: 32px;
-  }
-
-  .detail-groupe-section-eleves {
-    grid-area: eleves;
-  }
-
-  .detail-groupe-section-ajout {
-    grid-area: ajout;
-  }
-
-  .detail-groupe-section-suivi {
-    grid-area: suivi;
-    border-top: none;
-    padding-top: 0;
-  }
-}
-
-.detail-suivi-controles {
+/* Cours assignés : petites cartes blanches + carte pointillée « + Assigner un cours » */
+.dg-cours {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-@media (min-width: 768px) {
-  .detail-suivi-controles {
-    flex-direction: row;
-    gap: 16px;
-  }
-
-  .detail-suivi-controles > * {
-    flex: 1;
-    min-width: 0;
-  }
-}
-
-.detail-suivi-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin: 0 -20px;
-  padding: 0 20px;
-}
-
-.detail-suivi-table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 420px;
-  font-size: 0.85rem;
-}
-
-.detail-suivi-table th,
-.detail-suivi-table td {
-  padding: 8px 10px;
-  text-align: left;
-  border-bottom: 1px solid var(--color-separateur);
-  white-space: nowrap;
-}
-
-.detail-suivi-table th {
-  max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: 600;
-  color: var(--color-ink);
-  background: var(--color-background);
-}
-
-.detail-suivi-th-bouton {
-  display: inline-flex;
+.dg-cours-entete {
+  display: flex;
   align-items: center;
-  gap: 4px;
-  background: none;
-  border: none;
-  padding: 0;
+  justify-content: space-between;
+}
+
+.dg-cours-entete h2 {
   margin: 0;
-  font: inherit;
-  font-weight: 600;
-  color: var(--color-ink);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.dg-lien-assigner {
+  min-height: 44px;
+  padding: 0 4px;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
   cursor: pointer;
 }
 
-.detail-suivi-tri-fleche {
-  font-size: 0.7rem;
-  color: var(--color-primary-texte);
+/* Mobile : cartes de 200 px en défilement horizontal */
+.dg-cours-liste {
+  display: flex;
+  gap: 12px;
+  margin: 0 -16px;
+  padding: 0 16px 4px;
+  overflow-x: auto;
+  list-style: none;
+  scroll-snap-type: x proximity;
+  /* sans scroll-padding, l'aimantation cale la 1re carte sur le bord de l'écran (padding ignoré) :
+     elle reste alignée sur la marge de 16 px de la page, seul le bord droit déborde */
+  scroll-padding-inline: 16px;
 }
 
+.dg-cours-carte {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 0 0 200px;
+  padding: 18px;
+  border-radius: 24px;
+  background: var(--color-surface);
+  scroll-snap-align: start;
+}
 
+.dg-cours-titre {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.dg-cours-ajout-element {
+  display: none;
+}
+
+.dg-cours-ajout {
+  width: 100%;
+  height: 100%;
+  min-height: 112px;
+  border: 2px dashed var(--color-primary);
+  border-radius: 24px;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dg-cours-ajout:active {
+  background: var(--color-lavande);
+}
+
+@media (hover: hover) {
+  .dg-cours-ajout:hover {
+    border-style: solid;
+  }
+}
+
+/* Carte « Élèves » */
+.dg-eleves-entete {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dg-eleves-filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dg-recherche {
+  flex: 1 1 220px;
+}
+
+.dg-filtre {
+  flex: 0 1 200px;
+  min-width: 160px;
+}
+
+.dg-table {
+  display: none;
+}
+
+.dg-eleve-nom {
+  display: block;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.dg-eleve-email {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  overflow-wrap: anywhere;
+}
+
+/* Mobile : une carte par élève (nom, email · XP · badges, menu ; une ligne par cours) */
+.dg-eleves-cartes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dg-eleve-carte {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: var(--color-fond-formateur);
+}
+
+.dg-eleve-carte-haut {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dg-eleve-carte-texte {
+  min-width: 0;
+}
+
+.dg-eleve-carte .fm-bouton-rond {
+  background: var(--color-surface);
+}
+
+.dg-eleve-cours {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dg-eleve-cours li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dg-eleve-cours li + li {
+  border-top: 1px solid var(--color-separateur);
+}
+
+.dg-voir-plus {
+  align-self: center;
+  min-height: 44px;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+@media (hover: hover) {
+  .dg-voir-plus:hover {
+    color: var(--color-primary-hover);
+  }
+}
+
+.dg-suppression {
+  display: none;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .dg-menu-mobile {
+    display: none;
+  }
+
+  .dg-entete {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  .dg-ajout {
+    width: auto;
+    flex: 0 1 460px;
+  }
+
+  .dg-lien-assigner {
+    display: none;
+  }
+
+  .dg-cours-liste {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .dg-cours-carte {
+    flex: none;
+  }
+
+  .dg-cours-ajout-element {
+    display: block;
+  }
+
+  .dg-eleves-entete {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .dg-eleves-filtres {
+    flex-wrap: nowrap;
+  }
+
+  .dg-recherche {
+    flex: 0 1 260px;
+  }
+
+  .dg-eleves-cartes {
+    display: none;
+  }
+
+  .dg-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+
+  .dg-table th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dg-table td {
+    padding: 12px;
+    border-top: 1px solid var(--color-separateur);
+    vertical-align: middle;
+    font-weight: 600;
+  }
+
+  .dg-cellule-menu {
+    width: 56px;
+    text-align: right;
+  }
+
+  .dg-tri {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .dg-tri span {
+    font-size: 10px;
+    color: var(--color-primary-texte);
+  }
+
+  .dg-suppression {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

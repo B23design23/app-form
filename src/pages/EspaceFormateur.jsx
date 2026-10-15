@@ -14,23 +14,32 @@ const ONGLETS = [
   { id: 'groupes', label: 'Groupes', icone: iconeGroupes },
 ]
 
-function EspaceFormateur({ authUser, section, onChangerSection, onCreerCours, onOuvrirCours, onOuvrirGroupe }) {
+// children : page de détail (Détail cours, Détail groupe) affichée dans le même cadre, avec la barre
+// de navigation et l'onglet parent actif ; sinon, la section choisie.
+function EspaceFormateur({ authUser, section, onChangerSection, onCreerCours, onOuvrirCours, onOuvrirGroupe, children }) {
   return (
     <div className="espace-layout espace-layout-formateur">
-      <NavigationEspace onglets={ONGLETS} section={section} onChangerSection={onChangerSection} />
+      {/* Compte officiel (est_admin) : pas de groupe, pas d'entrée « Groupes » (Dashboard, Cours, Menu) */}
+      <NavigationEspace
+        onglets={authUser?.estAdmin ? ONGLETS.filter((o) => o.id !== 'groupes') : ONGLETS}
+        section={section}
+        onChangerSection={onChangerSection}
+      />
 
       <div className="espace-contenu">
-        {section === 'dashboard' && (
+        {children}
+        {!children && section === 'dashboard' && (
           <DashboardFormateur
             authUser={authUser}
             onCreerCours={onCreerCours}
             onChangerSection={onChangerSection}
+            onOuvrirGroupe={onOuvrirGroupe}
           />
         )}
-        {section === 'cours' && (
+        {!children && section === 'cours' && (
           <SectionCoursFormateur authUser={authUser} onOuvrirCours={onOuvrirCours} onCreerCours={onCreerCours} />
         )}
-        {section === 'groupes' && <SectionGroupesFormateur authUser={authUser} onOuvrirGroupe={onOuvrirGroupe} />}
+        {!children && section === 'groupes' && !authUser?.estAdmin && <SectionGroupesFormateur authUser={authUser} onOuvrirGroupe={onOuvrirGroupe} />}
       </div>
     </div>
   )

@@ -310,8 +310,8 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
             progressColor="var(--color-surface)"
             wrapperClassName="dash-anneau"
           >
-            <span className="dash-anneau-valeur" aria-label={`${pourcentage} % du cours`}>
-              {pourcentage} %
+            <span className="dash-anneau-valeur" aria-label={`${pourcentage} % du cours`}>
+              {pourcentage} %
             </span>
           </AnneauProgression>
         </div>

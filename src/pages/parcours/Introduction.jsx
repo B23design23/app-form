@@ -36,7 +36,7 @@ export function introductionDejaVue() {
   }
 }
 
-function Introduction({ slideInitiale = 0, onCreerCompte, onSeConnecter }) {
+function Introduction({ slideInitiale = 0, onCreerCompte, onSeConnecter, onPasser }) {
   const [slideActuelle, setSlideActuelle] = useState(slideInitiale)
   const toucheDebutX = useRef(null)
   const derniere = slideActuelle === SLIDES.length - 1
@@ -66,7 +66,8 @@ function Introduction({ slideInitiale = 0, onCreerCompte, onSeConnecter }) {
           aria-current={i === slideActuelle ? 'step' : undefined}
         />
       ))}
-      onPasser={derniere ? undefined : () => allerA(SLIDES.length - 1)}
+      // « Passer » (slides 1 et 2) : directement la Connexion ; l'intro est déjà marquée vue au montage
+      onPasser={derniere ? undefined : onPasser}
       barreSerree={slideActuelle === 0}
       // Slide 1 : barre vide (même hauteur, « Passer » à droite), grand logo centré dessous
       barre={slideActuelle > 0 ? <Logo className="intro-logo-petit" /> : <span aria-hidden="true" />}

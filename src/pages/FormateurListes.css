@@ -1,0 +1,144 @@
+/* Mes cours, Mes groupes : grilles de cartes cliquables (lot formateur-listes) */
+
+.fl-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fl-carte {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 26px;
+  background: var(--color-surface);
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fl-carte:active {
+  background: var(--color-lavande);
+}
+
+.fl-carte:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .fl-carte:hover {
+    background: var(--color-lavande);
+  }
+}
+
+.fl-carte-texte {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fl-carte-titre {
+  font-weight: 800;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.fl-carte-titre-cours {
+  font-size: 18px;
+}
+
+.fl-carte-meta {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* Carte de groupe : nom + chevron en haut, compteurs, progression, pastille d'état */
+.fl-carte-groupe {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.fl-carte-groupe .fm-pastille {
+  align-self: flex-start;
+}
+
+.fl-carte-groupe-haut {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.fl-carte-titre-groupe {
+  font-size: 20px;
+}
+
+.fl-progression {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.fl-progression-ligne {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.fl-progression-ligne strong {
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.fm-libelle-masque {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+@media (min-width: 768px) {
+  .fl-grille-cours {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .fl-grille-groupes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .fl-carte {
+    padding: 24px;
+    border-radius: 28px;
+  }
+
+  .fl-carte-titre-groupe {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1100px) {
+  .fl-grille-groupes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

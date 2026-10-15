@@ -1,45 +1,173 @@
+/* Dashboard formateur (lot dashboard-formateur) et dashboard admin. Conteneur : .espace-page
+   .espace-page-etroit (même largeur que la barre de navigation). */
+
 .formateur-dashboard-page {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-@media (min-width: 768px) {
-  .formateur-dashboard-page {
-    max-width: 1040px;
-    padding: 0 24px;
-    gap: 24px;
-  }
+.espace-page.formateur-dashboard-page > *:first-child {
+  margin-bottom: 4px;
 }
 
-/* Ligne 1 — Visualisation : taux de complétion (mis en avant) + 3 stats compactes */
+/* --- En-tête --------------------------------------------------------------------------------- */
 
-.formateur-ligne-visualisation {
+.fd-entete {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-@media (min-width: 768px) {
-  .formateur-ligne-visualisation {
-    flex-direction: row;
-    align-items: stretch;
-  }
-
-  .formateur-taux-carte {
-    flex: 1.2 1 0;
-  }
-
-  .formateur-metriques {
-    flex: 2 1 0;
-  }
+.fd-titres {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
 }
+
+.espace-page .fd-titres h1 {
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.fd-sous-titre {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.fd-lien-discret {
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.fd-sous-titre-admin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.fd-pastille-officiel {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-lavande);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+}
+
+.fd-entete-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fd-entete-actions-admin {
+  grid-template-columns: 1fr;
+}
+
+.fd-bouton-entete {
+  min-height: 46px;
+  margin-top: 0;
+  padding: 0 16px;
+  white-space: nowrap;
+}
+
+/* --- Cartes ---------------------------------------------------------------------------------- */
+
+.fd-carte {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-radius: 28px;
+}
+
+.fd-carte-entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.espace-page .fd-carte-entete h2 {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.fd-lien {
+  min-height: 40px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-primary-texte);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fd-relances-suite {
+  display: flex;
+  justify-content: center;
+}
+
+.fd-lien-centre {
+  align-self: center;
+  font-size: 15px;
+}
+
+.fd-note {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.fd-note-14 {
+  font-size: 14px;
+}
+
+.fd-vide {
+  margin: 0;
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+.fd-chevron {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+/* Grille : mobile = une colonne (complétion, relances, groupes) ; desktop = deux colonnes égales,
+   relances à droite sur toute la hauteur de la colonne de gauche */
+.fd-grille {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --- Taux de complétion (inchangé) ------------------------------------------------------------ */
 
 .formateur-taux-carte {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 18px;
+  border-radius: 28px;
 }
 
 /* Anneau de progression : piste lavande, arc violet, pourcentage au centre */
@@ -125,175 +253,86 @@
   color: var(--color-success);
 }
 
-.formateur-metriques {
-  display: flex;
-  gap: 8px;
-}
+/* --- Tes groupes ------------------------------------------------------------------------------ */
 
-@media (min-width: 768px) {
-  .formateur-metriques {
-    gap: 16px;
-  }
-}
-
-/* Cartes chiffres : fond lavande pâle, contour 2 px violet (exception explicite à la règle
-   "pas de bordure sur les cartes"), en-tête icône + libellé, chiffre centré. */
-.formateur-metrique {
-  flex: 1 1 0;
-  min-width: 0;
+.fd-groupes {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  background: var(--color-lavande-pale);
-  border: 2px solid var(--color-primary);
-  border-radius: var(--radius-carte);
-}
-
-.formateur-metrique-large {
-  flex: 1.4 1 0;
-}
-
-.formateur-metrique-entete {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-}
-
-.formateur-metrique-pastille {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  color: var(--color-surface);
-}
-
-.formateur-metrique-pastille-icone {
-  width: 18px;
-  height: 18px;
-}
-
-.formateur-metrique-label {
-  min-width: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--color-ink);
-}
-
-.formateur-metrique-label-court {
-  display: none;
-}
-
-/* Mobile : trois cartes côte à côte, icône au-dessus du libellé (centrés), libellé court */
-@media (max-width: 767px) {
-  .formateur-metrique {
-    padding: 14px 8px;
-  }
-
-  .formateur-metrique-entete {
-    flex-direction: column;
-    gap: 6px;
-    text-align: center;
-  }
-
-  .formateur-metrique-label-long {
-    display: none;
-  }
-
-  .formateur-metrique-label-court {
-    display: inline;
-  }
-}
-
-.formateur-metrique-valeur {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 48px;
-  line-height: 1;
-  color: var(--color-ink);
-}
-
-.formateur-metrique-vide {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-align: center;
-}
-
-.formateur-metrique-vide p {
+  gap: 10px;
   margin: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--color-ink);
-}
-
-.formateur-metrique-vide .bouton-ajouter-rond {
-  align-self: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
   padding: 0;
-  border-radius: 50%;
-  font-size: 1.5rem;
-  line-height: 1;
+  list-style: none;
 }
 
-/* Ligne 2 — Actions : élèves à relancer + actions rapides */
-
-.formateur-ligne-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-@media (min-width: 768px) {
-  .formateur-ligne-actions {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .formateur-relance,
-  .formateur-actions {
-    flex: 1 1 0;
-    min-width: 0;
-    min-height: 156px;
-  }
-}
-
-.formateur-relance {
+.fd-groupe {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
+  padding: 16px 18px;
+  border: none;
+  border-radius: 20px;
+  background: var(--color-fond-formateur);
+  font-family: var(--font-body);
+  text-align: left;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.formateur-relance h2,
-.formateur-actions h2 {
+.fd-groupe-haut {
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-height: 24px;
-  line-height: 1.4;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.05rem;
-  margin: 0;
-  color: var(--color-ink);
+  gap: 10px;
 }
+
+.fd-groupe-titres {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fd-groupe-nom {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.fd-groupe-meta {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.fd-groupe-activite {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+.fd-groupe-progression {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fd-groupe-progression .fm-barre {
+  flex: 1;
+  background: var(--color-surface);
+}
+
+.fd-groupe-progression strong {
+  min-width: 44px;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: right;
+}
+
+/* --- Élèves à relancer -------------------------------------------------------------------------- */
 
 .formateur-relance-liste {
   list-style: none;
@@ -306,14 +345,13 @@
 
 .formateur-relance-ligne {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 14px;
-  background: var(--color-background);
-  border-radius: var(--radius-badge);
-  font-size: 0.9rem;
+  padding: 12px 14px 12px 18px;
+  border-radius: 20px;
+  background: var(--color-fond-formateur);
+  font-size: 15px;
   color: var(--color-ink);
 }
 
@@ -329,37 +367,31 @@
 }
 
 .formateur-relance-date {
-  font-size: 0.78rem;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--color-error);
-  font-weight: 600;
 }
 
 .formateur-relance-confirmation {
-  font-size: 0.78rem;
+  font-size: 13px;
+  font-weight: 700;
   color: var(--color-primary-texte);
-  font-weight: 600;
 }
 
 .formateur-relance-bouton {
-  color: var(--color-primary-texte);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   border: none;
   border-radius: 50%;
   background: none;
+  color: var(--color-primary-texte);
   cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-@media (hover: hover) {
-  .formateur-relance-bouton:hover {
-    background: var(--color-lavande);
-  }
+  transition: all 0.15s ease;
 }
 
 .formateur-relance-bouton-icone {
@@ -367,160 +399,689 @@
   height: 18px;
 }
 
-.formateur-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.formateur-actions-rapides {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.formateur-actions-rapides .bouton-primaire,
-.formateur-actions-rapides .bouton-secondaire {
-  flex: 1 1 160px;
-  margin-top: 0;
-}
-
-/* Ligne 3 — Historique : activité récente en pleine largeur, mosaïque */
-
-.formateur-activite {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.formateur-activite h2 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.05rem;
-  margin: 0;
-  color: var(--color-ink);
-}
-
-.formateur-activite-controles {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.formateur-activite-filtres {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 12px;
-  max-width: 100%;
-  min-width: 0;
-}
-
-.formateur-activite-filtres .champ {
-  flex: 0 1 190px;
-  min-width: 150px;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-@media (min-width: 768px) {
-  .formateur-activite-controles {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-
-  .formateur-activite-recherche {
-    flex: 0 1 220px;
-  }
-
-  .formateur-activite-filtres {
-    margin-left: auto;
-  }
-}
-
-/* Liste à deux colonnes (une sous 768 px), lecture ligne par ligne ; séparateur sous chaque
-   ligne sauf la dernière de chaque colonne. */
-.formateur-activite-liste {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  column-gap: 32px;
-}
-
-@media (min-width: 768px) {
-  .formateur-activite-liste {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.formateur-activite-ligne {
+/* État vide : encadré succès */
+.fd-succes {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--color-separateur);
-  font-size: 14px;
-  color: var(--color-ink);
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: var(--color-success-fond);
 }
 
-.formateur-activite-ligne:last-child {
-  border-bottom: none;
-}
-
-@media (min-width: 768px) {
-  .formateur-activite-ligne:nth-last-child(2) {
-    border-bottom: none;
-  }
-}
-
-.formateur-activite-pastille {
+.fd-succes-rond {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-}
-
-.formateur-activite-pastille-termine {
-  background: var(--color-success-fond);
+  background: var(--color-surface);
   color: var(--color-success);
 }
 
-.formateur-activite-pastille-en_cours {
+.fd-succes-icone {
+  width: 22px;
+  height: 22px;
+}
+
+.fd-succes-icone svg path {
+  stroke-width: 2.6;
+}
+
+.fd-succes-textes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fd-succes-textes strong {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-success);
+}
+
+.fd-succes-textes span {
+  font-size: 14px;
+  color: var(--color-ink);
+}
+
+/* --- Activité récente ---------------------------------------------------------------------------- */
+
+.fd-activite {
+  gap: 16px;
+}
+
+.fd-activite-entete {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.espace-page .fd-activite-entete h2 {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.fd-activite-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fd-filtres {
+  display: flex;
+  gap: 6px;
+  margin: 0 -20px;
+  padding: 0 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.fd-filtres::-webkit-scrollbar {
+  display: none;
+}
+
+.fd-filtre {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-fond-formateur);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fd-filtre-actif {
+  background: var(--color-ink);
+  color: var(--color-surface);
+}
+
+.fd-recherche {
+  position: relative;
+  display: block;
+}
+
+.fd-recherche-icone {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-secondary);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.fd-recherche input {
+  width: 100%;
+  min-height: 40px;
+  padding: 0 16px 0 40px;
+  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) */
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  background: var(--color-fond-formateur);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-ink);
+}
+
+.fd-recherche input:focus {
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.fd-jour {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.espace-page .fd-jour-titre {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.fd-fil {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fd-fil li + li {
+  border-top: 1px solid var(--color-separateur-formateur);
+}
+
+/* Mobile : initiales + texte sur toute la largeur, groupe et statut dessous, pas de chevron */
+.fd-evenement {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  column-gap: 12px;
+  row-gap: 6px;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  font-family: var(--font-body);
+  text-align: left;
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fd-evenement:disabled {
+  cursor: default;
+}
+
+.fd-initiales {
+  grid-row: span 2;
+  align-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: var(--color-lavande);
+  font-size: 14px;
+  font-weight: 800;
   color: var(--color-primary-texte);
 }
 
-.formateur-activite-pastille-icone {
+.fd-evenement-texte {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.fd-evenement-texte strong {
+  font-weight: 800;
+}
+
+.fd-evenement-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.fd-evenement-chevron {
+  display: none;
+}
+
+.fd-pastille-groupe {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--color-fond-formateur);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-texte-attenue);
+  white-space: nowrap;
+}
+
+.fd-statut {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.fd-statut-termine {
+  color: var(--color-success);
+}
+
+.fd-statut-en-cours {
+  color: var(--color-primary-texte);
+}
+
+.fd-statut-icone {
   width: 14px;
   height: 14px;
 }
 
-.formateur-activite-texte {
-  flex: 1;
-  min-width: 0;
-  font-weight: 500;
-  line-height: 1.35;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
+.fd-point {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
 }
 
-.formateur-activite-texte strong {
+/* --- Pour bien démarrer --------------------------------------------------------------------------- */
+
+.fd-demarrage {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px 18px;
+  border-radius: 30px;
+  background: var(--color-surface);
+}
+
+.espace-page .fd-demarrage h2 {
+  font-size: 24px;
   font-weight: 800;
 }
 
-.formateur-activite-date {
+.fd-demarrage-compteur {
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--color-text-secondary);
-  white-space: nowrap;
+}
+
+.fd-etapes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fd-etape {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px 14px;
+  padding: 16px;
+  border-radius: 22px;
+  background: var(--color-fond-formateur);
+}
+
+.fd-etape-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.fd-etape-faite .fd-etape-rond {
+  background: var(--color-success-fond);
+  color: var(--color-success);
+}
+
+.fd-etape-coche {
+  width: 20px;
+  height: 20px;
+}
+
+.fd-etape-coche svg path {
+  stroke-width: 2.8;
+}
+
+.fd-etape-textes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.fd-etape-titre {
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.fd-etape-texte {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.fd-etape-action {
+  grid-column: 2;
+  justify-self: start;
+}
+
+.fd-etape-action {
+  min-height: 44px;
+  margin-top: 0;
+  padding: 0 18px;
+  font-size: 15px;
+}
+
+/* Bouton désactivé (plein ou contour) : lavande, texte atténué */
+.fd-etape-action:disabled,
+.fd-etape-action:disabled:hover {
+  opacity: 1;
+  border-color: var(--color-lavande);
+  background: var(--color-lavande);
+  color: var(--color-texte-attenue);
+  cursor: not-allowed;
+}
+
+/* --- Admin : chiffres et tableau ------------------------------------------------------------------ */
+
+.fd-chiffres {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.fd-chiffre {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 20px 22px;
+  border-radius: 28px;
+  background: var(--color-surface);
+}
+
+.fd-chiffre-libelle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.fd-chiffre-valeur {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.fd-chiffre-precision {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.fd-tableau {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fd-tableau thead {
+  display: none;
+}
+
+.fd-tableau tr {
+  display: block;
+  padding: 12px 0;
+}
+
+.fd-tableau tbody tr + tr {
+  border-top: 1px solid var(--color-separateur-formateur);
+}
+
+.fd-tableau th[scope='row'] {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0;
+  font-weight: inherit;
+  text-align: left;
+}
+
+.fd-tableau td {
+  display: none;
+}
+
+.fd-tableau-titre {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-ink);
+}
+
+.fd-tableau-theme {
+  display: none;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.fd-tableau-resume {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* --- Retours tactiles et survol ------------------------------------------------------------------- */
+
+.fd-groupe:active,
+.fd-filtre:not(.fd-filtre-actif):active {
+  background: var(--color-lavande);
+}
+
+.fd-evenement:active:not(:disabled) {
+  background: var(--color-fond-formateur);
+}
+
+.formateur-relance-bouton:active {
+  background: var(--color-lavande);
+}
+
+.fd-lien:focus-visible,
+.fd-lien-discret:focus-visible,
+.fd-groupe:focus-visible,
+.fd-filtre:focus-visible,
+.fd-evenement:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .fd-lien-discret:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .fd-lien:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .fd-groupe:hover,
+  .fd-filtre:not(.fd-filtre-actif):hover,
+  .formateur-relance-bouton:hover {
+    background: var(--color-lavande);
+  }
+
+  .fd-evenement:hover:not(:disabled) .fd-evenement-texte strong:first-child {
+    color: var(--color-primary-texte);
+  }
+}
+
+/* --- Desktop (≥ 768 px) --------------------------------------------------------------------------- */
+
+@media (min-width: 768px) {
+  .formateur-dashboard-page {
+    gap: 24px;
+  }
+
+  .espace-page .fd-titres h1 {
+    font-size: var(--taille-h1);
+  }
+
+  .fd-entete {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .fd-entete-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .fd-bouton-entete {
+    min-height: 50px;
+    padding: 0 22px;
+  }
+
+  .fd-grille {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* la 2e rangée absorbe la hauteur en trop : complétion et groupes restent empilés à 20 px */
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      'taux relances'
+      'groupes relances';
+    gap: 20px;
+  }
+
+  /* Colonnes de même hauteur : « Élèves à relancer » s'étire sur toute la colonne de gauche ; si
+     elle est plus haute, la 2e rangée (1fr) grandit et « Tes groupes » s'étire pour rattraper.
+     Le contenu reste en haut de chaque carte (flex en colonne, sans justify). */
+  .fd-zone-taux {
+    grid-area: taux;
+    align-self: start;
+  }
+
+  .fd-zone-groupes {
+    grid-area: groupes;
+    align-self: stretch;
+  }
+
+  .fd-zone-relances {
+    grid-area: relances;
+    align-self: stretch;
+  }
+
+  /* « Voir les N autres » : centré verticalement dans l'espace libre entre la dernière ligne et le
+     bas de la carte étirée ; au moins 16 px au-dessus (écart de la carte 14 px + 2 px). */
+  .fd-relances-suite {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+  }
+
+  .fd-activite-entete {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .fd-activite-controles {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .fd-filtres {
+    margin: 0;
+    padding: 0;
+  }
+
+  .fd-recherche {
+    width: 220px;
+    flex-shrink: 0;
+  }
+
+  /* Une ligne : initiales, texte, pastille du groupe, statut, chevron */
+  .fd-evenement {
+    grid-template-columns: 40px minmax(0, 1fr) auto 24px;
+    column-gap: 14px;
+  }
+
+  .fd-initiales {
+    grid-row: auto;
+    align-self: center;
+  }
+
+  .fd-evenement-details {
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  .fd-evenement-details .fd-statut {
+    min-width: 96px;
+  }
+
+  .fd-evenement-chevron {
+    display: block;
+  }
+
+  .fd-demarrage {
+    padding: 28px;
+  }
+
+  .fd-etape {
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    padding: 16px 18px;
+  }
+
+  .fd-etape-action {
+    grid-column: auto;
+    justify-self: end;
+  }
+
+  .fd-chiffres {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .fd-tableau thead {
+    display: table-header-group;
+  }
+
+  .fd-tableau tr {
+    display: table-row;
+    padding: 0;
+  }
+
+  .fd-tableau th,
+  .fd-tableau td {
+    display: table-cell;
+    padding: 14px 12px;
+    vertical-align: middle;
+    text-align: right;
+  }
+
+  .fd-tableau th:first-child,
+  .fd-tableau td:first-child {
+    padding-left: 0;
+    text-align: left;
+  }
+
+  .fd-tableau th:last-child,
+  .fd-tableau td:last-child {
+    padding-right: 0;
+  }
+
+  .fd-tableau thead th {
+    padding-top: 0;
+    padding-bottom: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+  }
+
+  .fd-tableau tbody tr {
+    border-top: 1px solid var(--color-separateur-formateur);
+  }
+
+  .fd-tableau th[scope='row'] {
+    display: table-cell;
+  }
+
+  .fd-tableau-titre,
+  .fd-tableau-theme {
+    display: block;
+  }
+
+  .fd-tableau-resume {
+    display: none;
+  }
+
+  .fd-tableau td {
+    font-size: 15px;
+    font-weight: 700;
+  }
 }
