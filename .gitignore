@@ -2,3 +2,5 @@
 .DS_Store
 node_modules
 dist
+scripts/captures/.env.captures
+scripts/captures/sortie/
