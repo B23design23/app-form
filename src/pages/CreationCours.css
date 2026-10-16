@@ -753,18 +753,6 @@
   font-size: 15px;
   font-weight: 800;
   color: var(--color-primary-texte);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.cc-lettre[aria-pressed='true'] {
-  background: var(--color-success);
-  color: var(--color-surface);
-}
-
-.cc-lettre .cc-coche {
-  width: 18px;
-  height: 18px;
 }
 
 .cc-reponse-texte,
@@ -795,12 +783,73 @@
   outline: none;
 }
 
-.cc-bonne-reponse {
-  display: none;
+/* Contrôle « Bonne réponse » : vrai input (radio / case) masqué sous un repère dessiné */
+.cc-bonne-controle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   flex-shrink: 0;
-  font-size: 13px;
+  min-height: 40px;
+  padding: 0 8px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.cc-bonne-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.cc-bonne-repere {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-contour-etape);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-surface);
+  transition: all 0.15s ease;
+}
+
+.cc-bonne-radio .cc-bonne-repere {
+  border-radius: 50%;
+}
+
+.cc-bonne-repere .cc-coche {
+  width: 14px;
+  height: 14px;
+}
+
+.cc-bonne-libelle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.cc-bonne-cochee .cc-bonne-repere {
+  border-color: var(--color-success);
+  background: var(--color-success);
+}
+
+.cc-bonne-cochee .cc-bonne-libelle {
   font-weight: 800;
   color: var(--color-success);
+}
+
+/* Focus clavier : contour violet autour du contrôle (l'input masqué le recouvre) */
+.cc-bonne-input:focus-visible + .cc-bonne-repere {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .cc-ajouter-reponse {
@@ -1080,8 +1129,8 @@
   color: var(--color-error);
 }
 
-.cc-lettre:active {
-  transform: scale(0.95);
+.cc-bonne-controle:active .cc-bonne-repere {
+  transform: scale(0.92);
 }
 
 .cc-page button:focus-visible {
@@ -1103,9 +1152,8 @@
     background: var(--color-lavande);
   }
 
-  .cc-lettre[aria-pressed='false']:hover {
-    background: var(--color-primary);
-    color: var(--color-surface);
+  .cc-bonne-controle:not(.cc-bonne-cochee):hover .cc-bonne-repere {
+    border-color: var(--color-primary);
   }
 
   .cc-bouton-croix:hover:not(:disabled) {
@@ -1149,7 +1197,6 @@
   }
 
   .cc-question-meta,
-  .cc-bonne-reponse,
   .cc-mode-detail {
     display: inline;
   }
@@ -1267,6 +1314,26 @@
 
   .cc-reponse-explication {
     margin-left: 48px;
+  }
+
+  /* Pas la place sur une ligne : le contrôle « Bonne réponse » passe sous le champ, aligné à
+     gauche sur lui ; la croix reste à droite du champ */
+  .cc-reponse-ligne {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) auto;
+    row-gap: 2px;
+  }
+
+  .cc-bonne-controle {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    padding-left: 0;
+  }
+
+  .cc-bouton-croix {
+    grid-column: 3;
+    grid-row: 1;
   }
 }
 

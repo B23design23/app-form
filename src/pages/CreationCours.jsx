@@ -637,7 +637,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
         return { cible: question.localId, message: 'Une réponse de cette question est vide.' }
       }
       if (!question.reponses.some((r) => r.estCorrecte)) {
-        return { cible: question.localId, message: 'Clique sur la lettre d’au moins une bonne réponse.' }
+        return { cible: question.localId, message: 'Coche au moins une bonne réponse.' }
       }
     }
 
@@ -1179,26 +1179,15 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                       })}
                     </div>
 
-                    <p className="cc-aide">
-                      <span className="cc-libelle-long">Clique</span>
-                      <span className="cc-libelle-court">Touche</span> la lettre de la bonne réponse
-                    </p>
-
                     <div className="cc-reponses">
                       {question.reponses.map((reponse, ri) => {
                         const lettre = String.fromCharCode(65 + ri)
                         return (
                           <div key={reponse.localId} className={`cc-reponse${reponse.estCorrecte ? ' cc-reponse-correcte' : ''}`}>
                             <div className="cc-reponse-ligne">
-                              <button
-                                type="button"
-                                className="cc-lettre"
-                                aria-pressed={reponse.estCorrecte}
-                                aria-label={`Réponse ${lettre} : bonne réponse`}
-                                onClick={() => basculerBonneReponse(question, reponse.localId)}
-                              >
-                                {reponse.estCorrecte ? <Coche /> : lettre}
-                              </button>
+                              <span className="cc-lettre" aria-hidden="true">
+                                {lettre}
+                              </span>
                               <input
                                 type="text"
                                 className="cc-reponse-texte"
@@ -1207,7 +1196,27 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                                 value={reponse.texte}
                                 onChange={(e) => majReponse(question, reponse.localId, 'texte', e.target.value)}
                               />
-                              {reponse.estCorrecte && <span className="cc-bonne-reponse">Bonne réponse</span>}
+                              {/* Vrai input (radio en réponse unique, case en plusieurs réponses), masqué
+                                  visuellement sous un repère dessiné ; les flèches du clavier passent d'un
+                                  radio à l'autre de la question */}
+                              <label
+                                className={`cc-bonne-controle${question.typeReponse === 'simple' ? ' cc-bonne-radio' : ''}${
+                                  reponse.estCorrecte ? ' cc-bonne-cochee' : ''
+                                }`}
+                              >
+                                <input
+                                  type={question.typeReponse === 'simple' ? 'radio' : 'checkbox'}
+                                  name={`bonne-reponse-${question.localId}`}
+                                  className="cc-bonne-input"
+                                  checked={reponse.estCorrecte}
+                                  aria-label={`Réponse ${lettre} : bonne réponse`}
+                                  onChange={() => basculerBonneReponse(question, reponse.localId)}
+                                />
+                                <span className="cc-bonne-repere" aria-hidden="true">
+                                  {reponse.estCorrecte && <Coche />}
+                                </span>
+                                <span className="cc-bonne-libelle">Bonne réponse</span>
+                              </label>
                               <button
                                 type="button"
                                 className="cc-bouton-croix"
