@@ -1082,14 +1082,6 @@
   color: var(--texte-secondaire);
 }
 
-.cc-point-orange {
-  flex-shrink: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--fond-recompense);
-}
-
 .cc-barre-actions {
   display: flex;
   align-items: center;

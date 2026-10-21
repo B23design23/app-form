@@ -1451,10 +1451,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
               {erreur?.cible === 'global' ? (
                 <span className="message-erreur">{erreur.message}</span>
               ) : modifie ? (
-                <>
-                  <span className="cc-point-orange" aria-hidden="true" />
-                  Modifications non enregistrées
-                </>
+                'Modifications non enregistrées'
               ) : (
                 <span className="cc-barre-aucune">Aucune modification</span>
               )}
