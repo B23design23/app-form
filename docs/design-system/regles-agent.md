@@ -33,7 +33,7 @@ Une demande d'exception nomme l'écran, la règle concernée, ce que le système
 - Décisions qui expliquent les tokens : `docs/tokens/couleurs.md`, `docs/tokens/espacements.md`.
 - Principes et composants : `docs/design-system/ds-principes-composants.md`.
 - Gouvernance, registre et versions : `docs/design-system/gouvernance-skillo.md`, `docs/design-system/notes-de-version.md`.
-- Règles transverses de rendu : section « Direction artistique » de `CLAUDE.md`.
+- Règles transverses de rendu (section 5) : `docs/design-system/ds-principes-composants.md` (séparateur, typographie, ponctuation, survol et tactile, navigation, liste déroulante, logo, objet 3D du thème, chevrons, toast de complétion) ; règle des deux ombres et bouton orange unique : registre de `docs/design-system/gouvernance-skillo.md` ; focus : `docs/tokens/couleurs.md` (décision 4).
 
 ## 2. Principes
 
@@ -429,7 +429,7 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 **Exemple non conforme : séparateur dans une liste en colonnes**
 - Situation : une liste de lignes affichée sur deux colonnes en desktop.
 - Erreur : un trait sous chaque ligne, y compris sous la dernière ligne de chaque colonne.
-- Pourquoi : « … jamais avant le premier ni après le dernier. »
+- Pourquoi : « Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. »
 - Conforme : le trait est retiré sous la dernière rangée, comme dans la liste du Mode terrain.
 
 ## 7. Conduite de l'agent
