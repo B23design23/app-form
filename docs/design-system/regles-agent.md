@@ -276,6 +276,7 @@ Source : `ds-principes-composants.md`.
 - **Variantes** : une seule, le trait `bordure-separateur` (valeur selon le mode). Épaisseur : À trancher (non documentée).
 - **Tokens par état** : repos `bordure-separateur`. Survol, actif, focus clavier, désactivé : sans objet, le séparateur n'est pas interactif.
 - **Ligne d'en-tête d'un tableau** : la règle de la 2.1.0 la règle explicitement (« Un en-tête de colonnes […] n'est pas un élément répété : il se sépare par l'espacement »). Aujourd'hui, le code ne pose pas de trait sous l'en-tête (Détail groupe, tableau du dashboard admin, tableaux des leçons, corrigés en 2.1.0).
+- **Liste en plusieurs colonnes** : Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur.
 - **DO** : dans le tableau des élèves du Détail groupe, un trait entre deux lignes d'élèves, et l'espacement sous l'en-tête.
 - **DON'T** : un trait avant le premier élément ou après le dernier, sous un en-tête, autour d'un titre ou entre deux sections. Dans Activité récente, pas de trait sous l'intertitre d'un jour (« Aujourd'hui », « Hier »). Principe 4.
 
@@ -283,7 +284,7 @@ Source : `ds-principes-composants.md`.
 
 ### Séparateurs (2.1.0)
 
-Le trait `bordure-separateur` se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement.
+Le trait `bordure-separateur` se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur.
 
 ### Ombres
 
@@ -466,4 +467,3 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 5. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
-6. **Séparateur dans une liste en plusieurs colonnes.** La règle (« jamais avant le premier ni après le dernier ») ne dit pas si « le dernier » s'entend par colonne. L'exemple « séparateur dans une liste en colonnes » (section 6) s'appuie sur ce que fait le Mode terrain et sur `CLAUDE.md`, pas sur une règle écrite dans `docs/`.

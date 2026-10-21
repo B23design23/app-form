@@ -18,6 +18,7 @@ Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui 
 - `bordure-controle` devient commun aux deux modes : retiré des fichiers de mode, déclaré dans `semantiques-communs`. Côté écran : rien à faire.
 - Règle des pastilles de statut (applique la décision 1.1.0, règle dans `ds-principes-composants.md`) : un cours pas encore ouvert s'affiche en pilule (Non commencé et À faire en `texte-secondaire` sur `fond-neutre`, Nouveau en `texte-accent` sur `fond-accent`) ; un cours déjà ouvert s'affiche sans pilule, en texte avec une icône (En cours en `texte-accent` avec l'icône de progression, Terminé en `texte-succes` avec la coche). Aucune pastille n'utilise `fond-action`, `fond-marque` ni `fond-recompense`. Côté écran : rien à faire, `StatutBadge` porte la règle ; un statut de cours s'affiche toujours avec `StatutBadge` (fait pour l'Activité récente du dashboard formateur, le score « Quiz N % » restant à côté, hors du composant).
 - Règles remontées dans la documentation (`ds-principes-composants.md`) depuis `regles-agent.md`, sans changement : typographie, ponctuation, survol et tactile, toast de complétion, texte de l'onglet inactif de la navigation, texte de l'option sélectionnée d'une liste déroulante, tokens de texte des deux variantes du logo. Sans changement de rendu. Côté écran : rien à faire.
+- Règle des séparateurs précisée (évolution mineure) : Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. Sans changement de rendu. Côté écran : rien à faire.
 
 **Corrigé**
 
