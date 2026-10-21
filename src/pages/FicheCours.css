@@ -1127,13 +1127,13 @@
 }
 
 .fiche-etape-pastille-a-venir {
-  border: 2px solid var(--bordure-controle);
+  border: 2px solid var(--bordure-etape);
   background: var(--fond-surface);
   color: var(--texte-secondaire);
 }
 
 .fiche-etape-pastille-passee {
-  border: 2px solid var(--bordure-controle);
+  border: 2px solid var(--bordure-etape);
   background: var(--fond-surface);
   color: var(--texte-secondaire);
 }

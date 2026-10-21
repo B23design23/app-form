@@ -227,6 +227,11 @@
       "$value": "{couleur.violet-600}",
       "$description": "Contour de focus clavier, champ actif. Réglé à part de bordure-action : il doit garder 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, ne jamais le lier à action."
     },
+    "controle": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-450}",
+      "$description": "Contour d'un contrôle interactif sans texte (case, rond de choix, bascule). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur."
+    },
     "erreur": {
       "$type": "color",
       "$value": "{couleur.rouge-600}",

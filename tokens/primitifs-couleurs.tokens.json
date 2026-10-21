@@ -99,6 +99,20 @@
       },
       "$description": "Clarté L* 83,7."
     },
+    "ardoise-450": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.5176,
+          0.4902,
+          0.5922
+        ],
+        "alpha": 1,
+        "hex": "#847d97"
+      },
+      "$description": "Clarté L* 53,8."
+    },
     "ardoise-625": {
       "$type": "color",
       "$value": {

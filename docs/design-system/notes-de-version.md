@@ -1,5 +1,32 @@
 # Notes de version du design system
 
+## 1.3.0 (brouillon, non publiée)
+
+Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui n'ont pas d'exigence de contraste.
+
+**Ajouté**
+
+- Primitif `ardoise-450` (#847d97, L* 53,8). Côté écran : rien à faire.
+- `bordure-etape` (`sable-150` en apprenant, `ardoise-175` en formateur) : contour d'une pastille d'étape à venir ou passée, non interactive. Côté écran : une pastille d'étape utilise `bordure-etape`, jamais `bordure-controle` (déjà fait pour le repère d'étapes et la checklist).
+- `bordure-action-desactive` (mêmes valeurs) : contour d'une action désactivée, avec `texte-action-desactive`. Côté écran : déjà fait pour `.bouton-ajouter:disabled`.
+- Rôle `etape` dans la liste fermée des rôles de `docs/tokens/couleurs.md`, pour `bordure-etape`. Côté écran : rien à faire.
+
+**Modifié**
+
+- `bordure-controle` devient commun aux deux modes : retiré des fichiers de mode, déclaré dans `semantiques-communs`. Côté écran : rien à faire.
+
+**Corrigé**
+
+- `bordure-controle` pointe vers `ardoise-450` : au moins 3:1 contre chaque fond voisin d'un contrôle (3,92 sur blanc, 3,40 sur `fond-page` apprenant, 3,57 formateur, 3,02 sur le survol lavande). Applique la décision 1.0.1. Côté écran : rien à faire, les contrôles interactifs lisent déjà `bordure-controle`.
+
+**Déprécié**
+
+Aucune entrée.
+
+**Retiré**
+
+Aucune entrée.
+
 ## 1.2.0 (21 octobre 2026)
 
 Évolution mineure : trois tokens ajoutés, aucun renommé ni retiré.
@@ -34,6 +61,8 @@ Les couleurs de l'app sont lues depuis `src/styles/tokens.generes.css`, génér�
 
 Évolution mineure de la règle des pastilles de statut (registre de `gouvernance-skillo.md`).
 
+Statut : décidée le 20 octobre 2026, pas appliquée. Le code (`StatutBadge`), CLAUDE.md et la règle des pastilles de `ds-principes-composants.md` gardent l'ancien rendu ; la nouvelle règle reste à écrire.
+
 **Ajouté**
 
 Aucune entrée.
@@ -56,6 +85,8 @@ Aucune entrée.
 Aucune entrée.
 
 ## 1.0.1 (20 octobre 2026)
+
+Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 1.3.0.
 
 **Ajouté**
 

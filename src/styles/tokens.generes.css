@@ -10,6 +10,7 @@
   --couleur-ardoise-50: #f4f4f6; /** Clarté L* 96,2. */
   --couleur-ardoise-75: #ececf0; /** Clarté L* 93,5. */
   --couleur-ardoise-175: #d3cee3; /** Clarté L* 83,7. */
+  --couleur-ardoise-450: #847d97; /** Clarté L* 53,8. */
   --couleur-ardoise-625: #5c566e; /** Clarté L* 37,9. */
   --couleur-ardoise-750: #3b3550; /** Clarté L* 23,9. */
   --couleur-ardoise-900: #1e1a33; /** Clarté L* 10,9. */
@@ -74,10 +75,12 @@
   --texte-recompense: var(--couleur-orange-250); /** Titre et lien de correction sur le bloc encre du quiz. */
   --bordure-action: var(--couleur-violet-600); /** Contour du bouton secondaire, réponse ou choix sélectionné. */
   --bordure-focus: var(--couleur-violet-600); /** Contour de focus clavier, champ actif. Réglé à part de bordure-action : il doit garder 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, ne jamais le lier à action. */
+  --bordure-controle: var(--couleur-ardoise-450); /** Contour d'un contrôle interactif sans texte (case, rond de choix, bascule). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur. */
   --bordure-erreur: var(--couleur-rouge-600); /** Réponse fausse, champ en erreur. */
   --bordure-succes: var(--couleur-vert-625); /** Bonne réponse. */
-  --bordure-controle: var(--couleur-sable-150); /** Ronds, cases et étapes vides. */
   --bordure-separateur: var(--couleur-sable-75); /** Lignes entre les éléments d'une liste. Uniquement entre les éléments d'une liste, jamais entre des sections. */
+  --bordure-etape: var(--couleur-sable-150); /** Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. */
+  --bordure-action-desactive: var(--couleur-sable-150); /** Contour d'une action désactivée. Va avec texte-action-desactive. */
 }
 
 .espace-layout-formateur,
@@ -87,8 +90,9 @@
   --fond-sur-carte: var(--couleur-ardoise-50); /** Champ, réponse, étape ou bloc posé sur une carte blanche. */
   --fond-neutre: var(--couleur-ardoise-75); /** Pastille « Non commencé », piste des barres fines. */
   --fond-controle: var(--couleur-ardoise-175); /** Point d'un contrôle, poignée de la feuille mobile. */
-  --bordure-controle: var(--couleur-ardoise-175); /** Ronds, cases et étapes vides. */
   --bordure-separateur: var(--couleur-ardoise-75); /** Lignes entre les éléments d'une liste. Uniquement entre les éléments d'une liste, jamais entre des sections. */
+  --bordure-etape: var(--couleur-ardoise-175); /** Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. */
+  --bordure-action-desactive: var(--couleur-ardoise-175); /** Contour d'une action désactivée. Va avec texte-action-desactive. */
 }
 
 .mode-apprenant {
@@ -96,6 +100,7 @@
   --fond-sur-carte: var(--couleur-sable-50); /** Champ, réponse, étape ou bloc posé sur une carte blanche. */
   --fond-neutre: var(--couleur-sable-75); /** Pastille « Non commencé », piste des barres fines. */
   --fond-controle: var(--couleur-sable-150); /** Point d'un contrôle, poignée de la feuille mobile. */
-  --bordure-controle: var(--couleur-sable-150); /** Ronds, cases et étapes vides. */
   --bordure-separateur: var(--couleur-sable-75); /** Lignes entre les éléments d'une liste. Uniquement entre les éléments d'une liste, jamais entre des sections. */
+  --bordure-etape: var(--couleur-sable-150); /** Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. */
+  --bordure-action-desactive: var(--couleur-sable-150); /** Contour d'une action désactivée. Va avec texte-action-desactive. */
 }

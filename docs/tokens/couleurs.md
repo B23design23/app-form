@@ -15,7 +15,7 @@ Statut : décidé le 20 octobre 2026, non migré
 | Élément | Valeurs permises |
 |---|---|
 | Propriété | `fond`, `texte`, `bordure` |
-| Rôle | `page`, `surface`, `sur-carte`, `neutre`, `accent`, `sur-accent`, `marque`, `sur-marque`, `inverse`, `sur-inverse`, `principal`, `secondaire`, `action`, `sur-action`, `focus`, `controle`, `separateur`, `voile`, `recompense`, `erreur`, `sur-erreur`, `succes`, `sur-succes` |
+| Rôle | `page`, `surface`, `sur-carte`, `neutre`, `accent`, `sur-accent`, `marque`, `sur-marque`, `inverse`, `sur-inverse`, `principal`, `secondaire`, `action`, `sur-action`, `focus`, `controle`, `etape`, `separateur`, `voile`, `recompense`, `erreur`, `sur-erreur`, `succes`, `sur-succes` |
 | Variante | `survol`, `desactive`, `accentue` (plus intense que la base du même rôle), `attenue` (moins contrasté) |
 
 Règles pour un agent :
@@ -23,7 +23,7 @@ Règles pour un agent :
 - **Une combinaison absente du tableau n'existe pas.** Il faut la demander, pas la deviner.
 - **Tracés SVG** : une piste, un arc ou une barre de progression prend un `fond-*`. Un trait de contour prend un `bordure-*`. Les icônes héritent du `texte-*` de leur parent via `currentColor`.
 
-## Primitifs (21)
+## Primitifs (22)
 
 | Primitif | Hex | L\* |
 |---|---|---:|
@@ -34,6 +34,7 @@ Règles pour un agent :
 | `ardoise-50` | #f4f4f6 | 96,2 |
 | `ardoise-75` | #ececf0 | 93,5 |
 | `ardoise-175` | #d3cee3 | 83,7 |
+| `ardoise-450` | #847d97 | 53,8 |
 | `ardoise-625` | #5c566e | 37,9 |
 | `ardoise-750` | #3b3550 | 23,9 |
 | `ardoise-900` | #1e1a33 | 10,9 |
@@ -49,7 +50,7 @@ Règles pour un agent :
 | `vert-50` | #dff3e7 | 94,1 |
 | `vert-625` | #17663f | 37,9 |
 
-## Sémantiques (43)
+## Sémantiques (45)
 
 « = » signifie que la valeur est la même dans les deux modes.
 
@@ -99,7 +100,9 @@ Règles pour un agent :
 | **Bordures** | | | | |
 | `bordure-action` | `violet-600` | = | contour du bouton secondaire, réponse ou choix sélectionné | `primary` (en `border`) |
 | `bordure-focus` | `violet-600` | = | contour de focus clavier, champ actif | `primary` (en `outline`) |
-| `bordure-controle` | `sable-150` | `ardoise-175` | ronds, cases et étapes vides | `contour-etape` (en `border`) |
+| `bordure-controle` | `ardoise-450` | = | contour d'un contrôle interactif sans texte (case, rond de choix, bascule), au moins 3:1 contre chaque fond voisin, survol compris (DS 1.3.0) | `contour-etape` (en `border`) |
+| `bordure-etape` | `sable-150` | `ardoise-175` | contour d'une pastille d'étape à venir ou passée, non interactive (DS 1.3.0) | `contour-etape` (pastilles d'étapes) |
+| `bordure-action-desactive` | `sable-150` | `ardoise-175` | contour d'une action désactivée, avec `texte-action-desactive` (DS 1.3.0) | `text-secondary` (`.bouton-ajouter:disabled`) |
 | `bordure-separateur` | `sable-75` | `ardoise-75` | lignes entre les éléments d'une liste | `separateur`, `separateur-formateur` |
 | `bordure-erreur` | `rouge-600` | = | réponse fausse, champ en erreur | `error` (en `border`) |
 | `bordure-succes` | `vert-625` | = | bonne réponse | `success` (en `border`) |
@@ -124,6 +127,8 @@ Les confettis lisent `fond-marque`, `fond-recompense`, `fond-inverse`, `fond-sur
 **2. Fusion de 0,6 dans `fond-voile-accentue` (85 %) : assumé.** La miniature « +N » du Détail cours formateur deviendra plus sombre. Son rôle est de rendre « +N » lisible, en blanc, au-dessus d'une image quelconque : 85 % garantit ce contraste, alors que 60 % dépend de l'image. L'image derrière est décorative.
 
 **3. `bordure-controle` en formateur : `ardoise-175`.** J'applique la règle d'insertion. Un `ardoise-150` aurait la clarté de `sable-150` (L\* 84,4), soit 0,7 point d'`ardoise-175` (83,7) : trop proche, on garde l'existant. `fond-controle` suit le même mode.
+
+*Mise à jour DS 1.3.0 :* `bordure-controle` devient commun et pointe vers `ardoise-450` (3,02:1 au plus bas, contre `fond-accent`). Les valeurs `sable-150` / `ardoise-175` passent à `bordure-etape` et `bordure-action-desactive`, qui n'ont pas d'exigence de contraste.
 
 Fait à noter, sans le corriger ici : `sable-150` sur blanc donne un contraste d'environ 1,5:1. C'est sous le minimum de 3:1 exigé pour le contour d'un contrôle (WCAG 1.4.11), et `ardoise-175` fait pareil.
 

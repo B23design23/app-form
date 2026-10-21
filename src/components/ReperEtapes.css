@@ -99,7 +99,7 @@ button.reper-bouton {
 
 /* Étape à venir : pastille blanche, contour 2 px */
 .reper-etape-a-venir .reper-pastille {
-  border: 2px solid var(--bordure-controle);
+  border: 2px solid var(--bordure-etape);
   background: var(--fond-surface);
   color: var(--texte-secondaire);
 }

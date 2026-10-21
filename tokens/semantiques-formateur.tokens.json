@@ -24,15 +24,20 @@
   },
   "bordure": {
     "$description": "Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer de propriété : jamais en background ni en color.",
-    "controle": {
-      "$type": "color",
-      "$value": "{couleur.ardoise-175}",
-      "$description": "Ronds, cases et étapes vides."
-    },
     "separateur": {
       "$type": "color",
       "$value": "{couleur.ardoise-75}",
       "$description": "Lignes entre les éléments d'une liste. Uniquement entre les éléments d'une liste, jamais entre des sections."
+    },
+    "etape": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-175}",
+      "$description": "Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé."
+    },
+    "action-desactive": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-175}",
+      "$description": "Contour d'une action désactivée. Va avec texte-action-desactive."
     }
   }
 }

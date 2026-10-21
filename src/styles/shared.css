@@ -394,7 +394,7 @@
 .bouton-ajouter:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  border-color: var(--bordure-controle);
+  border-color: var(--bordure-action-desactive);
   color: var(--texte-secondaire);
 }
 
