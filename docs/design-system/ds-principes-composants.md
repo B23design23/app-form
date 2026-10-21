@@ -4,6 +4,8 @@ Projet personnel, sans validation utilisateur. Session 2 de la formation Design 
 
 ## Principes
 
+La direction artistique est chaleureuse et motivante : fonds crème (`fond-page` en mode apprenant), violet franc (`fond-marque`, `fond-action`), orange réservé à la récompense (`fond-recompense`).
+
 1. Chaque bloc débouche sur une action.
 On aurait pu garder les cartes de chiffres et le carrousel de badges sur le dashboard apprenant. On a choisi des blocs qui proposent tous quelque chose à faire, reprendre un cours, lancer un quiz flash, viser le prochain badge.
 
@@ -68,6 +70,7 @@ Repos, focus (contour violet 2 px à l'intérieur), erreur (message rouge sous l
 
 DO
 Aligner le champ, son libellé et son aide sur le même bord gauche.
+Aucune marge négative : le champ fait la largeur de sa colonne.
 
 DON'T
 Ajouter une bordure pour séparer le champ de la carte. On change son fond.
@@ -105,6 +108,7 @@ Une barre seule, sans chiffre. Tentant car épurée. La longueur seule se lit ma
 
 Voisin, l'anneau de progression
 L'anneau met en avant une seule valeur, avec le chiffre au centre : un cours en cours, un score de quiz, le taux de complétion d'un formateur. La barre accompagne une ligne parmi d'autres. L'anneau est réservé à la progression, il ne sert jamais de pastille de numéro.
+Rendu : extrémité arrondie, départ en haut, pourcentage au centre ; sans données, piste seule et « — ».
 
 ## En-tête de page
 
@@ -187,13 +191,27 @@ Fond `fond-inverse`, texte `texte-sur-inverse`, pastille XP en `fond-recompense`
 
 ## Navigation
 
+- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `--radius-carte` (*Provisoire, pas encore tokenisé*), marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
+- Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
+- Onglet actif : fond `fond-accent`, texte et icône `texte-principal`.
 - Onglets inactifs : `texte-sur-inverse`.
 
 ## Liste déroulante
 
 - Option sélectionnée : fond `fond-accent`, texte et coche `texte-accent`.
+- Survol d'une option : `fond-sur-carte` (le mode donne la valeur), jamais sur l'option sélectionnée.
 
 ## Logo
 
+- Composant `src/components/Logo.jsx` : SVG inline, « skill » vectorisé en Urbanist ExtraBold et « o » en anneau de progression (cercle de fond et arc de trois quarts partant du haut, extrémité arrondie, épaisseur égale au fût des lettres, diamètre égal à la hauteur des minuscules).
 - `variante="clair"` : texte `texte-principal`, fond de l'anneau `fond-accent`, arc `fond-marque`.
 - `variante="fonce"` : texte `texte-sur-marque`, fond de l'anneau `fond-marque-accentue`, arc `fond-surface`.
+
+## Objet 3D du thème
+
+- L'objet 3D du thème remplace la pastille numéro (cartes de la page Cours, en-tête du détail d'un thème). Le numéro s'affiche en texte (« Thème N »).
+
+## Chevrons
+
+- Couleur `texte-secondaire` (via `currentColor`).
+- Un chevron à droite sur les cartes de thème, les lignes du détail d'un thème, les résultats de recherche, les lignes du Mode terrain, de « De ton formateur » (page Cours), de « Mes cours » et de « Mes groupes ». Toute la carte reste cliquable.

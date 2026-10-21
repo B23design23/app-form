@@ -82,3 +82,7 @@ Deux familles se dessinent :
 **Inconvénient : le nom invite à deviner.** `espace-14` a l'air parfaitement légitime alors qu'il n'existe pas. Un agent l'écrira sans hésiter. La parade est la même que pour les couleurs : une liste fermée écrite noir sur blanc (« les seuls paliers sont 2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40 ») et, au moment de la migration, une règle de lint qui refuse tout `--espace-*` hors liste.
 
 Le reproche habituel (« si la valeur change, le nom ment ») ne s'applique pas ici. On ne change jamais la valeur d'un primitif : on fait pointer un sémantique vers un autre palier.
+
+## 5. Dans le code
+
+Tout nouveau code utilise les variables d'espacement générées (`var(--espace-N)`), jamais une valeur en px pour un espacement. Le code existant sera migré plus tard.
