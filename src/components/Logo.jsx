@@ -9,8 +9,8 @@ const RAYON_ANNEAU = 362
 const CIRCONFERENCE = 2 * Math.PI * RAYON_ANNEAU
 
 const VARIANTES = {
-  clair: { texte: 'var(--color-ink)', fond: 'var(--color-lavande)', arc: 'var(--color-primary)' },
-  fonce: { texte: '#ffffff', fond: 'var(--color-primary-profond)', arc: '#ffffff' },
+  clair: { texte: 'var(--texte-principal)', fond: 'var(--fond-accent)', arc: 'var(--fond-marque)' },
+  fonce: { texte: 'var(--texte-sur-marque)', fond: 'var(--fond-marque-accentue)', arc: 'var(--fond-surface)' },
 }
 
 function Logo({ variante = 'clair', className }) {

@@ -35,7 +35,7 @@
   margin: 0;
   font-size: 15px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-lien-discret {
@@ -59,10 +59,10 @@
   align-items: center;
   padding: 5px 12px;
   border-radius: var(--radius-pill);
-  background: var(--color-lavande);
+  background: var(--fond-accent);
   font-size: 13px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .fd-entete-actions {
@@ -112,7 +112,7 @@
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   text-decoration: none;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -132,7 +132,7 @@
   margin: 0;
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-note-14 {
@@ -142,14 +142,14 @@
 .fd-vide {
   margin: 0;
   font-size: 15px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-chevron {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 /* Grille : mobile = une colonne (complétion, relances, groupes) ; desktop = deux colonnes égales,
@@ -207,7 +207,7 @@
   font-weight: 800;
   font-size: 1.75rem;
   line-height: 1;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 @media (max-width: 399px) {
@@ -218,12 +218,12 @@
 
 .formateur-taux-label {
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .formateur-taux-souscription {
   font-size: 0.75rem;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .formateur-taux-pastille {
@@ -244,13 +244,13 @@
 }
 
 .formateur-taux-pastille-alerte {
-  background: var(--color-error-fond);
-  color: var(--color-error);
+  background: var(--fond-erreur);
+  color: var(--texte-erreur);
 }
 
 .formateur-taux-pastille-succes {
-  background: var(--color-success-fond);
-  color: var(--color-success);
+  background: var(--fond-succes);
+  color: var(--texte-succes);
 }
 
 /* --- Tes groupes ------------------------------------------------------------------------------ */
@@ -272,10 +272,10 @@
   padding: 16px 18px;
   border: none;
   border-radius: 20px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   font-family: var(--font-body);
   text-align: left;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -303,14 +303,14 @@
 .fd-groupe-meta {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-groupe-activite {
   flex-shrink: 0;
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   text-align: right;
 }
 
@@ -322,7 +322,7 @@
 
 .fd-groupe-progression .fm-barre {
   flex: 1;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .fd-groupe-progression strong {
@@ -350,9 +350,9 @@
   gap: 12px;
   padding: 12px 14px 12px 18px;
   border-radius: 20px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   font-size: 15px;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .formateur-relance-info {
@@ -369,13 +369,13 @@
 .formateur-relance-date {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-error);
+  color: var(--texte-erreur);
 }
 
 .formateur-relance-confirmation {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .formateur-relance-bouton {
@@ -389,7 +389,7 @@
   border: none;
   border-radius: 50%;
   background: none;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -406,7 +406,7 @@
   gap: 14px;
   padding: 16px 18px;
   border-radius: 20px;
-  background: var(--color-success-fond);
+  background: var(--fond-succes);
 }
 
 .fd-succes-rond {
@@ -417,8 +417,8 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-success);
+  background: var(--fond-surface);
+  color: var(--texte-succes);
 }
 
 .fd-succes-icone {
@@ -439,12 +439,12 @@
 .fd-succes-textes strong {
   font-size: 16px;
   font-weight: 800;
-  color: var(--color-success);
+  color: var(--texte-succes);
 }
 
 .fd-succes-textes span {
   font-size: 14px;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 /* --- Activité récente ---------------------------------------------------------------------------- */
@@ -490,18 +490,18 @@
   padding: 0 16px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .fd-filtre-actif {
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .fd-recherche {
@@ -515,7 +515,7 @@
   left: 14px;
   width: 18px;
   height: 18px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   transform: translateY(-50%);
   pointer-events: none;
 }
@@ -527,14 +527,14 @@
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) */
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   font-family: var(--font-body);
   font-size: 14px;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .fd-recherche input:focus {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
   outline: none;
 }
 
@@ -548,7 +548,7 @@
   margin: 0;
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-fil {
@@ -558,7 +558,7 @@
 }
 
 .fd-fil li + li {
-  border-top: 1px solid var(--color-separateur-formateur);
+  border-top: 1px solid var(--bordure-separateur);
 }
 
 /* Mobile : initiales + texte sur toute la largeur, groupe et statut dessous, pas de chevron */
@@ -574,7 +574,7 @@
   background: none;
   font-family: var(--font-body);
   text-align: left;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -592,10 +592,10 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--color-lavande);
+  background: var(--fond-accent);
   font-size: 14px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .fd-evenement-texte {
@@ -622,10 +622,10 @@
 .fd-pastille-groupe {
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   font-size: 12px;
   font-weight: 700;
-  color: var(--color-texte-attenue);
+  color: var(--texte-secondaire);
   white-space: nowrap;
 }
 
@@ -639,11 +639,11 @@
 }
 
 .fd-statut-termine {
-  color: var(--color-success);
+  color: var(--texte-succes);
 }
 
 .fd-statut-en-cours {
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .fd-statut-icone {
@@ -655,7 +655,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: var(--fond-marque);
 }
 
 /* --- Pour bien démarrer --------------------------------------------------------------------------- */
@@ -666,7 +666,7 @@
   gap: 16px;
   padding: 22px 18px;
   border-radius: 30px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .espace-page .fd-demarrage h2 {
@@ -678,7 +678,7 @@
   flex-shrink: 0;
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-etapes {
@@ -697,7 +697,7 @@
   gap: 12px 14px;
   padding: 16px;
   border-radius: 22px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
 }
 
 .fd-etape-rond {
@@ -707,15 +707,15 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-size: 16px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .fd-etape-faite .fd-etape-rond {
-  background: var(--color-success-fond);
-  color: var(--color-success);
+  background: var(--fond-succes);
+  color: var(--texte-succes);
 }
 
 .fd-etape-coche {
@@ -741,7 +741,7 @@
 
 .fd-etape-texte {
   font-size: 14px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-etape-action {
@@ -760,9 +760,9 @@
 .fd-etape-action:disabled,
 .fd-etape-action:disabled:hover {
   opacity: 1;
-  border-color: var(--color-lavande);
-  background: var(--color-lavande);
-  color: var(--color-texte-attenue);
+  border-color: transparent;
+  background: var(--fond-action-desactive);
+  color: var(--texte-action-desactive);
   cursor: not-allowed;
 }
 
@@ -780,13 +780,13 @@
   gap: 4px;
   padding: 20px 22px;
   border-radius: 28px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .fd-chiffre-libelle {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-chiffre-valeur {
@@ -797,7 +797,7 @@
 
 .fd-chiffre-precision {
   font-size: 13px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-tableau {
@@ -815,7 +815,7 @@
 }
 
 .fd-tableau tbody tr + tr {
-  border-top: 1px solid var(--color-separateur-formateur);
+  border-top: 1px solid var(--bordure-separateur);
 }
 
 .fd-tableau th[scope='row'] {
@@ -834,34 +834,34 @@
 .fd-tableau-titre {
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .fd-tableau-theme {
   display: none;
   font-size: 13px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fd-tableau-resume {
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 /* --- Retours tactiles et survol ------------------------------------------------------------------- */
 
 .fd-groupe:active,
 .fd-filtre:not(.fd-filtre-actif):active {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .fd-evenement:active:not(:disabled) {
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
 }
 
 .formateur-relance-bouton:active {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .fd-lien:focus-visible,
@@ -869,7 +869,7 @@
 .fd-groupe:focus-visible,
 .fd-filtre:focus-visible,
 .fd-evenement:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
 }
 
@@ -880,17 +880,17 @@
   }
 
   .fd-lien:hover {
-    color: var(--color-primary-hover);
+    color: var(--texte-accent-survol);
   }
 
   .fd-groupe:hover,
   .fd-filtre:not(.fd-filtre-actif):hover,
   .formateur-relance-bouton:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 
   .fd-evenement:hover:not(:disabled) .fd-evenement-texte strong:first-child {
-    color: var(--color-primary-texte);
+    color: var(--texte-accent);
   }
 }
 
@@ -1060,11 +1060,11 @@
     padding-bottom: 10px;
     font-size: 13px;
     font-weight: 700;
-    color: var(--color-text-secondary);
+    color: var(--texte-secondaire);
   }
 
   .fd-tableau tbody tr {
-    border-top: 1px solid var(--color-separateur-formateur);
+    border-top: 1px solid var(--bordure-separateur);
   }
 
   .fd-tableau th[scope='row'] {

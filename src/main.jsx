@@ -1,3 +1,5 @@
+// Tokens générés depuis tokens/ : importés en premier, avant toutes les feuilles qui les lisent
+import './styles/tokens.generes.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'

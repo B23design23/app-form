@@ -17,18 +17,18 @@
   padding: 0 18px 0 12px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .theme-retour:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -44,7 +44,7 @@
   gap: 6px;
   padding: 22px 20px;
   border-radius: 32px;
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 /* Objet du thème : en haut à droite, dans le cadre */
@@ -65,7 +65,7 @@
 .theme-entete-numero {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 /* Le nom ne passe jamais sous l'objet (92 px + marges) */
@@ -75,7 +75,7 @@
   font-size: 28px;
   font-weight: 800;
   line-height: 1.1;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   word-break: normal;
   overflow-wrap: normal;
   hyphens: manual;
@@ -87,7 +87,7 @@
   margin: 0;
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-texte-attenue);
+  color: var(--texte-sur-accent);
 }
 
 .theme-liste {
@@ -95,11 +95,11 @@
   padding: 6px 18px;
   list-style: none;
   border-radius: var(--radius-carte);
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .theme-liste li + li {
-  border-top: 1px solid var(--color-separateur);
+  border-top: 1px solid var(--bordure-separateur);
 }
 
 .theme-ligne {
@@ -113,14 +113,14 @@
   background: none;
   text-align: left;
   font-family: var(--font-body);
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .theme-ligne:hover .theme-ligne-titre {
-    color: var(--color-primary-texte);
+    color: var(--texte-accent);
   }
 }
 
@@ -141,7 +141,7 @@
 
 .theme-ligne-contenu {
   font-size: 13px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 @media (min-width: 768px) {

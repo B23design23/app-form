@@ -18,26 +18,26 @@
   padding: 20px;
   border: none;
   border-radius: 26px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   text-align: left;
   font-family: var(--font-body);
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .fl-carte:active {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .fl-carte:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
 }
 
 @media (hover: hover) {
   .fl-carte:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -63,7 +63,7 @@
 .fl-carte-meta {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 /* Carte de groupe : nom + chevron en haut, compteurs, progression, pastille d'état */
@@ -100,12 +100,12 @@
   justify-content: space-between;
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fl-progression-ligne strong {
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .fm-libelle-masque {

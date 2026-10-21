@@ -69,23 +69,23 @@
 }
 
 .dash-carte-blanche {
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
 }
 
 .dash-carte-lavande {
-  background: var(--color-lavande);
-  color: var(--color-ink);
+  background: var(--fond-accent);
+  color: var(--texte-principal);
 }
 
 .dash-carte-violette {
-  background: var(--color-primary);
-  color: var(--color-surface);
+  background: var(--fond-marque);
+  color: var(--texte-sur-marque);
 }
 
 .dash-carte-encre {
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .dash-carte-tete {
@@ -130,13 +130,13 @@
 .dash-libelle-violet {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .dash-libelle-sur-violet {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-texte-sur-violet);
+  color: var(--texte-sur-marque-attenue);
 }
 
 .dash-page .dash-titre-carte {
@@ -148,7 +148,12 @@
 .dash-sous-texte {
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-texte-attenue);
+  color: var(--texte-secondaire);
+}
+
+/* Sur la carte lavande (prochain badge) : texte atténué prévu pour ce fond */
+.dash-carte-lavande .dash-sous-texte {
+  color: var(--texte-sur-accent);
 }
 
 .dash-lien {
@@ -161,7 +166,7 @@
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   text-decoration: underline;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -169,7 +174,7 @@
 
 @media (hover: hover) {
   .dash-lien:hover {
-    color: var(--color-primary);
+    color: var(--texte-accent-survol);
   }
 }
 
@@ -181,8 +186,8 @@
   gap: 6px;
   padding: 6px 12px 6px 8px;
   border-radius: var(--radius-pill);
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
   font-size: 12px;
   font-weight: 800;
 }
@@ -196,8 +201,8 @@
   align-self: flex-start;
   padding: 6px 12px;
   border-radius: var(--radius-pill);
-  background: var(--color-orange);
-  color: var(--color-ink);
+  background: var(--fond-recompense);
+  color: var(--texte-principal);
   font-size: 12px;
   font-weight: 800;
 }
@@ -212,8 +217,8 @@
   padding: 0 6px 0 22px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 800;
@@ -223,7 +228,7 @@
 
 @media (hover: hover) {
   .dash-bouton-fleche:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -234,8 +239,8 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .dash-bouton-fleche-icone {
@@ -262,8 +267,8 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .dash-cadenas-icone {
@@ -292,20 +297,20 @@
 
 .dash-barre-fine {
   height: 6px;
-  background: var(--color-neutre-pale);
+  background: var(--fond-neutre);
 }
 
 .dash-barre-fine .dash-barre-remplissage {
-  background: var(--color-primary);
+  background: var(--fond-marque);
 }
 
 .dash-barre-epaisse {
   height: 10px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .dash-barre-epaisse .dash-barre-remplissage {
-  background: var(--color-primary);
+  background: var(--fond-marque);
 }
 
 .dash-barre-compteur {
@@ -382,7 +387,7 @@
   margin: 4px 0 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-texte-sur-violet-doux);
+  color: var(--texte-sur-marque-attenue);
 }
 
 /* B. Premier cours / prochain cours conseillé (hors tête : objet contenu en bas à droite) */
@@ -420,7 +425,7 @@
   margin: 4px 0 0;
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-texte-sur-violet-doux);
+  color: var(--texte-sur-marque-attenue);
 }
 
 /* E. Quiz flash débloqué, en tête */
@@ -443,7 +448,7 @@
   margin: 0 0 8px;
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-texte-sur-encre);
+  color: var(--texte-sur-inverse-attenue);
 }
 
 /* F. Quiz flash débloqué, en ligne */
@@ -475,7 +480,7 @@
 
 .dash-flash-ligne-meta {
   font-size: 13px;
-  color: var(--color-texte-sur-encre);
+  color: var(--texte-sur-inverse-attenue);
 }
 
 .dash-flash-ligne-phrase,
@@ -546,7 +551,7 @@
 .dash-flash-verrouille-consigne {
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .dash-flash-verrouille .dash-barre-ligne {
@@ -578,7 +583,7 @@
   width: 68px;
   height: 68px;
   border-radius: 22px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .dash-badge-gris {
@@ -668,14 +673,14 @@
   padding: 0;
   border: none;
   border-radius: var(--radius-badge);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .dash-collection-badge:hover {
-    background: var(--color-creme);
+    background: var(--fond-sur-carte);
   }
 }
 
@@ -946,7 +951,7 @@
     margin: 0;
     font-size: 15px;
     font-weight: 600;
-    color: var(--color-texte-sur-encre);
+    color: var(--texte-sur-inverse-attenue);
   }
 
   .dash-cellule-cote .dash-flash-ligne-bouton {
@@ -974,7 +979,7 @@
   max-height: calc(100vh - 40px);
   padding: 24px 20px;
   border-radius: 32px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   box-shadow: var(--ombre-flottante);
 }
 
@@ -988,14 +993,14 @@
   margin: 0;
   font-size: 1.3rem;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .dash-modale-badges-compteur {
   flex: 1;
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .dash-modale-badges-grille {
@@ -1021,7 +1026,7 @@
 }
 
 .dash-modale-badge-evidence {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-action);
 }
 
 .dash-modale-badge-pastille {
@@ -1034,7 +1039,7 @@
   margin-bottom: 6px;
   border-radius: 20px;
   /* Pastille sur la modale blanche : fond crème (règle de contraste par le fond) */
-  background: var(--color-creme);
+  background: var(--fond-sur-carte);
 }
 
 .dash-modale-badge-pastille img {
@@ -1045,18 +1050,18 @@
 .dash-modale-badge-nom {
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .dash-modale-badge-condition {
   font-size: 13px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .dash-modale-badge-etat {
   font-size: 12px;
   font-weight: 700;
-  color: var(--color-success);
+  color: var(--texte-succes);
 }
 
 @media (min-width: 768px) {

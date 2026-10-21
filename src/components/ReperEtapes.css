@@ -3,7 +3,7 @@
   position: relative;
   padding: 14px 8px 12px;
   border-radius: 22px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 /* Ligne de 3 px reliant les centres des pastilles (pastille 28 px, padding haut 14 px) */
@@ -11,11 +11,11 @@
   position: absolute;
   top: calc(14px + 14px - 1.5px);
   height: 3px;
-  background: var(--color-separateur);
+  background: var(--fond-neutre);
 }
 
 .reper-liaison-faite {
-  background: var(--color-primary);
+  background: var(--fond-marque);
 }
 
 .reper-liste {
@@ -39,7 +39,7 @@
   font-family: var(--font-body);
   font-size: 14px;
   text-align: center;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 button.reper-bouton {
@@ -69,39 +69,39 @@ button.reper-bouton {
 
 /* Étape en cours : pastille violette pleine, numéro blanc, halo lavande de 4 px */
 .reper-etape-courante .reper-pastille {
-  background: var(--color-primary);
-  color: var(--color-surface);
-  box-shadow: 0 0 0 4px var(--color-lavande);
+  background: var(--fond-marque);
+  color: var(--texte-sur-marque);
+  box-shadow: 0 0 0 4px var(--fond-accent);
 }
 
 .reper-etape-courante .reper-libelle {
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 /* Étape faite : pastille violette + coche, libellé violet souligné (lien) */
 .reper-etape-faite .reper-pastille {
-  background: var(--color-primary);
-  color: var(--color-surface);
+  background: var(--fond-marque);
+  color: var(--texte-sur-marque);
 }
 
 .reper-etape-faite .reper-libelle {
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   text-decoration: underline;
 }
 
 @media (hover: hover) {
   .reper-etape-faite button.reper-bouton:hover .reper-libelle {
-    color: var(--color-primary-hover);
+    color: var(--texte-accent-survol);
   }
 }
 
 /* Étape à venir : pastille blanche, contour 2 px */
 .reper-etape-a-venir .reper-pastille {
-  border: 2px solid var(--color-contour-etape);
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
+  border: 2px solid var(--bordure-controle);
+  background: var(--fond-surface);
+  color: var(--texte-secondaire);
 }
 
 .reper-etape-a-venir .reper-libelle {

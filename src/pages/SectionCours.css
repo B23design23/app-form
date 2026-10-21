@@ -19,14 +19,14 @@
   margin: 0;
   font-size: 22px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .page-cours-aucun-resultat {
   margin: 8px 0 0;
   text-align: center;
   font-size: 15px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .cours-grille-themes {
@@ -46,22 +46,22 @@
   padding: 14px 14px 14px 16px;
   border: none;
   border-radius: var(--radius-carte-petite);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   text-align: left;
   font-family: var(--font-body);
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .theme-carte:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
 .theme-carte:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--bordure-focus);
   outline-offset: 1px;
 }
 
@@ -81,7 +81,7 @@
 .theme-carte-numero {
   font-size: 12px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .theme-carte-titre {
@@ -104,12 +104,12 @@
 .theme-carte-compte {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .theme-carte-compte-commence {
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 @media (min-width: 768px) {

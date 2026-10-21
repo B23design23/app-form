@@ -4,8 +4,8 @@
 .fiche-page {
   min-height: 100vh;
   padding: calc(env(safe-area-inset-top) + 20px) 16px calc(40px + env(safe-area-inset-bottom));
-  background: var(--color-background);
-  color: var(--color-ink);
+  background: var(--fond-page);
+  color: var(--texte-principal);
 }
 
 .fiche-page > .espace-nav {
@@ -24,7 +24,7 @@
 
 .fiche-carte {
   border-radius: var(--radius-carte);
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .fiche-bouton-large {
@@ -38,20 +38,20 @@
   height: 10px;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .fiche-barre-fine {
   display: block;
   height: 8px;
-  background: var(--color-neutre-pale);
+  background: var(--fond-neutre);
 }
 
 .fiche-barre-remplissage {
   display: block;
   height: 100%;
   border-radius: var(--radius-pill);
-  background: var(--color-primary);
+  background: var(--fond-marque);
   transition: all 0.3s ease;
 }
 
@@ -66,15 +66,15 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .fiche-bouton-rond:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -99,8 +99,8 @@
   gap: 12px;
   margin: calc(-1 * (env(safe-area-inset-top) + 20px)) -16px 16px;
   padding: calc(env(safe-area-inset-top) + 8px) 16px 8px;
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
   font-size: 14px;
   font-weight: 700;
 }
@@ -111,11 +111,11 @@
   padding: 0 16px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
 }
 
@@ -129,7 +129,7 @@
 /* Barre d'action fixée en bas (quiz, et fin de quiz sur mobile) : fond de page, marges 16 px,
    dégradé de 24 px au-dessus pour adoucir le contenu qui défile dessous. */
 .fiche-barre-action {
-  --fond-barre: var(--color-creme);
+  --fond-barre: var(--fond-page);
   position: fixed;
   left: 0;
   right: 0;
@@ -166,18 +166,18 @@
   padding: 0 18px 0 12px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .fiche-retour:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -193,7 +193,7 @@
   gap: 6px;
   padding: 22px 20px 20px;
   border-radius: 32px;
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .fiche-entete-objet {
@@ -214,7 +214,7 @@
 .fiche-entete-theme {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .fiche-entete-titre {
@@ -233,7 +233,7 @@
   margin: 0 0 6px;
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-texte-attenue);
+  color: var(--texte-sur-accent);
 }
 
 .fiche-entete .reper-etapes {
@@ -280,7 +280,7 @@
   gap: 12px;
   padding: 18px 20px;
   border-radius: 24px;
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .fiche-retenir-entete {
@@ -303,8 +303,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--color-primary);
-  color: var(--color-surface);
+  background: var(--fond-marque);
+  color: var(--texte-sur-marque);
 }
 
 .fiche-retenir-icone {
@@ -330,8 +330,8 @@
   gap: 6px;
   padding: 20px;
   border-radius: var(--radius-carte);
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .fiche-suivante-texte {
@@ -343,7 +343,7 @@
 .fiche-suivante-libelle {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-texte-sur-encre);
+  color: var(--texte-sur-inverse-attenue);
 }
 
 .fiche-suivante-titre {
@@ -356,7 +356,7 @@
 .fiche-suivante-detail {
   margin-bottom: 10px;
   font-size: 14px;
-  color: var(--color-texte-sur-encre);
+  color: var(--texte-sur-inverse-attenue);
 }
 
 /* Bouton blanc pleine largeur avec pastille encre et flèche */
@@ -369,8 +369,8 @@
   padding: 0 6px 0 22px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 800;
@@ -380,7 +380,7 @@
 
 @media (hover: hover) {
   .fiche-bouton-blanc:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -391,8 +391,8 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .fiche-bouton-blanc-icone {
@@ -425,7 +425,7 @@
 .fiche-quiz-cours {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .fiche-quiz-question {
@@ -444,7 +444,7 @@
 .fiche-quiz-aide {
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fiche-reponses {
@@ -463,24 +463,24 @@
   padding: 12px 16px;
   border: 2px solid transparent;
   border-radius: var(--radius-reponse);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-size: 16px;
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .fiche-reponse:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
 /* Focus visible seulement au clavier (pas après un clic ou un toucher) ; une réponse déjà
    sélectionnée garde son seul contour de sélection */
 .fiche-reponse:has(.fiche-reponse-input:focus-visible) {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
 }
 
@@ -505,9 +505,9 @@
   flex-shrink: 0;
   width: 22px;
   height: 22px;
-  border: 2px solid var(--color-contour-etape);
-  background: var(--color-surface);
-  color: var(--color-surface);
+  border: 2px solid var(--bordure-controle);
+  background: var(--fond-surface);
+  color: var(--texte-sur-action);
   transition: all 0.15s ease;
 }
 
@@ -529,20 +529,20 @@
 }
 
 .fiche-reponse-selectionnee {
-  border-color: var(--color-primary);
-  background: var(--color-lavande);
+  border-color: var(--bordure-action);
+  background: var(--fond-accent);
 }
 
 @media (hover: hover) {
   .fiche-reponse-selectionnee:hover {
-    border-color: var(--color-primary);
-    background: var(--color-lavande);
+    border-color: var(--bordure-action);
+    background: var(--fond-accent);
   }
 }
 
 .fiche-reponse-selectionnee .fiche-reponse-controle {
-  border-color: var(--color-primary);
-  background: var(--color-primary);
+  border-color: var(--bordure-action);
+  background: var(--fond-action);
 }
 
 /* Rond sélectionné : violet plein avec un point blanc au centre */
@@ -551,7 +551,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .fiche-reponse-correcte,
@@ -561,38 +561,38 @@
 }
 
 .fiche-reponse-correcte {
-  border-color: var(--color-success);
-  background: var(--color-success-fond);
+  border-color: var(--bordure-succes);
+  background: var(--fond-succes);
 }
 
 @media (hover: hover) {
   .fiche-reponse-correcte:hover {
-    border-color: var(--color-success);
-    background: var(--color-success-fond);
+    border-color: var(--bordure-succes);
+    background: var(--fond-succes);
   }
 }
 
 .fiche-reponse-fausse {
-  border-color: var(--color-error);
-  background: var(--color-error-fond);
+  border-color: var(--bordure-erreur);
+  background: var(--fond-erreur);
 }
 
 @media (hover: hover) {
   .fiche-reponse-fausse:hover {
-    border-color: var(--color-error);
-    background: var(--color-error-fond);
+    border-color: var(--bordure-erreur);
+    background: var(--fond-erreur);
   }
 }
 
 .fiche-reponse-neutre {
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
+  background: var(--fond-surface);
+  color: var(--texte-secondaire);
 }
 
 @media (hover: hover) {
   .fiche-reponse-neutre:hover {
-    background: var(--color-surface);
-    color: var(--color-text-secondary);
+    background: var(--fond-surface);
+    color: var(--texte-secondaire);
   }
 }
 
@@ -603,18 +603,19 @@
   flex-shrink: 0;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  color: var(--color-surface);
   font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
 }
 
 .fiche-reponse-pastille-correcte {
-  background: var(--color-success);
+  background: var(--fond-succes-accentue);
+  color: var(--texte-sur-succes);
 }
 
 .fiche-reponse-pastille-fausse {
-  background: var(--color-error);
+  background: var(--fond-erreur-accentue);
+  color: var(--texte-sur-erreur);
 }
 
 .fiche-reponse-pastille-icone {
@@ -631,8 +632,8 @@
   margin-top: 30px;
   padding: 22px 20px;
   border-radius: 30px;
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .fiche-feedback-objet {
@@ -652,7 +653,7 @@
   padding-right: 72px;
   font-size: 20px;
   font-weight: 800;
-  color: var(--color-orange);
+  color: var(--texte-recompense);
 }
 
 .fiche-feedback-texte {
@@ -660,7 +661,7 @@
   padding-right: 72px;
   font-size: 15px;
   line-height: 1.45;
-  color: var(--color-texte-sur-encre-clair);
+  color: var(--texte-sur-inverse-attenue);
 }
 
 .fiche-feedback-lien {
@@ -672,7 +673,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-orange);
+  color: var(--texte-recompense);
   text-decoration: underline;
   cursor: pointer;
 }
@@ -699,7 +700,7 @@
   /* même marge haute que la fiche (zone de sécurité comprise) : la barre du haut est à la même
      place que pendant le quiz */
   padding: calc(env(safe-area-inset-top) + 20px) 16px calc(40px + env(safe-area-inset-bottom));
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 /* Barre du haut de la fin de quiz : bouton rond retour + titre du cours (même taille et graisse
@@ -716,7 +717,7 @@
   overflow: hidden;
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -751,7 +752,7 @@
 }
 
 .fin-quiz-actions {
-  --fond-barre: var(--color-lavande);
+  --fond-barre: var(--fond-accent);
 }
 
 .fin-quiz-actions .fiche-barre-action-contenu {
@@ -761,7 +762,7 @@
 .fin-quiz-libelle {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-texte-attenue);
+  color: var(--texte-sur-accent);
 }
 
 /* Repère du centre de l'anneau (origine des confettis) */
@@ -799,7 +800,7 @@
 .fin-quiz-anneau-pourcent {
   font-size: 15px;
   font-weight: 700;
-  color: var(--color-texte-attenue);
+  color: var(--texte-sur-accent);
 }
 
 .espace-page .fin-quiz-titre,
@@ -814,7 +815,7 @@
   margin: 8px 0 0;
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-texte-attenue);
+  color: var(--texte-sur-accent);
 }
 
 .fin-quiz-xp {
@@ -824,8 +825,8 @@
   margin-top: 20px;
   padding: 6px 16px 6px 8px;
   border-radius: var(--radius-pill);
-  background: var(--color-orange);
-  color: var(--color-ink);
+  background: var(--fond-recompense);
+  color: var(--texte-principal);
   font-size: 16px;
   font-weight: 800;
   animation: fin-quiz-rebond 0.45s ease-out 0.9s both;
@@ -845,8 +846,8 @@
   margin-top: calc(32px + 40px);
   padding: 20px 20px 20px 136px;
   border-radius: 30px;
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
   text-align: left;
   animation: fin-quiz-glisse 0.45s ease-out 1.1s both;
 }
@@ -875,8 +876,8 @@
 .fin-quiz-badge-pastille {
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  background: var(--color-orange);
-  color: var(--color-ink);
+  background: var(--fond-recompense);
+  color: var(--texte-principal);
   font-size: 12px;
   font-weight: 800;
 }
@@ -889,7 +890,7 @@
 
 .fin-quiz-badge-condition {
   font-size: 14px;
-  color: var(--color-texte-sur-encre);
+  color: var(--texte-sur-inverse-attenue);
 }
 
 /* Bouton principal : largeur de la colonne, 32 px au-dessus */
@@ -918,7 +919,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   text-decoration: underline;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -926,7 +927,7 @@
 
 @media (hover: hover) {
   .fin-quiz-lien:hover {
-    color: var(--color-primary-hover);
+    color: var(--texte-accent-survol);
   }
 }
 
@@ -964,17 +965,17 @@
 }
 
 .fin-quiz-erreur-fausse {
-  color: var(--color-error);
+  color: var(--texte-erreur);
 }
 
 .fin-quiz-erreur-bonne {
-  color: var(--color-success);
+  color: var(--texte-succes);
 }
 
 .fin-quiz-erreur-explication {
   margin: 0;
   font-size: 14px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 @keyframes fin-quiz-rebond {
@@ -1031,7 +1032,7 @@
 .fiche-checklist-theme {
   font-size: 12px;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .fiche-checklist-titre {
@@ -1065,7 +1066,7 @@
 .fiche-checklist-xp {
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fiche-checklist-liste-carte {
@@ -1078,7 +1079,7 @@
 .fiche-checklist-consigne {
   margin: 8px 0 0;
   font-size: 15px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fiche-checklist-liste {
@@ -1115,26 +1116,26 @@
 }
 
 .fiche-etape-pastille-faite {
-  background: var(--color-primary);
-  color: var(--color-surface);
+  background: var(--fond-marque);
+  color: var(--texte-sur-marque);
 }
 
 .fiche-etape-pastille-courante {
-  border: 2px solid var(--color-primary);
-  background: var(--color-surface);
-  color: var(--color-primary-texte);
+  border: 2px solid var(--bordure-action);
+  background: var(--fond-surface);
+  color: var(--texte-accent);
 }
 
 .fiche-etape-pastille-a-venir {
-  border: 2px solid var(--color-contour-etape);
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
+  border: 2px solid var(--bordure-controle);
+  background: var(--fond-surface);
+  color: var(--texte-secondaire);
 }
 
 .fiche-etape-pastille-passee {
-  border: 2px solid var(--color-contour-etape);
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
+  border: 2px solid var(--bordure-controle);
+  background: var(--fond-surface);
+  color: var(--texte-secondaire);
 }
 
 .fiche-etape-pastille-icone {
@@ -1152,7 +1153,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   text-decoration: underline;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -1160,7 +1161,7 @@
 
 @media (hover: hover) {
   .fiche-etape-passer:hover {
-    color: var(--color-primary-hover);
+    color: var(--texte-accent-survol);
   }
 }
 
@@ -1179,7 +1180,7 @@
 
 .fiche-etape-faite .fiche-etape-intitule,
 .fiche-etape-a-venir .fiche-etape-intitule {
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 /* Étape en cours : bloc crème qui déborde légèrement de la liste */
@@ -1187,7 +1188,7 @@
   margin: 4px -8px;
   padding: 16px 14px;
   border-radius: 22px;
-  background: var(--color-creme);
+  background: var(--fond-sur-carte);
 }
 
 .fiche-etape-corps {
@@ -1203,14 +1204,14 @@
   padding-top: 2px;
   font-size: 17px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .fiche-etape-bloquante {
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  background: var(--color-error-fond);
-  color: var(--color-error);
+  background: var(--fond-erreur);
+  color: var(--texte-erreur);
   font-size: 12px;
   font-weight: 800;
 }
@@ -1218,7 +1219,7 @@
 .fiche-etape-critere {
   margin: 0;
   font-size: 14px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fiche-etape-corps .fiche-bouton-large {
@@ -1240,16 +1241,16 @@
   height: 44px;
   border: none;
   border-radius: 50%;
-  background: var(--color-creme);
+  background: var(--fond-sur-carte);
   font-size: 1rem;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .fiche-etape-fleche:hover:not(:disabled) {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -1295,7 +1296,7 @@
 }
 
 .fiche-recap-ligne + .fiche-recap-ligne {
-  border-top: 1px solid var(--color-separateur);
+  border-top: 1px solid var(--bordure-separateur);
 }
 
 .fiche-recap-ligne-texte {
@@ -1313,7 +1314,7 @@
 
 .fiche-recap-ligne-detail {
   font-size: 13px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fiche-recap-bouton {
@@ -1330,14 +1331,14 @@
   gap: 6px;
   padding: 22px 20px;
   border-radius: var(--radius-carte);
-  background: var(--color-primary);
-  color: var(--color-surface);
+  background: var(--fond-marque);
+  color: var(--texte-sur-marque);
 }
 
 .fiche-suite-libelle {
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-texte-sur-violet);
+  color: var(--texte-sur-marque-attenue);
 }
 
 .fiche-suite-titre {
@@ -1349,7 +1350,7 @@
 
 .fiche-suite-contenu {
   font-size: 14px;
-  color: var(--color-texte-sur-violet-doux);
+  color: var(--texte-sur-marque-attenue);
 }
 
 .fiche-suite-bouton {

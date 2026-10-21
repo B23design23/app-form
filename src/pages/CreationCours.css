@@ -6,8 +6,8 @@
   min-height: 100vh;
   /* marge basse : la barre d'enregistrement ne cache jamais le dernier bouton */
   padding: calc(env(safe-area-inset-top) + 16px) 16px calc(150px + env(safe-area-inset-bottom));
-  background: var(--color-fond-formateur);
-  color: var(--color-ink);
+  background: var(--fond-page);
+  color: var(--texte-principal);
 }
 
 .cc-etat {
@@ -59,7 +59,7 @@
   overflow: hidden;
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -73,7 +73,7 @@
   margin: 0 -16px;
   padding: calc(env(safe-area-inset-top) + 12px) 16px 12px;
   overflow-x: auto;
-  background: var(--color-fond-formateur);
+  background: var(--fond-page);
   scrollbar-width: none;
 }
 
@@ -90,27 +90,27 @@
   padding: 0 16px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .cc-pastille-compteur {
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .cc-pastille-active {
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .cc-pastille-active .cc-pastille-compteur {
-  color: var(--color-texte-sur-encre);
+  color: var(--texte-sur-inverse-attenue);
 }
 
 /* --- Grille, colonne de gauche (desktop) ----------------------------------------------------- */
@@ -144,7 +144,7 @@
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
 }
 
@@ -155,7 +155,7 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   transition: all 0.15s ease;
 }
 
@@ -165,7 +165,7 @@
   gap: 4px;
   padding: 8px;
   border-radius: 26px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .cc-sommaire-entree {
@@ -181,7 +181,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   text-align: left;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -190,11 +190,11 @@
 .cc-sommaire-compteur {
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .cc-sommaire-actif {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .cc-lien-apercu,
@@ -208,7 +208,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   cursor: pointer;
 }
 
@@ -231,8 +231,8 @@
   margin: 0;
   padding: 8px 16px;
   border-radius: var(--radius-pill);
-  background: var(--color-lavande);
-  color: var(--color-primary-texte);
+  background: var(--fond-accent);
+  color: var(--texte-accent);
   font-size: 14px;
   font-weight: 700;
 }
@@ -243,7 +243,7 @@
   gap: 18px;
   padding: 26px 16px;
   border-radius: 30px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   /* sous les pastilles collantes lors du défilement vers une section */
   scroll-margin-top: calc(env(safe-area-inset-top) + 76px);
 }
@@ -264,7 +264,7 @@
 
 .cc-libelle {
   font-size: 0.9rem;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .cc-aide {
@@ -272,7 +272,7 @@
   font-size: 13px;
   font-weight: 500;
   line-height: 1.4;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .cc-erreur {
@@ -323,11 +323,11 @@
   padding: 0 16px;
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   text-align: left;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -344,20 +344,20 @@
   flex-shrink: 0;
   width: 22px;
   height: 22px;
-  border: 2px solid var(--color-contour-etape);
+  border: 2px solid var(--bordure-controle);
   border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-surface);
+  background: var(--fond-surface);
+  color: var(--texte-sur-action);
 }
 
 .cc-choisi {
-  border-color: var(--color-primary);
-  background: var(--color-lavande);
+  border-color: var(--bordure-action);
+  background: var(--fond-accent);
 }
 
 .cc-choisi .cc-rond {
-  border-color: var(--color-primary);
-  background: var(--color-primary);
+  border-color: var(--bordure-action);
+  background: var(--fond-action);
 }
 
 .cc-coche {
@@ -376,12 +376,12 @@
   overflow: hidden;
   border: 2px solid transparent;
   border-radius: 22px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   transition: border-color 0.15s ease;
 }
 
 .cc-editeur:has(.cc-editeur-texte:focus) {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
 }
 
 .cc-editeur-outils {
@@ -390,7 +390,7 @@
   justify-content: space-between;
   gap: 8px;
   padding: 10px;
-  border-bottom: 1px solid var(--color-separateur-formateur);
+  border-bottom: 1px solid var(--bordure-separateur);
 }
 
 .cc-onglets {
@@ -398,7 +398,7 @@
   gap: 2px;
   padding: 3px;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .cc-onglet {
@@ -410,14 +410,14 @@
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .cc-onglet-actif {
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .cc-editeur-actions {
@@ -435,11 +435,11 @@
   padding: 0 14px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -459,7 +459,7 @@
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.55;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   resize: vertical;
 }
 
@@ -498,12 +498,12 @@
   max-width: 100%;
   padding: 4px 4px 4px 4px;
   border-radius: 16px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
 }
 
 .cc-question .cc-etiquette-image,
 .cc-etape .cc-etiquette-image {
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .cc-etiquette-image img {
@@ -534,7 +534,7 @@
   border: none;
   border-radius: 50%;
   background: none;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -572,23 +572,23 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-size: 14px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   transition: all 0.15s ease;
 }
 
 .cc-numero-actif {
-  background: var(--color-primary);
-  color: var(--color-surface);
+  background: var(--fond-marque);
+  color: var(--texte-sur-marque);
 }
 
 .cc-chevron {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   transition: transform 0.15s ease;
 }
 
@@ -605,10 +605,10 @@
   padding: 10px 14px 10px 12px;
   border: none;
   border-radius: 20px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   font-family: var(--font-body);
   text-align: left;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -632,7 +632,7 @@
   flex-shrink: 0;
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .cc-question {
@@ -641,7 +641,7 @@
   gap: 14px;
   padding: 14px;
   border-radius: 24px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
 }
 
 .cc-question-entete {
@@ -658,7 +658,7 @@
 }
 
 .cc-question-entete .fm-bouton-rond {
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 /* Champs posés sur le bloc gris : fond blanc */
@@ -666,7 +666,7 @@
 .cc-question .champ input,
 .cc-etape .champ input,
 .cc-etape-intitule {
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .cc-champ-avec-bouton {
@@ -694,8 +694,8 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: var(--color-fond-formateur);
-  color: var(--color-ink);
+  background: var(--fond-sur-carte);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -709,12 +709,12 @@
 .cc-type-reponse .cc-choix,
 .cc-modes .cc-choix {
   justify-content: center;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .cc-type-reponse .cc-choisi,
 .cc-modes .cc-choisi {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .cc-reponses {
@@ -729,7 +729,7 @@
   gap: 6px;
   padding: 8px;
   border-radius: 20px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .cc-reponse-ligne {
@@ -748,11 +748,11 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: var(--color-lavande);
+  background: var(--fond-accent);
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .cc-reponse-texte,
@@ -764,10 +764,10 @@
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   font-family: var(--font-body);
   font-size: 15px;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .cc-reponse-explication {
@@ -779,7 +779,7 @@
 
 .cc-reponse-texte:focus,
 .cc-reponse-explication:focus {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
   outline: none;
 }
 
@@ -813,10 +813,10 @@
   flex-shrink: 0;
   width: 22px;
   height: 22px;
-  border: 2px solid var(--color-contour-etape);
+  border: 2px solid var(--bordure-controle);
   border-radius: 6px;
-  background: var(--color-surface);
-  color: var(--color-surface);
+  background: var(--fond-surface);
+  color: var(--texte-sur-succes);
   transition: all 0.15s ease;
 }
 
@@ -832,23 +832,23 @@
 .cc-bonne-libelle {
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   white-space: nowrap;
 }
 
 .cc-bonne-cochee .cc-bonne-repere {
-  border-color: var(--color-success);
-  background: var(--color-success);
+  border-color: var(--bordure-succes);
+  background: var(--fond-succes-accentue);
 }
 
 .cc-bonne-cochee .cc-bonne-libelle {
   font-weight: 800;
-  color: var(--color-success);
+  color: var(--texte-succes);
 }
 
 /* Focus clavier : contour violet autour du contrôle (l'input masqué le recouvre) */
 .cc-bonne-input:focus-visible + .cc-bonne-repere {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
 }
 
@@ -873,17 +873,17 @@
   justify-content: space-between;
   min-height: 48px;
   border-radius: 20px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
 }
 
 .cc-modes .cc-choisi {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .cc-mode .cc-coche {
   width: 20px;
   height: 20px;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .cc-mode-textes {
@@ -901,7 +901,7 @@
   display: none;
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .cc-etapes {
@@ -921,17 +921,17 @@
   /* contour intérieur : transparent au repos, violet sur l'étape en cours d'édition */
   border: 2px solid transparent;
   border-radius: 20px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   transition: border-color 0.15s ease;
 }
 
 .cc-etape-active {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
 }
 
 .cc-etape-cible {
   border-style: dashed;
-  border-color: var(--color-primary);
+  border-color: var(--bordure-action);
 }
 
 .cc-etape-ligne {
@@ -962,7 +962,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .cc-etape-intitule.cc-champ-multiligne,
@@ -971,12 +971,12 @@
 }
 
 .cc-etape-intitule:focus {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
   outline: none;
 }
 
 .cc-etape .fm-menu .fm-bouton-rond {
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .cc-etape-outils-desktop {
@@ -1008,21 +1008,21 @@
   align-items: center;
   min-height: 40px;
   padding: 0 14px;
-  border: 2px solid var(--color-contour-etape);
+  border: 2px solid var(--bordure-controle);
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .cc-bloquante-active {
-  border-color: var(--color-error-fond);
-  background: var(--color-error-fond);
-  color: var(--color-error);
+  border-color: transparent;
+  background: var(--fond-erreur);
+  color: var(--texte-erreur);
 }
 
 .cc-bouton-etape-image {
@@ -1035,11 +1035,11 @@
   padding: 0 14px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -1064,7 +1064,7 @@
   gap: 10px;
   padding: 14px 16px calc(16px + env(safe-area-inset-bottom));
   border-radius: 26px 26px 0 0;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   box-shadow: var(--ombre-flottante);
 }
 
@@ -1075,12 +1075,12 @@
   margin: 0;
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .cc-barre-aucune {
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .cc-point-orange {
@@ -1088,7 +1088,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-orange);
+  background: var(--fond-recompense);
 }
 
 .cc-barre-actions {
@@ -1104,8 +1104,8 @@
 }
 
 .cc-enregistrer:disabled {
-  background: var(--color-lavande);
-  color: var(--color-texte-attenue);
+  background: var(--fond-action-desactive);
+  color: var(--texte-action-desactive);
   opacity: 1;
 }
 
@@ -1121,12 +1121,12 @@
 .cc-bouton-image-interne:active,
 .cc-question-repliee:active,
 .cc-retour:active .cc-retour-rond {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .cc-bouton-croix:active:not(:disabled) {
-  background: var(--color-error-fond);
-  color: var(--color-error);
+  background: var(--fond-erreur);
+  color: var(--texte-erreur);
 }
 
 .cc-bonne-controle:active .cc-bonne-repere {
@@ -1134,7 +1134,7 @@
 }
 
 .cc-page button:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
 }
 
@@ -1149,26 +1149,26 @@
   .cc-bouton-image-interne:hover:not(:disabled),
   .cc-question-repliee:hover,
   .cc-retour:hover .cc-retour-rond {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 
   .cc-bonne-controle:not(.cc-bonne-cochee):hover .cc-bonne-repere {
-    border-color: var(--color-primary);
+    border-color: var(--bordure-action);
   }
 
   .cc-bouton-croix:hover:not(:disabled) {
-    background: var(--color-error-fond);
-    color: var(--color-error);
+    background: var(--fond-erreur);
+    color: var(--texte-erreur);
   }
 
   .cc-bloquante:not(.cc-bloquante-active):hover {
-    border-color: var(--color-error);
-    color: var(--color-error);
+    border-color: var(--bordure-erreur);
+    color: var(--texte-erreur);
   }
 
   .cc-lien-apercu:hover,
   .cc-lien:hover {
-    color: var(--color-primary-hover);
+    color: var(--texte-accent-survol);
   }
 }
 
@@ -1239,7 +1239,7 @@
     flex-shrink: 0;
     width: 28px;
     height: 40px;
-    color: var(--color-text-secondary);
+    color: var(--texte-secondaire);
     cursor: grab;
   }
 

@@ -1,0 +1,93 @@
+{
+  "espace": {
+    "$description": "Échelle d'espacement, base 4 px. Les seuls paliers sont 2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40 : tout autre espace-* est interdit (espace-14 n'existe pas). Demi-pas (2, 6, 10) admis seulement en dessous de 12 ; 6 et 10 servent aux écarts à l'intérieur d'un composant (icône et libellé, titre et sous-titre, lignes d'une liste). Une valeur hors échelle est ramenée au palier le plus proche, à égalité le plus grand ; pour le padding vertical d'un élément à hauteur fixée, la hauteur l'emporte et rien ne bouge. Valeur négative : calc(-1 * var(--espace-N)). Hors échelle volontairement, ne pas forcer ici : réserves des objets 3D, débords d'illustration, marges de page desktop, zones d'action mesurées.",
+    "2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "Plus petit palier."
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "Base de l'échelle. Remplace aussi 3 px."
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
+      "$description": "Remplace aussi 5 px."
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "Aucune règle propre au-delà de celles du groupe."
+    },
+    "10": {
+      "$type": "dimension",
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      },
+      "$description": "Plus grand demi-pas."
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "Dernier palier avant 16 : plus de demi-pas au-dessus."
+    },
+    "16": {
+      "$type": "dimension",
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "Marge latérale mobile. Remplace aussi 14 px."
+    },
+    "20": {
+      "$type": "dimension",
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "Remplace aussi 18 px."
+    },
+    "24": {
+      "$type": "dimension",
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "Remplace aussi 22 px et 26 px (dont --espacement-bouton-pill)."
+    },
+    "32": {
+      "$type": "dimension",
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "Gardé malgré sa faible fréquence. Remplace aussi 28 px et 30 px."
+    },
+    "40": {
+      "$type": "dimension",
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "Plus grand palier. Remplace aussi 36 px."
+    }
+  }
+}

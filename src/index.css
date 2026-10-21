@@ -4,8 +4,8 @@
 
 body {
   margin: 0;
-  background: var(--color-background);
-  color: var(--color-ink);
+  background: var(--fond-page);
+  color: var(--texte-principal);
   font-family: var(--font-body);
   font-weight: 500;
   -webkit-font-smoothing: antialiased;

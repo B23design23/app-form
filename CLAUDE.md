@@ -60,7 +60,7 @@ alter table groupe_membres disable trigger nouvel_eleve_dans_groupe;
 - Espace apprenant : mobile-first (prioritaire).
 - Espace formateur : non figé, à évaluer au moment de sa conception (V2).
 - Un cours peut combiner librement : leçon + QCM, leçon + checklist, ou les deux. Ne jamais forcer une combinaison unique.
-- Tous les CTA (boutons primary, secondary, boutons pointillés d'ajout, bouton supprimer) ont un état hover explicite (`transition: all 0.15s ease`) : primary → `--color-primary-hover`, secondary/contour → fond lavande, bouton supprimer → fond `--color-error-fond`.
+- Tous les CTA (boutons primary, secondary, boutons pointillés d'ajout, bouton supprimer) ont un état hover explicite (`transition: all 0.15s ease`) : primary → `--fond-action-survol`, secondary/contour → fond lavande, bouton supprimer → fond `--fond-erreur`.
 - Sur mobile (iOS notamment), les titres/salutations en tête de page respectent la zone de sécurité (`padding-top: calc(env(safe-area-inset-top) + 20px)` ou équivalent) pour ne jamais être collés à la barre d'état.
 
 
@@ -69,36 +69,9 @@ alter table groupe_membres disable trigger nouvel_eleve_dans_groupe;
 
 **Statut : validée (refonte 2026-10-14, remplace l'ancienne direction "Ludique").** Chaleureuse et motivante, fonds crème, violet franc, orange réservé à la récompense. Indépendante de la climatisation, réutilisable si la thématique change.
 
-**Tokens** : centralisés dans `:root` de `src/styles/shared.css` (source unique). Aucune couleur codée en dur ailleurs — toujours passer par `var(--…)`.
+**Tokens** : la source unique est le dossier `tokens/` (format DTCG 2025.10 : primitifs de couleur, espacements, sémantiques communs, sémantiques des modes apprenant et formateur). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe. Le CSS est généré dans `src/styles/tokens.generes.css` par `npm run tokens` : ne jamais le modifier à la main. Les composants lisent uniquement les sémantiques (`var(--fond-…)`, `var(--texte-…)`, `var(--bordure-…)`), jamais un primitif ni une couleur écrite en dur. Mode formateur : sous `.espace-layout-formateur`, `.flow-page-formateur` et `.dropdown-content-formateur` ; `.mode-apprenant` rétablit le mode apprenant (aperçu élève dans l'espace formateur). Décisions : `docs/tokens/couleurs.md` et `docs/tokens/espacements.md`. Le `:root` de `src/styles/shared.css` ne garde que ce qui n'a pas encore de token (polices, rayons, tailles de titre, ombre).
 
-| Token | Valeur | Rôle |
-|---|---|---|
-| `--color-creme` / `--color-background` | `#F5EEE4` | crème ; fond de page apprenant |
-| `--color-fond-formateur` | `#F4F4F6` | fond de page de tout l'espace formateur |
-| `--color-surface` | `#FFFFFF` | cartes, champs |
-| `--color-ink` | `#1E1A33` | texte principal, tab bar, cartes sombres |
-| `--color-text-secondary` | `#5C566E` | texte secondaire |
-| `--color-primary` / `--color-primary-hover` | `#5B3FE0` / `#4630B8` | action principale / survol |
-| `--color-primary-profond` | `#4630B8` | fond d'anneau sur carte violette |
-| `--color-primary-texte` | `#4A2FD0` | libellés violets sur fond clair |
-| `--color-lavande` | `#E4DEFF` | surfaces secondaires, onglet actif, survol des boutons contour |
-| `--color-lavande-pale` | `#EEEAFF` | fond des cartes chiffres du dashboard formateur |
-| `--color-orange` | `#F6A55E` | récompense (XP, quiz flash, badges) — **toujours texte `#1E1A33` dessus, jamais blanc** |
-| `--color-orange-survol` | `#EE9446` | survol du bouton orange |
-| `--color-error` / `--color-error-fond` | `#B4232A` / `#FDE3E1` | erreur (texte / fond) |
-| `--color-success` / `--color-success-fond` | `#17663F` / `#DFF3E7` | succès (texte / fond) |
-| `--color-contour-imbrique` | `#E4E4EA` | contour 1 px d'une carte posée sur une carte blanche |
-| `--color-contour-etape` | `#D9D2C6` | contour des étapes à venir (repère d'étapes, checklist) |
-| `--color-texte-sur-violet` / `-doux`, `--color-texte-sur-encre` / `-clair`, `--color-texte-attenue` | `#DCD4FF` / `#ECE8FF`, `#D3CEE3` / `#E6E3EC`, `#3B3550` | textes secondaires des maquettes (sur violet, sur encre, sur clair) |
-| `--color-separateur` | `#EFE9E0` (apprenant) / `#ECECF0` (formateur, `--color-separateur-formateur`) | **uniquement** les lignes de séparation entre éléments d'une liste — jamais entre des sections |
-| `--color-neutre-pale` | `#EFE9E0` | fond de la pastille "Non commencé" (apprenant) — même valeur que `separateur` aujourd'hui, rôle distinct |
-| `--color-neutre-pale-formateur` | `#ECECF0` | fond de la pastille "Non commencé" (formateur) |
-| `--color-fond-champ` | crème (apprenant) / `fond-formateur` (formateur) | fond d'un champ posé sur une carte blanche, redéfini par `.espace-layout-formateur` et `.flow-page-formateur` |
-| `--ombre-flottante` | `0 12px 32px rgba(30,26,51,0.16)` | seule ombre de l'app, **uniquement** les éléments flottants (menu de la nav, listes déroulantes, toast, modale « Mes badges ») |
-
-**Carte posée sur une carte blanche : fond blanc, contour 1 px `#E4E4EA` (`--color-contour-imbrique`), rayon 20 px, sans ombre. Seule exception à la règle sans bordure** (aucun usage actuel depuis le passage d'« Activité récente » en liste).
-
-**Pas de bordure sur les champs ni sur les cartes** (pas de token de bordure, la lavande n'est jamais utilisée en bordure). Contraste par le fond : un champ (input, select, textarea) posé sur une carte blanche prend le fond crème `#F5EEE4` côté **apprenant** et le fond `#F4F4F6` (`--color-fond-formateur`) côté **formateur** (token `--color-fond-champ`) ; un champ posé directement sur le fond de page (ou un bloc gris) prend le fond blanc. Focus : contour 2 px `primary` **dessiné à l'intérieur du champ** (bordure de 2 px transparente au repos qui passe en `primary` au focus, pas d'`outline` extérieur), pour qu'aucun conteneur (zone qui défile) ne puisse le rogner ; aucun champ n'a de marge négative, il fait la largeur de sa colonne, aligné sur le titre et le libellé ; les aides sous un champ sont alignées sur son bord gauche. Autoremplissage navigateur (`:-webkit-autofill`) neutralisé : le champ garde son fond et le texte encre, via une ombre intérieure pleine (`box-shadow: 0 0 0 1000px … inset`) — **seule exception technique** à la règle « une seule ombre ». Même logique pour les éléments posés dans une carte blanche (réponses de quiz, étapes de checklist : fond crème).
+**Pas de bordure sur les champs ni sur les cartes** (pas de token de bordure, la lavande n'est jamais utilisée en bordure). Contraste par le fond : un champ (input, select, textarea) posé sur une carte blanche prend le fond crème `#F5EEE4` côté **apprenant** et le fond `#F4F4F6` (`--fond-sur-carte` en mode formateur) côté **formateur** (token `--fond-sur-carte`) ; un champ posé directement sur le fond de page (ou un bloc gris) prend le fond blanc. Focus : contour 2 px `primary` **dessiné à l'intérieur du champ** (bordure de 2 px transparente au repos qui passe en `primary` au focus, pas d'`outline` extérieur), pour qu'aucun conteneur (zone qui défile) ne puisse le rogner ; aucun champ n'a de marge négative, il fait la largeur de sa colonne, aligné sur le titre et le libellé ; les aides sous un champ sont alignées sur son bord gauche. Autoremplissage navigateur (`:-webkit-autofill`) neutralisé : le champ garde son fond et le texte encre, via une ombre intérieure pleine (`box-shadow: 0 0 0 1000px … inset`) — **seule exception technique** à la règle « une seule ombre ». Même logique pour les éléments posés dans une carte blanche (réponses de quiz, étapes de checklist : fond crème).
 
 **Typographie** : Urbanist (Google Fonts, graisses 400 à 800) partout. Titres en 800, corps en 500-600. Le H1 34 px mobile / 44 px dès 768 px (`--taille-h1`) est réservé aux **titres de page** (salutation, "Cours", "Mes groupes"…). Les **titres de cours et noms de thème** dans les fiches (fiche cours, détail cours formateur, détail thème) : 28 px mobile / 32 px desktop (`--taille-titre-cours`), graisse 800, interlignage 1.1. **Titres** (H1, titres de cours et de thème, questions de quiz) : pas de césure automatique (`hyphens: manual`) et `text-wrap: balance` ; la césure reste active sur le texte courant de la leçon (paragraphes, listes). **Survol et tactile** : tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement) ; sur tactile, seul `:active` donne un retour pendant l'appui (boutons principaux, secondaires, orange, boutons ronds, cartes et lignes cliquables) ; pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`) ; focus visuel des boutons au clavier seulement (`:focus-visible`). Tout nouveau style de survol suit cette règle. **Ponctuation** : à l'affichage des textes de contenu (leçons, énoncés, réponses, explications, titres de cours, critères), l'espace avant « ? », « ! », « : », « ; », « % » est remplacée par une espace fine insécable U+202F, et « 90% » collé devient « 90 % » (`typo()` dans `src/lib/typographie.js`, appliquée aussi dans `ContenuMarkdown`). **Textes fixes de l'interface** (apprenant et formateur) : même règle, l'espace avant « ? ! : ; % » (pourcentages compris : « 39 % », « Quiz 90 % ») est directement une espace fine insécable U+202F écrite dans le JSX / la chaîne (pas d'appel à `typo()` sur un texte en dur, pas d'échappement `\u202F`) ; `typo()` est réservé aux textes dynamiques (données, saisies). **Tout nouveau texte suit cette règle.**
 
@@ -149,7 +122,7 @@ Le couple `success` sur `success-fond` reste réservé aux bonnes réponses du q
 
 **Anneaux de progression** : fond lavande + trait `primary` sur fond clair ; fond `primary-profond` + trait blanc sur carte violette.
 
-**Nuance espace formateur** : même typographie, formes et couleurs que l'espace apprenant, seul le fond de page change (`--color-fond-formateur`, `#F4F4F6`). S'applique à : Dashboard formateur, Création de cours, Détail cours formateur, Détail groupe, Cours et Groupes formateur.
+**Nuance espace formateur** : même typographie, formes et couleurs que l'espace apprenant, seul le fond de page change (`--fond-page` en mode formateur, `#F4F4F6`). S'applique à : Dashboard formateur, Création de cours, Détail cours formateur, Détail groupe, Cours et Groupes formateur.
 
 ## Évolutions futures anticipées (non construites)
 

@@ -36,7 +36,7 @@
   margin: 0;
   font-size: 15px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fm-carte {
@@ -45,7 +45,7 @@
   gap: 16px;
   padding: 20px;
   border-radius: 28px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .espace-page .fm-carte h2,
@@ -66,13 +66,13 @@
   margin: 0;
   font-size: 15px;
   line-height: 1.45;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fm-meta {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 /* Bouton principal de page (« + Créer un cours ») : pilule violette, rond « + » de 52 px sur mobile */
@@ -96,15 +96,15 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .fm-carte .fm-bouton-rond,
 .fm-modale .fm-bouton-rond {
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
 }
 
 .fm-bouton-rond-40 {
@@ -118,12 +118,12 @@
 }
 
 .fm-bouton-rond:active {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 @media (hover: hover) {
   .fm-bouton-rond:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -147,8 +147,8 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
 }
 
 .fm-retour-icone {
@@ -160,7 +160,7 @@
   display: none;
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 /* Pastilles de groupe */
@@ -181,28 +181,28 @@
 }
 
 .fm-pastille-groupe {
-  background: var(--color-lavande);
-  color: var(--color-ink);
+  background: var(--fond-accent);
+  color: var(--texte-principal);
 }
 
 .fm-pastille-neutre {
-  background: var(--color-neutre-pale-formateur);
-  color: var(--color-text-secondary);
+  background: var(--fond-neutre);
+  color: var(--texte-secondaire);
 }
 
 .fm-pastille-erreur {
-  background: var(--color-error-fond);
-  color: var(--color-error);
+  background: var(--fond-erreur);
+  color: var(--texte-erreur);
 }
 
 .fm-pastille-succes {
-  background: var(--color-success-fond);
-  color: var(--color-success);
+  background: var(--fond-succes);
+  color: var(--texte-succes);
 }
 
 .fm-pastille-blanche {
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
 }
 
 /* Barre fine : piste neutre, remplissage violet */
@@ -211,14 +211,14 @@
   height: 8px;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: var(--color-neutre-pale-formateur);
+  background: var(--fond-neutre);
 }
 
 .fm-barre-remplissage {
   display: block;
   height: 100%;
   border-radius: var(--radius-pill);
-  background: var(--color-primary);
+  background: var(--fond-marque);
 }
 
 /* Filtres sur le fond gris : champs blancs */
@@ -239,7 +239,7 @@
 
 .fm-champ-blanc input,
 .fm-champ-blanc .dropdown-trigger {
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 /* Menu « … » : carte flottante (desktop), feuille depuis le bas (mobile) */
@@ -252,7 +252,7 @@
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: rgba(30, 26, 51, 0.45);
+  background: var(--fond-voile);
 }
 
 .fm-menu-carte {
@@ -266,7 +266,7 @@
   gap: 4px;
   padding: 10px 16px calc(20px + env(safe-area-inset-bottom));
   border-radius: 30px 30px 0 0;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .fm-poignee {
@@ -276,7 +276,7 @@
   height: 5px;
   margin-bottom: 6px;
   border-radius: var(--radius-pill);
-  background: var(--color-contour-etape);
+  background: var(--fond-controle);
 }
 
 .fm-menu-titre {
@@ -284,7 +284,7 @@
   padding: 0 8px;
   font-size: 17px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .fm-menu-item {
@@ -297,22 +297,22 @@
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 700;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .fm-menu-item:active {
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
 }
 
 .fm-menu-item-danger {
-  color: var(--color-error);
+  color: var(--texte-erreur);
 }
 
 @media (hover: hover) {
   .fm-menu-item:hover {
-    background: var(--color-fond-formateur);
+    background: var(--fond-sur-carte);
   }
 }
 
@@ -324,7 +324,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background: rgba(30, 26, 51, 0.45);
+  background: var(--fond-voile);
 }
 
 .fm-modale {
@@ -336,7 +336,7 @@
   padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
   overflow-y: auto;
   border-radius: 30px 30px 0 0;
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .fm-modale-entete {
@@ -361,7 +361,7 @@
 .fm-modale-titres p {
   margin: 0;
   font-size: 15px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .fm-modale-contenu {
@@ -384,8 +384,8 @@
 /* Bouton désactivé (règle du design system) : lavande, texte atténué */
 .fm-page .bouton-primaire:disabled,
 .fm-modale .bouton-primaire:disabled {
-  background: var(--color-lavande);
-  color: var(--color-texte-attenue);
+  background: var(--fond-action-desactive);
+  color: var(--texte-action-desactive);
   opacity: 1;
 }
 
@@ -397,7 +397,7 @@
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   cursor: pointer;
 }
 
@@ -406,8 +406,8 @@
   padding: 0 24px;
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-error);
-  color: var(--color-surface);
+  background: var(--fond-erreur-accentue);
+  color: var(--texte-sur-erreur);
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 800;
@@ -431,7 +431,7 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
-  color: var(--color-error);
+  color: var(--texte-erreur);
   cursor: pointer;
 }
 
@@ -458,7 +458,7 @@
   padding: 10px 16px;
   border: 2px solid transparent;
   border-radius: 20px;
-  background: var(--color-fond-formateur);
+  background: var(--fond-sur-carte);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -471,13 +471,13 @@
 }
 
 .fm-case:has(input:focus-visible) {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
 }
 
 .fm-case-choisie {
-  border-color: var(--color-primary);
-  background: var(--color-lavande);
+  border-color: var(--bordure-action);
+  background: var(--fond-accent);
 }
 
 .fm-case-repere {
@@ -487,15 +487,15 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  border: 2px solid var(--color-contour-etape);
+  border: 2px solid var(--bordure-controle);
   border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-surface);
+  background: var(--fond-surface);
+  color: var(--texte-sur-action);
 }
 
 .fm-case-choisie .fm-case-repere {
   border: none;
-  background: var(--color-primary);
+  background: var(--fond-action);
 }
 
 .fm-case-repere svg {
@@ -517,7 +517,7 @@
 
 .fm-case-detail {
   font-size: 13px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 /* Desktop */

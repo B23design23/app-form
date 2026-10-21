@@ -5,8 +5,8 @@
   gap: 4px;
   padding: 16px 18px 10px;
   border-radius: var(--radius-carte);
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
 }
 
 .bloc-formateur-entete {
@@ -20,7 +20,7 @@
   margin: 0;
   font-size: 18px;
   font-weight: 800;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .bloc-formateur-pastille {
@@ -31,8 +31,8 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
 }
 
 .bloc-formateur-pastille-icone {
@@ -43,7 +43,7 @@
 .bloc-formateur-compteur {
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .bloc-formateur-liste {
@@ -53,7 +53,7 @@
 }
 
 .bloc-formateur-liste li + li {
-  border-top: 1px solid var(--color-separateur);
+  border-top: 1px solid var(--bordure-separateur);
 }
 
 .bloc-formateur-ligne {
@@ -67,14 +67,14 @@
   background: none;
   text-align: left;
   font-family: var(--font-body);
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .bloc-formateur-ligne:hover .bloc-formateur-titre {
-    color: var(--color-primary-texte);
+    color: var(--texte-accent);
   }
 }
 
@@ -109,7 +109,7 @@
   }
 
   .bloc-formateur-grille .bloc-formateur-liste li {
-    border-bottom: 1px solid var(--color-separateur);
+    border-bottom: 1px solid var(--bordure-separateur);
   }
 
   .bloc-formateur-grille .bloc-formateur-liste li:nth-child(3n + 1):nth-last-child(-n + 3),

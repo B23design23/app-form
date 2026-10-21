@@ -18,7 +18,13 @@ export function calculerIntensiteConfetti(overlay) {
 // l'anneau de score, légère poussée vers le haut, gravité, freinage de l'air, rotation propre,
 // effacement progressif sur ~2,5 s. Canvas par-dessus l'écran, sans capter les clics.
 
-const COULEURS_PASTILLES = ['#5B3FE0', '#F6A55E', '#1E1A33', '#FFFFFF', '#4630B8']
+// Couleurs lues dans les tokens au lancement (voir tokens/ : décision 1 de docs/tokens/couleurs.md)
+const TOKENS_PASTILLES = ['--fond-marque', '--fond-recompense', '--fond-inverse', '--fond-surface', '--fond-marque-accentue']
+
+function lireCouleurs(element) {
+  const style = getComputedStyle(element)
+  return TOKENS_PASTILLES.map((token) => style.getPropertyValue(token).trim())
+}
 const DUREE_VIE = 2.5 // s
 const GRAVITE = 900 // px/s²
 const FREINAGE = 0.35 // part de vitesse conservée après 1 s
@@ -33,7 +39,7 @@ export function salvesConfettiScore(score) {
   return []
 }
 
-function creerConfetti(x, y) {
+function creerConfetti(x, y, couleurs) {
   const angle = Math.random() * Math.PI * 2
   const vitesse = 250 + Math.random() * 450
   const arc = Math.random() < 0.4
@@ -46,7 +52,7 @@ function creerConfetti(x, y) {
     vitesseRotation: (Math.random() - 0.5) * 12,
     arc,
     taille: arc ? 4 + Math.random() * 4 : 2.5 + Math.random() * 2.5, // rayon de l'arc / du disque
-    couleur: COULEURS_PASTILLES[Math.floor(Math.random() * COULEURS_PASTILLES.length)],
+    couleur: couleurs[Math.floor(Math.random() * couleurs.length)],
     age: 0,
   }
 }
@@ -92,6 +98,7 @@ export function ConfettiPastilles({ declencheur, origineRef, salves }) {
     canvas.style.height = `${hauteur}px`
     const ctx = canvas.getContext('2d')
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0)
+    const couleurs = lireCouleurs(canvas)
 
     const rect = origineRef?.current?.getBoundingClientRect()
     const origine = rect
@@ -102,7 +109,7 @@ export function ConfettiPastilles({ declencheur, origineRef, salves }) {
     let salvesRestantes = salves.length
     const minuteurs = salves.map((salve) =>
       setTimeout(() => {
-        for (let i = 0; i < salve.nb; i++) confettis.push(creerConfetti(origine.x, origine.y))
+        for (let i = 0; i < salve.nb; i++) confettis.push(creerConfetti(origine.x, origine.y, couleurs))
         salvesRestantes -= 1
       }, salve.delai)
     )

@@ -11,18 +11,18 @@
   border-radius: var(--radius-pill);
   font-size: 1rem;
   font-family: var(--font-body);
-  background: var(--color-fond-champ);
-  color: var(--color-ink);
+  background: var(--fond-sur-carte);
+  color: var(--texte-principal);
   cursor: pointer;
 }
 
 .dropdown-trigger:focus-visible {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
   outline: none;
 }
 
 .dropdown-trigger[data-placeholder] {
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .dropdown-trigger:disabled {
@@ -33,7 +33,7 @@
 .dropdown-chevron {
   display: flex;
   align-items: center;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   flex-shrink: 0;
 }
 
@@ -41,7 +41,7 @@
   overflow: hidden;
   width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   border-radius: var(--radius-reponse);
   box-shadow: var(--ombre-flottante);
   z-index: 50;
@@ -60,7 +60,7 @@
   border-radius: 10px;
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   user-select: none;
   outline: none;
@@ -68,17 +68,13 @@
 
 /* Survol : crème côté apprenant, gris côté formateur. Option sélectionnée : lavande, texte et
    coche violets (prioritaire sur le survol). */
-.dropdown-content-formateur {
-  --color-fond-champ: var(--color-fond-formateur);
-}
-
 .dropdown-item[data-highlighted] {
-  background: var(--color-fond-champ);
+  background: var(--fond-sur-carte);
 }
 
 .dropdown-item[data-state='checked'] {
-  background: var(--color-lavande);
-  color: var(--color-primary-texte);
+  background: var(--fond-accent);
+  color: var(--texte-accent);
   font-weight: 600;
 }
 
@@ -87,5 +83,5 @@
   left: 10px;
   display: flex;
   align-items: center;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }

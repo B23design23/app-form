@@ -1,45 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Direction artistique Skillo — source unique des tokens, voir CLAUDE.md */
-  --color-creme: #f5eee4;
-  --color-background: var(--color-creme); /* fond de page apprenant */
-  --color-fond-formateur: #f4f4f6; /* fond de page de tout l'espace formateur */
-  --color-surface: #ffffff; /* cartes, champs */
-  --color-ink: #1e1a33; /* texte principal, tab bar, cartes sombres */
-  --color-text-secondary: #5c566e;
-
-  --color-primary: #5b3fe0; /* action principale */
-  --color-primary-hover: #4630b8;
-  --color-primary-profond: #4630b8; /* fond d'anneau sur carte violette */
-  --color-primary-texte: #4a2fd0; /* libellés violets sur fond clair */
-  --color-lavande: #e4deff; /* surfaces secondaires, onglet actif, survol des boutons contour */
-  --color-lavande-pale: #eeeaff; /* fond des cartes chiffres du dashboard formateur */
-
-  /* Textes secondaires des maquettes du dashboard apprenant (sur fonds violet, encre et clair) */
-  --color-texte-sur-violet: #dcd4ff;
-  --color-texte-sur-violet-doux: #ece8ff;
-  --color-texte-sur-encre: #d3cee3;
-  --color-texte-attenue: #3b3550;
-  --color-texte-sur-encre-clair: #e6e3ec; /* explication du quiz sur bloc encre */
-
-  --color-orange: #f6a55e; /* récompense (XP, quiz flash, badges) — toujours avec du texte encre */
-  --color-orange-survol: #ee9446; /* survol du bouton orange */
-
-  --color-error: #b4232a;
-  --color-error-fond: #fde3e1;
-  --color-success: #17663f;
-  --color-success-fond: #dff3e7;
-
-  --color-contour-imbrique: #e4e4ea; /* carte posée sur une carte blanche (seule exception à la règle sans bordure) */
-  --color-contour-etape: #d9d2c6; /* contour des étapes à venir (repère d'étapes, checklist) */
-  --color-separateur: #efe9e0; /* uniquement les lignes de séparation entre éléments d'une liste */
-  --color-separateur-formateur: #ececf0; /* valeur du séparateur dans l'espace formateur */
-  --color-neutre-pale: #efe9e0; /* fond de la pastille "Non commencé" (apprenant) */
-  --color-neutre-pale-formateur: #ececf0; /* fond de la pastille "Non commencé" (formateur) */
-
-  /* Fond d'un champ posé sur une carte blanche : crème côté apprenant, gris côté formateur */
-  --color-fond-champ: var(--color-creme);
+  /* Les couleurs et les espacements viennent de tokens.generes.css (généré depuis tokens/).
+     Restent ici les valeurs qui n'ont pas encore de token. */
 
   /* Seule ombre de l'app, réservée aux éléments flottants (menu de la nav, listes déroulantes, toast) */
   --ombre-flottante: 0 12px 32px rgba(30, 26, 51, 0.16);
@@ -53,7 +16,6 @@
   --radius-pill: 999px;
   --radius-badge: 16px;
 
-  --espacement-bouton-pill: 26px;
 
   /* H1 = titres de page ; titre-cours = titres de cours et noms de thème dans les fiches */
   --taille-h1: 34px;
@@ -65,18 +27,6 @@
     --taille-h1: 44px;
     --taille-titre-cours: 32px;
   }
-}
-
-.flow-page-formateur {
-  --color-background: var(--color-fond-formateur);
-  --color-fond-champ: var(--color-fond-formateur);
-  --color-separateur: var(--color-separateur-formateur);
-}
-
-.espace-layout-formateur {
-  --color-background: var(--color-fond-formateur);
-  --color-fond-champ: var(--color-fond-formateur);
-  --color-separateur: var(--color-separateur-formateur);
 }
 
 .dashboard-groupe-form {
@@ -94,12 +44,12 @@
   border-radius: var(--radius-pill);
   font-size: 0.9rem;
   font-family: var(--font-body);
-  background: var(--color-fond-champ);
-  color: var(--color-ink);
+  background: var(--fond-sur-carte);
+  color: var(--texte-principal);
 }
 
 .dashboard-groupe-form input:focus {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
   outline: none;
 }
 
@@ -115,13 +65,13 @@
   display: flex;
   justify-content: center;
   padding: 24px 16px;
-  background: var(--color-background);
+  background: var(--fond-page);
 }
 
 .flow-card {
   width: 100%;
   max-width: 420px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   border-radius: var(--radius-carte);
   padding: 24px 20px 28px;
   display: flex;
@@ -160,12 +110,12 @@
   font-size: var(--taille-h1);
   line-height: 1.1;
   margin: 0 0 4px;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .flow-card p.souscription {
   margin: -8px 0 4px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   font-size: 0.9rem;
 }
 
@@ -174,7 +124,7 @@
   flex-direction: column;
   gap: 6px;
   font-size: 0.9rem;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .champ input {
@@ -185,8 +135,8 @@
   border-radius: var(--radius-pill);
   font-size: 1rem;
   font-family: var(--font-body);
-  background: var(--color-fond-champ);
-  color: var(--color-ink);
+  background: var(--fond-sur-carte);
+  color: var(--texte-principal);
 }
 
 .champ textarea {
@@ -197,18 +147,18 @@
   border-radius: var(--radius-reponse);
   font-size: 1rem;
   font-family: var(--font-body);
-  background: var(--color-fond-champ);
-  color: var(--color-ink);
+  background: var(--fond-sur-carte);
+  color: var(--texte-principal);
   resize: vertical;
 }
 
 .champ input:focus,
 .champ textarea:focus {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
   outline: none;
 }
 
-/* Règle de contraste par le fond : sur une carte blanche, un champ prend --color-fond-champ (crème
+/* Règle de contraste par le fond : sur une carte blanche, un champ prend --fond-sur-carte (crème
    côté apprenant, gris côté formateur) ; posé directement sur un fond non blanc (page, bloc), il
    prend le fond blanc. */
 .espace-page > .champ input,
@@ -216,24 +166,24 @@
 .creation-bloc .champ input,
 .creation-bloc .champ textarea,
 .creation-bloc .dropdown-trigger {
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
-/* Autoremplissage navigateur : neutralise le fond jaune, le champ garde son fond (--color-fond-champ
+/* Autoremplissage navigateur : neutralise le fond jaune, le champ garde son fond (--fond-sur-carte
    sur carte blanche, blanc sur fond non blanc) et le texte encre. Le box-shadow inset est le seul
    moyen de recouvrir ce fond : c'est un aplat, pas une ombre. */
 .champ input:-webkit-autofill,
 .dashboard-groupe-form input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--color-fond-champ) inset;
-  box-shadow: 0 0 0 1000px var(--color-fond-champ) inset;
-  -webkit-text-fill-color: var(--color-ink);
-  caret-color: var(--color-ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
+  box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
+  -webkit-text-fill-color: var(--texte-principal);
+  caret-color: var(--texte-principal);
 }
 
 .espace-page > .champ input:-webkit-autofill,
 .creation-bloc .champ input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
-  box-shadow: 0 0 0 1000px var(--color-surface) inset;
+  -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
+  box-shadow: 0 0 0 1000px var(--fond-surface) inset;
 }
 
 .bouton-primaire {
@@ -242,11 +192,11 @@
   justify-content: center;
   gap: 8px;
   min-height: 48px;
-  padding: 0 var(--espacement-bouton-pill);
+  padding: 0 var(--espace-24);
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-primary);
-  color: var(--color-surface);
+  background: var(--fond-action);
+  color: var(--texte-sur-action);
   font-size: 1rem;
   font-weight: 700;
   font-family: var(--font-body);
@@ -257,7 +207,7 @@
 
 @media (hover: hover) {
   .bouton-primaire:hover:not(:disabled) {
-    background: var(--color-primary-hover);
+    background: var(--fond-action-survol);
   }
 }
 
@@ -272,11 +222,11 @@
   justify-content: center;
   gap: 8px;
   min-height: 48px;
-  padding: 0 var(--espacement-bouton-pill);
-  border: 2px solid var(--color-primary);
+  padding: 0 var(--espace-24);
+  border: 2px solid var(--bordure-action);
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   font-size: 1rem;
   font-weight: 700;
   font-family: var(--font-body);
@@ -286,7 +236,7 @@
 
 @media (hover: hover) {
   .bouton-secondaire:hover:not(:disabled) {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -297,11 +247,11 @@
   justify-content: center;
   gap: 8px;
   min-height: 48px;
-  padding: 0 var(--espacement-bouton-pill);
+  padding: 0 var(--espace-24);
   border: none;
   border-radius: var(--radius-pill);
-  background: var(--color-orange);
-  color: var(--color-ink);
+  background: var(--fond-recompense);
+  color: var(--texte-principal);
   font-size: 1rem;
   font-weight: 700;
   font-family: var(--font-body);
@@ -311,7 +261,7 @@
 
 @media (hover: hover) {
   .bouton-orange:hover:not(:disabled) {
-    background: var(--color-orange-survol);
+    background: var(--fond-recompense-survol);
   }
 }
 
@@ -319,14 +269,14 @@
 .surface-foncee .bouton-primaire,
 .surface-foncee .bouton-secondaire {
   border: none;
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
 }
 
 @media (hover: hover) {
   .surface-foncee .bouton-primaire:hover:not(:disabled),
   .surface-foncee .bouton-secondaire:hover:not(:disabled) {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -367,7 +317,7 @@
   background: none;
   border: none;
   padding: 0;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
@@ -377,7 +327,7 @@
 
 @media (hover: hover) {
   .lien-retour:hover {
-    color: var(--color-primary-hover);
+    color: var(--texte-accent-survol);
   }
 }
 
@@ -389,7 +339,7 @@
   background: none;
   border: none;
   padding: 0;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.85rem;
@@ -399,7 +349,7 @@
 
 @media (hover: hover) {
   .lien-secondaire:hover {
-    color: var(--color-primary-hover);
+    color: var(--texte-accent-survol);
   }
 }
 
@@ -410,11 +360,11 @@
 }
 
 .message-erreur {
-  color: var(--color-error);
+  color: var(--texte-erreur);
 }
 
 .message-info {
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
 }
 
 .bouton-ajouter {
@@ -424,13 +374,13 @@
   gap: 6px;
   align-self: flex-start;
   background: none;
-  border: 2px dashed var(--color-primary);
+  border: 2px dashed var(--bordure-action);
   border-radius: var(--radius-pill);
-  padding: 8px var(--espacement-bouton-pill);
+  padding: 8px var(--espace-24);
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -444,8 +394,8 @@
 .bouton-ajouter:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  border-color: var(--color-text-secondary);
-  color: var(--color-text-secondary);
+  border-color: var(--bordure-controle);
+  color: var(--texte-secondaire);
 }
 
 .modal-overlay {
@@ -455,7 +405,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(30, 26, 51, 0.45);
+  background: var(--fond-voile);
   padding: 20px;
 }
 
@@ -466,7 +416,7 @@
   width: 100%;
   max-width: 380px;
   padding: 24px 20px 28px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   border-radius: var(--radius-carte);
 }
 
@@ -475,7 +425,7 @@
   font-weight: 800;
   font-size: 1.3rem;
   margin: 0;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .modal-carte form {
@@ -507,15 +457,15 @@
   border-radius: 8px;
   font-size: 1.4rem;
   line-height: 1;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .modal-fermer:hover {
-    background: var(--color-lavande);
-    color: var(--color-primary-texte);
+    background: var(--fond-accent);
+    color: var(--texte-accent);
   }
 }
 
@@ -535,7 +485,7 @@
   font-weight: 800;
   font-size: 1.1rem;
   margin: 0;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .creation-bouton-supprimer {
@@ -551,14 +501,14 @@
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--color-error);
+  color: var(--texte-erreur);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .creation-bouton-supprimer:hover:not(:disabled) {
-    background: var(--color-error-fond);
+    background: var(--fond-erreur);
   }
 }
 
@@ -576,7 +526,7 @@
   font-family: var(--font-body);
   font-size: 0.8rem;
   font-weight: 700;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   cursor: pointer;
 }
 
@@ -589,7 +539,7 @@
 .dashboard-etat-vide {
   margin: 0;
   font-size: 0.85rem;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 @media (max-width: 767px) {
@@ -656,7 +606,7 @@
   width: 48px;
   height: 48px;
   border-radius: var(--radius-badge);
-  background: var(--color-creme);
+  background: var(--fond-sur-carte);
 }
 
 .vignette-theme img {
@@ -669,7 +619,7 @@
   width: 20px;
   height: 20px;
   flex-shrink: 0;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 /* Retour tactile : les survols sont réservés à la souris (@media (hover: hover)) ; sur écran
@@ -682,7 +632,7 @@ label {
 }
 
 .bouton-primaire:active:not(:disabled) {
-  background: var(--color-primary-hover);
+  background: var(--fond-action-survol);
 }
 
 .bouton-secondaire:active:not(:disabled),
@@ -699,9 +649,9 @@ label {
 .profil-carte:active,
 .parcours-choix-ligne:active,
 .fiche-reponse:not(.fiche-reponse-correcte):not(.fiche-reponse-fausse):not(.fiche-reponse-neutre):active {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 .bouton-orange:active:not(:disabled) {
-  background: var(--color-orange-survol);
+  background: var(--fond-recompense-survol);
 }

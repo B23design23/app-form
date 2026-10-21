@@ -10,8 +10,8 @@
   gap: 6px;
   padding: 14px 20px;
   border-radius: var(--radius-carte);
-  background: var(--color-ink);
-  color: var(--color-surface);
+  background: var(--fond-inverse);
+  color: var(--texte-sur-inverse);
   font-family: var(--font-body);
   font-size: 0.85rem;
   box-shadow: var(--ombre-flottante);
@@ -34,8 +34,8 @@
 .completion-toast-xp {
   padding: 2px 12px;
   border-radius: var(--radius-pill);
-  background: var(--color-orange);
-  color: var(--color-ink);
+  background: var(--fond-recompense);
+  color: var(--texte-principal);
   font-weight: 700;
   white-space: nowrap;
   flex-shrink: 0;

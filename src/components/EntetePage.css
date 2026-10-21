@@ -6,7 +6,7 @@
   gap: 16px;
   padding: 22px 20px 20px;
   border-radius: 32px;
-  background: var(--color-lavande);
+  background: var(--fond-accent);
 }
 
 /* Objet 3D : en haut à droite, dans le cadre (pas de débord, réservé au bloc de tête du dashboard) */
@@ -34,7 +34,7 @@
   margin: 0;
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-texte-attenue);
+  color: var(--texte-sur-accent);
 }
 
 .entete-page-recherche {
@@ -44,21 +44,21 @@
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .entete-page-recherche:focus {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
   outline: none;
 }
 
 .entete-page-recherche:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
-  box-shadow: 0 0 0 1000px var(--color-surface) inset;
-  -webkit-text-fill-color: var(--color-ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
+  box-shadow: 0 0 0 1000px var(--fond-surface) inset;
+  -webkit-text-fill-color: var(--texte-principal);
 }
 
 @media (min-width: 768px) {

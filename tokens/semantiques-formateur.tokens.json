@@ -1,0 +1,38 @@
+{
+  "fond": {
+    "$description": "Sémantiques de fond : background, ou piste / arc / barre de progression en SVG. Ne pas changer de propriété : jamais en color ni en bordure.",
+    "page": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-50}",
+      "$description": "Fond de page."
+    },
+    "sur-carte": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-50}",
+      "$description": "Champ, réponse, étape ou bloc posé sur une carte blanche."
+    },
+    "neutre": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-75}",
+      "$description": "Pastille « Non commencé », piste des barres fines."
+    },
+    "controle": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-175}",
+      "$description": "Point d'un contrôle, poignée de la feuille mobile."
+    }
+  },
+  "bordure": {
+    "$description": "Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer de propriété : jamais en background ni en color.",
+    "controle": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-175}",
+      "$description": "Ronds, cases et étapes vides."
+    },
+    "separateur": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-75}",
+      "$description": "Lignes entre les éléments d'une liste. Uniquement entre les éléments d'une liste, jamais entre des sections."
+    }
+  }
+}

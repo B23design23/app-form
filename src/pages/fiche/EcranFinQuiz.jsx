@@ -120,8 +120,8 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
               radius={76}
               strokeWidth={16}
               ratio={ratioAffiche}
-              trackColor="var(--color-surface)"
-              progressColor="var(--color-primary)"
+              trackColor="var(--fond-surface)"
+              progressColor="var(--fond-marque)"
               wrapperClassName="fin-quiz-anneau"
             >
               <span className="fin-quiz-anneau-centre" aria-label={`${bonnes} sur ${total}, ${score} %`}>

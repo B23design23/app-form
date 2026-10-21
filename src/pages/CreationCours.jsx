@@ -1013,7 +1013,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                     }}
                   />
                 ) : (
-                  <div className="cc-apercu">
+                  // mode-apprenant : l'aperçu montre la leçon telle que l'élève la verra
+                  <div className="cc-apercu mode-apprenant">
                     {contenu.trim() || aRetenir.trim() ? (
                       <article className="fiche-carte fiche-lecon">
                         <ContenuMarkdown texte={developperImages(contenu, tableImages.current)} className="fiche-lecon-contenu" />

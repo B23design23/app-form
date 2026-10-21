@@ -1,0 +1,241 @@
+{
+  "fond": {
+    "$description": "Sémantiques de fond : background, ou piste / arc / barre de progression en SVG. Ne pas changer de propriété : jamais en color ni en bordure.",
+    "surface": {
+      "$type": "color",
+      "$value": "{couleur.blanc}",
+      "$description": "Cartes, champs sur le fond de page, bouton blanc sur carte foncée."
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "{couleur.violet-100}",
+      "$description": "En-têtes lavande, onglet actif, sélection, survol des boutons contour."
+    },
+    "marque": {
+      "$type": "color",
+      "$value": "{couleur.violet-600}",
+      "$description": "Cartes violettes, remplissage de progression."
+    },
+    "marque-accentue": {
+      "$type": "color",
+      "$value": "{couleur.violet-675}",
+      "$description": "Fond posé sur la marque : piste d'anneau sur carte violette, fond du logo foncé."
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-900}",
+      "$description": "Cartes encre, tab bar, toast."
+    },
+    "inverse-survol": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          {
+            "$ref": "#/couleur/blanc/$value/components/0"
+          },
+          {
+            "$ref": "#/couleur/blanc/$value/components/1"
+          },
+          {
+            "$ref": "#/couleur/blanc/$value/components/2"
+          }
+        ],
+        "alpha": 0.12,
+        "hex": "#ffffff"
+      },
+      "$description": "Survol d'une entrée de la barre de navigation (blanc à 12 %). Composantes de couleur.blanc, opacité 12 % portée par ce sémantique."
+    },
+    "action": {
+      "$type": "color",
+      "$value": "{couleur.violet-600}",
+      "$description": "Bouton principal, case cochée."
+    },
+    "action-survol": {
+      "$type": "color",
+      "$value": "{couleur.violet-675}",
+      "$description": "Survol du bouton principal."
+    },
+    "action-desactive": {
+      "$type": "color",
+      "$value": "{couleur.violet-100}",
+      "$description": "Bouton désactivé."
+    },
+    "voile": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          {
+            "$ref": "#/couleur/ardoise-900/$value/components/0"
+          },
+          {
+            "$ref": "#/couleur/ardoise-900/$value/components/1"
+          },
+          {
+            "$ref": "#/couleur/ardoise-900/$value/components/2"
+          }
+        ],
+        "alpha": 0.45,
+        "hex": "#1e1a33"
+      },
+      "$description": "Derrière une modale ou un menu (encre à 45 %). Composantes de couleur.ardoise-900, opacité 45 % portée par ce sémantique."
+    },
+    "voile-accentue": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          {
+            "$ref": "#/couleur/ardoise-900/$value/components/0"
+          },
+          {
+            "$ref": "#/couleur/ardoise-900/$value/components/1"
+          },
+          {
+            "$ref": "#/couleur/ardoise-900/$value/components/2"
+          }
+        ],
+        "alpha": 0.85,
+        "hex": "#1e1a33"
+      },
+      "$description": "Visionneuse d'images, miniature « +N » (encre à 85 %, garantit la lisibilité du « +N » blanc sur une image quelconque). Composantes de couleur.ardoise-900, opacité 85 % portée par ce sémantique."
+    },
+    "recompense": {
+      "$type": "color",
+      "$value": "{couleur.orange-250}",
+      "$description": "XP, quiz flash, pastille « Nouveau ». Texte posé dessus : toujours encre (texte-principal), jamais blanc."
+    },
+    "recompense-survol": {
+      "$type": "color",
+      "$value": "{couleur.orange-300}",
+      "$description": "Survol du bouton orange."
+    },
+    "erreur": {
+      "$type": "color",
+      "$value": "{couleur.rouge-75}",
+      "$description": "Fond d'erreur, pastille « Bloquante », survol du bouton supprimer."
+    },
+    "erreur-accentue": {
+      "$type": "color",
+      "$value": "{couleur.rouge-600}",
+      "$description": "Bouton rouge plein, pastille « Ta réponse » fausse."
+    },
+    "succes": {
+      "$type": "color",
+      "$value": "{couleur.vert-50}",
+      "$description": "Bonne réponse, « Bon rythme »."
+    },
+    "succes-accentue": {
+      "$type": "color",
+      "$value": "{couleur.vert-625}",
+      "$description": "Pastille de coche, segment « terminés »."
+    }
+  },
+  "texte": {
+    "$description": "Sémantiques de texte : color ; les icônes en héritent via currentColor. Ne pas changer de propriété : jamais en background ni en bordure.",
+    "principal": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-900}",
+      "$description": "Texte principal sur fond clair."
+    },
+    "secondaire": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-625}",
+      "$description": "Texte secondaire sur fond clair."
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "{couleur.violet-650}",
+      "$description": "Libellés et liens violets sur fond clair."
+    },
+    "accent-survol": {
+      "$type": "color",
+      "$value": "{couleur.violet-675}",
+      "$description": "Survol des liens violets."
+    },
+    "sur-accent": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-750}",
+      "$description": "Sous-titres sur fond lavande."
+    },
+    "action-desactive": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-750}",
+      "$description": "Texte d'un bouton désactivé."
+    },
+    "erreur": {
+      "$type": "color",
+      "$value": "{couleur.rouge-600}",
+      "$description": "Message et icône d'erreur."
+    },
+    "succes": {
+      "$type": "color",
+      "$value": "{couleur.vert-625}",
+      "$description": "« Terminé », icône de succès."
+    },
+    "sur-marque": {
+      "$type": "color",
+      "$value": "{couleur.blanc}",
+      "$description": "Texte sur carte violette."
+    },
+    "sur-marque-attenue": {
+      "$type": "color",
+      "$value": "{couleur.violet-75}",
+      "$description": "Texte secondaire sur carte violette."
+    },
+    "sur-inverse": {
+      "$type": "color",
+      "$value": "{couleur.blanc}",
+      "$description": "Texte sur carte encre."
+    },
+    "sur-inverse-attenue": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-175}",
+      "$description": "Texte secondaire sur carte encre."
+    },
+    "sur-action": {
+      "$type": "color",
+      "$value": "{couleur.blanc}",
+      "$description": "Texte et icône posés sur fond-action : libellé du bouton principal, coche ou point d'un contrôle coché."
+    },
+    "sur-erreur": {
+      "$type": "color",
+      "$value": "{couleur.blanc}",
+      "$description": "Texte et icône posés sur fond-erreur-accentue : bouton rouge plein, pastille « Ta réponse » fausse."
+    },
+    "sur-succes": {
+      "$type": "color",
+      "$value": "{couleur.blanc}",
+      "$description": "Texte et icône posés sur fond-succes-accentue : coche d'une bonne réponse, pastille « Bonne réponse »."
+    },
+    "recompense": {
+      "$type": "color",
+      "$value": "{couleur.orange-250}",
+      "$description": "Titre et lien de correction sur le bloc encre du quiz."
+    }
+  },
+  "bordure": {
+    "$description": "Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer de propriété : jamais en background ni en color.",
+    "action": {
+      "$type": "color",
+      "$value": "{couleur.violet-600}",
+      "$description": "Contour du bouton secondaire, réponse ou choix sélectionné."
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "{couleur.violet-600}",
+      "$description": "Contour de focus clavier, champ actif. Réglé à part de bordure-action : il doit garder 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, ne jamais le lier à action."
+    },
+    "erreur": {
+      "$type": "color",
+      "$value": "{couleur.rouge-600}",
+      "$description": "Réponse fausse, champ en erreur."
+    },
+    "succes": {
+      "$type": "color",
+      "$value": "{couleur.vert-625}",
+      "$description": "Bonne réponse."
+    }
+  }
+}

@@ -4,11 +4,11 @@
   padding: 4px 16px;
   list-style: none;
   border-radius: var(--radius-carte);
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .liste-cours li + li {
-  border-top: 1px solid var(--color-separateur);
+  border-top: 1px solid var(--bordure-separateur);
 }
 
 /* Contenu aligné en haut : vignette, texte et statut démarrent au même niveau ; le chevron
@@ -24,14 +24,14 @@
   background: none;
   text-align: left;
   font-family: var(--font-body);
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .ligne-cours:hover .ligne-cours-titre {
-    color: var(--color-primary-texte);
+    color: var(--texte-accent);
   }
 }
 
@@ -52,7 +52,7 @@
 
 .ligne-cours-meta {
   font-size: 13px;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 .ligne-cours-statut {
@@ -82,7 +82,7 @@
   }
 
   .liste-cours li {
-    border-bottom: 1px solid var(--color-separateur);
+    border-bottom: 1px solid var(--bordure-separateur);
   }
 
   .liste-cours li:last-child,

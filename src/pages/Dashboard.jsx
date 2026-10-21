@@ -306,8 +306,8 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
             radius={32}
             strokeWidth={9}
             ratio={ratio}
-            trackColor="var(--color-primary-profond)"
-            progressColor="var(--color-surface)"
+            trackColor="var(--fond-marque-accentue)"
+            progressColor="var(--fond-surface)"
             wrapperClassName="dash-anneau"
           >
             <span className="dash-anneau-valeur" aria-label={`${pourcentage} % du cours`}>

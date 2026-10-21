@@ -34,7 +34,7 @@
 }
 
 .contenu-markdown a {
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   font-weight: 600;
 }
 
@@ -53,7 +53,7 @@
   aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
-  background: var(--color-background);
+  background: var(--fond-page);
   margin: 8px 0;
 }
 
@@ -72,7 +72,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(30, 26, 51, 0.85);
+  background: var(--fond-voile-accentue);
   padding: 24px;
   cursor: zoom-out;
 }
@@ -99,11 +99,11 @@
 .contenu-markdown td {
   padding: 10px 12px;
   text-align: left;
-  border-bottom: 1px solid var(--color-separateur);
+  border-bottom: 1px solid var(--bordure-separateur);
 }
 
 .contenu-markdown th {
-  background: var(--color-lavande);
+  background: var(--fond-accent);
   font-family: var(--font-display);
   font-weight: 800;
   white-space: nowrap;

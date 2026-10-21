@@ -5,8 +5,8 @@
   /* hauteur réelle de la zone d'action, mesurée en JS (repli : bouton 58 + écart 10 + 58) */
   --hauteur-actions: 126px;
   min-height: 100vh;
-  background: var(--color-background);
-  color: var(--color-ink);
+  background: var(--fond-page);
+  color: var(--texte-principal);
 }
 
 /* Mobile : la colonne occupe l'écran ; le contenu défile au-dessus de la zone d'action fixe avec
@@ -89,8 +89,8 @@
 
 /* Bouton désactivé (rien choisi, champ vide) : lavande, texte atténué, non cliquable */
 .parcours-bouton.bouton-primaire:disabled {
-  background: var(--color-lavande);
-  color: var(--color-texte-attenue);
+  background: var(--fond-action-desactive);
+  color: var(--texte-action-desactive);
   opacity: 1;
 }
 
@@ -106,20 +106,20 @@
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .parcours-lien strong {
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   text-decoration: underline;
 }
 
 @media (hover: hover) {
   .parcours-lien:hover strong {
-    color: var(--color-primary-hover);
+    color: var(--texte-accent-survol);
   }
 }
 
@@ -135,7 +135,7 @@
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 800;
-  color: var(--color-primary-texte);
+  color: var(--texte-accent);
   cursor: pointer;
 }
 
@@ -157,15 +157,15 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .parcours-bouton-rond:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -179,14 +179,14 @@
   height: 14px;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
 }
 
 .parcours-progression-remplissage {
   display: block;
   height: 100%;
   border-radius: var(--radius-pill);
-  background: var(--color-primary);
+  background: var(--fond-marque);
   transition: all 0.3s ease;
 }
 
@@ -214,7 +214,7 @@
   margin: 0;
   font-size: 16px;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--texte-secondaire);
 }
 
 /* Champs */
@@ -244,22 +244,22 @@
   /* contour de focus à l'intérieur du champ (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
-  background: var(--color-surface);
+  background: var(--fond-surface);
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--texte-principal);
 }
 
 .parcours-input:focus {
-  border-color: var(--color-primary);
+  border-color: var(--bordure-focus);
   outline: none;
 }
 
 .parcours-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--color-surface) inset;
-  box-shadow: 0 0 0 1000px var(--color-surface) inset;
-  -webkit-text-fill-color: var(--color-ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
+  box-shadow: 0 0 0 1000px var(--fond-surface) inset;
+  -webkit-text-fill-color: var(--texte-principal);
 }
 
 .parcours-champ-grand .parcours-input {
@@ -291,19 +291,19 @@
   padding: 10px 16px 10px 20px;
   border: 2px solid transparent;
   border-radius: 20px;
-  background: var(--color-surface);
+  background: var(--fond-surface);
   text-align: left;
   font-family: var(--font-body);
   font-size: 17px;
   font-weight: 600;
-  color: var(--color-ink);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 @media (hover: hover) {
   .parcours-choix-ligne:hover {
-    background: var(--color-lavande);
+    background: var(--fond-accent);
   }
 }
 
@@ -312,20 +312,20 @@
 }
 
 .parcours-choix-ligne:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
 }
 
 .parcours-choix-ligne-choisie {
-  border-color: var(--color-primary);
-  background: var(--color-lavande);
+  border-color: var(--bordure-action);
+  background: var(--fond-accent);
   font-weight: 700;
 }
 
 @media (hover: hover) {
   .parcours-choix-ligne-choisie:hover {
-    border-color: var(--color-primary);
-    background: var(--color-lavande);
+    border-color: var(--bordure-action);
+    background: var(--fond-accent);
     font-weight: 700;
   }
 }
@@ -341,10 +341,10 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  border: 2px solid var(--color-contour-etape);
+  border: 2px solid var(--bordure-controle);
   border-radius: 50%;
-  background: var(--color-surface);
-  color: var(--color-surface);
+  background: var(--fond-surface);
+  color: var(--texte-sur-action);
   transition: all 0.15s ease;
 }
 
@@ -352,7 +352,7 @@
   width: 28px;
   height: 28px;
   border: none;
-  background: var(--color-primary);
+  background: var(--fond-action);
 }
 
 .parcours-choix-rond svg {
@@ -364,7 +364,7 @@
   margin: 0;
   font-size: 14px;
   font-weight: 700;
-  color: var(--color-error);
+  color: var(--texte-erreur);
 }
 
 /* Desktop (≥ 768 px) : même mise en page que sur mobile, colonne de 440 px centrée, hauteur fixe
