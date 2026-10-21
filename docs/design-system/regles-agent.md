@@ -213,7 +213,7 @@ Source : `ds-principes-composants.md`.
   - sur fond foncé : dans un conteneur `.surface-foncee` (carte violette ou encre), le principal et le secondaire prennent le fond `fond-surface` et le texte `texte-principal`, survol et appui `fond-accent` ;
   - secondaire : contour `bordure-action`, texte `texte-accent`, fond transparent, survol et appui `fond-accent` ;
   - orange : fond `fond-recompense`, texte `texte-principal`, survol et appui `fond-recompense-survol` ;
-  - supprimer : texte `texte-erreur`, survol `fond-erreur` ; bouton rouge plein (confirmation) : fond `fond-erreur-accentue`, texte `texte-sur-erreur` ;
+  - supprimer : texte `texte-erreur`, contour `bordure-erreur` (même épaisseur que le bouton secondaire), survol `fond-erreur` ; bouton rouge plein (confirmation) : fond `fond-erreur-accentue`, texte `texte-sur-erreur` ;
   - pointillé : contour pointillé `bordure-action`, texte `texte-accent`, contour plein au survol ; désactivé : contour `bordure-action-desactive`, texte `texte-secondaire`.
 - **États** : repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué). Zone cliquable minimale : voir « Accessibilité » du Bouton dans `ds-principes-composants.md` (pas de token). Focus visible au clavier seulement.
 - **Voisin à ne pas confondre** : le lien texte, pour une action secondaire qui ne mérite pas de zone.
@@ -438,3 +438,4 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 5. **Texte du bouton pointillé désactivé.** La description de `bordure-action-desactive` dit « Va avec texte-action-desactive », mais `.bouton-ajouter:disabled` utilise `texte-secondaire`.
+6. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.

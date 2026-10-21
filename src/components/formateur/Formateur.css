@@ -420,19 +420,32 @@
   cursor: not-allowed;
 }
 
+/* Bouton supprimer : texte et contour erreur (même épaisseur que le bouton secondaire), survol fond erreur */
 .fm-bouton-texte-danger {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   min-height: 44px;
   padding: 0 12px;
-  border: none;
+  border: 2px solid var(--bordure-erreur);
+  border-radius: var(--radius-pill);
   background: none;
   font-family: var(--font-body);
   font-size: 15px;
   font-weight: 800;
   color: var(--texte-erreur);
   cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+@media (hover: hover) {
+  .fm-bouton-texte-danger:hover {
+    background: var(--fond-erreur);
+  }
+}
+
+.fm-bouton-texte-danger:active {
+  background: var(--fond-erreur);
 }
 
 .fm-bouton-texte-danger .cta-icone {
