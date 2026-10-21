@@ -488,35 +488,6 @@
   color: var(--texte-principal);
 }
 
-.creation-bouton-supprimer {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  gap: 6px;
-  flex-shrink: 0;
-  background: none;
-  border: 2px solid var(--bordure-erreur);
-  border-radius: var(--radius-pill);
-  padding: 2px 10px;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--texte-erreur);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .creation-bouton-supprimer:hover:not(:disabled) {
-    background: var(--fond-erreur);
-  }
-}
-
-.creation-bouton-supprimer .cta-icone {
-  width: 14px;
-  height: 14px;
-}
-
 .dashboard-deconnexion {
   flex-shrink: 0;
   min-height: 44px;
