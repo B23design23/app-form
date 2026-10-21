@@ -95,13 +95,13 @@ alter table groupe_membres disable trigger nouvel_eleve_dans_groupe;
 **Séparateurs** : aucun trait entre sections (Création de cours, fiche formateur, onglets de la fiche cours) — seulement l'espacement. Les traits `separateur` ne servent qu'entre les éléments d'une liste (lignes de tableau, lignes de liste).
 
 **Pastilles de statut** (une seule règle partout, composant `StatutBadge` : dashboard apprenant, bloc « De ton formateur », page Cours, détail d'un thème, Mode terrain, tableau de suivi du Détail groupe) :
-- Non commencé et À faire = texte `text-secondary` sur `neutre-pale` (apprenant) / `neutre-pale-formateur` (formateur) ;
+- Non commencé et À faire = texte `texte-secondaire` sur `fond-neutre` (valeur apprenant / formateur selon le mode) ;
 - Nouveau = orange, texte encre ;
-- En cours = fond `primary` plein, texte blanc ;
-- Terminé = **plus de fond ni de pilule** : coche 14 px + « Terminé », en `success`, 13 px, graisse 800.
+- En cours = fond `fond-marque` plein, texte blanc ;
+- Terminé = **plus de fond ni de pilule** : coche 14 px + « Terminé », en `texte-succes`, 13 px, graisse 800.
 - **Pas de point avant le texte** (supprimé le 2026-10-14) : la couleur et le mot suffisent ; seule la mention Terminé garde sa coche.
 
-Le couple `success` sur `success-fond` reste réservé aux bonnes réponses du quiz et à la pastille « Bon rythme » du dashboard formateur.
+Le couple `texte-succes` sur `fond-succes` reste réservé aux bonnes réponses du quiz et à la pastille « Bon rythme » du dashboard formateur.
 
 **Réponses de quiz** : fond crème par défaut, survol lavande sans contour. États avec contour 2 px + fond : sélectionnée = fond lavande, contour `primary` ; correcte = fond `success-fond`, contour et icône `success` ; fausse = fond `error-fond`, contour et icône `error`.
 
