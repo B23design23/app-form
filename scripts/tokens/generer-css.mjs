@@ -8,6 +8,7 @@ import StyleDictionary from 'style-dictionary'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import { CLE_PRIMITIF, NOM_PREPROCESSEUR, resoudreRefComposantes } from './resoudre-ref-composantes.mjs'
+import { FICHIER_COULEURS, FICHIER_REGLES, ecrireListeTokens, ecrireTablesCouleurs } from './lister-tokens-md.mjs'
 
 const SORTIE = 'src/styles/tokens.generes.css'
 const SELECTEUR_FORMATEUR = '.espace-layout-formateur,\n.flow-page-formateur,\n.dropdown-content-formateur'
@@ -103,3 +104,7 @@ const apprenant = await genererBloc({
 await mkdir(dirname(SORTIE), { recursive: true })
 await writeFile(SORTIE, `${racine.trimEnd()}\n\n${formateur.trim()}\n\n${apprenant.trim()}\n`)
 console.log(`${SORTIE} généré.`)
+
+// Listes générées dans la documentation (fichier de règles de l'agent, couleurs.md), si elles ont leurs marqueurs
+if (await ecrireListeTokens()) console.log(`${FICHIER_REGLES} : liste des tokens mise à jour.`)
+if (await ecrireTablesCouleurs()) console.log(`${FICHIER_COULEURS} : tableaux des primitifs et des sémantiques mis à jour.`)

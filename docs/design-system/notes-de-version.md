@@ -10,6 +10,8 @@ Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui 
 - `bordure-etape` (`sable-150` en apprenant, `ardoise-175` en formateur) : contour d'une pastille d'étape à venir ou passée, non interactive. Côté écran : une pastille d'étape utilise `bordure-etape`, jamais `bordure-controle` (déjà fait pour le repère d'étapes et la checklist).
 - `bordure-action-desactive` (mêmes valeurs) : contour d'une action désactivée, avec `texte-action-desactive`. Côté écran : déjà fait pour `.bouton-ajouter:disabled`.
 - Rôle `etape` dans la liste fermée des rôles de `docs/tokens/couleurs.md`, pour `bordure-etape`. Côté écran : rien à faire.
+- Règle des ombres : deux ombres, `--ombre-flottante` pour les éléments flottants (menus, listes déroulantes, toast, modales), ombre d'illustration pour les objets 3D qui débordent d'une carte. Pas de token. Côté écran : rien à faire.
+- Règle « Un seul bouton orange par écran » (évolution mineure). Vérifiée sur toutes les situations du dashboard apprenant, mobile et desktop : aucun écran n'en affiche deux aujourd'hui. Côté écran : rien à faire.
 
 **Modifié**
 
@@ -19,7 +21,6 @@ Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui 
 **Corrigé**
 
 - `bordure-controle` pointe vers `ardoise-450` : au moins 3:1 contre chaque fond voisin d'un contrôle (3,92 sur blanc, 3,40 sur `fond-page` apprenant, 3,57 formateur, 3,02 sur le survol lavande). Applique la décision 1.0.1. Côté écran : rien à faire, les contrôles interactifs lisent déjà `bordure-controle`.
-- Règle des séparateurs précisée (en-tête, premier et dernier élément) : `bordure-separateur` seulement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc, jamais avant le premier ni après le dernier ; un en-tête, un titre ou une section se sépare par l'espacement. Écrans corrigés (dérives, rien au registre) : tableau des élèves du Détail groupe (desktop), tableau « Cours les plus suivis » du dashboard admin (desktop), tableaux du contenu des leçons, barre d'outils de l'éditeur de leçon (Création de cours). Côté écran : un trait de séparation ne se pose qu'entre deux lignes répétées (sélecteur `tr + tr` ou `li + li`).
 
 **Déprécié**
 
@@ -29,35 +30,44 @@ Aucune entrée.
 
 Aucune entrée.
 
+**Écrans corrigés**
+
+- Séparateurs (règle précisée, sens inchangé) : `bordure-separateur` seulement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc ; un en-tête, un titre ou une section se sépare par l'espacement. Écrans : tableau des élèves du Détail groupe (desktop), tableau « Cours les plus suivis » du dashboard admin (desktop), tableaux du contenu des leçons, barre d'outils de l'éditeur de leçon (Création de cours).
+
 ## 1.2.0 (21 octobre 2026)
 
 Évolution mineure : trois tokens ajoutés, aucun renommé ni retiré.
 
-**Ajouts**
+**Ajouté**
 
-- `texte-sur-action` (`blanc`) : texte et icône posés sur `fond-action` (libellé du bouton principal, coche ou point d'un contrôle coché).
-- `texte-sur-erreur` (`blanc`) : texte et icône posés sur `fond-erreur-accentue` (bouton rouge plein, pastille « Ta réponse » fausse).
-- `texte-sur-succes` (`blanc`) : texte et icône posés sur `fond-succes-accentue` (coche d'une bonne réponse, pastille « Bonne réponse »).
+- `texte-sur-action` (`blanc`) : texte et icône posés sur `fond-action` (libellé du bouton principal, coche ou point d'un contrôle coché). Côté écran : le texte blanc d'un bouton principal ou d'un contrôle coché lit `texte-sur-action`.
+- `texte-sur-erreur` (`blanc`) : texte et icône posés sur `fond-erreur-accentue` (bouton rouge plein, pastille « Ta réponse » fausse). Côté écran : le texte blanc sur ces fonds lit `texte-sur-erreur`.
+- `texte-sur-succes` (`blanc`) : texte et icône posés sur `fond-succes-accentue` (coche d'une bonne réponse, pastille « Bonne réponse »). Côté écran : le texte blanc sur ces fonds lit `texte-sur-succes`.
+- Rôles `sur-action`, `sur-erreur` et `sur-succes` dans la liste fermée de `docs/tokens/couleurs.md` ; les sémantiques passent de 40 à 43. Côté écran : rien à faire.
 
-La liste fermée des rôles de `docs/tokens/couleurs.md` s'ouvre en conséquence à `sur-action`, `sur-erreur` et `sur-succes`. Les sémantiques passent de 40 à 43.
+**Modifié**
 
-**Descriptions complétées**
+- Descriptions complétées : `fond-recompense` (le texte posé dessus est toujours encre, jamais blanc) et `bordure-separateur` (uniquement entre les éléments d'une liste, jamais entre des sections). Côté écran : rien à faire.
+- Les couleurs de l'app sont lues depuis `src/styles/tokens.generes.css`, généré depuis `tokens/`. Côté écran : lire les sémantiques (`var(--fond-…)`, `var(--texte-…)`, `var(--bordure-…)`), jamais une couleur en dur.
+- La miniature « +N » du Détail cours passe d'un voile à 60 % à 85 % (`fond-voile-accentue`). Côté écran : rien à faire.
+- Le pointillé d'un bouton d'ajout désactivé s'éclaircit (`bordure-controle`). Côté écran : rien à faire.
+- La pastille de groupe du fil d'activité et le sous-texte de la carte « Prochain cours conseillé » passent en `texte-secondaire`. Côté écran : rien à faire.
+- Le survol de `.dash-lien` fonce légèrement (`texte-accent-survol`). Côté écran : rien à faire.
 
-- `fond-recompense` : le texte posé dessus est toujours encre, jamais blanc.
-- `bordure-separateur` : uniquement entre les éléments d'une liste, jamais entre des sections.
+**Corrigé**
 
-**Application**
+- 2 textes sur carte violette s'éclaircissent (`violet-75` remplace `#dcd4ff`). Côté écran : rien à faire.
+- L'explication du quiz sur le bloc encre s'assombrit légèrement (`ardoise-175` remplace `#e6e3ec`). Côté écran : rien à faire.
+- Côté formateur, les ronds, cases et étapes vides prennent `ardoise-175` au lieu de `sable-150`. Côté écran : rien à faire.
+- Les boutons en pilule perdent 2 px de marge intérieure horizontale (24 px au lieu de 26). Côté écran : rien à faire.
 
-Les couleurs de l'app sont lues depuis `src/styles/tokens.generes.css`, généré depuis `tokens/`. Les anciennes variables `--color-…` de `src/styles/shared.css` sont retirées. Changements visibles :
+**Déprécié**
 
-- 2 textes sur carte violette s'éclaircissent (`violet-75` remplace `#dcd4ff`) ;
-- l'explication du quiz sur le bloc encre s'assombrit légèrement (`ardoise-175` remplace `#e6e3ec`) ;
-- côté formateur, les ronds, cases et étapes vides prennent `ardoise-175` au lieu de `sable-150` ;
-- la miniature « +N » du Détail cours passe d'un voile à 60 % à 85 % ;
-- les boutons en pilule perdent 2 px de marge intérieure horizontale (24 px au lieu de 26) ;
-- le pointillé d'un bouton d'ajout désactivé s'éclaircit (`bordure-controle`) ;
-- la pastille de groupe du fil d'activité et le sous-texte de la carte « Prochain cours conseillé » passent en `texte-secondaire` ;
-- le survol de `.dash-lien` fonce légèrement (`texte-accent-survol`).
+Aucune entrée.
+
+**Retiré**
+
+- Les anciennes variables `--color-…` de `src/styles/shared.css`. Côté écran : utiliser les sémantiques de `tokens/` à leur place.
 
 ## 1.1.0 (20 octobre 2026)
 

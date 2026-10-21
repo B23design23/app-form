@@ -33,7 +33,7 @@
   --espace-12: 12px; /** Dernier palier avant 16 : plus de demi-pas au-dessus. */
   --espace-16: 16px; /** Marge latérale mobile. Remplace aussi 14 px. */
   --espace-20: 20px; /** Remplace aussi 18 px. */
-  --espace-24: 24px; /** Remplace aussi 22 px et 26 px (dont --espacement-bouton-pill). */
+  --espace-24: 24px; /** Remplace aussi 22 px et 26 px. */
   --espace-32: 32px; /** Gardé malgré sa faible fréquence. Remplace aussi 28 px et 30 px. */
   --espace-40: 40px; /** Plus grand palier. Remplace aussi 36 px. */
   --fond-inverse-survol: color-mix(in srgb, var(--couleur-blanc) 12%, transparent); /** Survol d'une entrée de la barre de navigation (blanc à 12 %). Composantes de couleur.blanc, opacité 12 % portée par ce sémantique. */
@@ -47,7 +47,7 @@
   --fond-action: var(--couleur-violet-600); /** Bouton principal, case cochée. */
   --fond-action-survol: var(--couleur-violet-675); /** Survol du bouton principal. */
   --fond-action-desactive: var(--couleur-violet-100); /** Bouton désactivé. */
-  --fond-recompense: var(--couleur-orange-250); /** XP, quiz flash, pastille « Nouveau ». Texte posé dessus : toujours encre (texte-principal), jamais blanc. */
+  --fond-recompense: var(--couleur-orange-250); /** XP, quiz flash. Texte posé dessus : toujours encre (texte-principal), jamais blanc. */
   --fond-recompense-survol: var(--couleur-orange-300); /** Survol du bouton orange. */
   --fond-erreur: var(--couleur-rouge-75); /** Fond d'erreur, pastille « Bloquante », survol du bouton supprimer. */
   --fond-erreur-accentue: var(--couleur-rouge-600); /** Bouton rouge plein, pastille « Ta réponse » fausse. */

@@ -67,57 +67,7 @@ alter table groupe_membres disable trigger nouvel_eleve_dans_groupe;
 
 ## Direction artistique
 
-**Statut : validée (refonte 2026-10-14, remplace l'ancienne direction "Ludique").** Chaleureuse et motivante, fonds crème, violet franc, orange réservé à la récompense. Indépendante de la climatisation, réutilisable si la thématique change.
-
-**Tokens** : la source unique est le dossier `tokens/` (format DTCG 2025.10 : primitifs de couleur, espacements, sémantiques communs, sémantiques des modes apprenant et formateur). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe. Le CSS est généré dans `src/styles/tokens.generes.css` par `npm run tokens` : ne jamais le modifier à la main. Les composants lisent uniquement les sémantiques (`var(--fond-…)`, `var(--texte-…)`, `var(--bordure-…)`), jamais un primitif ni une couleur écrite en dur. Mode formateur : sous `.espace-layout-formateur`, `.flow-page-formateur` et `.dropdown-content-formateur` ; `.mode-apprenant` rétablit le mode apprenant (aperçu élève dans l'espace formateur). Décisions : `docs/tokens/couleurs.md` et `docs/tokens/espacements.md`. Le `:root` de `src/styles/shared.css` ne garde que ce qui n'a pas encore de token (polices, rayons, tailles de titre, ombre).
-
-**Pas de bordure sur les champs ni sur les cartes** (pas de token de bordure, la lavande n'est jamais utilisée en bordure). Contraste par le fond : un champ (input, select, textarea) posé sur une carte blanche prend le fond crème `#F5EEE4` côté **apprenant** et le fond `#F4F4F6` (`--fond-sur-carte` en mode formateur) côté **formateur** (token `--fond-sur-carte`) ; un champ posé directement sur le fond de page (ou un bloc gris) prend le fond blanc. Focus : contour 2 px `primary` **dessiné à l'intérieur du champ** (bordure de 2 px transparente au repos qui passe en `primary` au focus, pas d'`outline` extérieur), pour qu'aucun conteneur (zone qui défile) ne puisse le rogner ; aucun champ n'a de marge négative, il fait la largeur de sa colonne, aligné sur le titre et le libellé ; les aides sous un champ sont alignées sur son bord gauche. Autoremplissage navigateur (`:-webkit-autofill`) neutralisé : le champ garde son fond et le texte encre, via une ombre intérieure pleine (`box-shadow: 0 0 0 1000px … inset`) — **seule exception technique** à la règle « une seule ombre ». Même logique pour les éléments posés dans une carte blanche (réponses de quiz, étapes de checklist : fond crème).
-
-**Typographie** : Urbanist (Google Fonts, graisses 400 à 800) partout. Titres en 800, corps en 500-600. Le H1 34 px mobile / 44 px dès 768 px (`--taille-h1`) est réservé aux **titres de page** (salutation, "Cours", "Mes groupes"…). Les **titres de cours et noms de thème** dans les fiches (fiche cours, détail cours formateur, détail thème) : 28 px mobile / 32 px desktop (`--taille-titre-cours`), graisse 800, interlignage 1.1. **Titres** (H1, titres de cours et de thème, questions de quiz) : pas de césure automatique (`hyphens: manual`) et `text-wrap: balance` ; la césure reste active sur le texte courant de la leçon (paragraphes, listes). **Survol et tactile** : tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement) ; sur tactile, seul `:active` donne un retour pendant l'appui (boutons principaux, secondaires, orange, boutons ronds, cartes et lignes cliquables) ; pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`) ; focus visuel des boutons au clavier seulement (`:focus-visible`). Tout nouveau style de survol suit cette règle. **Ponctuation** : à l'affichage des textes de contenu (leçons, énoncés, réponses, explications, titres de cours, critères), l'espace avant « ? », « ! », « : », « ; », « % » est remplacée par une espace fine insécable U+202F, et « 90% » collé devient « 90 % » (`typo()` dans `src/lib/typographie.js`, appliquée aussi dans `ContenuMarkdown`). **Textes fixes de l'interface** (apprenant et formateur) : même règle, l'espace avant « ? ! : ; % » (pourcentages compris : « 39 % », « Quiz 90 % ») est directement une espace fine insécable U+202F écrite dans le JSX / la chaîne (pas d'appel à `typo()` sur un texte en dur, pas d'échappement `\u202F`) ; `typo()` est réservé aux textes dynamiques (données, saisies). **Tout nouveau texte suit cette règle.**
-
-**Formes** : cartes rayon 28 px (`--radius-carte`, 26 à 32 selon la taille — `--radius-carte-petite` 26 px pour les petites cartes de grille), champs et boutons en pilule (`999px`), réponses de quiz à 20 px (`--radius-reponse`). **Aucune ombre** hors `--ombre-flottante` : le contraste vient des couleurs de fond. **Ombre d'illustration : seconde exception à la règle une seule ombre, réservée aux objets 3D qui débordent** (`filter: drop-shadow(0 14px 16px rgba(20,10,60,0.35))` sur carte violette, `rgba(0,0,0,0.4)` sur carte encre ; `0 18px 20px` sur desktop). Champs multilignes (textarea) : rayon 20 px.
-
-**Boutons** (transition de survol `all 0.15s ease` sur tous les CTA, zone cliquable ≥ 44 px) :
-
-- principal : fond `primary`, texte blanc, survol `primary-hover`
-- sur carte foncée (violette ou encre, classe `.surface-foncee`) : bouton blanc, texte encre
-- secondaire : contour 2 px `primary`, texte `primary-texte`, fond transparent, survol lavande
-- orange (`.bouton-orange`) : **uniquement** pour lancer le quiz flash, texte encre
-- supprimer : texte/contour `error`, survol fond `error-fond`
-- pointillé (`.bouton-ajouter`) : réservé à « + Ajouter une question », « + Ajouter une étape » et autres ajouts dans la création de cours ; un bouton qui valide un formulaire (ex. « Ajouter » un élève dans Détail groupe) est un bouton primaire plein, de même hauteur que le champ voisin
-
-**Navigation** : mobile (< 768 px) tab bar flottante en bas, fond encre, rayon 28 px, marges 12 px sur les côtés et 20 px en bas, 4 entrées de largeur égale avec icône + libellé ; onglet actif fond lavande, texte/icône encre ; inactifs blancs. Desktop (≥ 768 px) : même barre encre en haut, rayon 28 px, logo (version foncée) à gauche, entrées en pilules à droite, active en lavande. Libellé nav "Terrain" ; l'écran a pour H1 « Terrain » (lot cours-terrain, 2026-10-14).
-
-**Icônes** : SVG dont les tracés utilisent `currentColor`, importés en `?raw` et rendus inline via `src/components/Icone.jsx` ; la couleur se pilote par la propriété CSS `color` du parent (ex. encre sur le bouton orange). Pas de filtre CSS. Exception : les illustrations multicolores (`Assets/badge/`, onboarding) restent en `<img>`.
-
-**Listes déroulantes** (deux espaces) : option sélectionnée = fond lavande, texte et coche `primary-texte` ; survol d'une option = fond crème côté apprenant, `#F4F4F6` côté formateur (jamais de crème sur l'option sélectionnée). Le menu étant rendu en portail, `Dropdown.jsx` détecte l'espace à l'ouverture (classe `dropdown-content-formateur`).
-
-**Séparateurs** : Le trait `bordure-separateur` se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement.
-
-**Pastilles de statut** (composant `StatutBadge`) : la règle est dans `docs/design-system/ds-principes-composants.md`, section « Pastille de statut ».
-
-Le couple `texte-succes` sur `fond-succes` reste réservé aux bonnes réponses du quiz et à la pastille « Bon rythme » du dashboard formateur.
-
-**Réponses de quiz** : fond crème par défaut, survol lavande sans contour. États avec contour 2 px + fond : sélectionnée = fond lavande, contour `primary` ; correcte = fond `success-fond`, contour et icône `success` ; fausse = fond `error-fond`, contour et icône `error`.
-
-**Anneau, numéro et objet du thème** : l'anneau de progression est réservé à la progression. **L'objet 3D du thème remplace la pastille numéro** (cartes de la page Cours, en-tête du détail d'un thème) ; le numéro s'affiche en texte (« Thème N »).
-
-**Libellés courts des thèmes** (`libelleCourtTheme` dans `src/lib/thematiques.js`, sous-titres des lignes du Mode terrain) : Thermodynamique, Fluides, Cycle frigorifique, Psychrométrie, Technologies, Dimensionnement, Installation, Brasage, Entretien, Diagnostic, Sécurité, Efficacité énergétique.
-
-**Chevrons** (icône `chevron-right.svg`, classe `.chevron-ligne`) : cartes de thème, lignes du détail d'un thème, lignes des résultats de recherche, lignes du Mode terrain, de « De ton formateur » (page Cours), de « Mes cours » et « Mes groupes » portent un chevron à droite (`text-secondary`, icône `currentColor`), toute la carte reste cliquable.
-
-**Toast de complétion** : fond encre, texte blanc, pastille XP orange avec texte encre. **Pastille "Bloquante"** : texte `error` sur fond `error-fond`.
-
-**Dashboard formateur** :
-- *Taux de complétion* : anneau de progression (piste lavande, arc `primary`, extrémité arrondie, départ en haut), pourcentage au centre en encre ; sans données, piste seule et « — ». Sous le sous-titre, pastille de statut : < 40 % « À surveiller » (texte `error` sur `error-fond`, icône alerte) ; ≥ 70 % « Bon rythme » (texte `success` sur `success-fond`, icône coche) ; 40-69 % ou sans données : pas de pastille.
-
-**Détail groupe — liste des élèves** : nom (15 px, 700, encre), email dessous (13 px, `text-secondary`), sans tiret ; lignes à 10 px de padding vertical, séparateur `separateur` entre chaque ligne ; « Retirer » en `error` à droite.
-
-**Logo** : composant `src/components/Logo.jsx` (SVG inline, "skill" vectorisé en Urbanist ExtraBold + "o" en anneau de progression : cercle de fond + arc 75 % partant du haut, extrémité arrondie, épaisseur = fût des lettres, diamètre = hauteur des minuscules). `variante="clair"` : texte encre, fond lavande, arc `primary`. `variante="fonce"` : texte blanc, fond `primary-profond`, arc blanc. Les anciens fichiers de logo ont été supprimés.
-
-**Anneaux de progression** : fond lavande + trait `primary` sur fond clair ; fond `primary-profond` + trait blanc sur carte violette.
-
-**Nuance espace formateur** : même typographie, formes et couleurs que l'espace apprenant, seul le fond de page change (`--fond-page` en mode formateur, `#F4F4F6`). S'applique à : Dashboard formateur, Création de cours, Détail cours formateur, Détail groupe, Cours et Groupes formateur.
+Les règles du DS sont dans docs/design-system/regles-agent.md, les tokens dans tokens/. Lis ce fichier avant de créer ou modifier un écran. En cas de désaccord, il fait foi. Ne crée ni ne modifie aucun token : signale le manque.
 
 ## Évolutions futures anticipées (non construites)
 
@@ -301,7 +251,7 @@ Responsive, deux patterns selon la largeur d'écran (breakpoint ~768px), 4 entr�
 
 **Dashboard apprenant — blocs d'action (refonte 2026-10-14, remplace l'ancien layout)**
 
-Maquettes : `docs/maquettes/apprenant-*` (valeurs exactes) ; règles : `docs/prompts/lot-dashboard-apprenant.md`. Plus de cartes de chiffres, de carrousel de badges ni de section « Cours recommandés » : chaque bloc pousse à une action. Code : `src/pages/Dashboard.jsx` (la situation est calculée côté client, voir ci-dessous).
+Maquettes : `docs/maquettes/apprenant-*` (disposition) ; règles : `docs/prompts/lot-dashboard-apprenant.md`. Plus de cartes de chiffres, de carrousel de badges ni de section « Cours recommandés » : chaque bloc pousse à une action. Code : `src/pages/Dashboard.jsx` (la situation est calculée côté client, voir ci-dessous).
 
 *En-tête* : « Salut [Prénom] » (H1) à gauche ; à droite l'objet éclair (26 px mobile / 30 px desktop) + « [xp_total] XP » en 800.
 
@@ -334,6 +284,8 @@ Règles : jamais deux cours à commencer quand un cours est en cours ; une consi
 *Objets 3D des thèmes* : Fluent Emoji (Microsoft, MIT) dans `public/illustrations/themes/` (+ `quiz-flash.png`), via `imageTheme(categorie)` de `src/lib/thematiques.js` (image par défaut `technologies-systemes`, simple filet de sécurité depuis que tous les cours ont un thème). Les illustrations de l'onboarding ne changent pas.
 
 *Objets 3D des badges* : Fluent Emoji (Microsoft, MIT) dans `public/illustrations/badges/` — Premier pas = chaussure de course (`chaussure-course.png`), Sur le terrain = casque de secouriste (`sur-le-terrain.png`), Persévérant = biceps (`perseverant.png`), Sans faute = cible (`sans-faute.png`), Éclair = chronomètre (`eclair.png`), Expert = couronne (`expert.png`). Utilisés partout où un badge apparaît (dashboard, carrousel « Mes badges », popup, toast de badge débloqué). Les anciennes illustrations SVG (`src/Assets/badge/award.svg`, `bolt.svg`, etc.) restent dans le dépôt mais ne sont plus référencées.
+
+**Libellés courts des thèmes** (`libelleCourtTheme` dans `src/lib/thematiques.js`, sous-titres des lignes du Mode terrain) : Thermodynamique, Fluides, Cycle frigorifique, Psychrométrie, Technologies, Dimensionnement, Installation, Brasage, Entretien, Diagnostic, Sécurité, Efficacité énergétique.
 
 **Pages Cours, détail d'un thème, Terrain (lot cours-terrain, 2026-10-14)** :
 

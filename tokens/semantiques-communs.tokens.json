@@ -104,7 +104,7 @@
     "recompense": {
       "$type": "color",
       "$value": "{couleur.orange-250}",
-      "$description": "XP, quiz flash, pastille « Nouveau ». Texte posé dessus : toujours encre (texte-principal), jamais blanc."
+      "$description": "XP, quiz flash. Texte posé dessus : toujours encre (texte-principal), jamais blanc."
     },
     "recompense-survol": {
       "$type": "color",

@@ -71,7 +71,7 @@
         "value": 24,
         "unit": "px"
       },
-      "$description": "Remplace aussi 22 px et 26 px (dont --espacement-bouton-pill)."
+      "$description": "Remplace aussi 22 px et 26 px."
     },
     "32": {
       "$type": "dimension",

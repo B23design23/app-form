@@ -132,7 +132,7 @@ Carte violette, objet qui déborde, bouton blanc. Il pousse à une action. L'en-
 ## Pastille de statut
 
 Rôle
-Dire où en est l'apprenant sur un cours. Utilisée à six endroits : dashboard, « De ton formateur », Cours, détail d'un thème, Terrain, suivi du détail groupe.
+Dire où en est l'apprenant sur un cours. Utilisée partout où ce statut apparaît : dashboard apprenant (« De ton formateur »), page Cours (« De ton formateur », cartes de thème, résultats de recherche), détail d'un thème, Terrain, récap de cours, suivi du Détail groupe, Activité récente du dashboard formateur.
 
 Règle principale
 Périmètre : le statut d'un cours pour un élève, partout où il apparaît. Ne s'applique pas au repère d'étapes, à la mention Checklist terminée ni aux compteurs (x / y cours, X terminés sur N, barre d'avancement).

@@ -1,0 +1,133 @@
+// Écrit, depuis tokens/, entre deux marqueurs :
+// - la liste des tokens utilisables dans docs/design-system/regles-agent.md (noms et descriptions
+//   seulement, aucune valeur) ;
+// - les tableaux des primitifs et des sémantiques de docs/tokens/couleurs.md (avec les valeurs).
+// tokens/ reste la seule source. Appelé par generer-css.mjs.
+import { readFile, writeFile } from 'node:fs/promises'
+
+export const FICHIER_REGLES = 'docs/design-system/regles-agent.md'
+const DEBUT = '<!-- tokens:debut (généré par npm run tokens depuis tokens/, ne pas modifier à la main) -->'
+const FIN = '<!-- tokens:fin -->'
+
+const lire = async (chemin) => JSON.parse(await readFile(chemin, 'utf8'))
+const estToken = (noeud) => noeud && typeof noeud === 'object' && '$value' in noeud
+const cellule = (texte) => texte.replace(/\|/g, '\\|').replace(/\n/g, ' ')
+
+// { groupe: { description, tokens: { nom: description } } } pour un fichier à un niveau de groupe
+function parGroupe(fichier) {
+  const groupes = {}
+  for (const [groupe, contenu] of Object.entries(fichier)) {
+    if (groupe.startsWith('$')) continue
+    const tokens = {}
+    for (const [nom, token] of Object.entries(contenu)) {
+      if (!nom.startsWith('$') && estToken(token)) tokens[nom] = token.$description ?? ''
+    }
+    groupes[groupe] = { description: contenu.$description ?? '', tokens }
+  }
+  return groupes
+}
+
+async function construireListe() {
+  const espacements = parGroupe(await lire('tokens/espacements.tokens.json'))
+  const communs = parGroupe(await lire('tokens/semantiques-communs.tokens.json'))
+  const apprenant = parGroupe(await lire('tokens/semantiques-apprenant.tokens.json'))
+  const formateur = parGroupe(await lire('tokens/semantiques-formateur.tokens.json'))
+
+  const lignes = []
+  for (const [groupe, { description, tokens }] of Object.entries(espacements)) {
+    lignes.push(`#### Espacements (\`${groupe}\`)`, '', description, '', '| Variable CSS | Description |', '|---|---|')
+    for (const [nom, desc] of Object.entries(tokens)) lignes.push(`| \`--${groupe}-${nom}\` | ${cellule(desc)} |`)
+    lignes.push('')
+  }
+
+  const groupes = [...new Set([...Object.keys(communs), ...Object.keys(apprenant)])]
+  for (const groupe of groupes) {
+    const description = communs[groupe]?.description || apprenant[groupe]?.description || ''
+    lignes.push(`#### Sémantiques \`${groupe}\``, '', description, '', '| Variable CSS | Mode | Description |', '|---|---|---|')
+    const entrees = [
+      ...Object.entries(communs[groupe]?.tokens ?? {}).map(([nom, desc]) => [nom, 'commun', desc]),
+      ...Object.entries(apprenant[groupe]?.tokens ?? {}).map(([nom, desc]) => {
+        const descFormateur = formateur[groupe]?.tokens?.[nom]
+        const texte = descFormateur === undefined || descFormateur === desc ? desc : `Apprenant : ${desc} Formateur : ${descFormateur}`
+        return [nom, 'varie selon le mode', texte]
+      }),
+    ]
+    for (const [nom, mode, desc] of entrees) lignes.push(`| \`--${groupe}-${nom}\` | ${mode} | ${cellule(desc)} |`)
+    lignes.push('')
+  }
+  return lignes.join('\n').trimEnd()
+}
+
+// Remplace le contenu entre deux marqueurs d'un fichier ; false si le fichier ou un marqueur manque
+async function remplacerEntreMarqueurs(fichier, debutMarqueur, finMarqueur, contenu) {
+  let texte
+  try {
+    texte = await readFile(fichier, 'utf8')
+  } catch {
+    return false
+  }
+  const debut = texte.indexOf(debutMarqueur)
+  const fin = texte.indexOf(finMarqueur)
+  if (debut === -1 || fin === -1 || fin < debut) return false
+  await writeFile(fichier, `${texte.slice(0, debut + debutMarqueur.length)}\n\n${contenu}\n\n${texte.slice(fin)}`)
+  return true
+}
+
+export async function ecrireListeTokens() {
+  return remplacerEntreMarqueurs(FICHIER_REGLES, DEBUT, FIN, await construireListe())
+}
+
+// --- docs/tokens/couleurs.md -------------------------------------------------------------------
+
+export const FICHIER_COULEURS = 'docs/tokens/couleurs.md'
+const DEBUT_COULEURS = '<!-- couleurs:debut (généré par npm run tokens depuis tokens/, ne pas modifier à la main) -->'
+const FIN_COULEURS = '<!-- couleurs:fin -->'
+const TITRES_GROUPES = { fond: 'Fonds', texte: 'Textes', bordure: 'Bordures' }
+
+// Valeur d'un sémantique exprimée par son primitif : alias {couleur.x}, ou composantes en $ref + alpha
+function valeurSemantique(token) {
+  const v = token.$value
+  if (typeof v === 'string') return `\`${v.replace(/^\{couleur\.|\}$/g, '')}\``
+  const primitif = v.components?.[0]?.$ref?.match(/^#\/couleur\/([^/]+)\//)?.[1]
+  return `\`${primitif}\` à ${Math.round(v.alpha * 100)} %`
+}
+
+async function construireTablesCouleurs() {
+  const primitifs = (await lire('tokens/primitifs-couleurs.tokens.json')).couleur
+  const communs = await lire('tokens/semantiques-communs.tokens.json')
+  const apprenant = await lire('tokens/semantiques-apprenant.tokens.json')
+  const formateur = await lire('tokens/semantiques-formateur.tokens.json')
+
+  const nomsPrimitifs = Object.keys(primitifs).filter((n) => !n.startsWith('$'))
+  const lignes = ['Section générée depuis `tokens/` : ne pas la modifier à la main, modifier `tokens/` puis lancer `npm run tokens`.', '', `### Primitifs (${nomsPrimitifs.length})`, '', '| Primitif | Hex | L\\* |', '|---|---|---:|']
+  for (const nom of nomsPrimitifs) {
+    const clarte = primitifs[nom].$description?.match(/L\* ([\d,]+)/)?.[1] ?? ''
+    lignes.push(`| \`${nom}\` | ${primitifs[nom].$value.hex} | ${clarte} |`)
+  }
+
+  const semantiques = []
+  for (const groupe of Object.keys(TITRES_GROUPES)) {
+    for (const [nom, token] of Object.entries(communs[groupe] ?? {})) {
+      if (!nom.startsWith('$') && estToken(token)) semantiques.push([groupe, nom, valeurSemantique(token), '=', token.$description ?? ''])
+    }
+    for (const [nom, token] of Object.entries(apprenant[groupe] ?? {})) {
+      if (!nom.startsWith('$') && estToken(token)) {
+        semantiques.push([groupe, nom, valeurSemantique(token), valeurSemantique(formateur[groupe][nom]), token.$description ?? ''])
+      }
+    }
+  }
+  lignes.push('', `### Sémantiques (${semantiques.length})`, '', '« = » signifie que la valeur est la même dans les deux modes.', '', '| Sémantique | Apprenant | Formateur | Rôle |', '|---|---|---|---|')
+  let groupeCourant = null
+  for (const [groupe, nom, valApprenant, valFormateur, description] of semantiques) {
+    if (groupe !== groupeCourant) {
+      lignes.push(`| **${TITRES_GROUPES[groupe]}** | | | |`)
+      groupeCourant = groupe
+    }
+    lignes.push(`| \`${groupe}-${nom}\` | ${valApprenant} | ${valFormateur} | ${cellule(description)} |`)
+  }
+  return lignes.join('\n')
+}
+
+export async function ecrireTablesCouleurs() {
+  return remplacerEntreMarqueurs(FICHIER_COULEURS, DEBUT_COULEURS, FIN_COULEURS, await construireTablesCouleurs())
+}

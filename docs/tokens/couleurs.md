@@ -1,4 +1,4 @@
-Statut : décidé le 20 octobre 2026, non migré
+Statut : décidé le 20 octobre 2026, migré (DS 1.2.0). Les tableaux des primitifs et des sémantiques sont générés depuis `tokens/` par `npm run tokens`.
 
 # Couleurs, version 3
 
@@ -23,7 +23,13 @@ Règles pour un agent :
 - **Une combinaison absente du tableau n'existe pas.** Il faut la demander, pas la deviner.
 - **Tracés SVG** : une piste, un arc ou une barre de progression prend un `fond-*`. Un trait de contour prend un `bordure-*`. Les icônes héritent du `texte-*` de leur parent via `currentColor`.
 
-## Primitifs (22)
+## Primitifs et sémantiques
+
+<!-- couleurs:debut (généré par npm run tokens depuis tokens/, ne pas modifier à la main) -->
+
+Section générée depuis `tokens/` : ne pas la modifier à la main, modifier `tokens/` puis lancer `npm run tokens`.
+
+### Primitifs (22)
 
 | Primitif | Hex | L\* |
 |---|---|---:|
@@ -50,67 +56,119 @@ Règles pour un agent :
 | `vert-50` | #dff3e7 | 94,1 |
 | `vert-625` | #17663f | 37,9 |
 
-## Sémantiques (45)
+### Sémantiques (45)
 
 « = » signifie que la valeur est la même dans les deux modes.
 
-| Sémantique | Apprenant | Formateur | Rôle | Remplace |
-|---|---|---|---|---|
-| **Fonds** | | | | |
-| `fond-page` | `sable-50` | `ardoise-50` | fond de page | `background`, `creme`, `fond-formateur` |
-| `fond-surface` | `blanc` | = | cartes, champs sur le fond de page, bouton blanc sur carte foncée | `surface` (en `background`) |
-| `fond-sur-carte` | `sable-50` | `ardoise-50` | champ, réponse, étape ou bloc posé sur une carte blanche | `fond-champ` |
-| `fond-neutre` | `sable-75` | `ardoise-75` | pastille « Non commencé », piste des barres fines | `neutre-pale`, `neutre-pale-formateur` |
-| `fond-accent` | `violet-100` | = | en-têtes lavande, onglet actif, sélection, survol des boutons contour | `lavande` |
-| `fond-marque` | `violet-600` | = | cartes violettes, remplissage de progression | `primary` (cartes, arcs, barres) |
-| `fond-marque-accentue` | `violet-675` | = | fond posé sur la marque : piste d'anneau sur carte violette, fond du logo foncé | `primary-profond` |
-| `fond-inverse` | `ardoise-900` | = | cartes encre, tab bar, toast | `ink` (en `background`) |
-| `fond-inverse-survol` | `blanc` à 12 % | = | survol d'une entrée de la barre de navigation | `rgba(255, 255, 255, 0.12)` |
-| `fond-action` | `violet-600` | = | bouton principal, case cochée | `primary` (boutons, `accent-color`) |
-| `fond-action-survol` | `violet-675` | = | survol du bouton principal | `primary-hover` (en `background`) |
-| `fond-action-desactive` | `violet-100` | = | bouton désactivé | `lavande` (boutons désactivés) |
-| `fond-controle` | `sable-150` | `ardoise-175` | point d'un contrôle, poignée de la feuille mobile | `contour-etape` (en `background`) |
-| `fond-voile` | `ardoise-900` à 45 % | = | derrière une modale ou un menu | `rgba(30, 26, 51, 0.45)` ×3 |
-| `fond-voile-accentue` | `ardoise-900` à 85 % | = | visionneuse d'images, miniature « +N » | `rgba(…, 0.85)`, `rgba(…, 0.6)` |
-| `fond-recompense` | `orange-250` | = | XP, quiz flash, pastille « Nouveau » | `orange` (en `background`) |
-| `fond-recompense-survol` | `orange-300` | = | survol du bouton orange | `orange-survol` |
-| `fond-erreur` | `rouge-75` | = | fond d'erreur, pastille « Bloquante », survol du bouton supprimer | `error-fond` |
-| `fond-erreur-accentue` | `rouge-600` | = | bouton rouge plein, pastille « Ta réponse » fausse | `error` (en `background`) |
-| `fond-succes` | `vert-50` | = | bonne réponse, « Bon rythme » | `success-fond` |
-| `fond-succes-accentue` | `vert-625` | = | pastille de coche, segment « terminés » | `success` (en `background`) |
-| **Textes sur fond clair** | | | | |
-| `texte-principal` | `ardoise-900` | = | texte principal | `ink` (en `color`) |
-| `texte-secondaire` | `ardoise-625` | = | texte secondaire | `text-secondary` |
-| `texte-accent` | `violet-650` | = | libellés et liens violets | `primary-texte` |
-| `texte-accent-survol` | `violet-675` | = | survol des liens violets | `primary-hover` (en `color`, 9 usages) |
-| `texte-sur-accent` | `ardoise-750` | = | sous-titres sur fond lavande | `texte-attenue` |
-| `texte-action-desactive` | `ardoise-750` | = | texte d'un bouton désactivé | `texte-attenue` |
-| `texte-erreur` | `rouge-600` | = | message et icône d'erreur | `error` (en `color`) |
-| `texte-succes` | `vert-625` | = | « Terminé », icône de succès | `success` (en `color`) |
-| **Textes sur violet et sur encre** | | | | |
-| `texte-sur-marque` | `blanc` | = | texte sur carte violette | `surface` (en `color`), `#ffffff` du logo |
-| `texte-sur-marque-attenue` | `violet-75` | = | texte secondaire sur carte violette | `texte-sur-violet-doux`, `texte-sur-violet` |
-| `texte-sur-inverse` | `blanc` | = | texte sur carte encre | `surface` (en `color`) |
-| `texte-sur-inverse-attenue` | `ardoise-175` | = | texte secondaire sur carte encre | `texte-sur-encre`, `texte-sur-encre-clair` |
-| `texte-recompense` | `orange-250` | = | titre et lien de correction sur le bloc encre du quiz | `orange` (en `color`, 2 usages) |
-| **Textes sur fonds pleins** (DS 1.2.0) | | | | |
-| `texte-sur-action` | `blanc` | = | texte et icône sur `fond-action` : libellé du bouton principal, coche ou point d'un contrôle coché | `surface` (en `color`, 5 usages) |
-| `texte-sur-erreur` | `blanc` | = | texte et icône sur `fond-erreur-accentue` : bouton rouge plein, pastille « Ta réponse » fausse | `surface` (en `color`, 2 usages) |
-| `texte-sur-succes` | `blanc` | = | texte et icône sur `fond-succes-accentue` : coche d'une bonne réponse, pastille « Bonne réponse » | `surface` (en `color`, 2 usages) |
-| **Bordures** | | | | |
-| `bordure-action` | `violet-600` | = | contour du bouton secondaire, réponse ou choix sélectionné | `primary` (en `border`) |
-| `bordure-focus` | `violet-600` | = | contour de focus clavier, champ actif | `primary` (en `outline`) |
-| `bordure-controle` | `ardoise-450` | = | contour d'un contrôle interactif sans texte (case, rond de choix, bascule), au moins 3:1 contre chaque fond voisin, survol compris (DS 1.3.0) | `contour-etape` (en `border`) |
-| `bordure-etape` | `sable-150` | `ardoise-175` | contour d'une pastille d'étape à venir ou passée, non interactive (DS 1.3.0) | `contour-etape` (pastilles d'étapes) |
-| `bordure-action-desactive` | `sable-150` | `ardoise-175` | contour d'une action désactivée, avec `texte-action-desactive` (DS 1.3.0) | `text-secondary` (`.bouton-ajouter:disabled`) |
-| `bordure-separateur` | `sable-75` | `ardoise-75` | lignes entre les éléments d'une liste | `separateur`, `separateur-formateur` |
-| `bordure-erreur` | `rouge-600` | = | réponse fausse, champ en erreur | `error` (en `border`) |
-| `bordure-succes` | `vert-625` | = | bonne réponse | `success` (en `border`) |
+| Sémantique | Apprenant | Formateur | Rôle |
+|---|---|---|---|
+| **Fonds** | | | |
+| `fond-surface` | `blanc` | = | Cartes, champs sur le fond de page, bouton blanc sur carte foncée. |
+| `fond-accent` | `violet-100` | = | En-têtes lavande, onglet actif, sélection, survol des boutons contour. |
+| `fond-marque` | `violet-600` | = | Cartes violettes, remplissage de progression. |
+| `fond-marque-accentue` | `violet-675` | = | Fond posé sur la marque : piste d'anneau sur carte violette, fond du logo foncé. |
+| `fond-inverse` | `ardoise-900` | = | Cartes encre, tab bar, toast. |
+| `fond-inverse-survol` | `blanc` à 12 % | = | Survol d'une entrée de la barre de navigation (blanc à 12 %). Composantes de couleur.blanc, opacité 12 % portée par ce sémantique. |
+| `fond-action` | `violet-600` | = | Bouton principal, case cochée. |
+| `fond-action-survol` | `violet-675` | = | Survol du bouton principal. |
+| `fond-action-desactive` | `violet-100` | = | Bouton désactivé. |
+| `fond-voile` | `ardoise-900` à 45 % | = | Derrière une modale ou un menu (encre à 45 %). Composantes de couleur.ardoise-900, opacité 45 % portée par ce sémantique. |
+| `fond-voile-accentue` | `ardoise-900` à 85 % | = | Visionneuse d'images, miniature « +N » (encre à 85 %, garantit la lisibilité du « +N » blanc sur une image quelconque). Composantes de couleur.ardoise-900, opacité 85 % portée par ce sémantique. |
+| `fond-recompense` | `orange-250` | = | XP, quiz flash. Texte posé dessus : toujours encre (texte-principal), jamais blanc. |
+| `fond-recompense-survol` | `orange-300` | = | Survol du bouton orange. |
+| `fond-erreur` | `rouge-75` | = | Fond d'erreur, pastille « Bloquante », survol du bouton supprimer. |
+| `fond-erreur-accentue` | `rouge-600` | = | Bouton rouge plein, pastille « Ta réponse » fausse. |
+| `fond-succes` | `vert-50` | = | Bonne réponse, « Bon rythme ». |
+| `fond-succes-accentue` | `vert-625` | = | Pastille de coche, segment « terminés ». |
+| `fond-page` | `sable-50` | `ardoise-50` | Fond de page. |
+| `fond-sur-carte` | `sable-50` | `ardoise-50` | Champ, réponse, étape ou bloc posé sur une carte blanche. |
+| `fond-neutre` | `sable-75` | `ardoise-75` | Pastille « Non commencé », piste des barres fines. |
+| `fond-controle` | `sable-150` | `ardoise-175` | Point d'un contrôle, poignée de la feuille mobile. |
+| **Textes** | | | |
+| `texte-principal` | `ardoise-900` | = | Texte principal sur fond clair. |
+| `texte-secondaire` | `ardoise-625` | = | Texte secondaire sur fond clair. |
+| `texte-accent` | `violet-650` | = | Libellés et liens violets sur fond clair. |
+| `texte-accent-survol` | `violet-675` | = | Survol des liens violets. |
+| `texte-sur-accent` | `ardoise-750` | = | Sous-titres sur fond lavande. |
+| `texte-action-desactive` | `ardoise-750` | = | Texte d'un bouton désactivé. |
+| `texte-erreur` | `rouge-600` | = | Message et icône d'erreur. |
+| `texte-succes` | `vert-625` | = | « Terminé », icône de succès. |
+| `texte-sur-marque` | `blanc` | = | Texte sur carte violette. |
+| `texte-sur-marque-attenue` | `violet-75` | = | Texte secondaire sur carte violette. |
+| `texte-sur-inverse` | `blanc` | = | Texte sur carte encre. |
+| `texte-sur-inverse-attenue` | `ardoise-175` | = | Texte secondaire sur carte encre. |
+| `texte-sur-action` | `blanc` | = | Texte et icône posés sur fond-action : libellé du bouton principal, coche ou point d'un contrôle coché. |
+| `texte-sur-erreur` | `blanc` | = | Texte et icône posés sur fond-erreur-accentue : bouton rouge plein, pastille « Ta réponse » fausse. |
+| `texte-sur-succes` | `blanc` | = | Texte et icône posés sur fond-succes-accentue : coche d'une bonne réponse, pastille « Bonne réponse ». |
+| `texte-recompense` | `orange-250` | = | Titre et lien de correction sur le bloc encre du quiz. |
+| **Bordures** | | | |
+| `bordure-action` | `violet-600` | = | Contour du bouton secondaire, réponse ou choix sélectionné. |
+| `bordure-focus` | `violet-600` | = | Contour de focus clavier, champ actif. Réglé à part de bordure-action : il doit garder 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, ne jamais le lier à action. |
+| `bordure-controle` | `ardoise-450` | = | Contour d'un contrôle interactif sans texte (case, rond de choix, bascule). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur. |
+| `bordure-erreur` | `rouge-600` | = | Réponse fausse, champ en erreur. |
+| `bordure-succes` | `vert-625` | = | Bonne réponse. |
+| `bordure-separateur` | `sable-75` | `ardoise-75` | Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. |
+| `bordure-etape` | `sable-150` | `ardoise-175` | Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. |
+| `bordure-action-desactive` | `sable-150` | `ardoise-175` | Contour d'une action désactivée. Va avec texte-action-desactive. |
 
-**Cas isolés à migrer à la main.** Ce sont des usages où le token actuel ne correspond pas à son nom :
-- `bouton-ajouter:disabled` prend `text-secondary` comme bordure (`src/styles/shared.css:447`) ;
-- `cc-bloquante-active` prend `error-fond` comme bordure, donc une bordure de la couleur du fond (`src/pages/CreationCours.css:1023`) ;
-- `fd-etape-action:disabled:hover` prend `lavande` comme bordure (`src/pages/DashboardFormateur.css:763`).
+<!-- couleurs:fin -->
+
+## Correspondance avec les anciennes variables (historique)
+
+Variables `--color-*` (et valeurs écrites en dur) que chaque sémantique a remplacées lors de la migration des couleurs (DS 1.2.0), et lots suivants. Tableau historique, sans valeur : les valeurs sont dans la section générée ci-dessus.
+
+| Sémantique | Remplace |
+|---|---|
+| `fond-page` | `background`, `creme`, `fond-formateur` |
+| `fond-surface` | `surface` (en `background`) |
+| `fond-sur-carte` | `fond-champ` |
+| `fond-neutre` | `neutre-pale`, `neutre-pale-formateur` |
+| `fond-accent` | `lavande` |
+| `fond-marque` | `primary` (cartes, arcs, barres) |
+| `fond-marque-accentue` | `primary-profond` |
+| `fond-inverse` | `ink` (en `background`) |
+| `fond-inverse-survol` | `rgba(255, 255, 255, 0.12)` |
+| `fond-action` | `primary` (boutons, `accent-color`) |
+| `fond-action-survol` | `primary-hover` (en `background`) |
+| `fond-action-desactive` | `lavande` (boutons désactivés) |
+| `fond-controle` | `contour-etape` (en `background`) |
+| `fond-voile` | `rgba(30, 26, 51, 0.45)` ×3 |
+| `fond-voile-accentue` | `rgba(…, 0.85)`, `rgba(…, 0.6)` |
+| `fond-recompense` | `orange` (en `background`) |
+| `fond-recompense-survol` | `orange-survol` |
+| `fond-erreur` | `error-fond` |
+| `fond-erreur-accentue` | `error` (en `background`) |
+| `fond-succes` | `success-fond` |
+| `fond-succes-accentue` | `success` (en `background`) |
+| `texte-principal` | `ink` (en `color`) |
+| `texte-secondaire` | `text-secondary` |
+| `texte-accent` | `primary-texte` |
+| `texte-accent-survol` | `primary-hover` (en `color`, 9 usages) |
+| `texte-sur-accent` | `texte-attenue` |
+| `texte-action-desactive` | `texte-attenue` |
+| `texte-erreur` | `error` (en `color`) |
+| `texte-succes` | `success` (en `color`) |
+| `texte-sur-marque` | `surface` (en `color`), `#ffffff` du logo |
+| `texte-sur-marque-attenue` | `texte-sur-violet-doux`, `texte-sur-violet` |
+| `texte-sur-inverse` | `surface` (en `color`) |
+| `texte-sur-inverse-attenue` | `texte-sur-encre`, `texte-sur-encre-clair` |
+| `texte-recompense` | `orange` (en `color`, 2 usages) |
+| `texte-sur-action` | `surface` (en `color`, 5 usages) |
+| `texte-sur-erreur` | `surface` (en `color`, 2 usages) |
+| `texte-sur-succes` | `surface` (en `color`, 2 usages) |
+| `bordure-action` | `primary` (en `border`) |
+| `bordure-focus` | `primary` (en `outline`) |
+| `bordure-controle` | `contour-etape` (en `border`) |
+| `bordure-etape` | `contour-etape` (pastilles d'étapes) |
+| `bordure-action-desactive` | `text-secondary` (`.bouton-ajouter:disabled`) |
+| `bordure-separateur` | `separateur`, `separateur-formateur` |
+| `bordure-erreur` | `error` (en `border`) |
+| `bordure-succes` | `success` (en `border`) |
+
+**Cas isolés migrés à la main.** Usages où l'ancienne variable ne correspondait pas à son nom :
+- `bouton-ajouter:disabled` prenait `text-secondary` comme bordure : `bordure-action-desactive` (1.3.0) ;
+- `cc-bloquante-active` prenait `error-fond` comme bordure, de la couleur du fond : bordure `transparent` (1.2.0) ;
+- `fd-etape-action:disabled:hover` prenait `lavande` comme bordure, de la couleur du fond : bordure `transparent` (1.2.0).
 
 ## Décisions
 
