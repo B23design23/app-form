@@ -1,0 +1,211 @@
+/* Page /design-system : mise en page seulement. Couleurs et espacements par les tokens générés,
+   rayons et ombre par les variables existantes du :root ; les éléments montrés gardent leurs
+   propres classes. */
+
+.ds-page {
+  padding: calc(env(safe-area-inset-top) + var(--espace-20)) var(--espace-16) var(--espace-40);
+}
+
+.ds-entete h1 {
+  margin: 0;
+}
+
+.ds-intention,
+.ds-description,
+.ds-meta {
+  margin: 0;
+  color: var(--texte-secondaire);
+}
+
+.ds-meta {
+  font-size: smaller;
+  overflow-wrap: anywhere;
+}
+
+.ds-section {
+  margin-top: var(--espace-24);
+}
+
+.ds-groupe {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-12);
+}
+
+.ds-groupe h3 {
+  margin: var(--espace-8) 0 0;
+  color: var(--texte-principal);
+}
+
+.ds-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espace-16);
+}
+
+@media (min-width: 768px) {
+  .ds-grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .ds-grille {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .ds-carte-large {
+    grid-column: span 2;
+  }
+}
+
+.ds-carte {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-8);
+  min-width: 0;
+}
+
+.ds-centre {
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-nom {
+  font-weight: 800;
+  color: var(--texte-principal);
+  overflow-wrap: anywhere;
+}
+
+/* Échantillons : chaque token dans sa propriété (fond, texte, bordure) */
+.ds-echantillon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--espace-40);
+  border-radius: var(--radius-reponse);
+}
+
+.ds-echantillon-texte {
+  font-weight: 800;
+}
+
+.ds-echantillon-bordure {
+  border: 2px solid;
+}
+
+.ds-modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espace-8);
+}
+
+.ds-modes > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-4);
+}
+
+.ds-fonds-page {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espace-16);
+}
+
+.ds-fond-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-4);
+  min-height: calc(var(--espace-40) * 2);
+  padding: var(--espace-16);
+  border-radius: var(--radius-carte);
+  background: var(--fond-page);
+}
+
+.ds-primitifs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-12);
+}
+
+.ds-primitif {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--espace-4);
+}
+
+.ds-primitif-pastille {
+  width: var(--espace-40);
+  height: var(--espace-40);
+  border-radius: var(--radius-pill);
+}
+
+.ds-corps {
+  margin: 0;
+}
+
+.ds-echelle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-echelle li {
+  display: grid;
+  grid-template-columns: calc(var(--espace-40) * 2) 1fr auto;
+  align-items: center;
+  gap: var(--espace-12);
+}
+
+.ds-barre {
+  height: var(--espace-8);
+  border-radius: var(--radius-pill);
+  background: var(--fond-marque);
+}
+
+.ds-rayon {
+  width: calc(var(--espace-40) * 2);
+  height: calc(var(--espace-40) * 2);
+  background: var(--fond-accent);
+}
+
+.ds-ombre-flottante {
+  box-shadow: var(--ombre-flottante);
+}
+
+.ds-regles,
+.ds-dodont {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace-6);
+}
+
+.ds-regle p {
+  margin: 0;
+  color: var(--texte-principal);
+}
+
+.ds-regles-titre {
+  font-weight: 800;
+  color: var(--texte-accent);
+}
+
+.ds-pastilles {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace-16);
+}
+
+.ds-anneau-valeur {
+  font-weight: 800;
+  color: var(--texte-principal);
+}
+
+.ds-sur-fond {
+  justify-content: center;
+}
