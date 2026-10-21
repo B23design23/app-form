@@ -99,7 +99,11 @@
 .contenu-markdown td {
   padding: 10px 12px;
   text-align: left;
-  border-bottom: 1px solid var(--bordure-separateur);
+}
+
+/* Trait entre deux lignes du corps seulement : ni sous l'en-tête ni après la dernière ligne */
+.contenu-markdown tbody tr + tr td {
+  border-top: 1px solid var(--bordure-separateur);
 }
 
 .contenu-markdown th {

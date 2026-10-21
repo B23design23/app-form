@@ -19,6 +19,7 @@ Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui 
 **Corrigé**
 
 - `bordure-controle` pointe vers `ardoise-450` : au moins 3:1 contre chaque fond voisin d'un contrôle (3,92 sur blanc, 3,40 sur `fond-page` apprenant, 3,57 formateur, 3,02 sur le survol lavande). Applique la décision 1.0.1. Côté écran : rien à faire, les contrôles interactifs lisent déjà `bordure-controle`.
+- Règle des séparateurs précisée (en-tête, premier et dernier élément) : `bordure-separateur` seulement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc, jamais avant le premier ni après le dernier ; un en-tête, un titre ou une section se sépare par l'espacement. Écrans corrigés (dérives, rien au registre) : tableau des élèves du Détail groupe (desktop), tableau « Cours les plus suivis » du dashboard admin (desktop), tableaux du contenu des leçons, barre d'outils de l'éditeur de leçon (Création de cours). Côté écran : un trait de séparation ne se pose qu'entre deux lignes répétées (sélecteur `tr + tr` ou `li + li`).
 
 **Déprécié**
 

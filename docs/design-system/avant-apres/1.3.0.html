@@ -337,6 +337,39 @@
   <table class="etats"><thead><tr><th>État</th><th>Tokens</th><th>Texte / fond</th><th>Contraste</th></tr></thead><tbody><tr><th>Non commencé</th><td><code>texte-secondaire</code> sur <code>fond-neutre</code></td><td>#5c566e / #ececf0 → #5c566e / #ececf0</td><td><span class="ok">5.92:1</span> → <span class="ok">5.92:1</span></td></tr><tr><th>À faire</th><td><code>texte-secondaire</code> sur <code>fond-neutre</code></td><td>#5c566e / #ececf0 → #5c566e / #ececf0</td><td><span class="ok">5.92:1</span> → <span class="ok">5.92:1</span></td></tr><tr><th>Nouveau</th><td><code>texte-principal</code> sur <code>fond-recompense</code> → <code>texte-accent</code> sur <code>fond-accent</code></td><td>#1e1a33 / #f6a55e → #4a2fd0 / #e4deff</td><td><span class="ok">8.36:1</span> → <span class="ok">6.21:1</span></td></tr><tr><th>En cours</th><td><code>texte-sur-marque</code> sur <code>fond-marque</code> → <code>texte-accent</code>, sans fond, icône de progression</td><td>#ffffff / #5b3fe0 → #4a2fd0 / #ffffff</td><td><span class="ok">6.50:1</span> → <span class="ok">8.05:1</span></td></tr><tr><th>Terminé</th><td><code>texte-succes</code>, sans fond, coche</td><td>#17663f / #ffffff → #17663f / #ffffff</td><td><span class="ok">6.98:1</span> → <span class="ok">6.98:1</span></td></tr></tbody></table>
 </article></div>
 </section>
+<section>
+  <h2>Séparateurs</h2>
+  <p class="note">Règle précisée en 1.3.0 : <code>bordure-separateur</code> seulement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc, jamais avant le premier ni après le dernier ; un en-tête, un titre ou une section se sépare par l'espacement. Quatre dérives corrigées, aucune valeur de couleur ne change.</p>
+  <div class="grille grille-pastilles"><article class="paire">
+  <header><span class="mode" style="text-transform:none">Détail groupe, tableau des élèves</span><span class="badge reel">formateur, desktop</span></header>
+  <div class="images">
+    <figure><img src="1.3.0/sep-detail-groupe-avant.png" alt="Détail groupe, tableau des élèves, avant"><figcaption>Avant (b4d4e7c)</figcaption></figure>
+    <figure><img src="1.3.0/sep-detail-groupe-apres.png" alt="Détail groupe, tableau des élèves, après"><figcaption>Après</figcaption></figure>
+  </div>
+  <p class="legende">Trait sous la ligne d'en-tête retiré ; en-tête séparé par l'espacement (<code>var(--espace-10)</code> sous l'en-tête, même valeur qu'avant).</p>
+</article><article class="paire">
+  <header><span class="mode" style="text-transform:none">Dashboard admin, « Cours les plus suivis »</span><span class="badge reel">formateur (compte officiel), desktop</span></header>
+  <div class="images">
+    <figure><img src="1.3.0/sep-tableau-admin-avant.png" alt="Dashboard admin, « Cours les plus suivis », avant"><figcaption>Avant (b4d4e7c)</figcaption></figure>
+    <figure><img src="1.3.0/sep-tableau-admin-apres.png" alt="Dashboard admin, « Cours les plus suivis », après"><figcaption>Après</figcaption></figure>
+  </div>
+  <p class="legende">Trait sous la ligne d'en-tête retiré ; <code>var(--espace-10)</code> sous l'en-tête, même valeur qu'avant.</p>
+</article><article class="paire">
+  <header><span class="mode" style="text-transform:none">Tableau dans le contenu d'une leçon (aperçu élève de Création de cours)</span><span class="badge reel">apprenant, desktop</span></header>
+  <div class="images">
+    <figure><img src="1.3.0/sep-tableau-lecon-avant.png" alt="Tableau dans le contenu d'une leçon (aperçu élève de Création de cours), avant"><figcaption>Avant (b4d4e7c)</figcaption></figure>
+    <figure><img src="1.3.0/sep-tableau-lecon-apres.png" alt="Tableau dans le contenu d'une leçon (aperçu élève de Création de cours), après"><figcaption>Après</figcaption></figure>
+  </div>
+  <p class="legende">Trait sous l'en-tête et trait après la dernière ligne retirés.</p>
+</article><article class="paire">
+  <header><span class="mode" style="text-transform:none">Éditeur de leçon, Création de cours</span><span class="badge reel">formateur, desktop</span></header>
+  <div class="images">
+    <figure><img src="1.3.0/sep-editeur-avant.png" alt="Éditeur de leçon, Création de cours, avant"><figcaption>Avant (b4d4e7c)</figcaption></figure>
+    <figure><img src="1.3.0/sep-editeur-apres.png" alt="Éditeur de leçon, Création de cours, après"><figcaption>Après</figcaption></figure>
+  </div>
+  <p class="legende">Trait sous la barre d'outils retiré ; espacement inchangé (10 px sous la barre + 16 px au-dessus du texte, deux paliers de l'échelle).</p>
+</article></div>
+</section>
 </main>
 </body>
 </html>

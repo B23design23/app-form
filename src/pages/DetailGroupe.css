@@ -333,7 +333,7 @@
   }
 
   .dg-table th {
-    padding: 10px 12px;
+    padding: 10px 12px var(--espace-10);
     text-align: left;
     font-size: 13px;
     font-weight: 800;
@@ -346,9 +346,13 @@
 
   .dg-table td {
     padding: 12px;
-    border-top: 1px solid var(--bordure-separateur);
     vertical-align: middle;
     font-weight: 600;
+  }
+
+  /* Trait entre deux lignes d'élèves seulement, pas sous l'en-tête */
+  .dg-table tbody tr + tr td {
+    border-top: 1px solid var(--bordure-separateur);
   }
 
   .dg-cellule-menu {

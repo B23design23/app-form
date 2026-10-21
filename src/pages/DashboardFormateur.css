@@ -1041,14 +1041,10 @@
 
   .fd-tableau thead th {
     padding-top: 0;
-    padding-bottom: 10px;
+    padding-bottom: var(--espace-10);
     font-size: 13px;
     font-weight: 700;
     color: var(--texte-secondaire);
-  }
-
-  .fd-tableau tbody tr {
-    border-top: 1px solid var(--bordure-separateur);
   }
 
   .fd-tableau th[scope='row'] {

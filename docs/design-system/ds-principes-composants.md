@@ -152,3 +152,10 @@ Rendre la pastille cliquable ou lui donner l'air d'un bouton.
 
 Voisin
 La pastille de groupe (lavande) dans l'espace formateur, qui nomme un groupe et ne dit rien de l'avancement.
+
+## Séparateur
+
+Règle principale
+Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement.
+
+Principe : 4 (la profondeur vient du fond, pas des traits ni des ombres).
