@@ -1,6 +1,6 @@
 # Règles du design system Skillo
 
-Référence unique du DS pour un agent qui construit un écran, et pour le mainteneur. Version publiée : 1.2.0. Brouillon en cours : 1.3.0 (voir `notes-de-version.md`).
+Référence unique du DS pour un agent qui construit un écran, et pour le mainteneur. Version publiée : 2.0.0. Brouillon en cours : 2.1.0 (voir `notes-de-version.md`).
 
 Ce fichier assemble des règles déjà écrites ailleurs : il n'en crée aucune. Chaque règle renvoie à sa source. Quand deux sources se contredisent, la contradiction est listée dans « À trancher » à la fin, sans être résolue ici.
 
@@ -263,13 +263,13 @@ Source : `ds-principes-composants.md`.
 
 ## 5. Règles transverses
 
-### Séparateurs (1.3.0)
+### Séparateurs (2.1.0)
 
 Le trait `bordure-separateur` se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement.
 
 ### Ombres
 
-Deux ombres, et seulement elles (1.3.0). Le contraste vient des couleurs de fond (principe 4).
+Deux ombres, et seulement elles (2.1.0). Le contraste vient des couleurs de fond (principe 4).
 - `--ombre-flottante` : les éléments flottants (menus, listes déroulantes, toast, modales).
 - Ombre d'illustration : les objets 3D qui débordent d'une carte. Pas de token.
 - Exception au registre (1.0.0) : l'ombre intérieure pleine qui neutralise l'autoremplissage du navigateur sur un champ (`:-webkit-autofill`), pour que le champ garde son fond.
@@ -298,7 +298,7 @@ Deux ombres, et seulement elles (1.3.0). Le contraste vient des couleurs de fond
 
 - Uniquement pour lancer le quiz flash. Texte encre (`texte-principal`), jamais blanc.
 - Fond `fond-recompense`, survol `fond-recompense-survol`.
-- Un seul bouton orange par écran (1.3.0, brouillon).
+- Un seul bouton orange par écran (2.1.0, brouillon).
 
 ### Typographie
 
@@ -438,5 +438,4 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 3. **Rubriques manquantes dans `ds-principes-composants.md`.** Bouton et Champ n'ont pas de « Rôle » écrit (seulement « Variantes et usage »). Le Séparateur n'a ni DO, ni DON'T, ni voisin écrits : la section 4 les tire de la seule règle.
 4. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 5. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
-6. **Niveau de la 1.2.0.** Sa note dit « aucun renommé ni retiré », mais elle retire les anciennes variables `--color-*` de `shared.css` (rubrique « Retiré »). Selon la numérotation, retirer ou renommer un token est une version majeure. Reste à décider si ces variables comptaient comme des tokens du DS.
-7. **Texte du bouton pointillé désactivé.** La description de `bordure-action-desactive` dit « Va avec texte-action-desactive », mais `.bouton-ajouter:disabled` utilise `texte-secondaire`.
+6. **Texte du bouton pointillé désactivé.** La description de `bordure-action-desactive` dit « Va avec texte-action-desactive », mais `.bouton-ajouter:disabled` utilise `texte-secondaire`.

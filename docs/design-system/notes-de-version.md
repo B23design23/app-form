@@ -1,6 +1,6 @@
 # Notes de version du design system
 
-## 1.3.0 (brouillon, non publiée)
+## 2.1.0 (brouillon, non publiée)
 
 Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui n'ont pas d'exigence de contraste.
 
@@ -34,9 +34,9 @@ Aucune entrée.
 
 - Séparateurs (règle précisée, sens inchangé) : `bordure-separateur` seulement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc ; un en-tête, un titre ou une section se sépare par l'espacement. Écrans : tableau des élèves du Détail groupe (desktop), tableau « Cours les plus suivis » du dashboard admin (desktop), tableaux du contenu des leçons, barre d'outils de l'éditeur de leçon (Création de cours).
 
-## 1.2.0 (21 octobre 2026)
+## 2.0.0 (21 octobre 2026)
 
-Évolution mineure : trois tokens ajoutés, aucun renommé ni retiré.
+Version majeure : retrait des anciennes variables `--color-*` (rubrique « Retiré »), numérotée 1.2.0 à l'origine. Suppression directe sans période de dépréciation : un seul mainteneur, tous les usages migrés (`gouvernance-skillo.md`, section 2).
 
 **Ajouté**
 
@@ -73,7 +73,7 @@ Aucune entrée.
 
 Évolution mineure de la règle des pastilles de statut (registre de `gouvernance-skillo.md`).
 
-Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 1.3.0.
+Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 2.1.0.
 
 **Ajouté**
 
@@ -98,7 +98,7 @@ Aucune entrée.
 
 ## 1.0.1 (20 octobre 2026)
 
-Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 1.3.0.
+Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 2.1.0.
 
 **Ajouté**
 

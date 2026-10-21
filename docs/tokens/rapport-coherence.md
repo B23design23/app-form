@@ -120,7 +120,7 @@ Les écarts de valeur sont en gras. Quand une ligne CSS se répartit entre plusi
 
 ## Dérives à corriger à la migration
 
-**Corrigées le 21 octobre 2026** (migration des couleurs, DS 1.2.0). Les listes 1 à 3 ci-dessus décrivent l'état d'avant la migration.
+**Corrigées le 21 octobre 2026** (migration des couleurs, DS 2.0.0). Les listes 1 à 3 ci-dessus décrivent l'état d'avant la migration.
 
 Ce sont les écarts entre `couleurs.md` et le CSS actuel. Les fichiers `tokens/` suivent `couleurs.md` ; c'est le CSS qui devra s'aligner :
 

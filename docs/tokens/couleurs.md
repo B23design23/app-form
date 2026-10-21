@@ -1,4 +1,4 @@
-Statut : décidé le 20 octobre 2026, migré (DS 1.2.0). Les tableaux des primitifs et des sémantiques sont générés depuis `tokens/` par `npm run tokens`.
+Statut : décidé le 20 octobre 2026, migré (DS 2.0.0). Les tableaux des primitifs et des sémantiques sont générés depuis `tokens/` par `npm run tokens`.
 
 # Couleurs, version 3
 
@@ -115,7 +115,7 @@ Section générée depuis `tokens/` : ne pas la modifier à la main, modifier `t
 
 ## Correspondance avec les anciennes variables (historique)
 
-Variables `--color-*` (et valeurs écrites en dur) que chaque sémantique a remplacées lors de la migration des couleurs (DS 1.2.0), et lots suivants. Tableau historique, sans valeur : les valeurs sont dans la section générée ci-dessus.
+Variables `--color-*` (et valeurs écrites en dur) que chaque sémantique a remplacées lors de la migration des couleurs (DS 2.0.0), et lots suivants. Tableau historique, sans valeur : les valeurs sont dans la section générée ci-dessus.
 
 | Sémantique | Remplace |
 |---|---|
@@ -166,9 +166,9 @@ Variables `--color-*` (et valeurs écrites en dur) que chaque sémantique a remp
 | `bordure-succes` | `success` (en `border`) |
 
 **Cas isolés migrés à la main.** Usages où l'ancienne variable ne correspondait pas à son nom :
-- `bouton-ajouter:disabled` prenait `text-secondary` comme bordure : `bordure-action-desactive` (1.3.0) ;
-- `cc-bloquante-active` prenait `error-fond` comme bordure, de la couleur du fond : bordure `transparent` (1.2.0) ;
-- `fd-etape-action:disabled:hover` prenait `lavande` comme bordure, de la couleur du fond : bordure `transparent` (1.2.0).
+- `bouton-ajouter:disabled` prenait `text-secondary` comme bordure : `bordure-action-desactive` (2.1.0) ;
+- `cc-bloquante-active` prenait `error-fond` comme bordure, de la couleur du fond : bordure `transparent` (2.0.0) ;
+- `fd-etape-action:disabled:hover` prenait `lavande` comme bordure, de la couleur du fond : bordure `transparent` (2.0.0).
 
 ## Décisions
 
@@ -186,7 +186,7 @@ Les confettis lisent `fond-marque`, `fond-recompense`, `fond-inverse`, `fond-sur
 
 **3. `bordure-controle` en formateur : `ardoise-175`.** J'applique la règle d'insertion. Un `ardoise-150` aurait la clarté de `sable-150` (L\* 84,4), soit 0,7 point d'`ardoise-175` (83,7) : trop proche, on garde l'existant. `fond-controle` suit le même mode.
 
-*Mise à jour DS 1.3.0 :* `bordure-controle` devient commun et pointe vers `ardoise-450` (3,02:1 au plus bas, contre `fond-accent`). Les valeurs `sable-150` / `ardoise-175` passent à `bordure-etape` et `bordure-action-desactive`, qui n'ont pas d'exigence de contraste.
+*Mise à jour DS 2.1.0 :* `bordure-controle` devient commun et pointe vers `ardoise-450` (3,02:1 au plus bas, contre `fond-accent`). Les valeurs `sable-150` / `ardoise-175` passent à `bordure-etape` et `bordure-action-desactive`, qui n'ont pas d'exigence de contraste.
 
 Fait à noter, sans le corriger ici : `sable-150` sur blanc donne un contraste d'environ 1,5:1. C'est sous le minimum de 3:1 exigé pour le contour d'un contrôle (WCAG 1.4.11), et `ardoise-175` fait pareil.
 
