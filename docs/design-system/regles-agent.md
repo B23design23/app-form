@@ -79,7 +79,7 @@ Chaque principe tranche entre deux options. La première est retenue, la seconde
 Les sémantiques communs ont la même valeur partout. Les autres changent de valeur selon le mode ; la liste ci-dessous les signale.
 - Mode apprenant : par défaut.
 - Mode formateur : tout ce qui est posé dans `.espace-layout-formateur`, `.flow-page-formateur` ou `.dropdown-content-formateur`.
-- `.mode-apprenant` rétablit le mode apprenant dans un conteneur formateur (aperçu élève).
+- *Implémentation* : `.mode-apprenant` rétablit le mode apprenant dans un conteneur formateur (aperçu élève).
 
 Un composant lit toujours le même sémantique dans les deux espaces : c'est le mode qui fournit la valeur.
 
@@ -93,17 +93,17 @@ Base 4. Liste fermée de paliers (ci-dessous) : tout autre `espace-*` est interd
 
 Rayons, tailles de police, polices et ombre ne sont pas encore tokenisés. Utiliser les variables CSS existantes du `:root` de `src/styles/shared.css` :
 
-| Variable CSS | Rôle (`CLAUDE.md`, Direction artistique) |
-|---|---|
-| `--radius-carte` | cartes |
-| `--radius-carte-petite` | petites cartes de grille |
-| `--radius-reponse` | réponses de quiz |
-| `--radius-pill` | champs et boutons en pilule |
-| `--radius-badge` | rôle non documenté |
-| `--taille-h1` | titres de page (salutation, « Cours », « Mes groupes »…) |
-| `--taille-titre-cours` | titres de cours et noms de thème dans les fiches |
-| `--font-display`, `--font-body` | police Urbanist (titres, corps) |
-| `--ombre-flottante` | seule ombre de l'app, réservée aux éléments flottants |
+| Variable CSS | Rôle | Statut |
+|---|---|---|
+| `--radius-carte` | cartes | *Provisoire, pas encore tokenisé* |
+| `--radius-carte-petite` | petites cartes de grille | *Provisoire, pas encore tokenisé* |
+| `--radius-reponse` | réponses de quiz | *Provisoire, pas encore tokenisé* |
+| `--radius-pill` | champs et boutons en pilule | *Provisoire, pas encore tokenisé* |
+| `--radius-badge` | rôle non documenté | *Provisoire, pas encore tokenisé* |
+| `--taille-h1` | titres de page (salutation, « Cours », « Mes groupes »…) | *Provisoire, pas encore tokenisé* |
+| `--taille-titre-cours` | titres de cours et noms de thème dans les fiches | *Provisoire, pas encore tokenisé* |
+| `--font-display`, `--font-body` | police Urbanist (titres, corps) | *Provisoire, pas encore tokenisé* |
+| `--ombre-flottante` | ombre des éléments flottants (voir « Ombres », section 5) | |
 
 ### Liste des tokens utilisables
 
@@ -266,7 +266,7 @@ Source : `ds-principes-composants.md`.
 ### Pastille de statut (`StatutBadge`)
 
 - **Rôle** : dire où en est l'apprenant sur un cours.
-- **Quand l'utiliser** : le statut d'un cours pour un élève, partout où il apparaît : dashboard apprenant (« De ton formateur »), page Cours (« De ton formateur », cartes de thème, résultats de recherche), détail d'un thème, Terrain, récap de cours, suivi du Détail groupe, Activité récente du dashboard formateur. Pas pour le repère d'étapes, la mention Checklist terminée ni les compteurs (x / y cours, X terminés sur N, barre d'avancement).
+- **Quand l'utiliser** : le statut d'un cours pour un élève, partout où il apparaît. Pas pour le repère d'étapes, la mention Checklist terminée ni les compteurs (x / y cours, X terminés sur N, barre d'avancement).
 - **Règle** : un cours pas encore ouvert s'affiche en pilule (Non commencé et À faire en `texte-secondaire` sur `fond-neutre`, Nouveau en `texte-accent` sur `fond-accent`). Un cours déjà ouvert s'affiche sans pilule, en texte avec une icône (En cours en `texte-accent` avec l'icône de progression, Terminé en `texte-succes` avec la coche). Aucune pastille n'utilise `fond-action`, `fond-marque` ni `fond-recompense`. Principes 2 et 5.
 - **Voisin à ne pas confondre** : la pastille de groupe (lavande) de l'espace formateur, qui nomme un groupe et ne dit rien de l'avancement.
 - **À faire** : utiliser la même pastille (`StatutBadge`) partout où un statut de cours apparaît.
@@ -323,20 +323,21 @@ Deux ombres, et seulement elles (2.1.0). Le contraste vient des couleurs de fond
 
 ### Typographie
 
-- Urbanist partout (`--font-display`, `--font-body`), graisses 400 à 800. Titres en 800, corps en 500 à 600.
-- `--taille-h1` est réservé aux **titres de page** (salutation, « Cours », « Mes groupes »…).
-- `--taille-titre-cours` : titres de cours et noms de thème dans les fiches (fiche cours, détail cours formateur, détail thème), graisse 800, interlignage 1.1.
+- Urbanist partout (`--font-display`, `--font-body`, *Provisoire, pas encore tokenisé*), graisses 400 à 800. Titres en 800, corps en 500 à 600.
+- `--taille-h1` (*Provisoire, pas encore tokenisé*) est réservé aux **titres de page** (salutation, « Cours », « Mes groupes »…).
+- `--taille-titre-cours` (*Provisoire, pas encore tokenisé*) : titres de cours et noms de thème dans les fiches (fiche cours, détail cours formateur, détail thème), graisse 800, interlignage 1.1.
 - Titres (H1, titres de cours et de thème, questions de quiz) : pas de césure automatique (`hyphens: manual`) et `text-wrap: balance`. La césure reste active sur le texte courant de la leçon (paragraphes, listes).
 
 ### Icônes
 
-- SVG dont les tracés utilisent `currentColor`, importés en `?raw` et rendus inline par `src/components/Icone.jsx`.
+- Les tracés utilisent `currentColor`.
+- *Implémentation* : SVG importés en `?raw` et rendus inline par `src/components/Icone.jsx`.
 - La couleur se pilote par la propriété `color` du parent (exemple : `texte-principal` sur le bouton orange). Pas de filtre CSS.
 - Exception : les illustrations multicolores (`Assets/badge/`, onboarding) restent en `<img>`.
 
 ### Navigation
 
-- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `--radius-carte`, marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
+- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `--radius-carte` (*Provisoire, pas encore tokenisé*), marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`. Onglets inactifs : `texte-sur-inverse`. Survol d'une entrée : `fond-inverse-survol`.
 
@@ -344,7 +345,7 @@ Deux ombres, et seulement elles (2.1.0). Le contraste vient des couleurs de fond
 
 - Option sélectionnée : fond `fond-accent`, texte et coche `texte-accent`.
 - Survol d'une option : `fond-sur-carte` (le mode donne la valeur), jamais sur l'option sélectionnée.
-- Le menu est rendu en portail : `Dropdown.jsx` détecte l'espace à l'ouverture et pose `.dropdown-content-formateur` en mode formateur.
+- *Implémentation* : le menu est rendu en portail ; `Dropdown.jsx` détecte l'espace à l'ouverture et pose `.dropdown-content-formateur` en mode formateur.
 
 ### Objet 3D du thème et numéro
 
@@ -353,7 +354,8 @@ Deux ombres, et seulement elles (2.1.0). Le contraste vient des couleurs de fond
 
 ### Chevrons
 
-- Icône `chevron-right.svg`, classe `.chevron-ligne`, couleur `texte-secondaire` (via `currentColor`).
+- Couleur `texte-secondaire` (via `currentColor`).
+- *Implémentation* : icône `chevron-right.svg`, classe `.chevron-ligne`.
 - Un chevron à droite sur les cartes de thème, les lignes du détail d'un thème, les résultats de recherche, les lignes du Mode terrain, de « De ton formateur » (page Cours), de « Mes cours » et de « Mes groupes ». Toute la carte reste cliquable.
 
 ### Logo
@@ -463,3 +465,4 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 5. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
+6. **Séparateur dans une liste en plusieurs colonnes.** La règle (« jamais avant le premier ni après le dernier ») ne dit pas si « le dernier » s'entend par colonne. L'exemple « séparateur dans une liste en colonnes » (section 6) s'appuie sur ce que fait le Mode terrain et sur `CLAUDE.md`, pas sur une règle écrite dans `docs/`.
