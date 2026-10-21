@@ -316,7 +316,7 @@ Code : `src/pages/DashboardFormateur.jsx` (+ `DashboardAdmin.jsx`), classes `fd-
 
 *En-tête* : H1 « Bonjour / Bonsoir {prénom} » ; dessous 15 px gras secondaire « 3 cours · 1 groupe · 12 élèves » (élèves distincts ; « N cours » → Mes cours, « N groupes » → Mes groupes, même couleur, soulignés au survol seulement). À droite (centrés sur le bloc titre) : « + Nouveau groupe » (contour, ouvre `ModaleNouveauGroupe` puis le Détail du groupe créé — même modale que Mes groupes) et « + Nouveau cours » (violet plein), 50 px. Mobile : boutons côte à côte pleine largeur, 46 px.
 
-*Taux de complétion* (carte globale et carte de chaque groupe, une seule définition, `src/lib/groupes.js`) : couples élève × cours assigné au statut `termine` ÷ nombre total de couples élève × cours assigné ; le taux global applique la même formule sur l'ensemble des couples de tous les groupes (chaque couple compté une fois), pas une moyenne des groupes. Pour un formateur à un seul groupe, les deux chiffres sont égaux.
+*Taux de complétion* (carte globale et carte de chaque groupe, une seule définition, `src/lib/groupes.js`) : couples élève × cours assigné au statut `termine` ÷ nombre total de couples élève × cours assigné ; le taux global applique la même formule sur l'ensemble des couples de tous les groupes (chaque couple compté une fois), pas une moyenne des groupes. Pour un formateur à un seul groupe, les deux chiffres sont égaux. Sous le sous-titre de la carte globale, pastille d'état : moins de 40 % « À surveiller » (texte `texte-erreur` sur `fond-erreur`, icône alerte) ; 70 % ou plus « Bon rythme » (texte `texte-succes` sur `fond-succes`, icône coche) ; de 40 à 69 % ou sans données, pas de pastille.
 
 *Desktop* : grille 2 colonnes égales, 20 px (`grid-template-areas`, 2e rangée en `1fr`) ; **les deux colonnes ont toujours la même hauteur** : « Élèves à relancer » s'étire sur toute la colonne de gauche, et si elle est plus haute, « Tes groupes » s'étire pour rattraper ; le contenu reste en haut de chaque carte (« Voir les N autres » collé sous la dernière ligne). Mobile : hauteurs naturelles : gauche **Taux de complétion** (titre « Taux de complétion », sous-titre « Sur l'ensemble de tes groupes ») puis **Tes groupes** ; droite **Élèves à relancer**. Puis **Activité récente** pleine largeur. Mobile : complétion, relances, groupes, activité.
 
@@ -342,7 +342,7 @@ Code : `src/pages/DashboardFormateur.jsx` (+ `DashboardAdmin.jsx`), classes `fd-
 
 **Menu** : "Se déconnecter" (remplace le lien texte actuel en haut à droite).
 
-Applique le fond formateur `#F4F4F6` (voir "Nuance espace formateur") à ces écrans.
+Applique le fond formateur `#F4F4F6` (voir la section « Modes apprenant et formateur » de `docs/design-system/regles-agent.md`) à ces écrans.
 
 ## Fiche de cours — parcours guidé (lot fiche-cours, 2026-10-14)
 

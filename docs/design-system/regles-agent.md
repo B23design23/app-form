@@ -38,6 +38,8 @@ Une demande d'exception nomme l'écran, la règle concernée, ce que le système
 
 ## 2. Principes
 
+La direction artistique est chaleureuse et motivante : fonds crème (`fond-page` en mode apprenant), violet franc (`fond-marque`, `fond-action`), orange réservé à la récompense (`fond-recompense`).
+
 Chaque principe tranche entre deux options. La première est retenue, la seconde écartée (`ds-principes-composants.md`).
 
 1. **Chaque bloc débouche sur une action.** Des blocs qui proposent tous quelque chose à faire (reprendre un cours, lancer un quiz flash, viser le prochain badge), **contre** des cartes de chiffres et un carrousel de badges.
@@ -206,6 +208,13 @@ Source : `ds-principes-composants.md`.
   - orange (texte encre) : lancer le quiz flash, rien d'autre ;
   - supprimer (rouge) : action destructrice, dans un menu, toujours confirmée ;
   - pointillé : ajouter un élément dans la création de cours (question, réponse, étape).
+- **Tokens par variante** :
+  - principal : fond `fond-action`, texte `texte-sur-action`, survol et appui `fond-action-survol` ; désactivé : fond `fond-action-desactive`, texte `texte-action-desactive` ;
+  - sur fond foncé : dans un conteneur `.surface-foncee` (carte violette ou encre), le principal et le secondaire prennent le fond `fond-surface` et le texte `texte-principal`, survol et appui `fond-accent` ;
+  - secondaire : contour `bordure-action`, texte `texte-accent`, fond transparent, survol et appui `fond-accent` ;
+  - orange : fond `fond-recompense`, texte `texte-principal`, survol et appui `fond-recompense-survol` ;
+  - supprimer : texte `texte-erreur`, survol `fond-erreur` ; bouton rouge plein (confirmation) : fond `fond-erreur-accentue`, texte `texte-sur-erreur` ;
+  - pointillé : contour pointillé `bordure-action`, texte `texte-accent`, contour plein au survol ; désactivé : contour `bordure-action-desactive`, texte `texte-secondaire`.
 - **États** : repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué). Zone cliquable minimale : voir « Accessibilité » du Bouton dans `ds-principes-composants.md` (pas de token). Focus visible au clavier seulement.
 - **Voisin à ne pas confondre** : le lien texte, pour une action secondaire qui ne mérite pas de zone.
 - **À faire** : un seul bouton principal par zone d'action.
@@ -217,7 +226,7 @@ Source : `ds-principes-composants.md`.
 - **Règle principale, le fond** : sur une carte blanche, `fond-sur-carte` ; sur le fond de page, `fond-surface`. Jamais de bordure au repos.
 - **États** : repos, focus (contour violet dessiné à l'intérieur), erreur (message sous le champ), désactivé.
 - **Voisin à ne pas confondre** : la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
-- **À faire** : aligner le champ, son libellé et son aide sur le même bord gauche.
+- **À faire** : aligner le champ, son libellé et son aide sur le même bord gauche. Aucune marge négative : le champ fait la largeur de sa colonne.
 - **À ne pas faire** : ajouter une bordure pour séparer le champ de la carte, on change son fond. Signaler l'erreur par la seule couleur du contour, on écrit le message sous le champ.
 
 ### Barre de progression
@@ -334,7 +343,7 @@ Deux ombres, et seulement elles (1.3.0). Le contraste vient des couleurs de fond
 
 ### Anneaux de progression selon le fond
 
-Source : `couleurs.md`, décision 1.
+Rendu : extrémité arrondie, départ en haut, pourcentage au centre ; sans données, piste seule et « — ». Couleurs : `couleurs.md`, décision 1.
 
 | Fond | Piste | Arc |
 |---|---|---|
@@ -427,14 +436,7 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 1. **Point « Modifications non enregistrées » de Création de cours.** Il utilise `fond-recompense`, réservé à la récompense : c'est une dérive. Mais `fond-action` ne convient pas non plus. Sa description (« Bouton principal, case cochée ») ne cite que des éléments cliquables, et le registre 1.1.0 pose « violet plein = action ». Aucun sémantique existant ne correspond à un indicateur d'état non cliquable de ce type.
 2. **Rayons.** Plusieurs rayons de carte cités dans les sources (en-tête de page, bloc de tête du dashboard, cartes de Création de cours) n'ont pas de variable. `--radius-badge` n'a pas de rôle écrit.
 3. **Rubriques manquantes dans `ds-principes-composants.md`.** Bouton et Champ n'ont pas de « Rôle » écrit (seulement « Variantes et usage »). Le Séparateur n'a ni DO, ni DON'T, ni voisin écrits : la section 4 les tire de la seule règle.
-4. **Valeurs en pixels sans token dans `ds-principes-composants.md`** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page. Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
+4. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 5. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 6. **Niveau de la 1.2.0.** Sa note dit « aucun renommé ni retiré », mais elle retire les anciennes variables `--color-*` de `shared.css` (rubrique « Retiré »). Selon la numérotation, retirer ou renommer un token est une version majeure. Reste à décider si ces variables comptaient comme des tokens du DS.
-7. **Règles de l'ancienne section Direction artistique de `CLAUDE.md` toujours sans endroit** (texte dans le commit aba8133) :
-   - l'intention de la direction artistique (chaleureuse et motivante, fonds crème, violet franc, orange réservé à la récompense) ;
-   - champ : aucune marge négative, il fait la largeur de sa colonne ;
-   - paramètres de l'ombre d'illustration (selon la carte, et sur desktop) ;
-   - boutons : la classe `.surface-foncee`, l'épaisseur du contour du bouton secondaire, et la correspondance complète variante → tokens (texte du secondaire, texte et contour du bouton supprimer) ;
-   - dashboard formateur, taux de complétion : rendu de l'anneau (extrémité arrondie, départ en haut, pourcentage au centre, « — » sans données) et pastille d'état sous le sous-titre selon des seuils (« À surveiller », « Bon rythme ») ;
-   - Détail groupe, liste des élèves : nom, email dessous sans tiret, « Retirer » en erreur (en partie remplacée par le tableau et le menu « … » décrits dans `CLAUDE.md`) ;
-   - `CLAUDE.md` renvoie encore à une section « Nuance espace formateur » qui n'existe plus.
+7. **Texte du bouton pointillé désactivé.** La description de `bordure-action-desactive` dit « Va avec texte-action-desactive », mais `.bouton-ajouter:disabled` utilise `texte-secondaire`.
