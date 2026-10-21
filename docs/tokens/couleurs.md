@@ -109,7 +109,7 @@ Section générée depuis `tokens/` : ne pas la modifier à la main, modifier `t
 | `bordure-controle` | `ardoise-450` | = | Contour d'un contrôle interactif sans texte (case, rond de choix, bascule). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur. |
 | `bordure-erreur` | `rouge-600` | = | Réponse fausse, champ en erreur. |
 | `bordure-succes` | `vert-625` | = | Bonne réponse. |
-| `bordure-separateur` | `sable-75` | `ardoise-75` | Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. |
+| `bordure-separateur` | `sable-75` | `ardoise-75` | Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. |
 | `bordure-etape` | `sable-150` | `ardoise-175` | Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. |
 | `bordure-action-desactive` | `sable-150` | `ardoise-175` | Contour d'une action désactivée. Va avec texte-action-desactive. |
 
