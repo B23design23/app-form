@@ -14,6 +14,7 @@ import '../styles/espace-layout.css'
 import '../components/formateur/Formateur.css'
 import './DashboardFormateur.css'
 import Icone from '../components/Icone'
+import StatutBadge from '../components/StatutBadge'
 import DashboardAdmin from './DashboardAdmin'
 import { typo } from '../lib/typographie'
 import { relancerParEmail } from '../lib/relance'
@@ -630,17 +631,11 @@ function CarteActivite({ donnees, idsEleves, onOuvrirGroupe }) {
                       </span>
                       <span className="fd-evenement-details">
                         {ligne.groupe && <span className="fd-pastille-groupe">{typo(ligne.groupe.nom)}</span>}
-                        {ligne.statut === 'termine' ? (
-                          <span className="fd-statut fd-statut-termine">
-                            <Icone svg={iconeCoche} className="fd-statut-icone" />
-                            {ligne.score === null ? 'Terminé' : `Quiz ${ligne.score} %`}
-                          </span>
-                        ) : (
-                          <span className="fd-statut fd-statut-en-cours">
-                            <span className="fd-point" aria-hidden="true" />
-                            En cours
-                          </span>
-                        )}
+                        <span className="fd-evenement-statut">
+                          <StatutBadge statut={ligne.statut === 'termine' ? 'termine' : 'en_cours'} />
+                          {/* Meilleur score à côté du statut, hors du composant */}
+                          {ligne.statut === 'termine' && ligne.score !== null && <span className="fd-score">Quiz {ligne.score} %</span>}
+                        </span>
                       </span>
                       <Icone svg={iconeChevron} className="fd-chevron fd-evenement-chevron" />
                     </button>

@@ -629,33 +629,17 @@
   white-space: nowrap;
 }
 
-.fd-statut {
+.fd-evenement-statut {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 800;
+  gap: 8px;
   white-space: nowrap;
 }
 
-.fd-statut-termine {
-  color: var(--texte-succes);
-}
-
-.fd-statut-en-cours {
-  color: var(--texte-accent);
-}
-
-.fd-statut-icone {
-  width: 14px;
-  height: 14px;
-}
-
-.fd-point {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--fond-marque);
+.fd-score {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texte-secondaire);
 }
 
 /* --- Pour bien démarrer --------------------------------------------------------------------------- */
@@ -1000,7 +984,7 @@
     gap: 16px;
   }
 
-  .fd-evenement-details .fd-statut {
+  .fd-evenement-details .fd-evenement-statut {
     min-width: 96px;
   }
 

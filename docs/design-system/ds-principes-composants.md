@@ -134,14 +134,12 @@ Carte violette, objet qui déborde, bouton blanc. Il pousse à une action. L'en-
 Rôle
 Dire où en est l'apprenant sur un cours. Utilisée à six endroits : dashboard, « De ton formateur », Cours, détail d'un thème, Terrain, suivi du détail groupe.
 
-États
-- Non commencé et À faire : texte gris sur fond neutre pâle.
-- Nouveau : fond orange, texte encre.
-- En cours : fond violet plein, texte blanc.
-- Terminé : sans fond, coche + « Terminé » en vert.
-
 Règle principale
-Le mot porte toujours le statut. Pas de point de couleur avant le texte.
+Périmètre : le statut d'un cours pour un élève, partout où il apparaît. Ne s'applique pas au repère d'étapes, à la mention Checklist terminée ni aux compteurs (x / y cours, X terminés sur N, barre d'avancement).
+
+Un cours pas encore ouvert s'affiche en pilule. Non commencé et À faire en texte-secondaire sur fond-neutre. Nouveau en texte-accent sur fond-accent. Un cours déjà ouvert s'affiche sans pilule, en texte avec une icône. En cours en texte-accent avec l'icône de progression. Terminé en texte-succes avec la coche. Aucune pastille n'utilise fond-action, fond-marque ni fond-recompense.
+
+Principes : 2 (un style réservé garde son sens) et 5 (le statut n'est jamais porté par la couleur seule).
 
 DO
 Utiliser la même pastille partout où un statut de cours apparaît.
@@ -150,12 +148,7 @@ DON'T
 Utiliser le vert sur fond vert pâle. Ce couple est réservé aux bonnes réponses du quiz et à la pastille « Bon rythme ».
 
 Anti-pattern
-Rendre la pastille cliquable ou lui donner l'air d'un bouton. « En cours » en pilule violette pleine s'en approche déjà.
+Rendre la pastille cliquable ou lui donner l'air d'un bouton.
 
 Voisin
 La pastille de groupe (lavande) dans l'espace formateur, qui nomme un groupe et ne dit rien de l'avancement.
-
-## Points à arbitrer en session 3
-
-- « En cours » ressemble à un bouton principal.
-- « Nouveau » est orange, alors que le principe 2 réserve l'orange à la récompense.

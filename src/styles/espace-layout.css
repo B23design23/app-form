@@ -261,34 +261,30 @@
   color: var(--texte-secondaire);
 }
 
-.espace-layout-formateur .statut-badge-non_commence,
-.flow-page-formateur .statut-badge-non_commence,
-.espace-layout-formateur .statut-badge-a_faire,
-.flow-page-formateur .statut-badge-a_faire {
-  background: var(--fond-neutre);
-}
-
 .statut-badge-nouveau {
-  background: var(--fond-recompense);
-  color: var(--texte-principal);
+  background: var(--fond-accent);
+  color: var(--texte-accent);
 }
 
-.statut-badge-en_cours {
-  background: var(--fond-marque);
-  color: var(--texte-sur-marque);
-}
-
-/* Terminé : mention sans fond ni pilule, coche 14 px + mot en vert */
+/* Cours déjà ouvert : mention sans fond ni pilule, icône 14 px + mot */
+.statut-badge-en_cours,
 .statut-badge-termine {
   gap: 4px;
   padding: 0;
   background: none;
-  color: var(--texte-succes);
   font-size: 13px;
   font-weight: 800;
 }
 
-.statut-badge-coche {
+.statut-badge-en_cours {
+  color: var(--texte-accent);
+}
+
+.statut-badge-termine {
+  color: var(--texte-succes);
+}
+
+.statut-badge-icone {
   width: 14px;
   height: 14px;
   flex-shrink: 0;

@@ -33,12 +33,27 @@
   .ok, .ko { font-weight: 800; padding: 0 6px; border-radius: 6px; }
   .ok { color: var(--ok); background: var(--ok-fond); }
   .ko { color: var(--ko); background: var(--ko-fond); }
+
+  .grille-pastilles { grid-template-columns: 1fr; }
+  .legende { font-size: 13px; color: var(--secondaire); margin: 12px 0 6px; }
+  .etats { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13px; }
+  .etats th, .etats td { text-align: left; padding: 6px 8px; border-top: 1px solid var(--ligne); vertical-align: top; }
+  .etats td:last-child { white-space: nowrap; }
+  .etats thead th { color: var(--secondaire); font-weight: 600; border-top: none; }
 </style>
 </head>
 <body>
 <main>
 <h1>Avant / après 1.3.0</h1>
 <p class="intro">Avant : commit 1700bcd. Après : branche tokens-couleurs-ds-1.2.0. Captures faites dans l'app (Chromium, ×2). « Écran réel » : l'élément tel qu'il existe dans ce mode. « Mode forcé » : l'élément n'existe pas dans ce mode ; la classe de mode (<code>.flow-page-formateur</code> ou <code>.mode-apprenant</code>) est posée sur son conteneur pour montrer la valeur du token. Contraste : le plus faible entre la bordure et ses fonds voisins (remplissage du contrôle et fond du conteneur, survol compris), seuil 3:1.</p>
+<section class="choix-icone">
+  <h2>Icône de progression « En cours » : à choisir</h2>
+  <p class="note">Pas encore appliquée. Une vraie ligne du Mode terrain (mode apprenant) ; l'icône et la mention sont injectées dans la page pour la capture, sans modifier le code. Texte et icône en <code>texte-accent</code>, 14 px, comme la coche de Terminé.</p>
+  <div class="grille">
+    <article class="paire"><header><span class="mode" style="text-transform:none">A · anneau partiel</span></header><img src="1.3.0/icone-en-cours-A.png" alt="Ligne de cours, En cours avec l'icône A, anneau partiel"></article>
+    <article class="paire"><header><span class="mode" style="text-transform:none">B · demi-disque</span></header><img src="1.3.0/icone-en-cours-B.png" alt="Ligne de cours, En cours avec l'icône B, demi-disque"></article>
+  </div>
+</section>
 <section>
   <h2>Réponse de quiz, au repos</h2>
   <p class="note">Contrôle de la réponse (<code>.fiche-reponse-controle</code>).</p>
@@ -289,6 +304,37 @@
     <dt>Couleur</dt><dd><i class="pastille" style="background:#d3cee3"></i>#d3cee3 → <i class="pastille" style="background:#d3cee3"></i>#d3cee3</dd>
     <dt>Contraste</dt><dd><span class="ko">1.53:1</span> → <span class="ko">1.53:1</span></dd>
   </dl>
+</article></div>
+</section>
+<section>
+  <h2>Pastilles de statut</h2>
+  <p class="note">Règle 1.1.0, appliquée en 1.3.0 : pilule pour un cours pas encore ouvert, mention avec icône pour un cours déjà ouvert. Avant : commit ed26825 (règle 1.1.0 décidée, pas appliquée). Contraste du texte sur son fond (blanc de la carte quand la mention n'a pas de fond), seuil 4,5:1.</p>
+  <div class="grille grille-pastilles"><article class="paire">
+  <header><span class="mode">apprenant</span><span class="badge reel">écran réel</span></header>
+  <p class="legende">Les 5 états (balisage de <code>StatutBadge</code> de chaque version, dans une carte blanche de la vraie page)</p>
+  <div class="images">
+    <figure><img src="1.3.0/pastilles-etats-apprenant-avant.png" alt="États, apprenant, avant"><figcaption>Avant (ed26825)</figcaption></figure>
+    <figure><img src="1.3.0/pastilles-etats-apprenant-apres.png" alt="États, apprenant, après"><figcaption>Après</figcaption></figure>
+  </div>
+  <p class="legende">Détail d'un thème</p>
+  <div class="images">
+    <figure><img src="1.3.0/pastilles-ecran-apprenant-avant.png" alt="Détail d'un thème, avant"><figcaption>Avant (ed26825)</figcaption></figure>
+    <figure><img src="1.3.0/pastilles-ecran-apprenant-apres.png" alt="Détail d'un thème, après"><figcaption>Après</figcaption></figure>
+  </div>
+  <table class="etats"><thead><tr><th>État</th><th>Tokens</th><th>Texte / fond</th><th>Contraste</th></tr></thead><tbody><tr><th>Non commencé</th><td><code>texte-secondaire</code> sur <code>fond-neutre</code></td><td>#5c566e / #efe9e0 → #5c566e / #efe9e0</td><td><span class="ok">5.78:1</span> → <span class="ok">5.78:1</span></td></tr><tr><th>À faire</th><td><code>texte-secondaire</code> sur <code>fond-neutre</code></td><td>#5c566e / #efe9e0 → #5c566e / #efe9e0</td><td><span class="ok">5.78:1</span> → <span class="ok">5.78:1</span></td></tr><tr><th>Nouveau</th><td><code>texte-principal</code> sur <code>fond-recompense</code> → <code>texte-accent</code> sur <code>fond-accent</code></td><td>#1e1a33 / #f6a55e → #4a2fd0 / #e4deff</td><td><span class="ok">8.36:1</span> → <span class="ok">6.21:1</span></td></tr><tr><th>En cours</th><td><code>texte-sur-marque</code> sur <code>fond-marque</code> → <code>texte-accent</code>, sans fond, icône de progression</td><td>#ffffff / #5b3fe0 → #4a2fd0 / #ffffff</td><td><span class="ok">6.50:1</span> → <span class="ok">8.05:1</span></td></tr><tr><th>Terminé</th><td><code>texte-succes</code>, sans fond, coche</td><td>#17663f / #ffffff → #17663f / #ffffff</td><td><span class="ok">6.98:1</span> → <span class="ok">6.98:1</span></td></tr></tbody></table>
+</article><article class="paire">
+  <header><span class="mode">formateur</span><span class="badge reel">écran réel</span></header>
+  <p class="legende">Les 5 états (balisage de <code>StatutBadge</code> de chaque version, dans une carte blanche de la vraie page)</p>
+  <div class="images">
+    <figure><img src="1.3.0/pastilles-etats-formateur-avant.png" alt="États, formateur, avant"><figcaption>Avant (ed26825)</figcaption></figure>
+    <figure><img src="1.3.0/pastilles-etats-formateur-apres.png" alt="États, formateur, après"><figcaption>Après</figcaption></figure>
+  </div>
+  <p class="legende">Détail groupe, tableau des élèves</p>
+  <div class="images">
+    <figure><img src="1.3.0/pastilles-ecran-formateur-avant.png" alt="Détail groupe, tableau des élèves, avant"><figcaption>Avant (ed26825)</figcaption></figure>
+    <figure><img src="1.3.0/pastilles-ecran-formateur-apres.png" alt="Détail groupe, tableau des élèves, après"><figcaption>Après</figcaption></figure>
+  </div>
+  <table class="etats"><thead><tr><th>État</th><th>Tokens</th><th>Texte / fond</th><th>Contraste</th></tr></thead><tbody><tr><th>Non commencé</th><td><code>texte-secondaire</code> sur <code>fond-neutre</code></td><td>#5c566e / #ececf0 → #5c566e / #ececf0</td><td><span class="ok">5.92:1</span> → <span class="ok">5.92:1</span></td></tr><tr><th>À faire</th><td><code>texte-secondaire</code> sur <code>fond-neutre</code></td><td>#5c566e / #ececf0 → #5c566e / #ececf0</td><td><span class="ok">5.92:1</span> → <span class="ok">5.92:1</span></td></tr><tr><th>Nouveau</th><td><code>texte-principal</code> sur <code>fond-recompense</code> → <code>texte-accent</code> sur <code>fond-accent</code></td><td>#1e1a33 / #f6a55e → #4a2fd0 / #e4deff</td><td><span class="ok">8.36:1</span> → <span class="ok">6.21:1</span></td></tr><tr><th>En cours</th><td><code>texte-sur-marque</code> sur <code>fond-marque</code> → <code>texte-accent</code>, sans fond, icône de progression</td><td>#ffffff / #5b3fe0 → #4a2fd0 / #ffffff</td><td><span class="ok">6.50:1</span> → <span class="ok">8.05:1</span></td></tr><tr><th>Terminé</th><td><code>texte-succes</code>, sans fond, coche</td><td>#17663f / #ffffff → #17663f / #ffffff</td><td><span class="ok">6.98:1</span> → <span class="ok">6.98:1</span></td></tr></tbody></table>
 </article></div>
 </section>
 </main>

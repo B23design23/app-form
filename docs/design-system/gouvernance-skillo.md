@@ -24,8 +24,8 @@ Une exception devient une évolution de la règle dès que le même besoin appar
 5. Registre
 Date    Cas    Type    Décision    Critère appliqué    Version    La règle évolue ?    Statut
 20/10/2026    Contour des contrôles à 1,5:1 sur blanc    Correction    Nouvelle valeur au-dessus de 3:1    Contrainte WCAG 1.4.11 que le système s'était donnée    1.0.1    Non    appliqué (en 1.3.0)
-20/10/2026    Pastille En cours en pilule violette pleine, lue comme un bouton    Évolution    Nouveau rendu sans fond violet plein    Un style réservé garde son sens (violet plein = action)    1.1.0    Oui, règle des pastilles    décidé
-20/10/2026    Pastille Nouveau en orange    Évolution    Orange retiré    Orange réservé à la récompense, Nouveau n'en est pas une    1.1.0    Oui, règle des pastilles    décidé
+20/10/2026    Pastille En cours en pilule violette pleine, lue comme un bouton    Évolution    Nouveau rendu sans fond violet plein    Un style réservé garde son sens (violet plein = action)    1.1.0    Oui, règle des pastilles    appliqué (en 1.3.0)
+20/10/2026    Pastille Nouveau en orange    Évolution    Orange retiré    Orange réservé à la récompense, Nouveau n'en est pas une    1.1.0    Oui, règle des pastilles    appliqué (en 1.3.0)
 20/10/2026    Ombre intérieure pour neutraliser l'autoremplissage du champ    Exception    Acceptée    Contrainte technique du navigateur, intention respectée (pas d'ombre visible, contraste par le fond), un seul endroit    1.0.0    Non    appliqué
 21/10/2026    Cas fictif. Bouton orange pour « Valider l'étape »    Exception    Refusée    Le bouton principal existe déjà, la récompense arrive en fin de checklist, l'orange est réservé    aucune    Non    décidé
 21/10/2026    Points de pagination de l'Introduction (boutons) à environ 1,3 à 1,5:1 sur le fond de page    Évolution    À trancher plus tard    à définir    aucune    à trancher    décidé
