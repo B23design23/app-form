@@ -203,33 +203,49 @@ Source : `ds-principes-composants.md`.
 
 ### Bouton
 
-- **Rôle et quand l'utiliser** :
+- **Rôle** : À trancher (la documentation décrit les variantes et leur usage, pas de rôle général).
+- **Quand l'utiliser, quand choisir le voisin** : un bouton pour toute action qui mérite une zone. Le voisin est le lien texte, pour une action secondaire qui ne mérite pas de zone.
+- **Variantes** :
   - principal (violet plein) : l'action attendue de la zone, un seul par zone ;
   - secondaire (contour violet) : action alternative à côté du principal ;
   - sur fond foncé (blanc, texte encre) : l'action principale d'une carte violette ou encre ;
   - orange (texte encre) : lancer le quiz flash, rien d'autre ;
   - supprimer (rouge) : action destructrice, dans un menu, toujours confirmée ;
   - pointillé : ajouter un élément dans la création de cours (question, réponse, étape).
-- **Tokens par variante** :
-  - principal : fond `fond-action`, texte `texte-sur-action`, survol et appui `fond-action-survol` ; désactivé : fond `fond-action-desactive`, texte `texte-action-desactive` ;
-  - sur fond foncé : dans un conteneur `.surface-foncee` (carte violette ou encre), le principal et le secondaire prennent le fond `fond-surface` et le texte `texte-principal`, survol et appui `fond-accent` ;
-  - secondaire : contour `bordure-action`, texte `texte-accent`, fond transparent, survol et appui `fond-accent` ;
-  - orange : fond `fond-recompense`, texte `texte-principal`, survol et appui `fond-recompense-survol` ;
-  - supprimer : texte `texte-erreur`, contour `bordure-erreur` (même épaisseur que le bouton secondaire), survol `fond-erreur` ; bouton rouge plein (confirmation) : fond `fond-erreur-accentue`, texte `texte-sur-erreur` ;
-  - pointillé : contour pointillé `bordure-action`, texte `texte-accent`, contour plein au survol ; désactivé : contour `bordure-action-desactive`, texte `texte-action-desactive`.
-- **États** : repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué). Zone cliquable minimale : voir « Accessibilité » du Bouton dans `ds-principes-composants.md` (pas de token). Focus visible au clavier seulement.
-- **Voisin à ne pas confondre** : le lien texte, pour une action secondaire qui ne mérite pas de zone.
-- **À faire** : un seul bouton principal par zone d'action.
-- **À ne pas faire** : utiliser le pointillé pour valider un formulaire, on prend le principal. Donner à une pastille de statut l'air d'un bouton : elle reste non cliquable visuellement (pas de survol, pas de curseur main, plus petite que le bouton).
+- **Tokens par état** (focus clavier visible au clavier seulement ; zone cliquable minimale : voir « Accessibilité » du Bouton dans `ds-principes-composants.md`) :
+
+| Variante | Repos | Survol | Actif (appui tactile) | Focus clavier | Désactivé |
+|---|---|---|---|---|---|
+| Principal | fond `fond-action`, texte `texte-sur-action` | `fond-action-survol` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Sur fond foncé | fond `fond-surface`, texte `texte-principal` | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Secondaire | contour `bordure-action`, texte À trancher | `fond-accent` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Orange | fond `fond-recompense`, texte `texte-principal` | `fond-recompense-survol` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Supprimer | texte `texte-erreur`, contour `bordure-erreur` (même épaisseur que le secondaire) | `fond-erreur` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Rouge plein (confirmation) | fond `fond-erreur-accentue`, texte `texte-sur-erreur` | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Pointillé | contour et texte À trancher | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, contour `bordure-action-desactive`, texte `texte-action-desactive` |
+
+  Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes) dans `ds-principes-composants.md`, les descriptions des tokens, la note 2.1.0 pour le contour du bouton supprimer.
+- **DO** : un seul bouton principal par zone d'action. Dans la barre d'enregistrement de Création de cours, « Enregistrer » est le seul bouton principal, « Annuler » est un lien texte.
+- **DON'T** : utiliser le pointillé pour valider un formulaire. Dans Détail groupe, « Ajouter » un élève par son email est un bouton principal, pas un pointillé. Ne pas non plus donner à une pastille de statut l'air d'un bouton (pas de survol, pas de curseur main, plus petite que le bouton).
 
 ### Champ
 
-- **Rôle et quand l'utiliser** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule blanche avec loupe, résultats dès 2 caractères).
-- **Règle principale, le fond** : sur une carte blanche, `fond-sur-carte` ; sur le fond de page, `fond-surface`. Jamais de bordure au repos.
-- **États** : repos, focus (contour violet dessiné à l'intérieur), erreur (message sous le champ), désactivé.
-- **Voisin à ne pas confondre** : la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
-- **À faire** : aligner le champ, son libellé et son aide sur le même bord gauche. Aucune marge négative : le champ fait la largeur de sa colonne.
-- **À ne pas faire** : ajouter une bordure pour séparer le champ de la carte, on change son fond. Signaler l'erreur par la seule couleur du contour, on écrit le message sous le champ.
+- **Rôle** : À trancher (la documentation décrit les variantes, pas de rôle général).
+- **Quand l'utiliser, quand choisir le voisin** : un champ pour une saisie libre. Le voisin est la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
+- **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule blanche avec loupe, résultats dès 2 caractères).
+- **Tokens par état** :
+
+| État | Tokens |
+|---|---|
+| Repos | fond `fond-sur-carte` sur une carte blanche, `fond-surface` sur le fond de page ; jamais de bordure ; texte saisi : À trancher |
+| Survol | À trancher |
+| Actif (saisie) | contour `bordure-focus` (« champ actif »), dessiné à l'intérieur du champ |
+| Focus clavier | contour `bordure-focus`, dessiné à l'intérieur du champ |
+| Désactivé | À trancher (l'état existe, ses tokens ne sont pas documentés) |
+| Erreur | message sous le champ en `texte-erreur` ; contour `bordure-erreur` (« champ en erreur »), jamais la couleur seule |
+
+- **DO** : aligner le champ, son libellé et son aide sur le même bord gauche. Dans Création de cours, le champ Titre, son libellé et l'aide qui suit partent du même bord. Aucune marge négative : le champ fait la largeur de sa colonne.
+- **DON'T** : ajouter une bordure pour séparer le champ de la carte, on change son fond. Dans une carte blanche de Création de cours, le champ Titre prend `fond-sur-carte`, pas une bordure grise. Ne pas signaler une erreur par la seule couleur du contour : on écrit le message sous le champ.
 
 ### Barre de progression
 
@@ -258,10 +274,13 @@ Source : `ds-principes-composants.md`.
 
 ### Séparateur (`bordure-separateur`)
 
-- **Rôle et quand l'utiliser** : un trait entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste).
-- **Voisin à ne pas confondre** : l'espacement, qui sépare un en-tête de colonnes, un titre ou une section.
-- **À faire** : poser le trait entre deux éléments répétés seulement.
-- **À ne pas faire** : un trait avant le premier élément, après le dernier, sous un en-tête, autour d'un titre ou entre deux sections. Principe 4.
+- **Rôle** : séparer deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste).
+- **Quand l'utiliser, quand choisir le voisin** : un trait seulement entre deux éléments répétés. Le voisin est l'espacement, pour un en-tête de colonnes, un titre ou une section, qui ne sont pas des éléments répétés.
+- **Variantes** : une seule, le trait `bordure-separateur` (valeur selon le mode). Épaisseur : À trancher (non documentée).
+- **Tokens par état** : repos `bordure-separateur`. Survol, actif, focus clavier, désactivé : sans objet, le séparateur n'est pas interactif.
+- **Ligne d'en-tête d'un tableau** : la règle de la 2.1.0 la règle explicitement (« Un en-tête de colonnes […] n'est pas un élément répété : il se sépare par l'espacement »). Aujourd'hui, le code ne pose pas de trait sous l'en-tête (Détail groupe, tableau du dashboard admin, tableaux des leçons, corrigés en 2.1.0).
+- **DO** : dans le tableau des élèves du Détail groupe, un trait entre deux lignes d'élèves, et l'espacement sous l'en-tête.
+- **DON'T** : un trait avant le premier élément ou après le dernier, sous un en-tête, autour d'un titre ou entre deux sections. Dans Activité récente, pas de trait sous l'intertitre d'un jour (« Aujourd'hui », « Hier »). Principe 4.
 
 ## 5. Règles transverses
 
@@ -436,7 +455,11 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 Contradictions et ambiguïtés relevées entre les sources. Chacune demande une décision : rien n'est résolu ici.
 
 1. **Rayons.** Plusieurs rayons de carte cités dans les sources (en-tête de page, bloc de tête du dashboard, cartes de Création de cours) n'ont pas de variable. `--radius-badge` n'a pas de rôle écrit.
-2. **Rubriques manquantes dans `ds-principes-composants.md`.** Bouton et Champ n'ont pas de « Rôle » écrit (seulement « Variantes et usage »). Le Séparateur n'a ni DO, ni DON'T, ni voisin écrits : la section 4 les tire de la seule règle.
+2. **Rubriques des entrées Bouton, Champ et Séparateur absentes de la documentation** (marquées « À trancher » dans la section 4) :
+   - Bouton : rôle général ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
+   - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
+   - Séparateur : épaisseur du trait.
+   - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 5. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
