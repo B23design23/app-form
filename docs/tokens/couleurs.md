@@ -22,6 +22,8 @@ Règles pour un agent :
 - **Ne pas changer de propriété.** Un token `fond-*` ne s'emploie jamais en `color`, et inversement.
 - **Une combinaison absente du tableau n'existe pas.** Il faut la demander, pas la deviner.
 - **Tracés SVG** : une piste, un arc ou une barre de progression prend un `fond-*`. Un trait de contour prend un `bordure-*`. Les icônes héritent du `texte-*` de leur parent via `currentColor`.
+- Un composant ne lit jamais un primitif.
+- Un composant lit toujours le même sémantique dans les deux espaces : c'est le mode qui fournit la valeur.
 
 ## Primitifs et sémantiques
 
