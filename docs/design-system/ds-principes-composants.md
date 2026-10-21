@@ -42,6 +42,7 @@ Zone cliquable de 44 px minimum. Focus visible au clavier seulement.
 
 DO
 Un seul bouton principal par zone d'action.
+Un bouton qui valide un formulaire est un bouton principal plein, de même hauteur que le champ voisin.
 
 DON'T
 Utiliser le pointillé pour valider un formulaire. On prend le principal.
