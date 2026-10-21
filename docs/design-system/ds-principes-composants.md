@@ -159,3 +159,41 @@ Règle principale
 Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement.
 
 Principe : 4 (la profondeur vient du fond, pas des traits ni des ombres).
+
+## Typographie
+
+- Urbanist partout (`--font-display`, `--font-body`), graisses 400 à 800. Titres en 800, corps en 500 à 600.
+- `--taille-h1` est réservé aux **titres de page** (salutation, « Cours », « Mes groupes »…).
+- `--taille-titre-cours` : titres de cours et noms de thème dans les fiches (fiche cours, détail cours formateur, détail thème), graisse 800, interlignage 1.1.
+- Titres (H1, titres de cours et de thème, questions de quiz) : pas de césure automatique (`hyphens: manual`) et `text-wrap: balance`. La césure reste active sur le texte courant de la leçon (paragraphes, listes).
+
+## Ponctuation
+
+- Textes de contenu (leçons, énoncés, réponses, explications, titres de cours, critères) : l'espace avant « ? », « ! », « : », « ; », « % » devient une espace fine insécable U+202F, et un pourcentage collé reçoit cette espace. Fonction `typo()` (`src/lib/typographie.js`), aussi appliquée dans `ContenuMarkdown`.
+- Textes fixes de l'interface (apprenant et formateur) : même règle, l'espace fine insécable est écrite directement dans le JSX ou la chaîne (pas d'appel à `typo()` sur un texte en dur, pas d'échappement). `typo()` est réservé aux textes dynamiques.
+- Tout nouveau texte suit cette règle.
+
+## Survol et tactile
+
+- Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
+- Sur tactile, seul `:active` donne un retour pendant l'appui (boutons principaux, secondaires, orange, boutons ronds, cartes et lignes cliquables).
+- Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
+- Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol`.
+- Tout nouveau style de survol suit ces règles.
+
+## Toast de complétion
+
+Fond `fond-inverse`, texte `texte-sur-inverse`, pastille XP en `fond-recompense` avec texte `texte-principal`.
+
+## Navigation
+
+- Onglets inactifs : `texte-sur-inverse`.
+
+## Liste déroulante
+
+- Option sélectionnée : fond `fond-accent`, texte et coche `texte-accent`.
+
+## Logo
+
+- `variante="clair"` : texte `texte-principal`, fond de l'anneau `fond-accent`, arc `fond-marque`.
+- `variante="fonce"` : texte `texte-sur-marque`, fond de l'anneau `fond-marque-accentue`, arc `fond-surface`.
