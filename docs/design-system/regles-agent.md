@@ -30,9 +30,6 @@ Une demande d'exception nomme l'écran, la règle concernée, ce que le système
 
 ## 1. Sources
 
-- **`tokens/` fait foi** pour les couleurs et les espacements (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
-- **`src/styles/tokens.generes.css` n'est jamais modifié à la main.** Il est généré par `npm run tokens`, comme la liste des tokens de la section 3 de ce fichier.
-- **Maquette et DS.** La maquette décide de la disposition : quels blocs, leur ordre, leur hiérarchie, leurs colonnes. Le DS décide des valeurs et des composants. En cas d'écart de valeur, le DS fait foi.
 - Décisions qui expliquent les tokens : `docs/tokens/couleurs.md`, `docs/tokens/espacements.md`.
 - Principes et composants : `docs/design-system/ds-principes-composants.md`.
 - Gouvernance, registre et versions : `docs/design-system/gouvernance-skillo.md`, `docs/design-system/notes-de-version.md`.
@@ -434,7 +431,11 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 - Pourquoi : « … jamais avant le premier ni après le dernier. »
 - Conforme : le trait est retiré sous la dernière rangée, comme dans la liste du Mode terrain.
 
-## 7. Conduite
+## 7. Conduite de l'agent
+
+- **`tokens/` fait foi** pour les couleurs et les espacements (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
+- **`src/styles/tokens.generes.css` n'est jamais modifié à la main.** Il est généré par `npm run tokens`, comme la liste des tokens de la section 3 de ce fichier.
+- **Maquette et DS.** La maquette décide de la disposition : quels blocs, leur ordre, leur hiérarchie, leurs colonnes. Le DS décide des valeurs et des composants. En cas d'écart de valeur, le DS fait foi.
 
 **Valeur hors échelle** : prendre le palier le plus proche ; à égalité, le palier supérieur. L'appliquer et le signaler en fin de réponse, sans s'arrêter.
 - Périmètre : les espacements entre éléments (gap, padding, marges).
