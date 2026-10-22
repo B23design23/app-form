@@ -234,6 +234,7 @@ Bouton rond « … » (nom accessible « Plus d'actions »). Mobile : feuille de
 
 Comportement
 Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`.
+Entrée ou Espace sur le bouton ouvre le menu et place le focus sur la première action. Les flèches passent d'une action à l'autre. Échap ferme le menu et rend le focus au bouton. Un menu à une seule action reste admis pour l'instant.
 
 DO
 Placer l'action destructrice en dernier, en rouge, suivie d'une Modale de confirmation.
