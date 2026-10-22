@@ -229,7 +229,7 @@ Source : `ds-principes-composants.md`.
 | Retour | fond `fond-surface`, texte `texte-principal` | `fond-accent` | `fond-accent` | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
 
   Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes) dans `ds-principes-composants.md`, les descriptions des tokens, la note 2.1.0 pour le contour du bouton supprimer.
-- **DO** : un seul bouton principal par zone d'action. Dans la barre d'enregistrement de Création de cours, « Enregistrer » est le seul bouton principal, « Annuler » est un lien texte.
+- **DO** : un seul bouton principal par zone d'action. Dans la barre d'enregistrement de Création de cours, « Enregistrer » est le seul bouton principal, « Annuler » est un bouton secondaire.
 - **DON'T** : utiliser le pointillé pour valider un formulaire. Dans Détail groupe, « Ajouter » un élève par son email est un bouton principal, pas un pointillé. Ne pas non plus donner à une pastille de statut l'air d'un bouton (pas de survol, pas de curseur main, plus petite que le bouton).
 
 ### Champ
@@ -302,7 +302,7 @@ Source : `ds-principes-composants.md`.
 
 - **Rôle** : faire confirmer une action qu'on ne peut pas défaire (principe 3).
 - **Quand l'utiliser** : avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
-- **Anatomie** : une Modale étroite ; titre (la question posée), texte facultatif, « Annuler » en lien texte, puis le bouton rouge plein qui confirme (libellé « Supprimer » par défaut). Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
+- **Anatomie** : une Modale étroite ; titre (la question posée), texte facultatif, « Annuler », puis le bouton qui confirme (libellé « Supprimer » par défaut). Annuler en secondaire, action en variante supprimer. Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
 - **DO** : toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
 - **DON'T** : lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
 - **À trancher** : libellé du bouton rouge (« Supprimer » ou le verbe de l'action) ; rendu du bouton rouge désactivé (le code utilise une opacité, pas le fond lavande des boutons désactivés).
@@ -506,5 +506,4 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 5. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
-6. **« Annuler » : secondaire ou lien texte.** Le critère de choix du Bouton fait d'« Annuler » un secondaire quand il est sur la même rangée que le principal et qu'il est l'autre issue de la même décision. Le DO du Bouton (barre d'enregistrement de Création de cours) et la Modale de confirmation en font un lien texte.
-7. **Valeur hors échelle et information manquante.** La règle « Valeur hors échelle » demande d'appliquer le palier le plus proche ; la règle « Manque ou incohérence » demande de ne rien écrire et de proposer l'option sans l'appliquer. Une valeur de maquette hors échelle n'est pas une information manquante, mais la frontière n'est pas écrite.
+6. **Valeur hors échelle et information manquante.** La règle « Valeur hors échelle » demande d'appliquer le palier le plus proche ; la règle « Manque ou incohérence » demande de ne rien écrire et de proposer l'option sans l'appliquer. Une valeur de maquette hors échelle n'est pas une information manquante, mais la frontière n'est pas écrite.

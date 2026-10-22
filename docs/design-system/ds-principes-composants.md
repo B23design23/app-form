@@ -207,7 +207,7 @@ Quand l'utiliser
 Avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
 
 Anatomie
-Une Modale étroite : titre (la question posée), texte facultatif, « Annuler » en lien texte, puis le bouton rouge plein qui confirme (libellé « Supprimer » par défaut). Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
+Une Modale étroite : titre (la question posée), texte facultatif, « Annuler », puis le bouton qui confirme (libellé « Supprimer » par défaut). Annuler en secondaire, action en variante supprimer. Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
 
 DO
 Toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.

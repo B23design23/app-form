@@ -1094,6 +1094,11 @@
   margin-top: 0;
 }
 
+/* « Annuler » : bouton secondaire, même hauteur que le bouton d'enregistrement */
+.cc-barre-actions .cc-annuler {
+  min-height: 52px;
+}
+
 .cc-enregistrer:disabled {
   background: var(--fond-action-desactive);
   color: var(--texte-action-desactive);
@@ -1284,7 +1289,8 @@
     border-radius: var(--radius-pill);
   }
 
-  .cc-barre-actions .cc-enregistrer {
+  .cc-barre-actions .cc-enregistrer,
+  .cc-barre-actions .cc-annuler {
     flex: none;
     min-height: 48px;
   }

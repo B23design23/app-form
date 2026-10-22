@@ -38,7 +38,7 @@ function Modale({ titre, sousTitre, onFermer, children, actions, etroite = false
   )
 }
 
-// Confirmation d'une suppression : « Annuler » + bouton rouge plein.
+// Confirmation d'une suppression : « Annuler » en bouton secondaire + bouton rouge plein.
 export function ModaleConfirmation({ titre, texte, libelleConfirmer = 'Supprimer', enCours = false, onConfirmer, onFermer }) {
   return (
     <Modale
@@ -47,7 +47,7 @@ export function ModaleConfirmation({ titre, texte, libelleConfirmer = 'Supprimer
       etroite
       actions={
         <>
-          <button type="button" className="fm-lien-action" onClick={onFermer} disabled={enCours}>
+          <button type="button" className="bouton-secondaire" onClick={onFermer} disabled={enCours}>
             Annuler
           </button>
           <button type="button" className="fm-bouton-danger" onClick={onConfirmer} disabled={enCours}>

@@ -377,6 +377,7 @@
 }
 
 .fm-modale-actions .bouton-primaire,
+.fm-modale-actions .bouton-secondaire,
 .fm-modale-actions .fm-bouton-danger {
   width: 100%;
 }
@@ -387,6 +388,13 @@
   background: var(--fond-action-desactive);
   color: var(--texte-action-desactive);
   opacity: 1;
+}
+
+.fm-modale .bouton-secondaire:disabled {
+  background: var(--fond-action-desactive);
+  border-color: var(--bordure-action-desactive);
+  color: var(--texte-action-desactive);
+  cursor: not-allowed;
 }
 
 .fm-lien-action {
@@ -599,6 +607,7 @@
   }
 
   .fm-modale-actions .bouton-primaire,
+  .fm-modale-actions .bouton-secondaire,
   .fm-modale-actions .fm-bouton-danger {
     width: auto;
   }

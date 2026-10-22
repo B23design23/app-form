@@ -1457,7 +1457,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
               )}
             </p>
             <div className="cc-barre-actions">
-              <button type="button" className="fm-lien-action cc-annuler" onClick={() => demanderQuitter(onRetour)}>
+              <button type="button" className="bouton-secondaire cc-annuler" onClick={() => demanderQuitter(onRetour)}>
                 Annuler
               </button>
               <button type="button" className="bouton-primaire cc-enregistrer" disabled={enregistrement || !modifie} onClick={handleEnregistrer}>
