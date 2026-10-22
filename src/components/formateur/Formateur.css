@@ -102,8 +102,7 @@
   transition: all 0.15s ease;
 }
 
-.fm-carte .fm-bouton-rond,
-.fm-modale .fm-bouton-rond {
+.fm-carte .fm-bouton-rond {
   background: var(--fond-sur-carte);
 }
 
@@ -316,85 +315,11 @@
   }
 }
 
-/* Modale : feuille depuis le bas sur mobile, carte centrée sur desktop */
-.fm-voile {
-  position: fixed;
-  inset: 0;
-  z-index: 70;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  background: var(--fond-voile);
-}
-
-.fm-modale {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 100%;
-  max-height: 90vh;
-  padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
-  overflow-y: auto;
-  border-radius: 30px 30px 0 0;
-  background: var(--fond-surface);
-}
-
-.fm-modale-entete {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.fm-modale-titres {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.fm-modale-titres h2 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 800;
-}
-
-.fm-modale-titres p {
-  margin: 0;
-  font-size: 15px;
-  color: var(--texte-secondaire);
-}
-
-.fm-modale-contenu {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.fm-modale-actions {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 8px;
-}
-
-.fm-modale-actions .bouton-primaire,
-.fm-modale-actions .bouton-secondaire,
-.fm-modale-actions .fm-bouton-danger {
-  width: 100%;
-}
-
 /* Bouton désactivé (règle du design system) : lavande, texte atténué */
-.fm-page .bouton-primaire:disabled,
-.fm-modale .bouton-primaire:disabled {
+.fm-page .bouton-primaire:disabled {
   background: var(--fond-action-desactive);
   color: var(--texte-action-desactive);
   opacity: 1;
-}
-
-.fm-modale .bouton-secondaire:disabled {
-  background: var(--fond-action-desactive);
-  border-color: var(--bordure-action-desactive);
-  color: var(--texte-action-desactive);
-  cursor: not-allowed;
 }
 
 .fm-lien-action {
@@ -407,26 +332,6 @@
   font-weight: 800;
   color: var(--texte-accent);
   cursor: pointer;
-}
-
-.fm-bouton-danger {
-  min-height: 48px;
-  padding: 0 24px;
-  border: none;
-  border-radius: var(--radius-pill);
-  background: var(--fond-erreur-accentue);
-  color: var(--texte-sur-erreur);
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.fm-bouton-danger:disabled {
-  background: var(--fond-action-desactive);
-  color: var(--texte-action-desactive);
-  cursor: not-allowed;
 }
 
 /* Bouton supprimer : texte et contour erreur (même épaisseur que le bouton secondaire), survol fond erreur */
@@ -580,37 +485,6 @@
   .fm-menu-carte .fm-poignee,
   .fm-menu-titre {
     display: none;
-  }
-
-  .fm-voile {
-    align-items: center;
-    padding: 24px;
-  }
-
-  .fm-modale {
-    max-width: 520px;
-    padding: 28px;
-    border-radius: 30px;
-  }
-
-  .fm-modale-etroite {
-    max-width: 440px;
-  }
-
-  .fm-modale .fm-poignee {
-    display: none;
-  }
-
-  .fm-modale-actions {
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-  }
-
-  .fm-modale-actions .bouton-primaire,
-  .fm-modale-actions .bouton-secondaire,
-  .fm-modale-actions .fm-bouton-danger {
-    width: auto;
   }
 }
 

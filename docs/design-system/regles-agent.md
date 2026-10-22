@@ -291,12 +291,12 @@ Source : `ds-principes-composants.md`.
 
 - **Rôle** : afficher un contenu court par-dessus la page sans la quitter : un formulaire ou un choix (créer un groupe, assigner un cours, ajouter une vidéo).
 - **Quand l'utiliser, quand choisir le voisin** : pour une saisie ou un choix lié à la page en cours. Le voisin est la Modale de confirmation, pour faire confirmer une action qu'on ne peut pas défaire. Les autres cas : À trancher.
-- **Anatomie** : voile `fond-voile` derrière ; mobile, feuille qui monte du bas avec une poignée ; desktop, carte centrée. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative.
+- **Anatomie** : voile `fond-voile` derrière ; mobile, feuille qui monte du bas avec une poignée ; desktop, carte centrée ; ombre `--ombre-flottante`. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative. Le composant sert aux deux modes (apprenant et formateur) et lit les mêmes sémantiques : le mode fournit la valeur.
 - **Comportement** : Échap, clic sur le voile et bouton « Fermer » ferment la modale. Rôle `dialog`, `aria-modal`, nom accessible = titre.
 - **DO** : laisser les trois façons de fermer (Échap, clic sur le voile, bouton « Fermer »).
 - **DON'T** : À trancher.
 - **À trancher** : focus à l'ouverture et maintien du focus dans la modale ; ombre (la règle des ombres cite les modales pour `--ombre-flottante`, le code n'en pose pas) ; usage dans l'espace apprenant (composant et styles rangés côté formateur).
-- **Fichier à réutiliser** : `src/components/formateur/Modale.jsx` (export par défaut `Modale`).
+- **Fichier à réutiliser** : `src/components/Modale.jsx` (export par défaut `Modale`).
 
 ### Modale de confirmation
 
@@ -306,7 +306,7 @@ Source : `ds-principes-composants.md`.
 - **DO** : toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
 - **DON'T** : lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
 - **À trancher** : libellé du bouton rouge (« Supprimer » ou le verbe de l'action) ; rendu du bouton rouge désactivé (le code utilise une opacité, pas le fond lavande des boutons désactivés).
-- **Fichier à réutiliser** : `src/components/formateur/Modale.jsx` (export nommé `ModaleConfirmation`).
+- **Fichier à réutiliser** : `src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
 
 ### Menu d'actions
 

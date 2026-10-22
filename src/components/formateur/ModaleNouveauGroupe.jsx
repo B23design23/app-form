@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
-import Modale from './Modale'
+import Modale from '../Modale'
 
 // Création d'un groupe (Mes groupes, dashboard formateur) : après création, onCree(id) ouvre
 // directement le Détail du nouveau groupe.

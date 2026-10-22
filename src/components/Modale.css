@@ -1,0 +1,185 @@
+/* Modale partagée (espaces apprenant et formateur) : feuille depuis le bas sur mobile, carte
+   centrée sur desktop. Lit les mêmes sémantiques dans les deux modes ; le mode fournit la valeur. */
+.modale-voile {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: var(--fond-voile);
+}
+
+.modale {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-height: 90vh;
+  padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  border-radius: 30px 30px 0 0;
+  background: var(--fond-surface);
+  /* Élément flottant : seule ombre de l'app (règle des ombres) */
+  box-shadow: var(--ombre-flottante);
+}
+
+.modale-poignee {
+  display: block;
+  align-self: center;
+  width: 40px;
+  height: 5px;
+  margin-bottom: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--fond-controle);
+}
+
+.modale-entete {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modale-titres {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modale-titres h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.modale-titres p {
+  margin: 0;
+  font-size: 15px;
+  color: var(--texte-secondaire);
+}
+
+/* Bouton rond « Fermer » : fond posé sur la carte blanche */
+.modale-fermer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--fond-sur-carte);
+  color: var(--texte-principal);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modale-fermer-icone {
+  width: 20px;
+  height: 20px;
+}
+
+.modale-fermer:active {
+  background: var(--fond-accent);
+}
+
+.modale-contenu {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modale-texte {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--texte-secondaire);
+}
+
+.modale-actions {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+}
+
+.modale-actions .bouton-primaire,
+.modale-actions .bouton-secondaire,
+.modale-actions .modale-bouton-danger {
+  width: 100%;
+}
+
+.modale .bouton-secondaire:disabled {
+  background: var(--fond-action-desactive);
+  border-color: var(--bordure-action-desactive);
+  color: var(--texte-action-desactive);
+  cursor: not-allowed;
+}
+
+/* Bouton rouge plein qui confirme une action destructrice */
+.modale-bouton-danger {
+  min-height: 48px;
+  padding: 0 24px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--fond-erreur-accentue);
+  color: var(--texte-sur-erreur);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modale-bouton-danger:disabled {
+  background: var(--fond-action-desactive);
+  color: var(--texte-action-desactive);
+  cursor: not-allowed;
+}
+
+/* Focus clavier des boutons : contour de 2 px à l'extérieur, visible au clavier seulement */
+.modale-fermer:focus-visible,
+.modale-bouton-danger:focus-visible {
+  outline: 2px solid var(--bordure-focus);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .modale-fermer:hover {
+    background: var(--fond-accent);
+  }
+}
+
+@media (min-width: 768px) {
+  .modale-voile {
+    align-items: center;
+    padding: 24px;
+  }
+
+  .modale {
+    max-width: 520px;
+    padding: 28px;
+    border-radius: 30px;
+  }
+
+  .modale-etroite {
+    max-width: 440px;
+  }
+
+  .modale-poignee {
+    display: none;
+  }
+
+  .modale-actions {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .modale-actions .bouton-primaire,
+  .modale-actions .bouton-secondaire,
+  .modale-actions .modale-bouton-danger {
+    width: auto;
+  }
+}

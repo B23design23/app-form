@@ -181,7 +181,7 @@ Quand l'utiliser
 Pour une saisie ou un choix lié à la page en cours. Pour faire confirmer une action qu'on ne peut pas défaire, on prend la Modale de confirmation. Les autres cas : À trancher.
 
 Anatomie
-Voile `fond-voile` derrière. Mobile : feuille qui monte du bas, avec une poignée. Desktop : carte centrée. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative.
+Voile `fond-voile` derrière. Mobile : feuille qui monte du bas, avec une poignée. Desktop : carte centrée. Ombre `--ombre-flottante`. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative. Le composant sert aux deux modes (apprenant et formateur) et lit les mêmes sémantiques : le mode fournit la valeur.
 
 Comportement
 Échap, clic sur le voile et bouton « Fermer » ferment la modale. Rôle `dialog`, `aria-modal`, nom accessible = titre.
@@ -196,7 +196,7 @@ DON'T
 Focus à l'ouverture et maintien du focus dans la modale (le code ne les gère pas). Ombre : la règle des ombres cite les modales pour `--ombre-flottante`, le code n'en pose pas. Usage dans l'espace apprenant (le composant et ses styles sont rangés côté formateur).
 
 Fichier
-`src/components/formateur/Modale.jsx` (export par défaut `Modale`).
+`src/components/Modale.jsx` (export par défaut `Modale`).
 
 ## Modale de confirmation
 
@@ -219,7 +219,7 @@ Lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3
 Libellé du bouton rouge (« Supprimer » ou le verbe de l'action). Rendu du bouton rouge désactivé (le code utilise une opacité, pas le fond lavande des boutons désactivés).
 
 Fichier
-`src/components/formateur/Modale.jsx` (export nommé `ModaleConfirmation`).
+`src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
 
 ## Menu d'actions
 
