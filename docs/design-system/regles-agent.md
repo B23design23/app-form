@@ -86,6 +86,11 @@ Tout nouveau code utilise les variables d'espacement générées (`var(--espace-
 
 Base 4. Liste fermée de paliers (ci-dessous) : tout autre `espace-*` est interdit. Demi-pas admis seulement en dessous de 12. Valeur négative : `calc(-1 * var(--espace-N))`. Restent hors échelle volontairement : les réserves pour les objets 3D, les débords des illustrations, les marges de page desktop, les zones d'action mesurées (`espacements.md`).
 
+**Rôles d'espacement** (`espacements.md`, section 6) :
+- **Écart entre deux blocs consécutifs d'une page**, bouton Retour compris : `--espace-20`. Fourni par le Conteneur de page (section 4).
+- **Ligne de liste** : padding vertical de chaque ligne `--espace-12` ; écart entre les éléments d'une ligne (vignette, texte, statut, chevron) `--espace-12` ; écart entre le titre et le sous-titre d'une ligne `--espace-4`.
+- **Bouton Retour** : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6`.
+
 ### Valeurs sans token
 
 Rayons, tailles de police, polices et ombre ne sont pas encore tokenisés. Utiliser les variables CSS existantes du `:root` de `src/styles/shared.css` :
@@ -198,6 +203,13 @@ Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer 
 
 Source : `ds-principes-composants.md`.
 
+### Conteneur de page
+
+- **Usage** : toute page de l'app s'y place, y compris une page hors navigation.
+- **Ce qu'il fournit** : les marges de page et l'écart entre les blocs de la page (`--espace-20`, voir « Rôles d'espacement » en section 3).
+- **Règle** : une page ne redéfinit pas l'écart entre ses blocs.
+- **Fichier à réutiliser** : le socle `.espace-page` de `src/styles/espace-layout.css`.
+
 ### Bouton
 
 - **Rôle** : À trancher (la documentation décrit les variantes et leur usage, pas de rôle général).
@@ -209,7 +221,7 @@ Source : `ds-principes-composants.md`.
   - orange (texte encre) : lancer le quiz flash, rien d'autre ;
   - supprimer (rouge) : action destructrice, dans un menu, toujours confirmée ;
   - pointillé : ajouter un élément dans la création de cours (question, réponse, étape) ;
-  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé.
+  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6` ; chevron de 18 px. Taille et graisse du libellé : À trancher (typographie hors itération).
 - **Choisir entre principal, secondaire et lien texte** :
   - principal : l'action attendue de la zone, un seul par zone ;
   - secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision ;
@@ -280,7 +292,7 @@ Source : `ds-principes-composants.md`.
 
 - **Rôle** : séparer deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste).
 - **Quand l'utiliser, quand choisir le voisin** : un trait seulement entre deux éléments répétés. Le voisin est l'espacement, pour un en-tête de colonnes, un titre ou une section, qui ne sont pas des éléments répétés.
-- **Variantes** : une seule, le trait `bordure-separateur` (valeur selon le mode). Épaisseur : À trancher (non documentée).
+- **Variantes** : une seule, le trait `bordure-separateur` (valeur selon le mode). Épaisseur : 1 px.
 - **Tokens par état** : repos `bordure-separateur`. Survol, actif, focus clavier, désactivé : sans objet, le séparateur n'est pas interactif.
 - **Ligne d'en-tête d'un tableau** : la règle de la 2.1.0 la règle explicitement (« Un en-tête de colonnes […] n'est pas un élément répété : il se sépare par l'espacement »). Aujourd'hui, le code ne pose pas de trait sous l'en-tête (Détail groupe, tableau du dashboard admin, tableaux des leçons, corrigés en 2.1.0).
 - **Liste en plusieurs colonnes** : Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur.
@@ -499,10 +511,9 @@ La conduite en attente vaut seulement quand aucune règle ne dit quoi faire. Qua
 Contradictions et ambiguïtés relevées entre les sources. Chacune demande une décision : rien n'est résolu ici.
 
 1. **Rayons.** Plusieurs rayons de carte cités dans les sources (en-tête de page, bloc de tête du dashboard, cartes de Création de cours) n'ont pas de variable. `--radius-badge` n'a pas de rôle écrit.
-2. **Rubriques des entrées Bouton, Champ et Séparateur absentes de la documentation** (marquées « À trancher » dans la section 4) :
-   - Bouton : rôle général ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
+2. **Rubriques des entrées Bouton et Champ absentes de la documentation** (marquées « À trancher » dans la section 4) :
+   - Bouton : rôle général ; taille et graisse du libellé du bouton Retour (typographie hors itération) ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
    - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
-   - Séparateur : épaisseur du trait.
    - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.

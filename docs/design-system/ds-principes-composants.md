@@ -24,6 +24,20 @@ On aurait pu corriger le quiz avec du vert et du rouge uniquement. On a ajouté 
 6. On n'affiche que ce que la donnée sait vraiment.
 On aurait pu recalculer un score « 4/5 » pour les anciens passages de quiz à partir du nombre actuel de questions. On affiche le pourcentage seul, parce que le nombre de questions a pu changer depuis.
 
+## Conteneur de page
+
+Usage
+Toute page de l'app s'y place, y compris une page hors navigation.
+
+Ce qu'il fournit
+Les marges de page et l'écart entre les blocs de la page (`--espace-20`, voir « Rôles d'espacement » dans `docs/tokens/espacements.md`).
+
+Règle principale
+Une page ne redéfinit pas l'écart entre ses blocs.
+
+Fichier
+Le socle `.espace-page` de `src/styles/espace-layout.css`.
+
 ## Bouton
 
 Variantes et usage
@@ -33,7 +47,7 @@ Variantes et usage
 - Orange (texte encre) : lancer le quiz flash, rien d'autre.
 - Supprimer (rouge) : action destructrice, dans un menu, toujours confirmée.
 - Pointillé : ajouter un élément dans la création de cours (question, réponse, étape).
-- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. États : survol et appui en fond-accent. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé.
+- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. États : survol et appui en fond-accent. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6` ; chevron de 18 px. Taille et graisse du libellé : À trancher (typographie hors itération).
 
 Choisir entre principal, secondaire et lien texte
 - Principal : l'action attendue de la zone. Un seul par zone.
@@ -169,6 +183,8 @@ La pastille de groupe (lavande) dans l'espace formateur, qui nomme un groupe et 
 
 Règle principale
 Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur.
+
+Épaisseur : 1 px.
 
 Principe : 4 (la profondeur vient du fond, pas des traits ni des ombres).
 

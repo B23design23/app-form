@@ -86,3 +86,11 @@ Le reproche habituel (« si la valeur change, le nom ment ») ne s'applique pas 
 ## 5. Dans le code
 
 Tout nouveau code utilise les variables d'espacement générées (`var(--espace-N)`), jamais une valeur en px pour un espacement. Le code existant sera migré plus tard.
+
+## 6. Rôles d'espacement
+
+Chaque rôle désigne la même relation entre deux éléments, partout dans l'app. Il renvoie à un palier existant, sans token supplémentaire.
+
+- **Écart entre deux blocs consécutifs d'une page**, bouton Retour compris : `--espace-20`. Fourni par le Conteneur de page (`ds-principes-composants.md`).
+- **Ligne de liste** : padding vertical de chaque ligne `--espace-12` ; écart entre les éléments d'une ligne (vignette, texte, statut, chevron) `--espace-12` ; écart entre le titre et le sous-titre d'une ligne `--espace-4`.
+- **Bouton Retour** : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6`.

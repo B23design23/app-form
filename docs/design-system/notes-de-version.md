@@ -16,6 +16,13 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
   - Composant `ModaleConfirmation` : ni focus sur Annuler à l'ouverture, ni maintien du focus dans la modale.
   - Libellés sans objet : « Supprimer » (Supprimer ce cours, Supprimer ce groupe, Supprimer la question ou l'étape, Retirer la checklist), « Retirer » (retirer un élève), « Quitter » (quitter sans enregistrer).
 - Comportement au clavier du Menu d'actions : Entrée ou Espace ouvre le menu et place le focus sur la première action ; les flèches passent d'une action à l'autre ; Échap ferme le menu et rend le focus au bouton. Tab et Maj+Tab ne passent pas d’une action à l’autre ; depuis une action, ils ferment le menu et font sortir le focus (W3C, guide des pratiques ARIA, motif Menu and Menubar, Keyboard Interaction). Précision Skillo : le focus va à l’élément suivant (ou précédent) de la page. Un menu à une seule action reste admis pour l'instant. Côté écran, à mettre en conformité : composant `MenuActions` (pas de focus à l'ouverture, pas de flèches, focus non rendu au bouton).
+- Composant Conteneur de page : toute page de l'app s'y place, y compris une page hors navigation ; il fournit les marges de page et l'écart entre les blocs ; fichier à réutiliser, le socle `.espace-page` de `src/styles/espace-layout.css`. Une page ne redéfinit pas l'écart entre ses blocs.
+- Rôles d'espacement (`espacements.md`, section 6), chacun renvoyant à un palier existant :
+  - écart entre deux blocs consécutifs d'une page, bouton Retour compris : `--espace-20` ;
+  - ligne de liste : padding vertical de chaque ligne `--espace-12`, écart entre les éléments d'une ligne (vignette, texte, statut, chevron) `--espace-12`, écart entre le titre et le sous-titre d'une ligne `--espace-4` ;
+  - bouton Retour : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé, écart entre le chevron et le libellé `--espace-6`.
+- Séparateur : épaisseur 1 px (était « À trancher »).
+- Variante Retour du Bouton : chevron de 18 px ; taille et graisse du libellé restent à trancher (typographie hors itération).
 
 **Modifié**
 
