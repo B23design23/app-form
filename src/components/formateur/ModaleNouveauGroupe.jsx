@@ -37,7 +37,7 @@ function ModaleNouveauGroupe({ authUser, onFermer, onCree }) {
       etroite
       actions={
         <>
-          <button type="button" className="fm-lien-action" onClick={fermer}>
+          <button type="button" className="bouton-secondaire" onClick={fermer}>
             Annuler
           </button>
           <button

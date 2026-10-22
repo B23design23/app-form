@@ -457,7 +457,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
           onFermer={() => !assignationEnCours && setAssignationOuverte(false)}
           actions={
             <>
-              <button type="button" className="fm-lien-action" onClick={() => setAssignationOuverte(false)} disabled={assignationEnCours}>
+              <button type="button" className="bouton-secondaire" onClick={() => setAssignationOuverte(false)} disabled={assignationEnCours}>
                 Annuler
               </button>
               <button type="button" className="bouton-primaire" onClick={validerAssignation} disabled={assignationEnCours}>

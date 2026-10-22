@@ -42,6 +42,8 @@ Aucune entrée.
 - Modale de confirmation (Création de cours, Détail cours, Détail groupe) : « Annuler » passe de lien texte à bouton secondaire, désactivé en lavande pendant l'action.
 - Barre d'enregistrement de Création de cours (desktop et mobile) : « Annuler » passe de lien texte à bouton secondaire, de même hauteur que le bouton d'enregistrement.
 - Modale « Insérer une vidéo » (Création de cours) : « Annuler » passe de lien texte à bouton secondaire.
+- Modale « Nouveau groupe » (Mes groupes, dashboard formateur) : « Annuler » passe de lien texte à bouton secondaire.
+- Modale « Assigner des cours » (Détail groupe) et modale « Assigner à des groupes » (Détail cours) : « Annuler » passe de lien texte à bouton secondaire, désactivé en lavande pendant l'enregistrement.
 
 ## 2.1.0 (brouillon, non publiée)
 
