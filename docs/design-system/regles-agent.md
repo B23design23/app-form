@@ -490,6 +490,8 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 > Type probable : évolution | exception
 > Dis-moi ce que tu décides.
 
+La conduite en attente vaut seulement quand aucune règle ne dit quoi faire. Quand une règle donne la marche à suivre, comme l'arrondi d'un espacement hors échelle, l'agent l'applique et la signale dans son rapport.
+
 **Demande qui touche le DS** (ajouter, modifier ou supprimer un token ou un composant) : s'arrêter avant d'agir et demander. Un agent ne crée ni ne modifie jamais un token.
 
 ## À trancher
@@ -506,4 +508,3 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 5. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
-6. **Valeur hors échelle et information manquante.** La règle « Valeur hors échelle » demande d'appliquer le palier le plus proche ; la règle « Manque ou incohérence » demande de ne rien écrire et de proposer l'option sans l'appliquer. Une valeur de maquette hors échelle n'est pas une information manquante, mais la frontière n'est pas écrite.
