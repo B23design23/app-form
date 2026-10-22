@@ -41,7 +41,7 @@ Choisir entre principal, secondaire et lien texte
 - Lien texte : une action à part, ni attendue ni alternative. Exemples Skillo : Se déconnecter, Mot de passe oublié.
 
 États
-Repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué).
+Repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué ; toutes les variantes, sauf Retour).
 Focus clavier de tous les boutons : contour de 2 px à l'extérieur du bouton, token de focus (`bordure-focus`), visible au clavier seulement.
 
 Accessibilité

@@ -228,7 +228,7 @@ Source : `ds-principes-composants.md`.
 | Pointillé | contour et texte À trancher | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, contour `bordure-action-desactive`, texte `texte-action-desactive` |
 | Retour | fond `fond-surface`, texte `texte-principal` | `fond-accent` | `fond-accent` | `bordure-focus` | Sans objet : pas d'état désactivé |
 
-  Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes) dans `ds-principes-composants.md`, les descriptions des tokens, la note 2.1.0 pour le contour du bouton supprimer.
+  Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes, sauf Retour) dans `ds-principes-composants.md`, les descriptions des tokens, la note 2.1.0 pour le contour du bouton supprimer.
 - **DO** : un seul bouton principal par zone d'action. Dans la barre d'enregistrement de Création de cours, « Enregistrer » est le seul bouton principal, « Annuler » est un bouton secondaire.
 - **DON'T** : utiliser le pointillé pour valider un formulaire. Dans Détail groupe, « Ajouter » un élève par son email est un bouton principal, pas un pointillé. Ne pas non plus donner à une pastille de statut l'air d'un bouton (pas de survol, pas de curseur main, plus petite que le bouton).
 
