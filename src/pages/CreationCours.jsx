@@ -1476,7 +1476,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
           onFermer={() => setModaleVideo(false)}
           actions={
             <>
-              <button type="button" className="fm-lien-action" onClick={() => setModaleVideo(false)}>
+              <button type="button" className="bouton-secondaire" onClick={() => setModaleVideo(false)}>
                 Annuler
               </button>
               <button type="button" className="bouton-primaire" disabled={!lienVideo.trim()} onClick={insererVideo}>
