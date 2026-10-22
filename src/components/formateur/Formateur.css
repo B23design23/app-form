@@ -424,7 +424,8 @@
 }
 
 .fm-bouton-danger:disabled {
-  opacity: 0.6;
+  background: var(--fond-action-desactive);
+  color: var(--texte-action-desactive);
   cursor: not-allowed;
 }
 
