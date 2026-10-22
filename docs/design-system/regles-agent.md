@@ -312,7 +312,7 @@ Source : `ds-principes-composants.md`.
 
 - **Rôle** : ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 3).
 - **Anatomie** : bouton rond « … » (nom accessible « Plus d'actions ») ; mobile, feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre ; desktop, carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
-- **Comportement** : Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`. Entrée ou Espace sur le bouton ouvre le menu et place le focus sur la première action. Les flèches passent d'une action à l'autre. Échap ferme le menu et rend le focus au bouton. Un menu à une seule action reste admis pour l'instant.
+- **Comportement** : Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`. Entrée ou Espace sur le bouton ouvre le menu et place le focus sur la première action. Les flèches passent d'une action à l'autre. Échap ferme le menu et rend le focus au bouton. Tab et Maj+Tab ne passent pas d’une action à l’autre. Depuis une action, ils ferment le menu et placent le focus sur l’élément suivant (ou précédent) de la page. Un menu à une seule action reste admis pour l'instant.
 - **DO** : placer l'action destructrice en dernier, en rouge, suivie d'une Modale de confirmation.
 - **DON'T** : mettre un bouton Supprimer directement sur la page (principe 3).
 - **À trancher** : ordre des actions autres que la destructrice.

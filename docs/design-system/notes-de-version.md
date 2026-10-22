@@ -15,7 +15,7 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - Comportement de la Modale de confirmation : le bouton qui confirme nomme le verbe et l'objet de l'action ; à l'ouverture, le focus va sur Annuler ; Tab reste dans la modale ; Échap la ferme. Côté écran, à mettre en conformité :
   - Composant `ModaleConfirmation` : ni focus sur Annuler à l'ouverture, ni maintien du focus dans la modale.
   - Libellés sans objet : « Supprimer » (Supprimer ce cours, Supprimer ce groupe, Supprimer la question ou l'étape, Retirer la checklist), « Retirer » (retirer un élève), « Quitter » (quitter sans enregistrer).
-- Comportement au clavier du Menu d'actions : Entrée ou Espace ouvre le menu et place le focus sur la première action ; les flèches passent d'une action à l'autre ; Échap ferme le menu et rend le focus au bouton. Un menu à une seule action reste admis pour l'instant. Côté écran, à mettre en conformité : composant `MenuActions` (pas de focus à l'ouverture, pas de flèches, focus non rendu au bouton).
+- Comportement au clavier du Menu d'actions : Entrée ou Espace ouvre le menu et place le focus sur la première action ; les flèches passent d'une action à l'autre ; Échap ferme le menu et rend le focus au bouton. Tab et Maj+Tab ne passent pas d’une action à l’autre. Depuis une action, ils ferment le menu et placent le focus sur l’élément suivant (ou précédent) de la page. (W3C, guide des pratiques ARIA, motif Menu and Menubar, Keyboard Interaction). Un menu à une seule action reste admis pour l'instant. Côté écran, à mettre en conformité : composant `MenuActions` (pas de focus à l'ouverture, pas de flèches, focus non rendu au bouton).
 
 **Modifié**
 
