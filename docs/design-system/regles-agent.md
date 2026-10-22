@@ -303,7 +303,7 @@ Source : `ds-principes-composants.md`.
 - **Rôle** : faire confirmer une action qu'on ne peut pas défaire (principe 3).
 - **Quand l'utiliser** : avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
 - **Anatomie** : une Modale étroite ; titre (la question posée), texte facultatif, « Annuler », puis le bouton qui confirme (libellé « Supprimer » par défaut). Annuler en secondaire, confirmation en rouge plein. Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
-- **Comportement** : Le bouton qui confirme nomme le verbe et l'objet de l'action. À l'ouverture, le focus va sur Annuler, l'action la moins destructrice. Tab reste dans la modale. Échap la ferme.
+- **Comportement** : Le bouton qui confirme nomme le verbe et l'objet de l'action (Supprimer mon compte, Supprimer le cours). À l'ouverture, le focus va sur Annuler, l'action la moins destructrice. Tab reste dans la modale. Échap la ferme.
 - **DO** : toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
 - **DON'T** : lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
 - **Fichier à réutiliser** : `src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
