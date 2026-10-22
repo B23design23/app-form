@@ -494,7 +494,7 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 - Les dimensions de mise en page (débord d'un objet 3D, réserve pour une illustration, hauteur fixe d'un élément) ne sont pas des espacements : la maquette les décide, elles restent hors échelle (`espacements.md`). Exemple : le débord de 30 px de l'objet 3D du dashboard reste à 30.
 - Tout nouveau code écrit ses espacements avec `var(--espace-N)`, jamais en px.
 
-**Manque ou incohérence découvert pendant la construction d'un écran** : Quand une information manque (un état, une valeur, un détail), l'agent n'écrit rien à cet endroit dans le code. Il laisse un commentaire EN ATTENTE. Dans le rapport, il note ce qui manque et propose l'option la plus proche, sans l'appliquer. Cette règle vaut pour un état ou un détail. L'élément lui-même est construit avec ce que la doc dit. Le rapport se termine par ce message :
+**Manque ou incohérence découvert pendant la construction d'un écran** : Quand une information manque (un état, une valeur, un détail), l'agent n'écrit rien à cet endroit dans le code. Il laisse un commentaire EN ATTENTE. Dans le rapport, il note ce qui manque et propose l'option la plus proche, sans l'appliquer. Cette règle vaut pour un état ou un détail. L'élément lui-même est construit avec ce que la doc dit. Une taille, une graisse, une largeur ou un espacement que le DS ne donne pas est un détail. L’agent n’écrit rien à cet endroit, même si une valeur voisine existe ailleurs dans le code, laisse un commentaire EN ATTENTE et propose la valeur dans le rapport. Le rapport se termine par ce message :
 
 > J'ai terminé l'écran sauf ce qui suit.
 > Manque | Incohérence : …
