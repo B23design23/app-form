@@ -241,6 +241,14 @@
   }
 }
 
+/* Focus clavier des boutons principal et secondaire (règle de focus des boutons du DS) : contour de
+   2 px à l'extérieur, bordure-focus, visible au clavier seulement */
+.bouton-primaire:focus-visible,
+.bouton-secondaire:focus-visible {
+  outline: 2px solid var(--bordure-focus);
+  outline-offset: 2px;
+}
+
 /* Bouton orange : réservé au lancement du quiz flash, texte encre (jamais blanc sur orange) */
 .bouton-orange {
   display: inline-flex;
