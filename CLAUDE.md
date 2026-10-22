@@ -306,7 +306,7 @@ Règles : jamais deux cours à commencer quand un cours est en cours ; une consi
 
 **Menu** (4e entrée de la navigation, pas une icône flottante séparée) : ouvre un menu contenant "Se déconnecter" (structure prévue pour accueillir d'autres options plus tard).
 
-**Mon compte** : La page s'appelle Mon compte. Elle est atteinte depuis l'onglet Compte de la navigation principale. C'est une page de niveau 0. Se déconnecter est sur cette page, plus dans un menu de la navigation.
+**Mon compte** : La page s'appelle Mon compte. Elle est atteinte depuis l'entrée Menu de la navigation principale. C'est une page de niveau 0. Se déconnecter est sur cette page, plus dans un menu de la navigation.
 
 ## Navigation — espace formateur
 
