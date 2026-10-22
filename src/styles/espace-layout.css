@@ -142,10 +142,6 @@
   gap: 20px;
 }
 
-.espace-page > *:first-child {
-  margin-bottom: 12px;
-}
-
 .espace-page h1 {
   font-size: var(--taille-h1);
   line-height: 1.1;
