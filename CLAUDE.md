@@ -306,6 +306,8 @@ Règles : jamais deux cours à commencer quand un cours est en cours ; une consi
 
 **Menu** (4e entrée de la navigation, pas une icône flottante séparée) : ouvre un menu contenant "Se déconnecter" (structure prévue pour accueillir d'autres options plus tard).
 
+**Mon compte** : La page s'appelle Mon compte. Elle est atteinte depuis l'onglet Compte de la navigation principale. C'est une page de niveau 0. Se déconnecter est sur cette page, plus dans un menu de la navigation.
+
 ## Navigation — espace formateur
 
 Même structure que l'espace apprenant (tab bar mobile / barre horizontale desktop avec logo à gauche + nav à droite), 4 entrées miroir : **Dashboard, Cours, Groupes, Menu**. Sidebar gauche envisagée puis écartée pour l'instant (voir "Évolutions futures anticipées"). Titre en haut de page avec padding de zone de sécurité sur mobile (voir "Principes de conception"). **Compte officiel (`est_admin`)** : pas d'entrée « Groupes » (Dashboard, Cours, Menu ; les 3 entrées se répartissent la largeur de la tab bar) ; `est_admin` est lu à la résolution de session (`authUser.estAdmin`, `App.jsx`) ; une section Groupes ou un Détail groupe ouverts quand même ramènent au dashboard.
