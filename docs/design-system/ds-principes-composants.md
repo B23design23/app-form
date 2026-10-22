@@ -30,13 +30,15 @@ Usage
 Toute page de l'app s'y place, y compris une page hors navigation.
 
 Ce qu'il fournit
-Les marges de page et l'écart entre les blocs de la page (`--espace-20`, voir « Rôles d'espacement » dans `docs/tokens/espacements.md`).
+- Marges de page : `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page (mobile : zone de sécurité + 20 px en haut, 16 px sur les côtés, réserve de la tab bar en bas ; desktop : réserve de la barre du haut, 40 px sur les côtés et en bas), complété sur desktop par `.espace-page-etroit` (1040 px max, 24 px sur les côtés).
+- Écart entre les blocs de la page : `.espace-page` (`--espace-20`), voir « Rôles d'espacement » dans `docs/tokens/espacements.md`.
+- Page hors navigation : À trancher. `.espace-contenu` ne convient pas à une page hors navigation : il réserve la place de la tab bar en bas et celle de la barre du haut sur desktop. Aucun élément partagé existant ne fournit les marges d'une page hors navigation.
 
 Règle principale
 Une page ne redéfinit pas l'écart entre ses blocs.
 
 Fichier
-Le socle `.espace-page` de `src/styles/espace-layout.css`.
+`src/styles/espace-layout.css` (`.espace-contenu`, `.espace-page-etroit`, `.espace-page`).
 
 ## Bouton
 

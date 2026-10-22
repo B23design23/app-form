@@ -206,9 +206,10 @@ Source : `ds-principes-composants.md`.
 ### Conteneur de page
 
 - **Usage** : toute page de l'app s'y place, y compris une page hors navigation.
-- **Ce qu'il fournit** : les marges de page et l'écart entre les blocs de la page (`--espace-20`, voir « Rôles d'espacement » en section 3).
+- **Ce qu'il fournit** : marges de page, `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page (mobile : zone de sécurité + 20 px en haut, 16 px sur les côtés, réserve de la tab bar en bas ; desktop : réserve de la barre du haut, 40 px sur les côtés et en bas), complété sur desktop par `.espace-page-etroit` (1040 px max, 24 px sur les côtés) ; écart entre les blocs de la page, `.espace-page` (`--espace-20`), voir « Rôles d'espacement » en section 3.
+- **Page hors navigation** : À trancher. `.espace-contenu` ne convient pas à une page hors navigation : il réserve la place de la tab bar en bas et celle de la barre du haut sur desktop. Aucun élément partagé existant ne fournit les marges d'une page hors navigation.
 - **Règle** : une page ne redéfinit pas l'écart entre ses blocs.
-- **Fichier à réutiliser** : le socle `.espace-page` de `src/styles/espace-layout.css`.
+- **Fichier à réutiliser** : `src/styles/espace-layout.css` (`.espace-contenu`, `.espace-page-etroit`, `.espace-page`).
 
 ### Bouton
 
@@ -511,9 +512,10 @@ La conduite en attente vaut seulement quand aucune règle ne dit quoi faire. Qua
 Contradictions et ambiguïtés relevées entre les sources. Chacune demande une décision : rien n'est résolu ici.
 
 1. **Rayons.** Plusieurs rayons de carte cités dans les sources (en-tête de page, bloc de tête du dashboard, cartes de Création de cours) n'ont pas de variable. `--radius-badge` n'a pas de rôle écrit.
-2. **Rubriques des entrées Bouton et Champ absentes de la documentation** (marquées « À trancher » dans la section 4) :
+2. **Rubriques des entrées Bouton, Champ et Conteneur de page absentes de la documentation** (marquées « À trancher » dans la section 4) :
    - Bouton : rôle général ; taille et graisse du libellé du bouton Retour (typographie hors itération) ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
    - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
+   - Conteneur de page : élément qui fournit les marges d'une page hors navigation (aucun élément partagé ne le fait).
    - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
