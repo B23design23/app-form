@@ -209,7 +209,7 @@ Source : `ds-principes-composants.md`.
   - orange (texte encre) : lancer le quiz flash, rien d'autre ;
   - supprimer (rouge) : action destructrice, dans un menu, toujours confirmée ;
   - pointillé : ajouter un élément dans la création de cours (question, réponse, étape) ;
-  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. Zone cliquable de 44 px minimum.
+  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale. Il n'a donc pas d'état désactivé.
 - **Choisir entre principal, secondaire et lien texte** :
   - principal : l'action attendue de la zone, un seul par zone ;
   - secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision ;
@@ -226,7 +226,7 @@ Source : `ds-principes-composants.md`.
 | Supprimer | texte `texte-erreur`, contour `bordure-erreur` (même épaisseur que le secondaire) | `fond-erreur` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
 | Rouge plein (confirmation) | fond `fond-erreur-accentue`, texte `texte-sur-erreur` | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
 | Pointillé | contour et texte À trancher | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, contour `bordure-action-desactive`, texte `texte-action-desactive` |
-| Retour | fond `fond-surface`, texte `texte-principal` | `fond-accent` | `fond-accent` | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Retour | fond `fond-surface`, texte `texte-principal` | `fond-accent` | `fond-accent` | `bordure-focus` | Sans objet : pas d'état désactivé |
 
   Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes) dans `ds-principes-composants.md`, les descriptions des tokens, la note 2.1.0 pour le contour du bouton supprimer.
 - **DO** : un seul bouton principal par zone d'action. Dans la barre d'enregistrement de Création de cours, « Enregistrer » est le seul bouton principal, « Annuler » est un bouton secondaire.
