@@ -1,5 +1,46 @@
 # Notes de version du design system
 
+## 3.0.0 (brouillon, non publiée)
+
+Version majeure : quatre règles changent au point que des écrans conformes ne le sont plus (rubrique « Modifié » et « Ajouté »). Les écrans concernés sont listés sous chaque entrée ; ils ne sont pas encore corrigés.
+
+**Ajouté**
+
+- Variante Retour du Bouton : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages ; en haut à gauche, avant l'en-tête ; pilule blanche, chevron à gauche, texte encre ; chevron seul sur mobile (« Retour » reste le nom accessible) ; survol et appui en `fond-accent` ; zone cliquable de 44 px minimum. Côté écran, à mettre en conformité :
+  - Détail d'un thème : le retour garde le texte « Cours » sur mobile.
+  - Leçon de la fiche de cours : le retour garde le nom court du thème sur mobile.
+  - Pages formateur avec retour (Détail cours, Détail groupe) : lien texte violet sur desktop au lieu de la pilule blanche.
+  - Création de cours : bouton rond suivi d'un texte au lieu de la pilule blanche.
+
+**Modifié**
+
+- Survol et appui des cartes et lignes cliquables (celles de la section Chevrons) en `fond-accent`. Côté écran, à mettre en conformité (seul le titre passe en `texte-accent` au survol, aucun retour à l'appui) :
+  - Mode terrain et résultats de recherche de la page Cours (`LigneCours`).
+  - « De ton formateur » de la page Cours (`BlocFormateur`).
+  - Lignes du Détail d'un thème.
+- Focus clavier de tous les boutons : contour de 2 px à l'extérieur du bouton, `bordure-focus`, visible au clavier seulement. Côté écran, à mettre en conformité (contour de focus retiré quand l'élément est sélectionné) :
+  - Quiz de cours et quiz flash : réponse déjà sélectionnée.
+  - Parcours d'entrée : ligne de choix sélectionnée.
+- Critère de choix entre principal, secondaire et lien texte (secondaire seulement sur la même rangée que le principal, pour l'autre issue de la même décision ; lien texte pour une action à part). Côté écran, à mettre en conformité (« Annuler » en lien texte) :
+  - Modale de confirmation (Création de cours, Détail cours, Détail groupe).
+  - Barre d'enregistrement de Création de cours.
+
+**Corrigé**
+
+Aucune entrée.
+
+**Déprécié**
+
+Aucune entrée.
+
+**Retiré**
+
+Aucune entrée.
+
+**Écrans corrigés**
+
+Aucune entrée.
+
 ## 2.1.0 (brouillon, non publiée)
 
 Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui n'ont pas d'exigence de contraste.
@@ -34,15 +75,6 @@ Aucune entrée.
 **Retiré**
 
 Aucune entrée.
-
-**À classer**
-
-Ces changements sont écrits dans la documentation, mais rendent non conformes des écrans qui l'étaient. Ils ne sont pas classés en évolution mineure tant que leur classement n'est pas décidé.
-
-- Survol et appui des cartes et lignes cliquables (celles de la section Chevrons) en `fond-accent`. Non conformes : les lignes de `LigneCours` (Mode terrain, résultats de recherche), de « De ton formateur » sur la page Cours (`BlocFormateur`) et du détail d'un thème, qui colorent seulement le titre en `texte-accent` au survol et n'ont pas de retour à l'appui.
-- Variante Retour du Bouton (pilule blanche, chevron à gauche, texte encre ; chevron seul sur mobile ; survol et appui en `fond-accent`). Non conformes : le retour du détail d'un thème et de la leçon (texte affiché sur mobile), le retour des pages formateur (lien texte violet sur desktop), le retour de Création de cours (bouton rond suivi d'un texte).
-- Focus clavier de tous les boutons en contour de 2 px à l'extérieur. Non conformes : une réponse de quiz déjà sélectionnée et une ligne de choix sélectionnée du parcours d'entrée, qui retirent volontairement le contour de focus (leur contour de sélection en tient lieu).
-- Critère de choix entre principal, secondaire et lien texte. Non conformes : « Annuler » en lien texte dans la Modale de confirmation et dans la barre d'enregistrement de Création de cours, alors qu'il est l'autre issue de la même décision, sur la même rangée (desktop). Contredit aussi le DO du Bouton dans `regles-agent.md` (point 6 de « À trancher »).
 
 **Écrans corrigés**
 
