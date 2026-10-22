@@ -330,10 +330,6 @@
   }
 }
 
-.parcours-choix-ligne-choisie:focus-visible {
-  outline: none;
-}
-
 .parcours-choix-rond {
   display: inline-flex;
   align-items: center;

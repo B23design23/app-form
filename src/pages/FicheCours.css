@@ -477,15 +477,10 @@
   }
 }
 
-/* Focus visible seulement au clavier (pas après un clic ou un toucher) ; une réponse déjà
-   sélectionnée garde son seul contour de sélection */
+/* Focus visible seulement au clavier (pas après un clic ou un toucher), sélectionnée ou non */
 .fiche-reponse:has(.fiche-reponse-input:focus-visible) {
   outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
-}
-
-.fiche-reponse-selectionnee:has(.fiche-reponse-input:focus-visible) {
-  outline: none;
 }
 
 /* La case native reste accessible mais masquée : le repère visuel est .fiche-reponse-controle */

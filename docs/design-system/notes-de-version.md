@@ -44,6 +44,8 @@ Aucune entrée.
 - Modale « Insérer une vidéo » (Création de cours) : « Annuler » passe de lien texte à bouton secondaire.
 - Modale « Nouveau groupe » (Mes groupes, dashboard formateur) : « Annuler » passe de lien texte à bouton secondaire.
 - Modale « Assigner des cours » (Détail groupe) et modale « Assigner à des groupes » (Détail cours) : « Annuler » passe de lien texte à bouton secondaire, désactivé en lavande pendant l'enregistrement.
+- Quiz de cours et quiz flash : une réponse déjà sélectionnée garde le contour de focus clavier (2 px à l'extérieur, `bordure-focus`).
+- Parcours d'entrée : une ligne de choix sélectionnée garde le contour de focus clavier (2 px à l'extérieur, `bordure-focus`).
 
 ## 2.1.0 (brouillon, non publiée)
 
