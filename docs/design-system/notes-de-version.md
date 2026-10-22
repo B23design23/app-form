@@ -12,6 +12,7 @@ Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui 
 - Rôle `etape` dans la liste fermée des rôles de `docs/tokens/couleurs.md`, pour `bordure-etape`. Côté écran : rien à faire.
 - Règle des ombres : deux ombres, `--ombre-flottante` pour les éléments flottants (menus, listes déroulantes, toast, modales), ombre d'illustration pour les objets 3D qui débordent d'une carte. Pas de token. Côté écran : rien à faire.
 - Règle « Un seul bouton orange par écran » (évolution mineure). Vérifiée sur toutes les situations du dashboard apprenant, mobile et desktop : aucun écran n'en affiche deux aujourd'hui. Côté écran : rien à faire.
+- Composants Modale, Modale de confirmation et Menu d'actions documentés dans `ds-principes-composants.md` (évolution mineure), rédigés depuis le code existant (`src/components/formateur/Modale.jsx`, `MenuActions.jsx`) et le principe 3 ; ce que le code ne tranche pas est marqué « À trancher ». Sans changement de rendu. Côté écran : rien à faire.
 
 **Modifié**
 
@@ -20,6 +21,7 @@ Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui 
 - Règles remontées dans la documentation (`ds-principes-composants.md`) depuis `regles-agent.md`, sans changement : typographie, ponctuation, survol et tactile, toast de complétion, texte de l'onglet inactif de la navigation, texte de l'option sélectionnée d'une liste déroulante, tokens de texte des deux variantes du logo. Sans changement de rendu. Côté écran : rien à faire.
 - Règle des séparateurs précisée (évolution mineure) : Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. Sans changement de rendu. Côté écran : rien à faire.
 - Description de `bordure-separateur` complétée avec la même phrase (valeur inchangée). Côté écran : rien à faire.
+- Conduite de l'agent (`regles-agent.md`, section 7, évolution mineure) : quand une information manque (un état, une valeur, un détail), l'agent n'écrit rien à cet endroit, laisse un commentaire EN ATTENTE et propose l'option la plus proche dans son rapport, sans l'appliquer. Côté écran : rien à faire.
 
 **Corrigé**
 
@@ -32,6 +34,15 @@ Aucune entrée.
 **Retiré**
 
 Aucune entrée.
+
+**À classer**
+
+Ces changements sont écrits dans la documentation, mais rendent non conformes des écrans qui l'étaient. Ils ne sont pas classés en évolution mineure tant que leur classement n'est pas décidé.
+
+- Survol et appui des cartes et lignes cliquables (celles de la section Chevrons) en `fond-accent`. Non conformes : les lignes de `LigneCours` (Mode terrain, résultats de recherche), de « De ton formateur » sur la page Cours (`BlocFormateur`) et du détail d'un thème, qui colorent seulement le titre en `texte-accent` au survol et n'ont pas de retour à l'appui.
+- Variante Retour du Bouton (pilule blanche, chevron à gauche, texte encre ; chevron seul sur mobile ; survol et appui en `fond-accent`). Non conformes : le retour du détail d'un thème et de la leçon (texte affiché sur mobile), le retour des pages formateur (lien texte violet sur desktop), le retour de Création de cours (bouton rond suivi d'un texte).
+- Focus clavier de tous les boutons en contour de 2 px à l'extérieur. Non conformes : une réponse de quiz déjà sélectionnée et une ligne de choix sélectionnée du parcours d'entrée, qui retirent volontairement le contour de focus (leur contour de sélection en tient lieu).
+- Critère de choix entre principal, secondaire et lien texte. Non conformes : « Annuler » en lien texte dans la Modale de confirmation et dans la barre d'enregistrement de Création de cours, alors qu'il est l'autre issue de la même décision, sur la même rangée (desktop). Contredit aussi le DO du Bouton dans `regles-agent.md` (point 6 de « À trancher »).
 
 **Écrans corrigés**
 

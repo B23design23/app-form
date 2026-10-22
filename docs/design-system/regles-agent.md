@@ -208,8 +208,14 @@ Source : `ds-principes-composants.md`.
   - sur fond foncé (blanc, texte encre) : l'action principale d'une carte violette ou encre ;
   - orange (texte encre) : lancer le quiz flash, rien d'autre ;
   - supprimer (rouge) : action destructrice, dans un menu, toujours confirmée ;
-  - pointillé : ajouter un élément dans la création de cours (question, réponse, étape).
-- **Tokens par état** (focus clavier visible au clavier seulement ; zone cliquable minimale : voir « Accessibilité » du Bouton dans `ds-principes-composants.md`) :
+  - pointillé : ajouter un élément dans la création de cours (question, réponse, étape) ;
+  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. Zone cliquable de 44 px minimum.
+- **Choisir entre principal, secondaire et lien texte** :
+  - principal : l'action attendue de la zone, un seul par zone ;
+  - secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision ;
+  - lien texte : une action à part, ni attendue ni alternative. Exemples Skillo : Se déconnecter, Mot de passe oublié.
+- **Focus clavier de tous les boutons** : contour de 2 px à l'extérieur du bouton, token de focus (`bordure-focus`), visible au clavier seulement.
+- **Tokens par état** (zone cliquable minimale : voir « Accessibilité » du Bouton dans `ds-principes-composants.md`) :
 
 | Variante | Repos | Survol | Actif (appui tactile) | Focus clavier | Désactivé |
 |---|---|---|---|---|---|
@@ -220,6 +226,7 @@ Source : `ds-principes-composants.md`.
 | Supprimer | texte `texte-erreur`, contour `bordure-erreur` (même épaisseur que le secondaire) | `fond-erreur` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
 | Rouge plein (confirmation) | fond `fond-erreur-accentue`, texte `texte-sur-erreur` | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
 | Pointillé | contour et texte À trancher | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, contour `bordure-action-desactive`, texte `texte-action-desactive` |
+| Retour | fond `fond-surface`, texte `texte-principal` | `fond-accent` | `fond-accent` | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
 
   Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes) dans `ds-principes-composants.md`, les descriptions des tokens, la note 2.1.0 pour le contour du bouton supprimer.
 - **DO** : un seul bouton principal par zone d'action. Dans la barre d'enregistrement de Création de cours, « Enregistrer » est le seul bouton principal, « Annuler » est un lien texte.
@@ -280,6 +287,37 @@ Source : `ds-principes-composants.md`.
 - **DO** : dans le tableau des élèves du Détail groupe, un trait entre deux lignes d'élèves, et l'espacement sous l'en-tête.
 - **DON'T** : un trait avant le premier élément ou après le dernier, sous un en-tête, autour d'un titre ou entre deux sections. Dans Activité récente, pas de trait sous l'intertitre d'un jour (« Aujourd'hui », « Hier »). Principe 4.
 
+### Modale
+
+- **Rôle** : afficher un contenu court par-dessus la page sans la quitter : un formulaire ou un choix (créer un groupe, assigner un cours, ajouter une vidéo).
+- **Quand l'utiliser, quand choisir le voisin** : pour une saisie ou un choix lié à la page en cours. Le voisin est la Modale de confirmation, pour faire confirmer une action qu'on ne peut pas défaire. Les autres cas : À trancher.
+- **Anatomie** : voile `fond-voile` derrière ; mobile, feuille qui monte du bas avec une poignée ; desktop, carte centrée. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative.
+- **Comportement** : Échap, clic sur le voile et bouton « Fermer » ferment la modale. Rôle `dialog`, `aria-modal`, nom accessible = titre.
+- **DO** : laisser les trois façons de fermer (Échap, clic sur le voile, bouton « Fermer »).
+- **DON'T** : À trancher.
+- **À trancher** : focus à l'ouverture et maintien du focus dans la modale ; ombre (la règle des ombres cite les modales pour `--ombre-flottante`, le code n'en pose pas) ; usage dans l'espace apprenant (composant et styles rangés côté formateur).
+- **Fichier à réutiliser** : `src/components/formateur/Modale.jsx` (export par défaut `Modale`).
+
+### Modale de confirmation
+
+- **Rôle** : faire confirmer une action qu'on ne peut pas défaire (principe 3).
+- **Quand l'utiliser** : avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
+- **Anatomie** : une Modale étroite ; titre (la question posée), texte facultatif, « Annuler » en lien texte, puis le bouton rouge plein qui confirme (libellé « Supprimer » par défaut). Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
+- **DO** : toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
+- **DON'T** : lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
+- **À trancher** : libellé du bouton rouge (« Supprimer » ou le verbe de l'action) ; rendu du bouton rouge désactivé (le code utilise une opacité, pas le fond lavande des boutons désactivés).
+- **Fichier à réutiliser** : `src/components/formateur/Modale.jsx` (export nommé `ModaleConfirmation`).
+
+### Menu d'actions
+
+- **Rôle** : ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 3).
+- **Anatomie** : bouton rond « … » (nom accessible « Plus d'actions ») ; mobile, feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre ; desktop, carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
+- **Comportement** : Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`.
+- **DO** : placer l'action destructrice en dernier, en rouge, suivie d'une Modale de confirmation.
+- **DON'T** : mettre un bouton Supprimer directement sur la page (principe 3).
+- **À trancher** : focus à l'ouverture et déplacement aux flèches ; ordre des actions autres que la destructrice ; nombre minimal d'actions pour justifier un menu.
+- **Fichier à réutiliser** : `src/components/formateur/MenuActions.jsx`.
+
 ## 5. Règles transverses
 
 ### Séparateurs (2.1.0)
@@ -298,7 +336,7 @@ Deux ombres, et seulement elles (2.1.0). Le contraste vient des couleurs de fond
 - Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
 - Sur tactile, seul `:active` donne un retour pendant l'appui (boutons principaux, secondaires, orange, boutons ronds, cartes et lignes cliquables).
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
-- Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol`.
+- Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.
 
 ### Focus
@@ -443,12 +481,12 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 - Les dimensions de mise en page (débord d'un objet 3D, réserve pour une illustration, hauteur fixe d'un élément) ne sont pas des espacements : la maquette les décide, elles restent hors échelle (`espacements.md`). Exemple : le débord de 30 px de l'objet 3D du dashboard reste à 30.
 - Tout nouveau code écrit ses espacements avec `var(--espace-N)`, jamais en px.
 
-**Manque ou incohérence découvert pendant la construction d'un écran** : construire le reste avec le DS, laisser l'élément manquant en attente et marqué dans le code, puis terminer par ce message :
+**Manque ou incohérence découvert pendant la construction d'un écran** : Quand une information manque (un état, une valeur, un détail), l'agent n'écrit rien à cet endroit dans le code. Il laisse un commentaire EN ATTENTE. Dans le rapport, il note ce qui manque et propose l'option la plus proche, sans l'appliquer. Cette règle vaut pour un état ou un détail. L'élément lui-même est construit avec ce que la doc dit. Le rapport se termine par ce message :
 
 > J'ai terminé l'écran sauf ce qui suit.
 > Manque | Incohérence : …
 > Cherché dans le DS : …
-> Option la plus proche : … (et pourquoi elle ne convient pas)
+> Option la plus proche (proposée, pas appliquée) : …
 > Type probable : évolution | exception
 > Dis-moi ce que tu décides.
 
@@ -464,6 +502,9 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
    - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
    - Séparateur : épaisseur du trait.
    - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
+   - Écart à corriger dans le code (dérive) : `.bouton-primaire:disabled` (`src/styles/shared.css`) rend l'état désactivé par une opacité de 0,6, au lieu de `fond-action-desactive` et `texte-action-desactive`. Même écart sur `.fm-bouton-danger:disabled` (bouton rouge de la Modale de confirmation).
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 5. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
+6. **« Annuler » : secondaire ou lien texte.** Le critère de choix du Bouton fait d'« Annuler » un secondaire quand il est sur la même rangée que le principal et qu'il est l'autre issue de la même décision. Le DO du Bouton (barre d'enregistrement de Création de cours) et la Modale de confirmation en font un lien texte.
+7. **Valeur hors échelle et information manquante.** La règle « Valeur hors échelle » demande d'appliquer le palier le plus proche ; la règle « Manque ou incohérence » demande de ne rien écrire et de proposer l'option sans l'appliquer. Une valeur de maquette hors échelle n'est pas une information manquante, mais la frontière n'est pas écrite.

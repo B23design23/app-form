@@ -33,9 +33,16 @@ Variantes et usage
 - Orange (texte encre) : lancer le quiz flash, rien d'autre.
 - Supprimer (rouge) : action destructrice, dans un menu, toujours confirmée.
 - Pointillé : ajouter un élément dans la création de cours (question, réponse, étape).
+- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. États : survol et appui en fond-accent. Zone cliquable de 44 px minimum.
+
+Choisir entre principal, secondaire et lien texte
+- Principal : l'action attendue de la zone. Un seul par zone.
+- Secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision.
+- Lien texte : une action à part, ni attendue ni alternative. Exemples Skillo : Se déconnecter, Mot de passe oublié.
 
 États
 Repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué).
+Focus clavier de tous les boutons : contour de 2 px à l'extérieur du bouton, token de focus (`bordure-focus`), visible au clavier seulement.
 
 Accessibilité
 Zone cliquable de 44 px minimum. Focus visible au clavier seulement.
@@ -165,6 +172,78 @@ Le trait bordure-separateur se place uniquement entre deux éléments consécuti
 
 Principe : 4 (la profondeur vient du fond, pas des traits ni des ombres).
 
+## Modale
+
+Rôle
+Afficher un contenu court par-dessus la page sans la quitter : un formulaire ou un choix (créer un groupe, assigner un cours, ajouter une vidéo).
+
+Quand l'utiliser
+Pour une saisie ou un choix lié à la page en cours. Pour faire confirmer une action qu'on ne peut pas défaire, on prend la Modale de confirmation. Les autres cas : À trancher.
+
+Anatomie
+Voile `fond-voile` derrière. Mobile : feuille qui monte du bas, avec une poignée. Desktop : carte centrée. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative.
+
+Comportement
+Échap, clic sur le voile et bouton « Fermer » ferment la modale. Rôle `dialog`, `aria-modal`, nom accessible = titre.
+
+DO
+Laisser les trois façons de fermer : Échap, clic sur le voile, bouton « Fermer ».
+
+DON'T
+À trancher.
+
+À trancher
+Focus à l'ouverture et maintien du focus dans la modale (le code ne les gère pas). Ombre : la règle des ombres cite les modales pour `--ombre-flottante`, le code n'en pose pas. Usage dans l'espace apprenant (le composant et ses styles sont rangés côté formateur).
+
+Fichier
+`src/components/formateur/Modale.jsx` (export par défaut `Modale`).
+
+## Modale de confirmation
+
+Rôle
+Faire confirmer une action qu'on ne peut pas défaire (principe 3).
+
+Quand l'utiliser
+Avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
+
+Anatomie
+Une Modale étroite : titre (la question posée), texte facultatif, « Annuler » en lien texte, puis le bouton rouge plein qui confirme (libellé « Supprimer » par défaut). Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
+
+DO
+Toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
+
+DON'T
+Lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
+
+À trancher
+Libellé du bouton rouge (« Supprimer » ou le verbe de l'action). Rendu du bouton rouge désactivé (le code utilise une opacité, pas le fond lavande des boutons désactivés).
+
+Fichier
+`src/components/formateur/Modale.jsx` (export nommé `ModaleConfirmation`).
+
+## Menu d'actions
+
+Rôle
+Ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 3).
+
+Anatomie
+Bouton rond « … » (nom accessible « Plus d'actions »). Mobile : feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre. Desktop : carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
+
+Comportement
+Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`.
+
+DO
+Placer l'action destructrice en dernier, en rouge, suivie d'une Modale de confirmation.
+
+DON'T
+Mettre un bouton Supprimer directement sur la page (principe 3).
+
+À trancher
+Focus à l'ouverture et déplacement aux flèches (le code ne les gère pas). Ordre des actions autres que la destructrice. Nombre minimal d'actions pour justifier un menu.
+
+Fichier
+`src/components/formateur/MenuActions.jsx`.
+
 ## Typographie
 
 - Urbanist partout (`--font-display`, `--font-body`), graisses 400 à 800. Titres en 800, corps en 500 à 600.
@@ -183,7 +262,7 @@ Principe : 4 (la profondeur vient du fond, pas des traits ni des ombres).
 - Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
 - Sur tactile, seul `:active` donne un retour pendant l'appui (boutons principaux, secondaires, orange, boutons ronds, cartes et lignes cliquables).
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
-- Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol`.
+- Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.
 
 ## Toast de complétion
