@@ -58,6 +58,7 @@ Aucune entrée.
 - Toutes les modales (Nouveau groupe, Assigner des cours, Assigner à des groupes, Insérer une vidéo, confirmations) : ombre `--ombre-flottante`, comme le veut la règle des ombres.
 - Modale de confirmation (Création de cours, Détail cours, Détail groupe) : à l'ouverture, le focus va sur « Annuler » ; Tab reste dans la modale. Le libellé du bouton qui confirme n'a plus de valeur par défaut et nomme le verbe et l'objet : « Supprimer le cours », « Supprimer le groupe », « Retirer l'élève », « Supprimer la question », « Supprimer l'étape », « Retirer la checklist », « Quitter sans enregistrer ».
 - Menu d'actions « … » (Création de cours, Détail cours, Détail groupe) : Entrée ou Espace sur le bouton ouvre le menu et place le focus sur la première action ; les flèches passent d'une action à l'autre ; Échap ferme le menu et rend le focus au bouton.
+- Modale (bouton « Fermer », boutons d'action) et Menu d'actions (bouton « … », actions) : focus clavier en contour de 2 px à l'extérieur, `bordure-focus`, au lieu du contour natif du navigateur.
 
 ## 2.1.0 (brouillon, non publiée)
 

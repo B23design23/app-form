@@ -309,6 +309,13 @@
   color: var(--texte-erreur);
 }
 
+/* Focus clavier du bouton « … » et des actions : contour de 2 px à l'extérieur, au clavier seulement */
+.fm-bouton-rond:focus-visible,
+.fm-menu-item:focus-visible {
+  outline: 2px solid var(--bordure-focus);
+  outline-offset: 2px;
+}
+
 @media (hover: hover) {
   .fm-menu-item:hover {
     background: var(--fond-sur-carte);

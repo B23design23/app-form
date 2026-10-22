@@ -142,6 +142,7 @@
 
 /* Focus clavier des boutons : contour de 2 px à l'extérieur, visible au clavier seulement */
 .modale-fermer:focus-visible,
+.modale-actions button:focus-visible,
 .modale-bouton-danger:focus-visible {
   outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
