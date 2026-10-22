@@ -56,6 +56,7 @@ Aucune entrée.
 - Bouton principal désactivé (style commun `.bouton-primaire:disabled`) : fond `fond-action-desactive` et texte `texte-action-desactive` au lieu d'une opacité de 0,6. Écran dont le rendu change : quiz de cours et quiz flash (bouton du bas désactivé pendant l'envoi ou sans réponse choisie) ; les écrans formateur, le parcours d'entrée et la barre de Création de cours avaient déjà ce rendu.
 - Bouton rouge de la Modale de confirmation désactivé pendant l'action : fond `fond-action-desactive` et texte `texte-action-desactive` au lieu d'une opacité de 0,6.
 - Toutes les modales (Nouveau groupe, Assigner des cours, Assigner à des groupes, Insérer une vidéo, confirmations) : ombre `--ombre-flottante`, comme le veut la règle des ombres.
+- Modale de confirmation (Création de cours, Détail cours, Détail groupe) : à l'ouverture, le focus va sur « Annuler » ; Tab reste dans la modale. Le libellé du bouton qui confirme n'a plus de valeur par défaut et nomme le verbe et l'objet : « Supprimer le cours », « Supprimer le groupe », « Retirer l'élève », « Supprimer la question », « Supprimer l'étape », « Retirer la checklist », « Quitter sans enregistrer ».
 
 ## 2.1.0 (brouillon, non publiée)
 

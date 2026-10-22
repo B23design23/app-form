@@ -455,7 +455,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
         <ModaleConfirmation
           titre="Supprimer ce cours ?"
           texte="Cette action est irréversible."
-          libelleConfirmer="Supprimer"
+          libelleConfirmer="Supprimer le cours"
           enCours={suppression}
           onConfirmer={confirmerSuppression}
           onFermer={() => !suppression && setConfirmationSuppression(false)}

@@ -482,7 +482,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
         <ModaleConfirmation
           titre={`Retirer ${nomComplet(eleveARetirer)} ?`}
           texte={`L'élève quittera ${groupe.nom} et n'aura plus accès aux cours privés du groupe.`}
-          libelleConfirmer="Retirer"
+          libelleConfirmer="Retirer l'élève"
           enCours={retraitEnCours}
           onConfirmer={confirmerRetrait}
           onFermer={() => !retraitEnCours && setEleveARetirer(null)}
@@ -493,7 +493,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
         <ModaleConfirmation
           titre="Supprimer ce groupe ?"
           texte="Les élèves ne seront plus rattachés et perdront l'accès aux cours privés associés. Cette action est irréversible."
-          libelleConfirmer="Supprimer"
+          libelleConfirmer="Supprimer le groupe"
           enCours={suppression}
           onConfirmer={confirmerSuppressionGroupe}
           onFermer={() => !suppression && setConfirmationSuppression(false)}

@@ -1507,7 +1507,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
         <ModaleConfirmation
           titre="Quitter sans enregistrer ?"
           texte={MESSAGE_QUITTER}
-          libelleConfirmer="Quitter"
+          libelleConfirmer="Quitter sans enregistrer"
           onFermer={() => setConfirmation(null)}
           onConfirmer={() => {
             const suite = confirmation.suite
@@ -1530,7 +1530,13 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
               ? 'Les étapes saisies seront supprimées à l’enregistrement.'
               : 'Elle sera supprimée à l’enregistrement du cours.'
           }
-          libelleConfirmer={confirmation.type === 'sans-checklist' ? 'Retirer' : 'Supprimer'}
+          libelleConfirmer={
+            confirmation.type === 'question'
+              ? 'Supprimer la question'
+              : confirmation.type === 'etape'
+                ? 'Supprimer l’étape'
+                : 'Retirer la checklist'
+          }
           onFermer={() => setConfirmation(null)}
           onConfirmer={() => {
             confirmation.suite()
