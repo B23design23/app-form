@@ -295,7 +295,7 @@ Source : `ds-principes-composants.md`.
 - **Comportement** : Échap, clic sur le voile et bouton « Fermer » ferment la modale. Rôle `dialog`, `aria-modal`, nom accessible = titre.
 - **DO** : laisser les trois façons de fermer (Échap, clic sur le voile, bouton « Fermer »).
 - **DON'T** : À trancher.
-- **À trancher** : focus à l'ouverture et maintien du focus dans la modale ; ombre (la règle des ombres cite les modales pour `--ombre-flottante`, le code n'en pose pas) ; usage dans l'espace apprenant (composant et styles rangés côté formateur).
+- **À trancher** : focus à l'ouverture et maintien du focus dans la modale, hors Modale de confirmation.
 - **Fichier à réutiliser** : `src/components/Modale.jsx` (export par défaut `Modale`).
 
 ### Modale de confirmation
@@ -306,7 +306,6 @@ Source : `ds-principes-composants.md`.
 - **Comportement** : Le bouton qui confirme nomme le verbe et l'objet de l'action. À l'ouverture, le focus va sur Annuler, l'action la moins destructrice. Tab reste dans la modale. Échap la ferme.
 - **DO** : toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
 - **DON'T** : lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
-- **À trancher** : libellé du bouton rouge (« Supprimer » ou le verbe de l'action) ; rendu du bouton rouge désactivé (le code utilise une opacité, pas le fond lavande des boutons désactivés).
 - **Fichier à réutiliser** : `src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
 
 ### Menu d'actions
@@ -316,7 +315,7 @@ Source : `ds-principes-composants.md`.
 - **Comportement** : Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`. Entrée ou Espace sur le bouton ouvre le menu et place le focus sur la première action. Les flèches passent d'une action à l'autre. Échap ferme le menu et rend le focus au bouton. Un menu à une seule action reste admis pour l'instant.
 - **DO** : placer l'action destructrice en dernier, en rouge, suivie d'une Modale de confirmation.
 - **DON'T** : mettre un bouton Supprimer directement sur la page (principe 3).
-- **À trancher** : focus à l'ouverture et déplacement aux flèches ; ordre des actions autres que la destructrice ; nombre minimal d'actions pour justifier un menu.
+- **À trancher** : ordre des actions autres que la destructrice.
 - **Fichier à réutiliser** : `src/components/formateur/MenuActions.jsx`.
 
 ## 5. Règles transverses
@@ -505,7 +504,6 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
    - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
    - Séparateur : épaisseur du trait.
    - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
-   - Écart à corriger dans le code (dérive) : `.bouton-primaire:disabled` (`src/styles/shared.css`) rend l'état désactivé par une opacité de 0,6, au lieu de `fond-action-desactive` et `texte-action-desactive`. Même écart sur `.fm-bouton-danger:disabled` (bouton rouge de la Modale de confirmation).
 3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
 5. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.

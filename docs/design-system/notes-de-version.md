@@ -2,7 +2,7 @@
 
 ## 3.0.0 (brouillon, non publiée)
 
-Version majeure : quatre règles changent au point que des écrans conformes ne le sont plus (rubrique « Modifié » et « Ajouté »). Les écrans concernés sont listés sous chaque entrée ; ils ne sont pas encore corrigés.
+Version majeure : des règles changent au point que des écrans conformes ne le sont plus, et la Modale change d'emplacement dans le code. Les écrans concernés sont listés sous chaque entrée ; ceux qui sont déjà corrigés figurent sous « Écrans corrigés ».
 
 **Ajouté**
 
@@ -11,6 +11,11 @@ Version majeure : quatre règles changent au point que des écrans conformes ne 
   - Leçon de la fiche de cours : le retour garde le nom court du thème sur mobile.
   - Pages formateur avec retour (Détail cours, Détail groupe) : lien texte violet sur desktop au lieu de la pilule blanche.
   - Création de cours : bouton rond suivi d'un texte au lieu de la pilule blanche.
+- Variante Retour, règle d'usage : le bouton remonte d'un niveau dans l'arborescence des pages ; il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop) ; il n'a donc pas d'état désactivé. Côté écran : rien à faire de plus que l'entrée précédente.
+- Comportement de la Modale de confirmation : le bouton qui confirme nomme le verbe et l'objet de l'action ; à l'ouverture, le focus va sur Annuler ; Tab reste dans la modale ; Échap la ferme. Côté écran, à mettre en conformité :
+  - Composant `ModaleConfirmation` : ni focus sur Annuler à l'ouverture, ni maintien du focus dans la modale.
+  - Libellés sans objet : « Supprimer » (Supprimer ce cours, Supprimer ce groupe, Supprimer la question ou l'étape, Retirer la checklist), « Retirer » (retirer un élève), « Quitter » (quitter sans enregistrer).
+- Comportement au clavier du Menu d'actions : Entrée ou Espace ouvre le menu et place le focus sur la première action ; les flèches passent d'une action à l'autre ; Échap ferme le menu et rend le focus au bouton. Un menu à une seule action reste admis pour l'instant. Côté écran, à mettre en conformité : composant `MenuActions` (pas de focus à l'ouverture, pas de flèches, focus non rendu au bouton).
 
 **Modifié**
 
@@ -25,6 +30,8 @@ Version majeure : quatre règles changent au point que des écrans conformes ne 
   - Modale de confirmation (Création de cours, Détail cours, Détail groupe).
   - Barre d'enregistrement de Création de cours.
 
+- Modale : composant partagé des deux espaces, déplacé de `src/components/formateur/Modale.jsx` vers `src/components/Modale.jsx`, styles dans `src/components/Modale.css` (classes `modale-*` au lieu de `fm-*`) ; ombre `--ombre-flottante`, comme le veut la règle des ombres. Côté écran : importer `Modale` et `ModaleConfirmation` depuis `src/components/Modale.jsx` (fait pour Création de cours, Détail cours, Détail groupe, Nouveau groupe).
+
 **Corrigé**
 
 Aucune entrée.
@@ -35,7 +42,7 @@ Aucune entrée.
 
 **Retiré**
 
-Aucune entrée.
+- `src/components/formateur/Modale.jsx` et les classes `fm-voile`, `fm-modale-*`, `fm-bouton-danger` de `Formateur.css`. Côté écran : utiliser `src/components/Modale.jsx`.
 
 **Écrans corrigés**
 
@@ -48,6 +55,7 @@ Aucune entrée.
 - Parcours d'entrée : une ligne de choix sélectionnée garde le contour de focus clavier (2 px à l'extérieur, `bordure-focus`).
 - Bouton principal désactivé (style commun `.bouton-primaire:disabled`) : fond `fond-action-desactive` et texte `texte-action-desactive` au lieu d'une opacité de 0,6. Écran dont le rendu change : quiz de cours et quiz flash (bouton du bas désactivé pendant l'envoi ou sans réponse choisie) ; les écrans formateur, le parcours d'entrée et la barre de Création de cours avaient déjà ce rendu.
 - Bouton rouge de la Modale de confirmation désactivé pendant l'action : fond `fond-action-desactive` et texte `texte-action-desactive` au lieu d'une opacité de 0,6.
+- Toutes les modales (Nouveau groupe, Assigner des cours, Assigner à des groupes, Insérer une vidéo, confirmations) : ombre `--ombre-flottante`, comme le veut la règle des ombres.
 
 ## 2.1.0 (brouillon, non publiée)
 

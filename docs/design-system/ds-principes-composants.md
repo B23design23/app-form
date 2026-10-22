@@ -193,7 +193,7 @@ DON'T
 À trancher.
 
 À trancher
-Focus à l'ouverture et maintien du focus dans la modale (le code ne les gère pas). Ombre : la règle des ombres cite les modales pour `--ombre-flottante`, le code n'en pose pas. Usage dans l'espace apprenant (le composant et ses styles sont rangés côté formateur).
+Focus à l'ouverture et maintien du focus dans la modale, hors Modale de confirmation (le code ne les gère pas).
 
 Fichier
 `src/components/Modale.jsx` (export par défaut `Modale`).
@@ -218,9 +218,6 @@ Toujours confirmer une action destructrice, quel que soit l'endroit d'où elle p
 DON'T
 Lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
 
-À trancher
-Libellé du bouton rouge (« Supprimer » ou le verbe de l'action). Rendu du bouton rouge désactivé (le code utilise une opacité, pas le fond lavande des boutons désactivés).
-
 Fichier
 `src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
 
@@ -243,7 +240,7 @@ DON'T
 Mettre un bouton Supprimer directement sur la page (principe 3).
 
 À trancher
-Focus à l'ouverture et déplacement aux flèches (le code ne les gère pas). Ordre des actions autres que la destructrice. Nombre minimal d'actions pour justifier un menu.
+Ordre des actions autres que la destructrice.
 
 Fichier
 `src/components/formateur/MenuActions.jsx`.
