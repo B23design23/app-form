@@ -108,6 +108,8 @@
 .modale-actions .bouton-secondaire,
 .modale-actions .modale-bouton-danger {
   width: 100%;
+  /* Annule la marge haute commune de .bouton-primaire : boutons alignés sur la même rangée */
+  margin-top: 0;
 }
 
 .modale .bouton-secondaire:disabled {
