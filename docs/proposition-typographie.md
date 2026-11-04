@@ -19,15 +19,14 @@
 
 ## 1. Rôles
 
-18 rôles. Titre de carte et Chiffre mis en avant ont chacun deux niveaux, soit 20 jeux de valeurs.
+18 rôles. Chiffre mis en avant a deux niveaux, soit 19 jeux de valeurs. Le Titre de carte n'a plus qu'un niveau (décision 14).
 
 | Rôle | Fonction | Taille mobile | Taille desktop | Graisse | Hauteur de ligne | Espacement des lettres | Éléments |
 |---|---|---|---|---|---|---|---|
 | Titre de page | Nomme l'écran ; un seul par écran, en tête | 34 px | 44 px | 800 | 1,1 | normal | 9 |
 | Titre de contenu | Nomme l'objet que l'écran présente (cours, thème, question) | 28 px | 32 px | 800 | 1,1 | normal | 6 |
 | Titre de section | Ouvre une partie de page ou une surface (section, carte de section, modale, feuille de menu) | **21 px** | **21 px** | 800 | 1,2 | normal | 16 |
-| Titre de carte, standard | Nomme une carte ou un bloc compact | **18 px** | **18 px** | 800 | 1,2 | normal | 8 |
-| Titre de carte, grand | Nomme une grande carte mise en avant dans son écran | 22 px | 22 px | 800 | 1,1 | normal | 9 |
+| Titre de carte | Nomme une carte ou un bloc | **18 px** | **18 px** | 800 | 1,2 | normal | 17 |
 | Titre de ligne | Nomme un élément de liste, ou rappelle un titre dans une barre compacte | **16 px** | **16 px** | 800 | 1,2 | normal | 17 |
 | Texte de lecture | Texte de la leçon, dans la fiche et dans son aperçu | 17 px | 18 px | 500 | 1,55 | normal | 2 |
 | Corps courant | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées | 15 px | 15 px | 500 | 1,45 | normal | 19 |
@@ -124,31 +123,25 @@ Séparations imposées par l'instruction : Bouton, Lien texte, Navigation (ancie
 
 Fusions refusées par le critère : Méta et Compteur (13 px · 500 contre 14-15 px · 800), Titre de carte et Titre de section (17 contre 20 px), Chiffre mis en avant et Titre de contenu (même taille mobile, mais 28 contre 32 px sur desktop et une hauteur de ligne différente).
 
-### 1.2 Niveaux de Titre de carte et de Chiffre mis en avant
+### 1.2 Titre de carte : un seul niveau ; niveaux de Chiffre mis en avant
 
-**Titre de carte, grand (22 px)** : titre de carte blanche ou lavande du dashboard apprenant, titre des cartes encre « Étape suivante » et « Suite du thème », nom du badge débloqué (fin de quiz), tous à 22 px. Cas limites rattachés au grand niveau :
+**Titre de carte : un seul niveau, 18 px · 800 · 1,2 (décision 14).** Le niveau grand (22 px · 800 · 1,1) est supprimé : aucun critère de fonction ne le tenait. Ses raisons reposaient sur la place de la carte, sur sa couleur ou sur la taille actuelle. Ce n'est pas une fusion de rôles : le grand niveau était un palier créé pour limiter les changements, pas un rôle. Les 9 éléments qu'il portait sont rattachés au Titre de carte. Sur les 17 éléments du rôle, le critère des changements visibles choisit lui aussi 18 px · 800 · 1,2 (10 visibles, le minimum possible).
 
-- nom de la carte de groupe (Mes groupes, 20 / 22 px) : déjà à 22 px sur desktop, et c'est la valeur que décrit CLAUDE.md ;
-- titre de la carte de profil (Choix du profil, 20 px) : deux grandes cartes qui occupent l'écran à elles seules ;
-- « X étapes sur N » (Checklist, 20 px) : titre de la carte de progression, l'élément le plus visible de l'écran après le titre ; 2 px du grand niveau comme du standard ; le rôle de titre de la carte la plus visible de l'écran décide ;
-- titre du bloc de correction du quiz (« Bien vu », 20 px) : même famille que les cartes encre de la fiche, qui sont au grand niveau ;
-- « Quiz flash » en version verticale (desktop, colonne étroite, 28 px) : seul titre d'une carte haute, plus proche du grand niveau.
+Trace des raisons de l'ancien niveau grand, relevées avant la décision. Deux formules faisaient décider à l'œil ou par la couleur : (A) « la carte la plus visible de l'écran » et (B) une raison de couleur (cartes encre).
 
-**Raisons de chaque élément du niveau grand** (relevé demandé, critère non réécrit). Deux formules du critère font décider à l'œil ou par la couleur : (A) « la carte la plus visible de l'écran » et (B) « la famille des cartes encre ».
-
-| Élément du niveau grand | Raison écrite dans cette proposition | Tient seulement par (A) ou (B) ? |
+| Élément de l'ancien niveau grand | Raison écrite alors | Tenait seulement par (A) ou (B) ? |
 |---|---|---|
 | Titre de carte blanche ou lavande du dashboard apprenant (premier cours / prochain cours conseillé, prochain badge, bibliothèque terminée) | « tous à 22 px » : aucune raison de fonction, seulement la taille actuelle | non, mais ne tient que par la taille actuelle, ce que la règle de rattachement exclut |
-| Titre de la carte « Étape suivante » (fiche) | « tous à 22 px » ; carte encre | par (B) et par la taille actuelle |
-| Nom du badge débloqué (fin de quiz) | « tous à 22 px » ; carte encre | par (B) et par la taille actuelle |
-| Titre de la carte « Suite du thème » (récap) | « tous à 22 px » ; rangée avec les cartes encre dans la phrase de la section 1.2 (c'est en fait une carte violette) | par la taille actuelle ; (B) ne s'applique pas, la carte n'est pas encre |
+| Titre de la carte « Étape suivante » (fiche) | « tous à 22 px » ; raison de couleur (carte encre) | par (B) et par la taille actuelle |
+| Nom du badge débloqué (fin de quiz) | « tous à 22 px » ; raison de couleur (carte encre) | par (B) et par la taille actuelle |
+| Titre de la carte « Suite du thème » (récap) | « tous à 22 px » ; la carte était à tort rangée avec les cartes encre (c'est une carte violette) | par la taille actuelle |
 | Nom de la carte de groupe (Mes groupes) | « déjà à 22 px sur desktop, et c'est la valeur que décrit CLAUDE.md » | non, mais ne tient que par la taille actuelle et par CLAUDE.md |
 | Titre de la carte de profil (Choix du profil) | « deux grandes cartes qui occupent l'écran à elles seules » | non : la raison porte sur la place de la carte dans l'écran |
 | « X étapes sur N » (Checklist) | « l'élément le plus visible de l'écran après le titre » ; « 2 px du grand niveau comme du standard » | **oui, par (A)** |
-| Titre du bloc de correction du quiz (« Bien vu ») | « même famille que les cartes encre de la fiche » | **oui, par (B)** |
+| Titre du bloc de correction du quiz (« Bien vu ») | raison de couleur (la carte est encre, comme « Étape suivante ») | **oui, par (B)** |
 | « Quiz flash » vertical (dashboard apprenant, desktop, colonne étroite) | « seul titre d'une carte haute, plus proche du grand niveau » | non, mais la seconde moitié de la raison est la taille actuelle (28 px) |
 
-**Titre de carte, standard (18 px)** : titres « À retenir » (fiche et Détail cours), « Quiz flash » verrouillé, carte de thème (15 / 18 px), carte de cours de Mes cours (18 px), titre du toast. Cas limite : « Quiz flash » du bloc en ligne (19 px) reste au standard, le bloc étant une ligne compacte et 19 px étant à 1 px du standard (18) et à 3 px du grand niveau.
+Éléments du Titre de carte avant la décision (ancien niveau standard) : titres « À retenir » (fiche et Détail cours), « Quiz flash » verrouillé, carte de thème (15 / 18 px), carte de cours de Mes cours (18 px), titre du toast, « Quiz flash » du bloc en ligne (19 px).
 
 **Chiffre mis en avant, grand (48 px)** : score « 4/5 » de fin de quiz, seul élément.
 
@@ -175,7 +168,7 @@ Corps courant : 15 px · 500 · 1,45, imposé. C'est déjà la combinaison la pl
 
 ## 2. Échelle de tailles
 
-13 tailles en px entiers (accepté). Chacune sert au moins un rôle.
+12 tailles en px entiers. Chacune sert au moins un rôle. 22 px est sorti avec le niveau grand du Titre de carte (décision 14).
 
 | Taille | rem | Rôles |
 |---|---|---|
@@ -184,16 +177,15 @@ Corps courant : 15 px · 500 · 1,45, imposé. C'est déjà la combinaison la pl
 | 15 px | 0,9375 rem | Corps courant, Bouton, Lien texte, Compteur |
 | 16 px | 1 rem | Titre de ligne, Saisie et choix |
 | 17 px | 1,0625 rem | Texte de lecture (mobile) |
-| 18 px | 1,125 rem | Titre de carte standard, Texte de lecture (desktop) |
+| 18 px | 1,125 rem | Titre de carte, Texte de lecture (desktop) |
 | 21 px | 1,3125 rem | Titre de section |
-| 22 px | 1,375 rem | Titre de carte grand |
 | 28 px | 1,75 rem | Titre de contenu (mobile), Chiffre mis en avant standard |
 | 32 px | 2 rem | Titre de contenu (desktop) |
 | 34 px | 2,125 rem | Titre de page (mobile) |
 | 44 px | 2,75 rem | Titre de page (desktop) |
 | 48 px | 3 rem | Chiffre mis en avant grand |
 
-Pas de taille intermédiaire absente de la prod (27 et 21 px pour Titre de contenu et Titre de carte grand refusés). Les 21 px du Titre de section restent : c'est une taille de la prod (intertitre de la leçon, titre de la modale Mes badges).
+Pas de taille intermédiaire absente de la prod (27 px pour Titre de contenu et 21 px pour l'ancien niveau grand du Titre de carte, refusés). Les 21 px du Titre de section restent : c'est une taille de la prod (intertitre de la leçon, titre de la modale Mes badges).
 
 Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px est la taille la plus partagée (quatre rôles). Trois rôles changent de taille à 768 px : Titre de page, Titre de contenu, Texte de lecture.
 
@@ -209,17 +201,17 @@ Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px est la taille la pl
 | Version 3 validée, Retour en Bouton (5013177) | 59 | 176 | 40 | 216 |
 | Version 3 validée, menus en Lien texte (e0d6582) | 59 | 176 | 40 | 216 |
 | Version 3 validée, option choisie de Navigation comptée (1cfa572) | 57 | 178 | 40 | 218 |
-| **Version 3 validée, rendu de design-system (« Annuler » en Bouton)** | **57** | **178** | **40** | **218** |
+| Version 3 validée, rendu de design-system (d9b1258) | 57 | 178 | 40 | 218 |
+| **Version 3 validée, Titre de carte à un seul niveau** | **54** | **177** | **44** | **221** |
 
-Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à corriger (section 10). Les deux libellés de Retour passés en Bouton deviennent identiques (15 px · 800 en prod comme dans le rôle) ; les valeurs des rôles Bouton et Lien texte ne changent pas. Le passage de « Se déconnecter » et des actions du menu « … » en Lien texte laisse les totaux identiques (deux changements discrets dans les deux cas) mais ramène Navigation à 14 px. Enfin, l'option choisie d'une Navigation passe à 800 (un cran, changement discret) : chaque élément de Navigation qui a un état choisi est compté comme changé. Les 6 éléments de Navigation sont concernés ; deux d'entre eux, identiques jusque-là (pastilles de filtre du dashboard formateur, onglets « Écrire / Aperçu »), deviennent discrets. « Annuler », passé en Bouton d'après son rendu sur design-system, reste un changement discret : les totaux ne bougent pas.
+Sur 275 éléments. Les 44 changements visibles sont acceptés comme dérives à corriger (section 10, décisions 7 et 14). Les deux libellés de Retour passés en Bouton deviennent identiques (15 px · 800 en prod comme dans le rôle) ; les valeurs des rôles Bouton et Lien texte ne changent pas. Le passage de « Se déconnecter » et des actions du menu « … » en Lien texte laisse les totaux identiques (deux changements discrets dans les deux cas) mais ramène Navigation à 14 px. Enfin, l'option choisie d'une Navigation passe à 800 (un cran, changement discret) : chaque élément de Navigation qui a un état choisi est compté comme changé. Les 6 éléments de Navigation sont concernés ; deux d'entre eux, identiques jusque-là (pastilles de filtre du dashboard formateur, onglets « Écrire / Aperçu »), deviennent discrets. « Annuler », passé en Bouton d'après son rendu sur design-system, reste un changement discret : les totaux ne bougent pas. La suppression du niveau grand du Titre de carte fait passer 4 éléments au changement visible : trois identiques à 22 px (« Étape suivante », nom du badge débloqué, « Suite du thème ») et un discret (titre de carte blanche ou lavande du dashboard apprenant, 22 px). Les 5 autres éléments de l'ancien niveau grand étaient déjà visibles.
 
 | Rôle | Valeur v3 avant décisions | Valeur finale | Éléments | Identique | Discret | Visible |
 |---|---|---|---|---|---|---|
 | Titre de page | 34 / 44 px · 800 · 1,1 | 34 / 44 px · 800 · 1,1 | 9 | 5 | 2 | 2 |
 | Titre de contenu | 28 / 32 px · 800 · 1,1 | 28 / 32 px · 800 · 1,1 | 6 | 2 | 0 | 4 |
 | Titre de section | 21 px · 800 · 1,2 | 21 px · 800 · 1,2 | 16 | 0 | 10 | 6 |
-| Titre de carte (standard) | 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 8 | 2 | 5 | 1 |
-| Titre de carte (grand) | 22 px · 800 · 1,1 | 22 px · 800 · 1,1 | 9 | 3 | 1 | 5 |
+| Titre de carte | 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 17 | 2 | 5 | 10 |
 | Titre de ligne | 16 px · 800 · 1,2 | 16 px · 800 · 1,2 | 17 | 5 | 11 | 1 |
 | Texte de lecture | 17 / 18 px · 500 · 1,55 | 17 / 18 px · 500 · 1,55 | 2 | 1 | 0 | 1 |
 | Corps courant | 15 px · 500 · 1,45 | 15 px · 500 · 1,45 | 17 | 2 | 13 | 2 |
@@ -235,7 +227,7 @@ Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à
 | Chiffre mis en avant (standard) | 28 px · 800 · 1 | 28 px · 800 · 1 | 3 | 2 | 0 | 1 |
 | Chiffre mis en avant (grand) | 48 px · 800 · 1 | 48 px · 800 · 1 | 1 | 1 | 0 | 0 |
 | Compteur | 14 px · 800 · 1,2 | 15 px · 800 · 1,2 **(changé)** | 10 | 2 | 4 | 4 |
-| **Total** | | | **275** | **57** | **178** | **40** |
+| **Total** | | | **275** | **54** | **177** | **44** |
 
 ### 3.2 Changements visibles
 
@@ -247,42 +239,46 @@ Tous les changements visibles, du plus gros écart de taille au plus petit. Éca
 | 2 | Titre de page | Fin de quiz | titre « Belle maîtrise ! » | 30 px · 800 · 1,1 | 34 / 44 px · 800 · 1,1 | 14 px · graisse 0 |
 | 3 | Titre de contenu | Détail cours | titre du cours (H1) : perd contre .espace-page h1 | 34 / 44 px · 800 · 1,1 | 28 / 32 px · 800 · 1,1 | 12 px · graisse 0 |
 | 4 | Compteur | Dashboard apprenant | pourcentage dans l'anneau | 17 / 26 px · 800 · 1,2 | 15 px · 800 · 1,2 | 11 px · graisse 0 |
-| 5 | Titre de contenu | Fiche : quiz, Quiz flash | question | 24 px · 800 · 1,15 | 28 / 32 px · 800 · 1,1 | 8 px · graisse 0 |
-| 6 | Chiffre mis en avant (standard) | Dashboard admin | chiffre de carte | 36 px · 800 · 1,1 | 28 px · 800 · 1 | 8 px · graisse 0 |
-| 7 | Titre de section | Cours | titre de section (« Thèmes », « N résultats ») | 22 / 28 px · 800 · 1,2 | 21 px · 800 · 1,2 | 7 px · graisse 0 |
-| 8 | Titre de section | Dashboard formateur | titre « Taux de complétion » | 14,4 px · 500 · 1,2 | 21 px · 800 · 1,2 | 6,6 px · graisse 3 crans |
-| 9 | Titre de contenu | Dashboard apprenant | « Quiz flash » du bloc de tête E | 34 px · 800 · 1 · lettres -0,5 px | 28 / 32 px · 800 · 1,1 · lettres normales | 6 px · graisse 0 |
-| 10 | Titre de carte (grand) | Dashboard apprenant (desktop, colonne étroite) | « Quiz flash » vertical | n/a / 28 px · 800 · 1 | n/a / 22 px · 800 · 1,1 | 6 px · graisse 0 |
+| 5 | Titre de carte | Dashboard apprenant (desktop, colonne étroite) | « Quiz flash » vertical | n/a / 28 px · 800 · 1 | n/a / 18 px · 800 · 1,2 | 10 px · graisse 0 |
+| 6 | Titre de contenu | Fiche : quiz, Quiz flash | question | 24 px · 800 · 1,15 | 28 / 32 px · 800 · 1,1 | 8 px · graisse 0 |
+| 7 | Chiffre mis en avant (standard) | Dashboard admin | chiffre de carte | 36 px · 800 · 1,1 | 28 px · 800 · 1 | 8 px · graisse 0 |
+| 8 | Titre de section | Cours | titre de section (« Thèmes », « N résultats ») | 22 / 28 px · 800 · 1,2 | 21 px · 800 · 1,2 | 7 px · graisse 0 |
+| 9 | Titre de section | Dashboard formateur | titre « Taux de complétion » | 14,4 px · 500 · 1,2 | 21 px · 800 · 1,2 | 6,6 px · graisse 3 crans |
+| 10 | Titre de contenu | Dashboard apprenant | « Quiz flash » du bloc de tête E | 34 px · 800 · 1 · lettres -0,5 px | 28 / 32 px · 800 · 1,1 · lettres normales | 6 px · graisse 0 |
 | 11 | Compteur | Dashboard apprenant | « [N] XP » de l'en-tête | 17 / 20 px · 800 · 1,2 | 15 px · 800 · 1,2 | 5 px · graisse 0 |
 | 12 | Saisie et choix | Parcours : questions | saisie du grand champ (prénom, organisme…) | 20 px · 700 · 1,2 | 16 px · 600 · 1,2 | 4 px · graisse 1 cran |
 | 13 | Titre de section | Espace formateur (mobile) | titre de la feuille du menu « … » | 17 px · 800 · 1,2 | 21 px · 800 · 1,2 | 4 px · graisse 0 |
-| 14 | Titre de ligne | Création de cours | H1 de l'en-tête compact (affiché sous 1024 px) | 20 px · 800 · 1,2 | 16 px · 800 · 1,2 | 4 px · graisse 0 |
-| 15 | Compteur | Parcours : questions | compteur « 2 / 5 » | 18 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
-| 16 | Titre de section | Espace formateur, Création de cours | titre de modale | 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
-| 17 | Pastille | Détail cours | « +N » sur la dernière miniature | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
-| 18 | Titre de section | Fiche : leçon | intertitre H2 de la leçon | 21 / 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
-| 19 | Pastille | Fin de quiz | pastille « +20 XP » | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
-| 20 | Compteur | Dashboard apprenant | compteur de barre, petite variante | 12 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
-| 21 | Titre de section | Dashboard formateur : Pour bien démarrer | titre de la carte | 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
-| 22 | Pastille | Dashboard formateur : Pour bien démarrer | numéro dans le rond | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
-| 23 | Titre de carte (standard) | Cours | titre de la carte de thème | 15 / 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 3 px · graisse 0 |
-| 24 | Corps courant | Fiche : checklist | intitulé de l'étape en cours | 17 px · 800 · 1,2 | 15 px · 500 · 1,45 | 2 px · graisse 3 crans |
-| 25 | Texte secondaire | Parcours | sous-titre sous le H1 | 16 px · 500 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
-| 26 | Texte secondaire | Cours, Terrain | sous-titre de l'en-tête lavande | 14 / 16 px · 700 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
-| 27 | Texte de lecture | Détail cours | premier paragraphe de la leçon | 16 px · 500 · 1,55 | 17 / 18 px · 500 · 1,55 | 2 px · graisse 0 |
-| 28 | Titre de carte (grand) | Fiche : quiz, Quiz flash | titre du bloc de correction (« Bien vu ») | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| 29 | Titre de carte (grand) | Fiche : checklist | « X étapes sur N » | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| 30 | Surtitre | Dashboard apprenant | libellé sur carte violette (« Tu en es là ») | 13 / 15 px · 700 · 1,2 | 13 px · 700 · 1,2 | 2 px · graisse 0 |
-| 31 | Titre de contenu | Dashboard apprenant | titre du bloc de tête (cours en cours / assigné) | 26 / 32 px · 800 · 1,05 / 1,1 | 28 / 32 px · 800 · 1,1 | 2 px · graisse 0 |
-| 32 | Saisie et choix | Dashboard formateur | saisie « Un élève » | 14 px · 400 · 1,2 | 16 px · 600 · 1,2 | 2 px · graisse 400 → 600 |
-| 33 | Pastille | Création de cours | lettre de réponse | 15 px · 800 · 1,2 | 13 px · 800 · 1,2 | 2 px · graisse 0 |
-| 34 | Saisie et choix | Création de cours | saisie d'explication | 14 px · 400 · 1,2 | 16 px · 600 · 1,2 | 2 px · graisse 400 → 600 |
-| 35 | Titre de carte (grand) | Mes groupes | nom de la carte de groupe | 20 / 22 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| 36 | Titre de carte (grand) | Parcours : Choix du profil | titre de la carte de profil | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| 37 | Saisie et choix | Création de cours | libellé de mode de checklist | 15 px · 800 · 1,2 | 16 px · 600 · 1,2 | 1 px · graisse 2 crans |
-| 38 | Libellé de champ | Parcours | libellé de champ | 14 px · 800 · 1,2 | 14 px · 600 · 1,2 | 0 px · graisse 2 crans |
-| 39 | Corps courant | Dashboard admin (desktop) | cellules chiffrées du tableau | n/a / 15 px · 700 · 1,2 | n/a / 15 px · 500 · 1,45 | 0 px · graisse 2 crans |
-| 40 | Méta | Détail groupe (desktop) | en-têtes de colonne du tableau des élèves | n/a / 13 px · 800 · 1,2 | n/a / 13 px · 600 · 1,2 | 0 px · graisse 2 crans |
+| 14 | Titre de carte | Fiche : leçon, checklist | titre de la carte « Étape suivante » | 22 px · 800 · 1,1 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| 15 | Titre de carte | Fin de quiz | nom du badge débloqué | 22 px · 800 · 1,1 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| 16 | Titre de carte | Récap | titre du cours suivant | 22 px · 800 · 1,1 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| 17 | Titre de carte | Dashboard apprenant | titre de carte blanche / lavande | 22 px · 800 · 1,05 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| 18 | Titre de carte | Mes groupes | nom de la carte de groupe | 20 / 22 px · 800 · 1,2 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| 19 | Titre de ligne | Création de cours | H1 de l'en-tête compact (affiché sous 1024 px) | 20 px · 800 · 1,2 | 16 px · 800 · 1,2 | 4 px · graisse 0 |
+| 20 | Compteur | Parcours : questions | compteur « 2 / 5 » | 18 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
+| 21 | Titre de section | Espace formateur, Création de cours | titre de modale | 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
+| 22 | Pastille | Détail cours | « +N » sur la dernière miniature | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
+| 23 | Titre de section | Fiche : leçon | intertitre H2 de la leçon | 21 / 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
+| 24 | Pastille | Fin de quiz | pastille « +20 XP » | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
+| 25 | Compteur | Dashboard apprenant | compteur de barre, petite variante | 12 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
+| 26 | Titre de section | Dashboard formateur : Pour bien démarrer | titre de la carte | 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
+| 27 | Pastille | Dashboard formateur : Pour bien démarrer | numéro dans le rond | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
+| 28 | Titre de carte | Cours | titre de la carte de thème | 15 / 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 3 px · graisse 0 |
+| 29 | Corps courant | Fiche : checklist | intitulé de l'étape en cours | 17 px · 800 · 1,2 | 15 px · 500 · 1,45 | 2 px · graisse 3 crans |
+| 30 | Texte secondaire | Parcours | sous-titre sous le H1 | 16 px · 500 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
+| 31 | Texte secondaire | Cours, Terrain | sous-titre de l'en-tête lavande | 14 / 16 px · 700 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
+| 32 | Texte de lecture | Détail cours | premier paragraphe de la leçon | 16 px · 500 · 1,55 | 17 / 18 px · 500 · 1,55 | 2 px · graisse 0 |
+| 33 | Titre de carte | Fiche : quiz, Quiz flash | titre du bloc de correction (« Bien vu ») | 20 px · 800 · 1,2 | 18 px · 800 · 1,2 | 2 px · graisse 0 |
+| 34 | Titre de carte | Fiche : checklist | « X étapes sur N » | 20 px · 800 · 1,2 | 18 px · 800 · 1,2 | 2 px · graisse 0 |
+| 35 | Surtitre | Dashboard apprenant | libellé sur carte violette (« Tu en es là ») | 13 / 15 px · 700 · 1,2 | 13 px · 700 · 1,2 | 2 px · graisse 0 |
+| 36 | Titre de contenu | Dashboard apprenant | titre du bloc de tête (cours en cours / assigné) | 26 / 32 px · 800 · 1,05 / 1,1 | 28 / 32 px · 800 · 1,1 | 2 px · graisse 0 |
+| 37 | Saisie et choix | Dashboard formateur | saisie « Un élève » | 14 px · 400 · 1,2 | 16 px · 600 · 1,2 | 2 px · graisse 400 → 600 |
+| 38 | Pastille | Création de cours | lettre de réponse | 15 px · 800 · 1,2 | 13 px · 800 · 1,2 | 2 px · graisse 0 |
+| 39 | Saisie et choix | Création de cours | saisie d'explication | 14 px · 400 · 1,2 | 16 px · 600 · 1,2 | 2 px · graisse 400 → 600 |
+| 40 | Titre de carte | Parcours : Choix du profil | titre de la carte de profil | 20 px · 800 · 1,2 | 18 px · 800 · 1,2 | 2 px · graisse 0 |
+| 41 | Saisie et choix | Création de cours | libellé de mode de checklist | 15 px · 800 · 1,2 | 16 px · 600 · 1,2 | 1 px · graisse 2 crans |
+| 42 | Libellé de champ | Parcours | libellé de champ | 14 px · 800 · 1,2 | 14 px · 600 · 1,2 | 0 px · graisse 2 crans |
+| 43 | Corps courant | Dashboard admin (desktop) | cellules chiffrées du tableau | n/a / 15 px · 700 · 1,2 | n/a / 15 px · 500 · 1,45 | 0 px · graisse 2 crans |
+| 44 | Méta | Détail groupe (desktop) | en-têtes de colonne du tableau des élèves | n/a / 13 px · 800 · 1,2 | n/a / 13 px · 600 · 1,2 | 0 px · graisse 2 crans |
 
 ### 3.3 Détail par rôle
 
@@ -333,31 +329,27 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 | discret | Espace formateur | titre de carte de section (h2) (`Formateur.css:54`) | 20 px · 800 · 1,2 | 21 px · 800 · 1,2 | 1 px · graisse 0 |
 | discret | Dashboard apprenant : modale Mes badges | titre « Mes badges » (`Dashboard.css:994`) | 20,8 px · 800 · 1,2 | 21 px · 800 · 1,2 | 0,2 px · graisse 0 |
 
-### Titre de carte (standard)
+### Titre de carte
 
-8 éléments : 2 identiques, 5 discrets, 1 visibles.
+17 éléments : 2 identiques, 5 discrets, 10 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
+| visible | Dashboard apprenant (desktop, colonne étroite) | « Quiz flash » vertical (`Dashboard.css:941`) | n/a / 28 px · 800 · 1 | n/a / 18 px · 800 · 1,2 | 10 px · graisse 0 |
+| visible | Dashboard apprenant | titre de carte blanche / lavande (`Dashboard.css:143`) | 22 px · 800 · 1,05 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| visible | Fiche : leçon, checklist | titre de la carte « Étape suivante » (`FicheCours.css:351`) | 22 px · 800 · 1,1 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| visible | Fin de quiz | nom du badge débloqué (`FicheCours.css:886`) | 22 px · 800 · 1,1 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| visible | Mes groupes | nom de la carte de groupe (`FormateurListes.css:88`) | 20 / 22 px · 800 · 1,2 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
+| visible | Récap | titre du cours suivant (`FicheCours.css:1346`) | 22 px · 800 · 1,1 | 18 px · 800 · 1,2 | 4 px · graisse 0 |
 | visible | Cours | titre de la carte de thème (`SectionCours.css:89`) | 15 / 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 3 px · graisse 0 |
+| visible | Fiche : checklist | « X étapes sur N » (`FicheCours.css:1062`) | 20 px · 800 · 1,2 | 18 px · 800 · 1,2 | 2 px · graisse 0 |
+| visible | Fiche : quiz, Quiz flash | titre du bloc de correction (« Bien vu ») (`FicheCours.css:654`) | 20 px · 800 · 1,2 | 18 px · 800 · 1,2 | 2 px · graisse 0 |
+| visible | Parcours : Choix du profil | titre de la carte de profil (`Parcours.css:157`) | 20 px · 800 · 1,2 | 18 px · 800 · 1,2 | 2 px · graisse 0 |
 | discret | Partagé (fiche) | titre du toast de complétion (`CompletionToast.css:30`) | 13,6 px · 800 · 1,2 | 18 px · 800 · 1,2 | 4,4 px · graisse 0 |
 | discret | Dashboard apprenant | titre « Quiz flash » du bloc en ligne F (`Dashboard.css:477`) | 19 px · 800 · 1,2 | 18 px · 800 · 1,2 | 1 px · graisse 0 |
 | discret | Dashboard apprenant | titre « Quiz flash » verrouillé (`Dashboard.css:547`) | 17 px · 800 · 1,2 | 18 px · 800 · 1,2 | 1 px · graisse 0 |
 | discret | Détail cours | titre de l'encadré « À retenir » (`DetailCoursFormateur.css:268`) | 17 px · 800 · 1,2 | 18 px · 800 · 1,2 | 1 px · graisse 0 |
 | discret | Fiche : leçon (et aperçu Création, où il est écrasé) | titre de l'encadré « À retenir » (`FicheCours.css:294`) | 17 px · 800 · 1,2 | 18 px · 800 · 1,2 | 1 px · graisse 0 |
-
-### Titre de carte (grand)
-
-9 éléments : 3 identiques, 1 discrets, 5 visibles.
-
-| Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
-|---|---|---|---|---|---|
-| visible | Dashboard apprenant (desktop, colonne étroite) | « Quiz flash » vertical (`Dashboard.css:941`) | n/a / 28 px · 800 · 1 | n/a / 22 px · 800 · 1,1 | 6 px · graisse 0 |
-| visible | Fiche : checklist | « X étapes sur N » (`FicheCours.css:1062`) | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| visible | Fiche : quiz, Quiz flash | titre du bloc de correction (« Bien vu ») (`FicheCours.css:654`) | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| visible | Mes groupes | nom de la carte de groupe (`FormateurListes.css:88`) | 20 / 22 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| visible | Parcours : Choix du profil | titre de la carte de profil (`Parcours.css:157`) | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| discret | Dashboard apprenant | titre de carte blanche / lavande (`Dashboard.css:143`) | 22 px · 800 · 1,05 | 22 px · 800 · 1,1 | 0 px · graisse 0 |
 
 ### Titre de ligne
 
@@ -694,8 +686,8 @@ Les 20 lignes du tableau de l'audit. Rattachements inchangés depuis la version 
 | Titres de carte de l'espace formateur | Titre de section | Dans l'espace formateur, chaque carte blanche est une section de la page. |
 | « Taux de complétion » | Titre de section | Il titre sa carte comme « Tes groupes », sa voisine. |
 | Intertitre de jour « Aujourd'hui » | Surtitre | Libellé court posé au-dessus des lignes qu'il regroupe ; même valeur en prod (13 px 700). |
-| Nom de la carte de thème | Titre de carte, standard | Carte cliquable autonome dans une grille, pas une ligne de liste. |
-| « X étapes sur N » (Checklist) | Titre de carte, grand | Phrase qui titre la carte de progression (niveau : 1.2). |
+| Nom de la carte de thème | Titre de carte | Carte cliquable autonome dans une grille, pas une ligne de liste. |
+| « X étapes sur N » (Checklist) | Titre de carte | Phrase qui titre la carte de progression. |
 | Intitulé de l'étape en cours (Checklist) | Corps courant, état « en cours » | Même texte que les autres intitulés ; la mise en avant devient une variante d'état (section 4). |
 | Ligne de choix du parcours, réponse du quiz, bouton de choix de Création | Saisie et choix | Le texte est la réponse choisie par l'utilisateur. |
 | Pastilles de filtre « Tout / Commencés / Terminés » | Navigation | Une option reste choisie et le choix change ce que montre la liste, sans agir sur les données (critère de la section 1). |
@@ -714,7 +706,7 @@ Les 20 cas sont rattachés.
 |---|---|---|---|---|
 | Boutons du parcours | 17 px 800 | 16 px 700 | 15 px 800 (Bouton) | **la graisse écrite, ni l'une ni l'autre pour la taille** : c'est la valeur du rôle Bouton. Depuis le rendu, changement discret (−1 px, +1 cran). |
 | Titre du cours (Détail cours) | 28 / 32 px | 34 / 44 px | 28 / 32 px (Titre de contenu) | **la valeur écrite** : c'est un titre de cours, comme sur la fiche ; 34 / 44 px venait d'un conflit de sélecteurs. Impact depuis le rendu : −6 px mobile, −12 px desktop. |
-| « À retenir » dans l'aperçu de Création de cours | 17 px | 22 px | 18 px (Titre de carte, standard) | **la valeur écrite, à 1 px près** : l'aperçu doit montrer la fiche telle que l'élève la verra ; dans la fiche comme dans l'aperçu, ce titre passe à 18 px (changement discret depuis la fiche). |
+| « À retenir » dans l'aperçu de Création de cours | 17 px | 22 px | 18 px (Titre de carte) | **la valeur écrite, à 1 px près** : l'aperçu doit montrer la fiche telle que l'élève la verra ; dans la fiche comme dans l'aperçu, ce titre passe à 18 px (changement discret depuis la fiche). |
 
 ## 7. Écarts avec CLAUDE.md
 
@@ -724,7 +716,7 @@ CLAUDE.md n'est pas modifié. Tailles (et graisses, quand il les donne) qu'il d�
 |---|---|---|---|
 | Dashboard apprenant, bloc de tête : « Titre 26 px mobile / 32 px desktop » | titre du bloc de tête (cours en cours / assigné) (`Dashboard.css:360`) | 26 / 32 px | 28 / 32 px |
 | Dashboard apprenant, bloc E : « Quiz flash » 34 px | « Quiz flash » du bloc de tête E (`Dashboard.css:440`) | 34 px | 28 / 32 px |
-| Dashboard apprenant, bloc F en colonne étroite : « titre 28 px » | « Quiz flash » vertical (`Dashboard.css:941`) | 28 px | 22 px |
+| Dashboard apprenant, bloc F en colonne étroite : « titre 28 px » | « Quiz flash » vertical (`Dashboard.css:941`) | 28 px | 18 px |
 | En-tête lavande partagé : sous-titre « 14 px 700 (16 px desktop) » | sous-titre de l'en-tête lavande (`EntetePage.css:35`) | 14 / 16 px | 14 px |
 | Cours : « N résultats » et « Thèmes » « h2 22 px, 28 desktop » | titre de section (« Thèmes », « N résultats ») (`SectionCours.css:20`) | 22 / 28 px | 21 px |
 | Cours : « Aucun cours ne correspond… » « 15 px » | « Aucun cours ne correspond… » (`SectionCours.css:28`) | 15 px | 14 px |
@@ -745,21 +737,22 @@ CLAUDE.md n'est pas modifié. Tailles (et graisses, quand il les donne) qu'il d�
 | Quiz : « question 24 px 800 » | question (`FicheCours.css:432`) | 24 px | 28 / 32 px |
 | Fin de quiz, carte badge : « condition 14 px » | condition du badge (`FicheCours.css:892`) | 14 px | 13 px |
 | Checklist : « thème 12 px » | thème de l'en-tête compact (`FicheCours.css:1033`) | 12 px | 13 px |
-| Checklist : « « X étapes sur N » 20 px » | « X étapes sur N » (`FicheCours.css:1062`) | 20 px | 22 px |
+| Checklist : « « X étapes sur N » 20 px » | « X étapes sur N » (`FicheCours.css:1062`) | 20 px | 18 px |
 | Checklist : étape en cours « intitulé 17 px 800 » | intitulé de l'étape en cours (`FicheCours.css:1205`) | 17 px 800 | 15 px 600 (état « en cours » du Corps courant) |
 | Checklist : « critère de validation 14 px » | critère de validation (`FicheCours.css:1221`) | 14 px | 13 px |
 | Parcours : compteur « « 2 / 5 » 18 px 800 » | compteur « 2 / 5 » (`GabaritParcours.css:195`) | 18 px | 15 px |
 | Parcours : « sous-titre 16 px secondaire » | sous-titre sous le H1 (`GabaritParcours.css:215`) | 16 px | 14 px |
 | Création de cours (< 1024 px) : « titre 20 px » | H1 de l'en-tête compact (affiché sous 1024 px) (`CreationCours.css:52`) | 20 px | 16 px |
 | Modale Mes badges : nom « 15 px, 800 » | nom du badge (`Dashboard.css:1051`) | 15 px | 16 px |
-| Repère d'étapes : libellé « 14 px » | libellé d'étape (Leçon, Quiz · 4/5…) (`ReperEtapes.css:67`) | 14 px | 15 px |
 | Quiz : « Plusieurs réponses possibles » « 14 px 700 » | « Plusieurs réponses possibles » (`FicheCours.css:445`) | 14 px 700 | 14 px 600 |
 | Tes groupes : titre de carte « 20 px » | titre de carte (« Tes groupes »…) (`DashboardFormateur.css:102`) | 20 px | 21 px |
 | Checklist : « titre 15 px 800 » | titre du cours de l'en-tête compact (H1) (`FicheCours.css:1041`) | 15 px 800 | 16 px 800 |
+| Mes groupes : nom de carte « 22 px » | nom de la carte de groupe (`FormateurListes.css:88`) | 22 px | 18 px |
+| Fin de quiz, carte badge : « nom 22 px » | nom du badge débloqué (`FicheCours.css:886`) | 22 px | 18 px |
 
 ## 8. Ce qui change depuis la version 2
 
-- Valeurs : 9 jeux de valeurs sur 20 changent (en gras en section 1) : Titre de section 20 → 21 px, Titre de carte standard 17 → 18 px, Titre de ligne 15 → 16 px, Texte secondaire 700 → 600, Méta 500 → 600, Bouton 16 → 15 px, Lien texte 800 → 700, Libellé de champ 700 → 600, Compteur 14 → 15 px. Saisie et choix reste à 16 px et Navigation à 14 px.
+- Valeurs : 9 jeux de valeurs sur 19 changent (en gras en section 1) : Titre de section 20 → 21 px, Titre de carte 17 → 18 px (un seul niveau depuis la décision 14), Titre de ligne 15 → 16 px, Texte secondaire 700 → 600, Méta 500 → 600, Bouton 16 → 15 px, Lien texte 800 → 700, Libellé de champ 700 → 600, Compteur 14 → 15 px. Saisie et choix reste à 16 px et Navigation à 14 px.
 - Rôles, fusions et niveaux : inchangés. Rattachements inchangés, sauf trois décisions finales : XP de l'en-tête du dashboard → Compteur ; « Bonne réponse » (Détail cours) et « Ta réponse / Bonne réponse » (Fin de quiz) → état du Corps courant.
 - Variantes d'état : les parties plus légères prennent la graisse du rôle ; l'emphase suit la règle des états.
 
@@ -772,18 +765,19 @@ Plus rien n'est à trancher dans cette proposition. Le pourcentage de l'anneau d
 Validées le 2026-11-04.
 
 1. **Saisie et choix : 16 px.** Contrainte technique : Safari sur iOS agrandit la page quand on touche un champ dont le texte fait moins de 16 px. La raison est notée dans le rôle (section 1).
-2. **Pas de tailles intermédiaires.** 27 px (Titre de contenu) et 21 px (Titre de carte grand) sont refusés ; les valeurs restent celles de la prod (28 / 32 px et 22 px).
+2. **Pas de tailles intermédiaires.** 27 px (Titre de contenu) et 21 px (ancien niveau grand du Titre de carte, supprimé depuis par la décision 14) sont refusés.
 3. **« [N] XP » de l'en-tête du dashboard apprenant : rôle Compteur.** Avec lui, la valeur du Compteur devient 15 px · 800 · 1,2 (critère des changements visibles).
 4. **Pourcentage de l'anneau du dashboard apprenant** : voir la décision 8 (point laissé à trancher lors de la première validation, réglé ensuite).
 5. **« Bonne réponse » (Détail cours) et « Ta réponse / Bonne réponse » (Fin de quiz) : état du Corps courant, graisse 600** (15 px, 1,45).
 6. **Emphase dans les rôles à 800 : acceptée invisible**, comme en prod (question du quiz, énoncés du Détail cours et de « Revoir mes erreurs », lien du parcours).
-7. **Les autres changements visibles sont acceptés comme dérives à corriger** : les 40 éléments de la section 3.2, y compris les écarts de 4 px ou plus et le pourcentage de l'anneau.
+7. **Les autres changements visibles sont acceptés comme dérives à corriger** : les éléments de la section 3.2 (40 lors de cette décision, 44 après la décision 14), y compris les écarts de 4 px ou plus et le pourcentage de l'anneau.
 8. **Pourcentage de l'anneau du dashboard apprenant : rôle Compteur** (15 px · 800 · 1,2), sur mobile et sur desktop. Le sujet du bloc « cours en cours » est le cours : le titre le nomme, le bouton mène à la suite, et le pourcentage dit où l'on en est dans ce cours. La place à l'intérieur de l'anneau n'est qu'une vérification : « 100 % » tient en 15 px sur mobile (environ 38,5 px de large pour 58,8 px libres).
 9. **Chiffre mis en avant et Compteur se distinguent par le sujet du bloc**, jamais par la forme du nombre.
 10. **Test binaire** : si le nombre est le sujet du bloc, Chiffre mis en avant ; sinon Compteur (position, avancement, total ou gain qui accompagne le sujet). Un nombre a un rôle et un seul. « 80 % » sous le score de fin de quiz et « +15 XP » du toast restent Compteur ; ils ne sont plus signalés.
 11. **Lien texte ou Navigation** : Navigation quand une option reste marquée comme choisie et que le choix change ce qu'on voit sans agir sur les données ; Lien texte pour une action sans forme de bouton ni état choisi, qui agit ou mène ailleurs une fois. L'option choisie d'une Navigation monte d'un cran (800). « Se déconnecter » et les actions du menu « … » de l'espace formateur passent de Navigation à Lien texte (pas d'état choisi, action sur la session ou les données) ; la valeur de Navigation redevient 14 px · 700 · 1,2.
 12. **Libellé du bouton Retour : rôle Bouton** (la variante Retour a une forme de bouton). Les deux Retour qui suivent la variante passent en Bouton ; les trois qui n'ont pas sa forme restent en Lien texte comme dérives à corriger vers la variante, à l'étape écrans.
 13. **Rendu de design-system** : « Annuler », bouton secondaire sur design-system, passe de Lien texte à Bouton (décision déjà écrite dans la doc du DS). Les autres différences entre origin/main et design-system ne touchent pas la typographie (section 1).
+14. **Titre de carte : un seul niveau, 18 px · 800 · 1,2.** Le niveau grand (22 px · 800 · 1,1) est supprimé : aucun critère de fonction ne le tenait (raisons de place, de couleur ou de taille actuelle, tracées en section 1.2). Ce n'est pas une fusion de rôles, le grand niveau était un palier créé pour limiter les changements. Ses 9 éléments rejoignent le Titre de carte ; 22 px sort de l'échelle (12 tailles). Totaux : 54 identiques, 177 discrets, 44 visibles.
 
 Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 discrets, 40 visibles**.
 
@@ -797,9 +791,7 @@ Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 dis
 
 **Titre de section** (16) : · h2 par défaut dans .espace-page (Pages avec navigation, `espace-layout.css:163`) ; · titre Markdown niveau 1 (Contenu Markdown, `ContenuMarkdown.css:14`) ; · titre Markdown niveau 2 (hors leçon) (Contenu Markdown, `ContenuMarkdown.css:15`) ; · titre Markdown niveau 3 (Contenu Markdown, `ContenuMarkdown.css:16`) ; · titre de carte de section (h2) (Espace formateur, `Formateur.css:54`) ; ● titre de la feuille du menu « … » (Espace formateur (mobile), `Formateur.css:285`) ; ● titre de modale (Espace formateur, Création de cours, `Formateur.css:357`) ; ● intertitre H2 de la leçon (Fiche : leçon, `FicheCours.css:266`) ; · titre « Mes badges » (Dashboard apprenant : modale Mes badges, `Dashboard.css:994`) ; · titre de carte (« Tes groupes »…) (Dashboard formateur, admin, `DashboardFormateur.css:102`) ; ● titre « Taux de complétion » (Dashboard formateur, `DashboardFormateur.css:220`) ; · titre « Activité récente » (Dashboard formateur, `DashboardFormateur.css:463`) ; ● titre de la carte (Dashboard formateur : Pour bien démarrer, `DashboardFormateur.css:657`) ; · titre « Cours assignés » (Détail groupe, `DetailGroupe.css:78`) ; · titre de carte de section (Infos, Leçon…) (Création de cours, `CreationCours.css:253`) ; ● titre de section (« Thèmes », « N résultats ») (Cours, `SectionCours.css:20`).
 
-**Titre de carte (standard)** (8) : · titre du toast de complétion (Partagé (fiche), `CompletionToast.css:30`) ; ✓ titre du bloc « De ton formateur » (Dashboard apprenant, Cours, `BlocFormateur.css:21`) ; · titre de l'encadré « À retenir » (Détail cours, `DetailCoursFormateur.css:268`) ; · titre de l'encadré « À retenir » (Fiche : leçon (et aperçu Création, où il est écrasé), `FicheCours.css:294`) ; · titre « Quiz flash » du bloc en ligne F (Dashboard apprenant, `Dashboard.css:477`) ; · titre « Quiz flash » verrouillé (Dashboard apprenant, `Dashboard.css:547`) ; ● titre de la carte de thème (Cours, `SectionCours.css:89`) ; ✓ titre de la carte de cours (Mes cours, `FormateurListes.css:60`).
-
-**Titre de carte (grand)** (9) : ✓ titre de la carte « Étape suivante » (Fiche : leçon, checklist, `FicheCours.css:351`) ; ● titre du bloc de correction (« Bien vu ») (Fiche : quiz, Quiz flash, `FicheCours.css:654`) ; ✓ nom du badge débloqué (Fin de quiz, `FicheCours.css:886`) ; ● « X étapes sur N » (Fiche : checklist, `FicheCours.css:1062`) ; ✓ titre du cours suivant (Récap, `FicheCours.css:1346`) ; · titre de carte blanche / lavande (Dashboard apprenant, `Dashboard.css:143`) ; ● nom de la carte de groupe (Mes groupes, `FormateurListes.css:88`) ; ● titre de la carte de profil (Parcours : Choix du profil, `Parcours.css:157`) ; ● « Quiz flash » vertical (Dashboard apprenant (desktop, colonne étroite), `Dashboard.css:941`).
+**Titre de carte** (17) : · titre du toast de complétion (Partagé (fiche), `CompletionToast.css:30`) ; ✓ titre du bloc « De ton formateur » (Dashboard apprenant, Cours, `BlocFormateur.css:21`) ; · titre de l'encadré « À retenir » (Détail cours, `DetailCoursFormateur.css:268`) ; · titre de l'encadré « À retenir » (Fiche : leçon (et aperçu Création, où il est écrasé), `FicheCours.css:294`) ; ● titre de la carte « Étape suivante » (Fiche : leçon, checklist, `FicheCours.css:351`) ; ● titre du bloc de correction (« Bien vu ») (Fiche : quiz, Quiz flash, `FicheCours.css:654`) ; ● nom du badge débloqué (Fin de quiz, `FicheCours.css:886`) ; ● « X étapes sur N » (Fiche : checklist, `FicheCours.css:1062`) ; ● titre du cours suivant (Récap, `FicheCours.css:1346`) ; ● titre de carte blanche / lavande (Dashboard apprenant, `Dashboard.css:143`) ; · titre « Quiz flash » du bloc en ligne F (Dashboard apprenant, `Dashboard.css:477`) ; · titre « Quiz flash » verrouillé (Dashboard apprenant, `Dashboard.css:547`) ; ● titre de la carte de thème (Cours, `SectionCours.css:89`) ; ✓ titre de la carte de cours (Mes cours, `FormateurListes.css:60`) ; ● nom de la carte de groupe (Mes groupes, `FormateurListes.css:88`) ; ● titre de la carte de profil (Parcours : Choix du profil, `Parcours.css:157`) ; ● « Quiz flash » vertical (Dashboard apprenant (desktop, colonne étroite), `Dashboard.css:941`).
 
 **Titre de ligne** (17) : · titre de la ligne de cours (Terrain, recherche Cours, `LigneCours.css:47`) ; · titre de cours de la ligne du bloc formateur (Dashboard apprenant, Cours, `BlocFormateur.css:93`) ; ✓ titre de la ligne de cours (Détail thème, `DetailTheme.css:136`) ; · énoncé de question (Détail cours, `DetailCoursFormateur.css:340`) ; ✓ question ratée (Fin de quiz : mes erreurs, `FicheCours.css:953`) ; · titre du cours de l'en-tête compact (H1) (Fiche : checklist, `FicheCours.css:1041`) ; ✓ titre de ligne (Leçon, Quiz, Checklist) (Récap, `FicheCours.css:1311`) ; · nom du badge (Dashboard apprenant : modale Mes badges, `Dashboard.css:1051`) ; · nom du groupe (Dashboard formateur, `DashboardFormateur.css:298`) ; ✓ « Personne à relancer » (Dashboard formateur, `DashboardFormateur.css:440`) ; · titre d'étape (Dashboard formateur : Pour bien démarrer, `DashboardFormateur.css:722`) ; · titre du cours dans le tableau (Dashboard admin, `DashboardFormateur.css:819`) ; · titre de la carte de cours assigné (Détail groupe, `DetailGroupe.css:120`) ; · nom de l'élève (Détail groupe, `DetailGroupe.css:183`) ; · énoncé de la question repliée (Création de cours, `CreationCours.css:623`) ; ✓ « Question N » (h3) (Création de cours, `CreationCours.css:655`) ; ● H1 de l'en-tête compact (affiché sous 1024 px) (Création de cours, `CreationCours.css:52`).
 
