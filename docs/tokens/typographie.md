@@ -57,8 +57,8 @@ Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'u
 |---|---:|---:|---:|---:|---|---|
 | Titre de page | 34 px | 44 px | 800 | 1,1 | normal | Nomme l'écran ; un seul par écran, en tête. |
 | Titre de contenu | 28 px | 32 px | 800 | 1,1 | normal | Nomme l'objet que l'écran présente (cours, thème, question). |
-| Titre de section | 21 px | 21 px | 800 | 1,2 | normal | Ouvre une partie de page ou une surface (section, carte de section, modale, feuille de menu). |
-| Titre de carte | 18 px | 18 px | 800 | 1,2 | normal | Nomme une carte ou un bloc. |
+| Titre de section | 21 px | 21 px | 800 | 1,2 | normal | La carte regroupe plusieurs éléments (une liste, des cartes, des champs), ou c'est une surface entière (modale, feuille de menu). |
+| Titre de carte | 18 px | 18 px | 800 | 1,2 | normal | La carte présente un seul objet ou une seule action (un cours, un thème, un groupe, un badge, l'étape suivante), qu'elle soit seule ou parmi d'autres semblables. |
 | Titre de ligne | 16 px | 16 px | 800 | 1,2 | normal | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. |
 | Texte de lecture | 17 px | 18 px | 500 | 1,55 | normal | Texte de la leçon, dans la fiche et dans son aperçu. |
 | Corps courant | 15 px | 15 px | 500 | 1,45 | normal | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées. |
@@ -71,8 +71,8 @@ Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'u
 | Libellé de champ | 14 px | 14 px | 600 | 1,2 | normal | Nomme un champ de formulaire. |
 | Saisie et choix | 16 px | 16 px | 600 | 1,2 | normal | Texte tapé ou choisi par l'utilisateur. |
 | Pastille | 13 px | 13 px | 800 | 1,2 | normal | Texte d'une pastille, numéros dans une pastille ronde compris. |
-| Chiffre mis en avant, standard | 28 px | 28 px | 800 | 1 | normal | Nombre qui est le sujet de son bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). |
-| Chiffre mis en avant, grand | 48 px | 48 px | 800 | 1 | normal | Nombre sujet de son bloc, au grand niveau : score de fin de quiz. |
+| Chiffre mis en avant, standard | 28 px | 28 px | 800 | 1 | normal | Nombre sujet d'un bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). |
+| Chiffre mis en avant, grand | 48 px | 48 px | 800 | 1 | normal | Nombre sujet de l'écran entier : l'écran existe pour le montrer (score de fin de quiz, en pourcentage). |
 | Compteur | 15 px | 15 px | 800 | 1,2 | normal | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). |
 
 Aucun rôle n'a d'espacement des lettres.
@@ -80,12 +80,12 @@ Aucun rôle n'a d'espacement des lettres.
 ## 6. Choisir entre deux rôles voisins
 
 **Titre de section ou Titre de carte.**
-- Titre de section : la carte est une partie de la page qui regroupe d'autres éléments. Dans l'espace formateur, chaque carte blanche est une section (« Tes groupes », « Élèves », « Taux de complétion »). Le rôle couvre aussi les autres surfaces entières : modale, feuille de menu.
-- Titre de carte : la carte est un élément parmi d'autres semblables (grille, liste, bloc). Exemple : la carte de thème, carte cliquable autonome dans la grille des thèmes.
+- Titre de section : la carte regroupe plusieurs éléments (une liste, des cartes, des champs), ou c'est une surface entière (modale, feuille de menu). Exemple : « De ton formateur », qui regroupe des lignes de cours et, sur la page Cours, est une section au même niveau que « Thèmes ».
+- Titre de carte : la carte présente un seul objet ou une seule action (un cours, un thème, un groupe, un badge, l'étape suivante), qu'elle soit seule ou parmi d'autres semblables.
 
-**Chiffre mis en avant, standard ou grand.** Le grand niveau est réservé au score de fin de quiz. Tout autre nombre sujet de son bloc prend le niveau standard. Un nouveau cas de grand niveau : « À trancher ».
+**Chiffre mis en avant, standard ou grand.** Grand : le nombre est le sujet de l'écran entier (l'écran existe pour le montrer), comme le score de fin de quiz, affiché en pourcentage. Standard : le nombre est le sujet d'un bloc.
 
-**Chiffre mis en avant ou Compteur : test binaire.** Si le nombre est le sujet du bloc (le bloc existe pour le montrer), c'est un Chiffre mis en avant : carte de statistique, taux de complétion, score de fin de quiz. Sinon, c'est un Compteur : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau du bloc « cours en cours », dont le sujet est le cours, « 80 % » qui accompagne le score « 4/5 », « +15 XP » qui accompagne la complétion). Un nombre a un rôle et un seul. La forme du nombre (pourcentage, fraction, entier) ne décide jamais.
+**Chiffre mis en avant ou Compteur : test binaire.** Si le nombre est le sujet du bloc (le bloc existe pour le montrer), c'est un Chiffre mis en avant : carte de statistique, taux de complétion, score de fin de quiz (en pourcentage). Sinon, c'est un Compteur : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau du bloc « cours en cours », dont le sujet est le cours, « +15 XP » qui accompagne la complétion). Un nombre a un rôle et un seul. La forme du nombre (pourcentage, fraction, entier) ne décide jamais.
 
 **Corps courant ou Texte de lecture.** Texte de lecture : le texte de la leçon, dans la fiche, dans son aperçu (Création de cours) et dans le Détail cours, où le formateur voit le premier paragraphe de la leçon. Corps courant : toutes les autres phrases lues (explications, paragraphes, intitulés d'étape, réponses affichées).
 
@@ -193,4 +193,3 @@ Format : situation, erreur plausible, règle citée, version conforme.
 - **Taux de complétion sous 400 px de large et anneau sur desktop** : à vérifier à l'écran pendant le test.
 - **Option choisie d'une Navigation à 800** : vérifier à l'écran pendant le test que le passage à 800 ne décale pas les onglets et filtres voisins.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).
-- **Nouveau cas de Chiffre mis en avant grand** : la proposition ne réserve le grand niveau qu'au score de fin de quiz. Tout autre candidat est à trancher.
