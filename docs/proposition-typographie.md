@@ -819,12 +819,14 @@ Validées le 2026-11-04.
 18. **Fin de quiz : score en pourcentage seulement** (décision produit). Le « 4/5 » est retiré de cet écran ; le pourcentage passe en Chiffre mis en avant grand (48 px · 800 · 1). L'élément « 80 % » en Compteur n'existe plus. Le repère d'étapes (« Quiz · 4/5 ») et le récap (« Meilleur score : 4/5 ») ne changent pas. Totaux : 53 identiques, 176 discrets, 45 visibles, sur 274 éléments.
 19. **Titre de section ou Titre de carte : test du nom.** Titre de section : le titre nomme une partie de la page ou du contenu et annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). Titre de carte : le titre nomme l'objet ou l'action que la carte présente (un cours, un thème, un groupe, un badge, ce qu'on va faire). Test : nom d'une chose (Titre de carte) ou nom d'une partie (Titre de section) ? Remplace la définition de la décision 15, qui comptait le contenu de la carte.
 20. **« À retenir » (fiche, aperçu de Création, Détail cours) : Titre de section** (21 px · 800 · 1,2). Il ne nomme aucun objet, il annonce les points qui suivent, comme un intertitre. Changement visible (17 → 21 px), accepté comme dérive. Totaux : 53 identiques, 174 discrets, 47 visibles, sur 274 éléments.
+21. **Valeur du Titre de carte : 18 px · 800 · 1,2 confirmé.** Avant le passage de « À retenir » en Titre de section, 18 et 19 px étaient à égalité sur les deux critères (changements visibles, puis total) ; l'écart cumulé n'est pas un critère ; 18 px est déjà dans l'échelle, 19 px n'y est pas. Après le passage de « À retenir » (décision 20), l'égalité ne tient plus : sur les 14 éléments restants, 19 px donnerait 8 changements visibles et 18 px en donne 10 (13 changements au total dans les deux cas). 18 px reste la valeur décidée ; 19 px ajouterait une treizième taille à l'échelle.
+22. **Fin de quiz en pourcentage seul : confirmé aussi pour le quiz flash** (même écran, `EcranFinQuiz`).
 
 ## 11. Écrans à corriger et suites
 
 **Écrans à corriger (étape écrans)**, en plus des changements visibles de la section 3.2 :
 
-- Fin de quiz (quiz de cours et quiz flash, `EcranFinQuiz`) : retirer le « 4/5 » de l'anneau ; le pourcentage s'affiche seul en Chiffre mis en avant grand (48 px · 800 · 1). Le code ne bouge pas à l'étape Écrire.
+- Fin de quiz, quiz de cours et quiz flash (même écran, `EcranFinQuiz`, confirmé par la décision 22) : retirer le « 4/5 » de l'anneau ; le pourcentage s'affiche seul en Chiffre mis en avant grand (48 px · 800 · 1). Le code ne bouge pas à l'étape Écrire.
 - Retour encore sans la forme de la variante (rôle Lien texte en attendant) : Création de cours (« Mes cours »), espace formateur sur desktop (« ‹ Mes cours / Mes groupes »), Mot de passe oublié (« ← Retour »).
 
 **À reporter à l'étape Copier pour l'agent** :
