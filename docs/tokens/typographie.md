@@ -107,6 +107,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 - **Règle générale** : un système typographique décrit des rôles (ce que fait le texte) et non des tailles. Deux textes qui ont la même fonction ont la même typographie, où qu'ils soient.
 - **Précision Skillo** : un texte écrit aujourd'hui dans une autre taille que son rôle n'est pas une exception, c'est une dérive à corriger. La place disponible (intérieur d'un anneau, largeur d'une carte) se vérifie après coup, elle ne choisit pas le rôle. Si la fonction ne permet pas de décider, c'est « À trancher », pas un choix à l'œil.
+- **Le rôle typographique ne dépend pas de la balise HTML.** Le niveau de titre (h1, h2…) donne la structure de la page, le rôle donne l'apparence. Exemple : le nom d'un thème, dans le Détail d'un thème, est un h1 en Titre de contenu.
 
 ## 8. États et emphase
 
