@@ -36,7 +36,7 @@
 | Surtitre | Libellé court posé au-dessus d'un titre (thème, « Tu en es là ») | 13 px | 13 px | 700 | 1,2 | normal | 12 |
 | Bouton | Libellé d'un bouton (plein, contour, pointillé, Retour) | **15 px** | **15 px** | 800 | 1,2 | normal | 22 |
 | Lien texte | Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Voir comme un élève ») | 15 px | 15 px | **700** | 1,2 | normal | 19 |
-| Navigation | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes) | 14 px | 14 px | 700 | 1,2 | normal | 6 |
+| Navigation | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu qui mènent à un écran ou à une vue et restent marquées comme choisies, repère d'étapes) | 14 px | 14 px | 700 | 1,2 | normal | 6 |
 | Libellé de champ | Nomme un champ de formulaire | 14 px | 14 px | **600** | 1,2 | normal | 4 |
 | Saisie et choix | Texte tapé ou choisi par l'utilisateur. 16 px est une contrainte technique : Safari sur iOS agrandit la page quand on touche un champ dont le texte fait moins de 16 px | 16 px | 16 px | 600 | 1,2 | normal | 18 |
 | Pastille | Texte d'une pastille, numéros dans une pastille ronde compris | 13 px | 13 px | 800 | 1,2 | normal | 24 |
@@ -67,6 +67,8 @@ Vérification des éléments rattachés aux deux rôles :
 | « +15 XP » du toast de complétion | Compteur | la complétion (checklist, cours), que ce gain accompagne | oui |
 
 **Lien texte ou Navigation : critère de choix.** Navigation : une option reste marquée comme choisie, et le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données. Lien texte : une action écrite sans forme de bouton, sans état choisi, qui agit ou mène ailleurs une fois. L'option choisie d'une Navigation suit la règle des états (section 4).
+
+**Entrées de menu** : seules celles qui mènent à un écran ou à une vue et restent marquées comme choisies sont des Navigations. Les entrées qui agissent (« Se déconnecter », actions du menu « … » de l'espace formateur) sont des Liens texte.
 
 Vérification des éléments rattachés aux deux rôles :
 
