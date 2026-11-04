@@ -195,4 +195,5 @@ Format : situation, erreur plausible, règle citée, version conforme.
 - **Taux de complétion sous 400 px de large et anneau sur desktop** : à vérifier à l'écran pendant le test.
 - **Option choisie d'une Navigation à 800** : vérifier à l'écran pendant le test que le passage à 800 ne décale pas les onglets et filtres voisins.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).
+- **Critère du Titre de carte grand** : deux formules (« la carte la plus visible de l'écran », « la famille des cartes encre ») font décider à l'œil ou par la couleur. La raison de chaque élément du niveau grand est relevée dans `docs/proposition-typographie.md`, section 1.2.
 - **Nouveau cas de Chiffre mis en avant grand** : la proposition ne réserve le grand niveau qu'au score de fin de quiz. Tout autre candidat est à trancher.

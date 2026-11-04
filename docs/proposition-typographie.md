@@ -134,6 +134,20 @@ Fusions refusées par le critère : Méta et Compteur (13 px · 500 contre 14-15
 - titre du bloc de correction du quiz (« Bien vu », 20 px) : même famille que les cartes encre de la fiche, qui sont au grand niveau ;
 - « Quiz flash » en version verticale (desktop, colonne étroite, 28 px) : seul titre d'une carte haute, plus proche du grand niveau.
 
+**Raisons de chaque élément du niveau grand** (relevé demandé, critère non réécrit). Deux formules du critère font décider à l'œil ou par la couleur : (A) « la carte la plus visible de l'écran » et (B) « la famille des cartes encre ».
+
+| Élément du niveau grand | Raison écrite dans cette proposition | Tient seulement par (A) ou (B) ? |
+|---|---|---|
+| Titre de carte blanche ou lavande du dashboard apprenant (premier cours / prochain cours conseillé, prochain badge, bibliothèque terminée) | « tous à 22 px » : aucune raison de fonction, seulement la taille actuelle | non, mais ne tient que par la taille actuelle, ce que la règle de rattachement exclut |
+| Titre de la carte « Étape suivante » (fiche) | « tous à 22 px » ; carte encre | par (B) et par la taille actuelle |
+| Nom du badge débloqué (fin de quiz) | « tous à 22 px » ; carte encre | par (B) et par la taille actuelle |
+| Titre de la carte « Suite du thème » (récap) | « tous à 22 px » ; rangée avec les cartes encre dans la phrase de la section 1.2 (c'est en fait une carte violette) | par la taille actuelle ; (B) ne s'applique pas, la carte n'est pas encre |
+| Nom de la carte de groupe (Mes groupes) | « déjà à 22 px sur desktop, et c'est la valeur que décrit CLAUDE.md » | non, mais ne tient que par la taille actuelle et par CLAUDE.md |
+| Titre de la carte de profil (Choix du profil) | « deux grandes cartes qui occupent l'écran à elles seules » | non : la raison porte sur la place de la carte dans l'écran |
+| « X étapes sur N » (Checklist) | « l'élément le plus visible de l'écran après le titre » ; « 2 px du grand niveau comme du standard » | **oui, par (A)** |
+| Titre du bloc de correction du quiz (« Bien vu ») | « même famille que les cartes encre de la fiche » | **oui, par (B)** |
+| « Quiz flash » vertical (dashboard apprenant, desktop, colonne étroite) | « seul titre d'une carte haute, plus proche du grand niveau » | non, mais la seconde moitié de la raison est la taille actuelle (28 px) |
+
 **Titre de carte, standard (18 px)** : titres « À retenir » (fiche et Détail cours), « Quiz flash » verrouillé, carte de thème (15 / 18 px), carte de cours de Mes cours (18 px), titre du toast. Cas limite : « Quiz flash » du bloc en ligne (19 px) reste au standard, le bloc étant une ligne compacte et 19 px étant à 1 px du standard (18) et à 3 px du grand niveau.
 
 **Chiffre mis en avant, grand (48 px)** : score « 4/5 » de fin de quiz, seul élément.
