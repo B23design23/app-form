@@ -84,7 +84,7 @@ Aucun rôle n'a d'espacement des lettres.
 - Titre de carte : le titre nomme l'objet ou l'action que la carte présente (un cours, un thème, un groupe, un badge, ce qu'on va faire). Exemples : « Étape suivante », « Suite du thème », « X étapes sur N », carte de thème.
 - Test : le titre est-il le nom d'une chose (Titre de carte) ou le nom d'une partie (Titre de section) ?
 
-**Chiffre mis en avant, standard ou grand.** Grand : le nombre est le sujet de l'écran entier (l'écran existe pour le montrer), comme le score de fin de quiz, affiché en pourcentage. Standard : le nombre est le sujet d'un bloc.
+**Chiffre mis en avant, standard ou grand.** Grand : le nombre est le sujet de l'écran entier (l'écran existe pour le montrer), comme le score de fin de quiz (quiz de cours et quiz flash), affiché en pourcentage. Standard : le nombre est le sujet d'un bloc.
 
 **Chiffre mis en avant ou Compteur : test binaire.** Si le nombre est le sujet du bloc (le bloc existe pour le montrer), c'est un Chiffre mis en avant : carte de statistique, taux de complétion, score de fin de quiz (en pourcentage). Sinon, c'est un Compteur : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau du bloc « cours en cours », dont le sujet est le cours, « +15 XP » qui accompagne la complétion). Un nombre a un rôle et un seul. La forme du nombre (pourcentage, fraction, entier) ne décide jamais.
 
