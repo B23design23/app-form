@@ -81,6 +81,10 @@ Aucun rôle n'a d'espacement des lettres.
 
 ## 6. Choisir entre deux rôles voisins
 
+**Titre de section ou Titre de carte.**
+- Titre de section : la carte est une partie de la page qui regroupe d'autres éléments. Dans l'espace formateur, chaque carte blanche est une section (« Tes groupes », « Élèves », « Taux de complétion »). Le rôle couvre aussi les autres surfaces entières : modale, feuille de menu.
+- Titre de carte : la carte est un élément parmi d'autres semblables (grille, liste, bloc). Exemple : la carte de thème, carte cliquable autonome dans la grille des thèmes.
+
 **Titre de carte, standard ou grand.**
 - Grand : la carte est mise en avant dans son écran. Elle occupe l'écran à elle seule ou presque (cartes de profil), c'est le seul titre d'une carte haute, ou elle fait partie de la famille des cartes encre de la fiche (« Étape suivante », « Suite du thème », correction du quiz). Le titre de la carte la plus visible de l'écran, après le titre de page, est aussi au grand niveau.
 - Standard : la carte ou le bloc est compact. C'est une carte parmi d'autres dans une grille, un bloc en ligne, un encadré (« À retenir ») ou un toast.
