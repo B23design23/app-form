@@ -12,7 +12,7 @@
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--espace-6);
   min-height: 44px;
   padding: 0 var(--espace-20) 0 var(--espace-12);
   border: none;

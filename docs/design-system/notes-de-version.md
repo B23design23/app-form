@@ -22,7 +22,7 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
   - ligne de liste : padding vertical de chaque ligne `--espace-12`, écart entre les éléments d'une ligne (vignette, texte, statut, chevron) `--espace-12`, écart entre le titre et le sous-titre d'une ligne `--espace-4` ;
   - bouton Retour : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé, écart entre le chevron et le libellé `--espace-6`.
 - Séparateur : épaisseur 1 px (était « À trancher »).
-- Variante Retour du Bouton : chevron de 18 px ; taille et graisse du libellé restent à trancher (typographie hors itération).
+- Variante Retour du Bouton : chevron de 18 px ; libellé en rôle Bouton (voir `docs/tokens/typographie.md`).
 
 **Modifié**
 
@@ -68,7 +68,7 @@ Aucune entrée.
 - Menu d'actions « … » (Création de cours, Détail cours, Détail groupe) : Entrée ou Espace sur le bouton ouvre le menu et place le focus sur la première action ; les flèches passent d'une action à l'autre ; Échap ferme le menu et rend le focus au bouton ; Tab et Maj+Tab ne passent plus d'une action à l'autre : depuis une action, ils ferment le menu et placent le focus sur l'élément suivant (ou précédent) de la page.
 - Modale (bouton « Fermer », boutons d'action) et Menu d'actions (bouton « … », actions) : focus clavier en contour de 2 px à l'extérieur, `bordure-focus`, au lieu du contour natif du navigateur.
 - Boutons principal et secondaire, partout (style commun `.bouton-primaire` et `.bouton-secondaire` de `shared.css`) : focus clavier en contour de 2 px à l'extérieur, `bordure-focus`, au lieu du contour natif du navigateur. La règle locale de la Modale pour ces boutons est retirée, devenue redondante. Écrans dont le rendu change : parcours d'entrée (Introduction, Connexion, questions et Création du compte), Mot de passe oublié, Nouveau mot de passe, dashboard apprenant, fiche de cours (leçon, quiz et quiz flash, fin de quiz, checklist, récap), dashboard formateur, dashboard admin, Mes cours, Mes groupes, Détail cours, Détail groupe, modales, page /design-system. Création de cours avait déjà ce rendu (règle sur tous ses boutons).
-- Variante Retour, Détail d'un thème (`.theme-retour`) et leçon de la fiche de cours (`.fiche-retour`) : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé, comme le veut le rôle d'espacement du bouton Retour (était 12 / 18 px). Le libellé gagne 2 px d'espace à droite.
+- Variante Retour, Détail d'un thème (`.theme-retour`) et leçon de la fiche de cours (`.fiche-retour`) : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé, comme le veut le rôle d'espacement du bouton Retour (était 12 / 18 px), et écart entre le chevron et le libellé `--espace-6` (était 6 px écrit en dur, rendu inchangé). Le libellé gagne 2 px d'espace à droite.
 
 ## 2.1.0 (brouillon, non publiée)
 
