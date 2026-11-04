@@ -49,7 +49,7 @@ Variantes et usage
 - Orange (texte encre) : lancer le quiz flash, rien d'autre.
 - Supprimer (rouge) : action destructrice, dans un menu, toujours confirmée.
 - Pointillé : ajouter un élément dans la création de cours (question, réponse, étape).
-- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. États : survol et appui en fond-accent. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6` ; chevron de 18 px. Taille et graisse du libellé : À trancher (typographie hors itération).
+- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. États : survol et appui en fond-accent. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6` ; chevron de 18 px. Libellé : rôle Bouton (valeurs dans `docs/tokens/typographie.md`).
 
 Choisir entre principal, secondaire et lien texte
 - Principal : l'action attendue de la zone. Un seul par zone.
@@ -265,9 +265,8 @@ Fichier
 
 ## Typographie
 
-- Urbanist partout (`--font-display`, `--font-body`), graisses 400 à 800. Titres en 800, corps en 500 à 600.
-- `--taille-h1` est réservé aux **titres de page** (salutation, « Cours », « Mes groupes »…).
-- `--taille-titre-cours` : titres de cours et noms de thème dans les fiches (fiche cours, détail cours formateur, détail thème), graisse 800, interlignage 1.1.
+- Échelle, graisses (500 à 800), seuil de 768 px, rôles et règles d'usage : `docs/tokens/typographie.md`, qui fait foi. Les valeurs ne sont pas recopiées ici.
+- Titres de page (salutation, « Cours », « Mes groupes »…) : rôle Titre de page. Titres de cours et noms de thème dans les fiches (fiche cours, détail cours formateur, détail thème) : rôle Titre de contenu.
 - Titres (H1, titres de cours et de thème, questions de quiz) : pas de césure automatique (`hyphens: manual`) et `text-wrap: balance`. La césure reste active sur le texte courant de la leçon (paragraphes, listes).
 
 ## Ponctuation
