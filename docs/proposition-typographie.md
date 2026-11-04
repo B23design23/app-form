@@ -34,23 +34,23 @@
 | Texte secondaire | Phrase qui accompagne un titre ou un contenu : sous-titre, état, aide, erreur, message | 14 px | 14 px | **600** | 1,2 | normal | 27 |
 | Méta | Information courte et factuelle sur un élément : contenu, date, compte, statut | 13 px | 13 px | **600** | 1,2 | normal | 45 |
 | Surtitre | Libellé court posé au-dessus d'un titre (thème, « Tu en es là ») | 13 px | 13 px | 700 | 1,2 | normal | 12 |
-| Bouton | Libellé d'un bouton (plein, contour, pointillé) | **15 px** | **15 px** | 800 | 1,2 | normal | 19 |
-| Lien texte | Action écrite sans forme de bouton | 15 px | 15 px | **700** | 1,2 | normal | 20 |
-| Navigation | Barre d'onglets, barre horizontale, onglets, filtres, entrées de menu, repère d'étapes | **15 px** | **15 px** | 700 | 1,2 | normal | 8 |
+| Bouton | Libellé d'un bouton (plein, contour, pointillé, Retour) | **15 px** | **15 px** | 800 | 1,2 | normal | 21 |
+| Lien texte | Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Annuler ») | 15 px | 15 px | **700** | 1,2 | normal | 18 |
+| Navigation | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes) | **15 px** | **15 px** | 700 | 1,2 | normal | 8 |
 | Libellé de champ | Nomme un champ de formulaire | 14 px | 14 px | **600** | 1,2 | normal | 4 |
 | Saisie et choix | Texte tapé ou choisi par l'utilisateur. 16 px est une contrainte technique : Safari sur iOS agrandit la page quand on touche un champ dont le texte fait moins de 16 px | 16 px | 16 px | 600 | 1,2 | normal | 18 |
 | Pastille | Texte d'une pastille, numéros dans une pastille ronde compris | 13 px | 13 px | 800 | 1,2 | normal | 24 |
 | Chiffre mis en avant, standard | Nombre qui est le sujet de son bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion) | 28 px | 28 px | 800 | 1 | normal | 3 |
 | Chiffre mis en avant, grand | Nombre sujet de son bloc, au grand niveau : score de fin de quiz | 48 px | 48 px | 800 | 1 | normal | 1 |
-| Compteur | Nombre qui dit où l'on en est dans autre chose, et cette autre chose est le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau) | **15 px** | **15 px** | 800 | 1,2 | normal | 10 |
+| Compteur | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP ») | **15 px** | **15 px** | 800 | 1,2 | normal | 10 |
 
 En gras : valeurs qui changent par rapport à la version 2 (Saisie et choix revient à 16 px par décision finale ; Compteur passe à 15 px depuis que l'XP du dashboard y est rattaché). Lien texte et Navigation ont désormais les mêmes valeurs (15 px · 700 · 1,2) ; ils restent deux rôles, leurs fonctions diffèrent.
 
-**Chiffre mis en avant ou Compteur : le critère du sujet du bloc.** Un pourcentage, une fraction ou un nombre peut entrer dans les deux rôles ; la forme du nombre ne décide pas. Si le bloc existe pour montrer ce nombre (il est son sujet), c'est un Chiffre mis en avant. Si le nombre dit où l'on en est dans autre chose, et que cette autre chose est le sujet du bloc, c'est un Compteur.
+**Chiffre mis en avant ou Compteur : test binaire.** Si le nombre est le sujet du bloc (le bloc existe pour le montrer), c'est un Chiffre mis en avant. Sinon, c'est un Compteur : position, avancement, total ou gain qui accompagne le sujet du bloc. Un nombre a un rôle et un seul ; la forme du nombre (pourcentage, fraction, entier) ne décide jamais.
 
-Vérification des éléments déjà rattachés (aucun n'est déplacé ici) :
+Vérification des éléments rattachés aux deux rôles :
 
-| Élément | Rôle | Sujet du bloc | Conforme au critère ? |
+| Élément | Rôle | Sujet du bloc | Conforme au test ? |
 |---|---|---|---|
 | Taux de complétion (Dashboard formateur) | Chiffre mis en avant, standard | le taux lui-même | oui |
 | Chiffre des petites cartes d'avancement (Détail cours) | Chiffre mis en avant, standard | chaque petite carte montre une statistique | oui |
@@ -63,8 +63,37 @@ Vérification des éléments déjà rattachés (aucun n'est déplacé ici) :
 | % de la barre d'un groupe (Dashboard formateur) | Compteur | le groupe | oui |
 | « [N] XP » de l'en-tête (Dashboard apprenant) | Compteur | l'élève et son tableau de bord | oui |
 | Pourcentage de l'anneau (Dashboard apprenant) | Compteur | le cours en cours | oui |
-| « 80 % » sous le score de fin de quiz | Compteur | le résultat du quiz, dont ce pourcentage est une autre écriture | **signalé** : le nombre appartient au sujet du bloc (le score), ce qui le rapprocherait du Chiffre mis en avant ; il reste en Compteur ici |
-| « +15 XP » du toast de complétion | Compteur | la complétion (checklist, cours) | **signalé** : ce n'est pas une position dans autre chose mais un gain ; le critère ne le range dans aucun des deux rôles avec certitude ; il reste en Compteur ici |
+| « 80 % » sous le score de fin de quiz | Compteur | le score « 4/5 », que ce pourcentage accompagne | oui |
+| « +15 XP » du toast de complétion | Compteur | la complétion (checklist, cours), que ce gain accompagne | oui |
+
+**Lien texte ou Navigation : critère de choix.** Navigation : une option reste marquée comme choisie, et le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données. Lien texte : une action écrite sans forme de bouton, sans état choisi, qui agit ou mène ailleurs une fois. L'option choisie d'une Navigation suit la règle des états (section 4).
+
+Vérification des éléments rattachés aux deux rôles (aucun n'est déplacé ici) :
+
+| Élément | Rôle | État choisi ? | Effet | Conforme au critère ? |
+|---|---|---|---|---|
+| Entrées de la barre d'onglets et de la barre horizontale | Navigation | oui (entrée active) | change d'écran | oui |
+| Onglets « Écrire / Aperçu » (Création de cours) | Navigation | oui | change de vue | oui |
+| Pastilles de filtre « Tout / Commencés / Terminés » (Dashboard formateur) | Navigation | oui | filtre la liste | oui |
+| Pastilles de section collantes (Création de cours, sous 1024 px) | Navigation | oui (section visible) | fait défiler jusqu'à la section | oui |
+| Entrées du sommaire (Création de cours, à partir de 1024 px) | Navigation | oui (section visible) | fait défiler jusqu'à la section | oui |
+| Libellés du repère d'étapes (Fiche) | Navigation | oui (étape en cours) | change d'étape | oui |
+| « Se déconnecter » (menu de la navigation) | Navigation | non | agit une fois (ferme la session) | **signalé** : relèverait du Lien texte |
+| Actions du menu « … » (« Relancer par email », « Retirer du groupe », « Supprimer… ») | Navigation | non | agissent sur les données | **signalé** : relèveraient du Lien texte |
+| « Tout voir », « Voir les N autres », « Voir plus », « Mes badges · X/6 » | Lien texte | non | mène ailleurs ou déplie une fois | oui |
+| « Revoir la leçon », « Revoir mes erreurs », « Passer cette étape », « Passer » (Introduction) | Lien texte | non | mène ailleurs ou agit une fois | oui |
+| « Annuler » (modales, barre de Création), « Supprimer ce groupe », « Quitter l'aperçu », « Assigner », « Voir comme un élève », « Créer un groupe », lien sous le bouton du parcours, « Simuler l'ouverture du lien » | Lien texte | non | agit ou mène ailleurs une fois | oui |
+| Libellés de Retour encore écrits sans forme de bouton (voir ci-dessous) | Lien texte | non | mène ailleurs une fois | oui pour le critère b ; dérives à corriger vers la variante Retour |
+
+**Libellé du bouton Retour : rôle Bouton.** La variante Retour (pilule blanche, padding, zone de 44 px) a une forme de bouton, et Lien texte est défini comme une action sans forme de bouton. Vérification dans le code :
+
+| Élément | Forme dans le code | Rôle |
+|---|---|---|
+| Retour « Cours » du Détail thème (`.theme-retour`, `DetailTheme.css`) | pilule blanche, 44 px, padding 12 / 18 px, chevron 18 px | **Bouton** (déplacé depuis Lien texte) |
+| Retour de la fiche, nom court du thème (`.fiche-retour`, `FicheCours.css`) | pilule blanche, 44 px, padding 12 / 18 px, chevron 18 px | **Bouton** (déplacé depuis Lien texte) |
+| Retour de Création de cours, « Mes cours » / « Détail du cours » (`.cc-retour`, `CreationCours.css`) | rond blanc de 44 px suivi du texte, sans pilule | reste Lien texte ; **dérive** à corriger vers la variante (étape écrans) |
+| Retour de l'espace formateur sur desktop, « ‹ Mes cours / Mes groupes » (`.fm-retour-texte`, `Formateur.css`) | texte violet sans fond (rond blanc seul sur mobile) | reste Lien texte ; **dérive** à corriger vers la variante (étape écrans) |
+| « ← Retour » de Mot de passe oublié (`.lien-retour`, `shared.css`) | texte violet sans fond | reste Lien texte ; **dérive** à corriger vers la variante (étape écrans) |
 
 La liste complète des éléments de chaque rôle est en annexe.
 
@@ -149,9 +178,10 @@ Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px est la taille la pl
 |---|---|---|---|---|
 | Version 2, reclassée avec le critère de la version 3 | 83 | 117 | 75 | 192 |
 | Version 3 avant décisions finales | 55 | 179 | 41 | 220 |
-| **Version 3 validée** | **57** | **178** | **40** | **218** |
+| Version 3 validée (6a91be6) | 57 | 178 | 40 | 218 |
+| **Version 3 validée, mise à jour (Retour en Bouton)** | **59** | **176** | **40** | **216** |
 
-Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à corriger (section 10). Le passage du pourcentage de l'anneau au Compteur ne change pas les totaux : il reste un changement visible (17 / 26 → 15 px).
+Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à corriger (section 10). Les deux libellés de Retour passés en Bouton deviennent identiques (15 px · 800 en prod comme dans le rôle) ; les valeurs des rôles Bouton et Lien texte ne changent pas.
 
 | Rôle | Valeur v3 avant décisions | Valeur finale | Éléments | Identique | Discret | Visible |
 |---|---|---|---|---|---|---|
@@ -166,8 +196,8 @@ Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à
 | Texte secondaire | 14 px · 600 · 1,2 | 14 px · 600 · 1,2 | 27 | 2 | 23 | 2 |
 | Méta | 13 px · 600 · 1,2 | 13 px · 600 · 1,2 | 45 | 7 | 37 | 1 |
 | Surtitre | 13 px · 700 · 1,2 | 13 px · 700 · 1,2 | 12 | 9 | 2 | 1 |
-| Bouton | 15 px · 800 · 1,2 | 15 px · 800 · 1,2 | 19 | 3 | 16 | 0 |
-| Lien texte | 15 px · 700 · 1,2 | 15 px · 700 · 1,2 | 20 | 1 | 19 | 0 |
+| Bouton | 15 px · 800 · 1,2 | 15 px · 800 · 1,2 | 21 | 5 | 16 | 0 |
+| Lien texte | 15 px · 700 · 1,2 | 15 px · 700 · 1,2 | 18 | 1 | 17 | 0 |
 | Navigation | 15 px · 700 · 1,2 | 15 px · 700 · 1,2 | 8 | 2 | 6 | 0 |
 | Libellé de champ | 14 px · 600 · 1,2 | 14 px · 600 · 1,2 | 4 | 0 | 3 | 1 |
 | Saisie et choix | 15 px · 600 · 1,2 | 16 px · 600 · 1,2 **(changé)** | 18 | 3 | 11 | 4 |
@@ -175,7 +205,7 @@ Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à
 | Chiffre mis en avant (standard) | 28 px · 800 · 1 | 28 px · 800 · 1 | 3 | 2 | 0 | 1 |
 | Chiffre mis en avant (grand) | 48 px · 800 · 1 | 48 px · 800 · 1 | 1 | 1 | 0 | 0 |
 | Compteur | 14 px · 800 · 1,2 | 15 px · 800 · 1,2 **(changé)** | 10 | 2 | 4 | 4 |
-| **Total** | | | **275** | **57** | **178** | **40** |
+| **Total** | | | **275** | **59** | **176** | **40** |
 
 ### 3.2 Changements visibles
 
@@ -437,7 +467,7 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Bouton
 
-19 éléments : 3 identiques, 16 discrets, 0 visibles.
+21 éléments : 5 identiques, 16 discrets, 0 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
@@ -460,7 +490,7 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Lien texte
 
-20 éléments : 1 identiques, 19 discrets, 0 visibles.
+18 éléments : 1 identiques, 17 discrets, 0 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
@@ -477,9 +507,7 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 | discret | Détail groupe | bouton texte « Supprimer ce groupe » (`Formateur.css:433`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
 | discret | Détail groupe | lien « Assigner » (`DetailGroupe.css:87`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
 | discret | Détail groupe | lien « Voir les N autres » (`DetailGroupe.css:255`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
-| discret | Détail thème | bouton Retour « Cours » (`DetailTheme.css:21`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
 | discret | Espace formateur | texte du lien Retour « ‹ Mes cours » (`Formateur.css:161`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
-| discret | Fiche | bouton Retour (nom court du thème) (`FicheCours.css:170`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
 | discret | Fiche : checklist | lien « Passer cette étape » (`FicheCours.css:1153`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
 | discret | Fiche : quiz, Quiz flash | lien « Revoir la leçon » (`FicheCours.css:673`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
 | discret | Fin de quiz | liens « Revoir mes erreurs »… (`FicheCours.css:919`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
@@ -615,8 +643,9 @@ Règles :
 | Emphase | gras Markdown dans les intitulés d'étape (Checklist, Détail cours) | Corps courant (500) | 800 (900 demandé) | 600 |
 | Emphase | gras Markdown dans la question du quiz | Titre de contenu (800) | 800 (900 demandé) | 800, invisible (accepté) |
 | Emphase | gras Markdown dans l'énoncé du Détail cours et dans « Revoir mes erreurs » | Titre de ligne (800) | 800 (900 demandé) | 800, invisible (accepté) |
+| État : choisie | option choisie d'une Navigation (entrée active de la barre d'onglets et de la barre horizontale, onglet « Écrire / Aperçu » actif, filtre actif, section active du sommaire et des pastilles de Création) | Navigation (700) | 700 (seuls la couleur ou le fond changent) | 800 |
 
-Les autres états de la prod (onglet actif, filtre actif, entrée de navigation active, étape faite de la checklist) ne changent que la couleur ou le fond. L'italique Markdown n'est pas une emphase de graisse : elle demandera l'italique 500 (section 1.4).
+L'étape faite de la checklist ne change que la couleur. L'italique Markdown n'est pas une emphase de graisse : elle demandera l'italique 500 (section 1.4).
 
 ## 5. Les cas « À trancher » de l'audit (section 3.3)
 
@@ -637,7 +666,7 @@ Les 20 lignes du tableau de l'audit. Rattachements inchangés depuis la version 
 | « X étapes sur N » (Checklist) | Titre de carte, grand | Phrase qui titre la carte de progression (niveau : 1.2). |
 | Intitulé de l'étape en cours (Checklist) | Corps courant, état « en cours » | Même texte que les autres intitulés ; la mise en avant devient une variante d'état (section 4). |
 | Ligne de choix du parcours, réponse du quiz, bouton de choix de Création | Saisie et choix | Le texte est la réponse choisie par l'utilisateur. |
-| Pastilles de filtre « Tout / Commencés / Terminés » | Navigation | Ce sont des filtres, que l'instruction range dans Navigation. |
+| Pastilles de filtre « Tout / Commencés / Terminés » | Navigation | Une option reste choisie et le choix change ce que montre la liste, sans agir sur les données (critère de la section 1). |
 | Carte pointillée « + Assigner un cours » | Bouton | C'est une forme de bouton (carte pointillée cliquable), comme les boutons pointillés d'ajout. |
 | Texte d'un événement (Activité récente) | Corps courant | C'est une phrase ; le gras est une emphase (section 4). |
 | Libellé de case dans la modale d'assignation | Saisie et choix | C'est l'option que l'utilisateur coche, comme une ligne de choix. |
@@ -718,7 +747,10 @@ Validées le 2026-11-04.
 6. **Emphase dans les rôles à 800 : acceptée invisible**, comme en prod (question du quiz, énoncés du Détail cours et de « Revoir mes erreurs », lien du parcours).
 7. **Les autres changements visibles sont acceptés comme dérives à corriger** : les 40 éléments de la section 3.2, y compris les écarts de 4 px ou plus et le pourcentage de l'anneau.
 8. **Pourcentage de l'anneau du dashboard apprenant : rôle Compteur** (15 px · 800 · 1,2), sur mobile et sur desktop. Le sujet du bloc « cours en cours » est le cours : le titre le nomme, le bouton mène à la suite, et le pourcentage dit où l'on en est dans ce cours. La place à l'intérieur de l'anneau n'est qu'une vérification : « 100 % » tient en 15 px sur mobile (environ 38,5 px de large pour 58,8 px libres).
-9. **Chiffre mis en avant et Compteur se distinguent par le sujet du bloc**, jamais par la forme du nombre (définitions et vérification en section 1). Deux éléments sont signalés sans être déplacés : « 80 % » sous le score de fin de quiz et « +15 XP » du toast de complétion.
+9. **Chiffre mis en avant et Compteur se distinguent par le sujet du bloc**, jamais par la forme du nombre.
+10. **Test binaire** : si le nombre est le sujet du bloc, Chiffre mis en avant ; sinon Compteur (position, avancement, total ou gain qui accompagne le sujet). Un nombre a un rôle et un seul. « 80 % » sous le score de fin de quiz et « +15 XP » du toast restent Compteur ; ils ne sont plus signalés.
+11. **Lien texte ou Navigation** : Navigation quand une option reste marquée comme choisie et que le choix change ce qu'on voit sans agir sur les données ; Lien texte pour une action sans forme de bouton ni état choisi, qui agit ou mène ailleurs une fois. L'option choisie d'une Navigation monte d'un cran (800). Deux éléments sont signalés sans être déplacés : « Se déconnecter » et les actions du menu « … ».
+12. **Libellé du bouton Retour : rôle Bouton** (la variante Retour a une forme de bouton). Les deux Retour qui suivent la variante passent en Bouton ; les trois qui n'ont pas sa forme restent en Lien texte comme dérives à corriger vers la variante, à l'étape écrans.
 
 Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 discrets, 40 visibles**.
 
@@ -748,9 +780,9 @@ Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 dis
 
 **Surtitre** (12) : ✓ surtitre « Thème N » (Détail thème, `DetailTheme.css:66`) ; ✓ thème au-dessus du titre (Fiche : leçon, récap, `FicheCours.css:215`) ; ✓ libellé « Étape suivante » de la carte encre (Fiche : leçon, checklist, `FicheCours.css:344`) ; ✓ libellé du cours au-dessus de la question (Fiche : quiz, Quiz flash, `FicheCours.css:426`) ; ✓ titre du cours dans la barre du haut (Fin de quiz, `FicheCours.css:718`) ; ✓ « Quiz terminé » (Fin de quiz, `FicheCours.css:763`) ; · thème de l'en-tête compact (Fiche : checklist, `FicheCours.css:1033`) ; ✓ libellé « Suite du thème » (Récap, `FicheCours.css:1339`) ; ✓ libellé violet (« Ton premier cours »…) (Dashboard apprenant, `Dashboard.css:131`) ; ● libellé sur carte violette (« Tu en es là ») (Dashboard apprenant, `Dashboard.css:137`) ; ✓ intertitre de jour (« Aujourd'hui ») (Dashboard formateur, `DashboardFormateur.css:549`) ; · surtitre « Thème N » de la carte de thème (Cours, `SectionCours.css:82`).
 
-**Bouton** (19) : · libellé du bouton principal (Partagé, `shared.css:200`) ; · libellé du bouton secondaire (Partagé, `shared.css:230`) ; · libellé du bouton orange (quiz flash) (Dashboard apprenant, `shared.css:255`) ; · bouton pointillé « + Ajouter… » (Création de cours, `shared.css:380`) ; · libellé du bouton du parcours (écrasé par .bouton-primaire / .bouton-secondaire) (Parcours, `GabaritParcours.css:86`) ; · libellé du bouton rouge (Modale de confirmation, `Formateur.css:411`) ; · libellé du bouton blanc (Fiche : leçon, checklist, `FicheCours.css:374`) ; · libellé du bouton « Valider ma réponse » (Fiche : quiz, Quiz flash, `FicheCours.css:685`) ; · libellé du bouton principal (Fin de quiz, `FicheCours.css:901`) ; · libellé des boutons « Relire / Refaire / Revoir » (Récap, `FicheCours.css:1323`) ; · libellé du bouton blanc à flèche (Dashboard apprenant, `Dashboard.css:222`) ; · libellé du bouton large orange (Dashboard apprenant, `Dashboard.css:255`) ; ✓ libellé du bouton « Commencer » (Dashboard apprenant, `Dashboard.css:410`) ; ✓ libellé du bouton « Lancer » (Dashboard apprenant, `Dashboard.css:495`) ; · libellé du bouton d'étape (Dashboard formateur : Pour bien démarrer, `DashboardFormateur.css:740`) ; ✓ carte pointillée « + Assigner un cours » (Détail groupe, `DetailGroupe.css:137`) ; · bouton d'outil « Image / Vidéo » (Création de cours, `CreationCours.css:438`) ; · bouton « Image » d'étape (Création de cours, `CreationCours.css:1038`) ; · bouton « Lancer » vertical (Dashboard apprenant (desktop, colonne étroite), `Dashboard.css:960`).
+**Bouton** (21) : · libellé du bouton principal (Partagé, `shared.css:200`) ; · libellé du bouton secondaire (Partagé, `shared.css:230`) ; · libellé du bouton orange (quiz flash) (Dashboard apprenant, `shared.css:255`) ; · bouton pointillé « + Ajouter… » (Création de cours, `shared.css:380`) ; · libellé du bouton du parcours (écrasé par .bouton-primaire / .bouton-secondaire) (Parcours, `GabaritParcours.css:86`) ; · libellé du bouton rouge (Modale de confirmation, `Formateur.css:411`) ; ✓ bouton Retour « Cours » (Détail thème, `DetailTheme.css:21`) ; ✓ bouton Retour (nom court du thème) (Fiche, `FicheCours.css:170`) ; · libellé du bouton blanc (Fiche : leçon, checklist, `FicheCours.css:374`) ; · libellé du bouton « Valider ma réponse » (Fiche : quiz, Quiz flash, `FicheCours.css:685`) ; · libellé du bouton principal (Fin de quiz, `FicheCours.css:901`) ; · libellé des boutons « Relire / Refaire / Revoir » (Récap, `FicheCours.css:1323`) ; · libellé du bouton blanc à flèche (Dashboard apprenant, `Dashboard.css:222`) ; · libellé du bouton large orange (Dashboard apprenant, `Dashboard.css:255`) ; ✓ libellé du bouton « Commencer » (Dashboard apprenant, `Dashboard.css:410`) ; ✓ libellé du bouton « Lancer » (Dashboard apprenant, `Dashboard.css:495`) ; · libellé du bouton d'étape (Dashboard formateur : Pour bien démarrer, `DashboardFormateur.css:740`) ; ✓ carte pointillée « + Assigner un cours » (Détail groupe, `DetailGroupe.css:137`) ; · bouton d'outil « Image / Vidéo » (Création de cours, `CreationCours.css:438`) ; · bouton « Image » d'étape (Création de cours, `CreationCours.css:1038`) ; · bouton « Lancer » vertical (Dashboard apprenant (desktop, colonne étroite), `Dashboard.css:960`).
 
-**Lien texte** (20) : · lien « ← Retour » (Mot de passe oublié, `shared.css:321`) ; · lien secondaire (simuler le lien) (Mot de passe oublié, `shared.css:343`) ; ✓ lien sous le bouton (« Déjà un compte ? … ») (Parcours, `GabaritParcours.css:106`) ; · lien « Passer » (Parcours : Introduction, `GabaritParcours.css:135`) ; · texte du lien Retour « ‹ Mes cours » (Espace formateur, `Formateur.css:161`) ; · lien d'action « Annuler » (Modales, barre de Création de cours, `Formateur.css:397`) ; · bouton texte « Supprimer ce groupe » (Détail groupe, `Formateur.css:433`) ; · bouton Retour « Cours » (Détail thème, `DetailTheme.css:21`) ; · bouton « Quitter l'aperçu » (Aperçu élève, `FicheCours.css:115`) ; · bouton Retour (nom court du thème) (Fiche, `FicheCours.css:170`) ; · lien « Revoir la leçon » (Fiche : quiz, Quiz flash, `FicheCours.css:673`) ; · liens « Revoir mes erreurs »… (Fin de quiz, `FicheCours.css:919`) ; · lien « Passer cette étape » (Fiche : checklist, `FicheCours.css:1153`) ; · lien « Tout voir » / « Mes badges · X/6 » (Dashboard apprenant, Cours, `Dashboard.css:166`) ; · lien « Tout voir » (Dashboard formateur, admin, `DashboardFormateur.css:112`) ; · lien « Voir les N autres » / « Voir plus » (Dashboard formateur, `DashboardFormateur.css:128`) ; · lien « Assigner » (Détail groupe, `DetailGroupe.css:87`) ; · lien « Voir les N autres » (Détail groupe, `DetailGroupe.css:255`) ; · bouton Retour « Mes cours » (Création de cours (≥ 1024), `CreationCours.css:144`) ; · liens « Voir comme un élève » / « Créer un groupe » (Création de cours, `CreationCours.css:208`).
+**Lien texte** (18) : · lien « ← Retour » (Mot de passe oublié, `shared.css:321`) ; · lien secondaire (simuler le lien) (Mot de passe oublié, `shared.css:343`) ; ✓ lien sous le bouton (« Déjà un compte ? … ») (Parcours, `GabaritParcours.css:106`) ; · lien « Passer » (Parcours : Introduction, `GabaritParcours.css:135`) ; · texte du lien Retour « ‹ Mes cours » (Espace formateur, `Formateur.css:161`) ; · lien d'action « Annuler » (Modales, barre de Création de cours, `Formateur.css:397`) ; · bouton texte « Supprimer ce groupe » (Détail groupe, `Formateur.css:433`) ; · bouton « Quitter l'aperçu » (Aperçu élève, `FicheCours.css:115`) ; · lien « Revoir la leçon » (Fiche : quiz, Quiz flash, `FicheCours.css:673`) ; · liens « Revoir mes erreurs »… (Fin de quiz, `FicheCours.css:919`) ; · lien « Passer cette étape » (Fiche : checklist, `FicheCours.css:1153`) ; · lien « Tout voir » / « Mes badges · X/6 » (Dashboard apprenant, Cours, `Dashboard.css:166`) ; · lien « Tout voir » (Dashboard formateur, admin, `DashboardFormateur.css:112`) ; · lien « Voir les N autres » / « Voir plus » (Dashboard formateur, `DashboardFormateur.css:128`) ; · lien « Assigner » (Détail groupe, `DetailGroupe.css:87`) ; · lien « Voir les N autres » (Détail groupe, `DetailGroupe.css:255`) ; · bouton Retour « Mes cours » (Création de cours (≥ 1024), `CreationCours.css:144`) ; · liens « Voir comme un élève » / « Créer un groupe » (Création de cours, `CreationCours.css:208`).
 
 **Navigation** (8) : · libellé d'entrée de la tab bar (mobile) (Navigation, `espace-layout.css:48`) ; · entrée du menu (Se déconnecter) (Navigation, `espace-layout.css:123`) ; · libellé d'étape (Leçon, Quiz · 4/5…) (Fiche : leçon, checklist, `ReperEtapes.css:67`) ; · action du menu « … » (Espace formateur, `Formateur.css:297`) ; · pastilles de filtre « Tout / Commencés / Terminés » (Dashboard formateur, `DashboardFormateur.css:494`) ; ✓ pastille de section collante (Création de cours (< 1024), `CreationCours.css:94`) ; ✓ entrée du sommaire (Création de cours (≥ 1024), `CreationCours.css:181`) ; · onglet « Écrire / Aperçu » (Création de cours, `CreationCours.css:409`).
 
