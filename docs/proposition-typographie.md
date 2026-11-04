@@ -1,6 +1,6 @@
-# Proposition de valeurs typographiques par rôle (version 3)
+# Proposition de valeurs typographiques par rôle (version 3, validée)
 
-> Versions précédentes du même fichier : version 1, commit `b79f039` (12 rôles, 210 éléments changés sur 274) ; version 2, commit `3f8ac4b` (18 rôles, 192 éléments changés sur 275, dont 75 changements visibles selon le critère de la version 3).
+> **Statut : validée le 2026-11-04** (décisions finales en section 10). Versions précédentes du même fichier : version 1, commit `b79f039` (12 rôles, 210 éléments changés sur 274) ; version 2, commit `3f8ac4b` (18 rôles, 192 éléments changés sur 275, dont 75 changements visibles selon le critère de la version 3).
 
 Étape 2 du chantier typographie, version 3, rédigée le 2026-11-04 à partir de `docs/audit-typographie.md`. Ce document propose des valeurs. Il ne crée aucun token et ne corrige rien. Les noms de rôles restent en français courant.
 
@@ -30,7 +30,7 @@
 | Titre de carte, grand | Nomme une grande carte mise en avant dans son écran | 22 px | 22 px | 800 | 1,1 | normal | 9 |
 | Titre de ligne | Nomme un élément de liste, ou rappelle un titre dans une barre compacte | **16 px** | **16 px** | 800 | 1,2 | normal | 17 |
 | Texte de lecture | Texte de la leçon, dans la fiche et dans son aperçu | 17 px | 18 px | 500 | 1,55 | normal | 2 |
-| Corps courant | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés | 15 px | 15 px | 500 | 1,45 | normal | 17 |
+| Corps courant | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées | 15 px | 15 px | 500 | 1,45 | normal | 19 |
 | Texte secondaire | Phrase qui accompagne un titre ou un contenu : sous-titre, état, aide, erreur, message | 14 px | 14 px | **600** | 1,2 | normal | 27 |
 | Méta | Information courte et factuelle sur un élément : contenu, date, compte, statut | 13 px | 13 px | **600** | 1,2 | normal | 45 |
 | Surtitre | Libellé court posé au-dessus d'un titre (thème, « Tu en es là ») | 13 px | 13 px | 700 | 1,2 | normal | 12 |
@@ -38,13 +38,13 @@
 | Lien texte | Action écrite sans forme de bouton | 15 px | 15 px | **700** | 1,2 | normal | 20 |
 | Navigation | Barre d'onglets, barre horizontale, onglets, filtres, entrées de menu, repère d'étapes | **15 px** | **15 px** | 700 | 1,2 | normal | 8 |
 | Libellé de champ | Nomme un champ de formulaire | 14 px | 14 px | **600** | 1,2 | normal | 4 |
-| Saisie et choix | Texte tapé ou choisi par l'utilisateur | **15 px** | **15 px** | 600 | 1,2 | normal | 18 |
+| Saisie et choix | Texte tapé ou choisi par l'utilisateur. 16 px est une contrainte technique : Safari sur iOS agrandit la page quand on touche un champ dont le texte fait moins de 16 px | 16 px | 16 px | 600 | 1,2 | normal | 18 |
 | Pastille | Texte d'une pastille, numéros dans une pastille ronde compris | 13 px | 13 px | 800 | 1,2 | normal | 24 |
-| Chiffre mis en avant, standard | Nombre qui porte l'information principale d'un bloc | 28 px | 28 px | 800 | 1 | normal | 5 |
+| Chiffre mis en avant, standard | Nombre qui porte l'information principale d'un bloc | 28 px | 28 px | 800 | 1 | normal | 4 |
 | Chiffre mis en avant, grand | Score de fin de quiz | 48 px | 48 px | 800 | 1 | normal | 1 |
-| Compteur | Chiffre de progression ou de position (« 3 / 5 », « X / 3 », %) | 14 px | 14 px | 800 | 1,2 | normal | 8 |
+| Compteur | Chiffre de progression ou de position (« 3 / 5 », « X / 3 », %, XP de l'en-tête du dashboard) | **15 px** | **15 px** | 800 | 1,2 | normal | 9 |
 
-En gras : valeurs qui changent par rapport à la version 2. Lien texte et Navigation ont désormais les mêmes valeurs (15 px · 700 · 1,2) ; ils restent deux rôles, leurs fonctions diffèrent.
+En gras : valeurs qui changent par rapport à la version 2 (Saisie et choix revient à 16 px par décision finale ; Compteur passe à 15 px depuis que l'XP du dashboard y est rattaché). Lien texte et Navigation ont désormais les mêmes valeurs (15 px · 700 · 1,2) ; ils restent deux rôles, leurs fonctions diffèrent.
 
 La liste complète des éléments de chaque rôle est en annexe.
 
@@ -76,7 +76,7 @@ Fusions refusées par le critère : Méta et Compteur (13 px · 500 contre 14-15
 
 **Chiffre mis en avant, grand (48 px)** : score « 4/5 » de fin de quiz, seul élément.
 
-**Chiffre mis en avant, standard (28 px)** : taux de complétion, chiffre des petites cartes d'avancement (Détail cours). Cas limites : chiffre des cartes du dashboard admin (36 px) reste au standard, c'est le chiffre principal d'une carte de statistiques comme le taux de complétion ; XP de l'en-tête et pourcentage de l'anneau du dashboard apprenant (17 px) restent au standard comme dans l'audit, mais ils pourraient se lire Compteur (section 9).
+**Chiffre mis en avant, standard (28 px)** : taux de complétion, chiffre des petites cartes d'avancement (Détail cours). Cas limites : chiffre des cartes du dashboard admin (36 px) reste au standard, c'est le chiffre principal d'une carte de statistiques comme le taux de complétion ; le pourcentage de l'anneau du dashboard apprenant (17 / 26 px) reste au standard, à trancher avec la mesure de l'anneau (section 9). L'XP de l'en-tête du dashboard est rattaché au Compteur (décision finale).
 
 ### 1.3 Texte de lecture et Corps courant
 
@@ -104,9 +104,9 @@ Corps courant : 15 px · 500 · 1,45, imposé. C'est déjà la combinaison la pl
 | Taille | rem | Rôles |
 |---|---|---|
 | 13 px | 0,8125 rem | Méta, Surtitre, Pastille |
-| 14 px | 0,875 rem | Texte secondaire, Libellé de champ, Compteur |
-| 15 px | 0,9375 rem | Corps courant, Bouton, Lien texte, Navigation, Saisie et choix |
-| 16 px | 1 rem | Titre de ligne |
+| 14 px | 0,875 rem | Texte secondaire, Libellé de champ |
+| 15 px | 0,9375 rem | Corps courant, Bouton, Lien texte, Navigation, Compteur |
+| 16 px | 1 rem | Titre de ligne, Saisie et choix |
 | 17 px | 1,0625 rem | Texte de lecture (mobile) |
 | 18 px | 1,125 rem | Titre de carte standard, Texte de lecture (desktop) |
 | 21 px | 1,3125 rem | Titre de section |
@@ -117,7 +117,9 @@ Corps courant : 15 px · 500 · 1,45, imposé. C'est déjà la combinaison la pl
 | 44 px | 2,75 rem | Titre de page (desktop) |
 | 48 px | 3 rem | Chiffre mis en avant grand |
 
-Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px devient la taille la plus partagée (cinq rôles). Trois rôles changent de taille à 768 px : Titre de page, Titre de contenu, Texte de lecture.
+Pas de taille intermédiaire absente de la prod (27 et 21 px pour Titre de contenu et Titre de carte grand refusés). Les 21 px du Titre de section restent : c'est une taille de la prod (intertitre de la leçon, titre de la modale Mes badges).
+
+Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px est la taille la plus partagée (cinq rôles). Trois rôles changent de taille à 768 px : Titre de page, Titre de contenu, Texte de lecture.
 
 ## 3. Impact
 
@@ -126,33 +128,34 @@ Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px devient la taille l
 | | Identique | Discret | Visible | Changent (discret + visible) |
 |---|---|---|---|---|
 | Version 2, reclassée avec le critère de la version 3 | 83 | 117 | 75 | 192 |
-| **Version 3** | **55** | **179** | **41** | **220** |
+| Version 3 avant décisions finales | 55 | 179 | 41 | 220 |
+| **Version 3 validée** | **57** | **178** | **40** | **218** |
 
-Sur 275 éléments. La version 3 change plus d'éléments que la version 2 (220 contre 192), mais en change beaucoup moins de façon visible (41 contre 75) : c'est l'effet voulu du critère. Les changements visibles se concentrent dans Titre de section (6), Titre de carte grand (5), Corps courant (4), Titre de contenu (4) et Pastille (4).
+Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à corriger (section 10), sauf le pourcentage de l'anneau du dashboard apprenant, à trancher (section 9).
 
-| Rôle | Valeur v2 | Valeur v3 | Éléments | Identique | Discret | Visible |
+| Rôle | Valeur v3 avant décisions | Valeur finale | Éléments | Identique | Discret | Visible |
 |---|---|---|---|---|---|---|
 | Titre de page | 34 / 44 px · 800 · 1,1 | 34 / 44 px · 800 · 1,1 | 9 | 5 | 2 | 2 |
 | Titre de contenu | 28 / 32 px · 800 · 1,1 | 28 / 32 px · 800 · 1,1 | 6 | 2 | 0 | 4 |
-| Titre de section | 20 px · 800 · 1,2 | 21 px · 800 · 1,2 **(changé)** | 16 | 0 | 10 | 6 |
-| Titre de carte (standard) | 17 px · 800 · 1,2 | 18 px · 800 · 1,2 **(changé)** | 8 | 2 | 5 | 1 |
+| Titre de section | 21 px · 800 · 1,2 | 21 px · 800 · 1,2 | 16 | 0 | 10 | 6 |
+| Titre de carte (standard) | 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 8 | 2 | 5 | 1 |
 | Titre de carte (grand) | 22 px · 800 · 1,1 | 22 px · 800 · 1,1 | 9 | 3 | 1 | 5 |
-| Titre de ligne | 15 px · 800 · 1,2 | 16 px · 800 · 1,2 **(changé)** | 17 | 5 | 11 | 1 |
+| Titre de ligne | 16 px · 800 · 1,2 | 16 px · 800 · 1,2 | 17 | 5 | 11 | 1 |
 | Texte de lecture | 17 / 18 px · 500 · 1,55 | 17 / 18 px · 500 · 1,55 | 2 | 1 | 0 | 1 |
-| Corps courant | 15 px · 500 · 1,45 | 15 px · 500 · 1,45 | 17 | 2 | 11 | 4 |
-| Texte secondaire | 14 px · 700 · 1,2 | 14 px · 600 · 1,2 **(changé)** | 27 | 2 | 23 | 2 |
-| Méta | 13 px · 500 · 1,2 | 13 px · 600 · 1,2 **(changé)** | 45 | 7 | 37 | 1 |
+| Corps courant | 15 px · 500 · 1,45 | 15 px · 500 · 1,45 | 17 | 2 | 13 | 2 |
+| Texte secondaire | 14 px · 600 · 1,2 | 14 px · 600 · 1,2 | 27 | 2 | 23 | 2 |
+| Méta | 13 px · 600 · 1,2 | 13 px · 600 · 1,2 | 45 | 7 | 37 | 1 |
 | Surtitre | 13 px · 700 · 1,2 | 13 px · 700 · 1,2 | 12 | 9 | 2 | 1 |
-| Bouton | 16 px · 800 · 1,2 | 15 px · 800 · 1,2 **(changé)** | 19 | 3 | 16 | 0 |
-| Lien texte | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 **(changé)** | 20 | 1 | 19 | 0 |
-| Navigation | 14 px · 700 · 1,2 | 15 px · 700 · 1,2 **(changé)** | 8 | 2 | 6 | 0 |
-| Libellé de champ | 14 px · 700 · 1,2 | 14 px · 600 · 1,2 **(changé)** | 4 | 0 | 3 | 1 |
-| Saisie et choix | 16 px · 600 · 1,2 | 15 px · 600 · 1,2 **(changé)** | 18 | 1 | 14 | 3 |
+| Bouton | 15 px · 800 · 1,2 | 15 px · 800 · 1,2 | 19 | 3 | 16 | 0 |
+| Lien texte | 15 px · 700 · 1,2 | 15 px · 700 · 1,2 | 20 | 1 | 19 | 0 |
+| Navigation | 15 px · 700 · 1,2 | 15 px · 700 · 1,2 | 8 | 2 | 6 | 0 |
+| Libellé de champ | 14 px · 600 · 1,2 | 14 px · 600 · 1,2 | 4 | 0 | 3 | 1 |
+| Saisie et choix | 15 px · 600 · 1,2 | 16 px · 600 · 1,2 **(changé)** | 18 | 3 | 11 | 4 |
 | Pastille | 13 px · 800 · 1,2 | 13 px · 800 · 1,2 | 24 | 5 | 15 | 4 |
-| Chiffre mis en avant (standard) | 28 px · 800 · 1 | 28 px · 800 · 1 | 5 | 2 | 0 | 3 |
+| Chiffre mis en avant (standard) | 28 px · 800 · 1 | 28 px · 800 · 1 | 4 | 2 | 0 | 2 |
 | Chiffre mis en avant (grand) | 48 px · 800 · 1 | 48 px · 800 · 1 | 1 | 1 | 0 | 0 |
-| Compteur | 14 px · 800 · 1,2 | 14 px · 800 · 1,2 | 8 | 2 | 4 | 2 |
-| **Total** | | | **275** | **55** | **179** | **41** |
+| Compteur | 14 px · 800 · 1,2 | 15 px · 800 · 1,2 **(changé)** | 9 | 2 | 4 | 3 |
+| **Total** | | | **275** | **57** | **178** | **40** |
 
 ### 3.2 Changements visibles
 
@@ -163,49 +166,47 @@ Tous les changements visibles, du plus gros écart de taille au plus petit. Éca
 | 1 | Titre de page | Parcours : Création du compte | « Plus qu'une étape, [Prénom] » | 28 px · 800 · 1,1 | 34 / 44 px · 800 · 1,1 | 16 px · graisse 0 |
 | 2 | Titre de page | Fin de quiz | titre « Belle maîtrise ! » | 30 px · 800 · 1,1 | 34 / 44 px · 800 · 1,1 | 14 px · graisse 0 |
 | 3 | Titre de contenu | Détail cours | titre du cours (H1) : perd contre .espace-page h1 | 34 / 44 px · 800 · 1,1 | 28 / 32 px · 800 · 1,1 | 12 px · graisse 0 |
-| 4 | Chiffre mis en avant (standard) | Dashboard apprenant | « [N] XP » de l'en-tête | 17 / 20 px · 800 · 1,2 | 28 px · 800 · 1 | 11 px · graisse 0 |
-| 5 | Chiffre mis en avant (standard) | Dashboard apprenant | pourcentage dans l'anneau | 17 / 26 px · 800 · 1,2 | 28 px · 800 · 1 | 11 px · graisse 0 |
-| 6 | Titre de contenu | Fiche : quiz, Quiz flash | question | 24 px · 800 · 1,15 | 28 / 32 px · 800 · 1,1 | 8 px · graisse 0 |
-| 7 | Chiffre mis en avant (standard) | Dashboard admin | chiffre de carte | 36 px · 800 · 1,1 | 28 px · 800 · 1 | 8 px · graisse 0 |
-| 8 | Titre de section | Cours | titre de section (« Thèmes », « N résultats ») | 22 / 28 px · 800 · 1,2 | 21 px · 800 · 1,2 | 7 px · graisse 0 |
-| 9 | Titre de section | Dashboard formateur | titre « Taux de complétion » | 14,4 px · 500 · 1,2 | 21 px · 800 · 1,2 | 6,6 px · graisse 3 crans |
-| 10 | Titre de contenu | Dashboard apprenant | « Quiz flash » du bloc de tête E | 34 px · 800 · 1 · lettres -0,5 px | 28 / 32 px · 800 · 1,1 · lettres normales | 6 px · graisse 0 |
-| 11 | Titre de carte (grand) | Dashboard apprenant (desktop, colonne étroite) | « Quiz flash » vertical | n/a / 28 px · 800 · 1 | n/a / 22 px · 800 · 1,1 | 6 px · graisse 0 |
-| 12 | Saisie et choix | Parcours : questions | saisie du grand champ (prénom, organisme…) | 20 px · 700 · 1,2 | 15 px · 600 · 1,2 | 5 px · graisse 1 cran |
-| 13 | Compteur | Parcours : questions | compteur « 2 / 5 » | 18 px · 800 · 1,2 | 14 px · 800 · 1,2 | 4 px · graisse 0 |
-| 14 | Titre de section | Espace formateur (mobile) | titre de la feuille du menu « … » | 17 px · 800 · 1,2 | 21 px · 800 · 1,2 | 4 px · graisse 0 |
-| 15 | Titre de ligne | Création de cours | H1 de l'en-tête compact (affiché sous 1024 px) | 20 px · 800 · 1,2 | 16 px · 800 · 1,2 | 4 px · graisse 0 |
+| 4 | Chiffre mis en avant (standard) | Dashboard apprenant | pourcentage dans l'anneau | 17 / 26 px · 800 · 1,2 | 28 px · 800 · 1 | 11 px · graisse 0 |
+| 5 | Titre de contenu | Fiche : quiz, Quiz flash | question | 24 px · 800 · 1,15 | 28 / 32 px · 800 · 1,1 | 8 px · graisse 0 |
+| 6 | Chiffre mis en avant (standard) | Dashboard admin | chiffre de carte | 36 px · 800 · 1,1 | 28 px · 800 · 1 | 8 px · graisse 0 |
+| 7 | Titre de section | Cours | titre de section (« Thèmes », « N résultats ») | 22 / 28 px · 800 · 1,2 | 21 px · 800 · 1,2 | 7 px · graisse 0 |
+| 8 | Titre de section | Dashboard formateur | titre « Taux de complétion » | 14,4 px · 500 · 1,2 | 21 px · 800 · 1,2 | 6,6 px · graisse 3 crans |
+| 9 | Titre de contenu | Dashboard apprenant | « Quiz flash » du bloc de tête E | 34 px · 800 · 1 · lettres -0,5 px | 28 / 32 px · 800 · 1,1 · lettres normales | 6 px · graisse 0 |
+| 10 | Titre de carte (grand) | Dashboard apprenant (desktop, colonne étroite) | « Quiz flash » vertical | n/a / 28 px · 800 · 1 | n/a / 22 px · 800 · 1,1 | 6 px · graisse 0 |
+| 11 | Compteur | Dashboard apprenant | « [N] XP » de l'en-tête | 17 / 20 px · 800 · 1,2 | 15 px · 800 · 1,2 | 5 px · graisse 0 |
+| 12 | Saisie et choix | Parcours : questions | saisie du grand champ (prénom, organisme…) | 20 px · 700 · 1,2 | 16 px · 600 · 1,2 | 4 px · graisse 1 cran |
+| 13 | Titre de section | Espace formateur (mobile) | titre de la feuille du menu « … » | 17 px · 800 · 1,2 | 21 px · 800 · 1,2 | 4 px · graisse 0 |
+| 14 | Titre de ligne | Création de cours | H1 de l'en-tête compact (affiché sous 1024 px) | 20 px · 800 · 1,2 | 16 px · 800 · 1,2 | 4 px · graisse 0 |
+| 15 | Compteur | Parcours : questions | compteur « 2 / 5 » | 18 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
 | 16 | Titre de section | Espace formateur, Création de cours | titre de modale | 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
 | 17 | Pastille | Détail cours | « +N » sur la dernière miniature | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
 | 18 | Titre de section | Fiche : leçon | intertitre H2 de la leçon | 21 / 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
 | 19 | Pastille | Fin de quiz | pastille « +20 XP » | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
-| 20 | Titre de section | Dashboard formateur : Pour bien démarrer | titre de la carte | 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
-| 21 | Pastille | Dashboard formateur : Pour bien démarrer | numéro dans le rond | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
-| 22 | Titre de carte (standard) | Cours | titre de la carte de thème | 15 / 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 3 px · graisse 0 |
-| 23 | Corps courant | Fiche : checklist | intitulé de l'étape en cours | 17 px · 800 · 1,2 | 15 px · 600 (état « en cours ») · 1,45 | 2 px · graisse 2 crans |
-| 24 | Texte secondaire | Parcours | sous-titre sous le H1 | 16 px · 500 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
-| 25 | Texte secondaire | Cours, Terrain | sous-titre de l'en-tête lavande | 14 / 16 px · 700 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
-| 26 | Saisie et choix | Parcours : questions | ligne de choix (statut, âge, motivation) | 17 px · 600 · 1,2 | 15 px · 600 · 1,2 | 2 px · graisse 0 |
+| 20 | Compteur | Dashboard apprenant | compteur de barre, petite variante | 12 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
+| 21 | Titre de section | Dashboard formateur : Pour bien démarrer | titre de la carte | 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
+| 22 | Pastille | Dashboard formateur : Pour bien démarrer | numéro dans le rond | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
+| 23 | Titre de carte (standard) | Cours | titre de la carte de thème | 15 / 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 3 px · graisse 0 |
+| 24 | Corps courant | Fiche : checklist | intitulé de l'étape en cours | 17 px · 800 · 1,2 | 15 px · 600 (état « en cours ») · 1,45 | 2 px · graisse 2 crans |
+| 25 | Texte secondaire | Parcours | sous-titre sous le H1 | 16 px · 500 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
+| 26 | Texte secondaire | Cours, Terrain | sous-titre de l'en-tête lavande | 14 / 16 px · 700 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
 | 27 | Texte de lecture | Détail cours | premier paragraphe de la leçon | 16 px · 500 · 1,55 | 17 / 18 px · 500 · 1,55 | 2 px · graisse 0 |
 | 28 | Titre de carte (grand) | Fiche : quiz, Quiz flash | titre du bloc de correction (« Bien vu ») | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
 | 29 | Titre de carte (grand) | Fiche : checklist | « X étapes sur N » | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
 | 30 | Surtitre | Dashboard apprenant | libellé sur carte violette (« Tu en es là ») | 13 / 15 px · 700 · 1,2 | 13 px · 700 · 1,2 | 2 px · graisse 0 |
-| 31 | Compteur | Dashboard apprenant | compteur de barre, petite variante | 12 px · 800 · 1,2 | 14 px · 800 · 1,2 | 2 px · graisse 0 |
-| 32 | Titre de contenu | Dashboard apprenant | titre du bloc de tête (cours en cours / assigné) | 26 / 32 px · 800 · 1,05 / 1,1 | 28 / 32 px · 800 · 1,1 | 2 px · graisse 0 |
+| 31 | Titre de contenu | Dashboard apprenant | titre du bloc de tête (cours en cours / assigné) | 26 / 32 px · 800 · 1,05 / 1,1 | 28 / 32 px · 800 · 1,1 | 2 px · graisse 0 |
+| 32 | Saisie et choix | Dashboard formateur | saisie « Un élève » | 14 px · 400 · 1,2 | 16 px · 600 · 1,2 | 2 px · graisse 400 → 600 |
 | 33 | Pastille | Création de cours | lettre de réponse | 15 px · 800 · 1,2 | 13 px · 800 · 1,2 | 2 px · graisse 0 |
-| 34 | Titre de carte (grand) | Mes groupes | nom de la carte de groupe | 20 / 22 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| 35 | Titre de carte (grand) | Parcours : Choix du profil | titre de la carte de profil | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
-| 36 | Corps courant | Détail cours | bonne réponse | 14 px · 700 · 1,2 | 15 px · 500 · 1,45 | 1 px · graisse 2 crans |
-| 37 | Corps courant | Fin de quiz : mes erreurs | ligne « Ta réponse / Bonne réponse » | 14 px · 700 · 1,2 | 15 px · 500 · 1,45 | 1 px · graisse 2 crans |
+| 34 | Saisie et choix | Création de cours | saisie d'explication | 14 px · 400 · 1,2 | 16 px · 600 · 1,2 | 2 px · graisse 400 → 600 |
+| 35 | Titre de carte (grand) | Mes groupes | nom de la carte de groupe | 20 / 22 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
+| 36 | Titre de carte (grand) | Parcours : Choix du profil | titre de la carte de profil | 20 px · 800 · 1,2 | 22 px · 800 · 1,1 | 2 px · graisse 0 |
+| 37 | Saisie et choix | Création de cours | libellé de mode de checklist | 15 px · 800 · 1,2 | 16 px · 600 · 1,2 | 1 px · graisse 2 crans |
 | 38 | Libellé de champ | Parcours | libellé de champ | 14 px · 800 · 1,2 | 14 px · 600 · 1,2 | 0 px · graisse 2 crans |
-| 39 | Saisie et choix | Création de cours | libellé de mode de checklist | 15 px · 800 · 1,2 | 15 px · 600 · 1,2 | 0 px · graisse 2 crans |
-| 40 | Corps courant | Dashboard admin (desktop) | cellules chiffrées du tableau | n/a / 15 px · 700 · 1,2 | n/a / 15 px · 500 · 1,45 | 0 px · graisse 2 crans |
-| 41 | Méta | Détail groupe (desktop) | en-têtes de colonne du tableau des élèves | n/a / 13 px · 800 · 1,2 | n/a / 13 px · 600 · 1,2 | 0 px · graisse 2 crans |
+| 39 | Corps courant | Dashboard admin (desktop) | cellules chiffrées du tableau | n/a / 15 px · 700 · 1,2 | n/a / 15 px · 500 · 1,45 | 0 px · graisse 2 crans |
+| 40 | Méta | Détail groupe (desktop) | en-têtes de colonne du tableau des élèves | n/a / 13 px · 800 · 1,2 | n/a / 13 px · 600 · 1,2 | 0 px · graisse 2 crans |
 
 ### 3.3 Détail par rôle
 
 Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : taille (mobile / desktop si elles diffèrent) · graisse · hauteur de ligne. « n/a » : l'élément n'existe pas à cette largeur.
-
 
 ### Titre de page
 
@@ -307,17 +308,17 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Corps courant
 
-17 éléments : 2 identiques, 11 discrets, 4 visibles.
+17 éléments : 2 identiques, 13 discrets, 2 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
 | visible | Fiche : checklist | intitulé de l'étape en cours (`FicheCours.css:1205`) | 17 px · 800 · 1,2 | 15 px · 600 (état « en cours ») · 1,45 | 2 px · graisse 2 crans |
-| visible | Détail cours | bonne réponse (`DetailCoursFormateur.css:353`) | 14 px · 700 · 1,2 | 15 px · 500 · 1,45 | 1 px · graisse 2 crans |
-| visible | Fin de quiz : mes erreurs | ligne « Ta réponse / Bonne réponse » (`FicheCours.css:963`) | 14 px · 700 · 1,2 | 15 px · 500 · 1,45 | 1 px · graisse 2 crans |
 | visible | Dashboard admin (desktop) | cellules chiffrées du tableau (`DashboardFormateur.css:1064`) | n/a / 15 px · 700 · 1,2 | n/a / 15 px · 500 · 1,45 | 0 px · graisse 2 crans |
 | discret | Partagé (fiche) | texte du toast de complétion (`CompletionToast.css:15`) | 13,6 px · 500 · 1,2 | 15 px · 500 · 1,45 | 1,4 px · graisse 0 |
+| discret | Détail cours | bonne réponse (`DetailCoursFormateur.css:353`) | 14 px · 700 · 1,2 | 15 px · 600 (état) · 1,45 | 1 px · graisse 1 cran |
 | discret | Fiche : checklist | intitulé d'étape (`FicheCours.css:1172`) | 16 px · 600 · 1,35 | 15 px · 500 · 1,45 | 1 px · graisse 1 cran |
 | discret | Fiche : leçon | points de l'encadré « À retenir » (`FicheCours.css:321`) | 16 px · 600 · 1,4 | 15 px · 500 · 1,45 | 1 px · graisse 1 cran |
+| discret | Fin de quiz : mes erreurs | ligne « Ta réponse / Bonne réponse » (`FicheCours.css:963`) | 14 px · 700 · 1,2 | 15 px · 600 (état) · 1,45 | 1 px · graisse 1 cran |
 | discret | Fin de quiz : mes erreurs | explication (`FicheCours.css:977`) | 14 px · 500 · 1,2 | 15 px · 500 · 1,45 | 1 px · graisse 0 |
 | discret | Contenu Markdown | texte de tableau (`ContenuMarkdown.css:95`) | 15,2 px · 500 · 1,2 | 15 px · 500 · 1,45 | 0,2 px · graisse 0 |
 | discret | Dashboard formateur | texte de relance (`DashboardFormateur.css:366`) | 15 px · 500 · 1,4 | 15 px · 500 · 1,45 | 0 px · graisse 0 |
@@ -489,27 +490,25 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Saisie et choix
 
-18 éléments : 1 identiques, 14 discrets, 3 visibles.
+18 éléments : 3 identiques, 11 discrets, 4 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
-| visible | Parcours : questions | saisie du grand champ (prénom, organisme…) (`GabaritParcours.css:269`) | 20 px · 700 · 1,2 | 15 px · 600 · 1,2 | 5 px · graisse 1 cran |
-| visible | Parcours : questions | ligne de choix (statut, âge, motivation) (`GabaritParcours.css:296`) | 17 px · 600 · 1,2 | 15 px · 600 · 1,2 | 2 px · graisse 0 |
-| visible | Création de cours | libellé de mode de checklist (`CreationCours.css:895`) | 15 px · 800 · 1,2 | 15 px · 600 · 1,2 | 0 px · graisse 2 crans |
-| discret | Cours | saisie de la recherche (`EntetePage.css:48`) | 16 px · 400 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 400 → 600 |
-| discret | Création de cours | saisie de l'éditeur de leçon (`CreationCours.css:458`) | 16 px · 400 · 1,55 | 15 px · 600 · 1,2 | 1 px · graisse 400 → 600 |
-| discret | Création de cours | saisie d'explication (`CreationCours.css:776`) | 14 px · 400 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 400 → 600 |
-| discret | Création de cours, Mes cours | valeur affichée de la liste déroulante (`Dropdown.css:12`) | 16 px · 400 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 400 → 600 |
-| discret | Dashboard formateur | saisie « Un élève » (`DashboardFormateur.css:531`) | 14 px · 400 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 400 → 600 |
-| discret | Détail groupe | saisie de l'email d'ajout (`DetailGroupe.css:46`) | 16 px · 600 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 0 |
-| discret | Fiche : quiz, Quiz flash | texte de réponse (`FicheCours.css:467`) | 16 px · 600 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 0 |
-| discret | Modale d'assignation, Création de cours | libellé de case à cocher (`Formateur.css:527`) | 16 px · 700 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 1 cran |
-| discret | Parcours | saisie de champ (`GabaritParcours.css:248`) | 16 px · 600 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 0 |
-| discret | Partagé | saisie de champ input (.champ) (`shared.css:136`) | 16 px · 400 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 400 → 600 |
-| discret | Partagé | saisie de champ textarea (.champ) (`shared.css:148`) | 16 px · 400 · 1,2 | 15 px · 600 · 1,2 | 1 px · graisse 400 → 600 |
-| discret | Création de cours, Mes cours | option de la liste déroulante (`Dropdown.css:61`) | 15,2 px · 500 · 1,2 | 15 px · 600 · 1,2 | 0,2 px · graisse 1 cran |
-| discret | Création de cours | bouton de choix (groupe, mode de checklist) (`CreationCours.css:327`) | 15 px · 700 · 1,2 | 15 px · 600 · 1,2 | 0 px · graisse 1 cran |
-| discret | Création de cours | saisie de réponse / d'explication (`CreationCours.css:767`) | 15 px · 400 · 1,2 | 15 px · 600 · 1,2 | 0 px · graisse 400 → 600 |
+| visible | Parcours : questions | saisie du grand champ (prénom, organisme…) (`GabaritParcours.css:269`) | 20 px · 700 · 1,2 | 16 px · 600 · 1,2 | 4 px · graisse 1 cran |
+| visible | Création de cours | saisie d'explication (`CreationCours.css:776`) | 14 px · 400 · 1,2 | 16 px · 600 · 1,2 | 2 px · graisse 400 → 600 |
+| visible | Dashboard formateur | saisie « Un élève » (`DashboardFormateur.css:531`) | 14 px · 400 · 1,2 | 16 px · 600 · 1,2 | 2 px · graisse 400 → 600 |
+| visible | Création de cours | libellé de mode de checklist (`CreationCours.css:895`) | 15 px · 800 · 1,2 | 16 px · 600 · 1,2 | 1 px · graisse 2 crans |
+| discret | Création de cours | bouton de choix (groupe, mode de checklist) (`CreationCours.css:327`) | 15 px · 700 · 1,2 | 16 px · 600 · 1,2 | 1 px · graisse 1 cran |
+| discret | Création de cours | saisie de réponse / d'explication (`CreationCours.css:767`) | 15 px · 400 · 1,2 | 16 px · 600 · 1,2 | 1 px · graisse 400 → 600 |
+| discret | Création de cours | saisie de l'intitulé d'étape (`CreationCours.css:961`) | 15 px · 600 · 1,2 | 16 px · 600 · 1,2 | 1 px · graisse 0 |
+| discret | Parcours : questions | ligne de choix (statut, âge, motivation) (`GabaritParcours.css:296`) | 17 px · 600 · 1,2 | 16 px · 600 · 1,2 | 1 px · graisse 0 |
+| discret | Création de cours, Mes cours | option de la liste déroulante (`Dropdown.css:61`) | 15,2 px · 500 · 1,2 | 16 px · 600 · 1,2 | 0,8 px · graisse 1 cran |
+| discret | Cours | saisie de la recherche (`EntetePage.css:48`) | 16 px · 400 · 1,2 | 16 px · 600 · 1,2 | 0 px · graisse 400 → 600 |
+| discret | Création de cours | saisie de l'éditeur de leçon (`CreationCours.css:458`) | 16 px · 400 · 1,55 | 16 px · 600 · 1,2 | 0 px · graisse 400 → 600 |
+| discret | Création de cours, Mes cours | valeur affichée de la liste déroulante (`Dropdown.css:12`) | 16 px · 400 · 1,2 | 16 px · 600 · 1,2 | 0 px · graisse 400 → 600 |
+| discret | Modale d'assignation, Création de cours | libellé de case à cocher (`Formateur.css:527`) | 16 px · 700 · 1,2 | 16 px · 600 · 1,2 | 0 px · graisse 1 cran |
+| discret | Partagé | saisie de champ input (.champ) (`shared.css:136`) | 16 px · 400 · 1,2 | 16 px · 600 · 1,2 | 0 px · graisse 400 → 600 |
+| discret | Partagé | saisie de champ textarea (.champ) (`shared.css:148`) | 16 px · 400 · 1,2 | 16 px · 600 · 1,2 | 0 px · graisse 400 → 600 |
 
 ### Pastille
 
@@ -539,11 +538,10 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Chiffre mis en avant (standard)
 
-5 éléments : 2 identiques, 0 discrets, 3 visibles.
+4 éléments : 2 identiques, 0 discrets, 2 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
-| visible | Dashboard apprenant | « [N] XP » de l'en-tête (`Dashboard.css:30`) | 17 / 20 px · 800 · 1,2 | 28 px · 800 · 1 | 11 px · graisse 0 |
 | visible | Dashboard apprenant | pourcentage dans l'anneau (`Dashboard.css:382`) | 17 / 26 px · 800 · 1,2 | 28 px · 800 · 1 | 11 px · graisse 0 |
 | visible | Dashboard admin | chiffre de carte (`DashboardFormateur.css:777`) | 36 px · 800 · 1,1 | 28 px · 800 · 1 | 8 px · graisse 0 |
 
@@ -554,16 +552,17 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Compteur
 
-8 éléments : 2 identiques, 4 discrets, 2 visibles.
+9 éléments : 2 identiques, 4 discrets, 3 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
-| visible | Parcours : questions | compteur « 2 / 5 » (`GabaritParcours.css:195`) | 18 px · 800 · 1,2 | 14 px · 800 · 1,2 | 4 px · graisse 0 |
-| visible | Dashboard apprenant | compteur de barre, petite variante (`Dashboard.css:323`) | 12 px · 800 · 1,2 | 14 px · 800 · 1,2 | 2 px · graisse 0 |
-| discret | Dashboard apprenant : modale Mes badges | compteur « X/6 » (`Dashboard.css:1001`) | 15 px · 800 · 1,2 | 14 px · 800 · 1,2 | 1 px · graisse 0 |
-| discret | Fiche : quiz, Quiz flash | compteur « 3 / 5 » (`FicheCours.css:413`) | 15 px · 800 · 1,2 | 14 px · 800 · 1,2 | 1 px · graisse 0 |
-| discret | Fin de quiz | « 80 % » sous le score (`FicheCours.css:801`) | 15 px · 700 · 1,2 | 14 px · 800 · 1,2 | 1 px · graisse 1 cran |
-| discret | Partagé (fiche) | « +15 XP » du toast (`CompletionToast.css:39`) | 13,6 px · 700 · 1,2 | 14 px · 800 · 1,2 | 0,4 px · graisse 1 cran |
+| visible | Dashboard apprenant | « [N] XP » de l'en-tête (`Dashboard.css:30`) | 17 / 20 px · 800 · 1,2 | 15 px · 800 · 1,2 | 5 px · graisse 0 |
+| visible | Dashboard apprenant | compteur de barre, petite variante (`Dashboard.css:323`) | 12 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
+| visible | Parcours : questions | compteur « 2 / 5 » (`GabaritParcours.css:195`) | 18 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
+| discret | Partagé (fiche) | « +15 XP » du toast (`CompletionToast.css:39`) | 13,6 px · 700 · 1,2 | 15 px · 800 · 1,2 | 1,4 px · graisse 1 cran |
+| discret | Dashboard apprenant | compteur de barre « X / 3 » (`Dashboard.css:318`) | 14 px · 800 · 1,2 | 15 px · 800 · 1,2 | 1 px · graisse 0 |
+| discret | Dashboard formateur | % de la barre du groupe (`DashboardFormateur.css:330`) | 14 px · 800 · 1,2 | 15 px · 800 · 1,2 | 1 px · graisse 0 |
+| discret | Fin de quiz | « 80 % » sous le score (`FicheCours.css:801`) | 15 px · 700 · 1,2 | 15 px · 800 · 1,2 | 0 px · graisse 1 cran |
 
 ## 4. Variantes d'état et emphase
 
@@ -584,6 +583,8 @@ Règles :
 | État : cochée | libellé « Bonne réponse » (Création de cours) | Libellé de champ (600) | 800 | 700 |
 | État : commencé | compte « x / y cours » de la carte de thème (Cours) | Méta (600) | 800 | 700 |
 | État : en cours | intitulé de l'étape en cours (Checklist) | Corps courant (500, 15 px) | 17 px 800 | 15 px 600 |
+| État : bonne réponse | « Bonne réponse » sous chaque question (Détail cours) | Corps courant (500, 15 px) | 14 px 700 | 15 px 600 |
+| État : réponse donnée | ligne « Ta réponse / Bonne réponse » de « Revoir mes erreurs » (Fin de quiz) | Corps courant (500, 15 px) | 14 px 700 | 15 px 600 |
 | Partie plus légère | compteur dans la pastille de section (Création de cours, mobile) | Navigation (700) | 600 | 700 |
 | Partie plus légère | « Aucune modification » (barre d'enregistrement de Création de cours) | Texte secondaire (600) | 600 (message à 700) | 600, la graisse du rôle : plus de différence avec le message |
 | Emphase | partie en gras du lien du parcours (« Créer mon compte », « Se connecter ») | Lien texte (700) | 800 | 800 |
@@ -592,8 +593,8 @@ Règles :
 | Emphase | pourcentage en gras de la ligne « Cours terminés » (Mes groupes) | Méta (600) | 800 | 700 |
 | Emphase | gras Markdown dans le texte de la leçon (fiche, aperçu de Création, Détail cours) | Texte de lecture (500) | 700 (gras du navigateur) | 600 |
 | Emphase | gras Markdown dans les intitulés d'étape (Checklist, Détail cours) | Corps courant (500) | 800 (900 demandé) | 600 |
-| Emphase | gras Markdown dans la question du quiz | Titre de contenu (800) | 800 (900 demandé) | 800, invisible |
-| Emphase | gras Markdown dans l'énoncé du Détail cours et dans « Revoir mes erreurs » | Titre de ligne (800) | 800 (900 demandé) | 800, invisible |
+| Emphase | gras Markdown dans la question du quiz | Titre de contenu (800) | 800 (900 demandé) | 800, invisible (accepté) |
+| Emphase | gras Markdown dans l'énoncé du Détail cours et dans « Revoir mes erreurs » | Titre de ligne (800) | 800 (900 demandé) | 800, invisible (accepté) |
 
 Les autres états de la prod (onglet actif, filtre actif, entrée de navigation active, étape faite de la checklist) ne changent que la couleur ou le fond. L'italique Markdown n'est pas une emphase de graisse : elle demandera l'italique 500 (section 1.4).
 
@@ -636,9 +637,9 @@ Les 20 cas sont rattachés.
 
 ## 7. Écarts avec CLAUDE.md
 
-CLAUDE.md n'est pas modifié. Tailles (et graisses, quand il les donne) qu'il décrit et qui différeraient de la version 3 ; celles que la proposition garde ne sont pas listées :
+CLAUDE.md n'est pas modifié. Tailles (et graisses, quand il les donne) qu'il décrit et qui différeraient de la proposition validée ; celles que la proposition garde ne sont pas listées :
 
-| CLAUDE.md dit | Élément | Valeur dans CLAUDE.md | Proposé (v3) |
+| CLAUDE.md dit | Élément | Valeur dans CLAUDE.md | Proposé |
 |---|---|---|---|
 | Dashboard apprenant, bloc de tête : « Titre 26 px mobile / 32 px desktop » | titre du bloc de tête (cours en cours / assigné) (`Dashboard.css:360`) | 26 / 32 px | 28 / 32 px |
 | Dashboard apprenant, bloc E : « Quiz flash » 34 px | « Quiz flash » du bloc de tête E (`Dashboard.css:440`) | 34 px | 28 / 32 px |
@@ -666,31 +667,54 @@ CLAUDE.md n'est pas modifié. Tailles (et graisses, quand il les donne) qu'il d�
 | Checklist : « « X étapes sur N » 20 px » | « X étapes sur N » (`FicheCours.css:1062`) | 20 px | 22 px |
 | Checklist : étape en cours « intitulé 17 px 800 » | intitulé de l'étape en cours (`FicheCours.css:1205`) | 17 px 800 | 15 px 600 (état « en cours » du Corps courant) |
 | Checklist : « critère de validation 14 px » | critère de validation (`FicheCours.css:1221`) | 14 px | 13 px |
-| Parcours : compteur « « 2 / 5 » 18 px 800 » | compteur « 2 / 5 » (`GabaritParcours.css:195`) | 18 px | 14 px |
+| Parcours : compteur « « 2 / 5 » 18 px 800 » | compteur « 2 / 5 » (`GabaritParcours.css:195`) | 18 px | 15 px |
 | Parcours : « sous-titre 16 px secondaire » | sous-titre sous le H1 (`GabaritParcours.css:215`) | 16 px | 14 px |
 | Création de cours (< 1024 px) : « titre 20 px » | H1 de l'en-tête compact (affiché sous 1024 px) (`CreationCours.css:52`) | 20 px | 16 px |
 | Modale Mes badges : nom « 15 px, 800 » | nom du badge (`Dashboard.css:1051`) | 15 px | 16 px |
 | Repère d'étapes : libellé « 14 px » | libellé d'étape (Leçon, Quiz · 4/5…) (`ReperEtapes.css:67`) | 14 px | 15 px |
-| Quiz : réponses « texte 16 px 600 » | texte de réponse (`FicheCours.css:467`) | 16 px 600 | 15 px 600 |
 | Quiz : « Plusieurs réponses possibles » « 14 px 700 » | « Plusieurs réponses possibles » (`FicheCours.css:445`) | 14 px 700 | 14 px 600 |
 | Tes groupes : titre de carte « 20 px » | titre de carte (« Tes groupes »…) (`DashboardFormateur.css:102`) | 20 px | 21 px |
 | Checklist : « titre 15 px 800 » | titre du cours de l'en-tête compact (H1) (`FicheCours.css:1041`) | 15 px 800 | 16 px 800 |
 
 ## 8. Ce qui change depuis la version 2
 
-- Valeurs : 10 jeux de valeurs sur 20 changent (en gras en section 1) : Titre de section 20 → 21 px, Titre de carte standard 17 → 18 px, Titre de ligne 15 → 16 px, Texte secondaire 700 → 600, Méta 500 → 600, Bouton 16 → 15 px, Lien texte 800 → 700, Navigation 14 → 15 px, Libellé de champ 700 → 600, Saisie et choix 16 → 15 px.
-- Rôles, fusions, niveaux et rattachements : inchangés.
+- Valeurs : 10 jeux de valeurs sur 20 changent (en gras en section 1) : Titre de section 20 → 21 px, Titre de carte standard 17 → 18 px, Titre de ligne 15 → 16 px, Texte secondaire 700 → 600, Méta 500 → 600, Bouton 16 → 15 px, Lien texte 800 → 700, Navigation 14 → 15 px, Libellé de champ 700 → 600, Compteur 14 → 15 px. Saisie et choix reste à 16 px.
+- Rôles, fusions et niveaux : inchangés. Rattachements inchangés, sauf trois décisions finales : XP de l'en-tête du dashboard → Compteur ; « Bonne réponse » (Détail cours) et « Ta réponse / Bonne réponse » (Fin de quiz) → état du Corps courant.
 - Variantes d'état : les parties plus légères prennent la graisse du rôle ; l'emphase suit la règle des états.
 
 ## 9. À trancher
 
-- **Saisie à 15 px et zoom d'iOS.** Safari sur iPhone agrandit la page quand on touche un champ dont le texte fait moins de 16 px. Saisie et choix passe à 15 px (16 px en version 2) : les champs de l'app déclencheraient ce zoom, alors qu'aujourd'hui la plupart sont à 16 px. Lecture 1 : garder 15 px (critère appliqué). Lecture 2 : fixer la saisie à 16 px comme contrainte technique ; Saisie et choix aurait alors 4 changements visibles au lieu de 3.
-- **Valeurs intermédiaires.** Les candidates sont prises parmi les valeurs déjà présentes en prod. En autorisant une taille voisine absente de la prod, deux rôles feraient encore baisser les changements visibles (36 au lieu de 41) : Titre de contenu à 27 / 32 px (au lieu de 28 / 32) et Titre de carte grand à 21 px (au lieu de 22). 27 px n'existe nulle part aujourd'hui et collerait au Chiffre mis en avant (28 px).
-- **XP et pourcentage de l'anneau du dashboard apprenant** (17 px aujourd'hui, 28 px proposé, +11 px, visibles). Lecture 1 : Chiffre mis en avant standard (rattachement actuel). Lecture 2 : Compteur (14 px), mais −12 px sur desktop pour le pourcentage (26 → 14 px).
-- **Titres de page à fort écart** : « Plus qu'une étape, [Prénom] » (+16 px) et « Belle maîtrise ! » (+14 px) restent rattachés au Titre de page (décision de rattachement inchangée).
-- **Taux de complétion sous 400 px** : 20,8 px aujourd'hui sur un téléphone de 390 px, 28 px proposé (seuil unique 768). À vérifier dans sa carte.
-- **Emphase invisible dans les rôles à 800** (question du quiz, énoncés du Détail cours, lien du parcours) : le gras Markdown ou `strong` ne se distingue pas. Lecture 1 : accepter. Lecture 2 : une autre marque d'emphase (couleur) pour ces rôles.
-- **Lien texte et Navigation** ont les mêmes valeurs (15 px · 700). Ce n'est pas un problème de critère ; à noter pour la suite (tokens distincts ou partagés).
+**Pourcentage de l'anneau du dashboard apprenant** (bloc « cours en cours » ; 17 px mobile, 26 px desktop aujourd'hui ; 28 px proposé par le rôle Chiffre mis en avant standard).
+
+Mesure (code d'origin/main, `Dashboard.jsx:305` et `Dashboard.css:369, 872`) : l'anneau est un SVG de 73 unités (rayon 32, trait 9) affiché à 78 px sur mobile et 120 px sur desktop.
+
+| | Mobile | Desktop |
+|---|---|---|
+| Diamètre extérieur | 78 px | 120 px |
+| Épaisseur du trait | 9,6 px | 14,8 px |
+| Diamètre intérieur (espace libre pour le texte) | **58,8 px** | **90,4 px** |
+| « 88 % » en 28 px 800 (largeur × hauteur des glyphes, mesurées dans Chromium) | 59,6 × 20,3 px | 59,6 × 20,3 px |
+| « 100 % » en 28 px 800 | 71,9 × 20,3 px | 71,9 × 20,3 px |
+| 28 px tient ? | **non** : « 88 % » est déjà plus large que l'intérieur de l'anneau (59,6 contre 58,8 px) ; seul un pourcentage à un chiffre tient (« 7 % » : 44,3 px) | **oui** : « 100 % » tient (diagonale du texte 74,7 px pour 90,4 px libres) |
+| Aujourd'hui | 17 px : « 100 % » fait 43,6 px | 26 px : « 100 % » fait 66,7 px |
+
+Lecture 1 : garder le rôle Chiffre mis en avant standard et agrandir l'anneau sur mobile. Lecture 2 : rattacher le pourcentage au Compteur (15 px) partout. Lecture 3 : Compteur sur mobile, Chiffre mis en avant sur desktop (deux rôles pour un même élément, contraire à la règle d'une valeur par rôle).
+
+Plus rien d'autre n'est à trancher : les autres points de la version 3 sont réglés par les décisions finales (section 10).
+
+## 10. Décisions finales
+
+Validées le 2026-11-04.
+
+1. **Saisie et choix : 16 px.** Contrainte technique : Safari sur iOS agrandit la page quand on touche un champ dont le texte fait moins de 16 px. La raison est notée dans le rôle (section 1).
+2. **Pas de tailles intermédiaires.** 27 px (Titre de contenu) et 21 px (Titre de carte grand) sont refusés ; les valeurs restent celles de la prod (28 / 32 px et 22 px).
+3. **« [N] XP » de l'en-tête du dashboard apprenant : rôle Compteur.** Avec lui, la valeur du Compteur devient 15 px · 800 · 1,2 (critère des changements visibles).
+4. **Pourcentage de l'anneau du dashboard apprenant : à trancher**, avec la mesure de la section 9 (28 px ne tient pas sur mobile, tient sur desktop).
+5. **« Bonne réponse » (Détail cours) et « Ta réponse / Bonne réponse » (Fin de quiz) : état du Corps courant, graisse 600** (15 px, 1,45).
+6. **Emphase dans les rôles à 800 : acceptée invisible**, comme en prod (question du quiz, énoncés du Détail cours et de « Revoir mes erreurs », lien du parcours).
+7. **Les autres changements visibles sont acceptés comme dérives à corriger** : 39 éléments sur les 40 de la section 3.2 (tous sauf le pourcentage de l'anneau), y compris les écarts de 4 px ou plus.
+
+Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 discrets, 40 visibles**.
 
 ## Annexe. Éléments par rôle
 
