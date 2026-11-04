@@ -11,9 +11,9 @@ Statut : décidé le 4 novembre 2026, non migré. Source unique : `docs/proposit
 - **Règle générale** : un texte doit pouvoir être agrandi jusqu'à 200 % sans perte de contenu ni de fonction (WCAG 2.2, critère 1.4.4, Redimensionnement du texte). Une taille en rem suit le réglage du navigateur, une taille en px ne le suit pas.
 - **Précision Skillo** : un conteneur de taille fixe en px qui contient du texte (anneau, pastille, rond numéroté, bouton de hauteur fixe) doit rester lisible quand le texte grandit. Le texte ne doit ni déborder ni être coupé.
 
-## 2. L'échelle (13 tailles)
+## 2. L'échelle (12 tailles)
 
-**13 · 14 · 15 · 16 · 17 · 18 · 21 · 22 · 28 · 32 · 34 · 44 · 48**
+**13 · 14 · 15 · 16 · 17 · 18 · 21 · 28 · 32 · 34 · 44 · 48**
 
 Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px entiers.
 
@@ -24,9 +24,8 @@ Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px en
 | 15 px | 0,9375 rem | Corps courant, Bouton, Lien texte, Compteur |
 | 16 px | 1 rem | Titre de ligne, Saisie et choix |
 | 17 px | 1,0625 rem | Texte de lecture (sous 768 px) |
-| 18 px | 1,125 rem | Titre de carte standard, Texte de lecture (à partir de 768 px) |
+| 18 px | 1,125 rem | Titre de carte, Texte de lecture (à partir de 768 px) |
 | 21 px | 1,3125 rem | Titre de section |
-| 22 px | 1,375 rem | Titre de carte grand |
 | 28 px | 1,75 rem | Titre de contenu (sous 768 px), Chiffre mis en avant standard |
 | 32 px | 2 rem | Titre de contenu (à partir de 768 px) |
 | 34 px | 2,125 rem | Titre de page (sous 768 px) |
@@ -52,15 +51,14 @@ Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px en
 
 ## 5. Rôles (18)
 
-Titre de carte et Chiffre mis en avant ont chacun deux niveaux, d'où 20 lignes.
+Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'un niveau.
 
 | Rôle | Sous 768 px | À partir de 768 px | Graisse | Hauteur de ligne | Espacement des lettres | Fonction |
 |---|---:|---:|---:|---:|---|---|
 | Titre de page | 34 px | 44 px | 800 | 1,1 | normal | Nomme l'écran ; un seul par écran, en tête. |
 | Titre de contenu | 28 px | 32 px | 800 | 1,1 | normal | Nomme l'objet que l'écran présente (cours, thème, question). |
 | Titre de section | 21 px | 21 px | 800 | 1,2 | normal | Ouvre une partie de page ou une surface (section, carte de section, modale, feuille de menu). |
-| Titre de carte, standard | 18 px | 18 px | 800 | 1,2 | normal | Nomme une carte ou un bloc compact. |
-| Titre de carte, grand | 22 px | 22 px | 800 | 1,1 | normal | Nomme une grande carte mise en avant dans son écran. |
+| Titre de carte | 18 px | 18 px | 800 | 1,2 | normal | Nomme une carte ou un bloc. |
 | Titre de ligne | 16 px | 16 px | 800 | 1,2 | normal | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. |
 | Texte de lecture | 17 px | 18 px | 500 | 1,55 | normal | Texte de la leçon, dans la fiche et dans son aperçu. |
 | Corps courant | 15 px | 15 px | 500 | 1,45 | normal | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées. |
@@ -84,10 +82,6 @@ Aucun rôle n'a d'espacement des lettres.
 **Titre de section ou Titre de carte.**
 - Titre de section : la carte est une partie de la page qui regroupe d'autres éléments. Dans l'espace formateur, chaque carte blanche est une section (« Tes groupes », « Élèves », « Taux de complétion »). Le rôle couvre aussi les autres surfaces entières : modale, feuille de menu.
 - Titre de carte : la carte est un élément parmi d'autres semblables (grille, liste, bloc). Exemple : la carte de thème, carte cliquable autonome dans la grille des thèmes.
-
-**Titre de carte, standard ou grand.**
-- Grand : la carte est mise en avant dans son écran. Elle occupe l'écran à elle seule ou presque (cartes de profil), c'est le seul titre d'une carte haute, ou elle fait partie de la famille des cartes encre de la fiche (« Étape suivante », « Suite du thème », correction du quiz). Le titre de la carte la plus visible de l'écran, après le titre de page, est aussi au grand niveau.
-- Standard : la carte ou le bloc est compact. C'est une carte parmi d'autres dans une grille, un bloc en ligne, un encadré (« À retenir ») ou un toast.
 
 **Chiffre mis en avant, standard ou grand.** Le grand niveau est réservé au score de fin de quiz. Tout autre nombre sujet de son bloc prend le niveau standard. Un nouveau cas de grand niveau : « À trancher ».
 
@@ -199,5 +193,4 @@ Format : situation, erreur plausible, règle citée, version conforme.
 - **Taux de complétion sous 400 px de large et anneau sur desktop** : à vérifier à l'écran pendant le test.
 - **Option choisie d'une Navigation à 800** : vérifier à l'écran pendant le test que le passage à 800 ne décale pas les onglets et filtres voisins.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).
-- **Critère du Titre de carte grand** : deux formules (« la carte la plus visible de l'écran », « la famille des cartes encre ») font décider à l'œil ou par la couleur. La raison de chaque élément du niveau grand est relevée dans `docs/proposition-typographie.md`, section 1.2.
 - **Nouveau cas de Chiffre mis en avant grand** : la proposition ne réserve le grand niveau qu'au score de fin de quiz. Tout autre candidat est à trancher.
