@@ -57,8 +57,8 @@ Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'u
 |---|---:|---:|---:|---:|---|---|
 | Titre de page | 34 px | 44 px | 800 | 1,1 | normal | Nomme l'écran ; un seul par écran, en tête. |
 | Titre de contenu | 28 px | 32 px | 800 | 1,1 | normal | Nomme l'objet que l'écran présente (cours, thème, question). |
-| Titre de section | 21 px | 21 px | 800 | 1,2 | normal | La carte regroupe plusieurs éléments (une liste, des cartes, des champs), ou c'est une surface entière (modale, feuille de menu). |
-| Titre de carte | 18 px | 18 px | 800 | 1,2 | normal | La carte présente un seul objet ou une seule action (un cours, un thème, un groupe, un badge, l'étape suivante), qu'elle soit seule ou parmi d'autres semblables. |
+| Titre de section | 21 px | 21 px | 800 | 1,2 | normal | Le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). |
+| Titre de carte | 18 px | 18 px | 800 | 1,2 | normal | Le titre nomme l'objet ou l'action que la carte présente (un cours, un thème, un groupe, un badge, ce qu'on va faire). |
 | Titre de ligne | 16 px | 16 px | 800 | 1,2 | normal | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. |
 | Texte de lecture | 17 px | 18 px | 500 | 1,55 | normal | Texte de la leçon, dans la fiche et dans son aperçu. |
 | Corps courant | 15 px | 15 px | 500 | 1,45 | normal | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées. |
@@ -80,8 +80,9 @@ Aucun rôle n'a d'espacement des lettres.
 ## 6. Choisir entre deux rôles voisins
 
 **Titre de section ou Titre de carte.**
-- Titre de section : la carte regroupe plusieurs éléments (une liste, des cartes, des champs), ou c'est une surface entière (modale, feuille de menu). Exemple : « De ton formateur », qui regroupe des lignes de cours et, sur la page Cours, est une section au même niveau que « Thèmes ».
-- Titre de carte : la carte présente un seul objet ou une seule action (un cours, un thème, un groupe, un badge, l'étape suivante), qu'elle soit seule ou parmi d'autres semblables.
+- Titre de section : le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). Exemples : « De ton formateur », « Taux de complétion », intertitres de leçon, « À retenir ».
+- Titre de carte : le titre nomme l'objet ou l'action que la carte présente (un cours, un thème, un groupe, un badge, ce qu'on va faire). Exemples : « Étape suivante », « Suite du thème », « X étapes sur N », carte de thème.
+- Test : le titre est-il le nom d'une chose (Titre de carte) ou le nom d'une partie (Titre de section) ?
 
 **Chiffre mis en avant, standard ou grand.** Grand : le nombre est le sujet de l'écran entier (l'écran existe pour le montrer), comme le score de fin de quiz, affiché en pourcentage. Standard : le nombre est le sujet d'un bloc.
 
