@@ -67,15 +67,15 @@ Titre de carte et Chiffre mis en avant ont chacun deux niveaux, d'où 20 lignes.
 | Texte secondaire | 14 px | 14 px | 600 | 1,2 | normal | Phrase qui accompagne un titre ou un contenu : sous-titre, état, aide, erreur, message. |
 | Méta | 13 px | 13 px | 600 | 1,2 | normal | Information courte et factuelle sur un élément : contenu, date, compte, statut. |
 | Surtitre | 13 px | 13 px | 700 | 1,2 | normal | Libellé court posé au-dessus d'un titre (thème, « Tu en es là »). |
-| Bouton | 15 px | 15 px | 800 | 1,2 | normal | Libellé d'un bouton (plein, contour, pointillé). |
-| Lien texte | 15 px | 15 px | 700 | 1,2 | normal | Action écrite sans forme de bouton. |
-| Navigation | 15 px | 15 px | 700 | 1,2 | normal | Barre d'onglets, barre horizontale, onglets, filtres, entrées de menu, repère d'étapes. |
+| Bouton | 15 px | 15 px | 800 | 1,2 | normal | Libellé d'un bouton (plein, contour, pointillé, Retour). |
+| Lien texte | 15 px | 15 px | 700 | 1,2 | normal | Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Annuler »). |
+| Navigation | 15 px | 15 px | 700 | 1,2 | normal | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes). |
 | Libellé de champ | 14 px | 14 px | 600 | 1,2 | normal | Nomme un champ de formulaire. |
 | Saisie et choix | 16 px | 16 px | 600 | 1,2 | normal | Texte tapé ou choisi par l'utilisateur. |
 | Pastille | 13 px | 13 px | 800 | 1,2 | normal | Texte d'une pastille, numéros dans une pastille ronde compris. |
 | Chiffre mis en avant, standard | 28 px | 28 px | 800 | 1 | normal | Nombre qui est le sujet de son bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). |
 | Chiffre mis en avant, grand | 48 px | 48 px | 800 | 1 | normal | Nombre sujet de son bloc, au grand niveau : score de fin de quiz. |
-| Compteur | 15 px | 15 px | 800 | 1,2 | normal | Nombre qui dit où l'on en est dans autre chose, et cette autre chose est le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau). |
+| Compteur | 15 px | 15 px | 800 | 1,2 | normal | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). |
 
 Aucun rôle n'a d'espacement des lettres.
 
@@ -87,15 +87,19 @@ Aucun rôle n'a d'espacement des lettres.
 
 **Chiffre mis en avant, standard ou grand.** Le grand niveau est réservé au score de fin de quiz. Tout autre nombre sujet de son bloc prend le niveau standard. Un nouveau cas de grand niveau : « À trancher ».
 
-**Chiffre mis en avant ou Compteur : le sujet du bloc, jamais la forme du nombre.** Un pourcentage, une fraction ou un nombre peut entrer dans les deux rôles.
-- Si le bloc existe pour montrer ce nombre, s'il est son sujet : Chiffre mis en avant (carte de statistique, taux de complétion, score de fin de quiz).
-- Si le nombre dit où l'on en est dans autre chose, et que cette autre chose est le sujet du bloc : Compteur (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau du bloc « cours en cours », dont le sujet est le cours).
+**Chiffre mis en avant ou Compteur : test binaire.** Si le nombre est le sujet du bloc (le bloc existe pour le montrer), c'est un Chiffre mis en avant : carte de statistique, taux de complétion, score de fin de quiz. Sinon, c'est un Compteur : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau du bloc « cours en cours », dont le sujet est le cours, « 80 % » qui accompagne le score « 4/5 », « +15 XP » qui accompagne la complétion). Un nombre a un rôle et un seul. La forme du nombre (pourcentage, fraction, entier) ne décide jamais.
 
 **Corps courant ou Texte de lecture.** Texte de lecture : le texte de la leçon, dans la fiche, dans son aperçu (Création de cours) et dans le Détail cours, où le formateur voit le premier paragraphe de la leçon. Corps courant : toutes les autres phrases lues (explications, paragraphes, intitulés d'étape, réponses affichées).
 
 **Texte secondaire ou Méta.** Texte secondaire : une phrase complète qui commente un autre élément sans être le contenu principal (sous-titre, état vide, aide, erreur, message, note sous une carte). Méta : une information courte et factuelle sur un élément, lue en passant (contenu « Leçon · Quiz », date, compte, statut, « N min de lecture »).
 
-**Lien texte ou Navigation.** Navigation : barre d'onglets, barre horizontale, onglets, filtres, entrées de menu et repère d'étapes (liste de la proposition). Lien texte : toute autre action écrite sans forme de bouton. Les deux rôles ont aujourd'hui les mêmes valeurs (section 13).
+**Lien texte ou Navigation.**
+- Navigation : une option reste marquée comme choisie, et le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données. Exemples : barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes.
+- Lien texte : une action écrite sans forme de bouton, sans état choisi, qui agit ou mène ailleurs une fois. Exemples : « Tout voir », « Revoir la leçon », « Passer cette étape », « Annuler ».
+- L'option choisie d'une Navigation suit la règle des états (section 8) : graisse un cran au-dessus, 800.
+- Les deux rôles ont aujourd'hui les mêmes valeurs (section 13).
+
+**Bouton ou Lien texte : la forme.** Un texte d'action posé dans une forme de bouton (fond, contour ou pointillé, padding, zone cliquable de bouton) prend le rôle Bouton ; sans forme de bouton, Lien texte. **Le libellé du bouton Retour est en rôle Bouton** : la variante Retour (pilule blanche, padding, zone de 44 px) a une forme de bouton.
 
 ## 7. Rattachement
 
@@ -111,6 +115,7 @@ Aucun rôle n'a d'espacement des lettres.
 - **Règle générale** : marquer un état ou une emphase par la graisse plutôt que par la taille garde la ligne, la hauteur des blocs et la mise en page stables.
 - **Précision Skillo** :
   - un cran exactement : 500 → 600, 600 → 700, 700 → 800 ;
+  - l'option choisie d'une Navigation (entrée active, onglet actif, filtre actif, étape en cours) est un état : 800 ;
   - **pas de partie plus légère que son rôle** : un compteur dans une pastille, un message « Aucune modification » ou tout fragment plus maigre prend la graisse du rôle ;
   - l'emphase dans une phrase (`strong`, gras Markdown, nom en gras dans un fil d'activité) suit la même règle qu'un état ;
   - **dans les rôles à 800, l'emphase reste invisible, et c'est accepté** : 800 est la graisse la plus forte, rien n'est chargé au-dessus.
@@ -171,6 +176,12 @@ Format : situation, erreur plausible, règle citée, version conforme.
 - Règle citée : section 9, croix et flèches en icônes SVG.
 - Version conforme : icône SVG de croix dans le bouton rond, avec un `aria-label`.
 
+**Exemple non conforme : libellé du bouton Retour**
+- Situation : bouton Retour en haut d'une page de détail.
+- Erreur plausible : le libellé en Lien texte (700), parce qu'il mène ailleurs une fois, comme un lien.
+- Règle citée : section 6, Bouton ou Lien texte se choisit par la forme ; la variante Retour a une forme de bouton.
+- Version conforme : Bouton, 15 px · 800 · 1,2, dans la pilule blanche de la variante Retour.
+
 **Exemple non conforme : partie plus légère**
 - Situation : compteur de questions à l'intérieur d'une pastille de navigation.
 - Erreur plausible : le compteur en 600 pour qu'il s'efface derrière le libellé.
@@ -183,4 +194,4 @@ Format : situation, erreur plausible, règle citée, version conforme.
 - **Taux de complétion sous 400 px de large et anneau sur desktop** : à vérifier à l'écran pendant le test.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).
 - **Nouveau cas de Chiffre mis en avant grand** : la proposition ne réserve le grand niveau qu'au score de fin de quiz. Tout autre candidat est à trancher.
-- **Deux éléments signalés par la proposition**, rattachés au Compteur sans certitude : « 80 % » sous le score de fin de quiz (une autre écriture du score, qui est le sujet du bloc) et « +15 XP » du toast de complétion (un gain, pas une position dans autre chose).
+- **Deux éléments rangés en Navigation que le critère de la section 6 rangerait en Lien texte**, signalés par la proposition sans être déplacés : « Se déconnecter » (agit une fois, sans état choisi) et les actions du menu « … » (agissent sur les données).
