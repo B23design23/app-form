@@ -40,11 +40,31 @@
 | Libellé de champ | Nomme un champ de formulaire | 14 px | 14 px | **600** | 1,2 | normal | 4 |
 | Saisie et choix | Texte tapé ou choisi par l'utilisateur. 16 px est une contrainte technique : Safari sur iOS agrandit la page quand on touche un champ dont le texte fait moins de 16 px | 16 px | 16 px | 600 | 1,2 | normal | 18 |
 | Pastille | Texte d'une pastille, numéros dans une pastille ronde compris | 13 px | 13 px | 800 | 1,2 | normal | 24 |
-| Chiffre mis en avant, standard | Nombre qui porte l'information principale d'un bloc | 28 px | 28 px | 800 | 1 | normal | 4 |
-| Chiffre mis en avant, grand | Score de fin de quiz | 48 px | 48 px | 800 | 1 | normal | 1 |
-| Compteur | Chiffre de progression ou de position (« 3 / 5 », « X / 3 », %, XP de l'en-tête du dashboard) | **15 px** | **15 px** | 800 | 1,2 | normal | 9 |
+| Chiffre mis en avant, standard | Nombre qui est le sujet de son bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion) | 28 px | 28 px | 800 | 1 | normal | 3 |
+| Chiffre mis en avant, grand | Nombre sujet de son bloc, au grand niveau : score de fin de quiz | 48 px | 48 px | 800 | 1 | normal | 1 |
+| Compteur | Nombre qui dit où l'on en est dans autre chose, et cette autre chose est le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau) | **15 px** | **15 px** | 800 | 1,2 | normal | 10 |
 
 En gras : valeurs qui changent par rapport à la version 2 (Saisie et choix revient à 16 px par décision finale ; Compteur passe à 15 px depuis que l'XP du dashboard y est rattaché). Lien texte et Navigation ont désormais les mêmes valeurs (15 px · 700 · 1,2) ; ils restent deux rôles, leurs fonctions diffèrent.
+
+**Chiffre mis en avant ou Compteur : le critère du sujet du bloc.** Un pourcentage, une fraction ou un nombre peut entrer dans les deux rôles ; la forme du nombre ne décide pas. Si le bloc existe pour montrer ce nombre (il est son sujet), c'est un Chiffre mis en avant. Si le nombre dit où l'on en est dans autre chose, et que cette autre chose est le sujet du bloc, c'est un Compteur.
+
+Vérification des éléments déjà rattachés (aucun n'est déplacé ici) :
+
+| Élément | Rôle | Sujet du bloc | Conforme au critère ? |
+|---|---|---|---|
+| Taux de complétion (Dashboard formateur) | Chiffre mis en avant, standard | le taux lui-même | oui |
+| Chiffre des petites cartes d'avancement (Détail cours) | Chiffre mis en avant, standard | chaque petite carte montre une statistique | oui |
+| Chiffre des cartes du dashboard admin | Chiffre mis en avant, standard | chaque carte montre une statistique | oui |
+| Score « 4/5 » de fin de quiz | Chiffre mis en avant, grand | le résultat du quiz | oui |
+| Compteur « 2 / 5 » du parcours | Compteur | la question en cours | oui |
+| Compteur « 3 / 5 » du quiz | Compteur | la question en cours | oui |
+| Compteur « X / 3 » du quiz flash verrouillé (et sa petite variante) | Compteur | le déblocage du quiz flash | oui |
+| Compteur « X/6 » de la modale Mes badges | Compteur | la collection de badges | oui |
+| % de la barre d'un groupe (Dashboard formateur) | Compteur | le groupe | oui |
+| « [N] XP » de l'en-tête (Dashboard apprenant) | Compteur | l'élève et son tableau de bord | oui |
+| Pourcentage de l'anneau (Dashboard apprenant) | Compteur | le cours en cours | oui |
+| « 80 % » sous le score de fin de quiz | Compteur | le résultat du quiz, dont ce pourcentage est une autre écriture | **signalé** : le nombre appartient au sujet du bloc (le score), ce qui le rapprocherait du Chiffre mis en avant ; il reste en Compteur ici |
+| « +15 XP » du toast de complétion | Compteur | la complétion (checklist, cours) | **signalé** : ce n'est pas une position dans autre chose mais un gain ; le critère ne le range dans aucun des deux rôles avec certitude ; il reste en Compteur ici |
 
 La liste complète des éléments de chaque rôle est en annexe.
 
@@ -76,7 +96,7 @@ Fusions refusées par le critère : Méta et Compteur (13 px · 500 contre 14-15
 
 **Chiffre mis en avant, grand (48 px)** : score « 4/5 » de fin de quiz, seul élément.
 
-**Chiffre mis en avant, standard (28 px)** : taux de complétion, chiffre des petites cartes d'avancement (Détail cours). Cas limites : chiffre des cartes du dashboard admin (36 px) reste au standard, c'est le chiffre principal d'une carte de statistiques comme le taux de complétion ; le pourcentage de l'anneau du dashboard apprenant (17 / 26 px) reste au standard, à trancher avec la mesure de l'anneau (section 9). L'XP de l'en-tête du dashboard est rattaché au Compteur (décision finale).
+**Chiffre mis en avant, standard (28 px)** : taux de complétion, chiffre des petites cartes d'avancement (Détail cours). Cas limites : chiffre des cartes du dashboard admin (36 px) reste au standard, c'est le chiffre principal d'une carte de statistiques comme le taux de complétion ; l'XP de l'en-tête et le pourcentage de l'anneau du dashboard apprenant sont rattachés au Compteur (décisions finales 3 et 8).
 
 ### 1.3 Texte de lecture et Corps courant
 
@@ -131,7 +151,7 @@ Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px est la taille la pl
 | Version 3 avant décisions finales | 55 | 179 | 41 | 220 |
 | **Version 3 validée** | **57** | **178** | **40** | **218** |
 
-Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à corriger (section 10), sauf le pourcentage de l'anneau du dashboard apprenant, à trancher (section 9).
+Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à corriger (section 10). Le passage du pourcentage de l'anneau au Compteur ne change pas les totaux : il reste un changement visible (17 / 26 → 15 px).
 
 | Rôle | Valeur v3 avant décisions | Valeur finale | Éléments | Identique | Discret | Visible |
 |---|---|---|---|---|---|---|
@@ -152,9 +172,9 @@ Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à
 | Libellé de champ | 14 px · 600 · 1,2 | 14 px · 600 · 1,2 | 4 | 0 | 3 | 1 |
 | Saisie et choix | 15 px · 600 · 1,2 | 16 px · 600 · 1,2 **(changé)** | 18 | 3 | 11 | 4 |
 | Pastille | 13 px · 800 · 1,2 | 13 px · 800 · 1,2 | 24 | 5 | 15 | 4 |
-| Chiffre mis en avant (standard) | 28 px · 800 · 1 | 28 px · 800 · 1 | 4 | 2 | 0 | 2 |
+| Chiffre mis en avant (standard) | 28 px · 800 · 1 | 28 px · 800 · 1 | 3 | 2 | 0 | 1 |
 | Chiffre mis en avant (grand) | 48 px · 800 · 1 | 48 px · 800 · 1 | 1 | 1 | 0 | 0 |
-| Compteur | 14 px · 800 · 1,2 | 15 px · 800 · 1,2 **(changé)** | 9 | 2 | 4 | 3 |
+| Compteur | 14 px · 800 · 1,2 | 15 px · 800 · 1,2 **(changé)** | 10 | 2 | 4 | 4 |
 | **Total** | | | **275** | **57** | **178** | **40** |
 
 ### 3.2 Changements visibles
@@ -166,7 +186,7 @@ Tous les changements visibles, du plus gros écart de taille au plus petit. Éca
 | 1 | Titre de page | Parcours : Création du compte | « Plus qu'une étape, [Prénom] » | 28 px · 800 · 1,1 | 34 / 44 px · 800 · 1,1 | 16 px · graisse 0 |
 | 2 | Titre de page | Fin de quiz | titre « Belle maîtrise ! » | 30 px · 800 · 1,1 | 34 / 44 px · 800 · 1,1 | 14 px · graisse 0 |
 | 3 | Titre de contenu | Détail cours | titre du cours (H1) : perd contre .espace-page h1 | 34 / 44 px · 800 · 1,1 | 28 / 32 px · 800 · 1,1 | 12 px · graisse 0 |
-| 4 | Chiffre mis en avant (standard) | Dashboard apprenant | pourcentage dans l'anneau | 17 / 26 px · 800 · 1,2 | 28 px · 800 · 1 | 11 px · graisse 0 |
+| 4 | Compteur | Dashboard apprenant | pourcentage dans l'anneau | 17 / 26 px · 800 · 1,2 | 15 px · 800 · 1,2 | 11 px · graisse 0 |
 | 5 | Titre de contenu | Fiche : quiz, Quiz flash | question | 24 px · 800 · 1,15 | 28 / 32 px · 800 · 1,1 | 8 px · graisse 0 |
 | 6 | Chiffre mis en avant (standard) | Dashboard admin | chiffre de carte | 36 px · 800 · 1,1 | 28 px · 800 · 1 | 8 px · graisse 0 |
 | 7 | Titre de section | Cours | titre de section (« Thèmes », « N résultats ») | 22 / 28 px · 800 · 1,2 | 21 px · 800 · 1,2 | 7 px · graisse 0 |
@@ -186,7 +206,7 @@ Tous les changements visibles, du plus gros écart de taille au plus petit. Éca
 | 21 | Titre de section | Dashboard formateur : Pour bien démarrer | titre de la carte | 24 px · 800 · 1,2 | 21 px · 800 · 1,2 | 3 px · graisse 0 |
 | 22 | Pastille | Dashboard formateur : Pour bien démarrer | numéro dans le rond | 16 px · 800 · 1,2 | 13 px · 800 · 1,2 | 3 px · graisse 0 |
 | 23 | Titre de carte (standard) | Cours | titre de la carte de thème | 15 / 18 px · 800 · 1,2 | 18 px · 800 · 1,2 | 3 px · graisse 0 |
-| 24 | Corps courant | Fiche : checklist | intitulé de l'étape en cours | 17 px · 800 · 1,2 | 15 px · 600 (état « en cours ») · 1,45 | 2 px · graisse 2 crans |
+| 24 | Corps courant | Fiche : checklist | intitulé de l'étape en cours | 17 px · 800 · 1,2 | 15 px · 500 · 1,45 | 2 px · graisse 3 crans |
 | 25 | Texte secondaire | Parcours | sous-titre sous le H1 | 16 px · 500 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
 | 26 | Texte secondaire | Cours, Terrain | sous-titre de l'en-tête lavande | 14 / 16 px · 700 · 1,2 | 14 px · 600 · 1,2 | 2 px · graisse 1 cran |
 | 27 | Texte de lecture | Détail cours | premier paragraphe de la leçon | 16 px · 500 · 1,55 | 17 / 18 px · 500 · 1,55 | 2 px · graisse 0 |
@@ -312,7 +332,7 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
-| visible | Fiche : checklist | intitulé de l'étape en cours (`FicheCours.css:1205`) | 17 px · 800 · 1,2 | 15 px · 600 (état « en cours ») · 1,45 | 2 px · graisse 2 crans |
+| visible | Fiche : checklist | intitulé de l'étape en cours (`FicheCours.css:1205`) | 17 px · 800 · 1,2 | 15 px · 500 · 1,45 | 2 px · graisse 3 crans |
 | visible | Dashboard admin (desktop) | cellules chiffrées du tableau (`DashboardFormateur.css:1064`) | n/a / 15 px · 700 · 1,2 | n/a / 15 px · 500 · 1,45 | 0 px · graisse 2 crans |
 | discret | Partagé (fiche) | texte du toast de complétion (`CompletionToast.css:15`) | 13,6 px · 500 · 1,2 | 15 px · 500 · 1,45 | 1,4 px · graisse 0 |
 | discret | Détail cours | bonne réponse (`DetailCoursFormateur.css:353`) | 14 px · 700 · 1,2 | 15 px · 600 (état) · 1,45 | 1 px · graisse 1 cran |
@@ -538,11 +558,10 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Chiffre mis en avant (standard)
 
-4 éléments : 2 identiques, 0 discrets, 2 visibles.
+3 éléments : 2 identiques, 0 discrets, 1 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
-| visible | Dashboard apprenant | pourcentage dans l'anneau (`Dashboard.css:382`) | 17 / 26 px · 800 · 1,2 | 28 px · 800 · 1 | 11 px · graisse 0 |
 | visible | Dashboard admin | chiffre de carte (`DashboardFormateur.css:777`) | 36 px · 800 · 1,1 | 28 px · 800 · 1 | 8 px · graisse 0 |
 
 ### Chiffre mis en avant (grand)
@@ -552,10 +571,11 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Compteur
 
-9 éléments : 2 identiques, 4 discrets, 3 visibles.
+10 éléments : 2 identiques, 4 discrets, 4 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
+| visible | Dashboard apprenant | pourcentage dans l'anneau (`Dashboard.css:382`) | 17 / 26 px · 800 · 1,2 | 15 px · 800 · 1,2 | 11 px · graisse 0 |
 | visible | Dashboard apprenant | « [N] XP » de l'en-tête (`Dashboard.css:30`) | 17 / 20 px · 800 · 1,2 | 15 px · 800 · 1,2 | 5 px · graisse 0 |
 | visible | Dashboard apprenant | compteur de barre, petite variante (`Dashboard.css:323`) | 12 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
 | visible | Parcours : questions | compteur « 2 / 5 » (`GabaritParcours.css:195`) | 18 px · 800 · 1,2 | 15 px · 800 · 1,2 | 3 px · graisse 0 |
@@ -684,23 +704,7 @@ CLAUDE.md n'est pas modifié. Tailles (et graisses, quand il les donne) qu'il d�
 
 ## 9. À trancher
 
-**Pourcentage de l'anneau du dashboard apprenant** (bloc « cours en cours » ; 17 px mobile, 26 px desktop aujourd'hui ; 28 px proposé par le rôle Chiffre mis en avant standard).
-
-Mesure (code d'origin/main, `Dashboard.jsx:305` et `Dashboard.css:369, 872`) : l'anneau est un SVG de 73 unités (rayon 32, trait 9) affiché à 78 px sur mobile et 120 px sur desktop.
-
-| | Mobile | Desktop |
-|---|---|---|
-| Diamètre extérieur | 78 px | 120 px |
-| Épaisseur du trait | 9,6 px | 14,8 px |
-| Diamètre intérieur (espace libre pour le texte) | **58,8 px** | **90,4 px** |
-| « 88 % » en 28 px 800 (largeur × hauteur des glyphes, mesurées dans Chromium) | 59,6 × 20,3 px | 59,6 × 20,3 px |
-| « 100 % » en 28 px 800 | 71,9 × 20,3 px | 71,9 × 20,3 px |
-| 28 px tient ? | **non** : « 88 % » est déjà plus large que l'intérieur de l'anneau (59,6 contre 58,8 px) ; seul un pourcentage à un chiffre tient (« 7 % » : 44,3 px) | **oui** : « 100 % » tient (diagonale du texte 74,7 px pour 90,4 px libres) |
-| Aujourd'hui | 17 px : « 100 % » fait 43,6 px | 26 px : « 100 % » fait 66,7 px |
-
-Lecture 1 : garder le rôle Chiffre mis en avant standard et agrandir l'anneau sur mobile. Lecture 2 : rattacher le pourcentage au Compteur (15 px) partout. Lecture 3 : Compteur sur mobile, Chiffre mis en avant sur desktop (deux rôles pour un même élément, contraire à la règle d'une valeur par rôle).
-
-Plus rien d'autre n'est à trancher : les autres points de la version 3 sont réglés par les décisions finales (section 10).
+Plus rien n'est à trancher dans cette proposition. Le pourcentage de l'anneau du dashboard apprenant, dernier point ouvert, est réglé par la décision finale 8 (section 10). Pour mémoire, la mesure qui l'avait laissé ouvert : diamètre intérieur de l'anneau 58,8 px sur mobile et 90,4 px sur desktop ; en 28 px, « 88 % » fait 59,6 px de large ; en 15 px, « 100 % » fait environ 38,5 px et tient sur mobile comme sur desktop.
 
 ## 10. Décisions finales
 
@@ -709,17 +713,18 @@ Validées le 2026-11-04.
 1. **Saisie et choix : 16 px.** Contrainte technique : Safari sur iOS agrandit la page quand on touche un champ dont le texte fait moins de 16 px. La raison est notée dans le rôle (section 1).
 2. **Pas de tailles intermédiaires.** 27 px (Titre de contenu) et 21 px (Titre de carte grand) sont refusés ; les valeurs restent celles de la prod (28 / 32 px et 22 px).
 3. **« [N] XP » de l'en-tête du dashboard apprenant : rôle Compteur.** Avec lui, la valeur du Compteur devient 15 px · 800 · 1,2 (critère des changements visibles).
-4. **Pourcentage de l'anneau du dashboard apprenant : à trancher**, avec la mesure de la section 9 (28 px ne tient pas sur mobile, tient sur desktop).
+4. **Pourcentage de l'anneau du dashboard apprenant** : voir la décision 8 (point laissé à trancher lors de la première validation, réglé ensuite).
 5. **« Bonne réponse » (Détail cours) et « Ta réponse / Bonne réponse » (Fin de quiz) : état du Corps courant, graisse 600** (15 px, 1,45).
 6. **Emphase dans les rôles à 800 : acceptée invisible**, comme en prod (question du quiz, énoncés du Détail cours et de « Revoir mes erreurs », lien du parcours).
-7. **Les autres changements visibles sont acceptés comme dérives à corriger** : 39 éléments sur les 40 de la section 3.2 (tous sauf le pourcentage de l'anneau), y compris les écarts de 4 px ou plus.
+7. **Les autres changements visibles sont acceptés comme dérives à corriger** : les 40 éléments de la section 3.2, y compris les écarts de 4 px ou plus et le pourcentage de l'anneau.
+8. **Pourcentage de l'anneau du dashboard apprenant : rôle Compteur** (15 px · 800 · 1,2), sur mobile et sur desktop. Le sujet du bloc « cours en cours » est le cours : le titre le nomme, le bouton mène à la suite, et le pourcentage dit où l'on en est dans ce cours. La place à l'intérieur de l'anneau n'est qu'une vérification : « 100 % » tient en 15 px sur mobile (environ 38,5 px de large pour 58,8 px libres).
+9. **Chiffre mis en avant et Compteur se distinguent par le sujet du bloc**, jamais par la forme du nombre (définitions et vérification en section 1). Deux éléments sont signalés sans être déplacés : « 80 % » sous le score de fin de quiz et « +15 XP » du toast de complétion.
 
 Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 discrets, 40 visibles**.
 
 ## Annexe. Éléments par rôle
 
 ✓ identique · discret · ● visible.
-
 
 **Titre de page** (9) : ✓ H1 de page dans .espace-page (Pages avec navigation, `espace-layout.css:150`) ; ✓ H1 de la carte de flux (Mot de passe oublié / Nouveau mot de passe / Compléter le profil, `shared.css:108`) ; ✓ H1 du parcours (Parcours, `GabaritParcours.css:208`) ; ✓ H1 de page formateur (Espace formateur (Mes cours, Mes groupes, Détail groupe, Détail cours), `Formateur.css:30`) ; ● titre « Belle maîtrise ! » (Fin de quiz, `FicheCours.css:809`) ; · « Salut [Prénom] » (H1) (Dashboard apprenant, `Dashboard.css:21`) ; · « Bonjour [prénom] » (H1) (Dashboard formateur, admin, `DashboardFormateur.css:30`) ; ● « Plus qu'une étape, [Prénom] » (Parcours : Création du compte, `Parcours.css:192`) ; ✓ H1 de l'en-tête desktop (affiché à partir de 1024 px) (Création de cours, `CreationCours.css:1376`).
 
@@ -735,7 +740,7 @@ Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 dis
 
 **Texte de lecture** (2) : ● premier paragraphe de la leçon (Détail cours, `DetailCoursFormateur.css:212`) ; ✓ texte de la leçon (Fiche : leçon, aperçu Création, `FicheCours.css:253`).
 
-**Corps courant** (17) : · texte de tableau (Contenu Markdown, `ContenuMarkdown.css:95`) ; · texte du toast de complétion (Partagé (fiche), `CompletionToast.css:15`) ; ✓ texte courant (paragraphe) (Espace formateur, modale de confirmation, `Formateur.css:67`) ; · points de l'encadré « À retenir » (Détail cours, `DetailCoursFormateur.css:294`) ; ● bonne réponse (Détail cours, `DetailCoursFormateur.css:353`) ; · intitulé d'étape de checklist (Détail cours, `DetailCoursFormateur.css:372`) ; · points de l'encadré « À retenir » (Fiche : leçon, `FicheCours.css:321`) ; ✓ explication de la correction (Fiche : quiz, Quiz flash, `FicheCours.css:662`) ; ● ligne « Ta réponse / Bonne réponse » (Fin de quiz : mes erreurs, `FicheCours.css:963`) ; · explication (Fin de quiz : mes erreurs, `FicheCours.css:977`) ; · consigne de remise en ordre (Fiche : checklist (remise en ordre), `FicheCours.css:1081`) ; · intitulé d'étape (Fiche : checklist, `FicheCours.css:1172`) ; ● intitulé de l'étape en cours (Fiche : checklist, `FicheCours.css:1205`) ; · texte de relance (Dashboard formateur, `DashboardFormateur.css:366`) ; · texte de l'événement (Dashboard formateur, `DashboardFormateur.css:602`) ; ● cellules chiffrées du tableau (Dashboard admin (desktop), `DashboardFormateur.css:1064`) ; · cellules du tableau des élèves (Détail groupe (desktop), `DetailGroupe.css:350`).
+**Corps courant** (17) : · texte de tableau (Contenu Markdown, `ContenuMarkdown.css:95`) ; · texte du toast de complétion (Partagé (fiche), `CompletionToast.css:15`) ; ✓ texte courant (paragraphe) (Espace formateur, modale de confirmation, `Formateur.css:67`) ; · points de l'encadré « À retenir » (Détail cours, `DetailCoursFormateur.css:294`) ; · bonne réponse (Détail cours, `DetailCoursFormateur.css:353`) ; · intitulé d'étape de checklist (Détail cours, `DetailCoursFormateur.css:372`) ; · points de l'encadré « À retenir » (Fiche : leçon, `FicheCours.css:321`) ; ✓ explication de la correction (Fiche : quiz, Quiz flash, `FicheCours.css:662`) ; · ligne « Ta réponse / Bonne réponse » (Fin de quiz : mes erreurs, `FicheCours.css:963`) ; · explication (Fin de quiz : mes erreurs, `FicheCours.css:977`) ; · consigne de remise en ordre (Fiche : checklist (remise en ordre), `FicheCours.css:1081`) ; · intitulé d'étape (Fiche : checklist, `FicheCours.css:1172`) ; ● intitulé de l'étape en cours (Fiche : checklist, `FicheCours.css:1205`) ; · texte de relance (Dashboard formateur, `DashboardFormateur.css:366`) ; · texte de l'événement (Dashboard formateur, `DashboardFormateur.css:602`) ; ● cellules chiffrées du tableau (Dashboard admin (desktop), `DashboardFormateur.css:1064`) ; · cellules du tableau des élèves (Détail groupe (desktop), `DetailGroupe.css:350`).
 
 **Texte secondaire** (27) : · phrase d'explication sous le H1 (Mot de passe oublié, `shared.css:119`) ; · message d'erreur (.message) (Partagé, `shared.css:358`) ; · texte d'état vide (Terrain, Détail thème, Détail groupe, `shared.css:512`) ; · message de résultat de la remise en ordre (Fiche : checklist (remise en ordre), `quiz.css:85`) ; ● sous-titre sous le H1 (Parcours, `GabaritParcours.css:215`) ; · message d'erreur (Parcours, `GabaritParcours.css:365`) ; ● sous-titre de l'en-tête lavande (Cours, Terrain, `EntetePage.css:35`) ; · sous-titre sous le H1 (« N élèves · N cours ») (Espace formateur, `Formateur.css:37`) ; · sous-titre de modale (Espace formateur, `Formateur.css:363`) ; · « x cours terminés sur y » (Détail thème, `DetailTheme.css:88`) ; · « Plusieurs réponses possibles » (Fiche : quiz, Quiz flash, `FicheCours.css:445`) ; · sous-titre « Une seule erreur à revoir. » (Fin de quiz, `FicheCours.css:816`) ; · phrase d'état (« Leçon lue. Reste le quiz ») (Dashboard apprenant, `Dashboard.css:388`) ; ✓ phrase du bloc de tête E (Dashboard apprenant, `Dashboard.css:449`) ; · « 3 cours · 1 groupe · 12 élèves » (Dashboard formateur, admin, `DashboardFormateur.css:36`) ; · note sous une carte (Dashboard formateur, `DashboardFormateur.css:133`) ; · note 14 px (Pour bien démarrer) (Dashboard formateur, `DashboardFormateur.css:139`) ; · texte d'état vide (Dashboard formateur, admin, `DashboardFormateur.css:144`) ; · confirmation d'envoi de relance (Dashboard formateur, `DashboardFormateur.css:376`) ; ✓ titre du cours tronqué sous le H1 (Création de cours (< 1024), `CreationCours.css:60`) ; · aide sous un champ (Création de cours, `CreationCours.css:272`) ; · message d'erreur (Création de cours, `CreationCours.css:279`) ; · message de la barre d'enregistrement (Création de cours, `CreationCours.css:1075`) ; · « Aucun cours ne correspond… » (Cours, `SectionCours.css:28`) ; · aide sous un champ (mot de passe) (Parcours, `Parcours.css:17`) ; · texte du bloc lavande (Parcours : Création du compte, `Parcours.css:199`) ; · phrase du quiz flash vertical (Dashboard apprenant (desktop, colonne étroite), `Dashboard.css:952`).
 
@@ -751,12 +756,12 @@ Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 dis
 
 **Libellé de champ** (4) : · libellé de champ (.champ) (Partagé (modales, Détail groupe, Mes cours, mot de passe), `shared.css:126`) ; ● libellé de champ (Parcours, `GabaritParcours.css:228`) ; · libellé de champ (Création de cours, `CreationCours.css:266`) ; · libellé « Bonne réponse » (Création de cours, `CreationCours.css:832`).
 
-**Saisie et choix** (18) : · saisie de champ input (.champ) (Partagé, `shared.css:136`) ; · saisie de champ textarea (.champ) (Partagé, `shared.css:148`) ; · saisie de champ (Parcours, `GabaritParcours.css:248`) ; ● saisie du grand champ (prénom, organisme…) (Parcours : questions, `GabaritParcours.css:269`) ; ● ligne de choix (statut, âge, motivation) (Parcours : questions, `GabaritParcours.css:296`) ; · saisie de la recherche (Cours, `EntetePage.css:48`) ; · valeur affichée de la liste déroulante (Création de cours, Mes cours, `Dropdown.css:12`) ; · option de la liste déroulante (Création de cours, Mes cours, `Dropdown.css:61`) ; · libellé de case à cocher (Modale d'assignation, Création de cours, `Formateur.css:527`) ; · texte de réponse (Fiche : quiz, Quiz flash, `FicheCours.css:467`) ; · saisie « Un élève » (Dashboard formateur, `DashboardFormateur.css:531`) ; · saisie de l'email d'ajout (Détail groupe, `DetailGroupe.css:46`) ; · bouton de choix (groupe, mode de checklist) (Création de cours, `CreationCours.css:327`) ; · saisie de l'éditeur de leçon (Création de cours, `CreationCours.css:458`) ; · saisie de réponse / d'explication (Création de cours, `CreationCours.css:767`) ; · saisie d'explication (Création de cours, `CreationCours.css:776`) ; ● libellé de mode de checklist (Création de cours, `CreationCours.css:895`) ; ✓ saisie de l'intitulé d'étape (Création de cours, `CreationCours.css:961`).
+**Saisie et choix** (18) : · saisie de champ input (.champ) (Partagé, `shared.css:136`) ; · saisie de champ textarea (.champ) (Partagé, `shared.css:148`) ; ✓ saisie de champ (Parcours, `GabaritParcours.css:248`) ; ● saisie du grand champ (prénom, organisme…) (Parcours : questions, `GabaritParcours.css:269`) ; · ligne de choix (statut, âge, motivation) (Parcours : questions, `GabaritParcours.css:296`) ; · saisie de la recherche (Cours, `EntetePage.css:48`) ; · valeur affichée de la liste déroulante (Création de cours, Mes cours, `Dropdown.css:12`) ; · option de la liste déroulante (Création de cours, Mes cours, `Dropdown.css:61`) ; · libellé de case à cocher (Modale d'assignation, Création de cours, `Formateur.css:527`) ; ✓ texte de réponse (Fiche : quiz, Quiz flash, `FicheCours.css:467`) ; ● saisie « Un élève » (Dashboard formateur, `DashboardFormateur.css:531`) ; ✓ saisie de l'email d'ajout (Détail groupe, `DetailGroupe.css:46`) ; · bouton de choix (groupe, mode de checklist) (Création de cours, `CreationCours.css:327`) ; · saisie de l'éditeur de leçon (Création de cours, `CreationCours.css:458`) ; · saisie de réponse / d'explication (Création de cours, `CreationCours.css:767`) ; ● saisie d'explication (Création de cours, `CreationCours.css:776`) ; ● libellé de mode de checklist (Création de cours, `CreationCours.css:895`) ; · saisie de l'intitulé d'étape (Création de cours, `CreationCours.css:961`).
 
 **Pastille** (24) : · pastille de statut (Nouveau, À faire, Non commencé) (Partagé (Cours, Dashboard, Détail groupe…), `espace-layout.css:252`) ; ✓ pastille de statut En cours / Terminé (Partagé, `espace-layout.css:275`) ; · nom du badge dans le toast (Partagé (fiche), `CompletionToast.css:48`) ; ✓ numéro dans la pastille d'étape (Fiche : leçon, checklist, `ReperEtapes.css:56`) ; · pastille de groupe / « Non assigné » (Espace formateur, `Formateur.css:178`) ; ● « +N » sur la dernière miniature (Détail cours, `DetailCoursFormateur.css:246`) ; ✓ numéro de question (Détail cours, `DetailCoursFormateur.css:328`) ; · pastille « Ta réponse » / « Bonne réponse » (Fiche : quiz, Quiz flash, `FicheCours.css:606`) ; ● pastille « +20 XP » (Fin de quiz, `FicheCours.css:830`) ; · pastille « Nouveau badge » (Fin de quiz, `FicheCours.css:881`) ; ✓ numéro dans la pastille d'étape (Fiche : checklist, `FicheCours.css:1109`) ; · pastille « Bloquante » (Fiche : checklist, `FicheCours.css:1215`) ; · « X XP gagnés » (pastille Terminé) (Récap, `FicheCours.css:1276`) ; · pastille « De ton formateur » (Dashboard apprenant, `Dashboard.css:191`) ; · pastille orange « Défi du jour » (Dashboard apprenant, `Dashboard.css:206`) ; ✓ pastille « Compte officiel » (Dashboard admin, `DashboardFormateur.css:63`) ; · pastille « À surveiller / Bon rythme » (Dashboard formateur, `DashboardFormateur.css:236`) ; · initiales sur rond lavande (Dashboard formateur, `DashboardFormateur.css:596`) ; · pastille du groupe (Dashboard formateur, `DashboardFormateur.css:626`) ; ● numéro dans le rond (Dashboard formateur : Pour bien démarrer, `DashboardFormateur.css:695`) ; · pastille « Compte officiel : ce cours sera public » (Création de cours, `CreationCours.css:236`) ; · numéro de question / d'étape (Création de cours, `CreationCours.css:575`) ; ● lettre de réponse (Création de cours, `CreationCours.css:751`) ; · pilule « Bloquante » (Création de cours, `CreationCours.css:1013`).
 
-**Chiffre mis en avant (standard)** (5) : ✓ chiffre des petites cartes d'avancement (Détail cours, `DetailCoursFormateur.css:130`) ; ● « [N] XP » de l'en-tête (Dashboard apprenant, `Dashboard.css:30`) ; ● pourcentage dans l'anneau (Dashboard apprenant, `Dashboard.css:382`) ; ✓ taux de complétion (chiffre) (Dashboard formateur, `DashboardFormateur.css:206`) ; ● chiffre de carte (Dashboard admin, `DashboardFormateur.css:777`).
+**Chiffre mis en avant (standard)** (3) : ✓ chiffre des petites cartes d'avancement (Détail cours, `DetailCoursFormateur.css:130`) ; ✓ taux de complétion (chiffre) (Dashboard formateur, `DashboardFormateur.css:206`) ; ● chiffre de carte (Dashboard admin, `DashboardFormateur.css:777`).
 
 **Chiffre mis en avant (grand)** (1) : ✓ score « 4/5 » dans l'anneau (Fin de quiz, `FicheCours.css:795`).
 
-**Compteur** (8) : ● compteur « 2 / 5 » (Parcours : questions, `GabaritParcours.css:195`) ; · « +15 XP » du toast (Partagé (fiche), `CompletionToast.css:39`) ; · compteur « 3 / 5 » (Fiche : quiz, Quiz flash, `FicheCours.css:413`) ; · « 80 % » sous le score (Fin de quiz, `FicheCours.css:801`) ; ✓ compteur de barre « X / 3 » (Dashboard apprenant, `Dashboard.css:318`) ; ● compteur de barre, petite variante (Dashboard apprenant, `Dashboard.css:323`) ; · compteur « X/6 » (Dashboard apprenant : modale Mes badges, `Dashboard.css:1001`) ; ✓ % de la barre du groupe (Dashboard formateur, `DashboardFormateur.css:330`).
+**Compteur** (10) : ● compteur « 2 / 5 » (Parcours : questions, `GabaritParcours.css:195`) ; · « +15 XP » du toast (Partagé (fiche), `CompletionToast.css:39`) ; ✓ compteur « 3 / 5 » (Fiche : quiz, Quiz flash, `FicheCours.css:413`) ; · « 80 % » sous le score (Fin de quiz, `FicheCours.css:801`) ; ● « [N] XP » de l'en-tête (Dashboard apprenant, `Dashboard.css:30`) ; · compteur de barre « X / 3 » (Dashboard apprenant, `Dashboard.css:318`) ; ● compteur de barre, petite variante (Dashboard apprenant, `Dashboard.css:323`) ; ● pourcentage dans l'anneau (Dashboard apprenant, `Dashboard.css:382`) ; ✓ compteur « X/6 » (Dashboard apprenant : modale Mes badges, `Dashboard.css:1001`) ; · % de la barre du groupe (Dashboard formateur, `DashboardFormateur.css:330`).
