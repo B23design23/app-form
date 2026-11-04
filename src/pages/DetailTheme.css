@@ -14,7 +14,7 @@
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  padding: 0 18px 0 12px;
+  padding: 0 var(--espace-20) 0 var(--espace-12);
   border: none;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
