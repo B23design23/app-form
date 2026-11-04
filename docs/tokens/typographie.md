@@ -115,7 +115,7 @@ Aucun rôle n'a d'espacement des lettres.
 - **Règle générale** : marquer un état ou une emphase par la graisse plutôt que par la taille garde la ligne, la hauteur des blocs et la mise en page stables.
 - **Précision Skillo** :
   - un cran exactement : 500 → 600, 600 → 700, 700 → 800 ;
-  - l'option choisie d'une Navigation (entrée active, onglet actif, filtre actif, étape en cours) est un état : 800 ;
+  - l'option choisie d'une Navigation (entrée active, onglet actif, filtre actif, étape en cours) est un état : 800. C'est un changement de rendu discret (un cran de graisse) ;
   - **pas de partie plus légère que son rôle** : un compteur dans une pastille, un message « Aucune modification » ou tout fragment plus maigre prend la graisse du rôle ;
   - l'emphase dans une phrase (`strong`, gras Markdown, nom en gras dans un fil d'activité) suit la même règle qu'un état ;
   - **dans les rôles à 800, l'emphase reste invisible, et c'est accepté** : 800 est la graisse la plus forte, rien n'est chargé au-dessus.
@@ -191,5 +191,6 @@ Format : situation, erreur plausible, règle citée, version conforme.
 ## 13. À trancher
 
 - **Taux de complétion sous 400 px de large et anneau sur desktop** : à vérifier à l'écran pendant le test.
+- **Option choisie d'une Navigation à 800** : vérifier à l'écran pendant le test que le passage à 800 ne décale pas les onglets et filtres voisins.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).
 - **Nouveau cas de Chiffre mis en avant grand** : la proposition ne réserve le grand niveau qu'au score de fin de quiz. Tout autre candidat est à trancher.
