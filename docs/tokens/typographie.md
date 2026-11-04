@@ -20,8 +20,8 @@ Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px en
 | Taille | Sortie en rem | Rôles |
 |---:|---:|---|
 | 13 px | 0,8125 rem | Méta, Surtitre, Pastille |
-| 14 px | 0,875 rem | Texte secondaire, Libellé de champ |
-| 15 px | 0,9375 rem | Corps courant, Bouton, Lien texte, Navigation, Compteur |
+| 14 px | 0,875 rem | Texte secondaire, Navigation, Libellé de champ |
+| 15 px | 0,9375 rem | Corps courant, Bouton, Lien texte, Compteur |
 | 16 px | 1 rem | Titre de ligne, Saisie et choix |
 | 17 px | 1,0625 rem | Texte de lecture (sous 768 px) |
 | 18 px | 1,125 rem | Titre de carte standard, Texte de lecture (à partir de 768 px) |
@@ -69,7 +69,7 @@ Titre de carte et Chiffre mis en avant ont chacun deux niveaux, d'où 20 lignes.
 | Surtitre | 13 px | 13 px | 700 | 1,2 | normal | Libellé court posé au-dessus d'un titre (thème, « Tu en es là »). |
 | Bouton | 15 px | 15 px | 800 | 1,2 | normal | Libellé d'un bouton (plein, contour, pointillé, Retour). |
 | Lien texte | 15 px | 15 px | 700 | 1,2 | normal | Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Annuler »). |
-| Navigation | 15 px | 15 px | 700 | 1,2 | normal | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes). |
+| Navigation | 14 px | 14 px | 700 | 1,2 | normal | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes). |
 | Libellé de champ | 14 px | 14 px | 600 | 1,2 | normal | Nomme un champ de formulaire. |
 | Saisie et choix | 16 px | 16 px | 600 | 1,2 | normal | Texte tapé ou choisi par l'utilisateur. |
 | Pastille | 13 px | 13 px | 800 | 1,2 | normal | Texte d'une pastille, numéros dans une pastille ronde compris. |
@@ -97,7 +97,7 @@ Aucun rôle n'a d'espacement des lettres.
 - Navigation : une option reste marquée comme choisie, et le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données. Exemples : barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes.
 - Lien texte : une action écrite sans forme de bouton, sans état choisi, qui agit ou mène ailleurs une fois. Exemples : « Tout voir », « Revoir la leçon », « Passer cette étape », « Annuler ».
 - L'option choisie d'une Navigation suit la règle des états (section 8) : graisse un cran au-dessus, 800.
-- Les deux rôles ont aujourd'hui les mêmes valeurs (section 13).
+- « Se déconnecter » et les actions du menu « … » de l'espace formateur sont des Liens texte : pas d'état choisi, une action sur la session ou les données.
 
 **Bouton ou Lien texte : la forme.** Un texte d'action posé dans une forme de bouton (fond, contour ou pointillé, padding, zone cliquable de bouton) prend le rôle Bouton ; sans forme de bouton, Lien texte. **Le libellé du bouton Retour est en rôle Bouton** : la variante Retour (pilule blanche, padding, zone de 44 px) a une forme de bouton.
 
@@ -190,8 +190,6 @@ Format : situation, erreur plausible, règle citée, version conforme.
 
 ## 13. À trancher
 
-- **Lien texte et Navigation ont les mêmes valeurs** (15 px · 700 · 1,2). Un seul token partagé ou deux tokens : à décider à l'étape des tokens.
 - **Taux de complétion sous 400 px de large et anneau sur desktop** : à vérifier à l'écran pendant le test.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).
 - **Nouveau cas de Chiffre mis en avant grand** : la proposition ne réserve le grand niveau qu'au score de fin de quiz. Tout autre candidat est à trancher.
-- **Deux éléments rangés en Navigation que le critère de la section 6 rangerait en Lien texte**, signalés par la proposition sans être déplacés : « Se déconnecter » (agit une fois, sans état choisi) et les actions du menu « … » (agissent sur les données).

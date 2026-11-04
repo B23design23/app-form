@@ -35,8 +35,8 @@
 | Méta | Information courte et factuelle sur un élément : contenu, date, compte, statut | 13 px | 13 px | **600** | 1,2 | normal | 45 |
 | Surtitre | Libellé court posé au-dessus d'un titre (thème, « Tu en es là ») | 13 px | 13 px | 700 | 1,2 | normal | 12 |
 | Bouton | Libellé d'un bouton (plein, contour, pointillé, Retour) | **15 px** | **15 px** | 800 | 1,2 | normal | 21 |
-| Lien texte | Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Annuler ») | 15 px | 15 px | **700** | 1,2 | normal | 18 |
-| Navigation | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes) | **15 px** | **15 px** | 700 | 1,2 | normal | 8 |
+| Lien texte | Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Annuler ») | 15 px | 15 px | **700** | 1,2 | normal | 20 |
+| Navigation | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu, repère d'étapes) | 14 px | 14 px | 700 | 1,2 | normal | 6 |
 | Libellé de champ | Nomme un champ de formulaire | 14 px | 14 px | **600** | 1,2 | normal | 4 |
 | Saisie et choix | Texte tapé ou choisi par l'utilisateur. 16 px est une contrainte technique : Safari sur iOS agrandit la page quand on touche un champ dont le texte fait moins de 16 px | 16 px | 16 px | 600 | 1,2 | normal | 18 |
 | Pastille | Texte d'une pastille, numéros dans une pastille ronde compris | 13 px | 13 px | 800 | 1,2 | normal | 24 |
@@ -44,7 +44,7 @@
 | Chiffre mis en avant, grand | Nombre sujet de son bloc, au grand niveau : score de fin de quiz | 48 px | 48 px | 800 | 1 | normal | 1 |
 | Compteur | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP ») | **15 px** | **15 px** | 800 | 1,2 | normal | 10 |
 
-En gras : valeurs qui changent par rapport à la version 2 (Saisie et choix revient à 16 px par décision finale ; Compteur passe à 15 px depuis que l'XP du dashboard y est rattaché). Lien texte et Navigation ont désormais les mêmes valeurs (15 px · 700 · 1,2) ; ils restent deux rôles, leurs fonctions diffèrent.
+En gras : valeurs qui changent par rapport à la version 2 (Saisie et choix revient à 16 px par décision finale ; Compteur passe à 15 px depuis que l'XP du dashboard y est rattaché). Navigation garde la valeur de la version 2 (14 px · 700 · 1,2) depuis que « Se déconnecter » et les actions du menu « … » sont passés en Lien texte.
 
 **Chiffre mis en avant ou Compteur : test binaire.** Si le nombre est le sujet du bloc (le bloc existe pour le montrer), c'est un Chiffre mis en avant. Sinon, c'est un Compteur : position, avancement, total ou gain qui accompagne le sujet du bloc. Un nombre a un rôle et un seul ; la forme du nombre (pourcentage, fraction, entier) ne décide jamais.
 
@@ -68,7 +68,7 @@ Vérification des éléments rattachés aux deux rôles :
 
 **Lien texte ou Navigation : critère de choix.** Navigation : une option reste marquée comme choisie, et le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données. Lien texte : une action écrite sans forme de bouton, sans état choisi, qui agit ou mène ailleurs une fois. L'option choisie d'une Navigation suit la règle des états (section 4).
 
-Vérification des éléments rattachés aux deux rôles (aucun n'est déplacé ici) :
+Vérification des éléments rattachés aux deux rôles :
 
 | Élément | Rôle | État choisi ? | Effet | Conforme au critère ? |
 |---|---|---|---|---|
@@ -78,8 +78,8 @@ Vérification des éléments rattachés aux deux rôles (aucun n'est déplacé i
 | Pastilles de section collantes (Création de cours, sous 1024 px) | Navigation | oui (section visible) | fait défiler jusqu'à la section | oui |
 | Entrées du sommaire (Création de cours, à partir de 1024 px) | Navigation | oui (section visible) | fait défiler jusqu'à la section | oui |
 | Libellés du repère d'étapes (Fiche) | Navigation | oui (étape en cours) | change d'étape | oui |
-| « Se déconnecter » (menu de la navigation) | Navigation | non | agit une fois (ferme la session) | **signalé** : relèverait du Lien texte |
-| Actions du menu « … » (« Relancer par email », « Retirer du groupe », « Supprimer… ») | Navigation | non | agissent sur les données | **signalé** : relèveraient du Lien texte |
+| « Se déconnecter » (menu de la navigation) | Lien texte (déplacé depuis Navigation) | non | agit une fois (ferme la session) | oui |
+| Actions du menu « … » de l'espace formateur (« Relancer par email », « Retirer du groupe », « Supprimer… ») | Lien texte (déplacé depuis Navigation) | non | agissent sur les données | oui |
 | « Tout voir », « Voir les N autres », « Voir plus », « Mes badges · X/6 » | Lien texte | non | mène ailleurs ou déplie une fois | oui |
 | « Revoir la leçon », « Revoir mes erreurs », « Passer cette étape », « Passer » (Introduction) | Lien texte | non | mène ailleurs ou agit une fois | oui |
 | « Annuler » (modales, barre de Création), « Supprimer ce groupe », « Quitter l'aperçu », « Assigner », « Voir comme un élève », « Créer un groupe », lien sous le bouton du parcours, « Simuler l'ouverture du lien » | Lien texte | non | agit ou mène ailleurs une fois | oui |
@@ -153,8 +153,8 @@ Corps courant : 15 px · 500 · 1,45, imposé. C'est déjà la combinaison la pl
 | Taille | rem | Rôles |
 |---|---|---|
 | 13 px | 0,8125 rem | Méta, Surtitre, Pastille |
-| 14 px | 0,875 rem | Texte secondaire, Libellé de champ |
-| 15 px | 0,9375 rem | Corps courant, Bouton, Lien texte, Navigation, Compteur |
+| 14 px | 0,875 rem | Texte secondaire, Navigation, Libellé de champ |
+| 15 px | 0,9375 rem | Corps courant, Bouton, Lien texte, Compteur |
 | 16 px | 1 rem | Titre de ligne, Saisie et choix |
 | 17 px | 1,0625 rem | Texte de lecture (mobile) |
 | 18 px | 1,125 rem | Titre de carte standard, Texte de lecture (desktop) |
@@ -168,7 +168,7 @@ Corps courant : 15 px · 500 · 1,45, imposé. C'est déjà la combinaison la pl
 
 Pas de taille intermédiaire absente de la prod (27 et 21 px pour Titre de contenu et Titre de carte grand refusés). Les 21 px du Titre de section restent : c'est une taille de la prod (intertitre de la leçon, titre de la modale Mes badges).
 
-Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px est la taille la plus partagée (cinq rôles). Trois rôles changent de taille à 768 px : Titre de page, Titre de contenu, Texte de lecture.
+Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px est la taille la plus partagée (quatre rôles). Trois rôles changent de taille à 768 px : Titre de page, Titre de contenu, Texte de lecture.
 
 ## 3. Impact
 
@@ -179,9 +179,10 @@ Par rapport à la version 2 : 20 px sort, 21 px entre. 15 px est la taille la pl
 | Version 2, reclassée avec le critère de la version 3 | 83 | 117 | 75 | 192 |
 | Version 3 avant décisions finales | 55 | 179 | 41 | 220 |
 | Version 3 validée (6a91be6) | 57 | 178 | 40 | 218 |
-| **Version 3 validée, mise à jour (Retour en Bouton)** | **59** | **176** | **40** | **216** |
+| Version 3 validée, Retour en Bouton (5013177) | 59 | 176 | 40 | 216 |
+| **Version 3 validée, menus en Lien texte** | **59** | **176** | **40** | **216** |
 
-Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à corriger (section 10). Les deux libellés de Retour passés en Bouton deviennent identiques (15 px · 800 en prod comme dans le rôle) ; les valeurs des rôles Bouton et Lien texte ne changent pas.
+Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à corriger (section 10). Les deux libellés de Retour passés en Bouton deviennent identiques (15 px · 800 en prod comme dans le rôle) ; les valeurs des rôles Bouton et Lien texte ne changent pas. Le passage de « Se déconnecter » et des actions du menu « … » en Lien texte laisse les totaux identiques (deux changements discrets dans les deux cas) mais ramène Navigation à 14 px.
 
 | Rôle | Valeur v3 avant décisions | Valeur finale | Éléments | Identique | Discret | Visible |
 |---|---|---|---|---|---|---|
@@ -197,8 +198,8 @@ Sur 275 éléments. Les 40 changements visibles sont acceptés comme dérives à
 | Méta | 13 px · 600 · 1,2 | 13 px · 600 · 1,2 | 45 | 7 | 37 | 1 |
 | Surtitre | 13 px · 700 · 1,2 | 13 px · 700 · 1,2 | 12 | 9 | 2 | 1 |
 | Bouton | 15 px · 800 · 1,2 | 15 px · 800 · 1,2 | 21 | 5 | 16 | 0 |
-| Lien texte | 15 px · 700 · 1,2 | 15 px · 700 · 1,2 | 18 | 1 | 17 | 0 |
-| Navigation | 15 px · 700 · 1,2 | 15 px · 700 · 1,2 | 8 | 2 | 6 | 0 |
+| Lien texte | 15 px · 700 · 1,2 | 15 px · 700 · 1,2 | 20 | 1 | 19 | 0 |
+| Navigation | 15 px · 700 · 1,2 | 14 px · 700 · 1,2 **(changé)** | 6 | 2 | 4 | 0 |
 | Libellé de champ | 14 px · 600 · 1,2 | 14 px · 600 · 1,2 | 4 | 0 | 3 | 1 |
 | Saisie et choix | 15 px · 600 · 1,2 | 16 px · 600 · 1,2 **(changé)** | 18 | 3 | 11 | 4 |
 | Pastille | 13 px · 800 · 1,2 | 13 px · 800 · 1,2 | 24 | 5 | 15 | 4 |
@@ -490,7 +491,7 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Lien texte
 
-18 éléments : 1 identiques, 17 discrets, 0 visibles.
+20 éléments : 1 identiques, 19 discrets, 0 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
@@ -500,8 +501,10 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 | discret | Création de cours (≥ 1024) | bouton Retour « Mes cours » (`CreationCours.css:144`) | 16 px · 800 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 1 cran |
 | discret | Dashboard apprenant, Cours | lien « Tout voir » / « Mes badges · X/6 » (`Dashboard.css:166`) | 14 px · 800 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 1 cran |
 | discret | Dashboard formateur, admin | lien « Tout voir » (`DashboardFormateur.css:112`) | 14 px · 800 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 1 cran |
+| discret | Espace formateur | action du menu « … » (`Formateur.css:297`) | 16 px · 700 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 0 |
 | discret | Modales, barre de Création de cours | lien d'action « Annuler » (`Formateur.css:397`) | 16 px · 800 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 1 cran |
 | discret | Parcours : Introduction | lien « Passer » (`GabaritParcours.css:135`) | 16 px · 800 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 1 cran |
+| discret | Navigation | entrée du menu (Se déconnecter) (`espace-layout.css:123`) | 14,4 px · 600 · 1,2 | 15 px · 700 · 1,2 | 0,6 px · graisse 1 cran |
 | discret | Création de cours | liens « Voir comme un élève » / « Créer un groupe » (`CreationCours.css:208`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
 | discret | Dashboard formateur | lien « Voir les N autres » / « Voir plus » (`DashboardFormateur.css:128`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
 | discret | Détail groupe | bouton texte « Supprimer ce groupe » (`Formateur.css:433`) | 15 px · 800 · 1,2 | 15 px · 700 · 1,2 | 0 px · graisse 1 cran |
@@ -514,16 +517,14 @@ Seuls les éléments qui changent sont listés, visibles d'abord. Valeurs : tail
 
 ### Navigation
 
-8 éléments : 2 identiques, 6 discrets, 0 visibles.
+6 éléments : 2 identiques, 4 discrets, 0 visibles.
 
 | Niveau | Écran | Élément | Rendu actuel | Proposé | Écart |
 |---|---|---|---|---|---|
-| discret | Navigation | libellé d'entrée de la tab bar (mobile) (`espace-layout.css:48`) | 11,52 / 14,4 px · 700 · 1,2 | 15 px · 700 · 1,2 | 3,48 px · graisse 0 |
-| discret | Création de cours | onglet « Écrire / Aperçu » (`CreationCours.css:409`) | 14 px · 700 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 0 |
-| discret | Dashboard formateur | pastilles de filtre « Tout / Commencés / Terminés » (`DashboardFormateur.css:494`) | 14 px · 700 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 0 |
-| discret | Espace formateur | action du menu « … » (`Formateur.css:297`) | 16 px · 700 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 0 |
-| discret | Fiche : leçon, checklist | libellé d'étape (Leçon, Quiz · 4/5…) (`ReperEtapes.css:67`) | 14 px · 600 · 1,2 | 15 px · 700 · 1,2 | 1 px · graisse 1 cran |
-| discret | Navigation | entrée du menu (Se déconnecter) (`espace-layout.css:123`) | 14,4 px · 600 · 1,2 | 15 px · 700 · 1,2 | 0,6 px · graisse 1 cran |
+| discret | Navigation | libellé d'entrée de la tab bar (mobile) (`espace-layout.css:48`) | 11,52 / 14,4 px · 700 · 1,2 | 14 px · 700 · 1,2 | 2,48 px · graisse 0 |
+| discret | Création de cours (< 1024) | pastille de section collante (`CreationCours.css:94`) | 15 px · 700 · 1,2 | 14 px · 700 · 1,2 | 1 px · graisse 0 |
+| discret | Création de cours (≥ 1024) | entrée du sommaire (`CreationCours.css:181`) | 15 px · 700 · 1,2 | 14 px · 700 · 1,2 | 1 px · graisse 0 |
+| discret | Fiche : leçon, checklist | libellé d'étape (Leçon, Quiz · 4/5…) (`ReperEtapes.css:67`) | 14 px · 600 · 1,2 | 14 px · 700 · 1,2 | 0 px · graisse 1 cran |
 
 ### Libellé de champ
 
@@ -727,7 +728,7 @@ CLAUDE.md n'est pas modifié. Tailles (et graisses, quand il les donne) qu'il d�
 
 ## 8. Ce qui change depuis la version 2
 
-- Valeurs : 10 jeux de valeurs sur 20 changent (en gras en section 1) : Titre de section 20 → 21 px, Titre de carte standard 17 → 18 px, Titre de ligne 15 → 16 px, Texte secondaire 700 → 600, Méta 500 → 600, Bouton 16 → 15 px, Lien texte 800 → 700, Navigation 14 → 15 px, Libellé de champ 700 → 600, Compteur 14 → 15 px. Saisie et choix reste à 16 px.
+- Valeurs : 9 jeux de valeurs sur 20 changent (en gras en section 1) : Titre de section 20 → 21 px, Titre de carte standard 17 → 18 px, Titre de ligne 15 → 16 px, Texte secondaire 700 → 600, Méta 500 → 600, Bouton 16 → 15 px, Lien texte 800 → 700, Libellé de champ 700 → 600, Compteur 14 → 15 px. Saisie et choix reste à 16 px et Navigation à 14 px.
 - Rôles, fusions et niveaux : inchangés. Rattachements inchangés, sauf trois décisions finales : XP de l'en-tête du dashboard → Compteur ; « Bonne réponse » (Détail cours) et « Ta réponse / Bonne réponse » (Fin de quiz) → état du Corps courant.
 - Variantes d'état : les parties plus légères prennent la graisse du rôle ; l'emphase suit la règle des états.
 
@@ -749,7 +750,7 @@ Validées le 2026-11-04.
 8. **Pourcentage de l'anneau du dashboard apprenant : rôle Compteur** (15 px · 800 · 1,2), sur mobile et sur desktop. Le sujet du bloc « cours en cours » est le cours : le titre le nomme, le bouton mène à la suite, et le pourcentage dit où l'on en est dans ce cours. La place à l'intérieur de l'anneau n'est qu'une vérification : « 100 % » tient en 15 px sur mobile (environ 38,5 px de large pour 58,8 px libres).
 9. **Chiffre mis en avant et Compteur se distinguent par le sujet du bloc**, jamais par la forme du nombre.
 10. **Test binaire** : si le nombre est le sujet du bloc, Chiffre mis en avant ; sinon Compteur (position, avancement, total ou gain qui accompagne le sujet). Un nombre a un rôle et un seul. « 80 % » sous le score de fin de quiz et « +15 XP » du toast restent Compteur ; ils ne sont plus signalés.
-11. **Lien texte ou Navigation** : Navigation quand une option reste marquée comme choisie et que le choix change ce qu'on voit sans agir sur les données ; Lien texte pour une action sans forme de bouton ni état choisi, qui agit ou mène ailleurs une fois. L'option choisie d'une Navigation monte d'un cran (800). Deux éléments sont signalés sans être déplacés : « Se déconnecter » et les actions du menu « … ».
+11. **Lien texte ou Navigation** : Navigation quand une option reste marquée comme choisie et que le choix change ce qu'on voit sans agir sur les données ; Lien texte pour une action sans forme de bouton ni état choisi, qui agit ou mène ailleurs une fois. L'option choisie d'une Navigation monte d'un cran (800). « Se déconnecter » et les actions du menu « … » de l'espace formateur passent de Navigation à Lien texte (pas d'état choisi, action sur la session ou les données) ; la valeur de Navigation redevient 14 px · 700 · 1,2.
 12. **Libellé du bouton Retour : rôle Bouton** (la variante Retour a une forme de bouton). Les deux Retour qui suivent la variante passent en Bouton ; les trois qui n'ont pas sa forme restent en Lien texte comme dérives à corriger vers la variante, à l'étape écrans.
 
 Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 discrets, 40 visibles**.
@@ -782,9 +783,9 @@ Totaux de la proposition validée, sur 275 éléments : **57 identiques, 178 dis
 
 **Bouton** (21) : · libellé du bouton principal (Partagé, `shared.css:200`) ; · libellé du bouton secondaire (Partagé, `shared.css:230`) ; · libellé du bouton orange (quiz flash) (Dashboard apprenant, `shared.css:255`) ; · bouton pointillé « + Ajouter… » (Création de cours, `shared.css:380`) ; · libellé du bouton du parcours (écrasé par .bouton-primaire / .bouton-secondaire) (Parcours, `GabaritParcours.css:86`) ; · libellé du bouton rouge (Modale de confirmation, `Formateur.css:411`) ; ✓ bouton Retour « Cours » (Détail thème, `DetailTheme.css:21`) ; ✓ bouton Retour (nom court du thème) (Fiche, `FicheCours.css:170`) ; · libellé du bouton blanc (Fiche : leçon, checklist, `FicheCours.css:374`) ; · libellé du bouton « Valider ma réponse » (Fiche : quiz, Quiz flash, `FicheCours.css:685`) ; · libellé du bouton principal (Fin de quiz, `FicheCours.css:901`) ; · libellé des boutons « Relire / Refaire / Revoir » (Récap, `FicheCours.css:1323`) ; · libellé du bouton blanc à flèche (Dashboard apprenant, `Dashboard.css:222`) ; · libellé du bouton large orange (Dashboard apprenant, `Dashboard.css:255`) ; ✓ libellé du bouton « Commencer » (Dashboard apprenant, `Dashboard.css:410`) ; ✓ libellé du bouton « Lancer » (Dashboard apprenant, `Dashboard.css:495`) ; · libellé du bouton d'étape (Dashboard formateur : Pour bien démarrer, `DashboardFormateur.css:740`) ; ✓ carte pointillée « + Assigner un cours » (Détail groupe, `DetailGroupe.css:137`) ; · bouton d'outil « Image / Vidéo » (Création de cours, `CreationCours.css:438`) ; · bouton « Image » d'étape (Création de cours, `CreationCours.css:1038`) ; · bouton « Lancer » vertical (Dashboard apprenant (desktop, colonne étroite), `Dashboard.css:960`).
 
-**Lien texte** (18) : · lien « ← Retour » (Mot de passe oublié, `shared.css:321`) ; · lien secondaire (simuler le lien) (Mot de passe oublié, `shared.css:343`) ; ✓ lien sous le bouton (« Déjà un compte ? … ») (Parcours, `GabaritParcours.css:106`) ; · lien « Passer » (Parcours : Introduction, `GabaritParcours.css:135`) ; · texte du lien Retour « ‹ Mes cours » (Espace formateur, `Formateur.css:161`) ; · lien d'action « Annuler » (Modales, barre de Création de cours, `Formateur.css:397`) ; · bouton texte « Supprimer ce groupe » (Détail groupe, `Formateur.css:433`) ; · bouton « Quitter l'aperçu » (Aperçu élève, `FicheCours.css:115`) ; · lien « Revoir la leçon » (Fiche : quiz, Quiz flash, `FicheCours.css:673`) ; · liens « Revoir mes erreurs »… (Fin de quiz, `FicheCours.css:919`) ; · lien « Passer cette étape » (Fiche : checklist, `FicheCours.css:1153`) ; · lien « Tout voir » / « Mes badges · X/6 » (Dashboard apprenant, Cours, `Dashboard.css:166`) ; · lien « Tout voir » (Dashboard formateur, admin, `DashboardFormateur.css:112`) ; · lien « Voir les N autres » / « Voir plus » (Dashboard formateur, `DashboardFormateur.css:128`) ; · lien « Assigner » (Détail groupe, `DetailGroupe.css:87`) ; · lien « Voir les N autres » (Détail groupe, `DetailGroupe.css:255`) ; · bouton Retour « Mes cours » (Création de cours (≥ 1024), `CreationCours.css:144`) ; · liens « Voir comme un élève » / « Créer un groupe » (Création de cours, `CreationCours.css:208`).
+**Lien texte** (20) : · entrée du menu (Se déconnecter) (Navigation, `espace-layout.css:123`) ; · lien « ← Retour » (Mot de passe oublié, `shared.css:321`) ; · lien secondaire (simuler le lien) (Mot de passe oublié, `shared.css:343`) ; ✓ lien sous le bouton (« Déjà un compte ? … ») (Parcours, `GabaritParcours.css:106`) ; · lien « Passer » (Parcours : Introduction, `GabaritParcours.css:135`) ; · texte du lien Retour « ‹ Mes cours » (Espace formateur, `Formateur.css:161`) ; · action du menu « … » (Espace formateur, `Formateur.css:297`) ; · lien d'action « Annuler » (Modales, barre de Création de cours, `Formateur.css:397`) ; · bouton texte « Supprimer ce groupe » (Détail groupe, `Formateur.css:433`) ; · bouton « Quitter l'aperçu » (Aperçu élève, `FicheCours.css:115`) ; · lien « Revoir la leçon » (Fiche : quiz, Quiz flash, `FicheCours.css:673`) ; · liens « Revoir mes erreurs »… (Fin de quiz, `FicheCours.css:919`) ; · lien « Passer cette étape » (Fiche : checklist, `FicheCours.css:1153`) ; · lien « Tout voir » / « Mes badges · X/6 » (Dashboard apprenant, Cours, `Dashboard.css:166`) ; · lien « Tout voir » (Dashboard formateur, admin, `DashboardFormateur.css:112`) ; · lien « Voir les N autres » / « Voir plus » (Dashboard formateur, `DashboardFormateur.css:128`) ; · lien « Assigner » (Détail groupe, `DetailGroupe.css:87`) ; · lien « Voir les N autres » (Détail groupe, `DetailGroupe.css:255`) ; · bouton Retour « Mes cours » (Création de cours (≥ 1024), `CreationCours.css:144`) ; · liens « Voir comme un élève » / « Créer un groupe » (Création de cours, `CreationCours.css:208`).
 
-**Navigation** (8) : · libellé d'entrée de la tab bar (mobile) (Navigation, `espace-layout.css:48`) ; · entrée du menu (Se déconnecter) (Navigation, `espace-layout.css:123`) ; · libellé d'étape (Leçon, Quiz · 4/5…) (Fiche : leçon, checklist, `ReperEtapes.css:67`) ; · action du menu « … » (Espace formateur, `Formateur.css:297`) ; · pastilles de filtre « Tout / Commencés / Terminés » (Dashboard formateur, `DashboardFormateur.css:494`) ; ✓ pastille de section collante (Création de cours (< 1024), `CreationCours.css:94`) ; ✓ entrée du sommaire (Création de cours (≥ 1024), `CreationCours.css:181`) ; · onglet « Écrire / Aperçu » (Création de cours, `CreationCours.css:409`).
+**Navigation** (6) : · libellé d'entrée de la tab bar (mobile) (Navigation, `espace-layout.css:48`) ; · libellé d'étape (Leçon, Quiz · 4/5…) (Fiche : leçon, checklist, `ReperEtapes.css:67`) ; ✓ pastilles de filtre « Tout / Commencés / Terminés » (Dashboard formateur, `DashboardFormateur.css:494`) ; · pastille de section collante (Création de cours (< 1024), `CreationCours.css:94`) ; · entrée du sommaire (Création de cours (≥ 1024), `CreationCours.css:181`) ; ✓ onglet « Écrire / Aperçu » (Création de cours, `CreationCours.css:409`).
 
 **Libellé de champ** (4) : · libellé de champ (.champ) (Partagé (modales, Détail groupe, Mes cours, mot de passe), `shared.css:126`) ; ● libellé de champ (Parcours, `GabaritParcours.css:228`) ; · libellé de champ (Création de cours, `CreationCours.css:266`) ; · libellé « Bonne réponse » (Création de cours, `CreationCours.css:832`).
 
