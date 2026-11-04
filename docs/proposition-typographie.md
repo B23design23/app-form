@@ -26,7 +26,7 @@
 | Titre de page | Nomme l'écran ; un seul par écran, en tête | 34 px | 44 px | 800 | 1,1 | normal | 9 |
 | Titre de contenu | Nomme l'objet que l'écran présente (cours, thème, question) | 28 px | 32 px | 800 | 1,1 | normal | 6 |
 | Titre de section | Le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu) | **21 px** | **21 px** | 800 | 1,2 | normal | 19 |
-| Titre de carte | Le titre nomme l'objet ou l'action que la carte présente (un cours, un thème, un groupe, un badge, ce qu'on va faire) | **18 px** | **18 px** | 800 | 1,2 | normal | 14 |
+| Titre de carte | Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information | **18 px** | **18 px** | 800 | 1,2 | normal | 14 |
 | Titre de ligne | Nomme un élément de liste, ou rappelle un titre dans une barre compacte | **16 px** | **16 px** | 800 | 1,2 | normal | 17 |
 | Texte de lecture | Texte de la leçon, dans la fiche et dans son aperçu | 17 px | 18 px | 500 | 1,55 | normal | 2 |
 | Corps courant | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées | 15 px | 15 px | 500 | 1,45 | normal | 19 |
@@ -108,12 +108,13 @@ Aucun autre élément du relevé ne diffère. Aucun cas ne demande de nouvelle d
 
 **Titre de section ou Titre de carte (décision 19, remplace la définition de la décision 15).**
 - Titre de section : le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). Exemples : « De ton formateur », « Taux de complétion », intertitres de leçon, « À retenir ».
-- Titre de carte : le titre nomme l'objet ou l'action que la carte présente (un cours, un thème, un groupe, un badge, ce qu'on va faire). Exemples : « Étape suivante », « Suite du thème », « X étapes sur N », carte de thème.
+- Titre de carte : le titre nomme ce que la carte présente (un objet, une action : un cours, un thème, un groupe, un badge, ce qu'on va faire), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours »). En dessous, une explication ou une information. Exemples : « Étape suivante », « Suite du thème », « X étapes sur N », carte de thème.
 - Test : le titre est-il le nom d'une chose (Titre de carte) ou le nom d'une partie (Titre de section) ?
+- Surfaces entières : Une modale ou une feuille de menu prend le Titre de section, quel que soit son texte : elle tient la place d'un écran. Le test du nom vaut pour les cartes et les parties de page.
 
 « À retenir » (fiche, aperçu de Création, Détail cours) est un Titre de section : il ne nomme aucun objet, il annonce les points qui suivent, comme un intertitre (décision 20).
 
-Test appliqué à tous les éléments des deux rôles (aucun élément n'est déplacé ici, en dehors de « À retenir ») :
+Test appliqué à tous les éléments des deux rôles (seul « À retenir » a été déplacé) :
 
 | Élément | Rôle | Nom d'une chose ou d'une partie ? | Conforme ? |
 |---|---|---|---|
@@ -127,14 +128,14 @@ Test appliqué à tous les éléments des deux rôles (aucun élément n'est dé
 | « Thèmes », « N résultats » (Cours) | Titre de section | partie | oui |
 | « Mes badges » (modale) | Titre de section | partie (la collection) | oui |
 | « À retenir » (fiche, aperçu, Détail cours) | Titre de section | partie | oui (décision 20) |
-| Titre de la feuille du menu « … » (mobile) | Titre de section | **chose** : la feuille porte le nom de l'élément (nom du groupe, du cours, de l'élève) | **signalé** : le test le range en Titre de carte, la définition cite la feuille de menu en Titre de section |
-| Titres des modales (« Nouveau groupe », « Assigner des cours », « Supprimer ce groupe ? »…) | Titre de section | **action** : le titre nomme ce qu'on va faire | **signalé** : le test le range en Titre de carte (« ce qu'on va faire »), la définition cite la modale en Titre de section |
+| Titre de la feuille du menu « … » (mobile) | Titre de section | surface entière (la feuille porte le nom de l'élément) | oui : une feuille de menu prend le Titre de section quel que soit son texte (décision 23) |
+| Titres des modales (« Nouveau groupe », « Assigner des cours », « Supprimer ce groupe ? »…) | Titre de section | surface entière (le titre nomme ce qu'on va faire) | oui : une modale prend le Titre de section quel que soit son texte (décision 23) |
 | Titre de la carte « Étape suivante », titre du cours suivant (« Suite du thème »), « X étapes sur N » | Titre de carte | chose ou action | oui |
 | Nom du badge débloqué, carte de thème, carte de cours (Mes cours), carte de groupe (Mes groupes), cartes de profil (« Apprendre », « Former mes élèves ») | Titre de carte | chose ou action | oui |
 | « Quiz flash » (bloc en ligne, verrouillé, vertical) | Titre de carte | chose | oui |
 | Titre du toast de complétion (« Checklist terminée »…) | Titre de carte | chose (ce qui vient d'être terminé) | oui |
-| Titre de carte blanche ou lavande du dashboard apprenant | Titre de carte | chose (le cours conseillé, le prochain badge) ; pour la bibliothèque terminée, une phrase (« Tu as fini les N cours ») | **signalé** pour la bibliothèque terminée : ni le nom d'une chose ni celui d'une partie |
-| Titre du bloc de correction du quiz (« Bien vu », « Raté, mais tu vas retenir ça ») | Titre de carte | ni l'un ni l'autre : un verdict qui annonce l'explication | **signalé** : le test ne tranche pas |
+| Titre de carte blanche ou lavande du dashboard apprenant | Titre de carte | chose (le cours conseillé, le prochain badge) ; pour la bibliothèque terminée, où l'on en est (« Tu as fini les N cours ») | oui (décision 24) |
+| Titre du bloc de correction du quiz (« Bien vu », « Raté, mais tu vas retenir ça ») | Titre de carte | où l'on en est, avec l'explication en dessous | oui (décision 24) |
 
 La liste complète des éléments de chaque rôle est en annexe.
 
@@ -819,8 +820,10 @@ Validées le 2026-11-04.
 18. **Fin de quiz : score en pourcentage seulement** (décision produit). Le « 4/5 » est retiré de cet écran ; le pourcentage passe en Chiffre mis en avant grand (48 px · 800 · 1). L'élément « 80 % » en Compteur n'existe plus. Le repère d'étapes (« Quiz · 4/5 ») et le récap (« Meilleur score : 4/5 ») ne changent pas. Totaux : 53 identiques, 176 discrets, 45 visibles, sur 274 éléments.
 19. **Titre de section ou Titre de carte : test du nom.** Titre de section : le titre nomme une partie de la page ou du contenu et annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). Titre de carte : le titre nomme l'objet ou l'action que la carte présente (un cours, un thème, un groupe, un badge, ce qu'on va faire). Test : nom d'une chose (Titre de carte) ou nom d'une partie (Titre de section) ? Remplace la définition de la décision 15, qui comptait le contenu de la carte.
 20. **« À retenir » (fiche, aperçu de Création, Détail cours) : Titre de section** (21 px · 800 · 1,2). Il ne nomme aucun objet, il annonce les points qui suivent, comme un intertitre. Changement visible (17 → 21 px), accepté comme dérive. Totaux : 53 identiques, 174 discrets, 47 visibles, sur 274 éléments.
-21. **Valeur du Titre de carte : 18 px · 800 · 1,2 confirmé.** Avant le passage de « À retenir » en Titre de section, 18 et 19 px étaient à égalité sur les deux critères (changements visibles, puis total) ; l'écart cumulé n'est pas un critère ; 18 px est déjà dans l'échelle, 19 px n'y est pas. Après le passage de « À retenir » (décision 20), l'égalité ne tient plus : sur les 14 éléments restants, 19 px donnerait 8 changements visibles et 18 px en donne 10 (13 changements au total dans les deux cas). 18 px reste la valeur décidée ; 19 px ajouterait une treizième taille à l'échelle.
+21. **Valeur du Titre de carte : 18 px · 800 · 1,2 confirmé.** L'échelle est une liste fermée (section 2) : 18 px y figure déjà, et l'on ne crée pas de taille pour un seul rôle.
 22. **Fin de quiz en pourcentage seul : confirmé aussi pour le quiz flash** (même écran, `EcranFinQuiz`).
+23. **Surfaces entières** : une modale ou une feuille de menu prend le Titre de section, quel que soit son texte : elle tient la place d'un écran. Le test du nom vaut pour les cartes et les parties de page. Les titres de modale et de feuille de menu restent en Titre de section.
+24. **Titre de carte, définition complétée** : le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information. Le bloc de correction du quiz et « Tu as fini les N cours » restent en Titre de carte.
 
 ## 11. Écrans à corriger et suites
 
