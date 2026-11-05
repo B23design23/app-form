@@ -11,6 +11,7 @@ import StyleDictionary from 'style-dictionary'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import { CLE_PRIMITIF, NOM_PREPROCESSEUR, resoudreRefComposantes } from './resoudre-ref-composantes.mjs'
+import { surveillerTransformations, verifierTokens, verifierTransformations } from './verifier-tokens.mjs'
 import { FICHIER_COULEURS, FICHIER_REGLES, ecrireListeTokens, ecrireTablesCouleurs } from './lister-tokens-md.mjs'
 
 const SORTIE = 'src/styles/tokens.generes.css'
@@ -60,11 +61,11 @@ StyleDictionary.registerTransform({
 
 // Le groupe css transforme d'abord la valeur ; les transformations ci-dessus passent en dernier
 // pour remplacer la couleur brute par la référence et la taille en px par sa valeur en rem.
-const TRANSFORMS = [
+const TRANSFORMS = surveillerTransformations(StyleDictionary, [
   ...StyleDictionary.hooks.transformGroups.css,
   'skillo/couleur-alpha-reference',
   'skillo/typo-taille-rem',
-]
+])
 
 async function genererBloc({ include, source, selecteur, entete, filtre, avertissements = 'error' }) {
   const sd = new StyleDictionary({
@@ -94,6 +95,16 @@ async function genererBloc({ include, source, selecteur, entete, filtre, avertis
   const [fichier] = await sd.formatPlatform('css')
   return fichier.output
 }
+
+// Contrôles avant génération (voir verifier-tokens.mjs) : le bloc :root tourne en « warn ».
+await verifierTokens({
+  communs: COMMUNS,
+  paires: [
+    ['tokens/semantiques-apprenant.tokens.json', 'tokens/semantiques-formateur.tokens.json'],
+    [TYPO_MOBILE, TYPO_DESKTOP],
+  ],
+  interdits: ['typo.seuil-desktop'],
+})
 
 const racine = await genererBloc({
   source: [...COMMUNS, 'tokens/semantiques-apprenant.tokens.json', TYPO_MOBILE],
@@ -142,6 +153,8 @@ const { typo } = JSON.parse(await readFile('tokens/typographie.tokens.json', 'ut
 const seuil = typo['seuil-desktop'].$value
 const indenter = (texte) => texte.trim().split('\n').map((ligne) => (ligne ? `  ${ligne}` : ligne)).join('\n')
 const media = `@media (min-width: ${seuil.value}${seuil.unit}) {\n${indenter(typoDesktop)}\n}`
+
+verifierTransformations()
 
 await mkdir(dirname(SORTIE), { recursive: true })
 await writeFile(SORTIE, `${racine.trimEnd()}\n\n${formateur.trim()}\n\n${apprenant.trim()}\n\n${media}\n`)
