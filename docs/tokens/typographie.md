@@ -77,7 +77,7 @@ Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'u
 
 Aucun rôle n'a d'espacement des lettres.
 
-- **Précision Skillo** : deux rôles différents ne prennent jamais la même valeur (même taille, même graisse et même hauteur de ligne), sinon l'utilisateur ne voit pas la différence. C'est pourquoi le Titre de carte reste à 18 px : 21 px est refusé, c'est la valeur du Titre de section (décision 26 de `docs/proposition-typographie.md`).
+- **Précision Skillo** : deux rôles de titre (Titre de page, Titre de contenu, Titre de section, Titre de carte, Titre de ligne) ne prennent jamais la même valeur (même taille, même graisse et même hauteur de ligne) : entre deux niveaux de titre, seule la valeur montre la hiérarchie. Les autres rôles peuvent partager une valeur quand la forme ou la place les distingue (Bouton et Compteur, Texte secondaire et Libellé de champ). C'est pourquoi le Titre de carte reste à 18 px : 21 px est refusé, c'est la valeur du Titre de section (décision 26 de `docs/proposition-typographie.md`).
 
 ## 6. Choisir entre deux rôles voisins
 

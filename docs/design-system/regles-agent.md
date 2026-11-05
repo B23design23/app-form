@@ -205,8 +205,8 @@ Valeur : taille · graisse · hauteur de ligne. Un élément applique `font: var
 | Variable CSS | Valeur | Description |
 |---|---|---|
 | `--typo-titre-section` | 21 px · 800 · 1,2 | Le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). |
-| `--typo-titre-carte` | 18 px · 800 · 1,2 | Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information. |
-| `--typo-titre-ligne` | 16 px · 800 · 1,2 | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. |
+| `--typo-titre-carte` | 18 px · 800 · 1,2 | Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information. Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. |
+| `--typo-titre-ligne` | 16 px · 800 · 1,2 | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. |
 | `--typo-corps-courant` | 15 px · 500 · 1,45 | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées. |
 | `--typo-corps-courant-fort` | 15 px · 600 · 1,45 | État (choisi, en cours, fait, coché) ou emphase du rôle Corps courant. |
 | `--typo-texte-secondaire` | 14 px · 600 · 1,2 | Phrase qui accompagne un titre ou un contenu : sous-titre, état, aide, erreur, message. |
