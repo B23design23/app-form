@@ -21,6 +21,16 @@ function tokens(noeud, chemin = [], acc = new Map()) {
   return acc
 }
 
+// Descriptions ($description) des groupes d'un fichier, à toutes les profondeurs : chemin → texte
+function descriptionsGroupes(noeud, chemin = [], acc = new Map()) {
+  if (!noeud || typeof noeud !== 'object' || '$value' in noeud) return acc
+  if (chemin.length > 0 && typeof noeud.$description === 'string') acc.set(chemin.join('.'), noeud.$description)
+  for (const [cle, enfant] of Object.entries(noeud)) {
+    if (!cle.startsWith('$')) descriptionsGroupes(enfant, [...chemin, cle], acc)
+  }
+  return acc
+}
+
 // Références {a.b.c} contenues dans une valeur (chaîne, objet composé, tableau)
 function references(valeur) {
   if (typeof valeur === 'string') return [...valeur.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
@@ -36,7 +46,12 @@ function references(valeur) {
 export async function verifierTokens({ communs, paires, interdits }) {
   const fichiers = [...communs, ...paires.flat()]
   const parFichier = new Map()
-  for (const f of fichiers) parFichier.set(f, tokens(await lire(f)))
+  const groupesParFichier = new Map()
+  for (const f of fichiers) {
+    const contenu = await lire(f)
+    parFichier.set(f, tokens(contenu))
+    groupesParFichier.set(f, descriptionsGroupes(contenu))
+  }
 
   const erreurs = []
   const ou = new Map() // chemin → fichiers qui le définissent
@@ -89,6 +104,22 @@ export async function verifierTokens({ communs, paires, interdits }) {
         if (interdits.includes(ref)) {
           erreurs.push(`Token « ${chemin} » (${f}) fait référence à « ${ref} », qui ne sort pas en CSS.`)
         }
+      }
+    }
+  }
+
+  // 5. Un groupe présent dans plusieurs fichiers a la même $description partout (sinon Style
+  // Dictionary signale une collision, que le mode « warn » laisse passer). Un groupe sans
+  // $description dans un fichier n'entre pas en conflit : il prend celle des autres.
+  const descriptions = new Map() // groupe → [[fichier, texte]]
+  for (const [f, groupes] of groupesParFichier) {
+    for (const [groupe, texte] of groupes) descriptions.set(groupe, [...(descriptions.get(groupe) ?? []), [f, texte]])
+  }
+  for (const [groupe, liste] of descriptions) {
+    const [fichierRef, texteRef] = liste[0]
+    for (const [f, texte] of liste.slice(1)) {
+      if (texte !== texteRef) {
+        erreurs.push(`Groupe « ${groupe} » : $description différente entre ${fichierRef} et ${f}.\n    ${fichierRef} : « ${texteRef} »\n    ${f} : « ${texte} »`)
       }
     }
   }
