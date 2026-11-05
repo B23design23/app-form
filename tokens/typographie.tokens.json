@@ -1,0 +1,442 @@
+{
+  "typo": {
+    "$description": "Typographie. Un composant applique un rôle (font: var(--typo-<rôle>)) ou sa variante -fort (font: var(--typo-<rôle>-fort)), jamais un primitif, jamais font-size ni font-weight séparés. L'échelle est une liste fermée : 12 tailles (13, 14, 15, 16, 17, 18, 21, 28, 32, 34, 44, 48 px), 4 graisses (500, 600, 700, 800) ; aucune autre valeur n'est admise. Les tailles s'écrivent en px et sortent en rem (base 16 px). Un seul seuil typographique : 768 px (typo.seuil-desktop) ; les rôles qui en dépendent sont dans typographie-mobile et typographie-desktop, sous le même nom, jamais ici.",
+    "famille": {
+      "$type": "fontFamily",
+      "$value": [
+        "Urbanist",
+        "sans-serif"
+      ],
+      "$description": "Famille unique : Urbanist, avec sans-serif en secours."
+    },
+    "taille": {
+      "13": {
+        "$type": "dimension",
+        "$value": {
+          "value": 13,
+          "unit": "px"
+        },
+        "$description": "Taille de 13 px, sortie en rem (base 16 px)."
+      },
+      "14": {
+        "$type": "dimension",
+        "$value": {
+          "value": 14,
+          "unit": "px"
+        },
+        "$description": "Taille de 14 px, sortie en rem (base 16 px)."
+      },
+      "15": {
+        "$type": "dimension",
+        "$value": {
+          "value": 15,
+          "unit": "px"
+        },
+        "$description": "Taille de 15 px, sortie en rem (base 16 px)."
+      },
+      "16": {
+        "$type": "dimension",
+        "$value": {
+          "value": 16,
+          "unit": "px"
+        },
+        "$description": "Taille de 16 px, sortie en rem (base 16 px)."
+      },
+      "17": {
+        "$type": "dimension",
+        "$value": {
+          "value": 17,
+          "unit": "px"
+        },
+        "$description": "Taille de 17 px, sortie en rem (base 16 px)."
+      },
+      "18": {
+        "$type": "dimension",
+        "$value": {
+          "value": 18,
+          "unit": "px"
+        },
+        "$description": "Taille de 18 px, sortie en rem (base 16 px)."
+      },
+      "21": {
+        "$type": "dimension",
+        "$value": {
+          "value": 21,
+          "unit": "px"
+        },
+        "$description": "Taille de 21 px, sortie en rem (base 16 px)."
+      },
+      "28": {
+        "$type": "dimension",
+        "$value": {
+          "value": 28,
+          "unit": "px"
+        },
+        "$description": "Taille de 28 px, sortie en rem (base 16 px)."
+      },
+      "32": {
+        "$type": "dimension",
+        "$value": {
+          "value": 32,
+          "unit": "px"
+        },
+        "$description": "Taille de 32 px, sortie en rem (base 16 px)."
+      },
+      "34": {
+        "$type": "dimension",
+        "$value": {
+          "value": 34,
+          "unit": "px"
+        },
+        "$description": "Taille de 34 px, sortie en rem (base 16 px)."
+      },
+      "44": {
+        "$type": "dimension",
+        "$value": {
+          "value": 44,
+          "unit": "px"
+        },
+        "$description": "Taille de 44 px, sortie en rem (base 16 px)."
+      },
+      "48": {
+        "$type": "dimension",
+        "$value": {
+          "value": 48,
+          "unit": "px"
+        },
+        "$description": "Taille de 48 px, sortie en rem (base 16 px)."
+      }
+    },
+    "graisse": {
+      "500": {
+        "$type": "fontWeight",
+        "$value": 500,
+        "$description": "Graisse 500."
+      },
+      "600": {
+        "$type": "fontWeight",
+        "$value": 600,
+        "$description": "Graisse 600."
+      },
+      "700": {
+        "$type": "fontWeight",
+        "$value": 700,
+        "$description": "Graisse 700."
+      },
+      "800": {
+        "$type": "fontWeight",
+        "$value": 800,
+        "$description": "Graisse 800."
+      }
+    },
+    "interligne": {
+      "1": {
+        "$type": "number",
+        "$value": 1,
+        "$description": "Hauteur de ligne 1, sans unité (multiple de la taille)."
+      },
+      "1-1": {
+        "$type": "number",
+        "$value": 1.1,
+        "$description": "Hauteur de ligne 1,1, sans unité (multiple de la taille)."
+      },
+      "1-2": {
+        "$type": "number",
+        "$value": 1.2,
+        "$description": "Hauteur de ligne 1,2, sans unité (multiple de la taille)."
+      },
+      "1-45": {
+        "$type": "number",
+        "$value": 1.45,
+        "$description": "Hauteur de ligne 1,45, sans unité (multiple de la taille)."
+      },
+      "1-55": {
+        "$type": "number",
+        "$value": 1.55,
+        "$description": "Hauteur de ligne 1,55, sans unité (multiple de la taille)."
+      }
+    },
+    "espacement-lettres": {
+      "0": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0,
+          "unit": "px"
+        },
+        "$description": "Espacement des lettres nul."
+      }
+    },
+    "seuil-desktop": {
+      "$type": "dimension",
+      "$value": {
+        "value": 768,
+        "unit": "px"
+      },
+      "$description": "Largeur à partir de laquelle s'appliquent les tailles desktop. Lue par le générateur pour écrire la media query, ne sort pas en variable CSS."
+    },
+    "titre-section": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.21}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu)."
+    },
+    "titre-carte": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.18}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information."
+    },
+    "titre-ligne": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.16}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Nomme un élément de liste, ou rappelle un titre dans une barre compacte."
+    },
+    "corps-courant": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.15}",
+        "fontWeight": "{typo.graisse.500}",
+        "lineHeight": "{typo.interligne.1-45}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées."
+    },
+    "corps-courant-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.15}",
+        "fontWeight": "{typo.graisse.600}",
+        "lineHeight": "{typo.interligne.1-45}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Corps courant."
+    },
+    "texte-secondaire": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.14}",
+        "fontWeight": "{typo.graisse.600}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Phrase qui accompagne un titre ou un contenu : sous-titre, état, aide, erreur, message."
+    },
+    "texte-secondaire-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.14}",
+        "fontWeight": "{typo.graisse.700}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Texte secondaire."
+    },
+    "meta": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.13}",
+        "fontWeight": "{typo.graisse.600}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Information courte et factuelle sur un élément : contenu, date, compte, statut."
+    },
+    "meta-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.13}",
+        "fontWeight": "{typo.graisse.700}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Méta."
+    },
+    "surtitre": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.13}",
+        "fontWeight": "{typo.graisse.700}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Libellé court posé au-dessus d'un titre (thème, « Tu en es là »)."
+    },
+    "surtitre-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.13}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Surtitre."
+    },
+    "bouton": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.15}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Libellé d'un bouton (plein, contour, pointillé, Retour)."
+    },
+    "lien-texte": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.15}",
+        "fontWeight": "{typo.graisse.700}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Voir comme un élève »)."
+    },
+    "lien-texte-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.15}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Lien texte."
+    },
+    "navigation": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.14}",
+        "fontWeight": "{typo.graisse.700}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu qui mènent à un écran ou à une vue et restent marquées comme choisies, repère d'étapes)."
+    },
+    "navigation-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.14}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Navigation."
+    },
+    "libelle-champ": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.14}",
+        "fontWeight": "{typo.graisse.600}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Nomme un champ de formulaire."
+    },
+    "libelle-champ-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.14}",
+        "fontWeight": "{typo.graisse.700}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Libellé de champ."
+    },
+    "saisie-choix": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.16}",
+        "fontWeight": "{typo.graisse.600}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Texte tapé ou choisi par l'utilisateur."
+    },
+    "saisie-choix-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.16}",
+        "fontWeight": "{typo.graisse.700}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Saisie et choix."
+    },
+    "pastille": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.13}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Texte d'une pastille, numéros dans une pastille ronde compris."
+    },
+    "chiffre": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.28}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Nombre sujet d'un bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion)."
+    },
+    "chiffre-grand": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.48}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Nombre sujet de l'écran entier : l'écran existe pour le montrer (score de fin de quiz, en pourcentage)."
+    },
+    "compteur": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.15}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »)."
+    }
+  }
+}

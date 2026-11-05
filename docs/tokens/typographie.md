@@ -1,4 +1,4 @@
-Statut : décidé le 4 novembre 2026, non migré. Source unique : `docs/proposition-typographie.md` (version 3, validée). Les noms de tokens ne sont pas encore décidés.
+Statut : décidé le 4 novembre 2026, non migré. Source unique : `docs/proposition-typographie.md` (version 3, validée). Les noms de tokens sont décidés (section 11), non migrés : les écrans n'utilisent pas encore ces tokens.
 
 # Typographie
 
@@ -145,10 +145,46 @@ Aucun rôle n'a d'espacement des lettres.
 
 - **Règle générale** : une italique demandée mais non chargée est fabriquée par le navigateur (texte penché artificiellement).
 - **Précision Skillo** : l'italique apparaît dans le contenu Markdown des cours, en Texte de lecture et en Corps courant (graisse 500). Urbanist existe en italique sur Google Fonts. On charge l'italique 500, et seulement elle.
+- **Gras italique** : il n'est pas prévu, aucun token ni fichier de police. S'il apparaît dans un Markdown (gras dans un passage en italique), le gras fabriqué par le navigateur est accepté.
 
 ## 11. Dans le code
 
-Les noms de tokens ne sont pas encore décidés : cette page ne fixe que les valeurs. En attendant, aucune taille ni graisse hors des sections 2 et 3.
+**Tous les tokens typographiques portent le préfixe `typo-`.** Les primitifs sont nommés par leur valeur, les rôles par leur rôle. Source : `tokens/`, CSS généré par `npm run tokens` dans `src/styles/tokens.generes.css`.
+
+**Primitifs** (`tokens/typographie.tokens.json`) : `typo-famille` (Urbanist, sans-serif) ; `typo-taille-13` à `typo-taille-48` (les 12 tailles de la section 2, écrites en px, sorties en rem) ; `typo-graisse-500` à `typo-graisse-800` ; `typo-interligne-1`, `-1-1`, `-1-2`, `-1-45`, `-1-55` ; `typo-espacement-lettres-0` ; `typo-seuil-desktop` (768 px). Le seuil ne sort pas en variable CSS : le générateur le lit pour écrire la media query (une media query ne lit pas un `var()`).
+
+**Rôles** : un token composé (type DTCG `typography`) par rôle, qui fait référence aux primitifs (famille, taille, graisse, hauteur de ligne, espacement des lettres). Il sort en CSS au format du raccourci `font`, avec des `var()` vers les primitifs.
+
+| Token | Rôle | Variante `-fort` |
+|---|---|---|
+| `typo-titre-page` | Titre de page | — |
+| `typo-titre-contenu` | Titre de contenu | — |
+| `typo-titre-section` | Titre de section | — |
+| `typo-titre-carte` | Titre de carte | — |
+| `typo-titre-ligne` | Titre de ligne | — |
+| `typo-texte-lecture` | Texte de lecture | `typo-texte-lecture-fort` |
+| `typo-corps-courant` | Corps courant | `typo-corps-courant-fort` |
+| `typo-texte-secondaire` | Texte secondaire | `typo-texte-secondaire-fort` |
+| `typo-meta` | Méta | `typo-meta-fort` |
+| `typo-surtitre` | Surtitre | `typo-surtitre-fort` |
+| `typo-bouton` | Bouton | — |
+| `typo-lien-texte` | Lien texte | `typo-lien-texte-fort` |
+| `typo-navigation` | Navigation | `typo-navigation-fort` |
+| `typo-libelle-champ` | Libellé de champ | `typo-libelle-champ-fort` |
+| `typo-saisie-choix` | Saisie et choix | `typo-saisie-choix-fort` |
+| `typo-pastille` | Pastille | — |
+| `typo-chiffre` | Chiffre mis en avant, standard | — |
+| `typo-chiffre-grand` | Chiffre mis en avant, grand | — |
+| `typo-compteur` | Compteur | — |
+
+**Variante `-fort`** : le rôle avec une graisse d'un cran au-dessus (section 8 : 500 → 600, 600 → 700, 700 → 800), pour un état (choisi, en cours, fait, coché) ou une emphase. Les rôles à 800 n'en ont pas.
+
+**Trois fichiers et un seuil.** `tokens/typographie.tokens.json` contient les primitifs et les rôles à une seule taille. `tokens/typographie-mobile.tokens.json` et `tokens/typographie-desktop.tokens.json` contiennent, sous les mêmes noms, les rôles qui changent de taille au seuil : Titre de page, Titre de contenu, Texte de lecture (et sa variante `-fort`). Un rôle est soit dans le fichier commun, soit dans les deux autres, jamais aux deux. Dans le CSS, les valeurs mobile sont dans `:root`, les valeurs desktop dans `@media (min-width: 768px) { :root { … } }`. Les mots mobile et desktop ne vont que dans le nom des fichiers, jamais dans le nom des tokens.
+
+**Règle d'usage.** Un élément applique son rôle par `font: var(--typo-<rôle>)`, son état ou son emphase par `font: var(--typo-<rôle>-fort)`. Jamais `font-size` ni `font-weight` séparés, jamais un primitif (`--typo-taille-*`, `--typo-graisse-*`…) dans un composant.
+
+- Le raccourci `font` ne porte pas l'espacement des lettres : la valeur reste écrite dans `tokens/` (0 pour tous les rôles, section 5) et le primitif `typo-espacement-lettres-0` existe, mais elle ne sort pas dans `--typo-<rôle>`.
+- Le raccourci `font` remet aussi `font-style` à sa valeur initiale : une italique se déclare après lui.
 
 ## 12. Exemples non conformes
 

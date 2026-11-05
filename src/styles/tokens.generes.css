@@ -39,6 +39,29 @@
   --fond-inverse-survol: color-mix(in srgb, var(--couleur-blanc) 12%, transparent); /** Survol d'une entrée de la barre de navigation (blanc à 12 %). Composantes de couleur.blanc, opacité 12 % portée par ce sémantique. */
   --fond-voile: color-mix(in srgb, var(--couleur-ardoise-900) 45%, transparent); /** Derrière une modale ou un menu (encre à 45 %). Composantes de couleur.ardoise-900, opacité 45 % portée par ce sémantique. */
   --fond-voile-accentue: color-mix(in srgb, var(--couleur-ardoise-900) 85%, transparent); /** Visionneuse d'images, miniature « +N » (encre à 85 %, garantit la lisibilité du « +N » blanc sur une image quelconque). Composantes de couleur.ardoise-900, opacité 85 % portée par ce sémantique. */
+  --typo-famille: Urbanist, sans-serif; /** Famille unique : Urbanist, avec sans-serif en secours. */
+  --typo-taille-13: 0.8125rem; /** Taille de 13 px, sortie en rem (base 16 px). */
+  --typo-taille-14: 0.875rem; /** Taille de 14 px, sortie en rem (base 16 px). */
+  --typo-taille-15: 0.9375rem; /** Taille de 15 px, sortie en rem (base 16 px). */
+  --typo-taille-16: 1rem; /** Taille de 16 px, sortie en rem (base 16 px). */
+  --typo-taille-17: 1.0625rem; /** Taille de 17 px, sortie en rem (base 16 px). */
+  --typo-taille-18: 1.125rem; /** Taille de 18 px, sortie en rem (base 16 px). */
+  --typo-taille-21: 1.3125rem; /** Taille de 21 px, sortie en rem (base 16 px). */
+  --typo-taille-28: 1.75rem; /** Taille de 28 px, sortie en rem (base 16 px). */
+  --typo-taille-32: 2rem; /** Taille de 32 px, sortie en rem (base 16 px). */
+  --typo-taille-34: 2.125rem; /** Taille de 34 px, sortie en rem (base 16 px). */
+  --typo-taille-44: 2.75rem; /** Taille de 44 px, sortie en rem (base 16 px). */
+  --typo-taille-48: 3rem; /** Taille de 48 px, sortie en rem (base 16 px). */
+  --typo-graisse-500: 500; /** Graisse 500. */
+  --typo-graisse-600: 600; /** Graisse 600. */
+  --typo-graisse-700: 700; /** Graisse 700. */
+  --typo-graisse-800: 800; /** Graisse 800. */
+  --typo-interligne-1: 1; /** Hauteur de ligne 1, sans unité (multiple de la taille). */
+  --typo-interligne-1-1: 1.1; /** Hauteur de ligne 1,1, sans unité (multiple de la taille). */
+  --typo-interligne-1-2: 1.2; /** Hauteur de ligne 1,2, sans unité (multiple de la taille). */
+  --typo-interligne-1-45: 1.45; /** Hauteur de ligne 1,45, sans unité (multiple de la taille). */
+  --typo-interligne-1-55: 1.55; /** Hauteur de ligne 1,55, sans unité (multiple de la taille). */
+  --typo-espacement-lettres-0: 0px; /** Espacement des lettres nul. */
   --fond-surface: var(--couleur-blanc); /** Cartes, champs sur le fond de page, bouton blanc sur carte foncée. */
   --fond-accent: var(--couleur-violet-100); /** En-têtes lavande, onglet actif, sélection, survol des boutons contour. */
   --fond-marque: var(--couleur-violet-600); /** Cartes violettes, remplissage de progression. */
@@ -81,6 +104,34 @@
   --bordure-separateur: var(--couleur-sable-75); /** Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. */
   --bordure-etape: var(--couleur-sable-150); /** Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. */
   --bordure-action-desactive: var(--couleur-sable-150); /** Contour d'une action désactivée. Va avec texte-action-desactive. */
+  --typo-titre-section: var(--typo-graisse-800) var(--typo-taille-21)/var(--typo-interligne-1-2) var(--typo-famille); /** Le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). */
+  --typo-titre-carte: var(--typo-graisse-800) var(--typo-taille-18)/var(--typo-interligne-1-2) var(--typo-famille); /** Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information. */
+  --typo-titre-ligne: var(--typo-graisse-800) var(--typo-taille-16)/var(--typo-interligne-1-2) var(--typo-famille); /** Nomme un élément de liste, ou rappelle un titre dans une barre compacte. */
+  --typo-corps-courant: var(--typo-graisse-500) var(--typo-taille-15)/var(--typo-interligne-1-45) var(--typo-famille); /** Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées. */
+  --typo-corps-courant-fort: var(--typo-graisse-600) var(--typo-taille-15)/var(--typo-interligne-1-45) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Corps courant. */
+  --typo-texte-secondaire: var(--typo-graisse-600) var(--typo-taille-14)/var(--typo-interligne-1-2) var(--typo-famille); /** Phrase qui accompagne un titre ou un contenu : sous-titre, état, aide, erreur, message. */
+  --typo-texte-secondaire-fort: var(--typo-graisse-700) var(--typo-taille-14)/var(--typo-interligne-1-2) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Texte secondaire. */
+  --typo-meta: var(--typo-graisse-600) var(--typo-taille-13)/var(--typo-interligne-1-2) var(--typo-famille); /** Information courte et factuelle sur un élément : contenu, date, compte, statut. */
+  --typo-meta-fort: var(--typo-graisse-700) var(--typo-taille-13)/var(--typo-interligne-1-2) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Méta. */
+  --typo-surtitre: var(--typo-graisse-700) var(--typo-taille-13)/var(--typo-interligne-1-2) var(--typo-famille); /** Libellé court posé au-dessus d'un titre (thème, « Tu en es là »). */
+  --typo-surtitre-fort: var(--typo-graisse-800) var(--typo-taille-13)/var(--typo-interligne-1-2) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Surtitre. */
+  --typo-bouton: var(--typo-graisse-800) var(--typo-taille-15)/var(--typo-interligne-1-2) var(--typo-famille); /** Libellé d'un bouton (plein, contour, pointillé, Retour). */
+  --typo-lien-texte: var(--typo-graisse-700) var(--typo-taille-15)/var(--typo-interligne-1-2) var(--typo-famille); /** Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Voir comme un élève »). */
+  --typo-lien-texte-fort: var(--typo-graisse-800) var(--typo-taille-15)/var(--typo-interligne-1-2) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Lien texte. */
+  --typo-navigation: var(--typo-graisse-700) var(--typo-taille-14)/var(--typo-interligne-1-2) var(--typo-famille); /** Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu qui mènent à un écran ou à une vue et restent marquées comme choisies, repère d'étapes). */
+  --typo-navigation-fort: var(--typo-graisse-800) var(--typo-taille-14)/var(--typo-interligne-1-2) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Navigation. */
+  --typo-libelle-champ: var(--typo-graisse-600) var(--typo-taille-14)/var(--typo-interligne-1-2) var(--typo-famille); /** Nomme un champ de formulaire. */
+  --typo-libelle-champ-fort: var(--typo-graisse-700) var(--typo-taille-14)/var(--typo-interligne-1-2) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Libellé de champ. */
+  --typo-saisie-choix: var(--typo-graisse-600) var(--typo-taille-16)/var(--typo-interligne-1-2) var(--typo-famille); /** Texte tapé ou choisi par l'utilisateur. */
+  --typo-saisie-choix-fort: var(--typo-graisse-700) var(--typo-taille-16)/var(--typo-interligne-1-2) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Saisie et choix. */
+  --typo-pastille: var(--typo-graisse-800) var(--typo-taille-13)/var(--typo-interligne-1-2) var(--typo-famille); /** Texte d'une pastille, numéros dans une pastille ronde compris. */
+  --typo-chiffre: var(--typo-graisse-800) var(--typo-taille-28)/var(--typo-interligne-1) var(--typo-famille); /** Nombre sujet d'un bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). */
+  --typo-chiffre-grand: var(--typo-graisse-800) var(--typo-taille-48)/var(--typo-interligne-1) var(--typo-famille); /** Nombre sujet de l'écran entier : l'écran existe pour le montrer (score de fin de quiz, en pourcentage). */
+  --typo-compteur: var(--typo-graisse-800) var(--typo-taille-15)/var(--typo-interligne-1-2) var(--typo-famille); /** Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). */
+  --typo-titre-page: var(--typo-graisse-800) var(--typo-taille-34)/var(--typo-interligne-1-1) var(--typo-famille); /** Nomme l'écran ; un seul par écran, en tête. */
+  --typo-titre-contenu: var(--typo-graisse-800) var(--typo-taille-28)/var(--typo-interligne-1-1) var(--typo-famille); /** Nomme l'objet que l'écran présente (cours, thème, question). */
+  --typo-texte-lecture: var(--typo-graisse-500) var(--typo-taille-17)/var(--typo-interligne-1-55) var(--typo-famille); /** Texte de la leçon, dans la fiche et dans son aperçu. */
+  --typo-texte-lecture-fort: var(--typo-graisse-600) var(--typo-taille-17)/var(--typo-interligne-1-55) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Texte de lecture. */
 }
 
 .espace-layout-formateur,
@@ -103,4 +154,13 @@
   --bordure-separateur: var(--couleur-sable-75); /** Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. */
   --bordure-etape: var(--couleur-sable-150); /** Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. */
   --bordure-action-desactive: var(--couleur-sable-150); /** Contour d'une action désactivée. Va avec texte-action-desactive. */
+}
+
+@media (min-width: 768px) {
+  :root {
+    --typo-titre-page: var(--typo-graisse-800) var(--typo-taille-44)/var(--typo-interligne-1-1) var(--typo-famille); /** Nomme l'écran ; un seul par écran, en tête. */
+    --typo-titre-contenu: var(--typo-graisse-800) var(--typo-taille-32)/var(--typo-interligne-1-1) var(--typo-famille); /** Nomme l'objet que l'écran présente (cours, thème, question). */
+    --typo-texte-lecture: var(--typo-graisse-500) var(--typo-taille-18)/var(--typo-interligne-1-55) var(--typo-famille); /** Texte de la leçon, dans la fiche et dans son aperçu. */
+    --typo-texte-lecture-fort: var(--typo-graisse-600) var(--typo-taille-18)/var(--typo-interligne-1-55) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Texte de lecture. */
+  }
 }

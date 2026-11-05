@@ -1,0 +1,49 @@
+{
+  "typo": {
+    "$description": "Typographie. Un composant applique un rôle (font: var(--typo-<rôle>)) ou sa variante -fort (font: var(--typo-<rôle>-fort)), jamais un primitif, jamais font-size ni font-weight séparés. L'échelle est une liste fermée : 12 tailles (13, 14, 15, 16, 17, 18, 21, 28, 32, 34, 44, 48 px), 4 graisses (500, 600, 700, 800) ; aucune autre valeur n'est admise. Les tailles s'écrivent en px et sortent en rem (base 16 px). Un seul seuil typographique : 768 px (typo.seuil-desktop) ; les rôles qui en dépendent sont dans typographie-mobile et typographie-desktop, sous le même nom, jamais ici.",
+    "titre-page": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.44}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-1}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Nomme l'écran ; un seul par écran, en tête."
+    },
+    "titre-contenu": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.32}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-1}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Nomme l'objet que l'écran présente (cours, thème, question)."
+    },
+    "texte-lecture": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.18}",
+        "fontWeight": "{typo.graisse.500}",
+        "lineHeight": "{typo.interligne.1-55}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Texte de la leçon, dans la fiche et dans son aperçu."
+    },
+    "texte-lecture-fort": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.18}",
+        "fontWeight": "{typo.graisse.600}",
+        "lineHeight": "{typo.interligne.1-55}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "État (choisi, en cours, fait, coché) ou emphase du rôle Texte de lecture."
+    }
+  }
+}
