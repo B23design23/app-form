@@ -222,9 +222,9 @@ Valeur : taille · graisse · hauteur de ligne. Un élément applique `font: var
 | `--typo-navigation-fort` | 14 px · 800 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Navigation. |
 | `--typo-libelle-champ` | 14 px · 600 · 1,2 | Nomme un champ de formulaire. |
 | `--typo-libelle-champ-fort` | 14 px · 700 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Libellé de champ. |
-| `--typo-saisie-choix` | 16 px · 600 · 1,2 | Texte tapé ou choisi par l'utilisateur. |
+| `--typo-saisie-choix` | 16 px · 600 · 1,2 | Texte tapé ou choisi par l'utilisateur, et texte indicatif (placeholder) du champ vide : même rôle, seule la couleur change. |
 | `--typo-saisie-choix-fort` | 16 px · 700 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Saisie et choix. |
-| `--typo-pastille` | 13 px · 800 · 1,2 | Texte d'une pastille, numéros dans une pastille ronde compris. |
+| `--typo-pastille` | 13 px · 800 · 1,2 | Texte d'une pastille, numéros dans une pastille ronde compris, et texte du statut de la Pastille de statut, avec ou sans pilule (« En cours » et « Terminé » compris). |
 | `--typo-chiffre` | 28 px · 800 · 1 | Nombre sujet d'un bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). |
 | `--typo-chiffre-grand` | 48 px · 800 · 1 | Nombre sujet de l'écran entier : l'écran existe pour le montrer (score de fin de quiz, en pourcentage). |
 | `--typo-compteur` | 15 px · 800 · 1,2 | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). |
@@ -286,7 +286,7 @@ Source : `ds-principes-composants.md`.
 
 - **Rôle** : À trancher (la documentation décrit les variantes, pas de rôle général).
 - **Quand l'utiliser, quand choisir le voisin** : un champ pour une saisie libre. Le voisin est la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
-- **Typographie** : le libellé du champ prend le rôle Libellé de champ (`--typo-libelle-champ`) ; le texte tapé ou choisi prend le rôle Saisie et choix (`--typo-saisie-choix`), 16 px partout, même dans un en-tête dense ou une ligne de filtres (`typographie.md`, sections 5 et 9).
+- **Typographie** : le libellé du champ prend le rôle Libellé de champ (`--typo-libelle-champ`) ; le texte tapé ou choisi et le texte indicatif (placeholder) du champ vide prennent le rôle Saisie et choix (`--typo-saisie-choix`), seule la couleur change ; 16 px partout, même dans un en-tête dense ou une ligne de filtres (`typographie.md`, sections 5, 6 et 9).
 - **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule blanche avec loupe, résultats dès 2 caractères).
 - **Tokens par état** :
 
@@ -323,7 +323,7 @@ Source : `ds-principes-composants.md`.
 - **Rôle** : dire où en est l'apprenant sur un cours.
 - **Quand l'utiliser** : le statut d'un cours pour un élève, partout où il apparaît. Pas pour le repère d'étapes, la mention Checklist terminée ni les compteurs (x / y cours, X terminés sur N, barre d'avancement).
 - **Règle** : un cours pas encore ouvert s'affiche en pilule (Non commencé et À faire en `texte-secondaire` sur `fond-neutre`, Nouveau en `texte-accent` sur `fond-accent`). Un cours déjà ouvert s'affiche sans pilule, en texte avec une icône (En cours en `texte-accent` avec l'icône de progression, Terminé en `texte-succes` avec la coche). Aucune pastille n'utilise `fond-action`, `fond-marque` ni `fond-recompense`. Principes 2 et 5.
-- **Typographie** : le texte de la pastille prend le rôle Pastille (`--typo-pastille`) (`typographie.md`, section 5).
+- **Typographie** : le texte du statut prend le rôle Pastille (`--typo-pastille`), avec ou sans pilule (« En cours » et « Terminé » compris) : la fonction décide du rôle, pas la forme (`typographie.md`, sections 5 et 6).
 - **Voisin à ne pas confondre** : la pastille de groupe (lavande) de l'espace formateur, qui nomme un groupe et ne dit rien de l'avancement.
 - **À faire** : utiliser la même pastille (`StatutBadge`) partout où un statut de cours apparaît.
 - **À ne pas faire** : du vert sur fond vert pâle (couple réservé aux bonnes réponses du quiz et à la pastille « Bon rythme ») ; rendre la pastille cliquable ou lui donner l'air d'un bouton.

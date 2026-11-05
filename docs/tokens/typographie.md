@@ -69,8 +69,8 @@ Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'u
 | Lien texte | 15 px | 15 px | 700 | 1,2 | normal | Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Voir comme un élève »). |
 | Navigation | 14 px | 14 px | 700 | 1,2 | normal | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu qui mènent à un écran ou à une vue et restent marquées comme choisies, repère d'étapes). |
 | Libellé de champ | 14 px | 14 px | 600 | 1,2 | normal | Nomme un champ de formulaire. |
-| Saisie et choix | 16 px | 16 px | 600 | 1,2 | normal | Texte tapé ou choisi par l'utilisateur. |
-| Pastille | 13 px | 13 px | 800 | 1,2 | normal | Texte d'une pastille, numéros dans une pastille ronde compris. |
+| Saisie et choix | 16 px | 16 px | 600 | 1,2 | normal | Texte tapé ou choisi par l'utilisateur, et texte indicatif (placeholder) du champ vide : même rôle, seule la couleur change. |
+| Pastille | 13 px | 13 px | 800 | 1,2 | normal | Texte d'une pastille, numéros dans une pastille ronde compris, et texte du statut de la Pastille de statut, avec ou sans pilule (« En cours » et « Terminé » compris). |
 | Chiffre mis en avant, standard | 28 px | 28 px | 800 | 1 | normal | Nombre sujet d'un bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). |
 | Chiffre mis en avant, grand | 48 px | 48 px | 800 | 1 | normal | Nombre sujet de l'écran entier : l'écran existe pour le montrer (score de fin de quiz, en pourcentage). |
 | Compteur | 15 px | 15 px | 800 | 1,2 | normal | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). |
@@ -99,6 +99,10 @@ Aucun rôle n'a d'espacement des lettres.
 - L'option choisie d'une Navigation suit la règle des états (section 8) : graisse un cran au-dessus, 800.
 - **Entrées de menu** : seules celles qui mènent à un écran ou à une vue et restent marquées comme choisies sont des Navigations. Les entrées qui agissent (« Se déconnecter », actions du menu « … » de l'espace formateur) sont des Liens texte.
 - « Se déconnecter » et les actions du menu « … » de l'espace formateur sont des Liens texte : pas d'état choisi, une action sur la session ou les données.
+
+**Saisie et choix : texte tapé et texte indicatif.** Le texte indicatif (placeholder) d'un champ vide prend le rôle Saisie et choix, comme le texte tapé : seule la couleur change. Le vide et le rempli sont deux états du même texte, et un état ne change jamais la taille (section 8).
+
+**Pastille : avec ou sans pilule.** Le texte du statut de la Pastille de statut prend le rôle Pastille, qu'il soit posé dans une pilule ou non (« En cours » et « Terminé » compris). La fonction décide du rôle, pas la forme (section 7) ; la forme ne départage que Bouton et Lien texte.
 
 **Bouton ou Lien texte : la forme.** Un texte d'action posé dans une forme de bouton (fond, contour ou pointillé, padding, zone cliquable de bouton) prend le rôle Bouton ; sans forme de bouton, Lien texte. **Le libellé du bouton Retour est en rôle Bouton** : la variante Retour (pilule blanche, padding, zone de 44 px) a une forme de bouton.
 

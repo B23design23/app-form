@@ -381,7 +381,7 @@
         "lineHeight": "{typo.interligne.1-2}",
         "letterSpacing": "{typo.espacement-lettres.0}"
       },
-      "$description": "Texte tapé ou choisi par l'utilisateur."
+      "$description": "Texte tapé ou choisi par l'utilisateur, et texte indicatif (placeholder) du champ vide : même rôle, seule la couleur change."
     },
     "saisie-choix-fort": {
       "$type": "typography",
@@ -403,7 +403,7 @@
         "lineHeight": "{typo.interligne.1-2}",
         "letterSpacing": "{typo.espacement-lettres.0}"
       },
-      "$description": "Texte d'une pastille, numéros dans une pastille ronde compris."
+      "$description": "Texte d'une pastille, numéros dans une pastille ronde compris, et texte du statut de la Pastille de statut, avec ou sans pilule (« En cours » et « Terminé » compris)."
     },
     "chiffre": {
       "$type": "typography",
