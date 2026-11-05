@@ -57,6 +57,7 @@ Chaque principe tranche entre deux options. La première est retenue, la seconde
 - **Sémantiques** : ce que lisent les composants. Chaque sémantique pointe vers un primitif.
 - **Composant** : vide, et c'est voulu. Un contexte se résout en choisissant d'autres sémantiques, pas en créant un token de composant (`couleurs.md`, décision 1).
 - **Espacements** : un seul niveau de paliers, nommés par leur valeur (`espace-N`).
+- **Typographie** : des primitifs nommés par leur valeur (`typo-taille-15`, `typo-graisse-600`…), jamais lus par un composant ; un rôle est un token composé (`typo-<rôle>`) qui fait référence aux primitifs, avec une variante `typo-<rôle>-fort` pour l'état et l'emphase (`typographie.md`, section 11).
 
 ### Nommage des sémantiques de couleur
 
@@ -250,6 +251,7 @@ Source : `ds-principes-composants.md`.
 
 - **Rôle** : À trancher (la documentation décrit les variantes et leur usage, pas de rôle général).
 - **Quand l'utiliser, quand choisir le voisin** : un bouton pour toute action qui mérite une zone. Le voisin est le lien texte, pour une action secondaire qui ne mérite pas de zone.
+- **Typographie** : le libellé d'un bouton (plein, contour, pointillé, Retour) prend le rôle Bouton (`--typo-bouton`). Un texte d'action sans forme de bouton prend le rôle Lien texte (`typographie.md`, sections 5 et 6).
 - **Variantes** :
   - principal (violet plein) : l'action attendue de la zone, un seul par zone ;
   - secondaire (contour violet) : action alternative à côté du principal ;
@@ -284,6 +286,7 @@ Source : `ds-principes-composants.md`.
 
 - **Rôle** : À trancher (la documentation décrit les variantes, pas de rôle général).
 - **Quand l'utiliser, quand choisir le voisin** : un champ pour une saisie libre. Le voisin est la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
+- **Typographie** : le libellé du champ prend le rôle Libellé de champ (`--typo-libelle-champ`) ; le texte tapé ou choisi prend le rôle Saisie et choix (`--typo-saisie-choix`), 16 px partout, même dans un en-tête dense ou une ligne de filtres (`typographie.md`, sections 5 et 9).
 - **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule blanche avec loupe, résultats dès 2 caractères).
 - **Tokens par état** :
 
@@ -320,6 +323,7 @@ Source : `ds-principes-composants.md`.
 - **Rôle** : dire où en est l'apprenant sur un cours.
 - **Quand l'utiliser** : le statut d'un cours pour un élève, partout où il apparaît. Pas pour le repère d'étapes, la mention Checklist terminée ni les compteurs (x / y cours, X terminés sur N, barre d'avancement).
 - **Règle** : un cours pas encore ouvert s'affiche en pilule (Non commencé et À faire en `texte-secondaire` sur `fond-neutre`, Nouveau en `texte-accent` sur `fond-accent`). Un cours déjà ouvert s'affiche sans pilule, en texte avec une icône (En cours en `texte-accent` avec l'icône de progression, Terminé en `texte-succes` avec la coche). Aucune pastille n'utilise `fond-action`, `fond-marque` ni `fond-recompense`. Principes 2 et 5.
+- **Typographie** : le texte de la pastille prend le rôle Pastille (`--typo-pastille`) (`typographie.md`, section 5).
 - **Voisin à ne pas confondre** : la pastille de groupe (lavande) de l'espace formateur, qui nomme un groupe et ne dit rien de l'avancement.
 - **À faire** : utiliser la même pastille (`StatutBadge`) partout où un statut de cours apparaît.
 - **À ne pas faire** : du vert sur fond vert pâle (couple réservé aux bonnes réponses du quiz et à la pastille « Bon rythme ») ; rendre la pastille cliquable ou lui donner l'air d'un bouton.
@@ -597,7 +601,7 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 
 ## 7. Conduite de l'agent
 
-- **`tokens/` fait foi** pour les couleurs et les espacements (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
+- **`tokens/` fait foi** pour les couleurs, les espacements et la typographie (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
 - **`src/styles/tokens.generes.css` n'est jamais modifié à la main.** Il est généré par `npm run tokens`, comme la liste des tokens de la section 3 de ce fichier.
 - **Maquette et DS.** La maquette décide de la disposition : quels blocs, leur ordre, leur hiérarchie, leurs colonnes. Le DS décide des valeurs et des composants. En cas d'écart de valeur, le DS fait foi.
 
