@@ -55,7 +55,73 @@ async function construireListe() {
     for (const [nom, mode, desc] of entrees) lignes.push(`| \`--${groupe}-${nom}\` | ${mode} | ${cellule(desc)} |`)
     lignes.push('')
   }
+  lignes.push(...(await listeTypographie()))
   return lignes.join('\n').trimEnd()
+}
+
+// --- Typographie (tokens/typographie*.tokens.json) ---------------------------------------------
+// Deux listes : primitifs, puis rôles composés. Un rôle défini en mobile et en desktop tient sur une
+// ligne avec ses deux valeurs. Les valeurs sont lues dans tokens/ (tailles en px, comme la doc).
+
+const virgule = (n) => String(n).replace('.', ',')
+const dimension = (v) => `${virgule(v.value)} ${v.unit}`
+
+function valeurPrimitif(token) {
+  const v = token.$value
+  if (Array.isArray(v)) return v.join(', ')
+  if (v && typeof v === 'object') return dimension(v)
+  return virgule(v)
+}
+
+// {typo.taille.15} → valeur du primitif dans le fichier commun
+function valeurCompose(token, primitifs) {
+  const lire = (ref) => {
+    const chemin = ref.replace(/^\{typo\.|\}$/g, '').split('.')
+    return chemin.reduce((noeud, partie) => noeud[partie], primitifs).$value
+  }
+  const { fontSize, fontWeight, lineHeight } = token.$value
+  return `${dimension(lire(fontSize))} · ${lire(fontWeight)} · ${virgule(lire(lineHeight))}`
+}
+
+async function listeTypographie() {
+  const { typo } = await lire('tokens/typographie.tokens.json')
+  const mobile = (await lire('tokens/typographie-mobile.tokens.json')).typo
+  const desktop = (await lire('tokens/typographie-desktop.tokens.json')).typo
+
+  const lignes = ['#### Typographie, primitifs (`typo`)', '', typo.$description ?? '', '']
+  lignes.push('Un composant ne lit jamais ces primitifs : ils sont listés pour lire les valeurs des rôles.', '')
+  lignes.push('| Variable CSS | Valeur | Description |', '|---|---|---|')
+  const primitifs = []
+  const parcourir = (noeud, chemin) => {
+    for (const [cle, enfant] of Object.entries(noeud)) {
+      if (cle.startsWith('$') || !enfant || typeof enfant !== 'object') continue
+      const ici = [...chemin, cle]
+      if (!estToken(enfant)) parcourir(enfant, ici)
+      else if (enfant.$type !== 'typography') primitifs.push([ici, enfant])
+    }
+  }
+  parcourir(typo, ['typo'])
+  for (const [chemin, token] of primitifs) {
+    const nom = chemin.join('-')
+    // Le seuil ne sort pas en variable CSS : nom du token, sans --
+    const affiche = nom === 'typo-seuil-desktop' ? `\`${nom}\` (pas de variable CSS)` : `\`--${nom}\``
+    lignes.push(`| ${affiche} | ${valeurPrimitif(token)} | ${cellule(token.$description ?? '')} |`)
+  }
+
+  lignes.push('', '#### Typographie, rôles (`typo`)', '')
+  lignes.push('Valeur : taille · graisse · hauteur de ligne. Un élément applique `font: var(--typo-<rôle>)` ou `font: var(--typo-<rôle>-fort)`.', '')
+  lignes.push('| Variable CSS | Valeur | Description |', '|---|---|---|')
+  const composes = [
+    ...Object.entries(typo).filter(([n, t]) => !n.startsWith('$') && t.$type === 'typography').map(([n, t]) => [n, valeurCompose(t, typo), t.$description]),
+    ...Object.entries(mobile).filter(([n]) => !n.startsWith('$')).map(([n, t]) => [
+      n,
+      `${valeurCompose(t, typo)} (sous 768 px) ; ${valeurCompose(desktop[n], typo)} (à partir de 768 px)`,
+      t.$description === desktop[n].$description ? t.$description : `Mobile : ${t.$description} Desktop : ${desktop[n].$description}`,
+    ]),
+  ]
+  for (const [nom, valeur, description] of composes) lignes.push(`| \`--typo-${nom}\` | ${valeur} | ${cellule(description ?? '')} |`)
+  lignes.push('')
+  return lignes
 }
 
 // Remplace le contenu entre deux marqueurs d'un fichier ; false si le fichier ou un marqueur manque

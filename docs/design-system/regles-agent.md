@@ -197,6 +197,74 @@ Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer 
 | `--bordure-etape` | varie selon le mode | Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. |
 | `--bordure-action-desactive` | varie selon le mode | Contour d'une action désactivée. Va avec texte-action-desactive. |
 
+#### Typographie, primitifs (`typo`)
+
+Typographie. Un composant applique un rôle (font: var(--typo-<rôle>)) ou sa variante -fort (font: var(--typo-<rôle>-fort)), jamais un primitif, jamais font-size ni font-weight séparés. L'échelle est une liste fermée : 12 tailles (13, 14, 15, 16, 17, 18, 21, 28, 32, 34, 44, 48 px), 4 graisses (500, 600, 700, 800) ; aucune autre valeur n'est admise. Les tailles s'écrivent en px et sortent en rem (base 16 px). Un seul seuil typographique : 768 px (typo.seuil-desktop) ; les rôles qui en dépendent sont dans typographie-mobile et typographie-desktop, sous le même nom, jamais ici.
+
+Un composant ne lit jamais ces primitifs : ils sont listés pour lire les valeurs des rôles.
+
+| Variable CSS | Valeur | Description |
+|---|---|---|
+| `--typo-famille` | Urbanist, sans-serif | Famille unique : Urbanist, avec sans-serif en secours. |
+| `--typo-taille-13` | 13 px | Taille de 13 px, sortie en rem (base 16 px). |
+| `--typo-taille-14` | 14 px | Taille de 14 px, sortie en rem (base 16 px). |
+| `--typo-taille-15` | 15 px | Taille de 15 px, sortie en rem (base 16 px). |
+| `--typo-taille-16` | 16 px | Taille de 16 px, sortie en rem (base 16 px). |
+| `--typo-taille-17` | 17 px | Taille de 17 px, sortie en rem (base 16 px). |
+| `--typo-taille-18` | 18 px | Taille de 18 px, sortie en rem (base 16 px). |
+| `--typo-taille-21` | 21 px | Taille de 21 px, sortie en rem (base 16 px). |
+| `--typo-taille-28` | 28 px | Taille de 28 px, sortie en rem (base 16 px). |
+| `--typo-taille-32` | 32 px | Taille de 32 px, sortie en rem (base 16 px). |
+| `--typo-taille-34` | 34 px | Taille de 34 px, sortie en rem (base 16 px). |
+| `--typo-taille-44` | 44 px | Taille de 44 px, sortie en rem (base 16 px). |
+| `--typo-taille-48` | 48 px | Taille de 48 px, sortie en rem (base 16 px). |
+| `--typo-graisse-500` | 500 | Graisse 500. |
+| `--typo-graisse-600` | 600 | Graisse 600. |
+| `--typo-graisse-700` | 700 | Graisse 700. |
+| `--typo-graisse-800` | 800 | Graisse 800. |
+| `--typo-interligne-1` | 1 | Hauteur de ligne 1, sans unité (multiple de la taille). |
+| `--typo-interligne-1-1` | 1,1 | Hauteur de ligne 1,1, sans unité (multiple de la taille). |
+| `--typo-interligne-1-2` | 1,2 | Hauteur de ligne 1,2, sans unité (multiple de la taille). |
+| `--typo-interligne-1-45` | 1,45 | Hauteur de ligne 1,45, sans unité (multiple de la taille). |
+| `--typo-interligne-1-55` | 1,55 | Hauteur de ligne 1,55, sans unité (multiple de la taille). |
+| `--typo-espacement-lettres-0` | 0 px | Espacement des lettres nul. |
+| `typo-seuil-desktop` (pas de variable CSS) | 768 px | Largeur à partir de laquelle s'appliquent les tailles desktop. Lue par le générateur pour écrire la media query, ne sort pas en variable CSS. |
+
+#### Typographie, rôles (`typo`)
+
+Valeur : taille · graisse · hauteur de ligne. Un élément applique `font: var(--typo-<rôle>)` ou `font: var(--typo-<rôle>-fort)`.
+
+| Variable CSS | Valeur | Description |
+|---|---|---|
+| `--typo-titre-section` | 21 px · 800 · 1,2 | Le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). |
+| `--typo-titre-carte` | 18 px · 800 · 1,2 | Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information. |
+| `--typo-titre-ligne` | 16 px · 800 · 1,2 | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. |
+| `--typo-corps-courant` | 15 px · 500 · 1,45 | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées. |
+| `--typo-corps-courant-fort` | 15 px · 600 · 1,45 | État (choisi, en cours, fait, coché) ou emphase du rôle Corps courant. |
+| `--typo-texte-secondaire` | 14 px · 600 · 1,2 | Phrase qui accompagne un titre ou un contenu : sous-titre, état, aide, erreur, message. |
+| `--typo-texte-secondaire-fort` | 14 px · 700 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Texte secondaire. |
+| `--typo-meta` | 13 px · 600 · 1,2 | Information courte et factuelle sur un élément : contenu, date, compte, statut. |
+| `--typo-meta-fort` | 13 px · 700 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Méta. |
+| `--typo-surtitre` | 13 px · 700 · 1,2 | Libellé court posé au-dessus d'un titre (thème, « Tu en es là »). |
+| `--typo-surtitre-fort` | 13 px · 800 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Surtitre. |
+| `--typo-bouton` | 15 px · 800 · 1,2 | Libellé d'un bouton (plein, contour, pointillé, Retour). |
+| `--typo-lien-texte` | 15 px · 700 · 1,2 | Action écrite sans forme de bouton et sans état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Voir comme un élève »). |
+| `--typo-lien-texte-fort` | 15 px · 800 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Lien texte. |
+| `--typo-navigation` | 14 px · 700 · 1,2 | Option qui reste marquée comme choisie, dont le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu qui mènent à un écran ou à une vue et restent marquées comme choisies, repère d'étapes). |
+| `--typo-navigation-fort` | 14 px · 800 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Navigation. |
+| `--typo-libelle-champ` | 14 px · 600 · 1,2 | Nomme un champ de formulaire. |
+| `--typo-libelle-champ-fort` | 14 px · 700 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Libellé de champ. |
+| `--typo-saisie-choix` | 16 px · 600 · 1,2 | Texte tapé ou choisi par l'utilisateur. |
+| `--typo-saisie-choix-fort` | 16 px · 700 · 1,2 | État (choisi, en cours, fait, coché) ou emphase du rôle Saisie et choix. |
+| `--typo-pastille` | 13 px · 800 · 1,2 | Texte d'une pastille, numéros dans une pastille ronde compris. |
+| `--typo-chiffre` | 28 px · 800 · 1 | Nombre sujet d'un bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). |
+| `--typo-chiffre-grand` | 48 px · 800 · 1 | Nombre sujet de l'écran entier : l'écran existe pour le montrer (score de fin de quiz, en pourcentage). |
+| `--typo-compteur` | 15 px · 800 · 1,2 | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). |
+| `--typo-titre-page` | 34 px · 800 · 1,1 (sous 768 px) ; 44 px · 800 · 1,1 (à partir de 768 px) | Nomme l'écran ; un seul par écran, en tête. |
+| `--typo-titre-contenu` | 28 px · 800 · 1,1 (sous 768 px) ; 32 px · 800 · 1,1 (à partir de 768 px) | Nomme l'objet que l'écran présente (cours, thème, question). |
+| `--typo-texte-lecture` | 17 px · 500 · 1,55 (sous 768 px) ; 18 px · 500 · 1,55 (à partir de 768 px) | Texte de la leçon, dans la fiche et dans son aperçu. |
+| `--typo-texte-lecture-fort` | 17 px · 600 · 1,55 (sous 768 px) ; 18 px · 600 · 1,55 (à partir de 768 px) | État (choisi, en cours, fait, coché) ou emphase du rôle Texte de lecture. |
+
 <!-- tokens:fin -->
 
 ## 4. Composants documentés
