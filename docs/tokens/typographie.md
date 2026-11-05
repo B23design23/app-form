@@ -99,6 +99,7 @@ Aucun rôle n'a d'espacement des lettres.
 - L'option choisie d'une Navigation suit la règle des états (section 8) : graisse un cran au-dessus, 800.
 - **Entrées de menu** : seules celles qui mènent à un écran ou à une vue et restent marquées comme choisies sont des Navigations. Les entrées qui agissent (« Se déconnecter », actions du menu « … » de l'espace formateur) sont des Liens texte.
 - « Se déconnecter » et les actions du menu « … » de l'espace formateur sont des Liens texte : pas d'état choisi, une action sur la session ou les données.
+- **Lien posé dans une phrase** : il prend le rôle de la phrase en variante `-fort` (un cran de graisse), et ne change jamais de taille. Lien seul, hors d'une phrase : Lien texte. Raison : un lien dans une phrase fait partie de la phrase, la taille ne change pas dans une ligne (section 8). Exemple : « 3 cours » et « 1 groupe » dans « 3 cours · 1 groupe · 12 élèves » du dashboard formateur, en Texte secondaire fort.
 
 **Saisie et choix : texte tapé et texte indicatif.** Le texte indicatif (placeholder) d'un champ vide prend le rôle Saisie et choix, comme le texte tapé : seule la couleur change. Le vide et le rempli sont deux états du même texte, et un état ne change jamais la taille (section 8).
 
