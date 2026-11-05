@@ -81,7 +81,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 **Titre de section ou Titre de carte.**
 - Titre de section : le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). Exemples : « De ton formateur », « Taux de complétion », intertitres de leçon, « À retenir ».
-- Titre de carte : le titre nomme ce que la carte présente (un objet, une action : un cours, un thème, un groupe, un badge, ce qu'on va faire), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours »). En dessous, une explication ou une information. Exemples : « Étape suivante », « Suite du thème », « X étapes sur N », carte de thème.
+- Titre de carte : le titre nomme ce que la carte présente (un objet, une action : un cours, un thème, un groupe, un badge, ce qu'on va faire), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours »). En dessous, une explication ou une information. Exemples : « Étape suivante », « Suite du thème », « X étapes sur N », carte de thème. Une carte garde le même rôle de titre quelle que soit sa place dans l'écran : en tête, en colonne ou en ligne, son titre reste en Titre de carte (le titre du bloc de tête du dashboard apprenant comme « Quiz flash »).
 - Test : le titre est-il le nom d'une chose (Titre de carte) ou le nom d'une partie (Titre de section) ?
 - Surfaces entières : Une modale ou une feuille de menu prend le Titre de section, quel que soit son texte : elle tient la place d'un écran. Le test du nom vaut pour les cartes et les parties de page.
 
