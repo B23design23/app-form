@@ -58,8 +58,8 @@ Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'u
 | Titre de page | 34 px | 44 px | 800 | 1,1 | normal | Nomme l'écran ; un seul par écran, en tête. |
 | Titre de contenu | 28 px | 32 px | 800 | 1,1 | normal | Nomme l'objet que l'écran présente (cours, thème, question). |
 | Titre de section | 21 px | 21 px | 800 | 1,2 | normal | Le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). |
-| Titre de carte | 18 px | 18 px | 800 | 1,2 | normal | Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information. |
-| Titre de ligne | 16 px | 16 px | 800 | 1,2 | normal | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. |
+| Titre de carte | 18 px | 18 px | 800 | 1,2 | normal | Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information. Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. |
+| Titre de ligne | 16 px | 16 px | 800 | 1,2 | normal | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. |
 | Texte de lecture | 17 px | 18 px | 500 | 1,55 | normal | Texte de la leçon, dans la fiche et dans son aperçu. |
 | Corps courant | 15 px | 15 px | 500 | 1,45 | normal | Phrases lues ailleurs que dans la leçon : explications, paragraphes, intitulés, réponses affichées. |
 | Texte secondaire | 14 px | 14 px | 600 | 1,2 | normal | Phrase qui accompagne un titre ou un contenu : sous-titre, état, aide, erreur, message. |
@@ -77,6 +77,8 @@ Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'u
 
 Aucun rôle n'a d'espacement des lettres.
 
+- **Précision Skillo** : deux rôles différents ne prennent jamais la même valeur (même taille, même graisse et même hauteur de ligne), sinon l'utilisateur ne voit pas la différence. C'est pourquoi le Titre de carte reste à 18 px : 21 px est refusé, c'est la valeur du Titre de section (décision 26 de `docs/proposition-typographie.md`).
+
 ## 6. Choisir entre deux rôles voisins
 
 **Titre de section ou Titre de carte.**
@@ -84,6 +86,8 @@ Aucun rôle n'a d'espacement des lettres.
 - Titre de carte : le titre nomme ce que la carte présente (un objet, une action : un cours, un thème, un groupe, un badge, ce qu'on va faire), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours »). En dessous, une explication ou une information. Exemples : « Étape suivante », « Suite du thème », « X étapes sur N », carte de thème. Une carte garde le même rôle de titre quelle que soit sa place dans l'écran : en tête, en colonne ou en ligne, son titre reste en Titre de carte (le titre du bloc de tête du dashboard apprenant comme « Quiz flash »).
 - Test : le titre est-il le nom d'une chose (Titre de carte) ou le nom d'une partie (Titre de section) ?
 - Surfaces entières : Une modale ou une feuille de menu prend le Titre de section, quel que soit son texte : elle tient la place d'un écran. Le test du nom vaut pour les cartes et les parties de page.
+
+**Titre de carte ou Titre de ligne : carte ou ligne** (décision 27 de `docs/proposition-typographie.md`). Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. Exemples : les groupes de « Tes groupes » (dashboard formateur) et les tuiles de la modale Mes badges sont des lignes (Titre de ligne) ; les cartes de cours assigné du Détail groupe, posées sur la page, sont des cartes (Titre de carte). Le nom du badge dans le toast de complétion reste en Pastille.
 
 **Chiffre mis en avant, standard ou grand.** Grand : le nombre est le sujet de l'écran entier (l'écran existe pour le montrer), comme le score de fin de quiz (quiz de cours et quiz flash), affiché en pourcentage. Standard : le nombre est le sujet d'un bloc.
 
