@@ -31,9 +31,10 @@ Une demande d'exception nomme l'écran, la règle concernée, ce que le système
 ## 1. Sources
 
 - Décisions qui expliquent les tokens : `docs/tokens/couleurs.md`, `docs/tokens/espacements.md`.
+- Typographie (police, échelle, graisses, rôles, états, contrôles, italique) : `docs/tokens/typographie.md`. Section 5 « Typographie » de ce fichier.
 - Principes et composants : `docs/design-system/ds-principes-composants.md`.
 - Gouvernance, registre et versions : `docs/design-system/gouvernance-skillo.md`, `docs/design-system/notes-de-version.md`.
-- Règles transverses de rendu (section 5) : `docs/design-system/ds-principes-composants.md` (séparateur, typographie, ponctuation, survol et tactile, navigation, liste déroulante, logo, objet 3D du thème, chevrons, toast de complétion) ; règle des deux ombres et bouton orange unique : registre de `docs/design-system/gouvernance-skillo.md` ; focus : `docs/tokens/couleurs.md` (décision 4).
+- Règles transverses de rendu (section 5) : `docs/design-system/ds-principes-composants.md` (séparateur, césure des titres, ponctuation, survol et tactile, navigation, liste déroulante, logo, objet 3D du thème, chevrons, toast de complétion) ; règle des deux ombres et bouton orange unique : registre de `docs/design-system/gouvernance-skillo.md` ; focus : `docs/tokens/couleurs.md` (décision 4).
 
 ## 2. Principes
 
@@ -93,7 +94,7 @@ Base 4. Liste fermée de paliers (ci-dessous) : tout autre `espace-*` est interd
 
 ### Valeurs sans token
 
-Rayons, tailles de police, polices et ombre ne sont pas encore tokenisés. Utiliser les variables CSS existantes du `:root` de `src/styles/shared.css` :
+Rayons et ombre ne sont pas encore tokenisés. Utiliser les variables CSS existantes du `:root` de `src/styles/shared.css` :
 
 | Variable CSS | Rôle | Statut |
 |---|---|---|
@@ -102,9 +103,6 @@ Rayons, tailles de police, polices et ombre ne sont pas encore tokenisés. Utili
 | `--radius-reponse` | réponses de quiz | *Provisoire, pas encore tokenisé* |
 | `--radius-pill` | champs et boutons en pilule | *Provisoire, pas encore tokenisé* |
 | `--radius-badge` | rôle non documenté | *Provisoire, pas encore tokenisé* |
-| `--taille-h1` | titres de page (salutation, « Cours », « Mes groupes »…) | *Provisoire, pas encore tokenisé* |
-| `--taille-titre-cours` | titres de cours et noms de thème dans les fiches | *Provisoire, pas encore tokenisé* |
-| `--font-display`, `--font-body` | police Urbanist (titres, corps) | *Provisoire, pas encore tokenisé* |
 | `--ombre-flottante` | ombre des éléments flottants (voir « Ombres », section 5) | |
 
 ### Liste des tokens utilisables
@@ -197,40 +195,9 @@ Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer 
 | `--bordure-etape` | varie selon le mode | Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. |
 | `--bordure-action-desactive` | varie selon le mode | Contour d'une action désactivée. Va avec texte-action-desactive. |
 
-#### Typographie, primitifs (`typo`)
+#### Typographie, rôles (`typo`)
 
 Typographie. Un composant applique un rôle (font: var(--typo-<rôle>)) ou sa variante -fort (font: var(--typo-<rôle>-fort)), jamais un primitif, jamais font-size ni font-weight séparés. L'échelle est une liste fermée : 12 tailles (13, 14, 15, 16, 17, 18, 21, 28, 32, 34, 44, 48 px), 4 graisses (500, 600, 700, 800) ; aucune autre valeur n'est admise. Les tailles s'écrivent en px et sortent en rem (base 16 px). Un seul seuil typographique : 768 px (typo.seuil-desktop) ; les rôles qui en dépendent sont dans typographie-mobile et typographie-desktop, sous le même nom, jamais ici.
-
-Un composant ne lit jamais ces primitifs : ils sont listés pour lire les valeurs des rôles.
-
-| Variable CSS | Valeur | Description |
-|---|---|---|
-| `--typo-famille` | Urbanist, sans-serif | Famille unique : Urbanist, avec sans-serif en secours. |
-| `--typo-taille-13` | 13 px | Taille de 13 px, sortie en rem (base 16 px). |
-| `--typo-taille-14` | 14 px | Taille de 14 px, sortie en rem (base 16 px). |
-| `--typo-taille-15` | 15 px | Taille de 15 px, sortie en rem (base 16 px). |
-| `--typo-taille-16` | 16 px | Taille de 16 px, sortie en rem (base 16 px). |
-| `--typo-taille-17` | 17 px | Taille de 17 px, sortie en rem (base 16 px). |
-| `--typo-taille-18` | 18 px | Taille de 18 px, sortie en rem (base 16 px). |
-| `--typo-taille-21` | 21 px | Taille de 21 px, sortie en rem (base 16 px). |
-| `--typo-taille-28` | 28 px | Taille de 28 px, sortie en rem (base 16 px). |
-| `--typo-taille-32` | 32 px | Taille de 32 px, sortie en rem (base 16 px). |
-| `--typo-taille-34` | 34 px | Taille de 34 px, sortie en rem (base 16 px). |
-| `--typo-taille-44` | 44 px | Taille de 44 px, sortie en rem (base 16 px). |
-| `--typo-taille-48` | 48 px | Taille de 48 px, sortie en rem (base 16 px). |
-| `--typo-graisse-500` | 500 | Graisse 500. |
-| `--typo-graisse-600` | 600 | Graisse 600. |
-| `--typo-graisse-700` | 700 | Graisse 700. |
-| `--typo-graisse-800` | 800 | Graisse 800. |
-| `--typo-interligne-1` | 1 | Hauteur de ligne 1, sans unité (multiple de la taille). |
-| `--typo-interligne-1-1` | 1,1 | Hauteur de ligne 1,1, sans unité (multiple de la taille). |
-| `--typo-interligne-1-2` | 1,2 | Hauteur de ligne 1,2, sans unité (multiple de la taille). |
-| `--typo-interligne-1-45` | 1,45 | Hauteur de ligne 1,45, sans unité (multiple de la taille). |
-| `--typo-interligne-1-55` | 1,55 | Hauteur de ligne 1,55, sans unité (multiple de la taille). |
-| `--typo-espacement-lettres-0` | 0 px | Espacement des lettres nul. |
-| `typo-seuil-desktop` (pas de variable CSS) | 768 px | Largeur à partir de laquelle s'appliquent les tailles desktop. Lue par le générateur pour écrire la media query, ne sort pas en variable CSS. |
-
-#### Typographie, rôles (`typo`)
 
 Valeur : taille · graisse · hauteur de ligne. Un élément applique `font: var(--typo-<rôle>)` ou `font: var(--typo-<rôle>-fort)`.
 
@@ -290,7 +257,7 @@ Source : `ds-principes-composants.md`.
   - orange (texte encre) : lancer le quiz flash, rien d'autre ;
   - supprimer (rouge) : action destructrice, dans un menu, toujours confirmée ;
   - pointillé : ajouter un élément dans la création de cours (question, réponse, étape) ;
-  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6` ; chevron de 18 px. Taille et graisse du libellé : À trancher (typographie hors itération).
+  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et « Retour » reste le nom accessible du bouton. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6` ; chevron de 18 px. Libellé : rôle Bouton (`--typo-bouton`), car la variante Retour a une forme de bouton (`typographie.md`, section 6).
 - **Choisir entre principal, secondaire et lien texte** :
   - principal : l'action attendue de la zone, un seul par zone ;
   - secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision ;
@@ -440,9 +407,50 @@ Deux ombres, et seulement elles (2.1.0). Le contraste vient des couleurs de fond
 
 ### Typographie
 
-- Urbanist partout (`--font-display`, `--font-body`, *Provisoire, pas encore tokenisé*), graisses 400 à 800. Titres en 800, corps en 500 à 600.
-- `--taille-h1` (*Provisoire, pas encore tokenisé*) est réservé aux **titres de page** (salutation, « Cours », « Mes groupes »…).
-- `--taille-titre-cours` (*Provisoire, pas encore tokenisé*) : titres de cours et noms de thème dans les fiches (fiche cours, détail cours formateur, détail thème), graisse 800, interlignage 1.1.
+Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les rôles et leurs valeurs sont dans la liste générée de la section 3 (« Typographie, rôles »).
+
+**Règle d'usage** (section 11) : un élément applique son rôle par `font: var(--typo-<rôle>)`, son état ou son emphase par `font: var(--typo-<rôle>-fort)`. Jamais `font-size` ni `font-weight` séparés, jamais un primitif (`--typo-taille-*`, `--typo-graisse-*`…). Le raccourci `font` ne porte pas l'espacement des lettres et remet `font-style` à sa valeur initiale : une italique se déclare après lui.
+
+**Police, échelle, graisses, seuil**
+- Une seule police : Urbanist, en romain de 500 à 800, plus l'italique 500 (section 1).
+- Les tailles sont pensées en px et sortent en rem (base 16 px). Un texte doit pouvoir être agrandi jusqu'à 200 % sans perte de contenu ni de fonction (WCAG 2.2, critère 1.4.4). Un conteneur de taille fixe qui contient du texte (anneau, pastille, rond numéroté, bouton de hauteur fixe) reste lisible quand le texte grandit : le texte ne déborde pas et n'est pas coupé (section 1).
+- Échelle fermée de 12 tailles : 13 · 14 · 15 · 16 · 17 · 18 · 21 · 28 · 32 · 34 · 44 · 48 px. Aucune autre taille, pas de taille intermédiaire (27 px ou 20 px ne s'écrivent pas). On choisit un rôle, pas une taille (section 2).
+- Quatre graisses : 500 · 600 · 700 · 800. 400 et 900 n'existent pas dans Skillo (section 3).
+- Un seul seuil typographique : 768 px. Chaque rôle a au plus une taille sous 768 px et une à partir de 768 px. Le seuil de 1024 px de Création de cours est un seuil de mise en page : sous 1024 px, l'en-tête compact prend le Titre de ligne ; à partir de 1024 px, l'en-tête desktop prend le Titre de page (section 4).
+- 18 rôles, 19 lignes (Chiffre mis en avant a deux niveaux). Aucun rôle n'a d'espacement des lettres (section 5).
+
+**Rattachement** (section 7)
+- La fonction d'un texte décide de son rôle, jamais sa taille actuelle ni la place disponible. Deux textes qui ont la même fonction ont la même typographie, où qu'ils soient.
+- Un texte écrit aujourd'hui dans une autre taille que son rôle n'est pas une exception : c'est une dérive à corriger. La place disponible (intérieur d'un anneau, largeur d'une carte) se vérifie après coup, elle ne choisit pas le rôle.
+- Le rôle ne dépend pas de la balise HTML : le niveau de titre (h1, h2…) donne la structure de la page, le rôle donne l'apparence. Exemple : le nom d'un thème, dans le Détail d'un thème, est un h1 en Titre de contenu.
+- Si la fonction ne permet pas de décider : « À trancher », pas un choix à l'œil (voir section 7 de ce fichier).
+
+**Choisir entre deux rôles voisins** (section 6)
+- **Titre de section ou Titre de carte : test du nom.** Le nom d'une partie de la page ou du contenu, qui annonce ce qui suit (« De ton formateur », « Taux de complétion », intertitres de leçon, « À retenir ») → Titre de section. Le nom d'une chose que la carte présente (cours, thème, groupe, badge, action) ou ce qui dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours »), avec une explication ou une information en dessous (« Étape suivante », « Suite du thème », « X étapes sur N », carte de thème) → Titre de carte. Une modale ou une feuille de menu prend le Titre de section quel que soit son texte : elle tient la place d'un écran.
+- **Chiffre mis en avant ou Compteur : test binaire.** Le nombre est le sujet du bloc, le bloc existe pour le montrer (carte de statistique, taux de complétion, score de fin de quiz en pourcentage) → Chiffre mis en avant. Sinon (position, avancement, total ou gain qui accompagne le sujet du bloc : « 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau du bloc « cours en cours », « +15 XP ») → Compteur. Un nombre a un rôle et un seul ; sa forme (pourcentage, fraction, entier) ne décide jamais.
+- **Chiffre mis en avant, standard ou grand.** Grand : le nombre est le sujet de l'écran entier, comme le score de fin de quiz (quiz de cours et quiz flash), affiché en pourcentage. Standard : le sujet d'un bloc.
+- **Corps courant ou Texte de lecture.** Texte de lecture : le texte de la leçon, dans la fiche, dans son aperçu (Création de cours) et dans le Détail cours (premier paragraphe). Corps courant : toutes les autres phrases lues (explications, paragraphes, intitulés d'étape, réponses affichées).
+- **Texte secondaire ou Méta.** Texte secondaire : une phrase complète qui commente un autre élément (sous-titre, état vide, aide, erreur, message, note sous une carte). Méta : une information courte et factuelle, lue en passant (« Leçon · Quiz », date, compte, statut, « N min de lecture »).
+- **Lien texte ou Navigation.** Navigation : une option reste marquée comme choisie et change ce qu'on voit (écran, vue, filtre) sans agir sur les données (barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu qui mènent à un écran ou à une vue et restent marquées, repère d'étapes). Lien texte : une action sans forme de bouton ni état choisi, qui agit ou mène ailleurs une fois (« Tout voir », « Revoir la leçon », « Passer cette étape », « Voir comme un élève »). Les entrées de menu qui agissent (« Se déconnecter », actions du menu « … » de l'espace formateur) sont des Liens texte.
+- **Bouton ou Lien texte : la forme.** Un texte d'action posé dans une forme de bouton (fond, contour ou pointillé, padding, zone cliquable de bouton) prend le rôle Bouton ; sans forme de bouton, Lien texte. Le libellé du bouton Retour est en rôle Bouton : la variante Retour a une forme de bouton.
+
+**États et emphase** (section 8)
+- Un état (choisi, en cours, fait, coché) ou une emphase monte la graisse d'un cran, jamais la taille : 500 → 600, 600 → 700, 700 → 800. C'est la variante `-fort` du rôle.
+- L'option choisie d'une Navigation (entrée active, onglet actif, filtre actif, étape en cours) est un état : 800.
+- Pas de partie plus légère que son rôle : un compteur dans une pastille, un message « Aucune modification » ou tout fragment plus maigre prend la graisse du rôle.
+- L'emphase dans une phrase (`strong`, gras Markdown, nom en gras dans un fil d'activité) suit la même règle qu'un état.
+- Dans les rôles à 800, l'emphase reste invisible, et c'est accepté : 800 est la graisse la plus forte, ces rôles n'ont pas de variante `-fort`.
+
+**Contrôles** (section 9)
+- Chaque bouton, champ, liste déroulante ou ligne de choix déclare la typographie de son rôle (Bouton, Saisie et choix, Navigation…), jamais la police par défaut du navigateur : les navigateurs n'appliquent pas l'héritage de la police aux boutons et aux champs.
+- Saisie et choix : tout texte tapé ou choisi dans un champ fait 16 px, même dans un en-tête dense ou une ligne de filtres (Safari sur iOS agrandit la page sous 16 px).
+- Croix de fermeture, flèches Monter / Descendre et flèches de tri : icônes SVG, comme les autres boutons ronds, jamais des caractères (×, ↑, ↓, ▲, ▼). Elles sortent de la typographie.
+
+**Italique** (section 10)
+- Urbanist italique 500, chargée seule. Elle apparaît dans le contenu Markdown des cours, en Texte de lecture et en Corps courant.
+- Le gras italique n'est pas prévu. S'il apparaît dans un Markdown, le gras fabriqué par le navigateur est accepté.
+
+**Césure des titres** (`ds-principes-composants.md`)
 - Titres (H1, titres de cours et de thème, questions de quiz) : pas de césure automatique (`hyphens: manual`) et `text-wrap: balance`. La césure reste active sur le texte courant de la leçon (paragraphes, listes).
 
 ### Icônes
@@ -551,6 +559,42 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 - Pourquoi : « Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. »
 - Conforme : le trait est retiré sous la dernière rangée, comme dans la liste du Mode terrain.
 
+**Exemple non conforme : état écrit en plus grand**
+- Situation : étape en cours d'une checklist.
+- Erreur : l'intitulé de l'étape en cours passe à 17 px pour la détacher des autres étapes.
+- Pourquoi : un état monte la graisse d'un cran, jamais la taille (`typographie.md`, section 8).
+- Conforme : `--typo-corps-courant-fort` (Corps courant, 15 px · 1,45, graisse 600, un cran au-dessus de 500).
+
+**Exemple non conforme : pourcentage de l'anneau**
+- Situation : pourcentage au centre de l'anneau du bloc « cours en cours » du dashboard apprenant.
+- Erreur : Chiffre mis en avant (28 px), parce que c'est un pourcentage et qu'il y a de la place dans l'anneau.
+- Pourquoi : le sujet du bloc décide, jamais la forme du nombre (`typographie.md`, section 6) ; la place disponible ne choisit pas le rôle (section 7). Le sujet du bloc est le cours, le pourcentage dit où l'on en est dans ce cours.
+- Conforme : `--typo-compteur` (Compteur, 15 px · 800 · 1,2).
+
+**Exemple non conforme : champ plus petit pour gagner de la place**
+- Situation : champ de recherche dans un en-tête de carte chargé.
+- Erreur : texte du champ à 14 px pour qu'il tienne à côté des filtres.
+- Pourquoi : Saisie et choix à 16 px, à cause de Safari sur iOS (`typographie.md`, section 9) ; la place disponible ne choisit pas le rôle (section 7).
+- Conforme : `--typo-saisie-choix` (Saisie et choix, 16 px · 600 · 1,2).
+
+**Exemple non conforme : croix en caractère**
+- Situation : bouton de fermeture d'une modale.
+- Erreur : le caractère « × » en guise d'icône, avec une taille de police pour le grossir.
+- Pourquoi : croix et flèches en icônes SVG (`typographie.md`, section 9).
+- Conforme : icône SVG de croix dans le bouton rond, avec un `aria-label`.
+
+**Exemple non conforme : libellé du bouton Retour**
+- Situation : bouton Retour en haut d'une page de détail.
+- Erreur : le libellé en Lien texte (700), parce qu'il mène ailleurs une fois, comme un lien.
+- Pourquoi : Bouton ou Lien texte se choisit par la forme ; la variante Retour a une forme de bouton (`typographie.md`, section 6).
+- Conforme : `--typo-bouton` (Bouton, 15 px · 800 · 1,2), dans la pilule blanche de la variante Retour.
+
+**Exemple non conforme : partie plus légère**
+- Situation : compteur de questions à l'intérieur d'une pastille de navigation.
+- Erreur : le compteur en 600 pour qu'il s'efface derrière le libellé.
+- Pourquoi : pas de partie plus légère que son rôle (`typographie.md`, section 8).
+- Conforme : compteur dans la graisse du rôle Navigation (700), `--typo-navigation`.
+
 ## 7. Conduite de l'agent
 
 - **`tokens/` fait foi** pour les couleurs et les espacements (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
@@ -573,6 +617,8 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 
 La conduite en attente vaut seulement quand aucune règle ne dit quoi faire. Quand une règle donne la marche à suivre, comme l'arrondi d'un espacement hors échelle, l'agent l'applique et la signale dans son rapport.
 
+**Rôle typographique impossible à choisir** : si la fonction d'un texte ne permet pas de décider de son rôle, l'agent écrit « À trancher » et ne choisit pas un rôle à l'œil, ni d'après la taille actuelle ou la place disponible (`typographie.md`, section 7).
+
 **Demande qui touche le DS** (ajouter, modifier ou supprimer un token ou un composant) : s'arrêter avant d'agir et demander. Un agent ne crée ni ne modifie jamais un token.
 
 ## À trancher
@@ -581,7 +627,7 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 
 1. **Rayons.** Plusieurs rayons de carte cités dans les sources (en-tête de page, bloc de tête du dashboard, cartes de Création de cours) n'ont pas de variable. `--radius-badge` n'a pas de rôle écrit.
 2. **Rubriques des entrées Bouton, Champ et Conteneur de page absentes de la documentation** (marquées « À trancher » dans la section 4) :
-   - Bouton : rôle général ; taille et graisse du libellé du bouton Retour (typographie hors itération) ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
+   - Bouton : rôle général ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
    - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
    - Conteneur de page : élément qui fournit les marges d'une page hors navigation (aucun élément partagé ne le fait).
    - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.

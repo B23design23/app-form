@@ -60,18 +60,12 @@ async function construireListe() {
 }
 
 // --- Typographie (tokens/typographie*.tokens.json) ---------------------------------------------
-// Deux listes : primitifs, puis rôles composés. Un rôle défini en mobile et en desktop tient sur une
-// ligne avec ses deux valeurs. Les valeurs sont lues dans tokens/ (tailles en px, comme la doc).
+// Les rôles seulement (un composant ne lit jamais un primitif), précédés de la description du
+// groupe typo. Un rôle défini en mobile et en desktop tient sur une ligne avec ses deux valeurs.
+// Les valeurs sont lues dans tokens/ (tailles en px, comme la doc).
 
 const virgule = (n) => String(n).replace('.', ',')
 const dimension = (v) => `${virgule(v.value)} ${v.unit}`
-
-function valeurPrimitif(token) {
-  const v = token.$value
-  if (Array.isArray(v)) return v.join(', ')
-  if (v && typeof v === 'object') return dimension(v)
-  return virgule(v)
-}
 
 // {typo.taille.15} → valeur du primitif dans le fichier commun
 function valeurCompose(token, primitifs) {
@@ -88,27 +82,7 @@ async function listeTypographie() {
   const mobile = (await lire('tokens/typographie-mobile.tokens.json')).typo
   const desktop = (await lire('tokens/typographie-desktop.tokens.json')).typo
 
-  const lignes = ['#### Typographie, primitifs (`typo`)', '', typo.$description ?? '', '']
-  lignes.push('Un composant ne lit jamais ces primitifs : ils sont listés pour lire les valeurs des rôles.', '')
-  lignes.push('| Variable CSS | Valeur | Description |', '|---|---|---|')
-  const primitifs = []
-  const parcourir = (noeud, chemin) => {
-    for (const [cle, enfant] of Object.entries(noeud)) {
-      if (cle.startsWith('$') || !enfant || typeof enfant !== 'object') continue
-      const ici = [...chemin, cle]
-      if (!estToken(enfant)) parcourir(enfant, ici)
-      else if (enfant.$type !== 'typography') primitifs.push([ici, enfant])
-    }
-  }
-  parcourir(typo, ['typo'])
-  for (const [chemin, token] of primitifs) {
-    const nom = chemin.join('-')
-    // Le seuil ne sort pas en variable CSS : nom du token, sans --
-    const affiche = nom === 'typo-seuil-desktop' ? `\`${nom}\` (pas de variable CSS)` : `\`--${nom}\``
-    lignes.push(`| ${affiche} | ${valeurPrimitif(token)} | ${cellule(token.$description ?? '')} |`)
-  }
-
-  lignes.push('', '#### Typographie, rôles (`typo`)', '')
+  const lignes = ['#### Typographie, rôles (`typo`)', '', typo.$description ?? '', '']
   lignes.push('Valeur : taille · graisse · hauteur de ligne. Un élément applique `font: var(--typo-<rôle>)` ou `font: var(--typo-<rôle>-fort)`.', '')
   lignes.push('| Variable CSS | Valeur | Description |', '|---|---|---|')
   const composes = [
