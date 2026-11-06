@@ -61,7 +61,7 @@ function EcranQuiz({
 
       <div className="fiche-quiz-question-bloc">
         <span className="fiche-quiz-cours">{typo(libelleQuestion(question))}</span>
-        <ContenuMarkdown texte={question.enonce} className="fiche-quiz-question" />
+        <ContenuMarkdown texte={question.enonce} className="fiche-quiz-question" roleTypo="titre-contenu" />
         {multiple && <span className="fiche-quiz-aide">Plusieurs réponses possibles</span>}
       </div>
 

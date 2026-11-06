@@ -335,7 +335,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
         >
           <div className={`dc-lecon${pointsARetenir.length ? ' dc-lecon-avec-retenir' : ''}`}>
             <div className="dc-lecon-texte">
-              {paragraphe ? <ContenuMarkdown texte={paragraphe} className="dc-paragraphe" /> : <p className="fm-texte">Leçon vide.</p>}
+              {paragraphe ? <ContenuMarkdown texte={paragraphe} className="dc-paragraphe" roleTypo="texte-lecture" /> : <p className="fm-texte">Leçon vide.</p>}
               {images.length > 0 && (
                 <ul className="dc-miniatures">
                   {images.slice(0, MINIATURES_MAX).map((image, i) => {
@@ -383,7 +383,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
                 <li key={question.id} className="dc-question">
                   <span className="dc-numero">{i + 1}</span>
                   <div className="dc-question-texte">
-                    <ContenuMarkdown texte={question.enonce} className="dc-enonce" />
+                    <ContenuMarkdown texte={question.enonce} className="dc-enonce" roleTypo="titre-ligne" />
                     {question.reponses
                       .filter((r) => r.est_correcte)
                       .map((r) => (
@@ -414,7 +414,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
               {etapes.map((etape, i) => (
                 <li key={etape.id} className="dc-etape">
                   <span className="dc-numero">{i + 1}</span>
-                  <ContenuMarkdown texte={etape.intitule} className="dc-etape-intitule" />
+                  <ContenuMarkdown texte={etape.intitule} className="dc-etape-intitule" roleTypo="corps-courant" />
                   {etape.bloquante && cours.checklist_mode !== 'reorder' && <span className="fm-pastille fm-pastille-erreur">Bloquante</span>}
                 </li>
               ))}

@@ -1,3 +1,52 @@
+/* Rôle typographique du texte courant (prop roleTypo, obligatoire). Deux classes : le rôle
+   l'emporte sur les règles à une classe des écrans parents, chargées après ce fichier. */
+.contenu-markdown.contenu-markdown-role-texte-lecture {
+  font: var(--typo-texte-lecture);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.contenu-markdown.contenu-markdown-role-corps-courant {
+  font: var(--typo-corps-courant);
+}
+
+.contenu-markdown.contenu-markdown-role-corps-courant-fort {
+  font: var(--typo-corps-courant-fort);
+}
+
+.contenu-markdown.contenu-markdown-role-titre-contenu {
+  font: var(--typo-titre-contenu);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.contenu-markdown.contenu-markdown-role-titre-ligne {
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+/* Emphase et lien dans une phrase (p, li) : variante -fort du rôle ; rôles à 800 et rôle déjà
+   -fort : ils gardent la graisse du rôle. font remet font-style à zéro : l'italique est rendue. */
+.contenu-markdown.contenu-markdown-role-texte-lecture :is(p, li) :is(strong, a) {
+  font: var(--typo-texte-lecture-fort);
+  font-style: inherit;
+}
+
+.contenu-markdown.contenu-markdown-role-corps-courant :is(p, li) :is(strong, a) {
+  font: var(--typo-corps-courant-fort);
+  font-style: inherit;
+}
+
+.contenu-markdown.contenu-markdown-role-corps-courant-fort :is(p, li) :is(strong, a),
+.contenu-markdown.contenu-markdown-role-titre-contenu :is(p, li) :is(strong, a),
+.contenu-markdown.contenu-markdown-role-titre-ligne :is(p, li) :is(strong, a) {
+  font: inherit;
+  font-style: inherit;
+}
+
 .contenu-markdown p {
   margin: 0 0 16px;
   /* Rétrocompat : les cours en texte brut gardent leurs retours à la ligne simples */
@@ -6,14 +55,20 @@
 
 .contenu-markdown h1,
 .contenu-markdown h2,
-.contenu-markdown h3 {
+.contenu-markdown h3,
+.contenu-markdown h4 {
   margin: 20px 0 8px;
-  line-height: 1.25;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
-.contenu-markdown h1 { font-size: 1.4rem; }
-.contenu-markdown h2 { font-size: 1.2rem; }
-.contenu-markdown h3 { font-size: 1.05rem; }
+/* Emphase et lien dans un titre (800) : la graisse du titre */
+.contenu-markdown :is(h1, h2, h3, h4) :is(strong, a) {
+  font: inherit;
+  font-style: inherit;
+}
 
 .contenu-markdown > :first-child {
   margin-top: 0;
@@ -35,7 +90,6 @@
 
 .contenu-markdown a {
   color: var(--texte-accent);
-  font-weight: 600;
 }
 
 .contenu-markdown-image {
@@ -92,7 +146,21 @@
 .contenu-markdown table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font: var(--typo-corps-courant);
+  /* Corps courant : pas de césure, même dans un Texte de lecture */
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+
+/* Emphase et lien dans une cellule : variante -fort du Corps courant ; dans un th (déjà -fort) : inchangés */
+.contenu-markdown td :is(strong, a) {
+  font: var(--typo-corps-courant-fort);
+  font-style: inherit;
+}
+
+.contenu-markdown th :is(strong, a) {
+  font: inherit;
+  font-style: inherit;
 }
 
 .contenu-markdown th,
@@ -108,8 +176,7 @@
 
 .contenu-markdown th {
   background: var(--fond-accent);
-  font-family: var(--font-display);
-  font-weight: 800;
+  font: var(--typo-corps-courant-fort);
   white-space: nowrap;
 }
 

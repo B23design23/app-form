@@ -29,7 +29,7 @@ function EcranLecon({
       </EnteteFiche>
 
       <article className="fiche-carte fiche-lecon">
-        <ContenuMarkdown texte={cours.contenu} className="fiche-lecon-contenu" />
+        <ContenuMarkdown texte={cours.contenu} className="fiche-lecon-contenu" roleTypo="texte-lecture" />
 
         {pointsARetenir.length > 0 && (
           <aside className="fiche-retenir">

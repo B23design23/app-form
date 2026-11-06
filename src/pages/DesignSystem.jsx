@@ -52,7 +52,7 @@ function Regles({ titre, lignes }) {
     <div className="ds-regles">
       <span className="ds-regles-titre">{titre}</span>
       {lignes.map((l) => (
-        <ContenuMarkdown key={l} texte={l.replace(/^- /, '')} className="ds-regle" />
+        <ContenuMarkdown key={l} texte={l.replace(/^- /, '')} className="ds-regle" roleTypo="corps-courant" />
       ))}
     </div>
   )
@@ -332,7 +332,7 @@ function Composants() {
       <div className="ds-groupe">
         <h3>Séparateur</h3>
         <div className="espace-carte ds-carte">
-          <ContenuMarkdown texte={TABLEAU_SEPARATEUR} />
+          <ContenuMarkdown texte={TABLEAU_SEPARATEUR} roleTypo="corps-courant" />
         </div>
         <Regles titre="Règle" lignes={separateur.regle} />
       </div>

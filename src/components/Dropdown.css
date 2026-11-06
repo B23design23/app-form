@@ -9,8 +9,7 @@
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
-  font-size: 1rem;
-  font-family: var(--font-body);
+  font: var(--typo-saisie-choix);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
   cursor: pointer;
@@ -58,8 +57,7 @@
   min-height: 44px;
   padding: 0 10px 0 30px;
   border-radius: 10px;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
   cursor: pointer;
   user-select: none;
@@ -75,7 +73,7 @@
 .dropdown-item[data-state='checked'] {
   background: var(--fond-accent);
   color: var(--texte-accent);
-  font-weight: 600;
+  font: var(--typo-saisie-choix-fort);
 }
 
 .dropdown-item-indicateur {

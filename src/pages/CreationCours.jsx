@@ -1017,7 +1017,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                   <div className="cc-apercu mode-apprenant">
                     {contenu.trim() || aRetenir.trim() ? (
                       <article className="fiche-carte fiche-lecon">
-                        <ContenuMarkdown texte={developperImages(contenu, tableImages.current)} className="fiche-lecon-contenu" />
+                        <ContenuMarkdown texte={developperImages(contenu, tableImages.current)} className="fiche-lecon-contenu" roleTypo="texte-lecture" />
                         {aRetenir.trim() && (
                           <aside className="fiche-retenir">
                             <div className="fiche-retenir-entete">

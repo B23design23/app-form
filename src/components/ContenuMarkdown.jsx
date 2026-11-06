@@ -83,13 +83,23 @@ function titre(Balise) {
   }
 }
 
-function ContenuMarkdown({ texte, className = '' }) {
+// Rôle typographique du texte courant du Markdown (obligatoire) : le composant pose
+// font: var(--typo-<rôle>) ; strong et a prennent la variante -fort (sauf rôles à 800).
+const ROLES_TYPO = ['texte-lecture', 'corps-courant', 'corps-courant-fort', 'titre-contenu', 'titre-ligne']
+
+function ContenuMarkdown({ texte, className = '', roleTypo }) {
   const [imageAgrandie, setImageAgrandie] = useState(null)
+
+  if (!ROLES_TYPO.includes(roleTypo)) {
+    console.error(`ContenuMarkdown : prop roleTypo obligatoire, une valeur parmi ${ROLES_TYPO.join(', ')} (reçu : ${roleTypo}).`)
+  }
 
   if (!texte) return null
 
+  const classeRole = ROLES_TYPO.includes(roleTypo) ? `contenu-markdown-role-${roleTypo}` : ''
+
   return (
-    <div className={`contenu-markdown ${className}`.trim()}>
+    <div className={`contenu-markdown ${classeRole} ${className}`.replace(/\s+/g, ' ').trim()}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{

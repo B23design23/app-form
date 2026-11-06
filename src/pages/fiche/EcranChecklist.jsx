@@ -76,7 +76,7 @@ function EcranChecklist({
               return (
                 <li key={etape.id} className="fiche-etape fiche-etape-reorder">
                   <span className="fiche-etape-pastille fiche-etape-pastille-a-venir">{index + 1}</span>
-                  <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" />
+                  <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" roleTypo="corps-courant" />
                   <span className="fiche-etape-fleches">
                     <button
                       type="button"
@@ -123,7 +123,7 @@ function EcranChecklist({
                   <li key={etape.id} className="fiche-etape fiche-etape-courante" aria-current="step">
                     <span className="fiche-etape-pastille fiche-etape-pastille-courante">{index + 1}</span>
                     <div className="fiche-etape-corps">
-                      <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" />
+                      <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" roleTypo="corps-courant-fort" />
                       {etape.bloquante && <span className="fiche-etape-bloquante">Bloquante</span>}
                       {etape.critere_validation && <p className="fiche-etape-critere">{typo(etape.critere_validation)}</p>}
                       <button type="button" className="bouton-primaire fiche-bouton-large" onClick={() => onValiderEtape(etape.id)}>
@@ -145,7 +145,7 @@ function EcranChecklist({
                     <span className="fiche-etape-pastille fiche-etape-pastille-passee" aria-label="Étape passée">
                       <Icone svg={iconePasser} className="fiche-etape-pastille-icone" />
                     </span>
-                    <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" />
+                    <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" roleTypo="corps-courant" />
                   </li>
                 )
               }
@@ -154,7 +154,7 @@ function EcranChecklist({
                   <span className={`fiche-etape-pastille fiche-etape-pastille-${faite ? 'faite' : 'a-venir'}`}>
                     {faite ? <Coche /> : index + 1}
                   </span>
-                  <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" />
+                  <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" roleTypo="corps-courant" />
                 </li>
               )
             })}

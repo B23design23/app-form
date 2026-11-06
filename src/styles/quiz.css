@@ -82,7 +82,7 @@
 .quiz-feedback {
   border-radius: var(--radius-reponse);
   padding: 12px 14px;
-  font-size: 0.85rem;
+  font: var(--typo-texte-secondaire);
 }
 
 .quiz-feedback p {

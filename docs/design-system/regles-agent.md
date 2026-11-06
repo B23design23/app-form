@@ -446,6 +446,8 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 - Pas de partie plus légère que son rôle : un compteur dans une pastille, un message « Aucune modification » ou tout fragment plus maigre prend la graisse du rôle.
 - L'emphase dans une phrase (`strong`, gras Markdown, nom en gras dans un fil d'activité) suit la même règle qu'un état.
 - Dans les rôles à 800, l'emphase reste invisible, et c'est accepté : 800 est la graisse la plus forte, ces rôles n'ont pas de variante `-fort`.
+- En-tête de tableau (`th`) : il prend le rôle du tableau qu'il coiffe, en variante `-fort` (un tableau en Corps courant : en-têtes en Corps courant fort). Si ce rôle est à 800, l'en-tête reste à 800.
+- *Implémentation* : `ContenuMarkdown` exige le prop `roleTypo` (`texte-lecture`, `corps-courant`, `corps-courant-fort`, `titre-contenu`, `titre-ligne`), le rôle du texte qu'il affiche. Le composant pose `font: var(--typo-<rôle>)`. `strong` et `a` d'une phrase y prennent la variante `-fort`, sauf pour un rôle à 800 ou déjà `-fort`. Les titres Markdown (h1 à h4) sont en Titre de section ; le tableau est en Corps courant, ses `th` en Corps courant fort.
 
 **Contrôles** (section 9)
 - Chaque bouton, champ, liste déroulante ou ligne de choix déclare la typographie de son rôle (Bouton, Saisie et choix, Navigation…), jamais la police par défaut du navigateur : les navigateurs n'appliquent pas l'héritage de la police aux boutons et aux champs.
@@ -462,7 +464,7 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 
 **Césure du Texte de lecture** (section 5)
 - Le Texte de lecture se coupe à la syllabe, avec un tiret, partout où il apparaît. Les autres rôles ne se coupent pas, sauf les titres (césure des titres).
-- Implémentation, état du code : `hyphens: auto` sur `.fiche-lecon-contenu p` et `.fiche-lecon-contenu li` (`src/pages/FicheCours.css`, leçon de la fiche et aperçu de Création de cours), page en `lang="fr"`.
+- Implémentation, état du code : `hyphens: auto` posé par `ContenuMarkdown` quand `roleTypo` vaut `texte-lecture` (leçon de la fiche, aperçu de Création de cours, premier paragraphe du Détail cours), page en `lang="fr"`. Le tableau du Markdown (Corps courant) ne se coupe pas.
 
 ### Icônes
 
