@@ -18,9 +18,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-bouton);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -63,8 +61,7 @@
 }
 
 .theme-entete-numero {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-accent);
 }
 
@@ -72,9 +69,7 @@
 .espace-page .theme-entete-titre {
   margin: 0;
   padding-right: 100px;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-contenu);
   color: var(--texte-principal);
   word-break: normal;
   overflow-wrap: normal;
@@ -85,8 +80,7 @@
 
 .theme-entete-compte {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-sur-accent);
 }
 
@@ -112,7 +106,6 @@
   border: none;
   background: none;
   text-align: left;
-  font-family: var(--font-body);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -133,23 +126,17 @@
 }
 
 .theme-ligne-titre {
-  font-size: 16px;
-  font-weight: 800;
-  line-height: 1.2;
+  font: var(--typo-titre-ligne);
   transition: all 0.15s ease;
 }
 
 .theme-ligne-contenu {
-  font-size: 13px;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
 @media (min-width: 768px) {
   .page-theme {
     max-width: 880px;
-  }
-
-  .espace-page .theme-entete-titre {
-    font-size: 32px;
   }
 }
