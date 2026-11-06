@@ -70,11 +70,10 @@
   margin: 0;
   padding-right: 100px;
   font: var(--typo-titre-contenu);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-principal);
-  word-break: normal;
-  overflow-wrap: normal;
-  hyphens: manual;
-  -webkit-hyphens: manual;
   text-wrap: balance;
 }
 
@@ -127,6 +126,9 @@
 
 .theme-ligne-titre {
   font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   transition: all 0.15s ease;
 }
 

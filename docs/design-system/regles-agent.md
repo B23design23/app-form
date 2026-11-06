@@ -456,8 +456,9 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 - Urbanist italique 500, chargée seule. Elle apparaît dans le contenu Markdown des cours, en Texte de lecture et en Corps courant.
 - Le gras italique n'est pas prévu. S'il apparaît dans un Markdown, le gras fabriqué par le navigateur est accepté.
 
-**Césure des titres** (`ds-principes-composants.md`)
-- Titres (H1, titres de cours et de thème, questions de quiz) : pas de césure automatique (`hyphens: manual`) et `text-wrap: balance`. La césure reste active sur le texte courant de la leçon (paragraphes, listes).
+**Césure des titres** (sections 5 et 11)
+- Un titre (Titre de page, Titre de contenu, Titre de section, Titre de carte, Titre de ligne) qui ne tient pas dans son conteneur se coupe à la syllabe, avec un tiret. Filet : si aucune coupure n'est possible, le mot se coupe sans tiret plutôt que de déborder. Raison : un conteneur fixe qui contient du texte doit rester lisible quand le texte grandit (« Thermodynamique » en 18 px déborde de la carte de thème à 375 px).
+- Dans le code : chaque `font: var(--typo-titre-…)` est accompagné de `hyphens: auto` et `overflow-wrap: break-word`. Jamais `hyphens: manual` ni `overflow-wrap: normal` sur un titre. La césure suit `lang="fr"` de la balise `html`.
 
 ### Icônes
 

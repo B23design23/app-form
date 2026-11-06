@@ -79,6 +79,8 @@ Aucun rôle n'a d'espacement des lettres.
 
 - **Précision Skillo** : deux rôles de titre (Titre de page, Titre de contenu, Titre de section, Titre de carte, Titre de ligne) ne prennent jamais la même valeur (même taille, même graisse et même hauteur de ligne) : entre deux niveaux de titre, seule la valeur montre la hiérarchie. Les autres rôles peuvent partager une valeur quand la forme ou la place les distingue (Bouton et Compteur, Texte secondaire et Libellé de champ). C'est pourquoi le Titre de carte reste à 18 px : 21 px est refusé, c'est la valeur du Titre de section (décision 26 de `docs/proposition-typographie.md`).
 
+**Césure des titres.** Un titre (Titre de page, Titre de contenu, Titre de section, Titre de carte, Titre de ligne) qui ne tient pas dans son conteneur se coupe à la syllabe, avec un tiret. Filet : si aucune coupure n'est possible, le mot se coupe sans tiret plutôt que de déborder. Raison : un conteneur fixe qui contient du texte doit rester lisible quand le texte grandit (section 1) ; à 375 px, « Thermodynamique » en 18 px déborde de la carte de thème. La césure suit la langue de la page (`lang="fr"` sur la balise `html`). Dans le code : section 11.
+
 ## 6. Choisir entre deux rôles voisins
 
 **Titre de section ou Titre de carte.**
@@ -194,6 +196,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 - Le raccourci `font` ne porte pas l'espacement des lettres : la valeur reste écrite dans `tokens/` (0 pour tous les rôles, section 5) et le primitif `typo-espacement-lettres-0` existe, mais elle ne sort pas dans `--typo-<rôle>`.
 - Le raccourci `font` remet aussi `font-style` à sa valeur initiale : une italique se déclare après lui.
+- **Titres** : chaque `font: var(--typo-titre-…)` est accompagné de `hyphens: auto` (coupure à la syllabe, avec tiret) et de `overflow-wrap: break-word` (filet : coupure sans tiret si aucune syllabe ne convient). Jamais `hyphens: manual` ni `overflow-wrap: normal` sur un titre (section 5, césure des titres).
 
 ## 12. Exemples non conformes
 

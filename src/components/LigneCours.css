@@ -44,6 +44,9 @@
 
 .ligne-cours-titre {
   font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   transition: all 0.15s ease;
 }
 

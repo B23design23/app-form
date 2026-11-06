@@ -18,6 +18,9 @@
 .espace-page .page-cours-h2 {
   margin: 0;
   font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-principal);
 }
 
@@ -84,10 +87,9 @@
 .theme-carte-titre {
   width: 100%;
   font: var(--typo-titre-carte);
-  word-break: normal;
-  overflow-wrap: normal;
-  hyphens: manual;
-  -webkit-hyphens: manual;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   text-wrap: balance;
 }
 
