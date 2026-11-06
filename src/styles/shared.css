@@ -625,7 +625,6 @@ label {
 .parcours-bouton-rond:active,
 .theme-retour:active,
 .theme-carte:active,
-.espace-liste-item:active,
 .profil-carte:active,
 .parcours-choix-ligne:active,
 .fiche-reponse:not(.fiche-reponse-correcte):not(.fiche-reponse-fausse):not(.fiche-reponse-neutre):active {
