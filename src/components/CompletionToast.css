@@ -12,8 +12,7 @@
   border-radius: var(--radius-carte);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
+  font: var(--typo-corps-courant);
   box-shadow: var(--ombre-flottante);
   cursor: pointer;
   animation: completion-toast-in 0.2s ease;
@@ -27,8 +26,10 @@
 }
 
 .completion-toast-titre {
-  font-family: var(--font-display);
-  font-weight: 800;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .completion-toast-xp {
@@ -36,7 +37,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-recompense);
   color: var(--texte-principal);
-  font-weight: 700;
+  font: var(--typo-compteur);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -45,8 +46,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.8rem;
-  font-weight: 700;
+  font: var(--typo-pastille);
 }
 
 .completion-toast-badge-icone {

@@ -18,8 +18,10 @@
 .espace-page .bloc-formateur-entete h2 {
   flex: 1;
   margin: 0;
-  font-size: 18px;
-  font-weight: 800;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-principal);
 }
 
@@ -41,8 +43,7 @@
 }
 
 .bloc-formateur-compteur {
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -66,7 +67,6 @@
   border: none;
   background: none;
   text-align: left;
-  font-family: var(--font-body);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -90,9 +90,10 @@
 .bloc-formateur-titre {
   flex: 1;
   min-width: 0;
-  font-size: 15px;
-  font-weight: 800;
-  line-height: 1.2;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   transition: all 0.15s ease;
 }
 

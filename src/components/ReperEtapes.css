@@ -36,8 +36,6 @@
   padding: 0;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 14px;
   text-align: center;
   color: var(--texte-secondaire);
 }
@@ -53,8 +51,7 @@ button.reper-bouton {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  font-size: 13px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   transition: all 0.15s ease;
 }
 
@@ -64,7 +61,7 @@ button.reper-bouton {
 }
 
 .reper-libelle {
-  line-height: 1.2;
+  font: var(--typo-navigation);
 }
 
 /* Étape en cours : pastille violette pleine, numéro blanc, halo lavande de 4 px */
@@ -75,7 +72,7 @@ button.reper-bouton {
 }
 
 .reper-etape-courante .reper-libelle {
-  font-weight: 800;
+  font: var(--typo-navigation-fort);
   color: var(--texte-principal);
 }
 
@@ -86,7 +83,7 @@ button.reper-bouton {
 }
 
 .reper-etape-faite .reper-libelle {
-  font-weight: 700;
+  font: var(--typo-navigation-fort);
   color: var(--texte-accent);
   text-decoration: underline;
 }
@@ -102,8 +99,4 @@ button.reper-bouton {
   border: 2px solid var(--bordure-etape);
   background: var(--fond-surface);
   color: var(--texte-secondaire);
-}
-
-.reper-etape-a-venir .reper-libelle {
-  font-weight: 600;
 }
