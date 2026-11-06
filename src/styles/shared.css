@@ -29,37 +29,6 @@
   }
 }
 
-.dashboard-groupe-form {
-  display: flex;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.dashboard-groupe-form input {
-  flex: 1;
-  min-height: 44px;
-  padding: 0 16px;
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
-  border-radius: var(--radius-pill);
-  font-size: 0.9rem;
-  font-family: var(--font-body);
-  background: var(--fond-sur-carte);
-  color: var(--texte-principal);
-}
-
-.dashboard-groupe-form input:focus {
-  border-color: var(--bordure-focus);
-  outline: none;
-}
-
-.dashboard-groupe-form .bouton-primaire {
-  flex-shrink: 0;
-  min-height: 44px;
-  margin-top: 0;
-  white-space: nowrap;
-}
-
 .flow-page {
   min-height: 100vh;
   display: flex;
@@ -170,8 +139,7 @@
 /* Autoremplissage navigateur : neutralise le fond jaune, le champ garde son fond (--fond-sur-carte
    sur carte blanche, blanc sur fond non blanc) et le texte encre. Le box-shadow inset est le seul
    moyen de recouvrir ce fond : c'est un aplat, pas une ombre. */
-.champ input:-webkit-autofill,
-.dashboard-groupe-form input:-webkit-autofill {
+.champ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
   box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
   -webkit-text-fill-color: var(--texte-principal);
@@ -282,19 +250,13 @@
 }
 
 /* Zone cliquable étendue à 44 × 44 px minimum sans changer le rendu des petits boutons icône */
-.zone-tactile,
 .modal-fermer,
-.creation-bouton-x,
-.formateur-relance-bouton,
-.detail-suivi-th-bouton {
+.formateur-relance-bouton {
   position: relative;
 }
 
-.zone-tactile::after,
 .modal-fermer::after,
-.creation-bouton-x::after,
-.formateur-relance-bouton::after,
-.detail-suivi-th-bouton::after {
+.formateur-relance-bouton::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -433,46 +395,6 @@
   padding: 20px;
 }
 
-.modal-carte {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-  max-width: 380px;
-  padding: 24px 20px 28px;
-  background: var(--fond-surface);
-  border-radius: var(--radius-carte);
-}
-
-.modal-carte h2 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.3rem;
-  margin: 0;
-  color: var(--texte-principal);
-}
-
-.modal-carte form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.modal-carte-large {
-  max-width: 640px;
-}
-
-.modal-entete {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.modal-entete h2 {
-  margin: 0;
-}
-
 .modal-fermer {
   flex-shrink: 0;
   background: none;
@@ -493,44 +415,6 @@
   }
 }
 
-.modal-contenu-scroll {
-  overflow-y: auto;
-  max-height: 65vh;
-}
-
-.detail-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.detail-section h2 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.1rem;
-  margin: 0;
-  color: var(--texte-principal);
-}
-
-.dashboard-deconnexion {
-  flex-shrink: 0;
-  min-height: 44px;
-  background: none;
-  border: none;
-  padding: 4px 0;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--texte-accent);
-  cursor: pointer;
-}
-
-@media (hover: hover) {
-  .dashboard-deconnexion:hover {
-    text-decoration: underline;
-  }
-}
-
 .dashboard-etat-vide {
   margin: 0;
   font: var(--typo-texte-secondaire);
@@ -540,42 +424,6 @@
 @media (max-width: 767px) {
   .dashboard-etat-vide-centre {
     text-align: center;
-  }
-}
-
-.dashboard-liste {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 0.9rem;
-}
-
-.page-avec-lien-retour {
-  width: 100%;
-  max-width: 420px;
-  align-self: flex-start;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.page-avec-lien-retour .flow-card {
-  margin-top: 0;
-  align-self: stretch;
-}
-
-@media (min-width: 768px) {
-  .page-large {
-    max-width: 1040px;
-    padding: 0 24px;
-  }
-
-  .page-large .flow-card {
-    max-width: none;
   }
 }
 
