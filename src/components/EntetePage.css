@@ -32,8 +32,7 @@
 
 .entete-page-sous-titre {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-sur-accent);
 }
 
@@ -45,8 +44,7 @@
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 1rem;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
 }
 
@@ -83,10 +81,6 @@
 
   .entete-page-texte {
     padding-right: 200px;
-  }
-
-  .entete-page-sous-titre {
-    font-size: 16px;
   }
 
   .entete-page-recherche {
