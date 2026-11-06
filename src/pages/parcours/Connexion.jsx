@@ -61,8 +61,8 @@ function Connexion({ messageConfirmation, onRetour, onCreerCompte, onMotDePasseO
           autoComplete="current-password"
         />
         {erreur && <p className="parcours-message-erreur">{erreur}</p>}
-        <button type="button" className="parcours-lien parcours-lien-droite" onClick={onMotDePasseOublie}>
-          <strong>Mot de passe oublié ?</strong>
+        <button type="button" className="parcours-lien parcours-lien-accent parcours-lien-droite" onClick={onMotDePasseOublie}>
+          Mot de passe oublié ?
         </button>
       </form>
     </GabaritParcours>

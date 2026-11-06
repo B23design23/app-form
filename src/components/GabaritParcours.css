@@ -83,8 +83,7 @@
   width: 100%;
   min-height: 58px;
   margin-top: 0;
-  font-size: 17px;
-  font-weight: 800;
+  font: var(--typo-bouton);
 }
 
 /* Bouton désactivé (rien choisi, champ vide) : lavande, texte atténué, non cliquable */
@@ -103,21 +102,27 @@
   padding: 0 8px;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 700;
+  font: var(--typo-lien-texte);
   color: var(--texte-secondaire);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .parcours-lien strong {
-  font-weight: 800;
+  font: var(--typo-lien-texte-fort);
+  font-style: inherit;
+  color: var(--texte-accent);
+  text-decoration: underline;
+}
+
+/* Lien seul, sans partie en gras (« Mot de passe oublié ? ») : Lien texte, violet souligné */
+.parcours-lien-accent {
   color: var(--texte-accent);
   text-decoration: underline;
 }
 
 @media (hover: hover) {
+  .parcours-lien-accent:hover,
   .parcours-lien:hover strong {
     color: var(--texte-accent-survol);
   }
@@ -132,9 +137,7 @@
   padding: 0 8px;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-lien-texte);
   color: var(--texte-accent);
   cursor: pointer;
 }
@@ -192,8 +195,7 @@
 
 .parcours-compteur {
   flex-shrink: 0;
-  font-size: 18px;
-  font-weight: 800;
+  font: var(--typo-compteur);
 }
 
 /* Titres */
@@ -205,15 +207,15 @@
 
 .parcours-titre {
   margin: 0;
-  font-size: var(--taille-h1);
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-page);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .parcours-sous-titre {
   margin: 0;
-  font-size: 16px;
-  font-weight: 500;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -225,8 +227,7 @@
 }
 
 .parcours-champ-libelle {
-  font-size: 14px;
-  font-weight: 800;
+  font: var(--typo-libelle-champ);
 }
 
 .parcours-champ-libelle-masque {
@@ -245,9 +246,7 @@
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 600;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
 }
 
@@ -266,8 +265,6 @@
   min-height: 64px;
   padding: 0 20px;
   border-radius: 20px;
-  font-size: 20px;
-  font-weight: 700;
 }
 
 /* Lignes de choix (radiogroup) */
@@ -293,9 +290,7 @@
   border-radius: 20px;
   background: var(--fond-surface);
   text-align: left;
-  font-family: var(--font-body);
-  font-size: 17px;
-  font-weight: 600;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -319,14 +314,13 @@
 .parcours-choix-ligne-choisie {
   border-color: var(--bordure-action);
   background: var(--fond-accent);
-  font-weight: 700;
+  font: var(--typo-saisie-choix-fort);
 }
 
 @media (hover: hover) {
   .parcours-choix-ligne-choisie:hover {
     border-color: var(--bordure-action);
     background: var(--fond-accent);
-    font-weight: 700;
   }
 }
 
@@ -358,8 +352,7 @@
 
 .parcours-message-erreur {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-erreur);
 }
 

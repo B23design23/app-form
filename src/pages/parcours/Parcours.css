@@ -14,8 +14,7 @@
 
 .parcours-aide {
   padding-left: 0;
-  font-size: 13px;
-  font-weight: 600;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -122,7 +121,6 @@
   border-radius: 30px;
   background: var(--fond-surface);
   text-align: left;
-  font-family: var(--font-body);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -154,14 +152,14 @@
 }
 
 .profil-carte-titre {
-  font-size: 20px;
-  font-weight: 800;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .profil-carte-description {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.35;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -189,15 +187,15 @@
 
 .compte-bloc-titre {
   margin: 0;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-page);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .compte-bloc-texte {
   margin: 0;
-  font-size: 15px;
-  font-weight: 600;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-sur-accent);
 }
 
