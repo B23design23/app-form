@@ -39,6 +39,8 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 
 - Modale : composant partagé des deux espaces, déplacé de `src/components/formateur/Modale.jsx` vers `src/components/Modale.jsx`, styles dans `src/components/Modale.css` (classes `modale-*` au lieu de `fm-*`) ; ombre `--ombre-flottante`, comme le veut la règle des ombres. Côté écran : importer `Modale` et `ModaleConfirmation` depuis `src/components/Modale.jsx` (fait pour Création de cours, Détail cours, Détail groupe, Nouveau groupe).
 
+- Césure des titres : l'ancienne règle (pas de coupure) est remplacée par la césure à la syllabe, avec coupure sans tiret en filet. Raison : débordement des titres de carte à 18 px sur mobile. Côté écran, à mettre en conformité : titres des blocs de tête du dashboard apprenant (encore en `hyphens: manual`) et titres des écrans pas encore migrés en `font: var(--typo-…)` ; déjà conformes : Cours, Terrain, Détail d'un thème.
+
 **Corrigé**
 
 Aucune entrée.

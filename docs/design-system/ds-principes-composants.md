@@ -267,7 +267,7 @@ Fichier
 
 - Échelle, graisses (500 à 800), seuil de 768 px, rôles et règles d'usage : `docs/tokens/typographie.md`, qui fait foi. Les valeurs ne sont pas recopiées ici.
 - Titres de page (salutation, « Cours », « Mes groupes »…) : rôle Titre de page. Titres de cours et noms de thème dans les fiches (fiche cours, détail cours formateur, détail thème) : rôle Titre de contenu.
-- Titres (H1, titres de cours et de thème, questions de quiz) : pas de césure automatique (`hyphens: manual`) et `text-wrap: balance`. La césure reste active sur le texte courant de la leçon (paragraphes, listes).
+- Césure des titres (Titre de page, de contenu, de section, de carte, de ligne) : coupure à la syllabe avec tiret, et coupure sans tiret en filet si aucune syllabe ne convient (`hyphens: auto`, `overflow-wrap: break-word`). Règle et raison : `docs/tokens/typographie.md`, section 5 (« Césure des titres ») ; code : section 11. La césure reste active sur le texte courant de la leçon (paragraphes, listes).
 
 ## Ponctuation
 
