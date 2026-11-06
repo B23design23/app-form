@@ -81,7 +81,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 **Césure des titres.** Un titre (Titre de page, Titre de contenu, Titre de section, Titre de carte, Titre de ligne) qui ne tient pas dans son conteneur se coupe à la syllabe, avec un tiret. Filet : si aucune coupure n'est possible, le mot se coupe sans tiret plutôt que de déborder. Raison : un conteneur fixe qui contient du texte doit rester lisible quand le texte grandit (section 1) ; à 375 px, « Thermodynamique » en 18 px déborde de la carte de thème. La césure suit la langue de la page (`lang="fr"` sur la balise `html`). Dans le code : section 11.
 
-**Césure du Texte de lecture.** Les paragraphes et les listes de la leçon se coupent à la syllabe, avec un tiret (`hyphens: auto`, page en `lang="fr"`), dans la fiche de cours et dans son aperçu (Création de cours). Dans le code : `.fiche-lecon-contenu p` et `.fiche-lecon-contenu li` (`src/pages/FicheCours.css`). La règle ne s'étend pas aux autres textes de la leçon. À trancher : le premier paragraphe de la leçon dans le Détail cours (formateur, Texte de lecture), qui ne se coupe pas aujourd'hui ; les tableaux de la leçon et les points de l'encadré « À retenir » (Corps courant), qui ne se coupent pas non plus (section 13).
+**Césure du Texte de lecture.** Le Texte de lecture se coupe à la syllabe, avec un tiret, partout où il apparaît. Les autres rôles ne se coupent pas, sauf les titres (césure des titres).
 
 ## 6. Choisir entre deux rôles voisins
 
@@ -245,4 +245,3 @@ Format : situation, erreur plausible, règle citée, version conforme.
 - **Taux de complétion sous 400 px de large et anneau sur desktop** : à vérifier à l'écran pendant le test.
 - **Option choisie d'une Navigation à 800** : vérifier à l'écran pendant le test que le passage à 800 ne décale pas les onglets et filtres voisins.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).
-- **Césure hors des paragraphes et des listes de la leçon** (section 5, césure du Texte de lecture) : premier paragraphe de la leçon dans le Détail cours (Texte de lecture), tableaux de la leçon et points de l'encadré « À retenir » (Corps courant). Aucun ne se coupe à la syllabe aujourd'hui.

@@ -461,8 +461,8 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 - Dans le code : chaque `font: var(--typo-titre-…)` est accompagné de `hyphens: auto` et `overflow-wrap: break-word`. Jamais `hyphens: manual` ni `overflow-wrap: normal` sur un titre. La césure suit `lang="fr"` de la balise `html`.
 
 **Césure du Texte de lecture** (section 5)
-- Les paragraphes et les listes de la leçon se coupent à la syllabe, avec un tiret (`hyphens: auto`, page en `lang="fr"`), dans la fiche de cours et dans son aperçu (Création de cours). Dans le code : `.fiche-lecon-contenu p` et `.fiche-lecon-contenu li` (`src/pages/FicheCours.css`).
-- La règle ne s'étend pas aux autres textes de la leçon. À trancher : le premier paragraphe de la leçon dans le Détail cours (formateur, Texte de lecture), les tableaux de la leçon et les points de l'encadré « À retenir » (Corps courant), qui ne se coupent pas aujourd'hui.
+- Le Texte de lecture se coupe à la syllabe, avec un tiret, partout où il apparaît. Les autres rôles ne se coupent pas, sauf les titres (césure des titres).
+- Implémentation, état du code : `hyphens: auto` sur `.fiche-lecon-contenu p` et `.fiche-lecon-contenu li` (`src/pages/FicheCours.css`, leçon de la fiche et aperçu de Création de cours), page en `lang="fr"`.
 
 ### Icônes
 
