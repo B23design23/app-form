@@ -2,6 +2,11 @@
    l'emporte sur les règles à une classe des écrans parents, chargées après ce fichier. */
 .contenu-markdown.contenu-markdown-role-texte-lecture {
   font: var(--typo-texte-lecture);
+}
+
+/* Césure du Texte de lecture : sur les éléments qui le portent (paragraphes, éléments de liste),
+   jamais sur le conteneur. Le tableau (Corps courant) ne se coupe pas. */
+.contenu-markdown.contenu-markdown-role-texte-lecture :is(p, li) {
   hyphens: auto;
   -webkit-hyphens: auto;
 }
