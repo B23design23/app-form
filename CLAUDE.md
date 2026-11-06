@@ -407,6 +407,10 @@ Code : `src/pages/CreationCours.jsx` + `CreationCours.css` (classes `cc-`). Mêm
 
 Ne pas implémenter : streak, leaderboard, rôle super-admin, génération de contenu via API IA.
 
+## Conduite de Claude Code
+
+- Quand tu remplaces ou supprimes un bloc de règle, liste dans ton rapport chaque phrase retirée.
+
 ## Conventions de code
 
 - Noms de tables/colonnes en français, snake_case (cohérent avec le PRD)
