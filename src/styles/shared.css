@@ -105,10 +105,10 @@
 }
 
 .flow-card h1 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: var(--taille-h1);
-  line-height: 1.1;
+  font: var(--typo-titre-page);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   margin: 0 0 4px;
   color: var(--texte-principal);
 }
@@ -116,14 +116,14 @@
 .flow-card p.souscription {
   margin: -8px 0 4px;
   color: var(--texte-secondaire);
-  font-size: 0.9rem;
+  font: var(--typo-texte-secondaire);
 }
 
 .champ {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 0.9rem;
+  font: var(--typo-libelle-champ);
   color: var(--texte-principal);
 }
 
@@ -133,8 +133,7 @@
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
-  font-size: 1rem;
-  font-family: var(--font-body);
+  font: var(--typo-saisie-choix);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
 }
@@ -145,8 +144,7 @@
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--radius-reponse);
-  font-size: 1rem;
-  font-family: var(--font-body);
+  font: var(--typo-saisie-choix);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
   resize: vertical;
@@ -197,9 +195,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-action);
   color: var(--texte-sur-action);
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: var(--font-body);
+  font: var(--typo-bouton);
   cursor: pointer;
   margin-top: 8px;
   transition: all 0.15s ease;
@@ -228,9 +224,7 @@
   border-radius: var(--radius-pill);
   background: transparent;
   color: var(--texte-accent);
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: var(--font-body);
+  font: var(--typo-bouton);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -261,9 +255,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-recompense);
   color: var(--texte-principal);
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: var(--font-body);
+  font: var(--typo-bouton);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -321,22 +313,50 @@
 .lien-retour {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: var(--espace-6);
   min-height: 44px;
+  min-width: 44px;
   align-self: flex-start;
-  background: none;
+  padding: 0 var(--espace-20) 0 var(--espace-12);
   border: none;
-  padding: 0;
-  color: var(--texte-accent);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.85rem;
+  border-radius: var(--radius-pill);
+  background: var(--fond-surface);
+  font: var(--typo-bouton);
+  color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
+.lien-retour-icone {
+  width: 18px;
+  height: 18px;
+}
+
 @media (hover: hover) {
   .lien-retour:hover {
-    color: var(--texte-accent-survol);
+    background: var(--fond-accent);
+  }
+}
+
+.lien-retour:focus-visible {
+  outline: 2px solid var(--bordure-focus);
+  outline-offset: 2px;
+}
+
+/* Mobile : chevron seul, le libellé reste lu par les lecteurs d'écran (nom accessible : aria-label) */
+@media (max-width: 767px) {
+  .lien-retour {
+    padding: 0 var(--espace-12);
+  }
+
+  .lien-retour-libelle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }
 
@@ -349,9 +369,7 @@
   border: none;
   padding: 0;
   color: var(--texte-accent);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 0.85rem;
+  font: var(--typo-lien-texte);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -364,8 +382,7 @@
 
 .message {
   margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.4;
+  font: var(--typo-texte-secondaire);
 }
 
 .message-erreur {
@@ -386,9 +403,7 @@
   border: 2px dashed var(--bordure-action);
   border-radius: var(--radius-pill);
   padding: 8px var(--espace-24);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 700;
+  font: var(--typo-bouton);
   color: var(--texte-accent);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -518,7 +533,7 @@
 
 .dashboard-etat-vide {
   margin: 0;
-  font-size: 0.85rem;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -624,6 +639,7 @@ label {
 .fiche-bouton-rond:active,
 .parcours-bouton-rond:active,
 .theme-retour:active,
+.lien-retour:active,
 .theme-carte:active,
 .profil-carte:active,
 .parcours-choix-ligne:active,
