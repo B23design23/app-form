@@ -401,8 +401,6 @@
   border: none;
   padding: 2px 8px;
   border-radius: 8px;
-  font-size: 1.4rem;
-  line-height: 1;
   color: var(--texte-secondaire);
   cursor: pointer;
   transition: all 0.15s ease;

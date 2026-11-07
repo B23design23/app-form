@@ -452,7 +452,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
               style={{ width: `${(Math.min(nbCoursQuizTermines, SEUIL_QUIZ_FLASH) / SEUIL_QUIZ_FLASH) * 100}%` }}
             />
           </span>
-          <span className="dash-barre-compteur dash-barre-compteur-petit">
+          <span className="dash-barre-compteur">
             {Math.min(nbCoursQuizTermines, SEUIL_QUIZ_FLASH)} / {SEUIL_QUIZ_FLASH}
           </span>
         </div>
