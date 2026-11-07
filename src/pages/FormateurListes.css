@@ -20,7 +20,6 @@
   border-radius: 26px;
   background: var(--fond-surface);
   text-align: left;
-  font-family: var(--font-body);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -51,18 +50,15 @@
 }
 
 .fl-carte-titre {
-  font-weight: 800;
-  line-height: 1.2;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   text-wrap: balance;
 }
 
-.fl-carte-titre-cours {
-  font-size: 18px;
-}
-
 .fl-carte-meta {
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -84,10 +80,6 @@
   gap: 12px;
 }
 
-.fl-carte-titre-groupe {
-  font-size: 20px;
-}
-
 .fl-progression {
   display: flex;
   flex-direction: column;
@@ -98,13 +90,13 @@
 .fl-progression-ligne {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
 .fl-progression-ligne strong {
-  font-weight: 800;
+  font: var(--typo-meta-fort);
+  font-style: inherit;
   color: var(--texte-principal);
 }
 
@@ -130,10 +122,6 @@
   .fl-carte {
     padding: 24px;
     border-radius: 28px;
-  }
-
-  .fl-carte-titre-groupe {
-    font-size: 22px;
   }
 }
 

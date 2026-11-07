@@ -3,15 +3,14 @@ import iconeRetour from '../../Assets/chevron-left.svg?raw'
 import { typo } from '../../lib/typographie'
 import './Formateur.css'
 
-// Retour de l'espace formateur : lien « ‹ Mes cours » en violet texte sur desktop, bouton rond
-// blanc de 44 px avec un chevron sur mobile.
+// Retour de l'espace formateur : variante Retour du Bouton. Pilule blanche, chevron et libellé du
+// niveau du dessus (« Mes cours », « Mes groupes ») ; chevron seul sous 768 px. Le nom accessible
+// contient le libellé visible.
 export function RetourFormateur({ libelle, onRetour }) {
   return (
-    <button type="button" className="fm-retour" onClick={onRetour} aria-label={libelle}>
-      <span className="fm-retour-rond">
-        <Icone svg={iconeRetour} className="fm-retour-icone" />
-      </span>
-      <span className="fm-retour-texte">‹ {libelle}</span>
+    <button type="button" className="fm-retour" onClick={onRetour} aria-label={`Retour à ${libelle}`}>
+      <Icone svg={iconeRetour} className="fm-retour-icone" />
+      <span className="fm-retour-libelle">{libelle}</span>
     </button>
   )
 }

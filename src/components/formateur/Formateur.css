@@ -27,15 +27,15 @@
 .espace-page .fm-titres h1,
 .fm-titres h1 {
   margin: 0;
-  font-size: var(--taille-h1);
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-page);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fm-sous-titre {
   margin: 0;
-  font-size: 15px;
-  font-weight: 600;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -51,8 +51,10 @@
 .espace-page .fm-carte h2,
 .fm-carte h2 {
   margin: 0;
-  font-size: 20px;
-  font-weight: 800;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fm-carte-entete {
@@ -64,14 +66,12 @@
 
 .fm-texte {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.45;
+  font: var(--typo-corps-courant);
   color: var(--texte-secondaire);
 }
 
 .fm-meta {
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -126,40 +126,59 @@
   }
 }
 
-/* Retour : bouton rond sur mobile, lien violet texte sur desktop */
+/* Retour : variante Retour du Bouton (pilule blanche, chevron, libellé = niveau du dessus) ;
+   chevron seul sous 768 px, le libellé reste dans le nom accessible */
 .fm-retour {
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: var(--espace-6);
   min-height: 44px;
-  padding: 0;
+  min-width: 44px;
+  padding: 0 var(--espace-20) 0 var(--espace-12);
   border: none;
-  background: none;
-  font-family: var(--font-body);
+  border-radius: var(--radius-pill);
+  background: var(--fond-surface);
+  font: var(--typo-bouton);
+  color: var(--texte-principal);
   cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.fm-retour-rond {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--fond-surface);
-  color: var(--texte-principal);
+.fm-retour:active {
+  background: var(--fond-accent);
+}
+
+@media (hover: hover) {
+  .fm-retour:hover {
+    background: var(--fond-accent);
+  }
+}
+
+.fm-retour:focus-visible {
+  outline: 2px solid var(--bordure-focus);
+  outline-offset: 2px;
 }
 
 .fm-retour-icone {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
-.fm-retour-texte {
-  display: none;
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--texte-accent);
+@media (max-width: 767px) {
+  .fm-retour {
+    padding: 0 var(--espace-12);
+  }
+
+  .fm-retour-libelle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 }
 
 /* Pastilles de groupe */
@@ -174,8 +193,7 @@
   align-items: center;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-pastille);
   white-space: nowrap;
 }
 
@@ -281,8 +299,10 @@
 .fm-menu-titre {
   margin: 0 0 6px;
   padding: 0 8px;
-  font-size: 17px;
-  font-weight: 800;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-principal);
 }
 
@@ -293,9 +313,7 @@
   border-radius: 16px;
   background: none;
   text-align: left;
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 700;
+  font: var(--typo-lien-texte);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -351,9 +369,7 @@
   border: 2px solid var(--bordure-erreur);
   border-radius: var(--radius-pill);
   background: none;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-bouton);
   color: var(--texte-erreur);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -414,6 +430,10 @@
   background: var(--fond-accent);
 }
 
+.fm-case-choisie .fm-case-libelle {
+  font: var(--typo-saisie-choix-fort);
+}
+
 .fm-case-repere {
   display: inline-flex;
   align-items: center;
@@ -445,12 +465,11 @@
 }
 
 .fm-case-libelle {
-  font-size: 16px;
-  font-weight: 700;
+  font: var(--typo-saisie-choix);
 }
 
 .fm-case-detail {
-  font-size: 13px;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -463,14 +482,6 @@
 
   .fm-bouton-principal-icone {
     display: none;
-  }
-
-  .fm-retour-rond {
-    display: none;
-  }
-
-  .fm-retour-texte {
-    display: inline;
   }
 
   .fm-menu-voile {
