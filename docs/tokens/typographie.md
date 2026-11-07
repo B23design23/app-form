@@ -1,4 +1,4 @@
-Statut : décidé le 4 novembre 2026, non migré. Source unique : `docs/proposition-typographie.md` (version 3, validée). Les noms de tokens sont décidés (section 11), non migrés : les écrans n'utilisent pas encore ces tokens.
+Statut : décidé le 4 novembre 2026, migration en cours, lots 1 à 10 faits. Source unique : `docs/proposition-typographie.md` (version 3, validée). Les tokens de la section 11 existent ; les écrans des lots 1 à 10 les utilisent, les autres pas encore.
 
 # Typographie
 
@@ -11,9 +11,9 @@ Statut : décidé le 4 novembre 2026, non migré. Source unique : `docs/proposit
 - **Règle générale** : un texte doit pouvoir être agrandi jusqu'à 200 % sans perte de contenu ni de fonction (WCAG 2.2, critère 1.4.4, Redimensionnement du texte). Une taille en rem suit le réglage du navigateur, une taille en px ne le suit pas.
 - **Précision Skillo** : un conteneur de taille fixe en px qui contient du texte (anneau, pastille, rond numéroté, bouton de hauteur fixe) doit rester lisible quand le texte grandit. Le texte ne doit ni déborder ni être coupé.
 
-## 2. L'échelle (12 tailles)
+## 2. L'échelle (13 tailles)
 
-**13 · 14 · 15 · 16 · 17 · 18 · 21 · 28 · 32 · 34 · 44 · 48**
+**13 · 14 · 15 · 16 · 17 · 18 · 21 · 24 · 28 · 32 · 34 · 44 · 48**
 
 Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px entiers.
 
@@ -26,7 +26,8 @@ Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px en
 | 17 px | 1,0625 rem | Texte de lecture (sous 768 px) |
 | 18 px | 1,125 rem | Titre de carte, Texte de lecture (à partir de 768 px) |
 | 21 px | 1,3125 rem | Titre de section |
-| 28 px | 1,75 rem | Titre de contenu (sous 768 px), Chiffre mis en avant standard |
+| 24 px | 1,5 rem | Titre mis en avant (sous 768 px) |
+| 28 px | 1,75 rem | Titre de contenu (sous 768 px), Titre mis en avant (à partir de 768 px), Chiffre mis en avant standard |
 | 32 px | 2 rem | Titre de contenu (à partir de 768 px) |
 | 34 px | 2,125 rem | Titre de page (sous 768 px) |
 | 44 px | 2,75 rem | Titre de page (à partir de 768 px) |
@@ -49,14 +50,15 @@ Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px en
 - **Règle générale** : moins il y a de seuils, plus la typographie reste prévisible d'un écran à l'autre.
 - **Précision Skillo** : le seuil de 1024 px de Création de cours est un seuil de mise en page, pas un seuil typographique. Sous 1024 px, Création affiche un en-tête compact (rôle Titre de ligne) ; à partir de 1024 px, un en-tête desktop (rôle Titre de page). Chaque en-tête garde les tailles de son rôle.
 
-## 5. Rôles (18)
+## 5. Rôles (19)
 
-Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'un niveau.
+Chiffre mis en avant a deux niveaux, d'où 20 lignes. Le Titre de carte n'a qu'un niveau ; le Titre mis en avant est un rôle à part, pas un niveau du Titre de carte.
 
 | Rôle | Sous 768 px | À partir de 768 px | Graisse | Hauteur de ligne | Espacement des lettres | Fonction |
 |---|---:|---:|---:|---:|---|---|
 | Titre de page | 34 px | 44 px | 800 | 1,1 | normal | Nomme l'écran ; un seul par écran, en tête. |
 | Titre de contenu | 28 px | 32 px | 800 | 1,1 | normal | Nomme l'objet que l'écran présente (cours, thème, question). |
+| Titre mis en avant | 24 px | 28 px | 800 | 1,2 | normal | Titre de la carte qui porte l'action principale de l'écran, celle que l'écran existe pour faire. Au plus une par écran. Sur le dashboard apprenant, c'est le bloc de tête, quelle que soit sa variante. Un écran qui propose plusieurs choix de même poids n'en a pas. La carte porte une seule action, son bouton principal. Une carte qui regroupe plusieurs actions garde son rôle (exemple : « Pour bien démarrer »). |
 | Titre de section | 21 px | 21 px | 800 | 1,2 | normal | Le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). |
 | Titre de carte | 18 px | 18 px | 800 | 1,2 | normal | Le titre nomme ce que la carte présente (un objet, une action), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours ») ; en dessous, une explication ou une information. Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. |
 | Titre de ligne | 16 px | 16 px | 800 | 1,2 | normal | Nomme un élément de liste, ou rappelle un titre dans une barre compacte. Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. |
@@ -77,9 +79,9 @@ Chiffre mis en avant a deux niveaux, d'où 19 lignes. Le Titre de carte n'a qu'u
 
 Aucun rôle n'a d'espacement des lettres.
 
-- **Précision Skillo** : deux rôles de titre (Titre de page, Titre de contenu, Titre de section, Titre de carte, Titre de ligne) ne prennent jamais la même valeur (même taille, même graisse et même hauteur de ligne) : entre deux niveaux de titre, seule la valeur montre la hiérarchie. Les autres rôles peuvent partager une valeur quand la forme ou la place les distingue (Bouton et Compteur, Texte secondaire et Libellé de champ). C'est pourquoi le Titre de carte reste à 18 px : 21 px est refusé, c'est la valeur du Titre de section (décision 26 de `docs/proposition-typographie.md`).
+- **Précision Skillo** : deux rôles de titre (Titre de page, Titre de contenu, Titre mis en avant, Titre de section, Titre de carte, Titre de ligne) ne prennent jamais la même valeur (même taille, même graisse et même hauteur de ligne) : entre deux niveaux de titre, seule la valeur montre la hiérarchie. Les autres rôles peuvent partager une valeur quand la forme ou la place les distingue (Bouton et Compteur, Texte secondaire et Libellé de champ). C'est pourquoi le Titre de carte reste à 18 px : 21 px est refusé, c'est la valeur du Titre de section (décision 26 de `docs/proposition-typographie.md`). La règle vaut à chaque largeur : le Titre mis en avant est à 24 px sous 768 px, où aucun autre titre ne l'est, et à 28 px · 1,2 à partir de 768 px, où le Titre de contenu est à 32 px.
 
-**Césure des titres.** Un titre (Titre de page, Titre de contenu, Titre de section, Titre de carte, Titre de ligne) qui ne tient pas dans son conteneur se coupe à la syllabe, avec un tiret. Filet : si aucune coupure n'est possible, le mot se coupe sans tiret plutôt que de déborder. Raison : un conteneur fixe qui contient du texte doit rester lisible quand le texte grandit (section 1) ; à 375 px, « Thermodynamique » en 18 px déborde de la carte de thème. La césure suit la langue de la page (`lang="fr"` sur la balise `html`). Dans le code : section 11.
+**Césure des titres.** Un titre (Titre de page, Titre de contenu, Titre mis en avant, Titre de section, Titre de carte, Titre de ligne) qui ne tient pas dans son conteneur se coupe à la syllabe, avec un tiret. Filet : si aucune coupure n'est possible, le mot se coupe sans tiret plutôt que de déborder. Raison : un conteneur fixe qui contient du texte doit rester lisible quand le texte grandit (section 1) ; à 375 px, « Thermodynamique » en 18 px déborde de la carte de thème. La césure suit la langue de la page (`lang="fr"` sur la balise `html`). Dans le code : section 11.
 
 **Césure du Texte de lecture.** Le Texte de lecture se coupe à la syllabe, avec un tiret, partout où il apparaît. Les autres rôles ne se coupent pas, sauf les titres (césure des titres).
 
@@ -87,9 +89,16 @@ Aucun rôle n'a d'espacement des lettres.
 
 **Titre de section ou Titre de carte.**
 - Titre de section : le titre nomme une partie de la page ou du contenu, il annonce ce qui suit (section de page, intertitre de leçon, titre Markdown, modale, feuille de menu). Exemples : « De ton formateur », « Taux de complétion », intertitres de leçon, « À retenir ».
-- Titre de carte : le titre nomme ce que la carte présente (un objet, une action : un cours, un thème, un groupe, un badge, ce qu'on va faire), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours »). En dessous, une explication ou une information. Exemples : « Étape suivante », « Suite du thème », « X étapes sur N », carte de thème. Une carte garde le même rôle de titre quelle que soit sa place dans l'écran : en tête, en colonne ou en ligne, son titre reste en Titre de carte (le titre du bloc de tête du dashboard apprenant comme « Quiz flash »).
+- Titre de carte : le titre nomme ce que la carte présente (un objet, une action : un cours, un thème, un groupe, un badge, ce qu'on va faire), ou dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours »). En dessous, une explication ou une information. Exemples : « X étapes sur N », carte de thème, « Quiz flash » en ligne, prochain cours conseillé hors tête. Une carte garde le même rôle de titre quelle que soit sa place dans l'écran (en tête, en colonne ou en ligne), sauf si elle porte l'action principale de l'écran : son titre passe alors en Titre mis en avant (ci-dessous).
 - Test : le titre est-il le nom d'une chose (Titre de carte) ou le nom d'une partie (Titre de section) ?
 - Surfaces entières : Une modale ou une feuille de menu prend le Titre de section, quel que soit son texte : elle tient la place d'un écran. Le test du nom vaut pour les cartes et les parties de page.
+
+**Titre mis en avant ou Titre de carte** (décision 28 de `docs/proposition-typographie.md`, 7 novembre 2026).
+- Titre mis en avant : Titre de la carte qui porte l'action principale de l'écran, celle que l'écran existe pour faire. Au plus une par écran. Sur le dashboard apprenant, c'est le bloc de tête, quelle que soit sa variante. Un écran qui propose plusieurs choix de même poids n'en a pas. La carte porte une seule action, son bouton principal. Une carte qui regroupe plusieurs actions garde son rôle (exemple : « Pour bien démarrer »).
+- Exemples : titre du bloc de tête du dashboard apprenant (cours en cours, cours assigné, premier cours ou prochain cours conseillé en tête, « Quiz flash » en tête), titre de la carte « Étape suivante » (leçon, checklist), titre du cours suivant de « Suite du thème » (récap).
+- Restent en Titre de carte : « Quiz flash » en ligne, le prochain cours conseillé quand il n'est pas en tête, et les deux cartes du Choix du profil (deux choix de même poids : l'écran n'a pas de Titre mis en avant). « Pour bien démarrer » (dashboard formateur) regroupe trois actions : il garde son rôle, Titre de section.
+- Test : la carte porte-t-elle l'action que l'écran existe pour faire, avec un seul bouton principal, et est-elle la seule à la porter ? Oui : Titre mis en avant. Non, ou plusieurs cartes à égalité : Titre de carte.
+- Raison : un niveau de titre qui s'applique à plusieurs cartes ne hiérarchise plus rien ; c'est pourquoi l'ancien niveau grand du Titre de carte a été supprimé. Un rôle limité à une carte par écran, lui, hiérarchise. La décision 26 impose une valeur distincte des autres titres à chaque largeur, d'où 24 / 28 px · 800 · 1,2. 24 px entre dans l'échelle (section 2).
 
 **Titre de carte ou Titre de ligne : carte ou ligne** (décision 27 de `docs/proposition-typographie.md`). Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. Exemples : les groupes de « Tes groupes » (dashboard formateur) et les tuiles de la modale Mes badges sont des lignes (Titre de ligne) ; les cartes de cours assigné du Détail groupe, posées sur la page, sont des cartes (Titre de carte). Le nom du badge dans le toast de complétion reste en Pastille.
 
@@ -165,7 +174,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 **Tous les tokens typographiques portent le préfixe `typo-`.** Les primitifs sont nommés par leur valeur, les rôles par leur rôle. Source : `tokens/`, CSS généré par `npm run tokens` dans `src/styles/tokens.generes.css`.
 
-**Primitifs** (`tokens/typographie.tokens.json`) : `typo-famille` (Urbanist, sans-serif) ; `typo-taille-13` à `typo-taille-48` (les 12 tailles de la section 2, écrites en px, sorties en rem) ; `typo-graisse-500` à `typo-graisse-800` ; `typo-interligne-1`, `-1-1`, `-1-2`, `-1-45`, `-1-55` ; `typo-espacement-lettres-0` ; `typo-seuil-desktop` (768 px). Le seuil ne sort pas en variable CSS : le générateur le lit pour écrire la media query (une media query ne lit pas un `var()`).
+**Primitifs** (`tokens/typographie.tokens.json`) : `typo-famille` (Urbanist, sans-serif) ; `typo-taille-13` à `typo-taille-48` (les 13 tailles de la section 2, écrites en px, sorties en rem) ; `typo-graisse-500` à `typo-graisse-800` ; `typo-interligne-1`, `-1-1`, `-1-2`, `-1-45`, `-1-55` ; `typo-espacement-lettres-0` ; `typo-seuil-desktop` (768 px). Le seuil ne sort pas en variable CSS : le générateur le lit pour écrire la media query (une media query ne lit pas un `var()`).
 
 **Rôles** : un token composé (type DTCG `typography`) par rôle, qui fait référence aux primitifs (famille, taille, graisse, hauteur de ligne, espacement des lettres). Il sort en CSS au format du raccourci `font`, avec des `var()` vers les primitifs.
 
@@ -173,6 +182,7 @@ Aucun rôle n'a d'espacement des lettres.
 |---|---|---|
 | `typo-titre-page` | Titre de page | — |
 | `typo-titre-contenu` | Titre de contenu | — |
+| `typo-titre-mis-en-avant` | Titre mis en avant | — |
 | `typo-titre-section` | Titre de section | — |
 | `typo-titre-carte` | Titre de carte | — |
 | `typo-titre-ligne` | Titre de ligne | — |
@@ -193,7 +203,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 **Variante `-fort`** : le rôle avec une graisse d'un cran au-dessus (section 8 : 500 → 600, 600 → 700, 700 → 800), pour un état (choisi, en cours, fait, coché) ou une emphase. Les rôles à 800 n'en ont pas.
 
-**Trois fichiers et un seuil.** `tokens/typographie.tokens.json` contient les primitifs et les rôles à une seule taille. `tokens/typographie-mobile.tokens.json` et `tokens/typographie-desktop.tokens.json` contiennent, sous les mêmes noms, les rôles qui changent de taille au seuil : Titre de page, Titre de contenu, Texte de lecture (et sa variante `-fort`). Un rôle est soit dans le fichier commun, soit dans les deux autres, jamais aux deux. Dans le CSS, les valeurs mobile sont dans `:root`, les valeurs desktop dans `@media (min-width: 768px) { :root { … } }`. Les mots mobile et desktop ne vont que dans le nom des fichiers, jamais dans le nom des tokens.
+**Trois fichiers et un seuil.** `tokens/typographie.tokens.json` contient les primitifs et les rôles à une seule taille. `tokens/typographie-mobile.tokens.json` et `tokens/typographie-desktop.tokens.json` contiennent, sous les mêmes noms, les rôles qui changent de taille au seuil : Titre de page, Titre de contenu, Titre mis en avant, Texte de lecture (et sa variante `-fort`). Un rôle est soit dans le fichier commun, soit dans les deux autres, jamais aux deux. Dans le CSS, les valeurs mobile sont dans `:root`, les valeurs desktop dans `@media (min-width: 768px) { :root { … } }`. Les mots mobile et desktop ne vont que dans le nom des fichiers, jamais dans le nom des tokens.
 
 **Règle d'usage.** Un élément applique son rôle par `font: var(--typo-<rôle>)`, son état ou son emphase par `font: var(--typo-<rôle>-fort)`. Jamais `font-size` ni `font-weight` séparés, jamais un primitif (`--typo-taille-*`, `--typo-graisse-*`…) dans un composant.
 
@@ -240,6 +250,12 @@ Format : situation, erreur plausible, règle citée, version conforme.
 - Erreur plausible : le compteur en 600 pour qu'il s'efface derrière le libellé.
 - Règle citée : section 8, pas de partie plus légère que son rôle.
 - Version conforme : compteur dans la graisse du rôle Navigation (700).
+
+**Exemple non conforme : deux titres mis en avant sur le même écran**
+- Situation : dashboard apprenant, quiz flash débloqué, rien en cours ni assigné : « Quiz flash » en tête (bloc E), puis la carte « Prochain cours conseillé » avec son bouton « Commencer ».
+- Erreur plausible : le titre de la carte « Prochain cours conseillé » aussi en Titre mis en avant, parce qu'elle a elle aussi un bouton principal et pousse à commencer un cours.
+- Règle citée : section 6, au plus un Titre mis en avant par écran ; sur le dashboard apprenant, c'est le bloc de tête. Deux titres au même niveau ne hiérarchisent plus rien.
+- Version conforme : « Quiz flash » du bloc E en Titre mis en avant (24 / 28 px · 800 · 1,2), le titre du prochain cours conseillé en Titre de carte (18 px · 800 · 1,2).
 
 ## 13. À trancher
 

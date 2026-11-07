@@ -329,14 +329,14 @@
   min-width: 0;
 }
 
-/* Titre du bloc de tête : Titre de carte, 3 lignes max, césure des titres */
+/* Titre du bloc de tête : Titre mis en avant, 3 lignes max, césure des titres */
 .dash-page .dash-titre-tete {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   overflow: hidden;
-  font: var(--typo-titre-carte);
+  font: var(--typo-titre-mis-en-avant);
   hyphens: auto;
   -webkit-hyphens: auto;
   overflow-wrap: break-word;
@@ -408,7 +408,7 @@
 
 .dash-page .dash-flash-tete-titre {
   max-width: 200px;
-  font: var(--typo-titre-carte);
+  font: var(--typo-titre-mis-en-avant);
   hyphens: auto;
   -webkit-hyphens: auto;
   overflow-wrap: break-word;

@@ -47,6 +47,7 @@
   --typo-taille-17: 1.0625rem; /** Taille de 17 px, sortie en rem (base 16 px). */
   --typo-taille-18: 1.125rem; /** Taille de 18 px, sortie en rem (base 16 px). */
   --typo-taille-21: 1.3125rem; /** Taille de 21 px, sortie en rem (base 16 px). */
+  --typo-taille-24: 1.5rem; /** Taille de 24 px, sortie en rem (base 16 px). */
   --typo-taille-28: 1.75rem; /** Taille de 28 px, sortie en rem (base 16 px). */
   --typo-taille-32: 2rem; /** Taille de 32 px, sortie en rem (base 16 px). */
   --typo-taille-34: 2.125rem; /** Taille de 34 px, sortie en rem (base 16 px). */
@@ -130,6 +131,7 @@
   --typo-compteur: var(--typo-graisse-800) var(--typo-taille-15)/var(--typo-interligne-1-2) var(--typo-famille); /** Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). */
   --typo-titre-page: var(--typo-graisse-800) var(--typo-taille-34)/var(--typo-interligne-1-1) var(--typo-famille); /** Nomme l'écran ; un seul par écran, en tête. */
   --typo-titre-contenu: var(--typo-graisse-800) var(--typo-taille-28)/var(--typo-interligne-1-1) var(--typo-famille); /** Nomme l'objet que l'écran présente (cours, thème, question). */
+  --typo-titre-mis-en-avant: var(--typo-graisse-800) var(--typo-taille-24)/var(--typo-interligne-1-2) var(--typo-famille); /** Titre de la carte qui porte l'action principale de l'écran, celle que l'écran existe pour faire. Au plus une par écran. Sur le dashboard apprenant, c'est le bloc de tête, quelle que soit sa variante. Un écran qui propose plusieurs choix de même poids n'en a pas. La carte porte une seule action, son bouton principal. Une carte qui regroupe plusieurs actions garde son rôle (exemple : « Pour bien démarrer »). */
   --typo-texte-lecture: var(--typo-graisse-500) var(--typo-taille-17)/var(--typo-interligne-1-55) var(--typo-famille); /** Texte de la leçon, dans la fiche et dans son aperçu. */
   --typo-texte-lecture-fort: var(--typo-graisse-600) var(--typo-taille-17)/var(--typo-interligne-1-55) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Texte de lecture. */
 }
@@ -160,6 +162,7 @@
   :root {
     --typo-titre-page: var(--typo-graisse-800) var(--typo-taille-44)/var(--typo-interligne-1-1) var(--typo-famille); /** Nomme l'écran ; un seul par écran, en tête. */
     --typo-titre-contenu: var(--typo-graisse-800) var(--typo-taille-32)/var(--typo-interligne-1-1) var(--typo-famille); /** Nomme l'objet que l'écran présente (cours, thème, question). */
+    --typo-titre-mis-en-avant: var(--typo-graisse-800) var(--typo-taille-28)/var(--typo-interligne-1-2) var(--typo-famille); /** Titre de la carte qui porte l'action principale de l'écran, celle que l'écran existe pour faire. Au plus une par écran. Sur le dashboard apprenant, c'est le bloc de tête, quelle que soit sa variante. Un écran qui propose plusieurs choix de même poids n'en a pas. La carte porte une seule action, son bouton principal. Une carte qui regroupe plusieurs actions garde son rôle (exemple : « Pour bien démarrer »). */
     --typo-texte-lecture: var(--typo-graisse-500) var(--typo-taille-18)/var(--typo-interligne-1-55) var(--typo-famille); /** Texte de la leçon, dans la fiche et dans son aperçu. */
     --typo-texte-lecture-fort: var(--typo-graisse-600) var(--typo-taille-18)/var(--typo-interligne-1-55) var(--typo-famille); /** État (choisi, en cours, fait, coché) ou emphase du rôle Texte de lecture. */
   }

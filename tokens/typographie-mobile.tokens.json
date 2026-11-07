@@ -1,6 +1,6 @@
 {
   "typo": {
-    "$description": "Typographie. Un composant applique un rôle (font: var(--typo-<rôle>)) ou sa variante -fort (font: var(--typo-<rôle>-fort)), jamais un primitif, jamais font-size ni font-weight séparés. L'échelle est une liste fermée : 12 tailles (13, 14, 15, 16, 17, 18, 21, 28, 32, 34, 44, 48 px), 4 graisses (500, 600, 700, 800) ; aucune autre valeur n'est admise. Les tailles s'écrivent en px et sortent en rem (base 16 px). Un seul seuil typographique : 768 px (typo.seuil-desktop) ; les rôles qui en dépendent sont dans typographie-mobile et typographie-desktop, sous le même nom, jamais ici.",
+    "$description": "Typographie. Un composant applique un rôle (font: var(--typo-<rôle>)) ou sa variante -fort (font: var(--typo-<rôle>-fort)), jamais un primitif, jamais font-size ni font-weight séparés. L'échelle est une liste fermée : 13 tailles (13, 14, 15, 16, 17, 18, 21, 24, 28, 32, 34, 44, 48 px), 4 graisses (500, 600, 700, 800) ; aucune autre valeur n'est admise. Les tailles s'écrivent en px et sortent en rem (base 16 px). Un seul seuil typographique : 768 px (typo.seuil-desktop) ; les rôles qui en dépendent sont dans typographie-mobile et typographie-desktop, sous le même nom, jamais ici.",
     "titre-page": {
       "$type": "typography",
       "$value": {
@@ -22,6 +22,17 @@
         "letterSpacing": "{typo.espacement-lettres.0}"
       },
       "$description": "Nomme l'objet que l'écran présente (cours, thème, question)."
+    },
+    "titre-mis-en-avant": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{typo.famille}",
+        "fontSize": "{typo.taille.24}",
+        "fontWeight": "{typo.graisse.800}",
+        "lineHeight": "{typo.interligne.1-2}",
+        "letterSpacing": "{typo.espacement-lettres.0}"
+      },
+      "$description": "Titre de la carte qui porte l'action principale de l'écran, celle que l'écran existe pour faire. Au plus une par écran. Sur le dashboard apprenant, c'est le bloc de tête, quelle que soit sa variante. Un écran qui propose plusieurs choix de même poids n'en a pas. La carte porte une seule action, son bouton principal. Une carte qui regroupe plusieurs actions garde son rôle (exemple : « Pour bien démarrer »)."
     },
     "texte-lecture": {
       "$type": "typography",
