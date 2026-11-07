@@ -721,7 +721,7 @@ function PremiersPas({ donnees, onCreerCours, onCreerGroupe, onOuvrirGroupe }) {
           </li>
         ))}
       </ol>
-      <p className="fd-note fd-note-14">
+      <p className="fd-note">
         Le suivi de tes élèves (avancement, relances, activité) apparaîtra ici dès qu'ils auront commencé.
       </p>
     </section>
