@@ -20,11 +20,13 @@
   min-width: 0;
 }
 
-.dc-titre {
+/* .espace-page devant : l'emporte sur .espace-page h1 (Titre de page) */
+.espace-page .dc-titre {
   margin: 0;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-contenu);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   text-wrap: balance;
 }
 
@@ -93,8 +95,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -127,10 +128,8 @@
 }
 
 .dc-chiffre-valeur {
-  font-size: 28px;
+  font: var(--typo-chiffre);
   color: var(--texte-principal);
-  font-weight: 800;
-  line-height: 1;
 }
 
 .dc-chiffre-erreur {
@@ -138,8 +137,7 @@
 }
 
 .dc-chiffre-libelle {
-  font-size: 13px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -208,11 +206,6 @@
   min-width: 0;
 }
 
-.dc-paragraphe {
-  font-size: 16px;
-  line-height: 1.55;
-}
-
 .dc-miniatures {
   display: flex;
   gap: 8px;
@@ -243,8 +236,7 @@
   align-items: center;
   justify-content: center;
   background: var(--fond-voile-accentue);
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   color: var(--texte-sur-inverse);
 }
 
@@ -265,8 +257,10 @@
 
 .dc-retenir-entete h3 {
   margin: 0;
-  font-size: 17px;
-  font-weight: 800;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .dc-retenir-pastille {
@@ -291,8 +285,7 @@
   gap: 6px;
   margin: 0;
   padding-left: 20px;
-  font-size: 15px;
-  font-weight: 600;
+  font: var(--typo-corps-courant);
 }
 
 /* QCM et checklist : listes numérotées */
@@ -325,8 +318,7 @@
   height: 28px;
   border-radius: 50%;
   background: var(--fond-sur-carte);
-  font-size: 13px;
-  font-weight: 800;
+  font: var(--typo-pastille);
 }
 
 .dc-question-texte {
@@ -334,11 +326,6 @@
   flex-direction: column;
   gap: 6px;
   min-width: 0;
-}
-
-.dc-enonce {
-  font-size: 15px;
-  font-weight: 800;
 }
 
 .dc-enonce p,
@@ -350,8 +337,7 @@
   display: inline-flex;
   align-items: flex-start;
   gap: 6px;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-corps-courant-fort);
   color: var(--texte-succes);
 }
 
@@ -369,8 +355,6 @@
 .dc-etape-intitule {
   flex: 1;
   min-width: 0;
-  font-size: 15px;
-  font-weight: 600;
 }
 
 /* Desktop */
@@ -383,10 +367,6 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-  }
-
-  .dc-titre {
-    font-size: 32px;
   }
 
   .dc-actions {
