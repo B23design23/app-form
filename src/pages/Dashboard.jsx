@@ -9,6 +9,7 @@ import { joursDepuis, statutCoursAssigne } from '../lib/coursAssignes'
 import iconeFleche from '../Assets/arrow-right.svg?raw'
 import iconeFormateur from '../Assets/graduation.svg?raw'
 import iconeCadenas from '../Assets/lock.svg?raw'
+import iconeCroix from '../Assets/croix.svg?raw'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './Dashboard.css'
@@ -707,7 +708,7 @@ function ModaleBadges({ badges, idsBadgesObtenus, dateObtentionParBadge, conditi
             {nbObtenus}/{badges.length}
           </span>
           <button type="button" className="modal-fermer" onClick={onFermer} aria-label="Fermer">
-            ×
+            <Icone svg={iconeCroix} className="dash-modale-fermer-icone" />
           </button>
         </div>
         <ul className="dash-modale-badges-grille">

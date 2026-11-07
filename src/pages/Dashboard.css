@@ -17,18 +17,12 @@
   gap: 12px;
 }
 
-.dash-entete h1 {
-  letter-spacing: -0.5px;
-  line-height: 1;
-}
-
 .dash-xp {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   flex-shrink: 0;
-  font-size: 17px;
-  font-weight: 800;
+  font: var(--typo-compteur);
 }
 
 .dash-xp img {
@@ -128,26 +122,24 @@
 
 /* Textes communs */
 .dash-libelle-violet {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-accent);
 }
 
 .dash-libelle-sur-violet {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-sur-marque-attenue);
 }
 
 .dash-page .dash-titre-carte {
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.05;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .dash-sous-texte {
-  font-size: 13px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -163,9 +155,7 @@
   padding: 0;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 800;
+  font: var(--typo-lien-texte);
   color: var(--texte-principal);
   text-decoration: underline;
   cursor: pointer;
@@ -188,8 +178,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
-  font-size: 12px;
-  font-weight: 800;
+  font: var(--typo-pastille);
 }
 
 .dash-pastille-formateur-icone {
@@ -203,8 +192,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-recompense);
   color: var(--texte-principal);
-  font-size: 12px;
-  font-weight: 800;
+  font: var(--typo-pastille);
 }
 
 /* Bouton blanc pleine largeur avec pastille encre et flèche (sur carte violette) */
@@ -219,9 +207,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
   color: var(--texte-principal);
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-bouton);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -252,8 +238,6 @@
   width: 100%;
   min-height: 54px;
   margin-top: auto;
-  font-size: 16px;
-  font-weight: 800;
 }
 
 /* Cadenas encre en pastille (badge ou quiz flash verrouillé) */
@@ -315,12 +299,7 @@
 
 .dash-barre-compteur {
   flex-shrink: 0;
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.dash-barre-compteur-petit {
-  font-size: 12px;
+  font: var(--typo-compteur);
 }
 
 /* Blocs de tête A, B (en tête) et C : structure en 3 rangées pour que l'objet 3D ne gêne jamais
@@ -350,20 +329,17 @@
   min-width: 0;
 }
 
-/* Titre du bloc de tête : 26 px (32 desktop), 3 lignes max, pas de césure automatique */
+/* Titre du bloc de tête : Titre de carte, 3 lignes max, césure des titres */
 .dash-page .dash-titre-tete {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   overflow: hidden;
-  font-size: 26px;
-  font-weight: 800;
-  line-height: 1.05;
-  word-break: normal;
-  overflow-wrap: normal;
-  hyphens: manual;
-  -webkit-hyphens: manual;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .dash-anneau {
@@ -379,14 +355,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 17px;
-  font-weight: 800;
+  font: var(--typo-compteur);
 }
 
 .dash-en-cours-phrase {
   margin: 4px 0 0;
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-sur-marque-attenue);
 }
 
@@ -407,8 +381,6 @@
   min-height: 46px;
   margin-top: 10px;
   padding: 0 22px;
-  font-size: 15px;
-  font-weight: 800;
 }
 
 .dash-conseille-tete .dash-conseille-bouton {
@@ -423,8 +395,7 @@
 /* C. Cours assigné en tête */
 .dash-assigne-meta {
   margin: 4px 0 0;
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-sur-marque-attenue);
 }
 
@@ -437,17 +408,16 @@
 
 .dash-page .dash-flash-tete-titre {
   max-width: 200px;
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.5px;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .dash-flash-tete-texte {
   max-width: 210px;
   margin: 0 0 8px;
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-sur-inverse-attenue);
 }
 
@@ -474,12 +444,14 @@
 }
 
 .dash-page .dash-flash-ligne-texte h2 {
-  font-size: 19px;
-  font-weight: 800;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .dash-flash-ligne-meta {
-  font-size: 13px;
+  font: var(--typo-meta);
   color: var(--texte-sur-inverse-attenue);
 }
 
@@ -492,8 +464,6 @@
   flex-shrink: 0;
   min-height: 46px;
   padding: 0 18px;
-  font-size: 15px;
-  font-weight: 800;
 }
 
 /* G. Quiz flash verrouillé */
@@ -544,13 +514,14 @@
 }
 
 .dash-page .dash-flash-verrouille-texte h2 {
-  font-size: 17px;
-  font-weight: 800;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .dash-flash-verrouille-consigne {
-  font-size: 13px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -711,13 +682,8 @@
     padding: 12px 4px 0;
   }
 
-  .dash-entete h1 {
-    letter-spacing: -0.8px;
-  }
-
   .dash-xp {
     gap: 6px;
-    font-size: 20px;
   }
 
   .dash-xp img {
@@ -855,7 +821,7 @@
     flex: 0 1 320px;
   }
 
-  /* Blocs de tête, desktop : anneau 120 px, titre 32 px, bouton non pleine largeur */
+  /* Blocs de tête, desktop : anneau 120 px, bouton non pleine largeur */
   .dash-en-cours,
   .dash-assigne,
   .dash-conseille-tete,
@@ -874,10 +840,6 @@
     height: 120px;
   }
 
-  .dash-anneau-valeur {
-    font-size: 26px;
-  }
-
   .dash-tete-texte {
     gap: 6px;
   }
@@ -885,19 +847,6 @@
   /* B en tête, desktop : réserve à droite portée à la largeur de l'objet (160 px) */
   .dash-conseille-tete .dash-tete-texte {
     padding-right: 200px;
-  }
-
-  .dash-libelle-sur-violet {
-    font-size: 15px;
-  }
-
-  .dash-page .dash-titre-tete {
-    font-size: var(--taille-titre-cours);
-    line-height: 1.1;
-  }
-
-  .dash-en-cours-phrase {
-    font-size: 15px;
   }
 
   .dash-en-cours .dash-bouton-fleche,
@@ -937,11 +886,6 @@
     gap: 10px;
   }
 
-  .dash-page .dash-cellule-cote .dash-flash-ligne-texte h2 {
-    font-size: 28px;
-    line-height: 1;
-  }
-
   .dash-cellule-cote .dash-flash-ligne-meta {
     display: none;
   }
@@ -949,15 +893,13 @@
   .dash-cellule-cote .dash-flash-ligne-phrase {
     display: block;
     margin: 0;
-    font-size: 15px;
-    font-weight: 600;
+    font: var(--typo-texte-secondaire);
     color: var(--texte-sur-inverse-attenue);
   }
 
   .dash-cellule-cote .dash-flash-ligne-bouton {
     margin-top: auto;
     min-height: 54px;
-    font-size: 16px;
   }
 
   .dash-cellule-cote .dash-flash-ligne-bouton-court {
@@ -991,15 +933,16 @@
 
 .dash-modale-badges-entete h2 {
   margin: 0;
-  font-size: 1.3rem;
-  font-weight: 800;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-principal);
 }
 
 .dash-modale-badges-compteur {
   flex: 1;
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-compteur);
   color: var(--texte-secondaire);
 }
 
@@ -1042,25 +985,32 @@
   background: var(--fond-sur-carte);
 }
 
+/* Croix de fermeture : icône SVG du jeu, comme les autres modales */
+.dash-modale-fermer-icone {
+  width: 20px;
+  height: 20px;
+}
+
 .dash-modale-badge-pastille img {
   width: 72px;
   height: 72px;
 }
 
 .dash-modale-badge-nom {
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-principal);
 }
 
 .dash-modale-badge-condition {
-  font-size: 13px;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
 .dash-modale-badge-etat {
-  font-size: 12px;
-  font-weight: 700;
+  font: var(--typo-meta);
   color: var(--texte-succes);
 }
 
