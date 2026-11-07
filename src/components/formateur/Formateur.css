@@ -347,18 +347,6 @@
   opacity: 1;
 }
 
-.fm-lien-action {
-  min-height: 44px;
-  padding: 0 16px;
-  border: none;
-  background: none;
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--texte-accent);
-  cursor: pointer;
-}
-
 /* Bouton supprimer : texte et contour erreur (même épaisseur que le bouton secondaire), survol fond erreur */
 .fm-bouton-texte-danger {
   display: inline-flex;
