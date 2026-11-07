@@ -26,23 +26,18 @@
   min-width: 0;
 }
 
-.espace-page .fd-titres h1 {
-  font-size: 34px;
-  font-weight: 800;
-}
-
 .fd-sous-titre {
   margin: 0;
-  font-size: 15px;
-  font-weight: 700;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
+/* Lien posé dans la phrase du sous-titre : rôle de la phrase en variante -fort */
 .fd-lien-discret {
   padding: 0;
   border: none;
   background: none;
-  font: inherit;
+  font: var(--typo-texte-secondaire-fort);
   color: inherit;
   cursor: pointer;
 }
@@ -60,8 +55,7 @@
   padding: 5px 12px;
   border-radius: var(--radius-pill);
   background: var(--fond-accent);
-  font-size: 13px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   color: var(--texte-accent);
 }
 
@@ -99,9 +93,10 @@
 }
 
 .espace-page .fd-carte-entete h2 {
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 1.2;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fd-lien {
@@ -109,9 +104,7 @@
   padding: 0;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 800;
+  font: var(--typo-lien-texte);
   color: var(--texte-accent);
   text-decoration: none;
   cursor: pointer;
@@ -125,23 +118,17 @@
 
 .fd-lien-centre {
   align-self: center;
-  font-size: 15px;
 }
 
 .fd-note {
   margin: 0;
-  font-size: 13px;
-  font-weight: 500;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
-}
-
-.fd-note-14 {
-  font-size: 14px;
 }
 
 .fd-vide {
   margin: 0;
-  font-size: 15px;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -203,10 +190,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.75rem;
-  line-height: 1;
+  font: var(--typo-chiffre);
   color: var(--texte-principal);
 }
 
@@ -217,12 +201,15 @@
 }
 
 .formateur-taux-label {
-  font-size: 0.9rem;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-secondaire);
 }
 
 .formateur-taux-souscription {
-  font-size: 0.75rem;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -233,8 +220,7 @@
   margin-top: 6px;
   padding: 5px 12px;
   border-radius: var(--radius-pill);
-  font-size: 0.75rem;
-  font-weight: 700;
+  font: var(--typo-pastille);
   white-space: nowrap;
 }
 
@@ -273,7 +259,6 @@
   border: none;
   border-radius: 20px;
   background: var(--fond-sur-carte);
-  font-family: var(--font-body);
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
@@ -295,21 +280,20 @@
 }
 
 .fd-groupe-nom {
-  font-size: 17px;
-  font-weight: 800;
-  line-height: 1.2;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fd-groupe-meta {
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
 .fd-groupe-activite {
   flex-shrink: 0;
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
   text-align: right;
 }
@@ -327,8 +311,8 @@
 
 .fd-groupe-progression strong {
   min-width: 44px;
-  font-size: 14px;
-  font-weight: 800;
+  font: var(--typo-compteur);
+  font-style: inherit;
   text-align: right;
 }
 
@@ -351,7 +335,6 @@
   padding: 12px 14px 12px 18px;
   border-radius: 20px;
   background: var(--fond-sur-carte);
-  font-size: 15px;
   color: var(--texte-principal);
 }
 
@@ -363,18 +346,22 @@
 }
 
 .formateur-relance-texte {
-  line-height: 1.4;
+  font: var(--typo-corps-courant);
+}
+
+/* Prénom et cours en gras : emphase du Corps courant */
+.formateur-relance-texte strong {
+  font: var(--typo-corps-courant-fort);
+  font-style: inherit;
 }
 
 .formateur-relance-date {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-meta);
   color: var(--texte-erreur);
 }
 
 .formateur-relance-confirmation {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-accent);
 }
 
@@ -437,13 +424,16 @@
 }
 
 .fd-succes-textes strong {
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
+  font-style: inherit;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-succes);
 }
 
 .fd-succes-textes span {
-  font-size: 14px;
+  font: var(--typo-meta);
   color: var(--texte-principal);
 }
 
@@ -460,8 +450,10 @@
 }
 
 .espace-page .fd-activite-entete h2 {
-  font-size: 22px;
-  font-weight: 800;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fd-activite-controles {
@@ -491,15 +483,14 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--fond-sur-carte);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-navigation);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .fd-filtre-actif {
+  font: var(--typo-navigation-fort);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }
@@ -528,8 +519,7 @@
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--fond-sur-carte);
-  font-family: var(--font-body);
-  font-size: 14px;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
 }
 
@@ -546,8 +536,7 @@
 
 .espace-page .fd-jour-titre {
   margin: 0;
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-secondaire);
 }
 
@@ -572,7 +561,6 @@
   padding: 12px 0;
   border: none;
   background: none;
-  font-family: var(--font-body);
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
@@ -593,19 +581,18 @@
   height: 40px;
   border-radius: 50%;
   background: var(--fond-accent);
-  font-size: 14px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   color: var(--texte-accent);
 }
 
 .fd-evenement-texte {
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.4;
+  font: var(--typo-corps-courant);
 }
 
+/* Noms de l'élève et du cours : emphase du Corps courant */
 .fd-evenement-texte strong {
-  font-weight: 800;
+  font: var(--typo-corps-courant-fort);
+  font-style: inherit;
 }
 
 .fd-evenement-details {
@@ -623,8 +610,7 @@
   padding: 4px 10px;
   border-radius: var(--radius-pill);
   background: var(--fond-sur-carte);
-  font-size: 12px;
-  font-weight: 700;
+  font: var(--typo-pastille);
   color: var(--texte-secondaire);
   white-space: nowrap;
 }
@@ -637,8 +623,7 @@
 }
 
 .fd-score {
-  font-size: 13px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -654,14 +639,15 @@
 }
 
 .espace-page .fd-demarrage h2 {
-  font-size: 24px;
-  font-weight: 800;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fd-demarrage-compteur {
   flex-shrink: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -692,8 +678,7 @@
   height: 40px;
   border-radius: 50%;
   background: var(--fond-surface);
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   color: var(--texte-principal);
 }
 
@@ -719,12 +704,14 @@
 }
 
 .fd-etape-titre {
-  font-size: 17px;
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fd-etape-texte {
-  font-size: 14px;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -737,7 +724,6 @@
   min-height: 44px;
   margin-top: 0;
   padding: 0 18px;
-  font-size: 15px;
 }
 
 /* Bouton désactivé (plein ou contour) : lavande, texte atténué */
@@ -768,19 +754,16 @@
 }
 
 .fd-chiffre-libelle {
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
 .fd-chiffre-valeur {
-  font-size: 36px;
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-chiffre);
 }
 
 .fd-chiffre-precision {
-  font-size: 13px;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -816,20 +799,21 @@
 }
 
 .fd-tableau-titre {
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-principal);
 }
 
 .fd-tableau-theme {
   display: none;
-  font-size: 13px;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
 .fd-tableau-resume {
-  font-size: 13px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -883,10 +867,6 @@
 @media (min-width: 768px) {
   .formateur-dashboard-page {
     gap: 24px;
-  }
-
-  .espace-page .fd-titres h1 {
-    font-size: var(--taille-h1);
   }
 
   .fd-entete {
@@ -1042,8 +1022,8 @@
   .fd-tableau thead th {
     padding-top: 0;
     padding-bottom: var(--espace-10);
-    font-size: 13px;
-    font-weight: 700;
+    /* En-tête de colonne : rôle du tableau (Corps courant) en variante -fort */
+    font: var(--typo-corps-courant-fort);
     color: var(--texte-secondaire);
   }
 
@@ -1061,7 +1041,6 @@
   }
 
   .fd-tableau td {
-    font-size: 15px;
-    font-weight: 700;
+    font: var(--typo-corps-courant);
   }
 }
