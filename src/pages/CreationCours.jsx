@@ -5,6 +5,7 @@ import Dropdown from '../components/Dropdown'
 import ContenuMarkdown, { obtenirUrlEmbedVideo } from '../components/ContenuMarkdown'
 import Icone from '../components/Icone'
 import MenuActions from '../components/formateur/MenuActions'
+import { RetourFormateur } from '../components/formateur/Elements'
 import Modale, { ModaleConfirmation } from '../components/Modale'
 import iconeRetour from '../Assets/chevron-left.svg?raw'
 import iconeChevron from '../Assets/chevron-right.svg?raw'
@@ -811,7 +812,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
     return (
       <div className="cc-page flow-page-formateur">
         <div className="cc-etat">
-          <button type="button" className="fm-bouton-rond" onClick={() => quitterVers(onRetour)} aria-label={libelleRetour}>
+          <button type="button" className="fm-bouton-rond" onClick={() => quitterVers(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
             <Icone svg={iconeRetour} className="fm-bouton-rond-icone" />
           </button>
           {erreurChargement ? <p className="message message-erreur">{erreurChargement}</p> : <p className="fm-texte">Chargement…</p>}
@@ -826,7 +827,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
 
       {/* En-tête mobile et tablette */}
       <header className="cc-entete-mobile">
-        <button type="button" className="fm-bouton-rond" onClick={() => demanderQuitter(onRetour)} aria-label={libelleRetour}>
+        <button type="button" className="fm-bouton-rond" onClick={() => demanderQuitter(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
           <Icone svg={iconeRetour} className="fm-bouton-rond-icone" />
         </button>
         <div className="cc-entete-mobile-titres">
@@ -858,12 +859,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
       <div className="cc-grille">
         {/* Colonne de gauche (desktop) : retour, sommaire, aperçu */}
         <aside className="cc-cote">
-          <button type="button" className="cc-retour" onClick={() => demanderQuitter(onRetour)}>
-            <span className="cc-retour-rond">
-              <Icone svg={iconeRetour} className="fm-bouton-rond-icone" />
-            </span>
-            {libelleRetour}
-          </button>
+          <RetourFormateur libelle={libelleRetour} onRetour={() => demanderQuitter(onRetour)} />
 
           <nav className="cc-sommaire" aria-label="Sommaire du cours">
             {SECTIONS.map((s) => (

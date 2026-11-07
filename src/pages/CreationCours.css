@@ -49,16 +49,16 @@
 
 .cc-entete-mobile h1 {
   margin: 0;
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 1.2;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .cc-entete-mobile p {
   margin: 2px 0 0;
   overflow: hidden;
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -91,20 +91,19 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 700;
+  font: var(--typo-navigation);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
+/* Compteur : graisse du rôle, pas de partie plus légère */
 .cc-pastille-compteur {
-  font-weight: 600;
   color: var(--texte-secondaire);
 }
 
 .cc-pastille-active {
+  font: var(--typo-navigation-fort);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }
@@ -132,33 +131,6 @@
   min-width: 0;
 }
 
-.cc-retour {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  align-self: flex-start;
-  min-height: 44px;
-  padding: 0;
-  border: none;
-  background: none;
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 800;
-  color: var(--texte-principal);
-  cursor: pointer;
-}
-
-.cc-retour-rond {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--fond-surface);
-  transition: all 0.15s ease;
-}
-
 .cc-sommaire {
   display: flex;
   flex-direction: column;
@@ -178,9 +150,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: none;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 700;
+  font: var(--typo-navigation);
   color: var(--texte-principal);
   text-align: left;
   cursor: pointer;
@@ -188,12 +158,12 @@
 }
 
 .cc-sommaire-compteur {
-  font-size: 13px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
 .cc-sommaire-actif {
+  font: var(--typo-navigation-fort);
   background: var(--fond-accent);
 }
 
@@ -205,9 +175,7 @@
   padding: 0;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-lien-texte);
   color: var(--texte-accent);
   cursor: pointer;
 }
@@ -233,8 +201,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-accent);
   color: var(--texte-accent);
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-pastille);
 }
 
 .cc-carte {
@@ -250,9 +217,10 @@
 
 .cc-carte h2 {
   margin: 0;
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.2;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .cc-carte-entete {
@@ -263,20 +231,14 @@
 }
 
 .cc-libelle {
-  font-size: 0.9rem;
+  font: var(--typo-libelle-champ);
   color: var(--texte-principal);
 }
 
 .cc-aide {
   margin: 0;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.4;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
-}
-
-.cc-erreur {
-  font-weight: 700;
 }
 
 /* Champs multilignes ajustés au contenu (titre, intitulés d'étape) */
@@ -285,7 +247,6 @@
   min-height: 48px;
   overflow: hidden;
   resize: none;
-  line-height: 1.35;
 }
 
 .cc-champ-titre textarea {
@@ -324,9 +285,7 @@
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--fond-sur-carte);
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 700;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
   text-align: left;
   cursor: pointer;
@@ -350,7 +309,9 @@
   color: var(--texte-sur-action);
 }
 
+/* Option choisie : état, un cran de graisse */
 .cc-choisi {
+  font: var(--typo-saisie-choix-fort);
   border-color: var(--bordure-action);
   background: var(--fond-accent);
 }
@@ -406,15 +367,14 @@
   border: none;
   border-radius: var(--radius-pill);
   background: none;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-navigation);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .cc-onglet-actif {
+  font: var(--typo-navigation-fort);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }
@@ -435,9 +395,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-bouton);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -455,9 +413,7 @@
   padding: 16px 18px;
   border: none;
   background: transparent;
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.55;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
   resize: vertical;
 }
@@ -516,8 +472,7 @@
 .cc-etiquette-nom {
   min-width: 0;
   overflow: hidden;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-meta);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -572,8 +527,7 @@
   height: 32px;
   border-radius: 50%;
   background: var(--fond-surface);
-  font-size: 14px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   color: var(--texte-principal);
   transition: all 0.15s ease;
 }
@@ -605,7 +559,6 @@
   border: none;
   border-radius: 20px;
   background: var(--fond-sur-carte);
-  font-family: var(--font-body);
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
@@ -620,8 +573,10 @@
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -629,8 +584,7 @@
 .cc-question-meta {
   display: none;
   flex-shrink: 0;
-  font-size: 13px;
-  font-weight: 600;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -652,8 +606,10 @@
 .cc-question-entete h3 {
   flex: 1;
   margin: 0;
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .cc-question-entete .fm-bouton-rond {
@@ -748,9 +704,7 @@
   border: none;
   border-radius: 50%;
   background: var(--fond-accent);
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   color: var(--texte-accent);
 }
 
@@ -764,8 +718,7 @@
   border: 2px solid transparent;
   border-radius: var(--radius-pill);
   background: var(--fond-sur-carte);
-  font-family: var(--font-body);
-  font-size: 15px;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
 }
 
@@ -773,7 +726,6 @@
   min-height: 40px;
   /* décalé sous le texte de la réponse, pas sous la lettre */
   margin-left: 48px;
-  font-size: 14px;
 }
 
 .cc-reponse-texte:focus,
@@ -829,8 +781,7 @@
 }
 
 .cc-bonne-libelle {
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-libelle-champ);
   color: var(--texte-secondaire);
   white-space: nowrap;
 }
@@ -841,7 +792,7 @@
 }
 
 .cc-bonne-cochee .cc-bonne-libelle {
-  font-weight: 800;
+  font: var(--typo-libelle-champ-fort);
   color: var(--texte-succes);
 }
 
@@ -892,14 +843,16 @@
 }
 
 .cc-mode-libelle {
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-saisie-choix);
+}
+
+.cc-choisi .cc-mode-libelle {
+  font: var(--typo-saisie-choix-fort);
 }
 
 .cc-mode-detail {
   display: none;
-  font-size: 13px;
-  font-weight: 500;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -958,9 +911,7 @@
   padding: 12px 16px;
   border: 2px solid transparent;
   border-radius: 24px;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 600;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
 }
 
@@ -1010,9 +961,7 @@
   border: 2px solid var(--bordure-controle);
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-pastille);
   color: var(--texte-secondaire);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -1035,9 +984,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-bouton);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -1072,13 +1019,11 @@
   align-items: center;
   gap: 8px;
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-principal);
 }
 
 .cc-barre-aucune {
-  font-weight: 600;
   color: var(--texte-secondaire);
 }
 
@@ -1115,8 +1060,7 @@
 .cc-bouton-outil:active,
 .cc-bouton-etape-image:active,
 .cc-bouton-image-interne:active,
-.cc-question-repliee:active,
-.cc-retour:active .cc-retour-rond {
+.cc-question-repliee:active {
   background: var(--fond-accent);
 }
 
@@ -1143,8 +1087,7 @@
   .cc-bouton-outil:hover:not(:disabled),
   .cc-bouton-etape-image:hover:not(:disabled),
   .cc-bouton-image-interne:hover:not(:disabled),
-  .cc-question-repliee:hover,
-  .cc-retour:hover .cc-retour-rond {
+  .cc-question-repliee:hover {
     background: var(--fond-accent);
   }
 
@@ -1379,9 +1322,10 @@
 
   .cc-entete-desktop h1 {
     margin: 0;
-    font-size: 44px;
-    font-weight: 800;
-    line-height: 1.1;
+    font: var(--typo-titre-page);
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    overflow-wrap: break-word;
   }
 
   .cc-contenu {
