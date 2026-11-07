@@ -804,9 +804,9 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
     checklist: checklistMode ? `${etapes.length} étape${etapes.length > 1 ? 's' : ''}` : null,
   }
   const compteurCourt = { qcm: questions.length, checklist: checklistMode ? etapes.length : null }
-  const erreurPour = (cible) => (erreur?.cible === cible ? <p className="message message-erreur cc-erreur">{erreur.message}</p> : null)
+  const erreurPour = (cible) => (erreur?.cible === cible ? <p className="message message-erreur">{erreur.message}</p> : null)
   const erreurUploadPour = (cle) =>
-    erreurUpload?.cle === cle ? <p className="message message-erreur cc-erreur">{erreurUpload.message}</p> : null
+    erreurUpload?.cle === cle ? <p className="message message-erreur">{erreurUpload.message}</p> : null
 
   if (chargement || erreurChargement) {
     return (
@@ -1055,7 +1055,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
             <label className="champ cc-champ-retenir">
               <span className="cc-libelle-ligne">
                 <span>À retenir</span>
-                <span className="cc-aide cc-aide-retenir">Un point par ligne, 3 à 5 conseillés</span>
+                <span className="cc-aide">Un point par ligne, 3 à 5 conseillés</span>
               </span>
               <textarea value={aRetenir} onChange={(e) => setARetenir(e.target.value)} />
             </label>
@@ -1115,7 +1115,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                       )}
                       <button
                         type="button"
-                        className="fm-bouton-rond fm-bouton-rond-40 cc-bouton-replier"
+                        className="fm-bouton-rond fm-bouton-rond-40"
                         aria-label={`Replier la question ${numero}`}
                         aria-expanded="true"
                         onClick={() => majQuestion(question.localId, { estOuverte: false })}
@@ -1180,7 +1180,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                       {question.reponses.map((reponse, ri) => {
                         const lettre = String.fromCharCode(65 + ri)
                         return (
-                          <div key={reponse.localId} className={`cc-reponse${reponse.estCorrecte ? ' cc-reponse-correcte' : ''}`}>
+                          <div key={reponse.localId} className="cc-reponse">
                             <div className="cc-reponse-ligne">
                               <span className="cc-lettre" aria-hidden="true">
                                 {lettre}
