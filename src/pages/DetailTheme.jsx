@@ -54,7 +54,7 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
 
   return (
     <div className="espace-page espace-page-etroit page-theme">
-      <button type="button" className="theme-retour" onClick={onRetour}>
+      <button type="button" className="theme-retour" onClick={onRetour} aria-label="Retour à Cours">
         <Icone svg={iconeRetour} className="theme-retour-icone" />
         Cours
       </button>

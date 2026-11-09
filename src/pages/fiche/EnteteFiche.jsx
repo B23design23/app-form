@@ -8,7 +8,7 @@ import { typo } from '../../lib/typographie'
 function EnteteFiche({ cours, sousTitre, onRetour, children }) {
   return (
     <>
-      <button type="button" className="fiche-retour" onClick={onRetour}>
+      <button type="button" className="fiche-retour" onClick={onRetour} aria-label={`Retour à ${libelleCourtTheme(cours.categorie)}`}>
         <Icone svg={iconeRetour} className="fiche-retour-icone" />
         {libelleCourtTheme(cours.categorie)}
       </button>
