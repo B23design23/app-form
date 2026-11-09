@@ -461,8 +461,8 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 - Le gras italique n'est pas prévu. S'il apparaît dans un Markdown, le gras fabriqué par le navigateur est accepté.
 
 **Césure des titres** (sections 5 et 11)
-- Un titre (Titre de page, Titre de contenu, Titre mis en avant, Titre de section, Titre de carte, Titre de ligne) qui ne tient pas dans son conteneur se coupe à la syllabe, avec un tiret. Filet : si aucune coupure n'est possible, le mot se coupe sans tiret plutôt que de déborder. Raison : un conteneur fixe qui contient du texte doit rester lisible quand le texte grandit (« Thermodynamique » en 18 px déborde de la carte de thème à 375 px).
-- Dans le code : chaque `font: var(--typo-titre-…)` est accompagné de `hyphens: auto` et `overflow-wrap: break-word`. Jamais `hyphens: manual` ni `overflow-wrap: normal` sur un titre. La césure suit `lang="fr"` de la balise `html`.
+- Un titre (page, contenu, section, mis en avant, carte, ligne) qui ne tient pas dans son conteneur se coupe à la syllabe, avec un tiret, dans un mot de 10 lettres ou plus, avec au moins 4 lettres de chaque côté du tiret. Filet : coupure sans tiret plutôt que débordement. Limites acceptées : Firefox ne met pas de tiret dans un mot à majuscule initiale, et peut couper un mot qui tenait pour équilibrer les lignes. Raison : un conteneur fixe qui contient du texte doit rester lisible quand le texte grandit (« Thermodynamique » en 18 px déborde de la carte de thème à 375 px).
+- Dans le code : chaque `font: var(--typo-titre-…)` est accompagné de `hyphens: auto`, avec l'implémentation par `hyphenate-limit-chars: 10 4 4`, `-webkit-hyphenate-limit-before: 4`, `-webkit-hyphenate-limit-after: 4`, `overflow-wrap: break-word`. Jamais `hyphens: manual` ni `overflow-wrap: normal` sur un titre. La césure suit `lang="fr"` de la balise `html`.
 
 **Césure du Texte de lecture** (section 5)
 - Le Texte de lecture se coupe à la syllabe, avec un tiret, partout où il apparaît. Les autres rôles ne se coupent pas, sauf les titres (césure des titres).

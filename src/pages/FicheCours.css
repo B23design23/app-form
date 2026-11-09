@@ -216,6 +216,9 @@
   font: var(--typo-titre-contenu);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   text-wrap: balance;
 }
@@ -270,6 +273,9 @@
   font: var(--typo-titre-section);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -326,6 +332,9 @@
   font: var(--typo-titre-mis-en-avant);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -405,6 +414,9 @@
   font: var(--typo-titre-contenu);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   text-wrap: balance;
 }
@@ -618,6 +630,9 @@
   font: var(--typo-titre-carte);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   color: var(--texte-recompense);
 }
@@ -680,6 +695,9 @@
   font: var(--typo-titre-ligne);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   color: var(--texte-accent);
   white-space: nowrap;
@@ -766,6 +784,9 @@
   font: var(--typo-titre-page);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -841,6 +862,9 @@
   font: var(--typo-titre-carte);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -987,6 +1011,9 @@
   font: var(--typo-titre-ligne);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -1010,6 +1037,9 @@
   font: var(--typo-titre-carte);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -1268,6 +1298,9 @@
   font: var(--typo-titre-ligne);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -1304,6 +1337,9 @@
   font: var(--typo-titre-mis-en-avant);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 

@@ -96,6 +96,9 @@
   font: var(--typo-titre-section);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -204,6 +207,9 @@
   font: var(--typo-titre-section);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   color: var(--texte-secondaire);
 }
@@ -283,6 +289,9 @@
   font: var(--typo-titre-ligne);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -428,6 +437,9 @@
   font-style: inherit;
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   color: var(--texte-succes);
 }
@@ -453,6 +465,9 @@
   font: var(--typo-titre-section);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -642,6 +657,9 @@
   font: var(--typo-titre-section);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -707,6 +725,9 @@
   font: var(--typo-titre-ligne);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
 }
 
@@ -802,6 +823,9 @@
   font: var(--typo-titre-ligne);
   hyphens: auto;
   -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   color: var(--texte-principal);
 }
