@@ -625,8 +625,9 @@
 
 .fiche-feedback-titre {
   margin: 0;
-  /* Réserve de 72 px : aucun mot sous l'objet qui déborde */
-  padding-right: 72px;
+  /* Réserve = emprise de l'objet qui déborde (96 px + 16 px du bord − 20 px de padding de la carte) :
+     aucun mot sous l'objet */
+  padding-right: 92px;
   font: var(--typo-titre-carte);
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -639,7 +640,8 @@
 
 .fiche-feedback-texte {
   margin: 0;
-  padding-right: 72px;
+  /* Même réserve que le titre : emprise de l'objet */
+  padding-right: 92px;
   font: var(--typo-corps-courant);
   color: var(--texte-sur-inverse-attenue);
 }

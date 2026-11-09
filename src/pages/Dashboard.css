@@ -426,6 +426,9 @@
 .dash-flash-tete-texte {
   max-width: 210px;
   margin: 0 0 8px;
+  /* Réserve = emprise de l'éclair incliné (140 px tourné de 12° : 166 px de large, 6 px hors du
+     cadre) moins le padding de 20 px : aucun mot sous l'objet */
+  margin-right: 127px;
   font: var(--typo-texte-secondaire);
   color: var(--texte-sur-inverse-attenue);
 }
@@ -881,6 +884,12 @@
 
   .dash-page .dash-flash-tete-titre {
     max-width: calc(100% - 200px);
+  }
+
+  /* Réserve = emprise de l'éclair (160 px tourné de 12° : 190 px de large, à 24 px du bord) moins le
+     padding de 32 px */
+  .dash-flash-tete-texte {
+    margin-right: 167px;
   }
 
   /* F. Quiz flash placé dans la colonne étroite de la rangée de tête : version verticale */
