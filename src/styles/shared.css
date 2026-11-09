@@ -7,26 +7,11 @@
   /* Seule ombre de l'app, réservée aux éléments flottants (menu de la nav, listes déroulantes, toast) */
   --ombre-flottante: 0 12px 32px rgba(30, 26, 51, 0.16);
 
-  --font-display: 'Urbanist', sans-serif;
-  --font-body: 'Urbanist', sans-serif;
-
   --radius-carte: 28px;
   --radius-carte-petite: 26px;
   --radius-reponse: 20px;
   --radius-pill: 999px;
   --radius-badge: 16px;
-
-
-  /* H1 = titres de page ; titre-cours = titres de cours et noms de thème dans les fiches */
-  --taille-h1: 34px;
-  --taille-titre-cours: 28px;
-}
-
-@media (min-width: 768px) {
-  :root {
-    --taille-h1: 44px;
-    --taille-titre-cours: 32px;
-  }
 }
 
 .flow-page {

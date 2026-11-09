@@ -6,16 +6,17 @@ body {
   margin: 0;
   background: var(--fond-page);
   color: var(--texte-principal);
-  font-family: var(--font-body);
-  font-weight: 500;
+  /* Texte sans rôle déclaré : Corps courant */
+  font: var(--typo-corps-courant);
   -webkit-font-smoothing: antialiased;
 }
 
+/* Pas de rôle par défaut pour les titres : chaque titre déclare le sien (font + césure) */
+h1, h2, h3, h4, h5, h6 {
+  font: inherit;
+}
+
+/* Lignes équilibrées */
 h1, h2, h3 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  /* Titres : pas de césure automatique, lignes équilibrées */
-  hyphens: manual;
-  -webkit-hyphens: manual;
   text-wrap: balance;
 }

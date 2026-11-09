@@ -17,8 +17,13 @@
   color: var(--texte-secondaire);
 }
 
+.ds-intention,
+.ds-description {
+  font: var(--typo-texte-secondaire);
+}
+
 .ds-meta {
-  font-size: smaller;
+  font: var(--typo-meta);
   overflow-wrap: anywhere;
 }
 
@@ -34,6 +39,10 @@
 
 .ds-groupe h3 {
   margin: var(--espace-8) 0 0;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-principal);
 }
 
@@ -71,10 +80,20 @@
   justify-content: center;
 }
 
+/* Nom de token (code) : Urbanist, rôle selon la place ; overflow-wrap: anywhere pour les noms longs */
 .ds-nom {
   font-weight: 800;
   color: var(--texte-principal);
   overflow-wrap: anywhere;
+}
+
+.ds-carte .ds-nom {
+  font: var(--typo-titre-carte);
+}
+
+.ds-echelle .ds-nom,
+.ds-primitif .ds-nom {
+  font: var(--typo-titre-ligne);
 }
 
 /* Échantillons : chaque token dans sa propriété (fond, texte, bordure) */
@@ -87,7 +106,7 @@
 }
 
 .ds-echantillon-texte {
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
 }
 
 .ds-echantillon-bordure {
@@ -143,6 +162,7 @@
 
 .ds-corps {
   margin: 0;
+  font: var(--typo-corps-courant);
 }
 
 .ds-echelle {
@@ -190,7 +210,7 @@
 }
 
 .ds-regles-titre {
-  font-weight: 800;
+  font: var(--typo-surtitre);
   color: var(--texte-accent);
 }
 
@@ -202,7 +222,7 @@
 }
 
 .ds-anneau-valeur {
-  font-weight: 800;
+  font: var(--typo-compteur);
   color: var(--texte-principal);
 }
 
