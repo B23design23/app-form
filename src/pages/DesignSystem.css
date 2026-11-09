@@ -92,7 +92,8 @@
 }
 
 .ds-echelle .ds-nom,
-.ds-primitif .ds-nom {
+.ds-primitif .ds-nom,
+.ds-fond-page .ds-nom {
   font: var(--typo-titre-ligne);
 }
 
