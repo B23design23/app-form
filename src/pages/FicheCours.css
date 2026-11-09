@@ -239,13 +239,6 @@
   padding: 22px 20px;
 }
 
-/* Règle parente morte (écrasée par le rôle Texte de lecture de ContenuMarkdown), gardée jusqu'au retrait
-   des règles listées dans lot4b.md */
-.fiche-lecon-contenu {
-  font-size: 17px;
-  line-height: 1.55;
-}
-
 /* Intertitres : Titre de section posé par ContenuMarkdown ; seule la marge est propre à la leçon */
 .fiche-lecon-contenu.contenu-markdown h2 {
   margin: 28px 0 10px;
@@ -909,12 +902,6 @@
   padding: 18px;
 }
 
-/* Règle parente morte (écrasée par le rôle Titre de ligne de ContenuMarkdown), voir lot4b.md */
-.fin-quiz-erreur-question {
-  font-size: 16px;
-  font-weight: 800;
-}
-
 .fin-quiz-erreur-question.contenu-markdown p {
   margin: 0;
 }
@@ -1124,15 +1111,11 @@
   }
 }
 
-/* Intitulé : rôle posé par ContenuMarkdown (Corps courant ; Corps courant fort à l'étape en cours).
-   font-size, font-weight et line-height : règle parente morte, voir lot4b.md */
+/* Intitulé : rôle posé par ContenuMarkdown (Corps courant ; Corps courant fort à l'étape en cours) */
 .fiche-etape-intitule {
   flex: 1;
   min-width: 0;
   padding-top: 3px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.35;
 }
 
 .fiche-etape-intitule.contenu-markdown p {
@@ -1368,11 +1351,6 @@
 
   .fiche-lecon {
     padding: 32px 36px;
-  }
-
-  /* Règle parente morte, voir lot4b.md */
-  .fiche-lecon-contenu {
-    font-size: 18px;
   }
 
   /* Carte « Étape suivante » : texte à gauche, bouton à droite sur la même ligne, centrés
