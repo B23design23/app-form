@@ -85,7 +85,7 @@ function EcranChecklist({
                       onClick={() => onDeplacer(index, -1)}
                       aria-label="Monter"
                     >
-                      ↑
+                      <Icone svg={iconeRetour} className="fiche-etape-fleche-icone fiche-etape-fleche-icone-haut" />
                     </button>
                     <button
                       type="button"
@@ -94,7 +94,7 @@ function EcranChecklist({
                       onClick={() => onDeplacer(index, 1)}
                       aria-label="Descendre"
                     >
-                      ↓
+                      <Icone svg={iconeRetour} className="fiche-etape-fleche-icone fiche-etape-fleche-icone-bas" />
                     </button>
                   </span>
                 </li>

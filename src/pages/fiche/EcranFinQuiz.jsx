@@ -9,7 +9,7 @@ import iconeRetour from '../../Assets/chevron-left.svg?raw'
 import { typo } from '../../lib/typographie'
 
 // Fin de quiz (quiz de cours et quiz flash) : écran complet. Animation ~1,5 s :
-// anneau + compteur (0,7 s), confettis, pastille XP (rebond), cartes badge (glissement).
+// anneau + score en pourcentage qui compte (0,7 s), confettis, pastille XP (rebond), cartes badge (glissement).
 // prefers-reduced-motion : tout s'affiche directement, sans confettis.
 const DUREE_ANNEAU = 700
 export const SEUIL_REUSSITE = 50
@@ -65,9 +65,9 @@ function ListeErreurs({ erreurs }) {
 }
 
 function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resultat, titre, sousTitre, actionPrincipale, liens = [] }) {
-  const { bonnes, total, score, xpGagne, badges, historique } = resultat
+  const { score, xpGagne, badges, historique } = resultat
   const reduit = mouvementReduit()
-  const [compteur, setCompteur] = useState(reduit ? bonnes : 0)
+  const [compteur, setCompteur] = useState(reduit ? score : 0)
   const [ratioAffiche, setRatioAffiche] = useState(reduit ? score / 100 : 0)
   const [declencheurConfetti, setDeclencheurConfetti] = useState(null)
   const [erreursOuvertes, setErreursOuvertes] = useState(false)
@@ -77,13 +77,13 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
 
   useEffect(() => {
     if (reduit) return
-    // Anneau : la transition CSS du trait suit ce ratio ; le chiffre central compte en parallèle.
+    // Anneau : la transition CSS du trait suit ce ratio ; le pourcentage central compte en parallèle.
     const raf = requestAnimationFrame(() => setRatioAffiche(score / 100))
     const debut = performance.now()
     let idAnimation
     const compter = (maintenant) => {
       const avancement = Math.min(1, (maintenant - debut) / DUREE_ANNEAU)
-      setCompteur(Math.round(avancement * bonnes))
+      setCompteur(Math.round(avancement * score))
       if (avancement < 1) idAnimation = requestAnimationFrame(compter)
     }
     idAnimation = requestAnimationFrame(compter)
@@ -93,7 +93,7 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
       cancelAnimationFrame(idAnimation)
       clearTimeout(minuteurConfetti)
     }
-  }, [reduit, score, bonnes])
+  }, [reduit, score])
 
   // Confettis « pastilles et anneaux » selon le score (aucun sous 50 %), depuis le centre de l'anneau
   const salves = salvesConfettiScore(score)
@@ -124,11 +124,9 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
               progressColor="var(--fond-marque)"
               wrapperClassName="fin-quiz-anneau"
             >
-              <span className="fin-quiz-anneau-centre" aria-label={`${bonnes} sur ${total}, ${score} %`}>
-                <span className="fin-quiz-anneau-score">
-                  {compteur}/{total}
-                </span>
-                <span className="fin-quiz-anneau-pourcent">{score} %</span>
+              {/* Score du passage en pourcentage seul (pas de « 4/5 » sur cet écran) */}
+              <span className="fin-quiz-anneau-centre" aria-label={`Score : ${score} %`}>
+                <span className="fin-quiz-anneau-score">{compteur} %</span>
               </span>
             </AnneauProgression>
           </span>

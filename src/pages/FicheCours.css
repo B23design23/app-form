@@ -101,8 +101,7 @@
   padding: calc(env(safe-area-inset-top) + 8px) 16px 8px;
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-meta);
 }
 
 .fiche-apercu-quitter {
@@ -112,9 +111,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 800;
+  font: var(--typo-bouton);
   color: var(--texte-principal);
   cursor: pointer;
 }
@@ -167,9 +164,7 @@
   border: none;
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-bouton);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -212,27 +207,22 @@
 }
 
 .fiche-entete-theme {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-accent);
 }
 
 .fiche-entete-titre {
   margin: 0;
-  font-size: var(--taille-titre-cours);
-  font-weight: 800;
-  line-height: 1.1;
-  word-break: normal;
-  overflow-wrap: normal;
-  hyphens: manual;
-  -webkit-hyphens: manual;
+  font: var(--typo-titre-contenu);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   text-wrap: balance;
 }
 
 .fiche-entete-sous-titre {
   margin: 0 0 6px;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-meta);
   color: var(--texte-sur-accent);
 }
 
@@ -249,23 +239,16 @@
   padding: 22px 20px;
 }
 
+/* Règle parente morte (écrasée par le rôle Texte de lecture de ContenuMarkdown), gardée jusqu'au retrait
+   des règles listées dans lot4b.md */
 .fiche-lecon-contenu {
   font-size: 17px;
   line-height: 1.55;
 }
 
-/* Césure gardée sur le texte courant de la leçon (page en lang="fr"), jamais sur les titres */
-.fiche-lecon-contenu p,
-.fiche-lecon-contenu li {
-  hyphens: auto;
-  -webkit-hyphens: auto;
-}
-
+/* Intertitres : Titre de section posé par ContenuMarkdown ; seule la marge est propre à la leçon */
 .fiche-lecon-contenu.contenu-markdown h2 {
   margin: 28px 0 10px;
-  font-size: 21px;
-  font-weight: 800;
-  line-height: 1.2;
 }
 
 .fiche-lecon-contenu .contenu-markdown-image,
@@ -291,8 +274,10 @@
 
 .fiche-retenir-entete h2 {
   margin: 0;
-  font-size: 17px;
-  font-weight: 800;
+  font: var(--typo-titre-section);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fiche-retenir-pastille {
@@ -318,9 +303,7 @@
   gap: 6px;
   margin: 0;
   padding-left: 22px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.4;
+  font: var(--typo-corps-courant);
 }
 
 /* Carte encre « Étape suivante » */
@@ -341,21 +324,21 @@
 }
 
 .fiche-suivante-libelle {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-sur-inverse-attenue);
 }
 
 .fiche-suivante-titre {
   margin: 0;
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-mis-en-avant);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fiche-suivante-detail {
   margin-bottom: 10px;
-  font-size: 14px;
+  font: var(--typo-meta);
   color: var(--texte-sur-inverse-attenue);
 }
 
@@ -371,9 +354,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-surface);
   color: var(--texte-principal);
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-bouton);
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -410,8 +391,7 @@
 
 .fiche-quiz-compteur {
   flex-shrink: 0;
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-compteur);
 }
 
 /* Question et réponses posées directement sur le fond de page (plus de carte blanche) */
@@ -423,17 +403,16 @@
 }
 
 .fiche-quiz-cours {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-accent);
 }
 
+/* Même rôle que ContenuMarkdown (titre-contenu) : la règle sert aussi la page /design-system */
 .fiche-quiz-question {
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 1.15;
-  hyphens: manual;
-  -webkit-hyphens: manual;
+  font: var(--typo-titre-contenu);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   text-wrap: balance;
 }
 
@@ -442,8 +421,7 @@
 }
 
 .fiche-quiz-aide {
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -464,8 +442,7 @@
   border: 2px solid transparent;
   border-radius: var(--radius-reponse);
   background: var(--fond-surface);
-  font-size: 16px;
-  font-weight: 600;
+  font: var(--typo-saisie-choix);
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -598,8 +575,7 @@
   flex-shrink: 0;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  font-size: 12px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   white-space: nowrap;
 }
 
@@ -646,16 +622,17 @@
   margin: 0;
   /* Réserve de 72 px : aucun mot sous l'objet qui déborde */
   padding-right: 72px;
-  font-size: 20px;
-  font-weight: 800;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-recompense);
 }
 
 .fiche-feedback-texte {
   margin: 0;
   padding-right: 72px;
-  font-size: 15px;
-  line-height: 1.45;
+  font: var(--typo-corps-courant);
   color: var(--texte-sur-inverse-attenue);
 }
 
@@ -665,9 +642,7 @@
   padding: 0;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-lien-texte);
   color: var(--texte-recompense);
   text-decoration: underline;
   cursor: pointer;
@@ -677,8 +652,7 @@
   width: 100%;
   min-height: 58px;
   margin-top: 0;
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-bouton);
 }
 
 /* Marge basse du quiz = hauteur de la barre fixe (bouton 58 px + marge 16 px) : la correction ne
@@ -698,8 +672,8 @@
   background: var(--fond-accent);
 }
 
-/* Barre du haut de la fin de quiz : bouton rond retour + titre du cours (même taille et graisse
-   que le libellé au-dessus de la question), dans la même colonne que le quiz */
+/* Barre du haut de la fin de quiz : bouton rond retour + titre du cours (Titre de ligne, une
+   ligne), dans la même colonne que le quiz */
 .fin-quiz-haut {
   width: 100%;
   max-width: 680px;
@@ -710,8 +684,10 @@
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   color: var(--texte-accent);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -755,8 +731,7 @@
 }
 
 .fin-quiz-libelle {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-sur-accent);
 }
 
@@ -786,30 +761,24 @@
   justify-content: center;
 }
 
+/* Score du passage en pourcentage seul (« 80 % ») */
 .fin-quiz-anneau-score {
-  font-size: 48px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.fin-quiz-anneau-pourcent {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--texte-sur-accent);
+  font: var(--typo-chiffre-grand);
+  white-space: nowrap;
 }
 
 .espace-page .fin-quiz-titre,
 .fin-quiz-titre {
   margin: 28px 0 0;
-  font-size: 30px;
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-page);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fin-quiz-sous-titre {
   margin: 8px 0 0;
-  font-size: 15px;
-  font-weight: 600;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-sur-accent);
 }
 
@@ -822,8 +791,7 @@
   border-radius: var(--radius-pill);
   background: var(--fond-recompense);
   color: var(--texte-principal);
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-pastille);
   animation: fin-quiz-rebond 0.45s ease-out 0.9s both;
 }
 
@@ -873,18 +841,18 @@
   border-radius: var(--radius-pill);
   background: var(--fond-recompense);
   color: var(--texte-principal);
-  font-size: 12px;
-  font-weight: 800;
+  font: var(--typo-pastille);
 }
 
 .fin-quiz-badge-nom {
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fin-quiz-badge-condition {
-  font-size: 14px;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-sur-inverse-attenue);
 }
 
@@ -893,8 +861,7 @@
   width: 100%;
   min-height: 58px;
   margin-top: 0;
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-bouton);
 }
 
 /* Liens secondaires : 8 px sous le bouton, sur une seule ligne, séparés de 24 px */
@@ -911,9 +878,7 @@
   padding: 0;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-lien-texte);
   color: var(--texte-accent);
   text-decoration: underline;
   cursor: pointer;
@@ -944,6 +909,7 @@
   padding: 18px;
 }
 
+/* Règle parente morte (écrasée par le rôle Titre de ligne de ContenuMarkdown), voir lot4b.md */
 .fin-quiz-erreur-question {
   font-size: 16px;
   font-weight: 800;
@@ -955,8 +921,7 @@
 
 .fin-quiz-erreur-ligne {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-corps-courant-fort);
 }
 
 .fin-quiz-erreur-fausse {
@@ -969,7 +934,7 @@
 
 .fin-quiz-erreur-explication {
   margin: 0;
-  font-size: 14px;
+  font: var(--typo-corps-courant);
   color: var(--texte-secondaire);
 }
 
@@ -1025,16 +990,17 @@
 }
 
 .fiche-checklist-theme {
-  font-size: 12px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-accent);
 }
 
 .fiche-checklist-titre {
   margin: 0;
   overflow: hidden;
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -1054,13 +1020,14 @@
 }
 
 .fiche-checklist-compte {
-  font-size: 20px;
-  font-weight: 800;
+  font: var(--typo-titre-carte);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fiche-checklist-xp {
-  font-size: 14px;
-  font-weight: 700;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
@@ -1073,7 +1040,7 @@
 
 .fiche-checklist-consigne {
   margin: 8px 0 0;
-  font-size: 15px;
+  font: var(--typo-corps-courant);
   color: var(--texte-secondaire);
 }
 
@@ -1101,8 +1068,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  font-size: 13px;
-  font-weight: 800;
+  font: var(--typo-pastille);
 }
 
 .fiche-etape-pastille svg {
@@ -1145,9 +1111,7 @@
   padding: 0 8px;
   border: none;
   background: none;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 800;
+  font: var(--typo-lien-texte);
   color: var(--texte-accent);
   text-decoration: underline;
   cursor: pointer;
@@ -1160,6 +1124,8 @@
   }
 }
 
+/* Intitulé : rôle posé par ContenuMarkdown (Corps courant ; Corps courant fort à l'étape en cours).
+   font-size, font-weight et line-height : règle parente morte, voir lot4b.md */
 .fiche-etape-intitule {
   flex: 1;
   min-width: 0;
@@ -1197,8 +1163,6 @@
 
 .fiche-etape-courante .fiche-etape-intitule {
   padding-top: 2px;
-  font-size: 17px;
-  font-weight: 800;
   color: var(--texte-principal);
 }
 
@@ -1207,13 +1171,12 @@
   border-radius: var(--radius-pill);
   background: var(--fond-erreur);
   color: var(--texte-erreur);
-  font-size: 12px;
-  font-weight: 800;
+  font: var(--typo-pastille);
 }
 
 .fiche-etape-critere {
   margin: 0;
-  font-size: 14px;
+  font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
 }
 
@@ -1231,13 +1194,17 @@
   flex-shrink: 0;
 }
 
+/* Monter / Descendre : chevron-left.svg tourné (icône, pas de caractère) */
 .fiche-etape-fleche {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 44px;
   height: 44px;
+  padding: 0;
   border: none;
   border-radius: 50%;
   background: var(--fond-sur-carte);
-  font-size: 1rem;
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -1247,6 +1214,19 @@
   .fiche-etape-fleche:hover:not(:disabled) {
     background: var(--fond-accent);
   }
+}
+
+.fiche-etape-fleche-icone {
+  width: 20px;
+  height: 20px;
+}
+
+.fiche-etape-fleche-icone-haut {
+  transform: rotate(90deg);
+}
+
+.fiche-etape-fleche-icone-bas {
+  transform: rotate(-90deg);
 }
 
 .fiche-etape-fleche:disabled {
@@ -1268,8 +1248,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-size: 14px;
-  font-weight: 800;
+  font: var(--typo-pastille);
 }
 
 .fiche-recap-xp img {
@@ -1303,19 +1282,21 @@
 }
 
 .fiche-recap-ligne-titre {
-  font-size: 16px;
-  font-weight: 800;
+  font: var(--typo-titre-ligne);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fiche-recap-ligne-detail {
-  font-size: 13px;
+  font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
 
 .fiche-recap-bouton {
   min-height: 44px;
   padding: 0 18px;
-  font-size: 14px;
+  font: var(--typo-bouton);
 }
 
 /* Carte violette « Suite du thème » (bouton blanc inversé via .surface-foncee) */
@@ -1331,20 +1312,20 @@
 }
 
 .fiche-suite-libelle {
-  font-size: 13px;
-  font-weight: 700;
+  font: var(--typo-surtitre);
   color: var(--texte-sur-marque-attenue);
 }
 
 .fiche-suite-titre {
   margin: 0;
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.1;
+  font: var(--typo-titre-mis-en-avant);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .fiche-suite-contenu {
-  font-size: 14px;
+  font: var(--typo-meta);
   color: var(--texte-sur-marque-attenue);
 }
 
@@ -1389,6 +1370,7 @@
     padding: 32px 36px;
   }
 
+  /* Règle parente morte, voir lot4b.md */
   .fiche-lecon-contenu {
     font-size: 18px;
   }
@@ -1421,10 +1403,6 @@
   /* Quiz : colonne centrée de 680 px (question, réponses, correction, bouton) */
   .fiche-quiz {
     max-width: 680px;
-  }
-
-  .fiche-lecon-contenu.contenu-markdown h2 {
-    font-size: 24px;
   }
 
   /* Desktop : colonne de 420 px centrée verticalement, actions sous le contenu sans barre fixe */
