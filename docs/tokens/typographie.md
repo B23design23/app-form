@@ -17,6 +17,8 @@ Statut : décidé le 4 novembre 2026, migration en cours, lots 1 à 10 faits. So
 
 Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px entiers.
 
+Seule exception, provisoire : 20,8 px pour le taux de complétion du dashboard formateur sous 400 px (section 7).
+
 | Taille | Sortie en rem | Rôles |
 |---:|---:|---|
 | 13 px | 0,8125 rem | Méta, Surtitre, Pastille |
@@ -114,8 +116,7 @@ Aucun rôle n'a d'espacement des lettres.
 - Navigation : une option reste marquée comme choisie, et le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données. Exemples : barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu qui mènent à un écran ou à une vue et restent marquées comme choisies, repère d'étapes.
 - Lien texte : une action écrite sans forme de bouton, sans état choisi, qui agit ou mène ailleurs une fois. Exemples : « Tout voir », « Revoir la leçon », « Passer cette étape », « Voir comme un élève ».
 - L'option choisie d'une Navigation suit la règle des états (section 8) : graisse un cran au-dessus, 800.
-- **Entrées de menu** : seules celles qui mènent à un écran ou à une vue et restent marquées comme choisies sont des Navigations. Les entrées qui agissent (« Se déconnecter », actions du menu « … » de l'espace formateur) sont des Liens texte.
-- « Se déconnecter » et les actions du menu « … » de l'espace formateur sont des Liens texte : pas d'état choisi, une action sur la session ou les données.
+- **Entrées de menu** : seules celles qui mènent à un écran ou à une vue et restent marquées comme choisies sont des Navigations. Les entrées qui agissent (« Se déconnecter », actions du menu « … » de l'espace formateur) sont des Liens texte : pas d'état choisi, une action sur la session ou les données.
 - **Lien posé dans une phrase** : il prend le rôle de la phrase en variante `-fort` (un cran de graisse), et ne change jamais de taille. Lien seul, hors d'une phrase : Lien texte. Raison : un lien dans une phrase fait partie de la phrase, la taille ne change pas dans une ligne (section 8). Exemple : « 3 cours » et « 1 groupe » dans « 3 cours · 1 groupe · 12 élèves » du dashboard formateur, en Texte secondaire fort.
 
 **Saisie et choix : texte tapé et texte indicatif.** Le texte indicatif (placeholder) d'un champ vide prend le rôle Saisie et choix, comme le texte tapé : seule la couleur change. Le vide et le rempli sont deux états du même texte, et un état ne change jamais la taille (section 8).
@@ -130,6 +131,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 - **Règle générale** : un système typographique décrit des rôles (ce que fait le texte) et non des tailles. Deux textes qui ont la même fonction ont la même typographie, où qu'ils soient.
 - **Précision Skillo** : un texte écrit aujourd'hui dans une autre taille que son rôle n'est pas une exception, c'est une dérive à corriger. La place disponible (intérieur d'un anneau, largeur d'une carte) se vérifie après coup, elle ne choisit pas le rôle. Si la fonction ne permet pas de décider, c'est « À trancher », pas un choix à l'œil.
+- **Provisoire** : le taux de complétion du dashboard formateur (Chiffre mis en avant, standard) s'affiche en 20,8 px sous 400 px de large, au lieu de 28 px. Raison : 28 px ne tient pas dans l'anneau de 88 px. À retirer quand l'anneau aura ses dimensions (chantier composants).
 - **Le rôle typographique ne dépend pas de la balise HTML.** Le niveau de titre (h1, h2…) donne la structure de la page, le rôle donne l'apparence. Exemple : le nom d'un thème, dans le Détail d'un thème, est un h1 en Titre de contenu.
 
 ## 8. États et emphase
@@ -259,6 +261,6 @@ Format : situation, erreur plausible, règle citée, version conforme.
 
 ## 13. À trancher
 
-- **Taux de complétion sous 400 px de large et anneau sur desktop** : à vérifier à l'écran pendant le test.
+- **Anneau du taux de complétion sur desktop** : à vérifier à l'écran pendant le test (sous 400 px de large : exception provisoire, section 7).
 - **Option choisie d'une Navigation à 800** : vérifier à l'écran pendant le test que le passage à 800 ne décale pas les onglets et filtres voisins.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).
