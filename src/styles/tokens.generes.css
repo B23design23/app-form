@@ -68,7 +68,7 @@
   --typo-interligne-1-45: 1.45; /** Hauteur de ligne 1,45, sans unité (multiple de la taille). */
   --typo-interligne-1-55: 1.55; /** Hauteur de ligne 1,55, sans unité (multiple de la taille). */
   --typo-espacement-lettres-0: 0px; /** Espacement des lettres nul. */
-  --espace-marge-page: var(--espace-16); /** Marge de page : padding gauche et droite du Conteneur de page sous 768 px, sur toutes les pages, y compris hors navigation. Aussi la marge horizontale d'une barre fixe sur toute la largeur et les côtés de la tab bar flottante. */
+  --espace-marge-page: var(--espace-16); /** Marge de page : padding gauche et droite du Conteneur de page sous 768 px, sur toutes les pages, y compris hors navigation. Aussi la marge horizontale d'une barre fixe sur toute la largeur. Les côtés de la tab bar flottante mobile sont une exception (espacements.md, section 9). */
   --espace-blocs: var(--espace-20); /** Entre deux blocs : écart entre deux blocs de nature différente, ou deux sections d'une page, empilés. Retour compris. Deux cartes de même nature répétées relèvent de espace-repetition. */
   --espace-surface: var(--espace-20); /** Padding d'une Surface : padding de tout bloc posé directement sur le fond de la page, ou flottant au-dessus (carte, en-tête de page, bloc de tête, modale, feuille, toast), les quatre côtés. */
   --espace-bord: var(--espace-8); /** Bloc près du bord : écart entre un bloc à fond et le bord de la Surface qui le contient, quand il est à moins de 20 px de ce bord, le même en haut, en bas et sur les côtés, y compris quand le bloc est le dernier. La Surface prend ce padding, sans calc ni marge négative. Aussi le padding d'une carte de liste. */

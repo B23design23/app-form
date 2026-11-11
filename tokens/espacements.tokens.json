@@ -92,7 +92,7 @@
     "marge-page": {
       "$type": "dimension",
       "$value": "{espace.16}",
-      "$description": "Marge de page : padding gauche et droite du Conteneur de page sous 768 px, sur toutes les pages, y compris hors navigation. Aussi la marge horizontale d'une barre fixe sur toute la largeur et les côtés de la tab bar flottante."
+      "$description": "Marge de page : padding gauche et droite du Conteneur de page sous 768 px, sur toutes les pages, y compris hors navigation. Aussi la marge horizontale d'une barre fixe sur toute la largeur. Les côtés de la tab bar flottante mobile sont une exception (espacements.md, section 9)."
     },
     "blocs": {
       "$type": "dimension",

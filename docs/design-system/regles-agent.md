@@ -110,7 +110,7 @@ Espacements. Primitifs : base 4 px, 11 paliers, liste fermée : 2, 4, 6, 8, 10, 
 
 | Variable CSS | Description |
 |---|---|
-| `--espace-marge-page` | Marge de page : padding gauche et droite du Conteneur de page sous 768 px, sur toutes les pages, y compris hors navigation. Aussi la marge horizontale d'une barre fixe sur toute la largeur et les côtés de la tab bar flottante. |
+| `--espace-marge-page` | Marge de page : padding gauche et droite du Conteneur de page sous 768 px, sur toutes les pages, y compris hors navigation. Aussi la marge horizontale d'une barre fixe sur toute la largeur. Les côtés de la tab bar flottante mobile sont une exception (espacements.md, section 9). |
 | `--espace-blocs` | Entre deux blocs : écart entre deux blocs de nature différente, ou deux sections d'une page, empilés. Retour compris. Deux cartes de même nature répétées relèvent de espace-repetition. |
 | `--espace-surface` | Padding d'une Surface : padding de tout bloc posé directement sur le fond de la page, ou flottant au-dessus (carte, en-tête de page, bloc de tête, modale, feuille, toast), les quatre côtés. |
 | `--espace-bord` | Bloc près du bord : écart entre un bloc à fond et le bord de la Surface qui le contient, quand il est à moins de 20 px de ce bord, le même en haut, en bas et sur les côtés, y compris quand le bloc est le dernier. La Surface prend ce padding, sans calc ni marge négative. Aussi le padding d'une carte de liste. |
@@ -601,7 +601,7 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 
 ### Navigation
 
-- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `rayon-surface`, côtés de la barre à 12 px, bas à 20 px (exception « Tab bar mobile » et dimension du composant, `espacements.md`, section 9), 4 entrées de largeur égale avec icône et libellé.
+- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `rayon-surface`, côtés de la barre à 12 px, bas à 20 px (exception « Tab bar mobile » et dimension du composant, `espacements.md`, section 9), 4 entrées avec icône et libellé ; les onglets prennent une part égale de l'espace libre plus leur padding, le Menu (dans son conteneur, sans padding) la part seule : il est plus étroit de 2 × le padding horizontal de l'entrée.
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`. Onglets inactifs : `texte-sur-inverse`. Survol d'une entrée : `fond-inverse-survol`.
 
