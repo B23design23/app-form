@@ -58,6 +58,7 @@ Chaque principe tranche entre deux options. La première est retenue, la seconde
 - **Sémantiques** : ce que lisent les composants. Chaque sémantique pointe vers un primitif.
 - **Composant** : vide, et c'est voulu. Un contexte se résout en choisissant d'autres sémantiques, pas en créant un token de composant (`couleurs.md`, décision 1).
 - **Espacements** : un seul niveau de paliers, nommés par leur valeur (`espace-N`).
+- **Rayons** : un seul niveau, des tokens de rôle nommés par leur rôle (`rayon-<rôle>`), sans primitif, parce qu'aucun mode ni aucune largeur ne les fait varier (`rayons.md`, section 2).
 - **Typographie** : des primitifs nommés par leur valeur (`typo-taille-15`, `typo-graisse-600`…), jamais lus par un composant ; un rôle est un token composé (`typo-<rôle>`) qui fait référence aux primitifs, avec une variante `typo-<rôle>-fort` pour l'état et l'emphase (`typographie.md`, section 11).
 
 ### Nommage des sémantiques de couleur
@@ -708,7 +709,7 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 
 ## 7. Conduite de l'agent
 
-- **`tokens/` fait foi** pour les couleurs, les espacements et la typographie (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
+- **`tokens/` fait foi** pour les couleurs, les espacements, la typographie et les rayons (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
 - **`src/styles/tokens.generes.css` n'est jamais modifié à la main.** Il est généré par `npm run tokens`, comme la liste des tokens de la section 3 de ce fichier.
 - **Maquette et DS.** La maquette décide de la disposition : quels blocs, leur ordre, leur hiérarchie, leurs colonnes. Le DS décide des valeurs et des composants. En cas d'écart de valeur, le DS fait foi.
 
