@@ -3,13 +3,13 @@
 .parcours-formulaire {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--espace-groupes);
 }
 
 .parcours-champ-groupe {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espace-textes);
 }
 
 .parcours-aide {
@@ -20,7 +20,7 @@
 
 .parcours-lien-droite {
   align-self: flex-end;
-  margin-top: -8px;
+  margin-top: var(--espace-textes);
   padding: 0;
 }
 
@@ -33,7 +33,7 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--espace-groupes);
 }
 
 .intro-slide > :not(.intro-bloc) {
@@ -108,15 +108,15 @@
 .profil-cartes {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--espace-repetition);
 }
 
 .profil-carte {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--espace-rangee);
   width: 100%;
-  padding: 20px;
+  padding: var(--espace-surface);
   border: none;
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
@@ -147,7 +147,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -172,8 +172,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 22px 128px 22px 20px;
+  gap: var(--espace-textes);
+  /* espacements.md, section 8 : 128 à droite, réserve de l'illustration (fusée) */
+  padding: var(--espace-surface) 128px var(--espace-surface) var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-accent);
 }

@@ -16,18 +16,16 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--espace-blocs);
   width: 100%;
   max-width: 440px;
   height: 100vh;
   height: 100dvh;
   margin: 0 auto;
-  padding: calc(env(safe-area-inset-top) + 20px) 16px
+  /* marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de
+     sécurité) et réserve de la zone d'action en bas (hauteur mesurée + 24 + zone de sécurité) */
+  padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page)
     calc(var(--hauteur-actions) + 24px + env(safe-area-inset-bottom));
-}
-
-.parcours-colonne-barre-serree {
-  gap: 8px;
 }
 
 .parcours-barre {
@@ -46,7 +44,7 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--espace-blocs);
   overflow-y: auto;
 }
 
@@ -54,13 +52,14 @@
    la recouvre, elle ne remonte pas). Points de pagination éventuels au-dessus du bouton. */
 .parcours-actions {
   position: fixed;
-  left: 16px;
-  right: 16px;
+  /* barre fixe : marge de page sur les côtés ; espacements.md, section 8 : bas de la zone d'action */
+  left: var(--espace-marge-page);
+  right: var(--espace-marge-page);
   bottom: calc(24px + env(safe-area-inset-bottom));
   z-index: 20;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--espace-groupes);
   max-width: 408px;
   margin: 0 auto;
 }
@@ -99,7 +98,7 @@
 
 .parcours-lien {
   min-height: 44px;
-  padding: 0 8px;
+  padding: 0 var(--espace-lien);
   border: none;
   background: none;
   font: var(--typo-lien-texte);
@@ -134,7 +133,7 @@
   top: calc(env(safe-area-inset-top) + 20px);
   right: 16px;
   min-height: 56px;
-  padding: 0 8px;
+  padding: 0 var(--espace-lien);
   border: none;
   background: none;
   font: var(--typo-lien-texte);
@@ -146,7 +145,7 @@
 .parcours-barre-etapes {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espace-rangee);
   width: 100%;
 }
 
@@ -202,7 +201,7 @@
 .parcours-titres {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espace-textes);
 }
 
 .parcours-titre {
@@ -226,7 +225,7 @@
 .parcours-champ {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espace-textes);
 }
 
 .parcours-champ-libelle {
@@ -244,7 +243,7 @@
 .parcours-input {
   width: 100%;
   min-height: 56px;
-  padding: 0 22px;
+  padding: 0 var(--espace-champ);
   /* contour de focus à l'intérieur du champ (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
@@ -266,7 +265,7 @@
 
 .parcours-champ-grand .parcours-input {
   min-height: 64px;
-  padding: 0 20px;
+  padding: 0 var(--espace-champ);
   border-radius: var(--rayon-pilule);
 }
 
@@ -274,7 +273,7 @@
 .parcours-choix {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--espace-repetition);
 }
 
 .parcours-choix-2-colonnes {
@@ -286,9 +285,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--espace-rangee);
   min-height: 64px;
-  padding: 10px 16px 10px 20px;
+  padding: var(--espace-choix-vertical) var(--espace-choix-horizontal);
   border: 2px solid transparent;
   border-radius: var(--rayon-element);
   background: var(--fond-surface);
@@ -367,7 +366,8 @@
      défile, rien n'est coupé) */
   .parcours {
     display: flex;
-    padding: 48px 16px;
+    /* espacements.md, section 8 : marge de page desktop gardée (48 en haut et en bas) */
+    padding: 48px var(--espace-marge-page);
   }
 
   .parcours-colonne {
@@ -382,22 +382,18 @@
     overflow: visible;
   }
 
-  /* Le bouton suit le contenu : 32 px sous le dernier élément (24 px d'écart de colonne + 8),
-     lien secondaire 8 px sous le bouton ; emplacements vides repliés */
+  /* Le bouton suit le contenu (écart de colonne + Entre deux groupes), lien secondaire dessous
+     (Entre deux groupes) ; emplacements vides repliés */
   .parcours-actions {
     position: static;
     flex-shrink: 0;
-    gap: 8px;
+    gap: var(--espace-groupes);
     max-width: none;
-    margin: 8px 0 0;
+    margin: var(--espace-groupes) 0 0;
   }
 
   .parcours-action-secondaire {
     height: auto;
-  }
-
-  .parcours-colonne-barre-serree .parcours-actions {
-    margin-top: 24px;
   }
 
   .parcours-action-principale:empty,
