@@ -75,6 +75,16 @@
     height: 140px;
   }
 
+  /* espacements.md, section 8 : hauteur minimale de l'en-tête lavande = objet 3D + 2 × espace-surface
+     (152 + 2 × 20 pour Cours, 140 + 2 × 20 pour Terrain), l'objet reste dans le cadre */
+  .entete-page {
+    min-height: 192px;
+  }
+
+  .entete-page-terrain {
+    min-height: 180px;
+  }
+
   .entete-page-texte {
     /* espacements.md, section 8 : réserve de l'objet 3D */
     padding-right: 200px;
