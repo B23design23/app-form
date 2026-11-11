@@ -71,10 +71,6 @@
   flex: 1 1 auto;
 }
 
-.fd-entete-actions-admin {
-  grid-template-columns: 1fr;
-}
-
 .fd-bouton-entete {
   min-height: 46px;
   margin-top: 0;

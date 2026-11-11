@@ -66,7 +66,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
             {nbCoursPublics !== null && <span>{nbCoursPublics} cours public{nbCoursPublics > 1 ? 's' : ''}</span>}
           </p>
         </div>
-        <div className="fd-entete-actions fd-entete-actions-admin">
+        <div className="fd-entete-actions">
           <button type="button" className="bouton-primaire fd-bouton-entete" onClick={onCreerCours}>
             + Nouveau cours
           </button>
