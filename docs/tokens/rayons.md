@@ -19,10 +19,10 @@ Plancher : trois rôles de forme et deux rôles de niveau. Un bloc posé dans un
 | Rôle | Token | Valeur | S'applique à |
 |---|---|---|---|
 | Pilule | `rayon-pilule` | 999 px | Élément dont les deux bouts sont des demi-cercles. Bouton, champ d'une ligne, pastille, filtre, barre de progression et son remplissage, entrée de tab bar. |
-| Rond | `rayon-rond` | 999 px | Élément carré rendu circulaire. Bouton rond (Retour mobile, « … », « + », Fermer), initiales, repère d'étape, radio, icône dans un rond. |
+| Rond | `rayon-rond` | 999 px | Élément carré rendu circulaire. Bouton rond (Retour mobile, « … », « + », Fermer), initiales, repère d'étape, radio, icône dans un rond, vignette carrée d'une liste (objet du thème, badge de la collection). |
 | Case | `rayon-case` | 6 px | Case à cocher, repère « Bonne réponse » en plusieurs réponses. |
 | Surface | `rayon-surface` | 30 px | Bloc posé directement sur le fond de la page, ou flottant au-dessus. Carte, en-tête de page, bloc de tête du dashboard, blocs d'introduction et « Plus qu'une étape », liste en carte, carte pointillée d'action, tab bar, modale, toast, menu déroulant, menu « … ». |
-| Élément | `rayon-element` | 22 px | Bloc à fond ou à contour posé dans une Surface, à n'importe quelle profondeur. Ligne à fond, « À retenir », carte de question, entrée de menu, vignette, miniature, repère d'étapes, case de badge. |
+| Élément | `rayon-element` | 22 px | Bloc à fond ou à contour posé dans une Surface, à n'importe quelle profondeur. Ligne à fond, « À retenir », carte de question, entrée de menu, miniature (non carrée), repère d'étapes, case de badge. |
 
 Rond à 999 px et non à 50 % : le format DTCG 2025.10 n'accepte que px et rem pour une dimension. Sur un élément carré, 999 px donne le même cercle que 50 %. Sur un élément qui n'est pas carré, 50 % donnerait une ellipse, 999 px une pilule : l'ellipse n'est jamais voulue. Le Rond reste un rôle à part parce que sa condition est la forme carrée de l'élément, pas son rayon.
 
@@ -59,15 +59,18 @@ Règle : la valeur qui fait le moins de changements visibles (écart de 4 px ou 
 
 Total du chantier : 30 changements visibles, 51 discrets, 105 inchangés sur 186 déclarations.
 
-Effets acceptés : miniature d'étiquette 64 × 44 en pilule ; vignettes de 48 px presque rondes ; entrées de menu de 44 px de haut en pilule au survol ; grand badge du « Prochain badge » vertical (148 px) qui passe de 32 à 22.
+Effets acceptés : miniature d'étiquette 64 × 44 en pilule ; entrées de menu de 44 px de haut en pilule au survol ; grand badge du « Prochain badge » vertical (148 px) qui passe de 32 à 22.
+
+Vignettes carrées en Rond (11/11, après captures) : à 22 sur 48 px, la forme n'était ni carrée ni ronde. Un élément carré dont le rayon approche la moitié du côté n'a plus de forme lisible ; le rôle Rond existe pour l'élément carré rendu circulaire, aucun rôle n'est ajouté.
 
 ## 7. Règles d'usage
 
 - Un composant lit toujours un token de rayon, jamais une valeur en dur ni une ancienne variable `--radius-*`.
 - Un nouveau bloc prend le rôle de sa place, même si un voisin a une autre valeur aujourd'hui.
-- Une vignette ou une image dans une Surface est un Élément, même quand elle touche le bord de la Surface.
+- Une image ou une miniature non carrée dans une Surface est un Élément, même quand elle touche le bord de la Surface. Une vignette carrée est un Rond.
 - Les illustrations n'ont pas de rayon.
 - La page `/design-system` suit les mêmes rôles.
+- Un Élément posé à moins de 20 px du bord de sa Surface garde le même écart en haut, en bas et sur les côtés, et cet écart vaut 8 px. Les coins sont alors concentriques (30 − 8 = 22). Avec deux écarts différents, aucun rayon unique ne peut l'être.
 
 ## 8. Exemples sur Skillo
 
@@ -78,6 +81,8 @@ Effets acceptés : miniature d'étiquette 64 × 44 en pilule ; vignettes de 48 p
 - Case de la modale « Assigner un cours » : case à cocher, Case (6), alors qu'elle était dessinée en rond.
 - Entrée du menu « … » : posée dans le menu, Élément (22).
 - Barre d'enregistrement de Création de cours : Feuille sur mobile, Pilule sur desktop.
+- Vignette d'une ligne de cours (48 × 48) : Rond.
+- Étape en cours de la checklist : Élément, à 8 px du bord de la carte en haut comme sur les côtés.
 
 ## 9. Exemples non conformes
 
