@@ -2,7 +2,7 @@
    Valeurs issues des maquettes docs/maquettes/apprenant-*. */
 
 .dash-page {
-  gap: 12px;
+  gap: var(--espace-blocs);
 }
 
 .espace-page.dash-page > *:first-child {
@@ -14,13 +14,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .dash-xp {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--espace-icone);
   flex-shrink: 0;
   font: var(--typo-compteur);
 }
@@ -35,7 +35,7 @@
 .dash-blocs {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--espace-repetition);
 }
 
 .dash-cellule {
@@ -54,7 +54,7 @@
   display: flex;
   flex-direction: column;
   border-radius: var(--rayon-surface);
-  padding: 18px 20px;
+  padding: var(--espace-surface);
 }
 
 .dash-page .dash-carte h2 {
@@ -88,6 +88,7 @@
 
 /* Objet 3D qui déborde au-dessus du cadre, en haut à droite (30 px de marge au-dessus du bloc) */
 .dash-avec-objet {
+  /* espacements.md, section 8 : débord de l'objet 3D au-dessus du bloc */
   margin-top: 30px;
 }
 
@@ -176,8 +177,8 @@
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px 6px 8px;
+  gap: var(--espace-icone);
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
@@ -191,7 +192,7 @@
 
 .dash-pastille-orange {
   align-self: flex-start;
-  padding: 6px 12px;
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
@@ -205,7 +206,8 @@
   justify-content: space-between;
   width: 100%;
   height: 54px;
-  padding: 0 6px 0 22px;
+  /* espacements.md, section 7 : Bouton à flèche, 24 à gauche, rond de la flèche à 6 du bord */
+  padding: 0 6px 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -267,7 +269,7 @@
 .dash-barre-ligne {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espace-rangee);
 }
 
 .dash-barre {
@@ -312,8 +314,8 @@
 .dash-en-cours,
 .dash-assigne,
 .dash-conseille-tete {
-  gap: 14px;
-  padding: 20px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-surface);
 }
 
 .dash-tete-rangee {
@@ -321,6 +323,7 @@
   align-items: flex-start;
   /* hauteur visible de l'objet sous le bord haut de la carte : 128 - 30 (débord) - 20 (padding) */
   min-height: 78px;
+  /* espacements.md, section 8 : réserve de l'objet 3D */
   padding-right: 120px;
 }
 
@@ -328,7 +331,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -365,7 +368,7 @@
 }
 
 .dash-en-cours-phrase {
-  margin: 4px 0 0;
+  margin: var(--espace-textes) 0 0;
   font: var(--typo-texte-secondaire);
   color: var(--texte-sur-marque-attenue);
 }
@@ -374,7 +377,7 @@
 .dash-conseille {
   overflow: hidden;
   min-height: 128px;
-  gap: 6px;
+  gap: var(--espace-textes);
 }
 
 .dash-conseille .dash-titre-carte,
@@ -385,8 +388,8 @@
 .dash-conseille-bouton {
   align-self: flex-start;
   min-height: 46px;
-  margin-top: 10px;
-  padding: 0 22px;
+  margin-top: var(--espace-groupes);
+  padding: 0 var(--espace-bouton);
 }
 
 .dash-conseille-tete .dash-conseille-bouton {
@@ -395,12 +398,13 @@
 
 /* B en tête : pas de rangée d'anneau, le titre suit le libellé ; réserve à droite (objet 128 px) */
 .dash-conseille-tete .dash-tete-texte {
+  /* espacements.md, section 8 : réserve de l'objet 3D */
   padding-right: 120px;
 }
 
 /* C. Cours assigné en tête */
 .dash-assigne-meta {
-  margin: 4px 0 0;
+  margin: var(--espace-textes) 0 0;
   font: var(--typo-meta);
   color: var(--texte-sur-marque-attenue);
 }
@@ -408,8 +412,8 @@
 /* E. Quiz flash débloqué, en tête */
 .dash-flash-tete {
   min-height: 248px;
-  gap: 8px;
-  padding: 22px 20px 20px;
+  gap: var(--espace-textes);
+  padding: var(--espace-surface);
 }
 
 .dash-page .dash-flash-tete-titre {
@@ -425,9 +429,10 @@
 
 .dash-flash-tete-texte {
   max-width: 210px;
-  margin: 0 0 8px;
+  margin: 0 0 var(--espace-groupes);
   /* Réserve = emprise de l'éclair incliné (140 px tourné de 12° : 166 px de large, 6 px hors du
      cadre) moins le padding de 20 px : aucun mot sous l'objet */
+  /* espacements.md, section 8 : réserve de l'objet 3D */
   margin-right: 127px;
   font: var(--typo-texte-secondaire);
   color: var(--texte-sur-inverse-attenue);
@@ -437,8 +442,8 @@
 .dash-flash-ligne {
   flex-direction: row;
   align-items: center;
-  gap: 12px;
-  padding: 18px 18px 18px 20px;
+  gap: var(--espace-rangee);
+  padding: var(--espace-surface);
 }
 
 .dash-flash-ligne-objet {
@@ -451,7 +456,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -478,15 +483,15 @@
 .dash-flash-ligne-bouton {
   flex-shrink: 0;
   min-height: 46px;
-  padding: 0 18px;
+  padding: 0 var(--espace-bouton);
 }
 
 /* G. Quiz flash verrouillé */
 .dash-flash-verrouille {
   flex-direction: row;
   align-items: center;
-  gap: 12px;
-  padding: 16px 18px 16px 16px;
+  gap: var(--espace-rangee);
+  padding: var(--espace-surface);
 }
 
 .dash-flash-verrouille-objet {
@@ -517,14 +522,14 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
 .dash-flash-verrouille-titres {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -544,19 +549,19 @@
 }
 
 .dash-flash-verrouille .dash-barre-ligne {
-  gap: 8px;
+  gap: var(--espace-rangee);
 }
 
 /* H. Prochain badge */
 .dash-badge {
-  gap: 12px;
-  padding: 18px 18px 18px 20px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-surface);
 }
 
 .dash-badge-entete {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--espace-rangee);
 }
 
 .dash-badge-vignette {
@@ -585,13 +590,13 @@
 .dash-badge-texte {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: var(--espace-textes);
 }
 
 .dash-badge-rangee {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--espace-repetition);
 }
 
 .dash-badge-mini-bouton {
@@ -637,20 +642,20 @@
 
 /* I. Collection complète, vitrine (permanente) */
 .dash-collection {
-  gap: 14px;
+  gap: var(--espace-groupes);
 }
 
 .dash-collection-entete {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .dash-collection-rangee {
   display: flex;
   justify-content: space-between;
-  gap: 6px;
+  gap: var(--espace-repetition);
 }
 
 .dash-collection-badge {
@@ -682,7 +687,7 @@
 .dash-bibliotheque {
   overflow: hidden;
   min-height: 128px;
-  gap: 6px;
+  gap: var(--espace-textes);
 }
 
 .dash-bibliotheque .dash-titre-carte,
@@ -692,17 +697,6 @@
 
 /* Desktop */
 @media (min-width: 768px) {
-  .dash-page {
-    gap: 24px;
-  }
-
-  .dash-entete {
-    padding: 12px 4px 0;
-  }
-
-  .dash-xp {
-    gap: 6px;
-  }
 
   .dash-xp img {
     width: 30px;
@@ -712,9 +706,10 @@
   .dash-blocs {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-    gap: 20px;
     align-items: start;
-    margin-top: 24px;
+    /* espacements.md, section 8 : réserve du débord de l'objet 3D du bloc de tête (30), comme
+       .dash-avec-objet sur mobile (ici sur toute la rangée, pour garder les cartes alignées) */
+    margin-top: 30px;
   }
 
   .dash-cellule {
@@ -733,6 +728,7 @@
   /* Objet du bloc de tête : coin supérieur droit, 24 px du bord droit, 30 px de débord au-dessus,
      160 px (ne descend pas plus bas que l'anneau de 120 px) */
   .dash-objet-deborde {
+    /* espacements.md, section 8 : position de l'objet 3D */
     right: 24px;
     top: -30px;
     width: 160px;
@@ -761,7 +757,7 @@
     grid-template-columns: repeat(3, 64px);
     justify-content: space-between;
     align-content: space-evenly;
-    row-gap: 12px;
+    row-gap: var(--espace-repetition);
   }
 
   .dash-cellule-badges:not(.dash-cellule-pleine) .dash-collection-badge {
@@ -779,14 +775,11 @@
      des 6 badges et le lien en bas */
   .dash-cellule-badges-verticale .dash-badge {
     justify-content: flex-start;
-    gap: 14px;
-    padding: 24px;
   }
 
   .dash-cellule-badges-verticale .dash-badge-entete {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
   }
 
   .dash-cellule-badges-verticale .dash-badge-vignette {
@@ -817,15 +810,11 @@
   }
 
   /* Quiz flash verrouillé en bande pleine largeur, contenu sur une ligne, hauteur au contenu */
-  .dash-cellule-bande .dash-flash-verrouille {
-    padding: 18px 24px 18px 20px;
-  }
-
   .dash-cellule-bande .dash-flash-verrouille-texte {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: var(--espace-rangee);
   }
 
   .dash-cellule-bande .dash-barre-ligne {
@@ -833,16 +822,11 @@
   }
 
   /* Blocs de tête, desktop : anneau 120 px, bouton non pleine largeur */
-  .dash-en-cours,
-  .dash-assigne,
-  .dash-conseille-tete,
-  .dash-flash-tete {
-    padding: 32px;
-  }
-
   .dash-tete-rangee {
-    /* 160 - 30 (débord) - 32 (padding) = 98 px visibles ; l'anneau de 120 px fixe la hauteur */
-    min-height: 98px;
+    /* espacements.md, section 8 : hauteur visible de l'objet, 160 - 30 (débord) - 20 (padding
+       Surface) = 110 ; l'anneau de 120 px fixe la hauteur quand il est là */
+    min-height: 110px;
+    /* espacements.md, section 8 : réserve de l'objet 3D */
     padding-right: 200px;
   }
 
@@ -851,12 +835,9 @@
     height: 120px;
   }
 
-  .dash-tete-texte {
-    gap: 6px;
-  }
-
   /* B en tête, desktop : réserve à droite portée à la largeur de l'objet (160 px) */
   .dash-conseille-tete .dash-tete-texte {
+    /* espacements.md, section 8 : réserve de l'objet 3D */
     padding-right: 200px;
   }
 
@@ -866,7 +847,6 @@
     width: auto;
     min-width: 320px;
     height: 56px;
-    padding: 0 6px 0 24px;
   }
 
   .dash-en-cours .dash-bouton-fleche-rond,
@@ -882,6 +862,7 @@
   /* Réserve = emprise de l'éclair (160 px tourné de 12° : 190 px de large, à 24 px du bord) moins le
      padding de 32 px */
   .dash-flash-tete-texte {
+    /* espacements.md, section 8 : réserve de l'objet 3D */
     margin-right: 167px;
   }
 
@@ -889,8 +870,6 @@
   .dash-cellule-cote .dash-flash-ligne {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
-    padding: 28px;
   }
 
   .dash-cellule-cote .dash-flash-ligne-objet {
@@ -900,7 +879,6 @@
 
   .dash-cellule-cote .dash-flash-ligne-texte {
     flex: 0;
-    gap: 10px;
   }
 
   .dash-cellule-cote .dash-flash-ligne-meta {
@@ -932,11 +910,11 @@
 .dash-modale-badges {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--espace-groupes);
   width: 100%;
   max-width: 640px;
   max-height: calc(100vh - 40px);
-  padding: 24px 20px;
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   box-shadow: var(--ombre-flottante);
@@ -945,7 +923,7 @@
 .dash-modale-badges-entete {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espace-rangee);
 }
 
 .dash-modale-badges-entete h2 {
@@ -969,8 +947,9 @@
 .dash-modale-badges-grille {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px 12px;
+  gap: var(--espace-repetition);
   margin: 0;
+  /* espacements.md, section 9 : marge du contour de mise en évidence (Modale Mes badges) */
   padding: 4px;
   list-style: none;
   overflow-y: auto;
@@ -980,8 +959,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 10px 6px;
+  gap: var(--espace-textes);
+  padding: var(--espace-element);
   border: 2px solid transparent;
   border-radius: var(--rayon-element);
   text-align: center;
@@ -999,7 +978,7 @@
   justify-content: center;
   width: 96px;
   height: 96px;
-  margin-bottom: 6px;
+  margin-bottom: var(--espace-textes);
   border-radius: var(--rayon-element);
   /* Pastille sur la modale blanche : fond crème (règle de contraste par le fond) */
   background: var(--fond-sur-carte);
@@ -1038,9 +1017,6 @@
 }
 
 @media (min-width: 768px) {
-  .dash-modale-badges {
-    padding: 28px;
-  }
 
   .dash-modale-badges-grille {
     grid-template-columns: repeat(3, minmax(0, 1fr));
