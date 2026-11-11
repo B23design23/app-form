@@ -1,7 +1,7 @@
 /* Mode terrain : en-tête lavande (EntetePage) puis liste plate des checklists dans une carte */
 
 .page-terrain {
-  gap: 20px;
+  gap: var(--espace-blocs);
 }
 
 .espace-page.page-terrain > *:first-child {

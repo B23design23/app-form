@@ -1,7 +1,7 @@
 /* Liste de cours en lignes (Mode terrain, résultats de recherche) */
 .liste-cours {
   margin: 0;
-  padding: 4px 16px;
+  padding: var(--espace-bord);
   list-style: none;
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
@@ -16,12 +16,15 @@
 .ligne-cours {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--espace-rangee);
   width: 100%;
   min-height: 44px;
-  padding: 12px 0;
+  padding: var(--espace-ligne);
   border: none;
+  /* Survol et appui : la ligne devient un Élément à espace-bord du bord de la carte */
+  border-radius: var(--rayon-element);
   background: none;
+  -webkit-tap-highlight-color: transparent;
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
@@ -29,16 +32,20 @@
 }
 
 @media (hover: hover) {
-  .ligne-cours:hover .ligne-cours-titre {
-    color: var(--texte-accent);
+  .ligne-cours:hover {
+    background: var(--fond-accent);
   }
+}
+
+.ligne-cours:active {
+  background: var(--fond-accent);
 }
 
 .ligne-cours-texte {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -64,6 +71,7 @@
 }
 
 .ligne-cours-chevron {
+  /* espacements.md, section 9 : centrage optique du chevron sur la vignette de 48 px ((48 − 20) / 2) */
   margin-top: 14px;
 }
 
@@ -76,8 +84,7 @@
     /* stretch : les cellules d'une rangée ont la même hauteur (séparateurs alignés) et leur
        contenu reste aligné en haut */
     align-items: stretch;
-    column-gap: 40px;
-    padding: 8px 28px;
+    column-gap: var(--espace-colonnes);
   }
 
   .liste-cours li + li {
@@ -104,6 +111,7 @@
   }
 
   .ligne-cours-chevron {
+    /* espacements.md, section 9 : centrage optique sur la vignette de 52 px ((52 − 20) / 2) */
     margin-top: 16px;
   }
 }

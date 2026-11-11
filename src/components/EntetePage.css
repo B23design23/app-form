@@ -3,8 +3,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 22px 20px 20px;
+  gap: var(--espace-rangee);
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-accent);
 }
@@ -22,7 +22,8 @@
 .entete-page-texte {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--espace-textes);
+  /* espacements.md, section 8 : réserve de l'objet 3D */
   padding-right: 92px;
 }
 
@@ -39,7 +40,7 @@
 .entete-page-recherche {
   width: 100%;
   min-height: 48px;
-  padding: 0 20px;
+  padding: 0 var(--espace-champ);
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
@@ -60,10 +61,6 @@
 }
 
 @media (min-width: 768px) {
-  .entete-page {
-    padding: 32px 36px;
-  }
-
   /* Objet centré verticalement, à 48 px du bord droit (152 px Cours, 140 px Terrain) */
   .entete-page-objet {
     top: 50%;
@@ -79,6 +76,7 @@
   }
 
   .entete-page-texte {
+    /* espacements.md, section 8 : réserve de l'objet 3D */
     padding-right: 200px;
   }
 
