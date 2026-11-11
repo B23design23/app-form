@@ -111,23 +111,40 @@ Les primitifs ne sont pas listés : un composant ne les lit jamais.
 
 <!-- tokens:debut (généré par npm run tokens depuis tokens/, ne pas modifier à la main) -->
 
-#### Espacements (`espace`)
+#### Espacements, rôles (`espace`)
 
-Échelle d'espacement, base 4 px. Les seuls paliers sont 2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40 : tout autre espace-* est interdit (espace-14 n'existe pas). Demi-pas (2, 6, 10) admis seulement en dessous de 12 ; 6 et 10 servent aux écarts à l'intérieur d'un composant (icône et libellé, titre et sous-titre, lignes d'une liste). Une valeur hors échelle est ramenée au palier le plus proche, à égalité le plus grand ; pour le padding vertical d'un élément à hauteur fixée, la hauteur l'emporte et rien ne bouge. Valeur négative : calc(-1 * var(--espace-N)). Hors échelle volontairement, ne pas forcer ici : réserves des objets 3D, débords d'illustration, marges de page desktop, zones d'action mesurées.
+Espacements. Primitifs : base 4 px, 11 paliers, liste fermée : 2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40 (demi-pas 2, 6, 10 seulement en dessous de 12). Aucun autre palier : espace-14 n'existe pas. Un composant ne lit jamais un primitif : il lit un rôle (espace-marge-page, espace-surface…), qui pointe vers un palier. Le rôle se choisit par la fonction et la place, jamais par la valeur actuelle (docs/tokens/espacements.md). Une valeur sans rôle et hors échelle est ramenée au palier le plus proche, à égalité le supérieur. Une marge négative de débord cite le rôle qu'elle traverse. Hors rôle : réserves, débords d'illustration, marges de page desktop, zones d'action mesurées.
 
 | Variable CSS | Description |
 |---|---|
-| `--espace-2` | Plus petit palier. |
-| `--espace-4` | Base de l'échelle. Remplace aussi 3 px. |
-| `--espace-6` | Remplace aussi 5 px. |
-| `--espace-8` | Aucune règle propre au-delà de celles du groupe. |
-| `--espace-10` | Plus grand demi-pas. |
-| `--espace-12` | Dernier palier avant 16 : plus de demi-pas au-dessus. |
-| `--espace-16` | Marge latérale mobile. Remplace aussi 14 px. |
-| `--espace-20` | Remplace aussi 18 px. |
-| `--espace-24` | Remplace aussi 22 px et 26 px. |
-| `--espace-32` | Gardé malgré sa faible fréquence. Remplace aussi 28 px et 30 px. |
-| `--espace-40` | Plus grand palier. Remplace aussi 36 px. |
+| `--espace-marge-page` | Marge de page : padding gauche et droite du Conteneur de page sous 768 px, sur toutes les pages, y compris hors navigation. Aussi la marge horizontale d'une barre fixe sur toute la largeur et les côtés de la tab bar flottante. |
+| `--espace-blocs` | Entre deux blocs : écart entre deux blocs de nature différente, ou deux sections d'une page, empilés. Retour compris. Deux cartes de même nature répétées relèvent de espace-repetition. |
+| `--espace-surface` | Padding d'une Surface : padding de tout bloc posé directement sur le fond de la page, ou flottant au-dessus (carte, en-tête de page, bloc de tête, modale, feuille, toast), les quatre côtés. |
+| `--espace-bord` | Bloc près du bord : écart entre un bloc à fond et le bord de la Surface qui le contient, quand il est à moins de 20 px de ce bord, le même en haut, en bas et sur les côtés, y compris quand le bloc est le dernier. La Surface prend ce padding, sans calc ni marge négative. Aussi le padding d'une carte de liste. |
+| `--espace-groupes` | Entre deux groupes : écart entre deux groupes d'une Surface (titre et texte, texte et bouton, titre de section et son contenu, deux champs, bouton principal et lien en dessous). |
+| `--espace-textes` | Deux textes d'un groupe : surtitre et titre, titre et sous-titre ou compteur, titre et méta d'une ligne, libellé et son champ, champ et son aide ou son erreur, deux puces d'une liste. |
+| `--espace-rangee` | Rangée : écart entre des éléments différents posés côte à côte (éléments d'une ligne, titre et action, filtres et recherche, champ et bouton, barre du haut). Aussi le padding horizontal d'une cellule de tableau. |
+| `--espace-repetition` | Répétition : écart entre des éléments de même nature répétés, sans séparateur (cartes d'une grille ou d'une pile, boutons côte à côte, pastilles, filtres, choix d'une liste de réponses, tuiles de badges). |
+| `--espace-ligne` | Ligne de liste : padding d'une ligne sur les quatre côtés (le texte tombe à 20 px du bord de la carte, avec espace-bord). Aussi le padding vertical d'une cellule de tableau. |
+| `--espace-icone` | Icône et libellé : écart entre une icône et son libellé, dans un bouton, une pastille, une entrée de navigation ou un lien. |
+| `--espace-bouton` | Padding d'un contrôle, Bouton : padding gauche et droite. La hauteur donne le vertical. Vrais boutons seulement (un filtre, un choix, un onglet est un Choix). |
+| `--espace-retour-chevron` | Padding d'un contrôle, Retour : côté chevron. Sur mobile (chevron seul), les deux côtés. |
+| `--espace-retour-libelle` | Padding d'un contrôle, Retour : côté libellé. |
+| `--espace-champ` | Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde la réserve de l'icône. |
+| `--espace-pastille-vertical` | Padding d'un contrôle, Pastille : haut et bas. |
+| `--espace-pastille-horizontal` | Padding d'un contrôle, Pastille : gauche et droite. |
+| `--espace-choix-vertical` | Padding d'un contrôle, Choix (ligne de réponse, case, mode, filtre, onglet) : haut et bas. Un choix à hauteur fixe n'en prend pas. |
+| `--espace-choix-horizontal` | Padding d'un contrôle, Choix : gauche et droite. |
+| `--espace-navigation-vertical` | Padding d'un contrôle, Entrée de navigation (tab bar, barre du haut, menus, sommaire) : haut et bas. |
+| `--espace-navigation-horizontal` | Padding d'un contrôle, Entrée de navigation : gauche et droite. |
+| `--espace-lien` | Padding d'un contrôle, Lien texte : gauche et droite (zone cliquable autour d'un lien). |
+| `--espace-etiquette` | Padding d'un contrôle, Étiquette (étiquette d'image de Création de cours). |
+| `--espace-paragraphes` | Rythme du contenu : entre deux paragraphes, listes ou médias (image, vidéo, tableau) d'une leçon. |
+| `--espace-intertitre-avant` | Rythme du contenu : au-dessus d'un intertitre (titres Markdown et intertitre de leçon). |
+| `--espace-intertitre-apres` | Rythme du contenu : sous un intertitre. |
+| `--espace-retrait-puces` | Rythme du contenu : retrait des puces d'une liste. |
+| `--espace-colonnes` | Colonnes : écart entre deux colonnes d'une liste sur desktop. |
+| `--espace-element` | Padding d'un Élément : padding de tout bloc à fond ou à contour posé dans une Surface, les quatre côtés. |
 
 #### Rayons (`rayon`)
 

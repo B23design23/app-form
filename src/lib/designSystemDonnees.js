@@ -67,13 +67,23 @@ export const nbSemantiquesAMode = semantiques.filter((s) => s.modes).length
 
 // --- Espacements ----------------------------------------------------------------------------------
 
+// Paliers = primitifs (clés numériques) ; rôles = alias {espace.N} (clés en mots), listés à part
+const estPalier = ([nom]) => /^\d+$/.test(nom)
+const paliersEspace = entrees(espacementsJson.espace).filter(estPalier)
 export const espacements = {
   description: espacementsJson.espace.$description,
-  paliers: entrees(espacementsJson.espace).map(([nom, token]) => ({
+  paliers: paliersEspace.map(([nom, token]) => ({
     nom: `espace-${nom}`,
     valeur: `${token.$value.value}${token.$value.unit}`,
     description: token.$description,
   })),
+  roles: entrees(espacementsJson.espace)
+    .filter((e) => !estPalier(e))
+    .map(([nom, token]) => {
+      const palier = token.$value.replace(/^\{espace\.|\}$/g, '')
+      const cible = espacementsJson.espace[palier].$value
+      return { nom: `espace-${nom}`, primitif: `espace-${palier}`, valeur: `${cible.value}${cible.unit}`, description: token.$description }
+    }),
 }
 
 // --- Rayons ---------------------------------------------------------------------------------------

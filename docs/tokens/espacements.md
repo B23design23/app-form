@@ -1,4 +1,4 @@
-Statut : brouillon 3.0.0, validé le 11 novembre 2026 (critères v3, rangement `esp3.md`). Tokens : noms à l'étape tokens. Ce fichier dit quel rôle prendre ; il ne recopie pas le code.
+Statut : brouillon 3.0.0, validé le 11 novembre 2026 (critères v3, rangement `esp3.md`). Tokens : `tokens/espacements.tokens.json`, rôles `espace-<rôle>` (section 11). Ce fichier dit quel rôle prendre ; il ne recopie pas le code.
 
 # Espacements
 
@@ -58,7 +58,7 @@ Pour un espacement donné, on se demande dans l'ordre :
 | **Deux textes d'un groupe** | 4 px | Surtitre et titre ; titre et sous-titre ou compteur (en-tête lavande compris) ; titre et méta d'une ligne ; libellé et son champ ; champ et son aide ou son erreur ; deux puces d'une liste. | « Thème N », titre et compteur du Détail d'un thème ; titre et « Leçon · Quiz » d'une ligne ; libellé « Titre » et son champ. |
 | **Rangée** | 12 px | Écart entre des éléments différents posés côte à côte. | Éléments d'une ligne (vignette, texte, statut, chevron) ; titre et action d'un en-tête de carte ; bloc de titres et action ou recherche ; barre du haut d'un écran ; filtres et recherche ; champ et bouton. |
 | **Répétition** | 8 px | Écart entre des éléments de même nature répétés, sans séparateur. | Cartes d'une grille ou d'une pile (thèmes, Mes cours, blocs du dashboard) ; boutons côte à côte (CTA du dashboard formateur) ; pastilles ; filtres ; choix d'une liste de réponses ; tuiles de badges. |
-| **Ligne de liste** | ligne : 12 px sur les quatre côtés ; carte qui la contient : 8 px partout ; cellule de tableau : 12 px | Liste à lignes séparées par un trait de 1 px. La ligne porte le padding, pour que le texte tombe à 20 px du bord de la carte (8 + 12). | Liste d'un thème, Mode terrain, résultats de recherche, « De ton formateur », récap, étapes de la checklist, fil d'activité ; tableau des élèves du Détail groupe, tableau admin. |
+| **Ligne de liste** | ligne : 12 px sur les quatre côtés ; carte qui la contient : 8 px partout ; cellule de tableau : 12 px en haut et en bas (`espace-ligne`), 12 px sur les côtés (`espace-rangee`) | Liste à lignes séparées par un trait de 1 px. La ligne porte le padding, pour que le texte tombe à 20 px du bord de la carte (8 + 12). | Liste d'un thème, Mode terrain, résultats de recherche, « De ton formateur », récap, étapes de la checklist, fil d'activité ; tableau des élèves du Détail groupe, tableau admin. |
 | **Icône et libellé** | 8 px | Écart entre une icône et son libellé, dans un bouton, une pastille, une entrée de navigation ou un lien. | Chevron et libellé du Retour ; éclair et « +20 XP » ; icône et libellé d'une entrée de tab bar. |
 | **Padding d'un contrôle** | une valeur par composant (section 7) | Padding interne d'un contrôle. | Bouton, Retour, Champ, Pastille, Choix, Entrée de navigation, Lien texte, Étiquette. |
 | **Rythme du contenu** | section 7 | Écarts du contenu de leçon. | `ContenuMarkdown`, intertitres de leçon, « À retenir ». |
@@ -125,6 +125,8 @@ Restent hors échelle, volontairement, parce que ce sont des dimensions de mise 
 - les réserves des zones d'action fixes (bas de page sous une barre d'action) ;
 - la place réservée au-dessus d'une carte badge de fin de quiz (débord de l'illustration).
 
+**Écriture d'une valeur hors rôle** (dimension de cette section ou exception de la section 9) : en px dans le composant, avec un commentaire qui renvoie à la section, par exemple `/* espacements.md, section 8 : réserve de l'objet 3D */` ou `/* espacements.md, section 9 : onglets Écrire / Aperçu */`. **Jamais un primitif `espace-N`**, même quand la valeur existe dans l'échelle.
+
 ## 9. Exceptions écrites
 
 Une exception est attachée à son composant. Elle se signale, elle ne sert pas de modèle.
@@ -146,7 +148,40 @@ Si aucun rôle de la section 4 ne s'applique, ou si deux rôles s'appliquent san
 
 ## 11. Tokens
 
-Une couche de tokens de rôle pointe vers les primitifs `espace-N`, comme les sémantiques de couleur. **Un composant lit toujours un token de rôle**, jamais un primitif, ni une valeur en px écrite en dur. **Noms à l'étape tokens.**
+Une couche de tokens de rôle pointe vers les primitifs `espace-N`, comme les sémantiques de couleur. **Un composant lit toujours un token de rôle**, jamais un primitif, ni une valeur en px écrite en dur, sauf les valeurs hors rôle des sections 8 et 9, écrites en px avec leur commentaire.
+
+Source : `tokens/espacements.tokens.json`, groupe `espace`. Les primitifs ont pour nom un nombre (`espace-20`), les rôles un mot (`espace-surface`). Chaque rôle est un alias d'un primitif et sort en CSS sous la forme `var(--espace-N)` (`src/styles/tokens.generes.css`, généré par `npm run tokens`). Les rôles à deux valeurs ont un token par axe (`-vertical`, `-horizontal`), et un token par côté pour le Retour. Une marge négative de débord s'écrit avec le token du rôle traversé : `calc(-1 * var(--espace-marge-page))`.
+
+| Token | Rôle | Valeur |
+|---|---|---|
+| `espace-marge-page` | Marge de page (côtés sous 768 px, barres fixes, côtés de la tab bar flottante) | 16 px |
+| `espace-blocs` | Entre deux blocs | 20 px |
+| `espace-surface` | Padding d'une Surface | 20 px |
+| `espace-bord` | Bloc près du bord, et padding d'une carte de liste | 8 px |
+| `espace-groupes` | Entre deux groupes | 12 px |
+| `espace-textes` | Deux textes d'un groupe, et deux puces | 4 px |
+| `espace-rangee` | Rangée, et padding horizontal d'une cellule de tableau | 12 px |
+| `espace-repetition` | Répétition | 8 px |
+| `espace-ligne` | Ligne de liste (quatre côtés), et padding vertical d'une cellule de tableau | 12 px |
+| `espace-icone` | Icône et libellé | 8 px |
+| `espace-bouton` | Padding d'un contrôle, Bouton (côtés) | 24 px |
+| `espace-retour-chevron` | Padding d'un contrôle, Retour, côté chevron | 12 px |
+| `espace-retour-libelle` | Padding d'un contrôle, Retour, côté libellé | 20 px |
+| `espace-champ` | Padding d'un contrôle, Champ (côtés) | 16 px |
+| `espace-pastille-vertical` | Padding d'un contrôle, Pastille (haut et bas) | 4 px |
+| `espace-pastille-horizontal` | Padding d'un contrôle, Pastille (côtés) | 10 px |
+| `espace-choix-vertical` | Padding d'un contrôle, Choix (haut et bas) | 10 px |
+| `espace-choix-horizontal` | Padding d'un contrôle, Choix (côtés) | 16 px |
+| `espace-navigation-vertical` | Padding d'un contrôle, Entrée de navigation (haut et bas) | 8 px |
+| `espace-navigation-horizontal` | Padding d'un contrôle, Entrée de navigation (côtés) | 16 px |
+| `espace-lien` | Padding d'un contrôle, Lien texte (côtés) | 6 px |
+| `espace-etiquette` | Padding d'un contrôle, Étiquette | 4 px |
+| `espace-paragraphes` | Rythme du contenu : entre deux paragraphes, listes ou médias | 16 px |
+| `espace-intertitre-avant` | Rythme du contenu : au-dessus d'un intertitre | 20 px |
+| `espace-intertitre-apres` | Rythme du contenu : sous un intertitre | 8 px |
+| `espace-retrait-puces` | Rythme du contenu : retrait des puces | 20 px |
+| `espace-colonnes` | Colonnes | 40 px |
+| `espace-element` | Padding d'un Élément | 16 px |
 
 ## Annexe : correspondance des rôles
 

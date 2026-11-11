@@ -35,9 +35,12 @@ async function construireListe() {
   const formateur = parGroupe(await lire('tokens/semantiques-formateur.tokens.json'))
 
   const lignes = []
+  // Espacements : les rôles seulement (clés en mots), jamais les primitifs espace-N (clés numériques)
   for (const [groupe, { description, tokens }] of Object.entries(espacements)) {
-    lignes.push(`#### Espacements (\`${groupe}\`)`, '', description, '', '| Variable CSS | Description |', '|---|---|')
-    for (const [nom, desc] of Object.entries(tokens)) lignes.push(`| \`--${groupe}-${nom}\` | ${cellule(desc)} |`)
+    lignes.push(`#### Espacements, rôles (\`${groupe}\`)`, '', description, '', '| Variable CSS | Description |', '|---|---|')
+    for (const [nom, desc] of Object.entries(tokens)) {
+      if (!/^\d+$/.test(nom)) lignes.push(`| \`--${groupe}-${nom}\` | ${cellule(desc)} |`)
+    }
     lignes.push('')
   }
 

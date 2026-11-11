@@ -227,6 +227,17 @@ function Espacements() {
         </ul>
         <p className="ds-description">{espacements.description}</p>
       </div>
+      <div className="espace-carte ds-carte">
+        <ul className="ds-echelle">
+          {espacements.roles.map((r) => (
+            <li key={r.nom}>
+              <code className="ds-nom">{r.nom}</code>
+              <span className="ds-barre" style={{ width: `calc(var(--${r.nom}) * 6)` }} />
+              <span className="ds-meta">{r.primitif} · {r.valeur}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </Section>
   )
 }
