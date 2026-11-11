@@ -13,10 +13,10 @@
 .modale {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: var(--espace-groupes);
   width: 100%;
   max-height: 90vh;
-  padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
+  padding: var(--espace-surface) var(--espace-surface) calc(var(--espace-surface) + env(safe-area-inset-bottom));
   overflow-y: auto;
   border-radius: var(--rayon-surface) var(--rayon-surface) 0 0;
   background: var(--fond-surface);
@@ -29,7 +29,7 @@
   align-self: center;
   width: 40px;
   height: 5px;
-  margin-bottom: 6px;
+  margin-bottom: var(--espace-textes);
   border-radius: var(--rayon-pilule);
   background: var(--fond-controle);
 }
@@ -38,13 +38,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .modale-titres {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--espace-textes);
 }
 
 .modale-titres h2 {
@@ -93,7 +93,7 @@
 .modale-contenu {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--espace-groupes);
 }
 
 .modale-texte {
@@ -105,7 +105,7 @@
 .modale-actions {
   display: flex;
   flex-direction: column-reverse;
-  gap: 8px;
+  gap: var(--espace-repetition);
 }
 
 .modale-actions .bouton-primaire,
@@ -126,7 +126,7 @@
 /* Bouton rouge plein qui confirme une action destructrice */
 .modale-bouton-danger {
   min-height: 48px;
-  padding: 0 24px;
+  padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-erreur-accentue);
@@ -158,12 +158,12 @@
 @media (min-width: 768px) {
   .modale-voile {
     align-items: center;
+    /* espacements.md, section 8 : marge de page au-dessus de 768, valeur actuelle gardée (voile) */
     padding: 24px;
   }
 
   .modale {
     max-width: 520px;
-    padding: 28px;
     border-radius: var(--rayon-surface);
   }
 
