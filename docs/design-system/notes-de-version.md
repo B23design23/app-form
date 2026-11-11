@@ -27,6 +27,10 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - Règle du lien posé dans une phrase : il prend le rôle de la phrase en variante `-fort` et ne change jamais de taille ; un lien seul, hors d'une phrase, est un Lien texte.
 - Rôle typographique cité dans les entrées de composant de `regles-agent.md` : Bouton, libellé en rôle Bouton (`--typo-bouton`), texte d'action sans forme de bouton en Lien texte ; Champ, libellé en Libellé de champ (`--typo-libelle-champ`), texte tapé ou choisi et texte indicatif en Saisie et choix (`--typo-saisie-choix`) ; Pastille de statut, texte du statut en Pastille (`--typo-pastille`), avec ou sans pilule.
 - Exception provisoire : le taux de complétion du dashboard formateur s'affiche en 20,8 px sous 400 px de large, au lieu de 28 px (Chiffre mis en avant, standard), parce que 28 px ne tient pas dans l'anneau de 88 px. À retirer quand l'anneau aura ses dimensions (chantier composants).
+- Rayons par rôles (`docs/tokens/rayons.md`, qui fait foi) : 5 rôles, une valeur chacun, la même à toutes les largeurs, aucun seuil. Pilule (deux bouts en demi-cercle), Rond (élément carré rendu circulaire, vignette carrée d'une liste comprise), Case (case à cocher), Surface (bloc posé sur le fond de la page ou flottant), Élément (bloc posé dans une Surface, à n'importe quelle profondeur) ; variante Feuille de la Surface pour la modale, le menu « … » et la barre d'enregistrement sur mobile (coins du haut seulement). Le rôle se choisit par la forme puis par la place, jamais par la valeur actuelle ni par la taille. Côté écran : fait (voir « Écrans corrigés »).
+- Tokens `rayon-*` (`tokens/rayons.tokens.json`) : `rayon-pilule`, `rayon-rond`, `rayon-case`, `rayon-surface`, `rayon-element`, un seul niveau, sans primitif ; CSS généré par `npm run tokens` dans `src/styles/tokens.generes.css`, liste générée dans `regles-agent.md`. Un élément applique son rôle par `border-radius: var(--rayon-<rôle>)`.
+- Règle d'écart de l'Élément près du bord : un Élément posé à moins de 20 px du bord de sa Surface garde le même écart en haut, en bas et sur les côtés, et cet écart vaut 8 px ; les coins sont alors concentriques. Côté écran : fait pour l'étape en cours de la checklist (voir « Écrans corrigés »).
+- Exception provisoire : le bouton « Fermer » de la modale Mes badges (`.modal-fermer`) garde un rayon de 8 px. Il n'est pas carré, un Rond en ferait une ellipse. À régler au chantier mise en page, en passant Mes badges sur le composant Modale.
 
 **Modifié**
 
@@ -57,6 +61,7 @@ Aucune entrée.
 
 - `src/components/formateur/Modale.jsx` et les classes `fm-voile`, `fm-modale-*`, `fm-bouton-danger` de `Formateur.css`. Côté écran : utiliser `src/components/Modale.jsx`.
 - Variables `--taille-h1`, `--taille-titre-cours`, `--font-display` et `--font-body` (`:root` de `src/styles/shared.css`). Côté écran : utiliser les rôles `font: var(--typo-<rôle>)` ; plus aucun usage dans `src/`.
+- Variables `--radius-carte`, `--radius-carte-petite`, `--radius-reponse`, `--radius-pill` et `--radius-badge` (`:root` de `src/styles/shared.css`). Côté écran : utiliser les rôles `border-radius: var(--rayon-<rôle>)` ; plus aucun usage dans `src/`.
 
 **Écrans corrigés**
 
@@ -80,6 +85,10 @@ Aucune entrée.
 - Variante Retour : Mot de passe oublié (lot 7), espace formateur, Détail cours et Détail groupe (lot 8), Création de cours (lot 12) passent dans la variante (pilule blanche, chevron, libellé en rôle Bouton). Nom accessible « Retour à <libellé> » : Mot de passe oublié (« Retour à la connexion »), espace formateur et Création de cours (`RetourFormateur`), fiche de cours et Détail d'un thème (`3348c76`).
 - Fin de quiz, quiz de cours et quiz flash : le score s'affiche en pourcentage seul (« 80 % », Chiffre mis en avant grand), le « 4/5 » est retiré de cet écran ; le repère d'étapes et le récap gardent « 4/5 ».
 - Croix de fermeture de la modale Mes badges et flèches Monter / Descendre de la remise en ordre (checklist) : icônes SVG (`croix.svg`, `chevron-left.svg` tourné) au lieu des caractères « × », « ↑ » et « ↓ », comme le veut la règle « Croix et flèches : icônes SVG » ; plus de texte rendu dans la police du navigateur (les flèches s'affichaient en Arial). Noms accessibles inchangés.
+- Rayons, migration vers les rôles : chaque `border-radius` de `src/` lit `var(--rayon-<rôle>)` (175 déclarations sur 186 ; les 11 règles à 768 px qui répétaient le même rôle sont retirées). 30 changements visibles (écart de 4 px ou plus), 51 discrets, 105 inchangés. Visibles : en-têtes sur desktop (en-tête de page, bloc de tête du dashboard, en-tête de la leçon, 36 → 30) et slides d'introduction ; menus (menu de la navigation, menu déroulant, menu « … » sur desktop) et leurs entrées ; cartes de thème, de Mes cours et de Mes groupes sur mobile (26 → 30) ; sommaire de Création de cours ; cartes « Cours assignés » et carte pointillée du Détail groupe ; barre d'enregistrement mobile de Création de cours ; entrée active de la tab bar mobile et champ « Prénom » du parcours, en pilule ; images, vidéos et tableaux hors leçon, image de la visionneuse ; miniatures (Détail cours, étiquette d'image) ; grand badge du « Prochain badge » sur desktop (32 → 22). La page /design-system lit les rayons dans `tokens/`.
+- Vignettes carrées en Rond : objet du thème dans les listes (dashboard, Cours, Terrain, recherche) et badges de la collection. À 22 sur 48 px, la forme n'était ni carrée ni ronde.
+- Case des modales « Assigner des cours » (Détail groupe) et « Assigner à des groupes » (Détail cours) : case à cocher dessinée en rond, passée en Case.
+- Étape en cours de la checklist : quand elle est la première de la liste, elle est à 8 px du haut de la carte (au lieu de 14), comme sur les côtés.
 
 ## 2.1.0 (brouillon, non publiée)
 
