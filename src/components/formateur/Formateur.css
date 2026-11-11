@@ -3,7 +3,7 @@
    .espace-page.espace-page-etroit, le même que le dashboard formateur (aligné sur la barre). */
 
 .fm-page {
-  gap: 24px;
+  gap: var(--espace-blocs);
 }
 
 .espace-page.fm-page > *:first-child {
@@ -14,13 +14,13 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--espace-rangee);
 }
 
 .fm-titres {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -45,8 +45,8 @@
 .fm-carte {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 20px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
 }
@@ -67,7 +67,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .fm-texte {
@@ -139,10 +139,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--espace-6);
+  gap: var(--espace-icone);
   min-height: 44px;
   min-width: 44px;
-  padding: 0 var(--espace-20) 0 var(--espace-12);
+  padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -174,7 +174,7 @@
 
 @media (max-width: 767px) {
   .fm-retour {
-    padding: 0 var(--espace-12);
+    padding: 0 var(--espace-retour-chevron);
   }
 
   .fm-retour-libelle {
@@ -191,13 +191,13 @@
 .fm-pastilles {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--espace-repetition);
 }
 
 .fm-pastille {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   font: var(--typo-pastille);
   white-space: nowrap;
@@ -248,7 +248,7 @@
 .fm-filtres {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .fm-filtres .fm-recherche {
@@ -286,8 +286,8 @@
   z-index: 61;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 10px 16px calc(20px + env(safe-area-inset-bottom));
+  gap: var(--espace-repetition);
+  padding: var(--espace-bord) var(--espace-bord) calc(var(--espace-bord) + env(safe-area-inset-bottom));
   border-radius: var(--rayon-surface) var(--rayon-surface) 0 0;
   background: var(--fond-surface);
 }
@@ -297,14 +297,14 @@
   align-self: center;
   width: 40px;
   height: 5px;
-  margin-bottom: 6px;
+  margin-bottom: var(--espace-textes);
   border-radius: var(--rayon-pilule);
   background: var(--fond-controle);
 }
 
 .fm-menu-titre {
-  margin: 0 0 6px;
-  padding: 0 8px;
+  margin: 0 0 var(--espace-textes);
+  padding: 0 var(--espace-bord);
   font: var(--typo-titre-section);
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -317,7 +317,7 @@
 
 .fm-menu-item {
   min-height: 48px;
-  padding: 0 14px;
+  padding: 0 var(--espace-navigation-horizontal);
   border: none;
   border-radius: var(--rayon-element);
   background: none;
@@ -360,9 +360,9 @@
 .fm-bouton-texte-danger {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--espace-icone);
   min-height: 44px;
-  padding: 0 12px;
+  padding: 0 var(--espace-bouton);
   border: 2px solid var(--bordure-erreur);
   border-radius: var(--rayon-pilule);
   background: none;
@@ -391,7 +391,7 @@
 .fm-cases {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espace-repetition);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -400,9 +400,9 @@
 .fm-case {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espace-rangee);
   min-height: 56px;
-  padding: 10px 16px;
+  padding: var(--espace-choix-vertical) var(--espace-choix-horizontal);
   border: 2px solid transparent;
   border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
@@ -457,7 +457,7 @@
 .fm-case-texte {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -472,10 +472,6 @@
 
 /* Desktop */
 @media (min-width: 768px) {
-  .fm-carte {
-    padding: 28px;
-  }
-
   .fm-bouton-principal-icone {
     display: none;
   }
@@ -489,9 +485,9 @@
     left: auto;
     right: 0;
     bottom: auto;
+    /* espacements.md, section 8 : position de la carte sous le bouton « … » */
     top: calc(100% + 6px);
     min-width: 220px;
-    padding: 8px;
     border-radius: var(--rayon-surface);
     box-shadow: var(--ombre-flottante);
   }
