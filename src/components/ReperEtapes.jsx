@@ -15,7 +15,11 @@ function ReperEtapes({ etapes }) {
         <span
           key={`liaison-${etape.cle}`}
           className={`reper-liaison${i + 1 <= limite ? ' reper-liaison-faite' : ''}`}
-          style={{ left: `${((i + 0.5) / n) * 100}%`, width: `${100 / n}%` }}
+          style={{
+            // centres des colonnes de la liste : boîte de contenu du repère (padding Élément déduit)
+            left: `calc(var(--espace-element) + (100% - 2 * var(--espace-element)) * ${(i + 0.5) / n})`,
+            width: `calc((100% - 2 * var(--espace-element)) / ${n})`,
+          }}
           aria-hidden="true"
         />
       ))}

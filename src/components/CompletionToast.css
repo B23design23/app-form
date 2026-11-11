@@ -1,14 +1,15 @@
 .completion-toast {
   position: fixed;
   left: 50%;
+  /* espacements.md, section 8 : position du toast flottant au-dessus du bas de l'écran */
   bottom: 24px;
   transform: translate(-50%, 0);
   z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
-  padding: 14px 20px;
+  gap: var(--espace-textes);
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
@@ -22,7 +23,7 @@
 .completion-toast-ligne {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espace-icone);
 }
 
 .completion-toast-titre {
@@ -36,7 +37,7 @@
 }
 
 .completion-toast-xp {
-  padding: 2px 12px;
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
@@ -48,7 +49,7 @@
 .completion-toast-badge {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--espace-icone);
   font: var(--typo-pastille);
 }
 

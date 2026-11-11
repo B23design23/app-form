@@ -1,6 +1,6 @@
 .quiz-feedback {
   border-radius: var(--rayon-element);
-  padding: 12px 14px;
+  padding: var(--espace-element);
   font: var(--typo-texte-secondaire);
 }
 
@@ -9,7 +9,7 @@
 }
 
 .quiz-feedback p + p {
-  margin-top: 6px;
+  margin-top: var(--espace-textes);
 }
 
 .quiz-feedback-correcte {
