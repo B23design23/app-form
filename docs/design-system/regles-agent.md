@@ -32,6 +32,7 @@ Une demande d'exception nomme l'écran, la règle concernée, ce que le système
 
 - Décisions qui expliquent les tokens : `docs/tokens/couleurs.md`, `docs/tokens/espacements.md`.
 - Typographie (police, échelle, graisses, rôles, états, contrôles, italique) : `docs/tokens/typographie.md`. Section 5 « Typographie » de ce fichier.
+- Rayons (rôles, ordre de choix, règles d'usage) : `docs/tokens/rayons.md`. Section 5 « Rayons » de ce fichier.
 - Principes et composants : `docs/design-system/ds-principes-composants.md`.
 - Gouvernance, registre et versions : `docs/design-system/gouvernance-skillo.md`, `docs/design-system/notes-de-version.md`.
 - Règles transverses de rendu (section 5) : `docs/design-system/ds-principes-composants.md` (séparateur, césure des titres, ponctuation, survol et tactile, navigation, liste déroulante, logo, objet 3D du thème, chevrons, toast de complétion) ; règle des deux ombres et bouton orange unique : registre de `docs/design-system/gouvernance-skillo.md` ; focus : `docs/tokens/couleurs.md` (décision 4).
@@ -95,16 +96,13 @@ Base 4. Liste fermée de paliers (ci-dessous) : tout autre `espace-*` est interd
 
 ### Valeurs sans token
 
-Rayons et ombre ne sont pas encore tokenisés. Utiliser les variables CSS existantes du `:root` de `src/styles/shared.css` :
+L'ombre n'est pas encore tokenisée. Utiliser la variable CSS existante du `:root` de `src/styles/shared.css` :
 
 | Variable CSS | Rôle | Statut |
 |---|---|---|
-| `--radius-carte` | cartes | *Provisoire, pas encore tokenisé* |
-| `--radius-carte-petite` | petites cartes de grille | *Provisoire, pas encore tokenisé* |
-| `--radius-reponse` | réponses de quiz | *Provisoire, pas encore tokenisé* |
-| `--radius-pill` | champs et boutons en pilule | *Provisoire, pas encore tokenisé* |
-| `--radius-badge` | rôle non documenté | *Provisoire, pas encore tokenisé* |
 | `--ombre-flottante` | ombre des éléments flottants (voir « Ombres », section 5) | |
+
+Les rayons ont leurs tokens (`--rayon-*`, liste ci-dessous) : voir « Rayons », section 5.
 
 ### Liste des tokens utilisables
 
@@ -129,6 +127,18 @@ Les primitifs ne sont pas listés : un composant ne les lit jamais.
 | `--espace-24` | Remplace aussi 22 px et 26 px. |
 | `--espace-32` | Gardé malgré sa faible fréquence. Remplace aussi 28 px et 30 px. |
 | `--espace-40` | Plus grand palier. Remplace aussi 36 px. |
+
+#### Rayons (`rayon`)
+
+Rayon des coins. Le rôle se choisit par la forme puis par la place de l'élément (docs/tokens/rayons.md, section 4), jamais par la valeur actuelle ni par la taille. Une seule valeur par rôle, à toutes les largeurs.
+
+| Variable CSS | Description |
+|---|---|
+| `--rayon-pilule` | Élément dont les deux bouts sont des demi-cercles. Passe avant le rôle de niveau. |
+| `--rayon-rond` | Élément carré rendu circulaire. Même valeur que la pilule : sur un carré, elle donne un cercle. |
+| `--rayon-case` | Case à cocher. Un radio prend rayon-rond. |
+| `--rayon-surface` | Bloc posé directement sur le fond de la page, ou flottant au-dessus. Toujours plus arrondi que rayon-element. En feuille mobile, sur les deux coins du haut seulement. |
+| `--rayon-element` | Bloc à fond ou à contour posé dans une surface, à n'importe quelle profondeur. Aussi : choix de réponse en ligne, champ multiligne, image, vidéo ou tableau de contenu, où qu'ils soient. |
 
 #### Sémantiques `fond`
 
@@ -469,6 +479,55 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 - Le Texte de lecture se coupe à la syllabe, avec un tiret, partout où il apparaît. Les autres rôles ne se coupent pas, sauf les titres (césure des titres).
 - Implémentation, état du code : `hyphens: auto` posé par `ContenuMarkdown` quand `roleTypo` vaut `texte-lecture` (leçon de la fiche, aperçu de Création de cours, premier paragraphe du Détail cours), page en `lang="fr"`. Le tableau du Markdown (Corps courant) ne se coupe pas.
 
+### Rayons
+
+Source : `docs/tokens/rayons.md` (section citée entre parenthèses). Les tokens et leur description sont dans la liste générée de la section 3 (« Rayons »).
+
+**Principe** (section 2)
+- Le moins de rayons possible, pour que l'agent n'ait pas à choisir. Cinq rôles, une valeur chacun, la même à toutes les largeurs. Aucun seuil à 768 px.
+- Plancher : trois rôles de forme et deux rôles de niveau. Un bloc posé dans un autre est moins arrondi que lui.
+
+**Les cinq rôles** (section 3)
+
+| Rôle | Token | Valeur | S'applique à |
+|---|---|---|---|
+| Pilule | `rayon-pilule` | 999 px | Élément dont les deux bouts sont des demi-cercles. Bouton, champ d'une ligne, pastille, filtre, barre de progression et son remplissage, entrée de tab bar. |
+| Rond | `rayon-rond` | 999 px | Élément carré rendu circulaire. Bouton rond (Retour mobile, « … », « + », Fermer), initiales, repère d'étape, radio, icône dans un rond. |
+| Case | `rayon-case` | 6 px | Case à cocher, repère « Bonne réponse » en plusieurs réponses. |
+| Surface | `rayon-surface` | 30 px | Bloc posé directement sur le fond de la page, ou flottant au-dessus. Carte, en-tête de page, bloc de tête du dashboard, blocs d'introduction et « Plus qu'une étape », liste en carte, carte pointillée d'action, tab bar, modale, toast, menu déroulant, menu « … ». |
+| Élément | `rayon-element` | 22 px | Bloc à fond ou à contour posé dans une Surface, à n'importe quelle profondeur. Ligne à fond, « À retenir », carte de question, entrée de menu, vignette, miniature, repère d'étapes, case de badge. |
+
+- Rond à 999 px et non à 50 % : le format DTCG 2025.10 n'accepte que px et rem pour une dimension. Sur un élément carré, 999 px donne le même cercle que 50 %. Sur un élément qui n'est pas carré, 50 % donnerait une ellipse, 999 px une pilule : l'ellipse n'est jamais voulue. Le Rond reste un rôle à part parce que sa condition est la forme carrée de l'élément, pas son rayon.
+- Surface > Élément, strictement (30 > 22).
+
+**Choisir le rôle** (section 4)
+
+Dans cet ordre, on s'arrête à la première réponse.
+
+1. C'est une case à cocher : Case. Un radio : Rond. La fonction du contrôle décide, même si le dessin actuel dit autre chose.
+2. L'élément est carré et doit être circulaire : Rond.
+3. Les deux bouts de l'élément sont des demi-cercles : Pilule. Ce rôle de forme passe avant le niveau (barre d'enregistrement desktop de Création de cours, bloc flottant, en Pilule).
+4. Le bloc est posé directement sur le fond de la page, ou flotte au-dessus : Surface.
+5. Le bloc est posé dans une Surface, à n'importe quelle profondeur : Élément.
+
+- Toujours des Éléments, où qu'ils soient posés : un choix de réponse présenté en ligne dans une liste de réponses (quiz, parcours, Création de cours), un champ multiligne, une image, une vidéo ou un tableau de contenu (leçon, énoncé, visionneuse).
+- Un choix présenté comme une carte posée sur la page reste une Surface (cartes de Choix du profil).
+- Le niveau d'imbrication décide, jamais la valeur actuelle ni la taille de l'élément. Deux Éléments imbriqués prennent la même valeur.
+
+**Variante Feuille, pas un rôle** (section 5)
+- Modale et menu « … » sous 768 px, barre d'enregistrement mobile de Création de cours : `rayon-surface` sur les deux coins du haut, 0 en bas. Passer de Feuille à Pilule (barre d'enregistrement) ou à Surface (modale) au-dessus de 768 px est un changement de rôle ou de variante, pas un seuil de valeur.
+
+**Règles d'usage** (section 7)
+- Un composant lit toujours un token de rayon, jamais une valeur en dur ni une ancienne variable `--radius-*`.
+- Un nouveau bloc prend le rôle de sa place, même si un voisin a une autre valeur aujourd'hui.
+- Une vignette ou une image dans une Surface est un Élément, même quand elle touche le bord de la Surface.
+- Les illustrations n'ont pas de rayon.
+- La page `/design-system` suit les mêmes rôles.
+- Implémentation, état du code : les variables `--radius-*` de `shared.css` existent encore et seront retirées à l'étape écrans. Un nouveau code ne les utilise jamais, il lit `--rayon-*`.
+
+**Provisoire et hors chantier** (section 11)
+- *Provisoire* : Bouton Fermer de la modale Mes badges (`.modal-fermer`, 8 px) : laissé tel quel. Il n'est pas carré, un Rond en ferait une ellipse. À régler au chantier mise en page en passant Mes badges sur le composant Modale.
+
 ### Icônes
 
 - Les tracés utilisent `currentColor`.
@@ -478,7 +537,7 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 
 ### Navigation
 
-- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `--radius-carte` (*Provisoire, pas encore tokenisé*), marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
+- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `rayon-surface`, marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`. Onglets inactifs : `texte-sur-inverse`. Survol d'une entrée : `fond-inverse-survol`.
 
@@ -623,6 +682,30 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 - Pourquoi : le sous-titre d'une page ou d'un contenu est en Texte secondaire, même quand il donne un compte (`typographie.md`, section 6).
 - Conforme : `font: var(--typo-texte-secondaire)`.
 
+**Exemple non conforme : rayon d'une carte étroite**
+- Situation : une carte de cours placée dans une colonne étroite sur mobile.
+- Erreur : rayon réduit à 22 parce que la carte est petite.
+- Pourquoi : la taille ne décide jamais, la place oui (`rayons.md`, section 4).
+- Conforme : `rayon-surface`, la carte est posée sur la page.
+
+**Exemple non conforme : rayon de l'en-tête de page**
+- Situation : un en-tête de page sur desktop.
+- Erreur : rayon plus grand que les cartes pour le mettre en valeur.
+- Pourquoi : une valeur par rôle, aucun seuil (`rayons.md`, section 2).
+- Conforme : `rayon-surface`.
+
+**Exemple non conforme : case à cocher ronde**
+- Situation : une case à cocher dans une liste de groupes.
+- Erreur : case dessinée en rond pour aller avec les initiales voisines.
+- Pourquoi : la fonction du contrôle décide (`rayons.md`, section 4, étape 1).
+- Conforme : `rayon-case`.
+
+**Exemple non conforme : rayon d'une image de leçon**
+- Situation : une image dans une leçon.
+- Erreur : rayon de la carte (30) parce qu'elle occupe toute la largeur.
+- Pourquoi : une image de contenu est toujours un Élément (`rayons.md`, section 4).
+- Conforme : `rayon-element`.
+
 ## 7. Conduite de l'agent
 
 - **`tokens/` fait foi** pour les couleurs, les espacements et la typographie (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
@@ -647,18 +730,19 @@ La conduite en attente vaut seulement quand aucune règle ne dit quoi faire. Qua
 
 **Rôle typographique impossible à choisir** : si la fonction d'un texte ne permet pas de décider de son rôle, l'agent écrit « À trancher » et ne choisit pas un rôle à l'œil, ni d'après la taille actuelle ou la place disponible (`typographie.md`, section 7).
 
+**Rôle de rayon impossible à choisir** : si aucune étape de la section 4 de `rayons.md` ne donne un rôle, ou si deux étapes donnent deux rôles différents sans que l'ordre ne tranche, l'agent applique le rôle le plus probable, l'écrit « À trancher » dans son rapport avec sa raison, et n'ajoute aucun rôle ni aucun token (`rayons.md`, section 10).
+
 **Demande qui touche le DS** (ajouter, modifier ou supprimer un token ou un composant) : s'arrêter avant d'agir et demander. Un agent ne crée ni ne modifie jamais un token.
 
 ## À trancher
 
 Contradictions et ambiguïtés relevées entre les sources. Chacune demande une décision : rien n'est résolu ici.
 
-1. **Rayons.** Plusieurs rayons de carte cités dans les sources (en-tête de page, bloc de tête du dashboard, cartes de Création de cours) n'ont pas de variable. `--radius-badge` n'a pas de rôle écrit.
-2. **Rubriques des entrées Bouton, Champ et Conteneur de page absentes de la documentation** (marquées « À trancher » dans la section 4) :
+1. **Rubriques des entrées Bouton, Champ et Conteneur de page absentes de la documentation** (marquées « À trancher » dans la section 4) :
    - Bouton : rôle général ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
    - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
    - Conteneur de page : élément qui fournit les marges d'une page hors navigation (aucun élément partagé ne le fait).
    - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
-3. **Valeurs en pixels sans token** : zone cliquable minimale, rayon du champ multiligne, épaisseur des deux variantes de barre, rayon de l'en-tête de page (dans `ds-principes-composants.md`), épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
-4. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
-5. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
+2. **Valeurs en pixels sans token** : zone cliquable minimale, épaisseur des deux variantes de barre, épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
+3. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
+4. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.

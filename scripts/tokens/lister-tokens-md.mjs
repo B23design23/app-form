@@ -29,6 +29,7 @@ function parGroupe(fichier) {
 
 async function construireListe() {
   const espacements = parGroupe(await lire('tokens/espacements.tokens.json'))
+  const rayons = parGroupe(await lire('tokens/rayons.tokens.json'))
   const communs = parGroupe(await lire('tokens/semantiques-communs.tokens.json'))
   const apprenant = parGroupe(await lire('tokens/semantiques-apprenant.tokens.json'))
   const formateur = parGroupe(await lire('tokens/semantiques-formateur.tokens.json'))
@@ -36,6 +37,13 @@ async function construireListe() {
   const lignes = []
   for (const [groupe, { description, tokens }] of Object.entries(espacements)) {
     lignes.push(`#### Espacements (\`${groupe}\`)`, '', description, '', '| Variable CSS | Description |', '|---|---|')
+    for (const [nom, desc] of Object.entries(tokens)) lignes.push(`| \`--${groupe}-${nom}\` | ${cellule(desc)} |`)
+    lignes.push('')
+  }
+
+  // Rayons : tokens de rôle, lus par les composants (noms et descriptions, sans valeur)
+  for (const [groupe, { description, tokens }] of Object.entries(rayons)) {
+    lignes.push(`#### Rayons (\`${groupe}\`)`, '', description, '', '| Variable CSS | Description |', '|---|---|')
     for (const [nom, desc] of Object.entries(tokens)) lignes.push(`| \`--${groupe}-${nom}\` | ${cellule(desc)} |`)
     lignes.push('')
   }
