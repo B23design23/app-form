@@ -57,7 +57,7 @@ Chaque principe tranche entre deux options. La première est retenue, la seconde
 - **Primitifs** : valeurs brutes, nommées `famille-nuance` (la nuance découle de la clarté). Un composant ne lit jamais un primitif.
 - **Sémantiques** : ce que lisent les composants. Chaque sémantique pointe vers un primitif.
 - **Composant** : vide, et c'est voulu. Un contexte se résout en choisissant d'autres sémantiques, pas en créant un token de composant (`couleurs.md`, décision 1).
-- **Espacements** : un seul niveau de paliers, nommés par leur valeur (`espace-N`).
+- **Espacements** : des primitifs nommés par leur valeur (`espace-20`), jamais lus par un composant ; un rôle est un alias (`espace-<rôle>`) qui pointe vers un primitif (`espacements.md`, section 11).
 - **Rayons** : un seul niveau, des tokens de rôle nommés par leur rôle (`rayon-<rôle>`), sans primitif, parce qu'aucun mode ni aucune largeur ne les fait varier (`rayons.md`, section 2).
 - **Typographie** : des primitifs nommés par leur valeur (`typo-taille-15`, `typo-graisse-600`…), jamais lus par un composant ; un rôle est un token composé (`typo-<rôle>`) qui fait référence aux primitifs, avec une variante `typo-<rôle>-fort` pour l'état et l'emphase (`typographie.md`, section 11).
 
@@ -86,14 +86,7 @@ Un composant lit toujours le même sémantique dans les deux espaces : c'est le 
 
 ### Espacements
 
-Tout nouveau code utilise les variables d'espacement générées (`var(--espace-N)`), jamais une valeur en px pour un espacement. Le code existant sera migré plus tard.
-
-Base 4. Liste fermée de paliers (ci-dessous) : tout autre `espace-*` est interdit. Demi-pas admis seulement en dessous de 12. Valeur négative : `calc(-1 * var(--espace-N))`. Restent hors échelle volontairement : les réserves pour les objets 3D, les débords des illustrations, les marges de page desktop, les zones d'action mesurées (`espacements.md`).
-
-**Rôles d'espacement** (`espacements.md`, section 6) :
-- **Écart entre deux blocs consécutifs d'une page**, bouton Retour compris : `--espace-20`. Fourni par le Conteneur de page (section 4).
-- **Ligne de liste** : padding vertical de chaque ligne `--espace-12` ; écart entre les éléments d'une ligne (vignette, texte, statut, chevron) `--espace-12` ; écart entre le titre et le sous-titre d'une ligne `--espace-4`.
-- **Bouton Retour** : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6`.
+Un composant lit toujours un token de rôle `espace-<rôle>` (liste générée ci-dessous), jamais un primitif `espace-N`. Les rôles, le choix du rôle et les cas particuliers : « Espacements », section 5 (`espacements.md`).
 
 ### Valeurs sans token
 
@@ -271,8 +264,8 @@ Source : `ds-principes-composants.md`.
 ### Conteneur de page
 
 - **Usage** : toute page de l'app s'y place, y compris une page hors navigation.
-- **Ce qu'il fournit** : marges de page, `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page (mobile : zone de sécurité + 20 px en haut, 16 px sur les côtés, réserve de la tab bar en bas ; desktop : réserve de la barre du haut, 40 px sur les côtés et en bas), complété sur desktop par `.espace-page-etroit` (1040 px max, 24 px sur les côtés) ; écart entre les blocs de la page, `.espace-page` (`--espace-20`), voir « Rôles d'espacement » en section 3.
-- **Page hors navigation** : À trancher. `.espace-contenu` ne convient pas à une page hors navigation : il réserve la place de la tab bar en bas et celle de la barre du haut sur desktop. Aucun élément partagé existant ne fournit les marges d'une page hors navigation.
+- **Ce qu'il fournit** : marges de page, `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page, rôle Marge de page ; réserve de la tab bar en bas sur mobile, de la barre du haut sur desktop ; complété sur desktop par `.espace-page-etroit` (1040 px max) ; écart entre les blocs de la page, `.espace-page`, rôle Entre deux blocs (« Espacements », section 5).
+- **Page hors navigation** : elle se place aussi dans le Conteneur de page et prend le rôle Marge de page (`espacements.md`). L'élément qui fournit ces marges sans la réserve de la tab bar reste à créer à la migration (Mot de passe oublié, Nouveau mot de passe).
 - **Règle** : une page ne redéfinit pas l'écart entre ses blocs.
 - **Fichier à réutiliser** : `src/styles/espace-layout.css` (`.espace-contenu`, `.espace-page-etroit`, `.espace-page`).
 
@@ -288,7 +281,7 @@ Source : `ds-principes-composants.md`.
   - orange (texte encre) : lancer le quiz flash, rien d'autre ;
   - supprimer (rouge) : action destructrice, dans un menu, toujours confirmée ;
   - pointillé : ajouter un élément dans la création de cours (question, réponse, étape) ;
-  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et le nom accessible du bouton ne change pas. Quand le libellé visible nomme le niveau du dessus, le nom accessible est « Retour à <libellé> » (WCAG 2.5.3, Label in Name : le nom accessible contient le libellé visible). Exemples : Mot de passe oublié (libellé « Connexion », nom « Retour à la connexion »), espace formateur (« Retour à Mes cours », « Retour à Mes groupes »), Création de cours (« Retour à Mes cours », « Retour à Détail du cours »). Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6` ; chevron de 18 px. Libellé : rôle Bouton (`--typo-bouton`), car la variante Retour a une forme de bouton (`typographie.md`, section 6).
+  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et le nom accessible du bouton ne change pas. Quand le libellé visible nomme le niveau du dessus, le nom accessible est « Retour à <libellé> » (WCAG 2.5.3, Label in Name : le nom accessible contient le libellé visible). Exemples : Mot de passe oublié (libellé « Connexion », nom « Retour à la connexion »), espace formateur (« Retour à Mes cours », « Retour à Mes groupes »), Création de cours (« Retour à Mes cours », « Retour à Détail du cours »). Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding en `espace-retour-chevron` côté chevron et `espace-retour-libelle` côté libellé ; écart entre le chevron et le libellé en `espace-icone` (« Espacements », section 5) ; chevron de 18 px. Libellé : rôle Bouton (`--typo-bouton`), car la variante Retour a une forme de bouton (`typographie.md`, section 6).
 - **Choisir entre principal, secondaire et lien texte** :
   - principal : l'action attendue de la zone, un seul par zone ;
   - secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision ;
@@ -541,11 +534,60 @@ Dans cet ordre, on s'arrête à la première réponse.
 - Une image ou une miniature non carrée dans une Surface est un Élément, même quand elle touche le bord de la Surface. Une vignette carrée est un Rond.
 - Les illustrations n'ont pas de rayon.
 - La page `/design-system` suit les mêmes rôles.
-- Un Élément posé à moins de 20 px du bord de sa Surface garde le même écart en haut, en bas et sur les côtés, et cet écart vaut 8 px. Les coins sont alors concentriques (30 − 8 = 22). Avec deux écarts différents, aucun rayon unique ne peut l'être.
+- Un Élément posé à moins de 20 px du bord de sa Surface suit la règle du bord : rôle Bloc près du bord, le même écart en haut, en bas et sur les côtés (valeur et construction dans `docs/tokens/espacements.md`, sections 4 et 5). Les coins sont alors concentriques (rayon-surface − écart = rayon-element). Avec deux écarts différents, aucun rayon unique ne peut l'être.
 - Implémentation, état du code : les variables `--radius-*` de `shared.css` existent encore et seront retirées à l'étape écrans. Un nouveau code ne les utilise jamais, il lit `--rayon-*`.
 
 **Provisoire et hors chantier** (section 11)
 - *Provisoire* : Bouton Fermer de la modale Mes badges (`.modal-fermer`, 8 px) : laissé tel quel. Il n'est pas carré, un Rond en ferait une ellipse. À régler au chantier mise en page en passant Mes badges sur le composant Modale.
+
+### Espacements
+
+Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les tokens et leur description sont dans la liste générée de la section 3 (« Espacements, rôles »).
+
+**Choisir le rôle** (section 3)
+- La fonction et la place d'un espacement décident de son rôle, jamais sa valeur actuelle ni la taille de l'élément. Deux espacements qui décrivent la même relation entre deux éléments ont le même rôle, et la même valeur, où qu'ils soient.
+- Une valeur par rôle, la même à toutes les largeurs. Aucun seuil à 768 px.
+- Dans l'ordre : padding interne d'un contrôle ou écart icône et libellé ; bord d'un conteneur (page, Surface, Élément, carte de liste ou ligne, bloc près du bord) ; écart entre deux choses (blocs, groupes, textes d'un groupe, rangée, répétition, colonnes) ; contenu de leçon.
+
+**Les rôles** (section 4)
+
+| Rôle | Token | Valeur | Critère |
+|---|---|---|---|
+| Marge de page | `espace-marge-page` | 16 px (côtés sous 768 ; au-dessus, valeurs actuelles gardées) | Padding du Conteneur de page, toutes les pages ; marge horizontale d'une barre fixe sur toute la largeur. |
+| Entre deux blocs | `espace-blocs` | 20 px | Deux blocs de nature différente, ou deux sections d'une page, empilés. Retour compris. |
+| Padding d'une Surface | `espace-surface` | 20 px | Bloc posé sur le fond de la page ou flottant : carte, en-tête de page, bloc de tête, modale, feuille, toast. |
+| Bloc près du bord | `espace-bord` | 8 px | Bloc à fond à moins de 20 px du bord de sa Surface : le même en haut, en bas et sur les côtés, y compris en dernier. Aussi le padding d'une carte de liste. |
+| Entre deux groupes | `espace-groupes` | 12 px | Titre et texte, texte et bouton, titre de section et contenu, deux champs, bouton principal et lien dessous. |
+| Deux textes d'un groupe | `espace-textes` | 4 px | Surtitre et titre, titre et sous-titre ou compteur, titre et méta, libellé et champ, champ et aide, deux puces. |
+| Rangée | `espace-rangee` | 12 px | Éléments différents côte à côte. |
+| Répétition | `espace-repetition` | 8 px | Éléments de même nature répétés, sans séparateur. |
+| Ligne de liste | `espace-ligne` | 12 px | Padding de la ligne sur les quatre côtés ; cellule de tableau : `espace-ligne` en vertical, `espace-rangee` en horizontal. |
+| Icône et libellé | `espace-icone` | 8 px | Icône et libellé d'un bouton, d'une pastille, d'une entrée de navigation, d'un lien. |
+| Padding d'un contrôle | `espace-bouton`, `espace-retour-chevron` / `-libelle`, `espace-champ`, `espace-pastille-*`, `espace-choix-*`, `espace-navigation-*`, `espace-lien`, `espace-etiquette` | une valeur par composant (section 7) | Padding interne d'un contrôle. |
+| Rythme du contenu | `espace-paragraphes`, `espace-intertitre-avant` / `-apres`, `espace-retrait-puces` | section 7 | Contenu de leçon. |
+| Colonnes | `espace-colonnes` | 40 px | Deux colonnes d'une liste sur desktop. |
+| Padding d'un Élément | `espace-element` | 16 px | Bloc à fond ou à contour posé dans une Surface. |
+
+**Cas limites** (section 4)
+- Entre deux blocs ou Répétition : deux blocs de nature différente, Entre deux blocs ; deux cartes de même nature répétées, Répétition.
+- Entre deux groupes ou Deux textes d'un groupe : une seule information (le titre et ce qui le précise), Deux textes ; deux informations ou un texte et une action, Entre deux groupes.
+- Padding d'une Surface ou Bloc près du bord : quand un bloc à fond doit être plus près du bord que 20, la Surface prend 8 et le bloc est posé directement, sans calc ni marge négative.
+- Ligne de liste ou Padding d'un Élément : une ligne n'a de fond qu'au survol (12) ; un Élément a un fond ou un contour au repos (16).
+
+**Hiérarchie** (section 5) : Surface 20 > Élément 16. Liste : carte à 8, ligne à 12 sur les quatre côtés ; au survol, le fond remplit la ligne, à 8 du bord de la carte.
+
+**Débords et défilement** (section 6)
+- Une marge négative de débord annule exactement le padding qu'elle traverse et cite son rôle : `calc(-1 * var(--espace-marge-page))`.
+- Une rangée qui défile jusqu'au bord de l'écran reprend la marge de page au début et à la fin.
+- Un tableau plus large que sa carte défile horizontalement dans sa carte.
+- La zone de sécurité s'ajoute à la valeur du rôle.
+
+**Cas particuliers de composant** (section 7) : bouton à flèche, 24 à gauche et le rond à 6 du bord à droite ; champ avec icône à gauche, réserve de l'icône gardée ; entrée de liste déroulante, réserve de la coche (30) ; Choix à hauteur fixe, côtés seulement ; « Bonne réponse », gauche à 0 sous 768 ; rangée des CTA du dashboard formateur, passe à la ligne, libellés en `nowrap`.
+
+**Valeurs hors rôle** (sections 8 et 9)
+- Une valeur qui a un rôle prend la valeur du rôle, jamais un arrondi. Une valeur sans rôle et hors échelle : le palier le plus proche, à égalité le supérieur.
+- Une dimension (réserve, débord d'illustration, marge de page desktop, zone d'action) ou une exception écrite s'écrit en px dans le composant, avec un commentaire qui renvoie à la section d'`espacements.md` (8 ou 9). Jamais un primitif `espace-N`, même quand la valeur existe dans l'échelle.
+- Implémentation, état du code : des composants lisent encore des primitifs (`var(--espace-N)`) ; ils passent aux rôles avec les lots de migration. Un nouveau code ne lit jamais un primitif.
 
 ### Icônes
 
@@ -556,7 +598,7 @@ Dans cet ordre, on s'arrête à la première réponse.
 
 ### Navigation
 
-- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `rayon-surface`, marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
+- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `rayon-surface`, côtés de la barre en `espace-marge-page`, bas à 20 px (dimension du composant, `espacements.md`, section 9), 4 entrées de largeur égale avec icône et libellé.
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`. Onglets inactifs : `texte-sur-inverse`. Survol d'une entrée : `fond-inverse-survol`.
 
@@ -725,16 +767,40 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 - Pourquoi : une image de contenu est toujours un Élément (`rayons.md`, section 4).
 - Conforme : `rayon-element`.
 
+**Exemple non conforme : primitif dans un composant**
+- Situation : padding horizontal du bouton Retour.
+- Erreur : `padding: 0 var(--espace-20) 0 var(--espace-12)`, parce que les valeurs sont justes.
+- Pourquoi : un composant ne lit jamais un primitif (`espacements.md`, section 11).
+- Conforme : `padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron)`.
+
+**Exemple non conforme : marge négative sans rôle**
+- Situation : rangée de filtres qui défile jusqu'au bord de l'écran, dans la page à 16 sur les côtés.
+- Erreur : `margin: 0 -20px; padding: 0 20px`, la rangée dépasse l'écran de 4 px de chaque côté.
+- Pourquoi : une marge négative annule exactement le padding qu'elle traverse et le cite (`espacements.md`, section 6).
+- Conforme : `margin: 0 calc(-1 * var(--espace-marge-page)); padding: 0 var(--espace-marge-page)`.
+
+**Exemple non conforme : bloc près du bord par calcul**
+- Situation : étape en cours d'une checklist, première de la liste.
+- Erreur : `margin-top: calc(var(--espace-8) - 10px)` pour la ramener à 8 du bord de la carte.
+- Pourquoi : la carte prend `espace-bord` et le bloc est posé directement, sans calc ni marge négative, y compris en dernier (`espacements.md`, section 5).
+- Conforme : carte en `padding: var(--espace-bord)`, étape sans marge.
+
+**Exemple non conforme : seuil pour une Surface**
+- Situation : padding de l'en-tête lavande de la page Cours sur desktop.
+- Erreur : 32 / 36 au-dessus de 768 pour lui donner plus d'air.
+- Pourquoi : une valeur par rôle, la même à toutes les largeurs (`espacements.md`, section 3).
+- Conforme : `padding: var(--espace-surface)`.
+
 ## 7. Conduite de l'agent
 
 - **`tokens/` fait foi** pour les couleurs, les espacements, la typographie et les rayons (format DTCG 2025.10). Le rôle et les interdits de chaque token sont dans sa `$description` et dans celle de son groupe.
 - **`src/styles/tokens.generes.css` n'est jamais modifié à la main.** Il est généré par `npm run tokens`, comme la liste des tokens de la section 3 de ce fichier.
 - **Maquette et DS.** La maquette décide de la disposition : quels blocs, leur ordre, leur hiérarchie, leurs colonnes. Le DS décide des valeurs et des composants. En cas d'écart de valeur, le DS fait foi.
 
-**Valeur hors échelle** : prendre le palier le plus proche ; à égalité, le palier supérieur. L'appliquer et le signaler en fin de réponse, sans s'arrêter.
-- Périmètre : les espacements entre éléments (gap, padding, marges).
+**Valeur hors échelle** : une valeur qui a un rôle prend la valeur du rôle. Pour une valeur sans rôle : prendre le palier le plus proche ; à égalité, le palier supérieur. L'appliquer et le signaler en fin de réponse, sans s'arrêter.
+- Périmètre : les espacements entre éléments (gap, padding, marges) qui n'ont pas de rôle (`espacements.md`, section 8).
 - Les dimensions de mise en page (débord d'un objet 3D, réserve pour une illustration, hauteur fixe d'un élément) ne sont pas des espacements : la maquette les décide, elles restent hors échelle (`espacements.md`). Exemple : le débord de 30 px de l'objet 3D du dashboard reste à 30.
-- Tout nouveau code écrit ses espacements avec `var(--espace-N)`, jamais en px.
+- Tout nouveau code écrit ses espacements avec un token de rôle `espace-<rôle>`, jamais un primitif ni une valeur en px, sauf les valeurs hors rôle écrites en px avec leur renvoi (`espacements.md`, sections 8 et 9).
 
 **Manque ou incohérence découvert pendant la construction d'un écran** : Quand une information manque (un état, une valeur, un détail), l'agent n'écrit rien à cet endroit dans le code. Il laisse un commentaire EN ATTENTE. Dans le rapport, il note ce qui manque et propose l'option la plus proche, sans l'appliquer. Cette règle vaut pour un état ou un détail. L'élément lui-même est construit avec ce que la doc dit. Une taille, une graisse, une largeur ou un espacement que le DS ne donne pas est un détail. L’agent n’écrit rien à cet endroit, même si une valeur voisine existe ailleurs dans le code, laisse un commentaire EN ATTENTE et propose la valeur dans le rapport. Le rapport se termine par ce message :
 
@@ -751,6 +817,8 @@ La conduite en attente vaut seulement quand aucune règle ne dit quoi faire. Qua
 
 **Rôle de rayon impossible à choisir** : si aucune étape de la section 4 de `rayons.md` ne donne un rôle, ou si deux étapes donnent deux rôles différents sans que l'ordre ne tranche, l'agent applique le rôle le plus probable, l'écrit « À trancher » dans son rapport avec sa raison, et n'ajoute aucun rôle ni aucun token (`rayons.md`, section 10).
 
+**Rôle d'espacement impossible à choisir** : si aucun rôle ne s'applique, ou si deux rôles s'appliquent sans que l'ordre ne tranche, l'agent construit le reste de l'écran, écrit « À trancher » dans son rapport avec le rôle le plus proche et sa raison, et propose. Il n'utilise jamais un primitif `espace-N` à la place, et n'ajoute aucun rôle ni aucun token (`espacements.md`, section 10).
+
 **Demande qui touche le DS** (ajouter, modifier ou supprimer un token ou un composant) : s'arrêter avant d'agir et demander. Un agent ne crée ni ne modifie jamais un token.
 
 ## À trancher
@@ -760,8 +828,6 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 1. **Rubriques des entrées Bouton, Champ et Conteneur de page absentes de la documentation** (marquées « À trancher » dans la section 4) :
    - Bouton : rôle général ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
    - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
-   - Conteneur de page : élément qui fournit les marges d'une page hors navigation (aucun élément partagé ne le fait).
    - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
 2. **Valeurs en pixels sans token** : zone cliquable minimale, épaisseur des deux variantes de barre, épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
-3. **Valeurs en pixels dans les descriptions des espacements** (les valeurs hors échelle que chaque palier remplace), recopiées telles quelles dans la liste générée. Les retirer laisserait `espace-6` et `espace-20` sans description propre, alors que la règle impose une description par token.
-4. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
+3. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.
