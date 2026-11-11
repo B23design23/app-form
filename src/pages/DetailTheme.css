@@ -108,7 +108,10 @@
   min-height: 44px;
   padding: var(--espace-ligne);
   border: none;
+  /* Survol et appui : la ligne devient un Élément à espace-bord du bord de la carte */
+  border-radius: var(--rayon-element);
   background: none;
+  -webkit-tap-highlight-color: transparent;
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
@@ -116,9 +119,13 @@
 }
 
 @media (hover: hover) {
-  .theme-ligne:hover .theme-ligne-titre {
-    color: var(--texte-accent);
+  .theme-ligne:hover {
+    background: var(--fond-accent);
   }
+}
+
+.theme-ligne:active {
+  background: var(--fond-accent);
 }
 
 .theme-ligne-texte {
