@@ -59,7 +59,7 @@
 }
 
 .contenu-markdown p {
-  margin: 0 0 16px;
+  margin: 0 0 var(--espace-paragraphes);
   /* Rétrocompat : les cours en texte brut gardent leurs retours à la ligne simples */
   white-space: pre-line;
 }
@@ -68,7 +68,7 @@
 .contenu-markdown h2,
 .contenu-markdown h3,
 .contenu-markdown h4 {
-  margin: 20px 0 8px;
+  margin: var(--espace-intertitre-avant) 0 var(--espace-intertitre-apres);
   font: var(--typo-titre-section);
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -90,12 +90,12 @@
 
 .contenu-markdown ul,
 .contenu-markdown ol {
-  margin: 0 0 16px;
-  padding-left: 22px;
+  margin: 0 0 var(--espace-paragraphes);
+  padding-left: var(--espace-retrait-puces);
 }
 
 .contenu-markdown li {
-  margin-bottom: 4px;
+  margin-bottom: var(--espace-textes);
 }
 
 .contenu-markdown p:last-child {
@@ -110,7 +110,7 @@
   max-width: 100%;
   border-radius: var(--rayon-element);
   display: block;
-  margin: 8px 0;
+  margin: var(--espace-paragraphes) 0;
   cursor: zoom-in;
 }
 
@@ -122,7 +122,7 @@
   border-radius: var(--rayon-element);
   overflow: hidden;
   background: var(--fond-page);
-  margin: 8px 0;
+  margin: var(--espace-paragraphes) 0;
 }
 
 .contenu-markdown-video iframe {
@@ -141,8 +141,15 @@
   align-items: center;
   justify-content: center;
   background: var(--fond-voile-accentue);
-  padding: 24px;
+  padding: var(--espace-marge-page);
   cursor: zoom-out;
+}
+
+@media (min-width: 768px) {
+  .contenu-markdown-lightbox {
+    /* espacements.md, section 8 : marge de page au-dessus de 768, valeur actuelle gardée (voile) */
+    padding: 24px;
+  }
 }
 
 .contenu-markdown-lightbox img {
@@ -153,7 +160,7 @@
 
 .contenu-markdown-table-wrap {
   overflow-x: auto;
-  margin: 12px 0;
+  margin: var(--espace-paragraphes) 0;
   border-radius: var(--rayon-element);
 }
 
@@ -179,7 +186,7 @@
 
 .contenu-markdown th,
 .contenu-markdown td {
-  padding: 10px 12px;
+  padding: var(--espace-ligne) var(--espace-rangee);
   text-align: left;
 }
 
