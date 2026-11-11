@@ -70,7 +70,7 @@ Vignettes carrées en Rond (11/11, après captures) : à 22 sur 48 px, la forme 
 - Une image ou une miniature non carrée dans une Surface est un Élément, même quand elle touche le bord de la Surface. Une vignette carrée est un Rond.
 - Les illustrations n'ont pas de rayon.
 - La page `/design-system` suit les mêmes rôles.
-- Un Élément posé à moins de 20 px du bord de sa Surface garde le même écart en haut, en bas et sur les côtés, et cet écart vaut 8 px. Les coins sont alors concentriques (30 − 8 = 22). Avec deux écarts différents, aucun rayon unique ne peut l'être.
+- Un Élément posé à moins de 20 px du bord de sa Surface suit la règle du bord : rôle Bloc près du bord, le même écart en haut, en bas et sur les côtés (valeur et construction dans `docs/tokens/espacements.md`, sections 4 et 5). Les coins sont alors concentriques (rayon-surface − écart = rayon-element). Avec deux écarts différents, aucun rayon unique ne peut l'être.
 
 ## 8. Exemples sur Skillo
 

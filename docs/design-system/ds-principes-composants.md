@@ -30,9 +30,9 @@ Usage
 Toute page de l'app s'y place, y compris une page hors navigation.
 
 Ce qu'il fournit
-- Marges de page : `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page (mobile : zone de sécurité + 20 px en haut, 16 px sur les côtés, réserve de la tab bar en bas ; desktop : réserve de la barre du haut, 40 px sur les côtés et en bas), complété sur desktop par `.espace-page-etroit` (1040 px max, 24 px sur les côtés).
-- Écart entre les blocs de la page : `.espace-page` (`--espace-20`), voir « Rôles d'espacement » dans `docs/tokens/espacements.md`.
-- Page hors navigation : À trancher. `.espace-contenu` ne convient pas à une page hors navigation : il réserve la place de la tab bar en bas et celle de la barre du haut sur desktop. Aucun élément partagé existant ne fournit les marges d'une page hors navigation.
+- Marges de page : `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page, rôle Marge de page (valeurs dans `docs/tokens/espacements.md`) ; réserve de la tab bar en bas sur mobile, de la barre du haut sur desktop ; complété sur desktop par `.espace-page-etroit` (1040 px max).
+- Écart entre les blocs de la page : `.espace-page`, rôle Entre deux blocs (valeurs dans `docs/tokens/espacements.md`).
+- Page hors navigation : elle se place aussi dans le Conteneur de page et prend le rôle Marge de page (`docs/tokens/espacements.md`, décision du 11/11). `.espace-contenu` réserve la place de la tab bar et de la barre du haut : l'élément qui fournit ces marges sans réserve reste à créer au moment de la migration (Mot de passe oublié, Nouveau mot de passe).
 
 Règle principale
 Une page ne redéfinit pas l'écart entre ses blocs.
@@ -49,7 +49,7 @@ Variantes et usage
 - Orange (texte encre) : lancer le quiz flash, rien d'autre.
 - Supprimer (rouge) : action destructrice, dans un menu, toujours confirmée.
 - Pointillé : ajouter un élément dans la création de cours (question, réponse, étape).
-- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et le nom accessible du bouton ne change pas. Quand le libellé visible nomme le niveau du dessus, le nom accessible est « Retour à <libellé> » (WCAG 2.5.3, Label in Name : le nom accessible contient le libellé visible). Exemples : Mot de passe oublié (libellé « Connexion », nom « Retour à la connexion »), espace formateur (« Retour à Mes cours », « Retour à Mes groupes »), Création de cours (« Retour à Mes cours », « Retour à Détail du cours »). États : survol et appui en fond-accent. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6` ; chevron de 18 px. Libellé : rôle Bouton (valeurs dans `docs/tokens/typographie.md`).
+- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et le nom accessible du bouton ne change pas. Quand le libellé visible nomme le niveau du dessus, le nom accessible est « Retour à <libellé> » (WCAG 2.5.3, Label in Name : le nom accessible contient le libellé visible). Exemples : Mot de passe oublié (libellé « Connexion », nom « Retour à la connexion »), espace formateur (« Retour à Mes cours », « Retour à Mes groupes »), Création de cours (« Retour à Mes cours », « Retour à Détail du cours »). États : survol et appui en fond-accent. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding en rôle Padding d'un contrôle (Retour), écart entre le chevron et le libellé en rôle Icône et libellé (valeurs dans `docs/tokens/espacements.md`) ; chevron de 18 px. Libellé : rôle Bouton (valeurs dans `docs/tokens/typographie.md`).
 
 Choisir entre principal, secondaire et lien texte
 - Principal : l'action attendue de la zone. Un seul par zone.
@@ -289,7 +289,7 @@ Fond `fond-inverse`, texte `texte-sur-inverse`, pastille XP en `fond-recompense`
 
 ## Navigation
 
-- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon Surface (rôle dans `docs/tokens/rayons.md`), marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
+- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon Surface (rôle dans `docs/tokens/rayons.md`), position de la barre (côtés alignés sur la marge de page, bas fixé par le composant) et padding des entrées dans `docs/tokens/espacements.md`, 4 entrées de largeur égale avec icône et libellé.
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`.
 - Onglets inactifs : `texte-sur-inverse`.

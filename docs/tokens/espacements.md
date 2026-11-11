@@ -1,96 +1,169 @@
-Statut : décidé le 20 octobre 2026, non migré
+Statut : brouillon 3.0.0, validé le 11 novembre 2026 (critères v3, rangement `esp3.md`). Tokens : noms à l'étape tokens. Ce fichier dit quel rôle prendre ; il ne recopie pas le code.
 
 # Espacements
 
-Les nombres d'occurrences sont ceux de `docs/audit-tokens.md` (tableau 4).
+## 1. Sources
 
-## 1. Base : 4 px
+- Relevé de la prod : 792 déclarations d'espacement (padding, margin, gap) dans 26 fichiers CSS, aucune en style en ligne (`esp0.md`).
+- Critères de rattachement (`criteres-esp.md` v3, avec ses sections « Décisions »). Les rôles de l'audit du 22/10 (`docs/audit-espacements.md`, R1 à R27) ont servi de matière.
+- Rangement et décompte des changements (`esp1.md`, `esp2.md`, `esp3.md`).
+- Décision de l'échelle (20/10/2026) : base 4, 11 paliers, nommage par la valeur.
 
-- **Le code y est déjà.** Les multiples de 4 entre 4 et 48 représentent 497 des 850 occurrences d'espacement, et la quasi-totalité des valeurs restantes sont des multiples de 2.
-- **Une base de 8 serait trop grossière.** Elle ferait sortir 4 et 12, soit 149 occurrences, et 12 est la 2ᵉ valeur la plus utilisée. Sur un écran mobile avec 16 px de marge latérale, 8 px d'écart minimum entre deux paliers, c'est trop.
-- **Une base de 2 ne contraindrait rien.** Presque tout serait « dans la grille » et l'échelle ne servirait plus à choisir.
-- **4 s'accorde avec les dimensions fixes de l'app** : la marge mobile de 16 px, la cible tactile de 44 px (4 × 11).
+## 2. Échelle et unité
 
-## 2. L'échelle (11 valeurs)
+**Les primitifs `espace-N` ne changent pas.** Liste fermée de 11 paliers :
 
 **2 · 4 · 6 · 8 · 10 · 12 · 16 · 20 · 24 · 32 · 40**
 
-Règle : **base 4, avec des demi-pas (2, 6 et 10) admis seulement en dessous de 12.**
+- **Base 4**, avec des demi-pas (2, 6, 10) admis seulement en dessous de 12. Aucune valeur n'est ajoutée : `espace-14` n'existe pas.
+- **Nommage par la valeur** : une maquette qui indique 16 se lit `espace-16`, sans calcul. Le nom invite à deviner un palier qui n'existe pas (`espace-14`). La parade est la liste fermée ci-dessus. On ne change jamais la valeur d'un primitif : c'est le rôle qui pointe vers un autre palier.
+- **Un composant ne lit jamais un primitif.** Il lit un token de rôle (section 11), qui pointe vers un primitif, comme pour les couleurs.
 
-| Palier | Occurrences actuelles |
-|---:|---:|
-| 2 | 21 |
-| 4 | 48 |
-| 6 | 73 |
-| 8 | 87 |
-| 10 | 76 |
-| 12 | 101 |
-| 16 | 103 |
-| 20 | 64 |
-| 24 | 38 |
-| 32 | 12 |
-| 40 | 21 |
+**Unité : px, partout, sans sortie en rem** (décidé le 11/11).
+- **Raison** : quand la police du navigateur est agrandie, la place gagnée doit aller au texte. WCAG 2.2, critère 1.4.4, demande que le texte grandisse, pas l'espace autour. Avec une seule unité, l'agent n'a pas à choisir.
+- **Coût accepté** : à 200 %, le rapport entre l'espace et le texte est divisé par deux.
 
-On garde 32 : la fréquence n'est pas un critère pour retirer un palier.
+## 3. Choisir le rôle
 
-**Valeurs hors échelle**, ramenées par la règle « la valeur la plus proche ; à égalité, la plus grande » :
+La fonction et la place d'un espacement décident de son rôle, **jamais sa valeur actuelle ni la taille de l'élément**. Deux espacements qui décrivent la même relation entre deux éléments ont le même rôle, et la même valeur, où qu'ils soient.
 
-| Actuel | Devient | Occurrences | Écart |
-|---:|---:|---:|---|
-| 3 | 4 | 7 | +1 |
-| 5 | 6 | 5 | +1 |
-| 14 | 16 | 44 | +2 |
-| 18 | 20 | 41 | +2 |
-| 22 | 24 | 18 | +2 |
-| 26 (dont `--espacement-bouton-pill`) | 24 | 5 | −2 |
-| 28 | 32 | 18 | +4 |
-| 30 | 32 | 3 | +2 |
-| 36 | 40 | 2 | +4 |
+Le moins de rôles et de valeurs possible, pour que l'agent n'ait pas à choisir : une valeur par rôle, la même à toutes les largeurs. Aucun seuil à 768 px.
 
-Cela fait 143 occurrences modifiées. Une échelle stricte en base 4 (2, 4, 8, 12, 16, 20, 24, 28, 32, 40) en modifierait 274.
+Pour un espacement donné, on se demande dans l'ordre :
+1. **Est-ce le padding interne d'un contrôle** (bouton, champ, pastille, choix, entrée de navigation, lien) **ou l'écart entre son icône et son libellé ?** Padding d'un contrôle, ou Icône et libellé.
+2. **Est-ce le bord d'un conteneur ?**
+   - la page : Marge de page ;
+   - une Surface : Padding d'une Surface ;
+   - un Élément : Padding d'un Élément ;
+   - une carte de liste ou une ligne : Ligne de liste ;
+   - un bloc à fond posé à moins de 20 px du bord de sa Surface : Bloc près du bord.
+3. **Est-ce l'écart entre deux choses ?**
+   - deux blocs de la page, empilés : Entre deux blocs ;
+   - deux groupes d'une Surface : Entre deux groupes ;
+   - deux textes d'un même groupe : Deux textes d'un groupe ;
+   - des éléments différents côte à côte : Rangée ;
+   - des éléments de même nature répétés : Répétition ;
+   - deux colonnes d'une liste : Colonnes.
+4. **Est-ce du contenu de leçon** (Markdown, intertitre, « À retenir ») ? Rythme du contenu.
 
-**Ce qui reste hors échelle, volontairement** : ces valeurs ne sont pas du rythme d'espacement, ce sont des dimensions de mise en page qui découlent d'autre chose. Elles relèveront d'une catégorie à part.
-- les réserves pour les objets 3D (`padding-right` de 72 à 200 px) ;
-- les débords des illustrations (`top: -30px`, documenté dans CLAUDE.md) ;
-- les marges de page desktop (48, 56 px) ;
-- les zones d'action mesurées (126 px).
+## 4. Les rôles
 
-Les valeurs négatives s'écrivent `calc(-1 * var(--espace-16))`.
+| Rôle | Valeur | Définition | Exemples Skillo |
+|---|---|---|---|
+| **Marge de page** | 16 px à gauche et à droite sous 768 px ; au-dessus, valeurs actuelles gardées | Padding du Conteneur de page (`.espace-contenu`, `.espace-page`), sur toutes les pages, y compris les pages hors navigation. Une barre fixe sur toute la largeur prend la marge horizontale de page. | Conteneur de page ; barre d'action du quiz ; barre d'enregistrement mobile de Création de cours ; bandeau Aperçu élève ; pages Mot de passe oublié et Nouveau mot de passe. |
+| **Entre deux blocs** | 20 px | Écart entre deux blocs de nature différente, ou deux sections d'une page, empilés. Retour compris. | Retour et en-tête ; en-tête et « De ton formateur » ; deux cartes de section du Détail cours ; deux cartes de Création de cours. |
+| **Padding d'une Surface** | 20 px, les quatre côtés | Padding de tout bloc posé directement sur le fond de la page, ou flottant au-dessus (même sens que dans `rayons.md`). | Carte, en-tête de page lavande, bloc de tête du dashboard, blocs d'introduction et « Plus qu'une étape », modale, feuille, toast. |
+| **Bloc près du bord** | 8 px, le même en haut, en bas et sur les côtés | Écart entre un bloc à fond et le bord de la Surface qui le contient, quand il est à moins de 20 px de ce bord. Il vaut aussi quand le bloc est le dernier. | Entrée de menu, entrée de tab bar, étape en cours de la checklist, outils de la barre de l'éditeur. |
+| **Entre deux groupes** | 12 px | Écart entre deux groupes d'une Surface : titre (ou bloc de titres) et texte, texte et bouton, titre de section et son contenu, deux champs (chaque champ avec son libellé et son aide forme un groupe), bouton principal et lien en dessous. Aussi l'écart dans une barre qui n'est pas une rangée. | En-tête et liste de « De ton formateur » ; détail et bouton de « Étape suivante » ; anneau et titre de la fin de quiz ; « Passer » et logo de l'Introduction. |
+| **Deux textes d'un groupe** | 4 px | Surtitre et titre ; titre et sous-titre ou compteur (en-tête lavande compris) ; titre et méta d'une ligne ; libellé et son champ ; champ et son aide ou son erreur ; deux puces d'une liste. | « Thème N », titre et compteur du Détail d'un thème ; titre et « Leçon · Quiz » d'une ligne ; libellé « Titre » et son champ. |
+| **Rangée** | 12 px | Écart entre des éléments différents posés côte à côte. | Éléments d'une ligne (vignette, texte, statut, chevron) ; titre et action d'un en-tête de carte ; bloc de titres et action ou recherche ; barre du haut d'un écran ; filtres et recherche ; champ et bouton. |
+| **Répétition** | 8 px | Écart entre des éléments de même nature répétés, sans séparateur. | Cartes d'une grille ou d'une pile (thèmes, Mes cours, blocs du dashboard) ; boutons côte à côte (CTA du dashboard formateur) ; pastilles ; filtres ; choix d'une liste de réponses ; tuiles de badges. |
+| **Ligne de liste** | ligne : 12 px sur les quatre côtés ; carte qui la contient : 8 px partout ; cellule de tableau : 12 px | Liste à lignes séparées par un trait de 1 px. La ligne porte le padding, pour que le texte tombe à 20 px du bord de la carte (8 + 12). | Liste d'un thème, Mode terrain, résultats de recherche, « De ton formateur », récap, étapes de la checklist, fil d'activité ; tableau des élèves du Détail groupe, tableau admin. |
+| **Icône et libellé** | 8 px | Écart entre une icône et son libellé, dans un bouton, une pastille, une entrée de navigation ou un lien. | Chevron et libellé du Retour ; éclair et « +20 XP » ; icône et libellé d'une entrée de tab bar. |
+| **Padding d'un contrôle** | une valeur par composant (section 7) | Padding interne d'un contrôle. | Bouton, Retour, Champ, Pastille, Choix, Entrée de navigation, Lien texte, Étiquette. |
+| **Rythme du contenu** | section 7 | Écarts du contenu de leçon. | `ContenuMarkdown`, intertitres de leçon, « À retenir ». |
+| **Colonnes** | 40 px | Écart entre deux colonnes d'une liste sur desktop. | Mode terrain et résultats de recherche ; « De ton formateur » de la page Cours. |
+| **Padding d'un Élément** | 16 px, les quatre côtés | Padding de tout bloc à fond ou à contour posé dans une Surface (même sens que dans `rayons.md`). | Question, étape et repère de Création de cours ; blocs « Tes groupes », relances et « Personne à relancer » ; petites cartes de chiffre du Détail cours ; « À retenir » ; étape en cours ; repère d'étapes ; aperçu de la leçon. |
 
-## 3. Le sort de 6, 10, 14 et 18 px
+### Cas limites entre deux rôles voisins
 
-Ces quatre valeurs se situent toutes exactement à mi-chemin entre deux paliers en base 4. Aucun arrondi ne peut donc se décider automatiquement, il faut une règle. Voici où elles servent :
+- **Entre deux blocs ou Répétition.** Deux blocs de nature différente, ou deux sections empilées, sont dans Entre deux blocs (20). Deux cartes de même nature répétées dans une grille ou une pile sont dans Répétition (8). Exemple : les cartes de thème entre elles sont en Répétition ; l'en-tête de la page Cours et la grille des thèmes, en Entre deux blocs.
+- **Entre deux groupes ou Deux textes d'un groupe.** Si les deux textes forment une seule information (le titre et ce qui le précise : surtitre, sous-titre, compteur, méta, aide), c'est Deux textes d'un groupe (4). Si ce sont deux informations distinctes, ou un texte et une action, c'est Entre deux groupes (12). Exemple : titre et « 2 min de lecture » font un groupe ; le bloc de titres et le repère d'étapes sont deux groupes.
+- **Padding d'une Surface ou Bloc près du bord.** Le padding d'une Surface (20) écarte son contenu de son bord. Quand un bloc à fond doit être plus près du bord que 20 (entrée de menu, étape en cours, entrées de la tab bar), la Surface prend 8 de padding et le bloc est posé directement, sans calc ni marge négative : c'est Bloc près du bord.
+- **Ligne de liste ou Padding d'un Élément.** Une ligne de liste n'a de fond qu'au survol : elle garde son padding de ligne (12). Un Élément a un fond ou un contour au repos : il prend 16.
 
-| Valeur | Total | Dont `gap` | Dont `padding` |
-|---:|---:|---:|---:|
-| 6 | 73 | 48 | 14 |
-| 10 | 76 | 39 | 31 |
-| 14 | 44 | 15 | 23 |
-| 18 | 41 | 4 | 36 |
+## 5. Hiérarchie
 
-Deux familles se dessinent :
+- **Surface 20 > Élément 16.** Un bloc posé dans un autre a un padding plus petit, comme il a un rayon plus petit.
+- **Bloc près du bord : 8 sur les quatre côtés, y compris quand le bloc est le dernier.** Les coins sont alors concentriques (rayon de Surface 30 − 8 = rayon d'Élément 22, `rayons.md`, section 7). Avec deux écarts différents, aucun rayon unique ne peut l'être. **Construction** : le padding de la Surface vaut 8, et le bloc est posé directement, sans calc ni marge négative.
+- **Liste** : la carte de liste a 8 de padding partout, et la ligne porte 12 sur les quatre côtés. Au survol, le fond (`fond-accent`) remplit la ligne : c'est un Élément à 8 du bord de la carte, avec 12 entre son bord et le texte. Le texte tombe à 20 du bord de la carte, comme dans une Surface.
 
-- **6 et 10 restent dans l'échelle.** Ce sont surtout des écarts à l'intérieur d'un composant (icône et libellé, titre et sous-titre, lignes d'une liste). À cette taille, 2 px représentent 20 à 33 % de la valeur : la différence se voit, et elle a été choisie. Supprimer ces deux valeurs toucherait 149 occurrences avec un effet visible à chaque fois. Ce sont, avec 2, les demi-pas de la règle.
-- **14 et 18 sont arrondis à 16 et 20.** Ce sont surtout des marges intérieures de cartes et de blocs (18 est le padding horizontal des cartes mobiles). À cette taille, 2 px ne représentent que 11 à 14 % de la valeur. Le changement reste perceptible, mais il est léger et uniforme : les cartes respirent un peu plus. 85 occurrences sont concernées.
-  - Quand il s'agit du padding vertical d'un élément à hauteur fixée, la hauteur l'emporte et rien ne bouge.
-  - Arrondir vers le haut ajoute de la hauteur. Il faut vérifier l'Introduction, qui doit tenir sans défilement sur un écran de 667 px.
+## 6. Débords et défilement
 
-## 4. Nommage : par la valeur (`espace-16`)
+- **Une marge négative de débord annule exactement le padding qu'elle traverse et le cite.** Elle n'a pas de valeur propre : c'est l'opposé du token du rôle traversé (Marge de page, Padding d'une Surface). Exemple : la rangée de filtres du dashboard formateur traverse la marge de page de 16, donc −16.
+- **Une rangée qui défile jusqu'au bord de l'écran reprend la marge de page au début et à la fin.** La première carte s'aligne sur la marge de 16 (`scroll-padding-inline`), et seul le bord droit déborde. Exemples : « Cours assignés » du Détail groupe, filtres de l'activité récente.
+- **Un tableau plus large que sa carte défile horizontalement dans sa carte** (`overflow-x: auto`). La zone qui défile annule le padding de la carte (règle du débord), et le contenu le reprend au début et à la fin. Concernés : le tableau des élèves du Détail groupe et le tableau du dashboard admin, par précaution.
+- **La zone de sécurité** (`env(safe-area-inset-*)`) s'ajoute à la valeur du rôle, elle ne la remplace pas.
 
-**Avantage : aucune traduction.** Une maquette Figma qui indique 16 se code `espace-16`, sans calcul, et un agent ne peut pas confondre le nom avec la mesure. Avec un numéro d'ordre façon Tailwind, `espace-4` vaut 16 px : c'est la confusion classique, et les demi-pas y deviennent `espace-0.5`, `espace-1.5` et `espace-2.5`. Les tailles (`espace-m`) n'ont pas de place pour insérer un palier entre deux existants. C'est aussi la même logique que pour les couleurs : le nom du primitif découle de sa valeur.
+## 7. Rôles de contrôle et de contenu
 
-**Inconvénient : le nom invite à deviner.** `espace-14` a l'air parfaitement légitime alors qu'il n'existe pas. Un agent l'écrira sans hésiter. La parade est la même que pour les couleurs : une liste fermée écrite noir sur blanc (« les seuls paliers sont 2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40 ») et, au moment de la migration, une règle de lint qui refuse tout `--espace-*` hors liste.
+### Padding d'un contrôle
 
-Le reproche habituel (« si la valeur change, le nom ment ») ne s'applique pas ici. On ne change jamais la valeur d'un primitif : on fait pointer un sémantique vers un autre palier.
+| Composant | Valeur | Précisions |
+|---|---|---|
+| Bouton | 24 px sur les côtés | La hauteur (44 px) donne le vertical. Pour les vrais boutons seulement : un filtre, un choix, un onglet ou « Bonne réponse » est un Choix. **Bouton à flèche** (bouton blanc « Continuer le cours », « Passer au quiz ») : 24 à gauche ; à droite, le rond de la flèche reste à 6 du bord, c'est la place de l'icône, pas un padding de texte. **Rangée des CTA du dashboard formateur** : la rangée passe à la ligne (Répétition, 8), le libellé de chaque bouton reste sur une ligne (`white-space: nowrap`). |
+| Retour | 12 px côté chevron, 20 px côté libellé | Sur mobile, chevron seul : 12 des deux côtés. |
+| Champ | 16 px sur les côtés | Champ multiligne compris. **Champ de recherche ou d'ajout avec icône à gauche** : le côté gauche garde la réserve de l'icône (largeur de l'icône et son écart), seul le côté droit prend 16. |
+| Pastille | 4 px en haut et en bas, 10 px sur les côtés | |
+| Choix | 10 px en haut et en bas, 16 px sur les côtés | Ligne de réponse (quiz, parcours, Création de cours), case, mode de checklist, filtre, choix de groupe, type de réponse, onglets « Écrire / Aperçu ». **Choix à hauteur fixe** (filtres, onglets, choix de Création de cours) : 16 sur les côtés seulement, la hauteur donne le vertical. **« Bonne réponse »** : côté gauche à 0 sous 768 px, pour que le contrôle reste aligné sur le champ. |
+| Entrée de navigation | 8 px en haut et en bas, 16 px sur les côtés | Tab bar, barre du haut, menus, sommaire de Création de cours. **Entrée de liste déroulante** : le côté gauche garde la réserve de la coche (30 px). **Entrée de la tab bar mobile** : 8 × 16 seulement si « Dashboard » tient à 320 px, sinon exception écrite (à mesurer). |
+| Lien texte | 6 px sur les côtés | Zone cliquable autour d'un lien. |
+| Étiquette | 4 px | Étiquette d'image de Création de cours. |
 
-## 5. Dans le code
+Les Choix et les Boutons ne se confondent pas : un Choix reste marqué quand il est choisi, un Bouton agit (voir le rôle typographique Navigation ou Bouton, `typographie.md`, section 6).
 
-Tout nouveau code utilise les variables d'espacement générées (`var(--espace-N)`), jamais une valeur en px pour un espacement. Le code existant sera migré plus tard.
+### Rythme du contenu
 
-## 6. Rôles d'espacement
+Pour `ContenuMarkdown` et l'intertitre de leçon. Les titres Markdown et l'intertitre de leçon ont le même rôle typographique (Titre de section) et prennent les mêmes valeurs.
 
-Chaque rôle désigne la même relation entre deux éléments, partout dans l'app. Il renvoie à un palier existant, sans token supplémentaire.
+| Écart | Valeur |
+|---|---|
+| Entre deux paragraphes, listes ou médias (image, vidéo, tableau) | 16 px |
+| Au-dessus d'un intertitre | 20 px |
+| Sous un intertitre | 8 px |
+| Retrait des puces | 20 px |
+| Entre deux puces | Deux textes d'un groupe (4 px) |
 
-- **Écart entre deux blocs consécutifs d'une page**, bouton Retour compris : `--espace-20`. Fourni par le Conteneur de page (`ds-principes-composants.md`).
-- **Ligne de liste** : padding vertical de chaque ligne `--espace-12` ; écart entre les éléments d'une ligne (vignette, texte, statut, chevron) `--espace-12` ; écart entre le titre et le sous-titre d'une ligne `--espace-4`.
-- **Bouton Retour** : padding horizontal `--espace-12` côté chevron et `--espace-20` côté libellé ; écart entre le chevron et le libellé `--espace-6`.
+## 8. Valeur hors échelle sans rôle
+
+Une valeur qui a un rôle prend la valeur du rôle, jamais un arrondi. Pour une valeur **sans rôle** et hors échelle : **le palier le plus proche ; à égalité, le palier supérieur.** L'agent l'applique et le signale dans son rapport.
+
+Restent hors échelle, volontairement, parce que ce sont des dimensions de mise en page et non du rythme d'espacement :
+- les réserves pour les objets 3D (padding qui laisse la place à une illustration) ;
+- les débords des illustrations ;
+- les marges de page desktop ;
+- les réserves des zones d'action fixes (bas de page sous une barre d'action) ;
+- la place réservée au-dessus d'une carte badge de fin de quiz (débord de l'illustration).
+
+## 9. Exceptions écrites
+
+Une exception est attachée à son composant. Elle se signale, elle ne sert pas de modèle.
+
+| Composant | Exception | Statut |
+|---|---|---|
+| Onglets « Écrire / Aperçu » (Création de cours) | Padding du sélecteur : 4 px | Exception de composant |
+| Barre empilée (Avancement des élèves, Détail cours) | Écart entre deux segments : 4 px | Exception de composant |
+| Modale Mes badges | Marge du contour de mise en évidence : 4 px (place du contour de 2 px) | Exception de composant |
+| Modale Mes badges | Bouton Fermer : padding 2 × 8 px | Provisoire, réglé quand Mes badges passera sur le composant Modale |
+| Barre d'enregistrement desktop (Création de cours) | Padding 10 · 10 · 10 · 24 px (pilule flottante) | Provisoire, chantier composants |
+| Création de cours, desktop | Écart des colonnes de mise en page (sommaire et contenu) : 32 px | Dimension de mise en page |
+| Tab bar | Position de la barre flottante : côtés alignés sur la marge de page (16 px), bas 20 px | Dimension du composant (position, comme une réserve), hors rôle |
+| Centrages optiques | Marge de 2 à 8 px pour aligner un élément (chevron sur une vignette, numéro sur un intitulé) | À remplacer par un alignement (`align-items`, `line-height`). Exception écrite seulement là où l'alignement ne reproduit pas le rendu. |
+
+## 10. Conduite de l'agent
+
+Si aucun rôle de la section 4 ne s'applique, ou si deux rôles s'appliquent sans que la section 3 ne tranche, l'agent construit le reste de l'écran, écrit « À trancher » dans son rapport avec le rôle le plus proche et sa raison, et propose. **Il n'utilise jamais un primitif `espace-N` à la place**, il n'ajoute aucun rôle et aucun token.
+
+## 11. Tokens
+
+Une couche de tokens de rôle pointe vers les primitifs `espace-N`, comme les sémantiques de couleur. **Un composant lit toujours un token de rôle**, jamais un primitif, ni une valeur en px écrite en dur. **Noms à l'étape tokens.**
+
+## Annexe : correspondance des rôles
+
+| Rôle | Critères (`criteres-esp.md`) | Rôles de l'audit (`audit-espacements.md`) |
+|---|---|---|
+| Marge de page | E1 | R25 |
+| Entre deux blocs | E2 | R1, R2, R3 |
+| Padding d'une Surface | E3 | R4, R7 (cartes) |
+| Bloc près du bord | E4 | — (décision des rayons) |
+| Entre deux groupes | E5 | R8 (groupes), R9, R16, R21 (deux champs), R23 |
+| Deux textes d'un groupe | E6 | R5, R8 (textes), R13, R21 (libellé et champ), R24 (puces) |
+| Rangée | E7 | R6, R12 |
+| Répétition | E8 | R17 |
+| Ligne de liste | E9 | R10, R11 |
+| Icône et libellé | E10 | R18 |
+| Padding d'un contrôle | E11 | R19, R20, R22 |
+| Rythme du contenu | E12 | R24 (retrait), R26 |
+| Colonnes | E13 | R14 |
+| Padding d'un Élément | E14 | R7 (blocs dans une carte) |
+| — (hors rôle) | hors rangement | R15 (centrages optiques), R27 (réserves et débords) |
