@@ -2,8 +2,9 @@
 .bloc-formateur {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 16px 18px 10px;
+  /* en-tête posé comme une ligne : aucun écart en plus avec la liste (espacements.md, section 5) */
+  gap: 0;
+  padding: var(--espace-bord);
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   color: var(--texte-principal);
@@ -12,7 +13,8 @@
 .bloc-formateur-entete {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espace-icone);
+  padding: var(--espace-ligne);
 }
 
 .espace-page .bloc-formateur-entete h2 {
@@ -63,12 +65,15 @@
 .bloc-formateur-ligne {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espace-rangee);
   width: 100%;
   min-height: 44px;
-  padding: 8px 0;
+  padding: var(--espace-ligne);
   border: none;
+  /* Survol et appui : la ligne devient un Élément à espace-bord du bord de la carte */
+  border-radius: var(--rayon-element);
   background: none;
+  -webkit-tap-highlight-color: transparent;
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
@@ -76,9 +81,13 @@
 }
 
 @media (hover: hover) {
-  .bloc-formateur-ligne:hover .bloc-formateur-titre {
-    color: var(--texte-accent);
+  .bloc-formateur-ligne:hover {
+    background: var(--fond-accent);
   }
+}
+
+.bloc-formateur-ligne:active {
+  background: var(--fond-accent);
 }
 
 /* Mobile (et dashboard) : titre puis pastille sur la même ligne */
@@ -86,7 +95,8 @@
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 12px;
+  /* titre et pastille côte à côte : Rangée */
+  gap: var(--espace-rangee);
   min-width: 0;
 }
 
@@ -108,7 +118,7 @@
   .bloc-formateur-grille .bloc-formateur-liste {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 28px;
+    column-gap: var(--espace-colonnes);
   }
 
   .bloc-formateur-grille .bloc-formateur-liste li + li {
@@ -131,13 +141,15 @@
   }
 
   .bloc-formateur-grille .bloc-formateur-ligne .chevron-ligne {
+    /* espacements.md, section 9 : centrage optique du chevron sur la vignette de 48 px */
     margin-top: 14px;
   }
 
   .bloc-formateur-grille .bloc-formateur-texte {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    /* pastille sous le titre : Deux textes d'un groupe */
+    gap: var(--espace-textes);
   }
 
   .bloc-formateur-grille .bloc-formateur-titre {

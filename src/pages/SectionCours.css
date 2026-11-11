@@ -2,7 +2,7 @@
    puis la grille des 12 thèmes. */
 
 .page-cours {
-  gap: 20px;
+  gap: var(--espace-blocs);
 }
 
 .espace-page.page-cours > *:first-child {
@@ -12,7 +12,7 @@
 .page-cours-section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--espace-groupes);
 }
 
 .espace-page .page-cours-h2 {
@@ -28,7 +28,7 @@
 }
 
 .page-cours-aucun-resultat {
-  margin: 8px 0 0;
+  margin: var(--espace-groupes) 0 0;
   text-align: center;
   font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
@@ -37,7 +37,7 @@
 .cours-grille-themes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  gap: var(--espace-repetition);
 }
 
 /* Carte de thème : objet 3D + chevron en haut, « Thème N », nom, état collé en bas */
@@ -45,10 +45,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: var(--espace-textes);
   min-height: 176px;
   min-width: 0;
-  padding: 14px 14px 14px 16px;
+  padding: var(--espace-surface);
   border: none;
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
@@ -74,7 +74,7 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 6px;
+  margin-bottom: var(--espace-textes);
 }
 
 .theme-carte-objet {
@@ -101,7 +101,7 @@
 
 .theme-carte-bas {
   margin-top: auto; /* ancré en bas : alignement identique quelle que soit la longueur du titre */
-  padding-top: 8px;
+  padding-top: var(--espace-groupes);
 }
 
 .theme-carte-compte {
@@ -117,12 +117,10 @@
 @media (min-width: 768px) {
   .cours-grille-themes {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
   }
 
   .theme-carte {
     min-height: 200px;
-    padding: 20px;
   }
 
   .theme-carte-objet {
