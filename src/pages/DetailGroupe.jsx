@@ -371,6 +371,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
             <p className="dashboard-etat-vide">Aucun élève ne correspond à ta recherche.</p>
           ) : (
             <>
+              <div className="dg-table-defile">
               <table className="dg-table">
                 <thead>
                   <tr>
@@ -404,6 +405,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                   ))}
                 </tbody>
               </table>
+              </div>
 
               {/* Mobile : une carte par élève */}
               <ul className="dg-eleves-cartes">
