@@ -265,7 +265,7 @@ Source : `ds-principes-composants.md`.
 
 - **Usage** : toute page de l'app s'y place, y compris une page hors navigation.
 - **Ce qu'il fournit** : marges de page, `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page, rôle Marge de page ; réserve de la tab bar en bas sur mobile, de la barre du haut sur desktop ; complété sur desktop par `.espace-page-etroit` (1040 px max) ; écart entre les blocs de la page, `.espace-page`, rôle Entre deux blocs (« Espacements », section 5).
-- **Page hors navigation** : elle se place aussi dans le Conteneur de page et prend le rôle Marge de page (`espacements.md`). L'élément qui fournit ces marges sans la réserve de la tab bar reste à créer à la migration (Mot de passe oublié, Nouveau mot de passe).
+- **Page hors navigation** : elle se place aussi dans le Conteneur de page et prend le rôle Marge de page (`espacements.md`). L'élément qui fournit ces marges sans la réserve de la tab bar est `.flow-page` (`shared.css` : marge de page sur les côtés, haut du Conteneur avec la zone de sécurité) : Mot de passe oublié, Nouveau mot de passe, écran « Chargement… ».
 - **Règle** : une page ne redéfinit pas l'écart entre ses blocs.
 - **Fichier à réutiliser** : `src/styles/espace-layout.css` (`.espace-contenu`, `.espace-page-etroit`, `.espace-page`).
 

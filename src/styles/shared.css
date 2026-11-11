@@ -12,7 +12,10 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 24px 16px;
+  /* Conteneur de page hors navigation (Mot de passe oublié, Nouveau mot de passe, Chargement) :
+     marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de
+     sécurité, comme .espace-contenu) et bas 24 (pas de tab bar à réserver) */
+  padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) 24px;
   background: var(--fond-page);
 }
 
@@ -21,23 +24,21 @@
   max-width: 420px;
   background: var(--fond-surface);
   border-radius: var(--rayon-surface);
-  padding: 24px 20px 28px;
+  padding: var(--espace-surface);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--espace-groupes);
   align-self: flex-start;
-  margin-top: 40px;
 }
 
 .page-logo-wrapper {
   width: 100%;
   max-width: 420px;
   align-self: flex-start;
-  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: var(--espace-blocs);
 }
 
 .page-logo {
@@ -60,12 +61,14 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
-  margin: 0 0 4px;
+  margin: 0;
   color: var(--texte-principal);
 }
 
+/* Titre et sous-titre : Deux textes d'un groupe ; la marge négative annule l'écart Entre deux
+   groupes de la carte et le remplace par Deux textes */
 .flow-card p.souscription {
-  margin: -8px 0 4px;
+  margin: calc(var(--espace-textes) - var(--espace-groupes)) 0 0;
   color: var(--texte-secondaire);
   font: var(--typo-texte-secondaire);
 }
@@ -73,14 +76,14 @@
 .champ {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--espace-textes);
   font: var(--typo-libelle-champ);
   color: var(--texte-principal);
 }
 
 .champ input {
   min-height: 48px;
-  padding: 0 18px;
+  padding: 0 var(--espace-champ);
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
@@ -91,7 +94,8 @@
 
 .champ textarea {
   min-height: 96px;
-  padding: 12px 18px;
+  /* espacements.md, section 7 : le Champ fixe les côtés ; haut et bas du champ multiligne gardés (12) */
+  padding: 12px var(--espace-champ);
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--rayon-element);
@@ -138,16 +142,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--espace-icone);
   min-height: 48px;
-  padding: 0 var(--espace-24);
+  padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-action);
   color: var(--texte-sur-action);
   font: var(--typo-bouton);
   cursor: pointer;
-  margin-top: 8px;
+  margin-top: var(--espace-groupes);
   transition: all 0.15s ease;
 }
 
@@ -167,9 +171,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--espace-icone);
   min-height: 48px;
-  padding: 0 var(--espace-24);
+  padding: 0 var(--espace-bouton);
   border: 2px solid var(--bordure-action);
   border-radius: var(--rayon-pilule);
   background: transparent;
@@ -198,9 +202,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--espace-icone);
   min-height: 48px;
-  padding: 0 var(--espace-24);
+  padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
@@ -258,11 +262,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--espace-6);
+  gap: var(--espace-icone);
   min-height: 44px;
   min-width: 44px;
   align-self: flex-start;
-  padding: 0 var(--espace-20) 0 var(--espace-12);
+  padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -291,7 +295,7 @@
 /* Mobile : chevron seul, le libellé reste lu par les lecteurs d'écran (nom accessible : aria-label) */
 @media (max-width: 767px) {
   .lien-retour {
-    padding: 0 var(--espace-12);
+    padding: 0 var(--espace-retour-chevron);
   }
 
   .lien-retour-libelle {
@@ -341,12 +345,13 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  gap: 6px;
+  gap: var(--espace-icone);
   align-self: flex-start;
   background: none;
   border: 2px dashed var(--bordure-action);
   border-radius: var(--rayon-pilule);
-  padding: 8px var(--espace-24);
+  /* espacements.md, section 7 : le Bouton fixe les côtés ; haut et bas du bouton d'ajout gardés (8) */
+  padding: 8px var(--espace-bouton);
   font: var(--typo-bouton);
   color: var(--texte-accent);
   cursor: pointer;
@@ -374,13 +379,21 @@
   align-items: center;
   justify-content: center;
   background: var(--fond-voile);
-  padding: 20px;
+  padding: var(--espace-marge-page);
+}
+
+@media (min-width: 768px) {
+  .modal-overlay {
+    /* espacements.md, section 8 : marge de page au-dessus de 768, valeur actuelle gardée (voile) */
+    padding: 24px;
+  }
 }
 
 .modal-fermer {
   flex-shrink: 0;
   background: none;
   border: none;
+  /* espacements.md, section 9 : bouton Fermer (exception écrite, Modale Mes badges) */
   padding: 2px 8px;
   border-radius: 8px;
   color: var(--texte-secondaire);
