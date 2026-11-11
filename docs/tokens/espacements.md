@@ -141,7 +141,8 @@ Une exception est attachée à son composant. Elle se signale, elle ne sert pas 
 | Modale Mes badges | Bouton Fermer : padding 2 × 8 px | Provisoire, réglé quand Mes badges passera sur le composant Modale |
 | Barre d'enregistrement desktop (Création de cours) | Padding 10 · 10 · 10 · 24 px (pilule flottante) | Provisoire, chantier composants |
 | Création de cours, desktop | Écart des colonnes de mise en page (sommaire et contenu) : 32 px | Dimension de mise en page |
-| Tab bar | Position de la barre flottante : côtés alignés sur la marge de page (16 px), bas 20 px | Dimension du composant (position, comme une réserve), hors rôle |
+| Tab bar mobile (sous 768) | Côtés de la barre à 12 px (au lieu de la marge de page), padding de la barre 6 px, écart entre entrées 4 px, entrée 6 px en haut et en bas, 4 px sur les côtés. Raison : à 320 px, « Dashboard » en Navigation (14 px, 800) ne tient avec aucun padding d'entrée dans la barre construite avec les rôles, et la typographie interdit de réduire la taille ou le libellé (règle de la tab bar). Desktop : rôles normaux (Entrée de navigation 8 × 16). | Exception de composant |
+| Tab bar | Position de la barre flottante : côtés à 12 px sous 768 (exception « Tab bar mobile » ci-dessus), bas 20 px | Dimension du composant (position, comme une réserve), hors rôle |
 | Centrages optiques | Marge de 2 à 8 px pour aligner un élément (chevron sur une vignette, numéro sur un intitulé) | À remplacer par un alignement (`align-items`, `line-height`). Exception écrite seulement là où l'alignement ne reproduit pas le rendu. |
 
 ## 10. Conduite de l'agent
@@ -156,7 +157,7 @@ Source : `tokens/espacements.tokens.json`, groupe `espace`. Les primitifs ont po
 
 | Token | Rôle | Valeur |
 |---|---|---|
-| `espace-marge-page` | Marge de page (côtés sous 768 px, barres fixes, côtés de la tab bar flottante) | 16 px |
+| `espace-marge-page` | Marge de page (côtés sous 768 px, barres fixes) | 16 px |
 | `espace-blocs` | Entre deux blocs | 20 px |
 | `espace-surface` | Padding d'une Surface | 20 px |
 | `espace-bord` | Bloc près du bord, et padding d'une carte de liste | 8 px |
