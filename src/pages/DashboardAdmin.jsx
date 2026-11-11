@@ -98,6 +98,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
         ) : coursSuivis.length === 0 ? (
           <p className="fd-vide">Aucun cours public n'a encore été ouvert.</p>
         ) : (
+          <div className="fd-tableau-defile">
           <table className="fd-tableau">
             <thead>
               <tr>
@@ -126,6 +127,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </section>
     </div>
