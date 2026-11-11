@@ -68,7 +68,6 @@ function Introduction({ slideInitiale = 0, onCreerCompte, onSeConnecter, onPasse
       ))}
       // « Passer » (slides 1 et 2) : directement la Connexion ; l'intro est déjà marquée vue au montage
       onPasser={derniere ? undefined : onPasser}
-      barreSerree={slideActuelle === 0}
       // Slide 1 : barre vide (même hauteur, « Passer » à droite), grand logo centré dessous
       barre={slideActuelle > 0 ? <Logo className="intro-logo-petit" /> : <span aria-hidden="true" />}
       action={

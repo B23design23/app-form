@@ -11,8 +11,7 @@ import './GabaritParcours.css'
 // l'Introduction) se place juste au-dessus du bouton. Mobile : zone fixée en bas ; desktop :
 // ancrée en bas d'une colonne de hauteur fixe. Le contenu garde une marge basse égale à la hauteur
 // réelle de la zone (mesurée), et défile si besoin sans jamais passer dessous.
-// barreSerree : 8 px entre la barre et le contenu (slide 1 : grand logo sous la ligne de « Passer »).
-function GabaritParcours({ formateur = false, barre, barreSerree = false, onPasser, points, action, secondaire, children }) {
+function GabaritParcours({ formateur = false, barre, onPasser, points, action, secondaire, children }) {
   const racineRef = useRef(null)
   const actionsRef = useRef(null)
 
@@ -29,7 +28,7 @@ function GabaritParcours({ formateur = false, barre, barreSerree = false, onPass
 
   return (
     <div ref={racineRef} className={`parcours${formateur ? ' parcours-formateur flow-page-formateur' : ''}`}>
-      <main className={`parcours-colonne${barreSerree ? ' parcours-colonne-barre-serree' : ''}`}>
+      <main className="parcours-colonne">
         <div className="parcours-barre">{barre}</div>
         <div className="parcours-contenu">{children}</div>
         <div ref={actionsRef} className="parcours-actions">
