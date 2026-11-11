@@ -249,7 +249,9 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--espace-rangee);
-  padding: var(--espace-ligne);
+  /* ligne de liste dans un Élément (pas une carte de liste à 8) : 12 en haut et en bas, 0 sur les
+     côtés pour garder le texte aligné sur celui de la carte (espacements.md, section 5) */
+  padding: var(--espace-ligne) 0;
   font: var(--typo-meta);
 }
 
