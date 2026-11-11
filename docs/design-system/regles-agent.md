@@ -575,6 +575,7 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 - Ligne de liste ou Padding d'un Élément : une ligne n'a de fond qu'au survol (12) ; un Élément a un fond ou un contour au repos (16).
 
 **Hiérarchie** (section 5) : Surface 20 > Élément 16. Liste : carte à 8, ligne à 12 sur les quatre côtés ; au survol, le fond remplit la ligne, à 8 du bord de la carte.
+- En-tête d'une carte de liste (titre, pastille, compteur, lien posés au-dessus des lignes) : posé comme une ligne, padding `espace-ligne` sur les quatre côtés, sans survol ni séparateur, aucun écart en plus avec la liste. Son texte tombe à 20 du bord de la carte, comme celui des lignes.
 
 **Débords et défilement** (section 6)
 - Une marge négative de débord annule exactement le padding qu'elle traverse et cite son rôle : `calc(-1 * var(--espace-marge-page))`.
@@ -587,6 +588,7 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 **Valeurs hors rôle** (sections 8 et 9)
 - Une valeur qui a un rôle prend la valeur du rôle, jamais un arrondi. Une valeur sans rôle et hors échelle : le palier le plus proche, à égalité le supérieur.
 - Une dimension (réserve, débord d'illustration, marge de page desktop, zone d'action) ou une exception écrite s'écrit en px dans le composant, avec un commentaire qui renvoie à la section d'`espacements.md` (8 ou 9). Jamais un primitif `espace-N`, même quand la valeur existe dans l'échelle.
+- Hauteur minimale d'un en-tête lavande sur desktop (objet 3D centré verticalement) : hauteur de l'objet 3D + 2 × `espace-surface`, en px avec un commentaire qui renvoie à cette section, pour que l'objet reste dans le cadre (même logique que la réserve des illustrations).
 - Implémentation, état du code : des composants lisent encore des primitifs (`var(--espace-N)`) ; ils passent aux rôles avec les lots de migration. Un nouveau code ne lit jamais un primitif.
 
 ### Icônes

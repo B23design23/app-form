@@ -77,6 +77,7 @@ Pour un espacement donné, on se demande dans l'ordre :
 - **Surface 20 > Élément 16.** Un bloc posé dans un autre a un padding plus petit, comme il a un rayon plus petit.
 - **Bloc près du bord : 8 sur les quatre côtés, y compris quand le bloc est le dernier.** Les coins sont alors concentriques (rayon de Surface 30 − 8 = rayon d'Élément 22, `rayons.md`, section 7). Avec deux écarts différents, aucun rayon unique ne peut l'être. **Construction** : le padding de la Surface vaut 8, et le bloc est posé directement, sans calc ni marge négative.
 - **Liste** : la carte de liste a 8 de padding partout, et la ligne porte 12 sur les quatre côtés. Au survol, le fond (`fond-accent`) remplit la ligne : c'est un Élément à 8 du bord de la carte, avec 12 entre son bord et le texte. Le texte tombe à 20 du bord de la carte, comme dans une Surface.
+- **En-tête d'une carte de liste (titre, pastille, compteur, lien posés au-dessus des lignes)** : posé comme une ligne, padding `espace-ligne` sur les quatre côtés, sans survol ni séparateur, aucun écart en plus avec la liste. Son texte tombe à 20 du bord de la carte, comme celui des lignes.
 
 ## 6. Débords et défilement
 
@@ -123,7 +124,8 @@ Restent hors échelle, volontairement, parce que ce sont des dimensions de mise 
 - les débords des illustrations ;
 - les marges de page desktop ;
 - les réserves des zones d'action fixes (bas de page sous une barre d'action) ;
-- la place réservée au-dessus d'une carte badge de fin de quiz (débord de l'illustration).
+- la place réservée au-dessus d'une carte badge de fin de quiz (débord de l'illustration) ;
+- la hauteur minimale d'un en-tête lavande sur desktop (objet 3D centré verticalement) : hauteur de l'objet 3D + 2 × `espace-surface`, en px avec un commentaire qui renvoie à cette section, pour que l'objet reste dans le cadre (même logique que la réserve des illustrations).
 
 **Écriture d'une valeur hors rôle** (dimension de cette section ou exception de la section 9) : en px dans le composant, avec un commentaire qui renvoie à la section, par exemple `/* espacements.md, section 8 : réserve de l'objet 3D */` ou `/* espacements.md, section 9 : onglets Écrire / Aperçu */`. **Jamais un primitif `espace-N`**, même quand la valeur existe dans l'échelle.
 
