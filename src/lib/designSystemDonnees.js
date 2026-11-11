@@ -3,6 +3,7 @@
 // pas encore tokenisées. Aucune valeur n'est écrite à la main ici.
 import primitifsJson from '../../tokens/primitifs-couleurs.tokens.json'
 import espacementsJson from '../../tokens/espacements.tokens.json'
+import rayonsJson from '../../tokens/rayons.tokens.json'
 import communsJson from '../../tokens/semantiques-communs.tokens.json'
 import apprenantJson from '../../tokens/semantiques-apprenant.tokens.json'
 import formateurJson from '../../tokens/semantiques-formateur.tokens.json'
@@ -75,6 +76,14 @@ export const espacements = {
   })),
 }
 
+// --- Rayons ---------------------------------------------------------------------------------------
+
+export const rayons = entrees(rayonsJson.rayon).map(([nom, token]) => ({
+  nom: `--rayon-${nom}`,
+  valeur: `${token.$value.value}${token.$value.unit}`,
+  description: token.$description,
+}))
+
 // --- Valeurs pas encore tokenisées (:root de shared.css) -----------------------------------------
 
 function variablesRoot(css, prefixe) {
@@ -85,7 +94,6 @@ function variablesRoot(css, prefixe) {
   const large = lire(desktop)
   return Object.entries(base).map(([nom, valeur]) => ({ nom, valeur, valeurDesktop: large[nom] ?? null }))
 }
-export const rayons = variablesRoot(sharedCss, 'radius-')
 export const ombreFlottante = variablesRoot(sharedCss, 'ombre-')[0] ?? null
 
 // --- Documentation ---------------------------------------------------------------------------------

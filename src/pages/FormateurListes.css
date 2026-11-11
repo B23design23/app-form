@@ -17,7 +17,7 @@
   height: 100%;
   padding: 20px;
   border: none;
-  border-radius: 26px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   text-align: left;
   color: var(--texte-principal);
@@ -124,7 +124,6 @@
 
   .fl-carte {
     padding: 24px;
-    border-radius: 28px;
   }
 }
 

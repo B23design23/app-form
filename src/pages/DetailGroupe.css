@@ -41,7 +41,7 @@
   min-height: 52px;
   padding: 0 18px 0 48px;
   border: 2px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
@@ -112,7 +112,7 @@
   gap: 10px;
   flex: 0 0 200px;
   padding: 18px;
-  border-radius: 24px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   scroll-snap-align: start;
 }
@@ -137,7 +137,7 @@
   height: 100%;
   min-height: 112px;
   border: 2px dashed var(--bordure-action);
-  border-radius: 24px;
+  border-radius: var(--rayon-surface);
   background: none;
   font: var(--typo-bouton);
   color: var(--texte-accent);
@@ -215,7 +215,7 @@
   flex-direction: column;
   gap: 8px;
   padding: 14px 16px;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
 }
 

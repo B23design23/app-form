@@ -9,7 +9,7 @@
   align-items: flex-start;
   gap: 6px;
   padding: 14px 20px;
-  border-radius: var(--radius-carte);
+  border-radius: var(--rayon-surface);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
   font: var(--typo-corps-courant);
@@ -37,7 +37,7 @@
 
 .completion-toast-xp {
   padding: 2px 12px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
   font: var(--typo-compteur);

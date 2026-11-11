@@ -108,7 +108,7 @@
 
 .contenu-markdown-image {
   max-width: 100%;
-  border-radius: 16px;
+  border-radius: var(--rayon-element);
   display: block;
   margin: 8px 0;
   cursor: zoom-in;
@@ -119,7 +119,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 16px;
+  border-radius: var(--rayon-element);
   overflow: hidden;
   background: var(--fond-page);
   margin: 8px 0;
@@ -148,13 +148,13 @@
 .contenu-markdown-lightbox img {
   max-width: 100%;
   max-height: 100%;
-  border-radius: 16px;
+  border-radius: var(--rayon-element);
 }
 
 .contenu-markdown-table-wrap {
   overflow-x: auto;
   margin: 12px 0;
-  border-radius: 12px;
+  border-radius: var(--rayon-element);
 }
 
 .contenu-markdown table {

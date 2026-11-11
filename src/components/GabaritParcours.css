@@ -159,7 +159,7 @@
   height: 56px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
   color: var(--texte-principal);
   cursor: pointer;
@@ -181,14 +181,14 @@
   flex: 1;
   height: 14px;
   overflow: hidden;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
 }
 
 .parcours-progression-remplissage {
   display: block;
   height: 100%;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-marque);
   transition: all 0.3s ease;
 }
@@ -247,7 +247,7 @@
   padding: 0 22px;
   /* contour de focus à l'intérieur du champ (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
@@ -267,7 +267,7 @@
 .parcours-champ-grand .parcours-input {
   min-height: 64px;
   padding: 0 20px;
-  border-radius: 20px;
+  border-radius: var(--rayon-pilule);
 }
 
 /* Lignes de choix (radiogroup) */
@@ -290,7 +290,7 @@
   min-height: 64px;
   padding: 10px 16px 10px 20px;
   border: 2px solid transparent;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-surface);
   text-align: left;
   font: var(--typo-saisie-choix);
@@ -335,7 +335,7 @@
   width: 24px;
   height: 24px;
   border: 2px solid var(--bordure-controle);
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
   color: var(--texte-sur-action);
   transition: all 0.15s ease;

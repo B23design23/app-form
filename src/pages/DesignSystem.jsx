@@ -236,7 +236,6 @@ function Espacements() {
 function Formes() {
   return (
     <Section numero="04" surtitre="FORMES ET OMBRES" titre="Formes et ombres" intention="Des rayons généreux, et deux ombres seulement.">
-      <p className="ds-meta">{PROVISOIRE}</p>
       <div className="ds-grille">
         {rayons.map((r) => (
           <article key={r.nom} className="espace-carte ds-carte">
@@ -246,6 +245,7 @@ function Formes() {
           </article>
         ))}
       </div>
+      <p className="ds-meta">Ombre : provisoire, pas encore tokenisée</p>
       <div className="ds-grille">
         {ombreFlottante && (
           <article className="espace-carte ds-carte ds-ombre-flottante">

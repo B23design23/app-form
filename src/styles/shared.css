@@ -6,12 +6,6 @@
 
   /* Seule ombre de l'app, réservée aux éléments flottants (menu de la nav, listes déroulantes, toast) */
   --ombre-flottante: 0 12px 32px rgba(30, 26, 51, 0.16);
-
-  --radius-carte: 28px;
-  --radius-carte-petite: 26px;
-  --radius-reponse: 20px;
-  --radius-pill: 999px;
-  --radius-badge: 16px;
 }
 
 .flow-page {
@@ -26,7 +20,7 @@
   width: 100%;
   max-width: 420px;
   background: var(--fond-surface);
-  border-radius: var(--radius-carte);
+  border-radius: var(--rayon-surface);
   padding: 24px 20px 28px;
   display: flex;
   flex-direction: column;
@@ -89,7 +83,7 @@
   padding: 0 18px;
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   font: var(--typo-saisie-choix);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
@@ -100,7 +94,7 @@
   padding: 12px 18px;
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
-  border-radius: var(--radius-reponse);
+  border-radius: var(--rayon-element);
   font: var(--typo-saisie-choix);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
@@ -148,7 +142,7 @@
   min-height: 48px;
   padding: 0 var(--espace-24);
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-action);
   color: var(--texte-sur-action);
   font: var(--typo-bouton);
@@ -177,7 +171,7 @@
   min-height: 48px;
   padding: 0 var(--espace-24);
   border: 2px solid var(--bordure-action);
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: transparent;
   color: var(--texte-accent);
   font: var(--typo-bouton);
@@ -208,7 +202,7 @@
   min-height: 48px;
   padding: 0 var(--espace-24);
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
   font: var(--typo-bouton);
@@ -270,7 +264,7 @@
   align-self: flex-start;
   padding: 0 var(--espace-20) 0 var(--espace-12);
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-bouton);
   color: var(--texte-principal);
@@ -351,7 +345,7 @@
   align-self: flex-start;
   background: none;
   border: 2px dashed var(--bordure-action);
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   padding: 8px var(--espace-24);
   font: var(--typo-bouton);
   color: var(--texte-accent);
@@ -434,7 +428,7 @@
   flex-shrink: 0;
   width: 48px;
   height: 48px;
-  border-radius: var(--radius-badge);
+  border-radius: var(--rayon-rond);
   background: var(--fond-sur-carte);
 }
 

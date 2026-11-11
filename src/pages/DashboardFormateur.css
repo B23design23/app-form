@@ -53,7 +53,7 @@
   display: inline-flex;
   align-items: center;
   padding: 5px 12px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-accent);
   font: var(--typo-pastille);
   color: var(--texte-accent);
@@ -82,7 +82,7 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  border-radius: 28px;
+  border-radius: var(--rayon-surface);
 }
 
 .fd-carte-entete {
@@ -157,7 +157,7 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 18px;
-  border-radius: 28px;
+  border-radius: var(--rayon-surface);
 }
 
 /* Anneau de progression : piste lavande, arc violet, pourcentage au centre */
@@ -225,7 +225,7 @@
   gap: 5px;
   margin-top: 6px;
   padding: 5px 12px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   font: var(--typo-pastille);
   white-space: nowrap;
 }
@@ -263,7 +263,7 @@
   width: 100%;
   padding: 16px 18px;
   border: none;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
   text-align: left;
   color: var(--texte-principal);
@@ -342,7 +342,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 12px 14px 12px 18px;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
 }
@@ -383,7 +383,7 @@
   height: 40px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: none;
   color: var(--texte-accent);
   cursor: pointer;
@@ -401,7 +401,7 @@
   align-items: center;
   gap: 14px;
   padding: 16px 18px;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-succes);
 }
 
@@ -412,7 +412,7 @@
   flex-shrink: 0;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
   color: var(--texte-succes);
 }
@@ -496,7 +496,7 @@
   min-height: 40px;
   padding: 0 16px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-sur-carte);
   font: var(--typo-navigation);
   color: var(--texte-principal);
@@ -532,7 +532,7 @@
   padding: 0 16px 0 40px;
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) */
   border: 2px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-sur-carte);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
@@ -594,7 +594,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-accent);
   font: var(--typo-pastille);
   color: var(--texte-accent);
@@ -623,7 +623,7 @@
 
 .fd-pastille-groupe {
   padding: 4px 10px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-sur-carte);
   font: var(--typo-pastille);
   color: var(--texte-secondaire);
@@ -649,7 +649,7 @@
   flex-direction: column;
   gap: 16px;
   padding: 22px 18px;
-  border-radius: 30px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
 }
 
@@ -684,7 +684,7 @@
   align-items: center;
   gap: 12px 14px;
   padding: 16px;
-  border-radius: 22px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
 }
 
@@ -694,7 +694,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
   font: var(--typo-pastille);
   color: var(--texte-principal);
@@ -770,7 +770,7 @@
   flex-direction: column;
   gap: 4px;
   padding: 20px 22px;
-  border-radius: 28px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
 }
 

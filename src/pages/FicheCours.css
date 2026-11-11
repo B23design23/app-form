@@ -23,7 +23,7 @@
 }
 
 .fiche-carte {
-  border-radius: var(--radius-carte);
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
 }
 
@@ -37,7 +37,7 @@
   flex: 1;
   height: 10px;
   overflow: hidden;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
 }
 
@@ -50,7 +50,7 @@
 .fiche-barre-remplissage {
   display: block;
   height: 100%;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-marque);
   transition: all 0.3s ease;
 }
@@ -65,7 +65,7 @@
   height: 46px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
   color: var(--texte-principal);
   cursor: pointer;
@@ -109,7 +109,7 @@
   min-height: 40px;
   padding: 0 16px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-bouton);
   color: var(--texte-principal);
@@ -162,7 +162,7 @@
   min-height: 44px;
   padding: 0 var(--espace-20) 0 var(--espace-12);
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-bouton);
   color: var(--texte-principal);
@@ -187,7 +187,7 @@
   flex-direction: column;
   gap: 6px;
   padding: 22px 20px 20px;
-  border-radius: 32px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-accent);
 }
 
@@ -249,7 +249,7 @@
 
 .fiche-lecon-contenu .contenu-markdown-image,
 .fiche-lecon-contenu .contenu-markdown-video {
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
 }
 
 /* Encadré « À retenir » */
@@ -258,7 +258,7 @@
   flex-direction: column;
   gap: 12px;
   padding: 18px 20px;
-  border-radius: 24px;
+  border-radius: var(--rayon-element);
   background: var(--fond-accent);
 }
 
@@ -286,7 +286,7 @@
   flex-shrink: 0;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-marque);
   color: var(--texte-sur-marque);
 }
@@ -311,7 +311,7 @@
   flex-direction: column;
   gap: 6px;
   padding: 20px;
-  border-radius: var(--radius-carte);
+  border-radius: var(--rayon-surface);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }
@@ -353,7 +353,7 @@
   height: 54px;
   padding: 0 6px 0 22px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   color: var(--texte-principal);
   font: var(--typo-bouton);
@@ -373,7 +373,7 @@
   justify-content: center;
   width: 42px;
   height: 42px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }
@@ -445,7 +445,7 @@
   min-height: 56px;
   padding: 12px 16px;
   border: 2px solid transparent;
-  border-radius: var(--radius-reponse);
+  border-radius: var(--rayon-element);
   background: var(--fond-surface);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
@@ -489,11 +489,11 @@
 }
 
 .fiche-reponse-controle-rond {
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
 }
 
 .fiche-reponse-controle-carre {
-  border-radius: 6px;
+  border-radius: var(--rayon-case);
 }
 
 .fiche-reponse-controle svg {
@@ -527,7 +527,7 @@
   content: '';
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
 }
 
@@ -579,7 +579,7 @@
   gap: 4px;
   flex-shrink: 0;
   padding: 4px 10px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   font: var(--typo-pastille);
   white-space: nowrap;
 }
@@ -607,7 +607,7 @@
   gap: 8px;
   margin-top: 30px;
   padding: 22px 20px;
-  border-radius: 30px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }
@@ -804,7 +804,7 @@
   gap: 6px;
   margin-top: 20px;
   padding: 6px 16px 6px 8px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
   font: var(--typo-pastille);
@@ -824,7 +824,7 @@
   width: 100%;
   margin-top: calc(32px + 40px);
   padding: 20px 20px 20px 136px;
-  border-radius: 30px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
   text-align: left;
@@ -854,7 +854,7 @@
 
 .fin-quiz-badge-pastille {
   padding: 4px 10px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
   font: var(--typo-pastille);
@@ -1086,7 +1086,7 @@
   flex-shrink: 0;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   font: var(--typo-pastille);
 }
 
@@ -1163,8 +1163,14 @@
 .fiche-etape-courante {
   margin: 4px -8px;
   padding: 16px 14px;
-  border-radius: 22px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
+}
+
+/* Première de la liste : 8 px du haut de la carte, comme sur les côtés (coins concentriques,
+   rayons.md section 7). 10px = padding haut de .fiche-checklist-liste-carte. */
+.fiche-etape-courante:first-child {
+  margin-top: calc(var(--espace-8) - 10px);
 }
 
 .fiche-etape-corps {
@@ -1183,7 +1189,7 @@
 
 .fiche-etape-bloquante {
   padding: 4px 10px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-erreur);
   color: var(--texte-erreur);
   font: var(--typo-pastille);
@@ -1218,7 +1224,7 @@
   height: 44px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
   cursor: pointer;
@@ -1324,7 +1330,7 @@
   align-items: flex-start;
   gap: 6px;
   padding: 22px 20px;
-  border-radius: var(--radius-carte);
+  border-radius: var(--rayon-surface);
   background: var(--fond-marque);
   color: var(--texte-sur-marque);
 }
@@ -1371,7 +1377,6 @@
 
   .fiche-entete {
     padding: 28px 32px;
-    border-radius: 36px;
   }
 
   .fiche-entete-objet {

@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 16px;
   padding: 22px 20px 20px;
-  border-radius: 32px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-accent);
 }
 
@@ -42,7 +42,7 @@
   padding: 0 20px;
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
@@ -62,7 +62,6 @@
 @media (min-width: 768px) {
   .entete-page {
     padding: 32px 36px;
-    border-radius: 36px;
   }
 
   /* Objet centré verticalement, à 48 px du bord droit (152 px Cours, 140 px Terrain) */

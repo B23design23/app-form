@@ -2,7 +2,7 @@
 .reper-etapes {
   position: relative;
   padding: 14px 8px 12px;
-  border-radius: 22px;
+  border-radius: var(--rayon-element);
   background: var(--fond-surface);
 }
 
@@ -50,7 +50,7 @@ button.reper-bouton {
   justify-content: center;
   width: 28px;
   height: 28px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   font: var(--typo-pastille);
   transition: all 0.15s ease;
 }

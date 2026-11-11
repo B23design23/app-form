@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 4px;
   padding: 16px 18px 10px;
-  border-radius: var(--radius-carte);
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   color: var(--texte-principal);
 }
@@ -35,7 +35,7 @@
   flex-shrink: 0;
   width: 34px;
   height: 34px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }

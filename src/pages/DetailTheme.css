@@ -16,7 +16,7 @@
   min-height: 44px;
   padding: 0 var(--espace-20) 0 var(--espace-12);
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-bouton);
   color: var(--texte-principal);
@@ -41,7 +41,7 @@
   flex-direction: column;
   gap: 6px;
   padding: 22px 20px;
-  border-radius: 32px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-accent);
 }
 
@@ -90,7 +90,7 @@
   margin: 0;
   padding: 6px 18px;
   list-style: none;
-  border-radius: var(--radius-carte);
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
 }
 

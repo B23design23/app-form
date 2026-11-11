@@ -92,7 +92,7 @@
   min-height: 40px;
   padding: 0 16px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-navigation);
   color: var(--texte-principal);
@@ -139,7 +139,7 @@
   flex-direction: column;
   gap: 4px;
   padding: 8px;
-  border-radius: 26px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
 }
 
@@ -151,7 +151,7 @@
   min-height: 44px;
   padding: 0 16px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: none;
   font: var(--typo-navigation);
   color: var(--texte-principal);
@@ -201,7 +201,7 @@
   align-self: flex-start;
   margin: 0;
   padding: 8px 16px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-accent);
   color: var(--texte-accent);
   font: var(--typo-pastille);
@@ -212,7 +212,7 @@
   flex-direction: column;
   gap: 18px;
   padding: 26px 16px;
-  border-radius: 30px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   /* sous les pastilles collantes lors du défilement vers une section */
   scroll-margin-top: calc(env(safe-area-inset-top) + 76px);
@@ -258,7 +258,7 @@
 .cc-champ-titre textarea {
   padding-top: 12px;
   padding-bottom: 12px;
-  border-radius: 24px;
+  border-radius: var(--rayon-element);
 }
 
 .cc-ligne-champs {
@@ -289,7 +289,7 @@
   min-height: 44px;
   padding: 0 16px;
   border: 2px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-sur-carte);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
@@ -310,7 +310,7 @@
   width: 22px;
   height: 22px;
   border: 2px solid var(--bordure-controle);
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
   color: var(--texte-sur-action);
 }
@@ -342,7 +342,7 @@
 .cc-editeur {
   overflow: hidden;
   border: 2px solid transparent;
-  border-radius: 22px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
   transition: border-color 0.15s ease;
 }
@@ -363,7 +363,7 @@
   display: inline-flex;
   gap: 2px;
   padding: 3px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
 }
 
@@ -371,7 +371,7 @@
   min-height: 40px;
   padding: 0 16px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: none;
   font: var(--typo-navigation);
   color: var(--texte-principal);
@@ -399,7 +399,7 @@
   min-height: 44px;
   padding: 0 14px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-bouton);
   color: var(--texte-principal);
@@ -458,7 +458,7 @@
   gap: 10px;
   max-width: 100%;
   padding: 4px 4px 4px 4px;
-  border-radius: 16px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
 }
 
@@ -471,7 +471,7 @@
   flex-shrink: 0;
   width: 64px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: var(--rayon-element);
   object-fit: cover;
 }
 
@@ -492,7 +492,7 @@
   height: 40px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: none;
   color: var(--texte-secondaire);
   cursor: pointer;
@@ -513,7 +513,7 @@
 }
 
 .cc-champ-retenir textarea {
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
 }
 
 /* --- QCM ------------------------------------------------------------------------------------- */
@@ -531,7 +531,7 @@
   flex-shrink: 0;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
   font: var(--typo-pastille);
   color: var(--texte-principal);
@@ -563,7 +563,7 @@
   min-height: 56px;
   padding: 10px 14px 10px 12px;
   border: none;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
   text-align: left;
   color: var(--texte-principal);
@@ -602,7 +602,7 @@
   flex-direction: column;
   gap: 14px;
   padding: 14px;
-  border-radius: 24px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
 }
 
@@ -660,7 +660,7 @@
   height: 40px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
   cursor: pointer;
@@ -695,7 +695,7 @@
   flex-direction: column;
   gap: 6px;
   padding: 8px;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-surface);
 }
 
@@ -714,7 +714,7 @@
   height: 40px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-accent);
   font: var(--typo-pastille);
   color: var(--texte-accent);
@@ -728,7 +728,7 @@
   padding: 0 16px;
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-sur-carte);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
@@ -755,7 +755,7 @@
   flex-shrink: 0;
   min-height: 40px;
   padding: 0 8px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   cursor: pointer;
 }
 
@@ -777,14 +777,14 @@
   width: 22px;
   height: 22px;
   border: 2px solid var(--bordure-controle);
-  border-radius: 6px;
+  border-radius: var(--rayon-case);
   background: var(--fond-surface);
   color: var(--texte-sur-succes);
   transition: all 0.15s ease;
 }
 
 .cc-bonne-radio .cc-bonne-repere {
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
 }
 
 .cc-bonne-repere .cc-coche {
@@ -834,7 +834,7 @@
 .cc-modes .cc-mode {
   justify-content: space-between;
   min-height: 48px;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
 }
 
@@ -884,7 +884,7 @@
   padding: 10px;
   /* contour intérieur : transparent au repos, violet sur l'étape en cours d'édition */
   border: 2px solid transparent;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
   transition: border-color 0.15s ease;
 }
@@ -922,14 +922,14 @@
   min-width: 0;
   padding: 12px 16px;
   border: 2px solid transparent;
-  border-radius: 24px;
+  border-radius: var(--rayon-element);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
 }
 
 .cc-etape-intitule.cc-champ-multiligne,
 .cc-champ-titre textarea.cc-champ-multiligne {
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
 }
 
 .cc-etape-intitule:focus {
@@ -971,7 +971,7 @@
   min-height: 40px;
   padding: 0 14px;
   border: 2px solid var(--bordure-controle);
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-pastille);
   color: var(--texte-secondaire);
@@ -994,7 +994,7 @@
   min-height: 40px;
   padding: 0 14px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   font: var(--typo-bouton);
   color: var(--texte-principal);
@@ -1021,7 +1021,7 @@
   flex-direction: column;
   gap: 10px;
   padding: 14px 16px calc(16px + env(safe-area-inset-bottom));
-  border-radius: 26px 26px 0 0;
+  border-radius: var(--rayon-surface) var(--rayon-surface) 0 0;
   background: var(--fond-surface);
   box-shadow: var(--ombre-flottante);
 }
@@ -1169,10 +1169,6 @@
     align-self: flex-start;
   }
 
-  .cc-champ-titre textarea {
-    border-radius: var(--radius-pill);
-  }
-
   /* Étapes sur une ligne : poignée, numéro, intitulé, Bloquante, image, menu */
   .cc-etape-ligne {
     align-items: center;
@@ -1201,7 +1197,6 @@
   .cc-etape-intitule {
     min-height: 44px;
     padding: 10px 16px;
-    border-radius: 22px;
   }
 
   .cc-etape-outils-desktop {
@@ -1241,7 +1236,7 @@
     justify-content: space-between;
     gap: 16px;
     padding: 10px 10px 10px 24px;
-    border-radius: var(--radius-pill);
+    border-radius: var(--rayon-pilule);
   }
 
   .cc-barre-actions .cc-enregistrer,

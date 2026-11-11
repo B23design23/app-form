@@ -50,7 +50,7 @@
   min-width: 0;
   padding: 14px 14px 14px 16px;
   border: none;
-  border-radius: var(--radius-carte-petite);
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   text-align: left;
   color: var(--texte-principal);
@@ -123,7 +123,6 @@
   .theme-carte {
     min-height: 200px;
     padding: 20px;
-    border-radius: var(--radius-carte);
   }
 
   .theme-carte-objet {

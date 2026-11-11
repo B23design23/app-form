@@ -18,7 +18,7 @@
   max-height: 90vh;
   padding: 10px 20px calc(20px + env(safe-area-inset-bottom));
   overflow-y: auto;
-  border-radius: 30px 30px 0 0;
+  border-radius: var(--rayon-surface) var(--rayon-surface) 0 0;
   background: var(--fond-surface);
   /* Élément flottant : seule ombre de l'app (règle des ombres) */
   box-shadow: var(--ombre-flottante);
@@ -30,7 +30,7 @@
   width: 40px;
   height: 5px;
   margin-bottom: 6px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-controle);
 }
 
@@ -74,7 +74,7 @@
   height: 44px;
   padding: 0;
   border: none;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-sur-carte);
   color: var(--texte-principal);
   cursor: pointer;
@@ -128,7 +128,7 @@
   min-height: 48px;
   padding: 0 24px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-erreur-accentue);
   color: var(--texte-sur-erreur);
   font: var(--typo-bouton);
@@ -164,7 +164,7 @@
   .modale {
     max-width: 520px;
     padding: 28px;
-    border-radius: 30px;
+    border-radius: var(--rayon-surface);
   }
 
   .modale-etroite {

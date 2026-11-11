@@ -1,5 +1,5 @@
 .quiz-feedback {
-  border-radius: var(--radius-reponse);
+  border-radius: var(--rayon-element);
   padding: 12px 14px;
   font: var(--typo-texte-secondaire);
 }

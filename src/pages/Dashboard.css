@@ -53,7 +53,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: var(--radius-carte);
+  border-radius: var(--rayon-surface);
   padding: 18px 20px;
 }
 
@@ -83,7 +83,7 @@
 }
 
 .dash-carte-tete {
-  border-radius: 32px;
+  border-radius: var(--rayon-surface);
 }
 
 /* Objet 3D qui déborde au-dessus du cadre, en haut à droite (30 px de marge au-dessus du bloc) */
@@ -178,7 +178,7 @@
   align-items: center;
   gap: 6px;
   padding: 6px 12px 6px 8px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
   font: var(--typo-pastille);
@@ -192,7 +192,7 @@
 .dash-pastille-orange {
   align-self: flex-start;
   padding: 6px 12px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
   font: var(--typo-pastille);
@@ -207,7 +207,7 @@
   height: 54px;
   padding: 0 6px 0 22px;
   border: none;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
   color: var(--texte-principal);
   font: var(--typo-bouton);
@@ -227,7 +227,7 @@
   justify-content: center;
   width: 42px;
   height: 42px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }
@@ -253,7 +253,7 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
+  border-radius: var(--rayon-rond);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
 }
@@ -273,13 +273,13 @@
 .dash-barre {
   flex: 1;
   overflow: hidden;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
 }
 
 .dash-barre-remplissage {
   display: block;
   height: 100%;
-  border-radius: var(--radius-pill);
+  border-radius: var(--rayon-pilule);
 }
 
 .dash-barre-fine {
@@ -571,7 +571,7 @@
   flex-shrink: 0;
   width: 68px;
   height: 68px;
-  border-radius: 22px;
+  border-radius: var(--rayon-element);
   background: var(--fond-surface);
 }
 
@@ -661,7 +661,7 @@
   height: 48px;
   padding: 0;
   border: none;
-  border-radius: var(--radius-badge);
+  border-radius: var(--rayon-rond);
   background: var(--fond-surface);
   cursor: pointer;
   transition: all 0.15s ease;
@@ -730,11 +730,6 @@
     margin-top: 0;
   }
 
-  .dash-carte-tete,
-  .dash-cellule-tete .dash-carte {
-    border-radius: 36px;
-  }
-
   /* Objet du bloc de tête : coin supérieur droit, 24 px du bord droit, 30 px de débord au-dessus,
      160 px (ne descend pas plus bas que l'anneau de 120 px) */
   .dash-objet-deborde {
@@ -772,7 +767,6 @@
   .dash-cellule-badges:not(.dash-cellule-pleine) .dash-collection-badge {
     width: 64px;
     height: 64px;
-    border-radius: 20px;
   }
 
   .dash-cellule-badges:not(.dash-cellule-pleine) .dash-collection-badge img {
@@ -798,7 +792,6 @@
   .dash-cellule-badges-verticale .dash-badge-vignette {
     width: 148px;
     height: 148px;
-    border-radius: 32px;
   }
 
   .dash-cellule-badges-verticale .dash-badge-gris {
@@ -944,7 +937,7 @@
   max-width: 640px;
   max-height: calc(100vh - 40px);
   padding: 24px 20px;
-  border-radius: 32px;
+  border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   box-shadow: var(--ombre-flottante);
 }
@@ -990,7 +983,7 @@
   gap: 4px;
   padding: 10px 6px;
   border: 2px solid transparent;
-  border-radius: 24px;
+  border-radius: var(--rayon-element);
   text-align: center;
   transition: all 0.15s ease;
 }
@@ -1007,7 +1000,7 @@
   width: 96px;
   height: 96px;
   margin-bottom: 6px;
-  border-radius: 20px;
+  border-radius: var(--rayon-element);
   /* Pastille sur la modale blanche : fond crème (règle de contraste par le fond) */
   background: var(--fond-sur-carte);
 }
