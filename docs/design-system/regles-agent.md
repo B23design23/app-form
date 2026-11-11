@@ -535,7 +535,7 @@ Dans cet ordre, on s'arrête à la première réponse.
 - Les illustrations n'ont pas de rayon.
 - La page `/design-system` suit les mêmes rôles.
 - Un Élément posé à moins de 20 px du bord de sa Surface suit la règle du bord : rôle Bloc près du bord, le même écart en haut, en bas et sur les côtés (valeur et construction dans `docs/tokens/espacements.md`, sections 4 et 5). Les coins sont alors concentriques (rayon-surface − écart = rayon-element). Avec deux écarts différents, aucun rayon unique ne peut l'être.
-- Implémentation, état du code : les variables `--radius-*` de `shared.css` existent encore et seront retirées à l'étape écrans. Un nouveau code ne les utilise jamais, il lit `--rayon-*`.
+- Implémentation, état du code : les variables `--radius-*` ont été retirées de `shared.css` (chantier rayons, a12a3f2). Tous les rayons lisent `--rayon-*`.
 
 **Provisoire et hors chantier** (section 11)
 - *Provisoire* : Bouton Fermer de la modale Mes badges (`.modal-fermer`, 8 px) : laissé tel quel. Il n'est pas carré, un Rond en ferait une ellipse. À régler au chantier mise en page en passant Mes badges sur le composant Modale.
