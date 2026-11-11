@@ -81,7 +81,7 @@ Le lien texte, pour une action secondaire qui ne mérite pas de zone.
 Variantes et usage
 - Texte : saisie courte, en pilule.
 - Mot de passe : texte masqué, aide « 6 caractères minimum » dessous.
-- Multiligne : saisie longue, rayon 20 px, hauteur ajustée au contenu.
+- Multiligne : saisie longue, rayon Élément (rôle dans `docs/tokens/rayons.md`), hauteur ajustée au contenu.
 - Recherche : pilule blanche avec loupe, résultats dès 2 caractères.
 
 Fond (règle principale)
@@ -140,7 +140,7 @@ Rôle
 Ouvrir une page de section (Cours, Terrain) : dire où l'on est et ce qu'on y trouve.
 
 Anatomie
-Bloc lavande, rayon 32 px (36 sur desktop), titre de page, sous-titre, objet 3D en haut à droite, recherche optionnelle (Cours).
+Bloc lavande, rayon Surface (rôle dans `docs/tokens/rayons.md`), titre de page, sous-titre, objet 3D en haut à droite, recherche optionnelle (Cours).
 
 Règle principale
 L'objet 3D reste dans le cadre, sans débord ni ombre.
@@ -289,7 +289,7 @@ Fond `fond-inverse`, texte `texte-sur-inverse`, pastille XP en `fond-recompense`
 
 ## Navigation
 
-- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon `--radius-carte` (*Provisoire, pas encore tokenisé*), marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
+- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon Surface (rôle dans `docs/tokens/rayons.md`), marges `espace-12` sur les côtés et `espace-20` en bas, 4 entrées de largeur égale avec icône et libellé.
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`.
 - Onglets inactifs : `texte-sur-inverse`.
