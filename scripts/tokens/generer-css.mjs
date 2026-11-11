@@ -22,6 +22,7 @@ const ENTETE = 'Fichier généré depuis tokens/. Ne pas modifier à la main.'
 const COMMUNS = [
   'tokens/primitifs-couleurs.tokens.json',
   'tokens/espacements.tokens.json',
+  'tokens/rayons.tokens.json',
   'tokens/semantiques-communs.tokens.json',
   'tokens/typographie.tokens.json',
 ]

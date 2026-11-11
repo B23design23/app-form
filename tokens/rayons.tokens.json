@@ -1,0 +1,45 @@
+{
+  "rayon": {
+    "$description": "Rayon des coins. Le rôle se choisit par la forme puis par la place de l'élément (docs/tokens/rayons.md, section 4), jamais par la valeur actuelle ni par la taille. Une seule valeur par rôle, à toutes les largeurs.",
+    "pilule": {
+      "$type": "dimension",
+      "$value": {
+        "value": 999,
+        "unit": "px"
+      },
+      "$description": "Élément dont les deux bouts sont des demi-cercles. Passe avant le rôle de niveau."
+    },
+    "rond": {
+      "$type": "dimension",
+      "$value": {
+        "value": 999,
+        "unit": "px"
+      },
+      "$description": "Élément carré rendu circulaire. Même valeur que la pilule : sur un carré, elle donne un cercle."
+    },
+    "case": {
+      "$type": "dimension",
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
+      "$description": "Case à cocher. Un radio prend rayon-rond."
+    },
+    "surface": {
+      "$type": "dimension",
+      "$value": {
+        "value": 30,
+        "unit": "px"
+      },
+      "$description": "Bloc posé directement sur le fond de la page, ou flottant au-dessus. Toujours plus arrondi que rayon-element. En feuille mobile, sur les deux coins du haut seulement."
+    },
+    "element": {
+      "$type": "dimension",
+      "$value": {
+        "value": 22,
+        "unit": "px"
+      },
+      "$description": "Bloc à fond ou à contour posé dans une surface, à n'importe quelle profondeur. Aussi : choix de réponse en ligne, champ multiligne, image, vidéo ou tableau de contenu, où qu'ils soient."
+    }
+  }
+}

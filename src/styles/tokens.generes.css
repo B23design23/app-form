@@ -36,6 +36,11 @@
   --espace-24: 24px; /** Remplace aussi 22 px et 26 px. */
   --espace-32: 32px; /** Gardé malgré sa faible fréquence. Remplace aussi 28 px et 30 px. */
   --espace-40: 40px; /** Plus grand palier. Remplace aussi 36 px. */
+  --rayon-pilule: 999px; /** Élément dont les deux bouts sont des demi-cercles. Passe avant le rôle de niveau. */
+  --rayon-rond: 999px; /** Élément carré rendu circulaire. Même valeur que la pilule : sur un carré, elle donne un cercle. */
+  --rayon-case: 6px; /** Case à cocher. Un radio prend rayon-rond. */
+  --rayon-surface: 30px; /** Bloc posé directement sur le fond de la page, ou flottant au-dessus. Toujours plus arrondi que rayon-element. En feuille mobile, sur les deux coins du haut seulement. */
+  --rayon-element: 22px; /** Bloc à fond ou à contour posé dans une surface, à n'importe quelle profondeur. Aussi : choix de réponse en ligne, champ multiligne, image, vidéo ou tableau de contenu, où qu'ils soient. */
   --fond-inverse-survol: color-mix(in srgb, var(--couleur-blanc) 12%, transparent); /** Survol d'une entrée de la barre de navigation (blanc à 12 %). Composantes de couleur.blanc, opacité 12 % portée par ce sémantique. */
   --fond-voile: color-mix(in srgb, var(--couleur-ardoise-900) 45%, transparent); /** Derrière une modale ou un menu (encre à 45 %). Composantes de couleur.ardoise-900, opacité 45 % portée par ce sémantique. */
   --fond-voile-accentue: color-mix(in srgb, var(--couleur-ardoise-900) 85%, transparent); /** Visionneuse d'images, miniature « +N » (encre à 85 %, garantit la lisibilité du « +N » blanc sur une image quelconque). Composantes de couleur.ardoise-900, opacité 85 % portée par ce sémantique. */
