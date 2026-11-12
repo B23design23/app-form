@@ -211,7 +211,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 - Le raccourci `font` ne porte pas l'espacement des lettres : la valeur reste écrite dans `tokens/` (0 pour tous les rôles, section 5) et le primitif `typo-espacement-lettres-0` existe, mais elle ne sort pas dans `--typo-<rôle>`.
 - Le raccourci `font` remet aussi `font-style` à sa valeur initiale : une italique se déclare après lui.
-- **Titres** : chaque `font: var(--typo-titre-…)` est accompagné de `hyphens: auto` (coupure à la syllabe, avec tiret), de `hyphenate-limit-chars: 10 4 4`, `-webkit-hyphenate-limit-before: 4` et `-webkit-hyphenate-limit-after: 4` (mot de 10 lettres ou plus, au moins 4 lettres de chaque côté du tiret ; les deux dernières pour WebKit) et de `overflow-wrap: break-word` (filet : coupure sans tiret si aucune syllabe ne convient). Jamais `hyphens: manual` ni `overflow-wrap: normal` sur un titre (section 5, césure des titres).
+- **Titres** : chaque `font: var(--typo-titre-…)` est accompagné de `hyphens: auto` (coupure à la syllabe, avec tiret), de `hyphenate-limit-chars: 10 4 4`, `-webkit-hyphenate-limit-before: 4` et `-webkit-hyphenate-limit-after: 4` (mot de 10 lettres ou plus, au moins 4 lettres de chaque côté du tiret ; les deux dernières pour WebKit) de `overflow-wrap: break-word` (filet : coupure sans tiret si aucune syllabe ne convient) et de `text-wrap: balance` (lignes équilibrées ; `index.css` le pose sur `h1`, `h2`, `h3`, tout autre élément qui porte un rôle de titre le déclare dans sa règle). Jamais `hyphens: manual` ni `overflow-wrap: normal` sur un titre (section 5, césure des titres).
 
 ## 12. Exemples non conformes
 
