@@ -21,6 +21,7 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
   const [questions, setQuestions] = useState([])
   const [resultat, setResultat] = useState(null)
   const [envoiEnCours, setEnvoiEnCours] = useState(false)
+  const [erreurEnregistrement, setErreurEnregistrement] = useState(false)
 
   const { quiz, reinitialiser, basculer, valider, suivante } = useQuiz(questions)
 
@@ -40,7 +41,8 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
 
       if (annule) return
       if (erreurScores) {
-        setErreur(erreurScores.message)
+        console.error('quiz flash, scores', erreurScores.message)
+        setErreur(true)
         setChargement(false)
         return
       }
@@ -54,7 +56,8 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
 
       if (annule) return
       if (erreurQuestions) {
-        setErreur(erreurQuestions.message)
+        console.error('quiz flash, questions', erreurQuestions.message)
+        setErreur(true)
         setChargement(false)
         return
       }
@@ -83,13 +86,15 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
 
     const bonnes = historique.filter((h) => h.correcte).length
     const score = Math.round((bonnes / questions.length) * 100)
-    await supabase.from('scores').insert({
+    const { error: erreurScore } = await supabase.from('scores').insert({
       user_id: authUser.id,
       cours_id: null,
       type: 'quiz_flash',
       score,
       date: new Date().toISOString(),
     })
+    if (erreurScore) console.error('quiz flash, score', erreurScore.message)
+    setErreurEnregistrement(Boolean(erreurScore))
 
     // 50 % et plus : 30 XP et vérification des badges (Éclair)
     let badges = []
@@ -112,7 +117,7 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
   if (chargement) {
     return (
       <div className="fiche-page">
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       </div>
     )
   }
@@ -124,9 +129,11 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
           <button type="button" className="fiche-retour" onClick={onRetour}>
             Retour à l'accueil
           </button>
-          <p className="message message-erreur">
-            {erreur ? `Impossible de charger le quiz flash (${erreur}).` : 'Aucune question disponible pour le quiz flash.'}
-          </p>
+          {erreur ? (
+            <p className="message message-erreur">Impossible de charger le quiz flash.</p>
+          ) : (
+            <p className="dashboard-etat-vide">Aucune question disponible pour le quiz flash.</p>
+          )}
         </div>
       </div>
     )
@@ -138,6 +145,11 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
     const accueil = { bouton: "Retour à l'accueil", onClick: onRetour }
     return (
       <div className="fiche-page">
+        {erreurEnregistrement && (
+          <p className="message message-erreur fiche-erreur-enregistrement" role="alert">
+            Ton score n'a pas pu être enregistré.
+          </p>
+        )}
         <EcranFinQuiz
           titreBarre="Quiz flash"
           onRetour={onRetour}

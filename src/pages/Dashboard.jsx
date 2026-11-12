@@ -147,7 +147,10 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
       .single()
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurProfil(error.message)
+        if (error) {
+          console.error('profil', error.message)
+          setErreurProfil(true)
+        }
         else setProfil(data)
       })
 
@@ -165,7 +168,10 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
       .select('id, titre, categorie, ordre, visibilite, questions(id), etapes_checklist(id)')
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurCours(error.message)
+        if (error) {
+          console.error('cours', error.message)
+          setErreurCours(true)
+        }
         else setCoursListe(data ?? [])
       })
 
@@ -211,7 +217,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   if (erreurProfil) {
     return (
       <div className="espace-page espace-page-etroit">
-        <p className="message message-erreur">Impossible de charger ton profil ({erreurProfil}).</p>
+        <p className="message message-erreur">Impossible de charger ton profil.</p>
       </div>
     )
   }
@@ -219,7 +225,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   if (!profil || (coursListe === null && !erreurCours)) {
     return (
       <div className="espace-page espace-page-etroit">
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       </div>
     )
   }
@@ -638,7 +644,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         </span>
       </header>
 
-      {erreurCours && <p className="message message-erreur">Impossible de charger tes cours ({erreurCours}).</p>}
+      {erreurCours && <p className="message message-erreur">Impossible de charger tes cours.</p>}
 
       {blocs.length > 0 && (
         <div className="dash-blocs">

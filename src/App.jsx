@@ -148,7 +148,7 @@ function App() {
     return (
       <div className="flow-page">
         <div className="flow-card">
-          <p>Chargement…</p>
+          <p className="etat-chargement">Chargement…</p>
         </div>
       </div>
     )
