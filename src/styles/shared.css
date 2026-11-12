@@ -21,7 +21,8 @@
 
 .flow-card {
   width: 100%;
-  max-width: 420px;
+  /* mise-en-page.md, section 3 : colonne Formulaire */
+  max-width: 440px;
   background: var(--fond-surface);
   border-radius: var(--rayon-surface);
   padding: var(--espace-surface);
@@ -33,7 +34,8 @@
 
 .page-logo-wrapper {
   width: 100%;
-  max-width: 420px;
+  /* mise-en-page.md, section 3 : colonne Formulaire */
+  max-width: 440px;
   align-self: flex-start;
   display: flex;
   flex-direction: column;
@@ -189,14 +191,6 @@
   }
 }
 
-/* Focus clavier des boutons principal et secondaire (règle de focus des boutons du DS) : contour de
-   2 px à l'extérieur, bordure-focus, visible au clavier seulement */
-.bouton-primaire:focus-visible,
-.bouton-secondaire:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
-}
-
 /* Bouton orange : réservé au lancement du quiz flash, texte encre (jamais blanc sur orange) */
 .bouton-orange {
   display: inline-flex;
@@ -285,11 +279,6 @@
   .lien-retour:hover {
     background: var(--fond-accent);
   }
-}
-
-.lien-retour:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
 }
 
 /* Mobile : chevron seul, le libellé reste lu par les lecteurs d'écran (nom accessible : aria-label) */
@@ -490,4 +479,31 @@ label {
 
 .bouton-orange:active:not(:disabled) {
   background: var(--fond-recompense-survol);
+}
+
+/* Focus clavier de tout élément interactif qui n'est pas un champ (ds-principes-composants.md, Focus) :
+   contour de 2 px à l'extérieur, décalé de 2 px, visible au clavier seulement. Spécificité nulle
+   (:where) : un champ garde son focus dessiné à l'intérieur (bordure), défini dans sa propre règle. */
+:where(:not(input, textarea, select):focus-visible) {
+  outline: 2px solid var(--bordure-focus);
+  outline-offset: 2px;
+}
+
+/* Texte indicatif de tous les champs (ds-principes-composants.md, Champ) */
+::placeholder {
+  color: var(--texte-secondaire);
+  opacity: 1;
+}
+
+/* Champ en erreur : contour bordure-erreur sur le champ lié au message (aria-invalid) */
+:is(input, textarea, select, button)[aria-invalid='true'] {
+  border-color: var(--bordure-erreur);
+}
+
+/* « Chargement… » posé à la place du contenu attendu (ds-principes-composants.md, États de page) :
+   l'écart vient du conteneur */
+.etat-chargement {
+  margin: 0;
+  font: var(--typo-texte-secondaire);
+  color: var(--texte-secondaire);
 }
