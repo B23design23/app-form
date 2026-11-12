@@ -5,7 +5,9 @@
 .cc-page {
   min-height: 100vh;
   /* marge basse : la barre d'enregistrement ne cache jamais le dernier bouton */
-  padding: calc(env(safe-area-inset-top) + 16px) 16px calc(150px + env(safe-area-inset-bottom));
+  /* marge de page sur les côtés ; espacements.md, section 8 : haut de la page en mode concentré (16 + zone de
+     sécurité) et réserve de la barre d'enregistrement en bas (150) */
+  padding: calc(env(safe-area-inset-top) + 16px) var(--espace-marge-page) calc(150px + env(safe-area-inset-bottom));
   background: var(--fond-page);
   color: var(--texte-principal);
 }
@@ -14,7 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: var(--espace-groupes);
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -39,7 +41,7 @@
 .cc-entete-mobile {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .cc-entete-mobile-titres {
@@ -59,7 +61,7 @@
 }
 
 .cc-entete-mobile p {
-  margin: 2px 0 0;
+  margin: var(--espace-textes) 0 0;
   overflow: hidden;
   font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
@@ -72,9 +74,11 @@
   top: 0;
   z-index: 20;
   display: flex;
-  gap: 8px;
-  margin: 0 -16px;
-  padding: calc(env(safe-area-inset-top) + 12px) 16px 12px;
+  gap: var(--espace-repetition);
+  /* barre collante sur toute la largeur : traverse la marge de page et la reprend (section 6) ;
+     espacements.md, section 8 : 12 en haut (+ zone de sécurité) et en bas */
+  margin: 0 calc(-1 * var(--espace-marge-page));
+  padding: calc(env(safe-area-inset-top) + 12px) var(--espace-marge-page) 12px;
   overflow-x: auto;
   background: var(--fond-page);
   scrollbar-width: none;
@@ -87,10 +91,10 @@
 .cc-pastille {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--espace-icone);
   flex-shrink: 0;
   min-height: 40px;
-  padding: 0 16px;
+  padding: 0 var(--espace-navigation-horizontal);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -130,15 +134,15 @@
 .cc-contenu {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--espace-blocs);
   min-width: 0;
 }
 
 .cc-sommaire {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 8px;
+  gap: var(--espace-repetition);
+  padding: var(--espace-bord);
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
 }
@@ -147,9 +151,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: var(--espace-icone);
   min-height: 44px;
-  padding: 0 16px;
+  padding: 0 var(--espace-navigation-horizontal);
   border: none;
   border-radius: var(--rayon-pilule);
   background: none;
@@ -174,7 +178,7 @@
 .cc-lien {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--espace-icone);
   padding: 0;
   border: none;
   background: none;
@@ -186,7 +190,7 @@
 .cc-lien-apercu {
   align-self: flex-start;
   min-height: 44px;
-  padding: 0 8px;
+  padding: 0 var(--espace-lien);
 }
 
 .cc-lien {
@@ -200,7 +204,7 @@
 .creation-badge-officiel {
   align-self: flex-start;
   margin: 0;
-  padding: 8px 16px;
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   background: var(--fond-accent);
   color: var(--texte-accent);
@@ -210,11 +214,12 @@
 .cc-carte {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 26px 16px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   /* sous les pastilles collantes lors du défilement vers une section */
+  /* espacements.md, section 8 : position de défilement sous la barre collante */
   scroll-margin-top: calc(env(safe-area-inset-top) + 76px);
 }
 
@@ -233,7 +238,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .cc-libelle {
@@ -256,6 +261,7 @@
 }
 
 .cc-champ-titre textarea {
+  /* espacements.md, section 7 : le Champ fixe les côtés ; haut et bas du champ multiligne gardés */
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: var(--rayon-element);
@@ -264,7 +270,7 @@
 .cc-ligne-champs {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--espace-groupes);
 }
 
 /* --- Choix : boutons à sélection (groupes, type de réponse, mode de checklist) ----------------- */
@@ -272,22 +278,22 @@
 .cc-groupes {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--espace-textes);
 }
 
 .cc-groupes-liste {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--espace-repetition);
 }
 
 .cc-choix-groupe,
 .cc-choix {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espace-icone);
   min-height: 44px;
-  padding: 0 16px;
+  padding: 0 var(--espace-choix-horizontal);
   border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
   background: var(--fond-sur-carte);
@@ -299,7 +305,7 @@
 }
 
 .cc-choix-groupe {
-  padding-left: 12px;
+  padding-left: var(--espace-choix-horizontal);
 }
 
 .cc-rond {
@@ -355,21 +361,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 10px;
+  gap: var(--espace-rangee);
+  padding: var(--espace-bord);
 }
 
 .cc-onglets {
   display: inline-flex;
-  gap: 2px;
-  padding: 3px;
+  gap: var(--espace-repetition);
+  /* espacements.md, section 9 : padding du sélecteur « Écrire / Aperçu » (exception) */
+  padding: 4px;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
 }
 
 .cc-onglet {
   min-height: 40px;
-  padding: 0 16px;
+  padding: 0 var(--espace-choix-horizontal);
   border: none;
   border-radius: var(--rayon-pilule);
   background: none;
@@ -387,17 +394,17 @@
 
 .cc-editeur-actions {
   display: flex;
-  gap: 6px;
+  gap: var(--espace-repetition);
 }
 
 .cc-bouton-outil {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--espace-icone);
   min-width: 44px;
   min-height: 44px;
-  padding: 0 14px;
+  padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -416,7 +423,7 @@
   display: block;
   width: 100%;
   min-height: 320px;
-  padding: 16px 18px;
+  padding: var(--espace-champ);
   border: none;
   background: transparent;
   font: var(--typo-saisie-choix);
@@ -429,10 +436,11 @@
 }
 
 .cc-apercu {
-  padding: 12px;
+  padding: var(--espace-element);
 }
 
 .cc-apercu > .fm-texte {
+  /* espacements.md, section 8 : padding du texte dans l'aperçu, sans rôle */
   padding: 8px;
 }
 
@@ -440,13 +448,13 @@
 .cc-images-lecon {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espace-textes);
 }
 
 .cc-miniatures {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--espace-repetition);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -455,9 +463,9 @@
 .cc-etiquette-image {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espace-rangee);
   max-width: 100%;
-  padding: 4px 4px 4px 4px;
+  padding: var(--espace-etiquette);
   border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
 }
@@ -509,7 +517,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 4px 12px;
+  gap: var(--espace-textes);
 }
 
 .cc-champ-retenir textarea {
@@ -521,7 +529,7 @@
 .cc-questions {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--espace-repetition);
 }
 
 .cc-numero {
@@ -558,10 +566,10 @@
 .cc-question-repliee {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espace-rangee);
   width: 100%;
   min-height: 56px;
-  padding: 10px 14px 10px 12px;
+  padding: var(--espace-element);
   border: none;
   border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
@@ -600,8 +608,8 @@
 .cc-question {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 14px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-element);
   border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
 }
@@ -609,7 +617,7 @@
 .cc-question-entete {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espace-rangee);
 }
 
 .cc-question-entete h3 {
@@ -645,12 +653,14 @@
   display: block;
   width: 100%;
   min-height: 56px;
+  /* espacements.md, section 8 : réserve du bouton image dans le champ */
   padding-right: 60px;
   resize: vertical;
 }
 
 .cc-bouton-image-interne {
   position: absolute;
+  /* espacements.md, section 8 : position du bouton dans la réserve du champ */
   top: 6px;
   right: 6px;
   display: inline-flex;
@@ -670,7 +680,7 @@
 .cc-type-reponse {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: var(--espace-repetition);
 }
 
 .cc-type-reponse .cc-choix,
@@ -687,14 +697,14 @@
 .cc-reponses {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espace-repetition);
 }
 
 .cc-reponse {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 8px;
+  gap: var(--espace-textes);
+  padding: var(--espace-choix-vertical) var(--espace-choix-horizontal);
   border-radius: var(--rayon-element);
   background: var(--fond-surface);
 }
@@ -702,7 +712,7 @@
 .cc-reponse-ligne {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--espace-rangee);
 }
 
 .cc-lettre {
@@ -725,7 +735,7 @@
   flex: 1;
   min-width: 0;
   min-height: 44px;
-  padding: 0 16px;
+  padding: 0 var(--espace-champ);
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
@@ -736,8 +746,9 @@
 
 .cc-reponse-explication {
   min-height: 40px;
-  /* décalé sous le texte de la réponse, pas sous la lettre */
-  margin-left: 48px;
+  /* décalé sous le texte de la réponse, pas sous la lettre : lettre 40 + Rangée */
+  /* espacements.md, section 8 : retrait calculé (lettre 40 + Rangée) */
+  margin-left: calc(40px + var(--espace-rangee));
 }
 
 .cc-reponse-texte:focus,
@@ -751,10 +762,10 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--espace-icone);
   flex-shrink: 0;
   min-height: 40px;
-  padding: 0 8px;
+  padding: 0 var(--espace-choix-horizontal);
   border-radius: var(--rayon-pilule);
   cursor: pointer;
 }
@@ -828,7 +839,7 @@
 .cc-modes {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
+  gap: var(--espace-repetition);
 }
 
 .cc-modes .cc-mode {
@@ -851,7 +862,7 @@
 .cc-mode-textes {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--espace-textes);
 }
 
 .cc-mode-libelle {
@@ -871,7 +882,7 @@
 .cc-etapes {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espace-repetition);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -880,8 +891,8 @@
 .cc-etape {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 10px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-element);
   /* contour intérieur : transparent au repos, violet sur l'étape en cours d'édition */
   border: 2px solid transparent;
   border-radius: var(--rayon-element);
@@ -901,15 +912,18 @@
 .cc-etape-ligne {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: var(--espace-rangee);
 }
 
+/* espacements.md, section 9 : centrage optique du numéro et du menu sur la première ligne de
+   l'intitulé (multiligne : un align-items ne reproduit pas le rendu) */
 .cc-etape-ligne > .cc-numero,
 .cc-etape-ligne > .fm-menu {
   margin-top: 4px;
 }
 
 .cc-etape-ligne > .cc-numero {
+  /* espacements.md, section 9 : centrage optique du numéro (voir plus haut) */
   margin-top: 8px;
 }
 
@@ -920,7 +934,8 @@
 .cc-etape-intitule {
   flex: 1;
   min-width: 0;
-  padding: 12px 16px;
+  /* espacements.md, section 7 : le Champ fixe les côtés ; haut et bas de l'intitulé gardés */
+  padding: 12px var(--espace-champ);
   border: 2px solid transparent;
   border-radius: var(--rayon-element);
   font: var(--typo-saisie-choix);
@@ -949,16 +964,18 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  /* décalés sous l'intitulé (numéro 32 px + écart 8 px) */
-  padding-left: 40px;
+  gap: var(--espace-repetition);
+  /* décalés sous l'intitulé : numéro 32 px + Rangée */
+  /* espacements.md, section 8 : retrait calculé (numéro 32 + Rangée) */
+  padding-left: calc(32px + var(--espace-rangee));
 }
 
 .cc-etape-details {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-left: 40px;
+  gap: var(--espace-groupes);
+  /* espacements.md, section 8 : retrait calculé (numéro 32 + Rangée) */
+  padding-left: calc(32px + var(--espace-rangee));
 }
 
 .cc-etape-details:empty {
@@ -969,7 +986,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 40px;
-  padding: 0 14px;
+  padding: 0 var(--espace-pastille-horizontal);
   border: 2px solid var(--bordure-controle);
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -989,10 +1006,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: var(--espace-icone);
   min-width: 40px;
   min-height: 40px;
-  padding: 0 14px;
+  padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -1019,8 +1036,9 @@
 .cc-barre {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 14px 16px calc(16px + env(safe-area-inset-bottom));
+  gap: var(--espace-rangee);
+  /* barre fixe : marge de page sur les côtés ; espacements.md, section 8 : 14 en haut, 16 + zone de sécurité en bas */
+  padding: 14px var(--espace-marge-page) calc(16px + env(safe-area-inset-bottom));
   border-radius: var(--rayon-surface) var(--rayon-surface) 0 0;
   background: var(--fond-surface);
   box-shadow: var(--ombre-flottante);
@@ -1029,7 +1047,7 @@
 .cc-barre-message {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--espace-icone);
   margin: 0;
   font: var(--typo-texte-secondaire);
   color: var(--texte-principal);
@@ -1042,7 +1060,7 @@
 .cc-barre-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--espace-repetition);
 }
 
 .cc-barre-actions .cc-enregistrer {
@@ -1126,6 +1144,8 @@
 /* --- Tablette (≥ 768 px) : champs côte à côte, libellés longs --------------------------------- */
 
 @media (min-width: 768px) {
+  /* espacements.md, section 8 : marge de page au-dessus de 768, valeur actuelle gardée (32) ; la barre de
+     pastilles la traverse et la reprend */
   .cc-page {
     padding-left: 32px;
     padding-right: 32px;
@@ -1133,12 +1153,9 @@
 
   .cc-pastilles {
     margin: 0 -32px;
+    /* espacements.md, section 8 : marge de page desktop gardée */
     padding-left: 32px;
     padding-right: 32px;
-  }
-
-  .cc-carte {
-    padding: 28px;
   }
 
   .cc-ligne-champs {
@@ -1158,11 +1175,7 @@
 
   .cc-modes .cc-mode {
     min-height: 64px;
-    padding: 10px 16px;
-  }
-
-  .cc-question {
-    padding: 18px;
+    padding: var(--espace-choix-vertical) var(--espace-choix-horizontal);
   }
 
   .cc-ajouter-large {
@@ -1196,13 +1209,14 @@
 
   .cc-etape-intitule {
     min-height: 44px;
-    padding: 10px 16px;
+    /* espacements.md, section 7 : le Champ fixe les côtés ; haut et bas gardés (10) */
+    padding: 10px var(--espace-champ);
   }
 
   .cc-etape-outils-desktop {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--espace-repetition);
     flex-shrink: 0;
   }
 
@@ -1215,12 +1229,14 @@
     display: none;
   }
 
-  /* sous l'intitulé : poignée 28 + numéro 32 + 2 écarts de 8 px */
+  /* sous l'intitulé : poignée 28 + numéro 32 + 2 Rangées */
   .cc-etape-details {
-    padding-left: 76px;
+    /* espacements.md, section 8 : retrait calculé (poignée 28 + numéro 32 + 2 Rangées) */
+    padding-left: calc(28px + 32px + 2 * var(--espace-rangee));
   }
 
   .cc-barre-zone {
+    /* espacements.md, section 8 : position de la barre flottante et marge de page desktop gardée (32) */
     bottom: 24px;
     padding: 0 32px;
   }
@@ -1234,7 +1250,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    /* espacements.md, section 9 : barre d'enregistrement desktop (pilule flottante, provisoire) */
     padding: 10px 10px 10px 24px;
     border-radius: var(--rayon-pilule);
   }
@@ -1259,16 +1275,12 @@
     padding: 0;
   }
 
-  .cc-reponse-explication {
-    margin-left: 48px;
-  }
-
   /* Pas la place sur une ligne : le contrôle « Bonne réponse » passe sous le champ, aligné à
      gauche sur lui ; la croix reste à droite du champ */
   .cc-reponse-ligne {
     display: grid;
     grid-template-columns: 40px minmax(0, 1fr) auto;
-    row-gap: 2px;
+    row-gap: var(--espace-textes);
   }
 
   .cc-bonne-controle {
@@ -1288,6 +1300,7 @@
 
 @media (min-width: 1024px) {
   .cc-page {
+    /* espacements.md, section 8 : haut de page, marge de page desktop et réserve de la barre (valeurs gardées) */
     padding: 28px 40px 140px;
   }
 
@@ -1300,10 +1313,12 @@
   .cc-barre-grille {
     display: grid;
     grid-template-columns: 240px minmax(0, 1fr);
+    /* espacements.md, section 9 : écart des colonnes de mise en page (exception écrite) */
     gap: 32px;
   }
 
   .cc-barre-zone {
+    /* espacements.md, section 8 : marge de page desktop gardée (40) */
     padding: 0 40px;
   }
 
@@ -1313,17 +1328,19 @@
 
   .cc-cote {
     position: sticky;
+    /* espacements.md, section 8 : position du sommaire collant */
     top: 28px;
     align-self: start;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--espace-blocs);
   }
 
   .cc-entete-desktop {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--espace-textes);
+    /* espacements.md, section 9 : centrage optique du titre sur le bouton retour du sommaire */
     margin-top: 4px;
   }
 
@@ -1339,10 +1356,11 @@
   }
 
   .cc-contenu {
-    gap: 20px;
+    gap: var(--espace-blocs);
   }
 
   .cc-carte {
+    /* espacements.md, section 8 : position de défilement sous la barre collante */
     scroll-margin-top: 28px;
   }
 }
