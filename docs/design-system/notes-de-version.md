@@ -33,6 +33,18 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - Règle d'écart de l'Élément près du bord : un Élément posé à moins de 20 px du bord de sa Surface garde le même écart en haut, en bas et sur les côtés, et cet écart vaut 8 px ; les coins sont alors concentriques. Côté écran : fait pour l'étape en cours de la checklist (voir « Écrans corrigés »).
 - Exception provisoire : le bouton « Fermer » de la modale Mes badges (`.modal-fermer`) garde un rayon de 8 px. Il n'est pas carré, un Rond en ferait une ellipse. À régler au chantier mise en page, en passant Mes badges sur le composant Modale.
 
+- Mise en page (`docs/tokens/mise-en-page.md`, qui fait foi ; chantier mise en page, formulaires, états de page) :
+  - Rôles de largeur de colonne : Page (1040), Lecture (880 de contenu, la colonne compte son padding en plus), Question (680), Formulaire (440), toutes centrées ; la fonction de l'écran décide du rôle. Exception écrite : Création de cours (1200, seuil 1024).
+  - Seuil unique : 768 px est le seul seuil de mise en page. Grilles de cartes en colonnes automatiques avec une largeur minimale de carte : thèmes 210, Mes groupes 300, `/design-system` 240.
+  - Haut du contenu et ancres : 104 sur desktop, zone de sécurité + 20 sur mobile, une seule source (`--haut-contenu`, Conteneur de page) ; une cible d'ancre s'arrête au même endroit.
+  - Colonnes de lignes : pastille sous le titre, colonnes automatiques à 260 minimum (« De ton formateur » de la page Cours) ; pastille à côté du titre, 2 colonnes fixes (Mode terrain, recherche) ; écart Colonnes.
+  - Rangées de contrôles : elles passent à la ligne quand elles ne tiennent pas ; seules les rangées de cartes défilent.
+  - Exceptions écrites : pastilles collantes du sommaire mobile de Création de cours (elles défilent) ; Introduction sous 667 px de haut (zone d'action et barre à zone de sécurité + 8, rangée des points gardée à 44, bloc lavande réduit jusqu'à ce que les trois slides tiennent à 320 × 568).
+- États de page (`ds-principes-composants.md`) : chargement (« Chargement… » seul, Texte secondaire, `texte-secondaire`, sans marge, classe `.etat-chargement`) ; erreur (jamais le message technique, gardé en console ; texte à écrire : « [Objet] n'a pas pu être [action]. », suivi de « Réessaie. » si l'action peut être relancée ; tout enregistrement qui échoue affiche un message près de l'action) ; vide (Texte secondaire, jamais `texte-erreur`).
+- Focus (`ds-principes-composants.md`, Focus) : tout élément interactif qui n'est pas un champ prend un contour de 2 px `bordure-focus` décalé de 2, au clavier seulement (règle générale dans `shared.css`) ; un champ a son contour à l'intérieur ; un seul indicateur par élément.
+- Champ : texte indicatif en `texte-secondaire` (opacité 1, sans points de suspension) ; icône de 20 px à 16 du bord, réserve de 44 ; toute recherche a la loupe ; erreur : contour `bordure-erreur` et `aria-invalid` sur le champ lié au message ; désactivé : même rendu que le bouton désactivé, sans opacité ; autoremplissage : le champ garde son fond ; champ multiligne : vertical de 12.
+- Valeurs hors rôle (`espacements.md`, section 8) : positions d'un élément fixe, collant ou posé en absolu, haut du Conteneur de page, bas d'une page sans barre fixe (24).
+
 **Modifié**
 
 - Survol et appui des cartes et lignes cliquables (celles de la section Chevrons) en `fond-accent`. Côté écran : fait (voir « Écrans corrigés »).
@@ -48,6 +60,10 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - `body` en Corps courant (`font: var(--typo-corps-courant)`, 15 px · 500 · 1,45) au lieu d'Urbanist 500 à la taille du navigateur (16 px, interligne `normal`) : tout texte sans rôle déclaré prend le Corps courant. Côté écran : rien à faire, aucun texte visible ne dépendait de cette valeur (mesuré au lot 14, hors « Chargement… »).
 - `h1` à `h6` sans rôle par défaut (`font: inherit`) au lieu d'Urbanist 800 à la taille du navigateur avec `hyphens: manual` : chaque titre déclare son rôle et sa césure. `text-wrap: balance` reste sur `h1`, `h2`, `h3`. Côté écran : fait, tous les titres de l'app ont leur rôle.
 
+- Hauteur des champs d'une ligne (évolution du Champ) : 48 px partout ; champ du parcours d'entrée 56 px (grand champ compris, 64 → 56) ; champ multiligne hors de la règle. Écrans dont le rendu change : questions du parcours (Prénom, Organisme, Spécialité), recherche et filtres d'Activité récente (40 → 48), email de l'élève du Détail groupe (52 → 48), Réponse (44 → 48) et Explication (40 → 48) de Création de cours.
+- Règle de rangée (évolution du Bouton et du Choix) : posé dans la rangée d'un champ, un bouton ou un choix prend la hauteur du champ (« Ajouter » du Détail groupe 52 → 48, filtres d'Activité récente 40 → 48). Posé seul, un bouton fait 48 ; 44 reste la zone tactile minimale, pas la hauteur d'un composant.
+- Mot de passe oublié et Nouveau mot de passe : gabarit de la Connexion (`GabaritParcours`, Retour rond et logo en rangée, champs du parcours, bouton dans la zone d'action), textes inchangés. `.flow-card` ne sert plus qu'à l'écran « Chargement… » de l'app.
+
 **Corrigé**
 
 Aucune entrée.
@@ -62,6 +78,8 @@ Aucune entrée.
 - `src/components/formateur/Modale.jsx` et les classes `fm-voile`, `fm-modale-*`, `fm-bouton-danger` de `Formateur.css`. Côté écran : utiliser `src/components/Modale.jsx`.
 - Variables `--taille-h1`, `--taille-titre-cours`, `--font-display` et `--font-body` (`:root` de `src/styles/shared.css`). Côté écran : utiliser les rôles `font: var(--typo-<rôle>)` ; plus aucun usage dans `src/`.
 - Variables `--radius-carte`, `--radius-carte-petite`, `--radius-reponse`, `--radius-pill` et `--radius-badge` (`:root` de `src/styles/shared.css`). Côté écran : utiliser les rôles `border-radius: var(--rayon-<rôle>)` ; plus aucun usage dans `src/`.
+- Mise en page : `.espace-page { max-width: 1400px }` (jamais atteinte), seuils 1100 des thèmes, de Mes groupes et de `/design-system`, débord et défilement des filtres d'Activité récente, règles locales de focus devenues redondantes (carte de thème, lignes de choix et cartes du parcours, Formateur, dashboard formateur, Création de cours), opacité de la liste déroulante désactivée. Liste exacte dans les messages des commits « Mise en page, lot N ».
+- Code mort après le passage de Mot de passe oublié et Nouveau mot de passe au gabarit du parcours : `.page-logo-wrapper`, `.page-logo`, `.flow-card h1`, `.flow-card p.souscription`, `.lien-retour` et ses variantes (`shared.css`).
 
 **Écrans corrigés**
 
@@ -99,6 +117,20 @@ Aucune entrée.
 - Dashboard apprenant, écart entre les blocs (`.dash-blocs`, mobile et desktop) : Entre deux blocs (20) au lieu de Répétition (8). Rangement contraire à la définition du rôle : bloc de tête, Prochain badge, Quiz flash et « De ton formateur » sont des blocs de natures différentes, Répétition ne vaut que pour des éléments de même nature répétés.
 - Barre du haut desktop (`.espace-nav`) : côté logo, Padding d'une Surface (20) au lieu de Bloc près du bord (8) ; haut, droite et bas restent à 8. Rangement contraire à la définition du rôle : Bloc près du bord ne vise qu'un bloc à fond posé près du bord (les entrées), le logo n'a pas de fond. Tab bar mobile inchangée (exception écrite).
 - Titres sans équilibrage des lignes : `text-wrap: balance` ajouté aux 21 règles de titre qui ne l'avaient pas (dérive : la règle le demande pour tout rôle de titre). Composants : `ContenuMarkdown` (rôles Titre de contenu et Titre de ligne, intertitre `h4`), `CompletionToast`, `LigneCours`, `BlocFormateur`, menu « … » (`MenuActions`). Écrans : lignes du Détail d'un thème, fin de quiz (titre de la barre, nom du badge), checklist (« X étapes sur N »), récap, modale Mes badges, dashboard formateur (« Taux de complétion », groupes, « Personne à relancer », étapes de « Pour bien démarrer », tableau admin), élèves du Détail groupe, questions repliées de Création de cours, cartes du Choix du profil. Seules des coupures de ligne de titres changent. Hors champ : les noms de tokens de la page /design-system (identifiants, pas titres).
+- Mise en page, formulaires, états de page, 16 lots puis `/design-system` (commits « Mise en page, lot N ») :
+  - Page Cours : « Tout voir » du dashboard s'arrête à 104 sur desktop et à zone de sécurité + 20 sur mobile (avant 110) ; thèmes en 4 colonnes dès 1040 ; carte de thème, objet → « Thème N » et nom → état à 12 ; « Aucun cours ne correspond » à 20 sous l'en-tête ; texte indicatif « Rechercher un cours » ; loupe dans la recherche ; sous 768, la recherche commence sous l'objet 3D.
+  - Détail d'un thème : colonne Lecture (880 de contenu au lieu de 832) ; thème sans cours : « Aucun cours dans ce thème. », en-tête sans compteur.
+  - « De ton formateur » (page Cours) : 2 colonnes à 800 (3 avant), 3 dès 1040.
+  - Leçon : sous 768, l'objet du thème passe au-dessus, à droite, le titre prend toute la largeur (5 → 3 lignes à 320) ; fin de quiz en colonne Formulaire (440) ; message si la progression ne s'enregistre pas.
+  - Quiz flash : état sans question en `texte-secondaire` ; message si le score ne s'enregistre pas.
+  - Introduction : tient sans défilement à 320 × 568 sur les trois slides ; 375 × 667 inchangé.
+  - Parcours : champ en erreur marqué (Connexion, Création du compte) ; Mot de passe oublié et Nouveau mot de passe sur le gabarit de la Connexion.
+  - Dashboard formateur : filtres et recherche d'Activité récente à 48, à la ligne, la recherche passe sous les filtres à 800 ; loupe 20 à 16 du bord.
+  - Détail groupe : rangée d'ajout à 48, enveloppe à 16, loupe dans la recherche des élèves, email en erreur marqué, message si l'assignation échoue.
+  - Mes cours : loupe dans la recherche. Détail cours : message si l'assignation échoue.
+  - Création de cours : barre d'outils de l'éditeur à la ligne ; liste déroulante du Thème sans contour en double ; « Bonne réponse » à un seul indicateur de focus ; champs en erreur marqués.
+  - Toute l'app : texte indicatif en `texte-secondaire` ; « Chargement… » en Texte secondaire ; messages d'erreur sans le message technique de la base ; colonne Formulaire 440 pour l'écran de chargement de l'app ; option de la liste déroulante avec le contour de focus au clavier.
+  - `/design-system` : grille en colonnes automatiques (240) ; 3 colonnes à 1040 (2 avant), la carte large sur deux colonnes dès 768.
 
 ## 2.1.0 (brouillon, non publiée)
 
