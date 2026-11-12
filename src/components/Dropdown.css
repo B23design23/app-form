@@ -24,8 +24,10 @@
   color: var(--texte-secondaire);
 }
 
+/* Champ désactivé : même rendu que le bouton désactivé, sans opacité (ds-principes-composants.md, Champ) */
 .dropdown-trigger:disabled {
-  opacity: 0.6;
+  background: var(--fond-action-desactive);
+  color: var(--texte-action-desactive);
   cursor: not-allowed;
 }
 
@@ -55,14 +57,13 @@
   display: flex;
   align-items: center;
   min-height: 44px;
-  /* espacements.md, section 8 : 30 px à gauche, réserve de la coche */
+  /* espacements.md, section 7 (Entrée de liste déroulante) : 30 à gauche, réserve de la coche */
   padding: 0 var(--espace-navigation-horizontal) 0 30px;
   border-radius: var(--rayon-element);
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
   cursor: pointer;
   user-select: none;
-  outline: none;
 }
 
 /* Survol : crème côté apprenant, gris côté formateur. Option sélectionnée : lavande, texte et
