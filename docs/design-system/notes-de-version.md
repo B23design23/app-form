@@ -43,7 +43,9 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - États de page (`ds-principes-composants.md`) : chargement (« Chargement… » seul, Texte secondaire, `texte-secondaire`, sans marge, classe `.etat-chargement`) ; erreur (jamais le message technique, gardé en console ; texte à écrire : « [Objet] n'a pas pu être [action]. », suivi de « Réessaie. » si l'action peut être relancée ; tout enregistrement qui échoue affiche un message près de l'action) ; vide (Texte secondaire, jamais `texte-erreur`).
 - Focus (`ds-principes-composants.md`, Focus) : tout élément interactif qui n'est pas un champ prend un contour de 2 px `bordure-focus` décalé de 2, au clavier seulement (règle générale dans `shared.css`) ; un champ a son contour à l'intérieur ; un seul indicateur par élément.
 - Champ : texte indicatif en `texte-secondaire` (opacité 1, sans points de suspension) ; icône de 20 px à 16 du bord, réserve de 44 ; toute recherche a la loupe ; erreur : contour `bordure-erreur` et `aria-invalid` sur le champ lié au message ; désactivé : même rendu que le bouton désactivé, sans opacité ; autoremplissage : le champ garde son fond ; champ multiligne : vertical de 12.
-- Valeurs hors rôle (`espacements.md`, section 8) : positions d'un élément fixe, collant ou posé en absolu, haut du Conteneur de page, bas d'une page sans barre fixe (24).
+- Valeurs hors rôle (`espacements.md`, section 8) : positions d'un élément fixe, collant ou posé en absolu, haut du Conteneur de page, bas d'une page sans barre fixe (40, une seule valeur pour `.flow-page` et la fiche de cours), place de l'ombre sous une rangée qui défile (4).
+- Réserve d'une illustration (`mise-en-page.md`, section 3) : elle s'applique sur l'axe où l'illustration rencontre l'élément (recherche de Cours : verticale sous 768, horizontale au-dessus).
+- Liste déroulante : props `invalide` et `idErreur` (`aria-invalid`, `aria-describedby`), bordure d'erreur par la règle commune.
 
 **Modifié**
 
@@ -62,6 +64,7 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 
 - Hauteur des champs d'une ligne (évolution du Champ) : 48 px partout ; champ du parcours d'entrée 56 px (grand champ compris, 64 → 56) ; champ multiligne hors de la règle. Écrans dont le rendu change : questions du parcours (Prénom, Organisme, Spécialité), recherche et filtres d'Activité récente (40 → 48), email de l'élève du Détail groupe (52 → 48), Réponse (44 → 48) et Explication (40 → 48) de Création de cours.
 - Règle de rangée (évolution du Bouton et du Choix) : posé dans la rangée d'un champ, un bouton ou un choix prend la hauteur du champ (« Ajouter » du Détail groupe 52 → 48, filtres d'Activité récente 40 → 48). Posé seul, un bouton fait 48 ; 44 reste la zone tactile minimale, pas la hauteur d'un composant.
+- Champ en erreur : la règle commune de `shared.css` gagne contre les règles de bordure des champs des écrans (sans `!important`) ; au focus, la bordure de focus garde la main.
 - Mot de passe oublié et Nouveau mot de passe : gabarit de la Connexion (`GabaritParcours`, Retour rond et logo en rangée, champs du parcours, bouton dans la zone d'action), textes inchangés. `.flow-card` ne sert plus qu'à l'écran « Chargement… » de l'app.
 
 **Corrigé**
@@ -79,6 +82,7 @@ Aucune entrée.
 - Variables `--taille-h1`, `--taille-titre-cours`, `--font-display` et `--font-body` (`:root` de `src/styles/shared.css`). Côté écran : utiliser les rôles `font: var(--typo-<rôle>)` ; plus aucun usage dans `src/`.
 - Variables `--radius-carte`, `--radius-carte-petite`, `--radius-reponse`, `--radius-pill` et `--radius-badge` (`:root` de `src/styles/shared.css`). Côté écran : utiliser les rôles `border-radius: var(--rayon-<rôle>)` ; plus aucun usage dans `src/`.
 - Mise en page : `.espace-page { max-width: 1400px }` (jamais atteinte), seuils 1100 des thèmes, de Mes groupes et de `/design-system`, débord et défilement des filtres d'Activité récente, règles locales de focus devenues redondantes (carte de thème, lignes de choix et cartes du parcours, Formateur, dashboard formateur, Création de cours), opacité de la liste déroulante désactivée. Liste exacte dans les messages des commits « Mise en page, lot N ».
+- Lot 17 : copies locales de la règle du champ en erreur (Détail groupe, Création de cours) ; padding de 8 du texte de l'aperçu de Création de cours.
 - Code mort après le passage de Mot de passe oublié et Nouveau mot de passe au gabarit du parcours : `.page-logo-wrapper`, `.page-logo`, `.flow-card h1`, `.flow-card p.souscription`, `.lien-retour` et ses variantes (`shared.css`).
 
 **Écrans corrigés**
@@ -131,6 +135,7 @@ Aucune entrée.
   - Création de cours : barre d'outils de l'éditeur à la ligne ; liste déroulante du Thème sans contour en double ; « Bonne réponse » à un seul indicateur de focus ; champs en erreur marqués.
   - Toute l'app : texte indicatif en `texte-secondaire` ; « Chargement… » en Texte secondaire ; messages d'erreur sans le message technique de la base ; colonne Formulaire 440 pour l'écran de chargement de l'app ; option de la liste déroulante avec le contour de focus au clavier.
   - `/design-system` : grille en colonnes automatiques (240) ; 3 colonnes à 1040 (2 avant), la carte large sur deux colonnes dès 768.
+  - Lot 17 : « De ton formateur » sans séparateur sous le dernier élément de chaque colonne, quel que soit le nombre de cours (avant : un trait restait sous un cours seul dans sa colonne) ; Thème de Création de cours marqué en erreur ; écran « Chargement… » de l'app, bas de page à 40 ; aperçu vide de Création de cours, texte à 16 du bord de l'aperçu (24 avant) ; Connexion, message d'authentification inconnu : « La connexion n'a pas pu se faire. Réessaie. » au lieu du message anglais.
 
 ## 2.1.0 (brouillon, non publiée)
 
