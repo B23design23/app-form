@@ -3,7 +3,9 @@
    propres classes. */
 
 .ds-page {
-  padding: calc(env(safe-area-inset-top) + var(--espace-20)) var(--espace-16) var(--espace-40);
+  /* marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de
+     sécurité) et bas 40 */
+  padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) 40px;
 }
 
 .ds-entete h1 {
@@ -28,17 +30,17 @@
 }
 
 .ds-section {
-  margin-top: var(--espace-24);
+  margin-top: var(--espace-blocs);
 }
 
 .ds-groupe {
   display: flex;
   flex-direction: column;
-  gap: var(--espace-12);
+  gap: var(--espace-groupes);
 }
 
 .ds-groupe h3 {
-  margin: var(--espace-8) 0 0;
+  margin: var(--espace-groupes) 0 0;
   font: var(--typo-titre-section);
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -52,7 +54,7 @@
 .ds-grille {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: var(--espace-16);
+  gap: var(--espace-repetition);
 }
 
 @media (min-width: 768px) {
@@ -74,7 +76,7 @@
 .ds-carte {
   display: flex;
   flex-direction: column;
-  gap: var(--espace-8);
+  gap: var(--espace-groupes);
   min-width: 0;
 }
 
@@ -105,7 +107,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: var(--espace-40);
+  height: 40px;
   border-radius: var(--rayon-element);
 }
 
@@ -120,27 +122,27 @@
 .ds-modes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--espace-8);
+  gap: var(--espace-repetition);
 }
 
 .ds-modes > div {
   display: flex;
   flex-direction: column;
-  gap: var(--espace-4);
+  gap: var(--espace-textes);
 }
 
 .ds-fonds-page {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--espace-16);
+  gap: var(--espace-repetition);
 }
 
 .ds-fond-page {
   display: flex;
   flex-direction: column;
-  gap: var(--espace-4);
-  min-height: calc(var(--espace-40) * 2);
-  padding: var(--espace-16);
+  gap: var(--espace-textes);
+  min-height: 80px;
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-page);
 }
@@ -148,19 +150,19 @@
 .ds-primitifs {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--espace-12);
+  gap: var(--espace-repetition);
 }
 
 .ds-primitif {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--espace-4);
+  gap: var(--espace-textes);
 }
 
 .ds-primitif-pastille {
-  width: var(--espace-40);
-  height: var(--espace-40);
+  width: 40px;
+  height: 40px;
   border-radius: var(--rayon-pilule);
 }
 
@@ -172,7 +174,7 @@
 .ds-echelle {
   display: flex;
   flex-direction: column;
-  gap: var(--espace-8);
+  gap: var(--espace-repetition);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -180,20 +182,20 @@
 
 .ds-echelle li {
   display: grid;
-  grid-template-columns: calc(var(--espace-40) * 2) 1fr auto;
+  grid-template-columns: 80px 1fr auto;
   align-items: center;
-  gap: var(--espace-12);
+  gap: var(--espace-rangee);
 }
 
 .ds-barre {
-  height: var(--espace-8);
+  height: 8px;
   border-radius: var(--rayon-pilule);
   background: var(--fond-marque);
 }
 
 .ds-rayon {
-  width: calc(var(--espace-40) * 2);
-  height: calc(var(--espace-40) * 2);
+  width: 80px;
+  height: 80px;
   background: var(--fond-accent);
 }
 
@@ -205,7 +207,7 @@
 .ds-dodont {
   display: flex;
   flex-direction: column;
-  gap: var(--espace-6);
+  gap: var(--espace-textes);
 }
 
 .ds-regle p {
@@ -222,7 +224,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--espace-16);
+  gap: var(--espace-repetition);
 }
 
 .ds-anneau-valeur {
