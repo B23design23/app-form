@@ -23,7 +23,8 @@ function ModaleNouveauGroupe({ authUser, onFermer, onCree }) {
       .single()
     setEnCours(false)
     if (error) {
-      setErreur(error.message)
+      console.error('groupes', error.message)
+      setErreur('Le groupe n\'a pas pu être créé. Réessaie.')
       return
     }
     onCree(data.id)
@@ -54,10 +55,22 @@ function ModaleNouveauGroupe({ authUser, onFermer, onCree }) {
       <form id="form-nouveau-groupe" onSubmit={creer}>
         <label className="champ">
           <span>Nom du groupe</span>
-          <input type="text" autoFocus placeholder="Ex. : Promo C" value={nom} onChange={(e) => setNom(e.target.value)} />
+          <input
+            type="text"
+            autoFocus
+            placeholder="Ex. : Promo C"
+            value={nom}
+            onChange={(e) => setNom(e.target.value)}
+            aria-invalid={erreur ? true : undefined}
+            aria-describedby={erreur ? 'nouveau-groupe-erreur' : undefined}
+          />
         </label>
       </form>
-      {erreur && <p className="message message-erreur">{erreur}</p>}
+      {erreur && (
+        <p id="nouveau-groupe-erreur" className="message message-erreur">
+          {erreur}
+        </p>
+      )}
     </Modale>
   )
 }

@@ -51,7 +51,16 @@ function Connexion({ messageConfirmation, onRetour, onCreerCompte, onMotDePasseO
       {messageConfirmation && <p className="message message-info">{messageConfirmation}</p>}
 
       <form id="form-connexion" className="parcours-formulaire" onSubmit={seConnecter}>
-        <ChampParcours label="Email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+        <ChampParcours
+          label="Email"
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
+          aria-invalid={erreur ? true : undefined}
+          aria-describedby={erreur ? 'connexion-erreur' : undefined}
+        />
         <ChampParcours
           label="Mot de passe"
           type="password"
@@ -59,8 +68,14 @@ function Connexion({ messageConfirmation, onRetour, onCreerCompte, onMotDePasseO
           value={motDePasse}
           onChange={(e) => setMotDePasse(e.target.value)}
           autoComplete="current-password"
+          aria-invalid={erreur ? true : undefined}
+          aria-describedby={erreur ? 'connexion-erreur' : undefined}
         />
-        {erreur && <p className="parcours-message-erreur">{erreur}</p>}
+        {erreur && (
+          <p id="connexion-erreur" className="parcours-message-erreur">
+            {erreur}
+          </p>
+        )}
         <button type="button" className="parcours-lien parcours-lien-accent parcours-lien-droite" onClick={onMotDePasseOublie}>
           Mot de passe oublié ?
         </button>

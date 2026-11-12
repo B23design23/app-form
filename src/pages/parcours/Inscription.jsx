@@ -98,7 +98,8 @@ function Inscription({ authUser, onRetourChoixProfil, onSeConnecter, onProfilCre
     const { error } = await supabase.from('profiles').insert({ id: authUser.id, email: authUser.email, ...champsProfil(role, reponses) })
     setEnvoi(false)
     if (error) {
-      setErreur(`Ton profil n'a pas pu être enregistré (${error.message}).`)
+      console.error('profil', error.message)
+      setErreur("Ton profil n'a pas pu être enregistré. Réessaie.")
       return
     }
     reinitialiser()
@@ -213,7 +214,16 @@ function Inscription({ authUser, onRetourChoixProfil, onSeConnecter, onProfilCre
               <h1 className="compte-bloc-titre">{typo(`Plus qu'une étape, ${prenom}`)}</h1>
               <p className="compte-bloc-texte">Ton compte garde ta progression, tes XP et tes badges.</p>
             </div>
-            <ChampParcours label="Email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+            <ChampParcours
+              label="Email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+              aria-invalid={erreur ? true : undefined}
+              aria-describedby={erreur ? 'inscription-erreur' : undefined}
+            />
             <div className="parcours-champ-groupe">
               <ChampParcours
                 label="Mot de passe"
@@ -223,6 +233,8 @@ function Inscription({ authUser, onRetourChoixProfil, onSeConnecter, onProfilCre
                 value={motDePasse}
                 onChange={(e) => setMotDePasse(e.target.value)}
                 autoComplete="new-password"
+                aria-invalid={erreur ? true : undefined}
+                aria-describedby={erreur ? 'inscription-erreur' : undefined}
               />
               <span className="parcours-aide">{LONGUEUR_MIN_MOT_DE_PASSE} caractères minimum.</span>
             </div>
@@ -230,7 +242,11 @@ function Inscription({ authUser, onRetourChoixProfil, onSeConnecter, onProfilCre
           </>
         )}
 
-        {erreur && <p className="parcours-message-erreur">{erreur}</p>}
+        {erreur && (
+          <p id="inscription-erreur" className="parcours-message-erreur">
+            {erreur}
+          </p>
+        )}
       </form>
     </GabaritParcours>
   )
