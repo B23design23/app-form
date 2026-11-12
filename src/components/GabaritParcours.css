@@ -264,12 +264,6 @@
   -webkit-text-fill-color: var(--texte-principal);
 }
 
-.parcours-champ-grand .parcours-input {
-  min-height: 64px;
-  padding: 0 var(--espace-champ);
-  border-radius: var(--rayon-pilule);
-}
-
 /* Lignes de choix (radiogroup) */
 .parcours-choix {
   display: flex;
@@ -303,15 +297,6 @@
   .parcours-choix-ligne:hover {
     background: var(--fond-accent);
   }
-}
-
-.parcours-choix-ligne:focus {
-  outline: none;
-}
-
-.parcours-choix-ligne:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
 }
 
 .parcours-choix-ligne-choisie {
@@ -357,6 +342,28 @@
   margin: 0;
   font: var(--typo-texte-secondaire);
   color: var(--texte-erreur);
+}
+
+/* Introduction sur un écran bas (mise-en-page.md, section 8 : exception écrite, sous 667 px de
+   haut) : zone d'action au plus bas (zone de sécurité + 8, rangée des points gardée à 44), barre
+   « Passer » / logo à zone de sécurité + 8 du haut. Le gabarit ne sert l'Introduction qu'avec
+   « Passer » ou les points : les autres écrans gardent leurs valeurs (règle limitée à l'écran qui porte .intro-slide). */
+@media (max-height: 666px) and (max-width: 767px) {
+  .parcours:has(.intro-slide) .parcours-colonne {
+    /* mise-en-page.md, section 8 : Introduction, écran bas */
+    padding-top: calc(env(safe-area-inset-top) + 8px);
+    padding-bottom: calc(var(--hauteur-actions) + 8px + env(safe-area-inset-bottom));
+  }
+
+  .parcours:has(.intro-slide) .parcours-actions {
+    /* mise-en-page.md, section 8 : Introduction, écran bas */
+    bottom: calc(env(safe-area-inset-bottom) + 8px);
+  }
+
+  .parcours:has(.intro-slide) .parcours-passer {
+    /* mise-en-page.md, section 8 : Introduction, écran bas */
+    top: calc(env(safe-area-inset-top) + 8px);
+  }
 }
 
 /* Desktop (≥ 768 px) : même mise en page que sur mobile, colonne de 440 px centrée, hauteur fixe

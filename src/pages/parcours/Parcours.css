@@ -74,6 +74,20 @@
   filter: drop-shadow(0 14px 16px rgba(20, 10, 60, 0.25));
 }
 
+/* Introduction sur un écran bas (mise-en-page.md, section 8 : exception écrite, sous 667 px de
+   haut) : bloc → titre en Deux textes d'un groupe, bloc lavande réduit jusqu'à ce que les trois
+   slides tiennent à 320 × 568, illustration à l'échelle (60 % du bloc) */
+@media (max-height: 666px) and (max-width: 767px) {
+  .intro-slide {
+    gap: var(--espace-textes);
+  }
+
+  .intro-bloc {
+    /* mise-en-page.md, section 8 : Introduction, écran bas */
+    min-height: 0;
+  }
+}
+
 /* Points de pagination : dans la zone d'action, juste au-dessus du bouton */
 .introduction-point {
   position: relative;
@@ -130,11 +144,6 @@
   .profil-carte:hover {
     background: var(--fond-accent);
   }
-}
-
-.profil-carte:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
 }
 
 .profil-carte-objet {
