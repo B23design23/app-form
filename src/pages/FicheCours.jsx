@@ -28,14 +28,13 @@ async function marquerProgression(authUser, coursId, statut) {
     .eq('cours_id', coursId)
     .maybeSingle()
 
-  if (existante) {
-    await supabase
-      .from('progression')
-      .update({ statut, updated_at: new Date().toISOString() })
-      .eq('id', existante.id)
-  } else {
-    await supabase.from('progression').insert({ user_id: authUser.id, cours_id: coursId, statut })
-  }
+  const { error } = existante
+    ? await supabase
+        .from('progression')
+        .update({ statut, updated_at: new Date().toISOString() })
+        .eq('id', existante.id)
+    : await supabase.from('progression').insert({ user_id: authUser.id, cours_id: coursId, statut })
+  if (error) throw error
 
   return verifierBadges(authUser)
 }
@@ -52,20 +51,19 @@ async function marquerChecklistTerminee(authUser, coursId) {
     .maybeSingle()
 
   const maintenant = new Date().toISOString()
-  if (existante) {
-    await supabase
-      .from('progression')
-      .update({
-        checklist_terminee: true,
-        updated_at: maintenant,
-        ...(existante.statut === 'non_commence' ? { statut: 'en_cours' } : {}),
-      })
-      .eq('id', existante.id)
-  } else {
-    await supabase
-      .from('progression')
-      .insert({ user_id: authUser.id, cours_id: coursId, statut: 'en_cours', checklist_terminee: true, updated_at: maintenant })
-  }
+  const { error } = existante
+    ? await supabase
+        .from('progression')
+        .update({
+          checklist_terminee: true,
+          updated_at: maintenant,
+          ...(existante.statut === 'non_commence' ? { statut: 'en_cours' } : {}),
+        })
+        .eq('id', existante.id)
+    : await supabase
+        .from('progression')
+        .insert({ user_id: authUser.id, cours_id: coursId, statut: 'en_cours', checklist_terminee: true, updated_at: maintenant })
+  if (error) throw error
 
   return verifierBadges(authUser)
 }
@@ -140,6 +138,14 @@ function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire, onRetour
 // apercu : « Voir comme un élève » (formateur) — vraie fiche, mais aucune écriture dans
 // progression, scores, user_badges ni dans le stockage du navigateur ; bandeau en haut.
 function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourTheme, onOuvrirCours, navigationDesktop, apercu = false }) {
+  // Enregistrement de la progression qui échoue : message affiché, message technique en console
+  const [erreurEnregistrement, setErreurEnregistrement] = useState(false)
+  function echecProgression(error) {
+    console.error('progression', error?.message)
+    setErreurEnregistrement(true)
+    return []
+  }
+
   // Toutes les écritures passent par cet objet, neutralisé en aperçu
   const ecritures = apercu
     ? {
@@ -153,8 +159,8 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
         effacerLocale: () => {},
       }
     : {
-        progression: (statut) => marquerProgression(authUser, coursId, statut),
-        checklistTerminee: () => marquerChecklistTerminee(authUser, coursId),
+        progression: (statut) => marquerProgression(authUser, coursId, statut).catch(echecProgression),
+        checklistTerminee: () => marquerChecklistTerminee(authUser, coursId).catch(echecProgression),
         xp: (montant) => ajouterXp(authUser, montant),
         badges: () => verifierBadges(authUser),
         score: (ligne) => supabase.from('scores').insert(ligne),
@@ -234,7 +240,8 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
         progressionRes.error?.message ??
         scoresRes.error?.message
       if (premiereErreur) {
-        setErreur(premiereErreur)
+        console.error('fiche de cours', premiereErreur)
+        setErreur(true)
         setChargement(false)
         return
       }
@@ -477,7 +484,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
           <button type="button" className="fiche-retour" onClick={onRetour}>
             Retour
           </button>
-          <p className="message message-erreur">Impossible de charger ce cours ({erreur}).</p>
+          <p className="message message-erreur">Impossible de charger ce cours.</p>
         </div>
       </div>
     )
@@ -486,7 +493,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
   if (chargement || !ecran) {
     return (
       <div className="fiche-page">
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       </div>
     )
   }
@@ -567,6 +574,12 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
             Quitter l'aperçu
           </button>
         </div>
+      )}
+
+      {erreurEnregistrement && (
+        <p className="message message-erreur fiche-erreur-enregistrement" role="alert">
+          Ta progression n'a pas pu être enregistrée.
+        </p>
       )}
 
       {ecran === 'lecon' && (

@@ -3,7 +3,9 @@
 
 .fiche-page {
   min-height: 100vh;
-  /* marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de sécurité) et bas 40 */
+  /* marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de
+     sécurité) ; bas 40 : sans renvoi juste, même fonction que le bas de .flow-page (24), À trancher
+     (lots-mep.md, lot 6) */
   padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) calc(40px + env(safe-area-inset-bottom));
   background: var(--fond-page);
   color: var(--texte-principal);
@@ -18,7 +20,7 @@
   flex-direction: column;
   gap: var(--espace-blocs);
   width: 100%;
-  /* leçon, checklist, récap : 880 px max, centrés (le quiz a sa colonne de 680 px) */
+  /* mise-en-page.md, section 3 : colonne Lecture (leçon, checklist, récap), centrée */
   max-width: 880px;
   margin: 0 auto;
 }
@@ -98,10 +100,11 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--espace-rangee);
-  /* bandeau sur toute la largeur : traverse le haut du Conteneur et la marge de page (section 6) ;
-     espacements.md, section 8 : 16 sous le bandeau, 8 en haut (+ zone de sécurité) et en bas */
-  margin: calc(-1 * (env(safe-area-inset-top) + 20px)) calc(-1 * var(--espace-marge-page)) 16px;
-  padding: calc(env(safe-area-inset-top) + 8px) var(--espace-marge-page) 8px;
+  /* bandeau sur toute la largeur : traverse le haut du Conteneur et la marge de page
+     (espacements.md, section 6) ; Entre deux blocs dessous ; bouton à Bloc près du bord du haut
+     (+ zone de sécurité) et du bas, marge de page sur les côtés */
+  margin: calc(-1 * (env(safe-area-inset-top) + 20px)) calc(-1 * var(--espace-marge-page)) var(--espace-blocs);
+  padding: calc(env(safe-area-inset-top) + var(--espace-bord)) var(--espace-marge-page) var(--espace-bord);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
   font: var(--typo-meta);
@@ -121,9 +124,10 @@
 
 @media (min-width: 768px) {
   .fiche-apercu-bandeau {
-    /* espacements.md, section 8 : traverse le padding desktop de la page (40, valeur gardée) */
-    margin: -40px -40px 24px;
-    padding: 10px 40px;
+    /* espacements.md, section 6 : traverse le padding desktop de la page (40, marge de page desktop,
+       section 8) ; Entre deux blocs dessous, Bloc près du bord en haut et en bas */
+    margin: -40px -40px var(--espace-blocs);
+    padding: var(--espace-bord) 40px;
   }
 }
 
@@ -136,8 +140,8 @@
   right: 0;
   bottom: 0;
   z-index: 20;
-  /* barre fixe : marge de page sur les côtés ; espacements.md, section 8 : bas 16 + zone de sécurité */
-  padding: 0 var(--espace-marge-page) calc(16px + env(safe-area-inset-bottom));
+  /* barre fixe : marge de page sur les côtés et en bas (+ zone de sécurité) */
+  padding: 0 var(--espace-marge-page) calc(var(--espace-marge-page) + env(safe-area-inset-bottom));
   background: var(--fond-barre);
 }
 
@@ -153,6 +157,7 @@
 }
 
 .fiche-barre-action-contenu {
+  /* mise-en-page.md, section 3 : colonne Question */
   max-width: 680px;
   margin: 0 auto;
 }
@@ -197,21 +202,14 @@
 }
 
 .fiche-entete-objet {
-  position: absolute;
-  /* espacements.md, section 8 : position de l'objet 3D dans l'en-tête */
-  top: 16px;
-  /* espacements.md, section 8 : position de l'objet 3D */
-  right: 16px;
+  /* Sous 768 : au-dessus du texte, aligné à droite ; le thème, le titre et la durée prennent toute
+     la largeur (CLAUDE.md, Leçon). Objet → thème : Entre deux groupes (le bloc a un écart de Deux
+     textes d'un groupe) */
+  align-self: flex-end;
+  margin-bottom: calc(var(--espace-groupes) - var(--espace-textes));
   width: 92px;
   height: 92px;
   pointer-events: none;
-}
-
-.fiche-entete-theme,
-.fiche-entete-titre,
-.fiche-entete-sous-titre {
-  /* espacements.md, section 8 : réserve de l'objet 3D */
-  padding-right: 100px;
 }
 
 .fiche-entete-theme {
@@ -625,7 +623,7 @@
 .fiche-feedback-objet {
   position: absolute;
   top: -30px;
-  /* espacements.md, section 8 : position de l'objet 3D */
+  /* espacements.md, section 8 : position de l'objet 3D (débord, section 8) */
   right: 16px;
   width: 96px;
   height: 96px;
@@ -690,11 +688,11 @@
 .fin-quiz {
   min-height: 100vh;
   /* écran plein : traverse le padding de la page (haut, marge de page, bas) et le reprend
-     (espacements.md, section 6 ; haut 20 et bas 40 : section 8) */
+     (espacements.md, section 6 ; haut : haut du Conteneur, section 8 ; bas 40 : voir .fiche-page) */
   margin: calc(-1 * (env(safe-area-inset-top) + 20px)) calc(-1 * var(--espace-marge-page)) calc(-1 * (40px + env(safe-area-inset-bottom)));
   /* même marge haute que la fiche (zone de sécurité comprise) : la barre du haut est à la même
      place que pendant le quiz */
-  /* espacements.md, section 8 : haut 20 + zone de sécurité, bas 40 + zone de sécurité */
+  /* haut du Conteneur (espacements.md, section 8) ; bas 40 : voir .fiche-page */
   padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) calc(40px + env(safe-area-inset-bottom));
   background: var(--fond-accent);
 }
@@ -703,6 +701,7 @@
    ligne), dans la même colonne que le quiz */
 .fin-quiz-haut {
   width: 100%;
+  /* mise-en-page.md, section 3 : colonne Question */
   max-width: 680px;
   margin: 0 auto;
 }
@@ -724,7 +723,7 @@
   text-overflow: ellipsis;
 }
 
-/* Colonne centrée de 420 px (mobile et desktop) ; espacements fixés par le lot retouches-quiz.
+/* Colonne Formulaire centrée (mobile et desktop) ; espacements fixés par le lot retouches-quiz.
    Mobile : le groupe du score est centré verticalement au-dessus de la barre d'actions fixe. */
 .fin-quiz {
   display: flex;
@@ -737,7 +736,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 420px;
+  /* mise-en-page.md, section 3 : colonne Formulaire */
+  max-width: 440px;
   margin: 0 auto;
   /* hauteur de la barre d'actions (bouton 58 + liens 52 + marge 16) */
   /* espacements.md, section 8 : réserve de la zone d'action fixe */
@@ -759,7 +759,8 @@
 }
 
 .fin-quiz-actions .fiche-barre-action-contenu {
-  max-width: 420px;
+  /* mise-en-page.md, section 3 : colonne Formulaire */
+  max-width: 440px;
 }
 
 .fin-quiz-libelle {
@@ -1394,8 +1395,8 @@
   }
 
   .fiche-page-avec-nav {
-    /* espacements.md, section 8 : réserve de la barre du haut */
-    padding-top: 104px;
+    /* mise-en-page.md, section 5 : haut du contenu sous la barre du haut (--haut-contenu) */
+    padding-top: var(--haut-contenu);
   }
 
   .fiche-page > .espace-nav {
@@ -1403,11 +1404,12 @@
   }
 
   .fiche-entete-objet {
+    position: absolute;
+    margin-bottom: 0;
     width: 120px;
     height: 120px;
-    /* espacements.md, section 8 : position de l'objet 3D */
+    /* espacements.md, section 8 : position de l'objet 3D dans son cadre */
     top: 20px;
-    /* espacements.md, section 8 : position de l'objet 3D */
     right: 24px;
   }
 
@@ -1441,12 +1443,12 @@
     gap: var(--espace-icone);
   }
 
-  /* Quiz : colonne centrée de 680 px (question, réponses, correction, bouton) */
+  /* Quiz : colonne Question (mise-en-page.md, section 3), centrée */
   .fiche-quiz {
     max-width: 680px;
   }
 
-  /* Desktop : colonne de 420 px centrée verticalement, actions sous le contenu sans barre fixe */
+  /* Desktop : colonne Formulaire centrée verticalement, actions sous le contenu sans barre fixe */
   .fin-quiz {
     margin: -40px -40px -56px;
     /* espacements.md, section 8 : padding desktop de la page (valeurs gardées) */
@@ -1477,4 +1479,12 @@
   .fin-quiz-bouton {
     margin-top: var(--espace-groupes);
   }
+}
+
+/* Enregistrement de la progression qui échoue : message au-dessus de l'écran (ds-principes-composants.md,
+   États de page), dans la colonne Lecture */
+.fiche-erreur-enregistrement {
+  /* mise-en-page.md, section 3 : colonne Lecture */
+  max-width: 880px;
+  margin: 0 auto var(--espace-blocs);
 }
