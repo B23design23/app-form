@@ -75,10 +75,11 @@
   z-index: 20;
   display: flex;
   gap: var(--espace-repetition);
-  /* barre collante sur toute la largeur : traverse la marge de page et la reprend (section 6) ;
-     espacements.md, section 8 : 12 en haut (+ zone de sécurité) et en bas */
+  /* barre collante sur toute la largeur : traverse la marge de page et la reprend (espacements.md,
+     section 6) ; haut (+ zone de sécurité) et bas : Entre deux groupes (écart dans une barre qui
+     n'est pas une rangée) */
   margin: 0 calc(-1 * var(--espace-marge-page));
-  padding: calc(env(safe-area-inset-top) + 12px) var(--espace-marge-page) 12px;
+  padding: calc(env(safe-area-inset-top) + var(--espace-groupes)) var(--espace-marge-page) var(--espace-groupes);
   overflow-x: auto;
   background: var(--fond-page);
   scrollbar-width: none;
@@ -219,7 +220,8 @@
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   /* sous les pastilles collantes lors du défilement vers une section */
-  /* espacements.md, section 8 : position de défilement sous la barre collante */
+  /* mise-en-page.md, section 8 : arrêt de défilement propre à Création de cours, sous la rangée
+     collante (exception écrite) */
   scroll-margin-top: calc(env(safe-area-inset-top) + 76px);
 }
 
@@ -261,7 +263,7 @@
 }
 
 .cc-champ-titre textarea {
-  /* espacements.md, section 7 : le Champ fixe les côtés ; haut et bas du champ multiligne gardés */
+  /* espacements.md, section 7 (Champ) : champ multiligne, vertical de 12 */
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: var(--rayon-element);
@@ -359,6 +361,8 @@
 
 .cc-editeur-outils {
   display: flex;
+  /* mise-en-page.md, section 7 : une rangée de contrôles passe à la ligne quand elle ne tient pas */
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--espace-rangee);
@@ -440,7 +444,8 @@
 }
 
 .cc-apercu > .fm-texte {
-  /* espacements.md, section 8 : padding du texte dans l'aperçu, sans rôle */
+  /* sans rôle ni renvoi juste (esp3 recommandait de le retirer : 8 px visibles) ; signalé,
+     lots-mep.md, lot 15 */
   padding: 8px;
 }
 
@@ -654,14 +659,15 @@
   display: block;
   width: 100%;
   min-height: 56px;
-  /* espacements.md, section 8 : réserve du bouton image dans le champ */
+  /* espacements.md, section 7 (Champ) : réserve du côté du bouton posé dans le champ (bouton de 40 à
+     6 du bord, section 8, plus l'écart jusqu'au texte) */
   padding-right: 60px;
   resize: vertical;
 }
 
 .cc-bouton-image-interne {
   position: absolute;
-  /* espacements.md, section 8 : position du bouton dans la réserve du champ */
+  /* espacements.md, section 8 : position d'un bouton posé dans un champ */
   top: 6px;
   right: 6px;
   display: inline-flex;
@@ -735,7 +741,8 @@
 .cc-reponse-explication {
   flex: 1;
   min-width: 0;
-  min-height: 44px;
+  /* ds-principes-composants.md, Champ : champ d'une ligne, 48 */
+  min-height: 48px;
   padding: 0 var(--espace-champ);
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
@@ -746,9 +753,7 @@
 }
 
 .cc-reponse-explication {
-  min-height: 40px;
-  /* décalé sous le texte de la réponse, pas sous la lettre : lettre 40 + Rangée */
-  /* espacements.md, section 8 : retrait calculé (lettre 40 + Rangée) */
+  /* décalé sous le texte de la réponse, pas sous la lettre : retrait calculé, lettre 40 + Rangée */
   margin-left: calc(40px + var(--espace-rangee));
 }
 
@@ -756,6 +761,19 @@
 .cc-reponse-explication:focus {
   border-color: var(--bordure-focus);
   outline: none;
+}
+
+/* Champ en erreur (ds-principes-composants.md, Champ) : les règles de champ de cet écran ont la
+   spécificité de la règle commune de shared.css et sont déclarées après elle */
+.cc-page [aria-invalid='true'] {
+  border-color: var(--bordure-erreur);
+}
+
+/* Autoremplissage : le champ garde son fond (ds-principes-composants.md, Champ) */
+.cc-page input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
+  box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
+  -webkit-text-fill-color: var(--texte-principal);
 }
 
 /* Contrôle « Bonne réponse » : vrai input (radio / case) masqué sous un repère dessiné */
@@ -820,7 +838,11 @@
   color: var(--texte-succes);
 }
 
-/* Focus clavier : contour violet autour du contrôle (l'input masqué le recouvre) */
+/* Focus clavier : un seul indicateur, le contour du repère (l'input masqué n'a pas de contour) */
+.cc-bonne-input:focus-visible {
+  outline: none;
+}
+
 .cc-bonne-input:focus-visible + .cc-bonne-repere {
   outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
@@ -935,7 +957,7 @@
 .cc-etape-intitule {
   flex: 1;
   min-width: 0;
-  /* espacements.md, section 7 : le Champ fixe les côtés ; haut et bas de l'intitulé gardés */
+  /* espacements.md, section 7 (Champ) : champ multiligne, vertical de 12 */
   padding: 12px var(--espace-champ);
   border: 2px solid transparent;
   border-radius: var(--rayon-element);
@@ -966,8 +988,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--espace-repetition);
-  /* décalés sous l'intitulé : numéro 32 px + Rangée */
-  /* espacements.md, section 8 : retrait calculé (numéro 32 + Rangée) */
+  /* décalés sous l'intitulé : retrait calculé, numéro 32 + Rangée */
   padding-left: calc(32px + var(--espace-rangee));
 }
 
@@ -975,7 +996,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--espace-groupes);
-  /* espacements.md, section 8 : retrait calculé (numéro 32 + Rangée) */
+  /* retrait calculé : numéro 32 + Rangée */
   padding-left: calc(32px + var(--espace-rangee));
 }
 
@@ -1038,8 +1059,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--espace-rangee);
-  /* barre fixe : marge de page sur les côtés ; espacements.md, section 8 : 14 en haut, 16 + zone de sécurité en bas */
-  padding: 14px var(--espace-marge-page) calc(16px + env(safe-area-inset-bottom));
+  /* barre fixe : marge de page sur les côtés, en haut et en bas (+ zone de sécurité) */
+  padding: var(--espace-marge-page) var(--espace-marge-page) calc(var(--espace-marge-page) + env(safe-area-inset-bottom));
   border-radius: var(--rayon-surface) var(--rayon-surface) 0 0;
   background: var(--fond-surface);
   box-shadow: var(--ombre-flottante);
@@ -1102,11 +1123,6 @@
 
 .cc-bonne-controle:active .cc-bonne-repere {
   transform: scale(0.92);
-}
-
-.cc-page button:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
 }
 
 @media (hover: hover) {
@@ -1210,8 +1226,6 @@
 
   .cc-etape-intitule {
     min-height: 44px;
-    /* espacements.md, section 7 : le Champ fixe les côtés ; haut et bas gardés (10) */
-    padding: 10px var(--espace-champ);
   }
 
   .cc-etape-outils-desktop {
@@ -1230,9 +1244,8 @@
     display: none;
   }
 
-  /* sous l'intitulé : poignée 28 + numéro 32 + 2 Rangées */
+  /* sous l'intitulé : retrait calculé, poignée 28 + numéro 32 + 2 Rangées */
   .cc-etape-details {
-    /* espacements.md, section 8 : retrait calculé (poignée 28 + numéro 32 + 2 Rangées) */
     padding-left: calc(28px + 32px + 2 * var(--espace-rangee));
   }
 
@@ -1361,7 +1374,7 @@
   }
 
   .cc-carte {
-    /* espacements.md, section 8 : position de défilement sous la barre collante */
+    /* mise-en-page.md, section 8 : arrêt de défilement propre à Création de cours (exception écrite) */
     scroll-margin-top: 28px;
   }
 }

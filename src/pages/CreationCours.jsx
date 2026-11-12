@@ -285,7 +285,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
       const premiereErreur =
         coursRes.error?.message ?? questionsRes.error?.message ?? etapesRes.error?.message ?? coursGroupesRes.error?.message
       if (premiereErreur) {
-        setErreurChargement(premiereErreur)
+        console.error('cours à modifier', premiereErreur)
+        setErreurChargement("Ce cours n'a pas pu être chargé.")
         setChargement(false)
         return
       }
@@ -558,7 +559,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
     setUploadCibleEnCours(null)
 
     if (erreurEnvoi) {
-      setErreurUpload({ cle: cible.cle, message: `L'image n'a pas pu être envoyée (${erreurEnvoi.message}).` })
+      console.error('lecons-media', erreurEnvoi.message)
+      setErreurUpload({ cle: cible.cle, message: "L'image n'a pas pu être envoyée." })
       return
     }
 
@@ -623,19 +625,19 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
   // --- Validation et enregistrement --------------------------------------------------------------
 
   function validerFormulaire() {
-    if (titre.trim().length === 0) return { cible: 'infos', message: 'Le titre du cours est obligatoire.' }
-    if (!THEMATIQUES.includes(categorie)) return { cible: 'infos', message: 'Choisis un thème pour ce cours.' }
+    if (titre.trim().length === 0) return { cible: 'infos', champ: 'titre', message: 'Le titre du cours est obligatoire.' }
+    if (!THEMATIQUES.includes(categorie)) return { cible: 'infos', champ: 'theme', message: 'Choisis un thème pour ce cours.' }
     if (questions.length === 0) return { cible: 'qcm', message: 'Ajoute au moins une question au QCM.' }
 
     for (const question of questions) {
       if (!composerAvecImages(question.enonce, question.images)) {
-        return { cible: question.localId, message: 'L’énoncé de cette question est vide.' }
+        return { cible: question.localId, champ: 'enonce', message: 'L’énoncé de cette question est vide.' }
       }
       if (question.reponses.length < 2) {
         return { cible: question.localId, message: 'Ajoute au moins 2 réponses à cette question.' }
       }
       if (question.reponses.some((r) => r.texte.trim().length === 0)) {
-        return { cible: question.localId, message: 'Une réponse de cette question est vide.' }
+        return { cible: question.localId, champ: 'reponse-vide', message: 'Une réponse de cette question est vide.' }
       }
       if (!question.reponses.some((r) => r.estCorrecte)) {
         return { cible: question.localId, message: 'Coche au moins une bonne réponse.' }
@@ -645,7 +647,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
     if (checklistMode) {
       if (etapes.length === 0) return { cible: 'checklist', message: 'Ajoute au moins une étape, ou choisis « Pas de checklist ».' }
       const vide = etapes.find((e) => !composerAvecImages(e.intitule, e.images))
-      if (vide) return { cible: vide.localId, message: 'L’intitulé de cette étape est vide.' }
+      if (vide) return { cible: vide.localId, champ: 'intitule', message: 'L’intitulé de cette étape est vide.' }
     }
 
     return null
@@ -663,7 +665,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
     )
   }
 
-  function echec(message) {
+  function echec(message, erreurTechnique) {
+    if (erreurTechnique) console.error('enregistrement du cours', erreurTechnique.message)
     setEnregistrement(false)
     setErreur({ cible: 'global', message })
   }
@@ -697,18 +700,18 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
         })
         .eq('id', coursId)
 
-      if (erreurMaj) return echec(`Le cours n'a pas pu être mis à jour (${erreurMaj.message}).`)
+      if (erreurMaj) return echec("Le cours n'a pas pu être mis à jour.", erreurMaj)
 
       // Plutôt qu'un diff ligne par ligne, on repart de zéro pour questions/reponses/etapes_checklist :
       // elles n'ont pas de dépendances externes en dehors du cours, supprimer puis réinsérer est sûr.
       const { error: erreurSuppressionQuestions } = await supabase.from('questions').delete().eq('cours_id', coursId)
       if (erreurSuppressionQuestions) {
-        return echec(`Les anciennes questions n'ont pas pu être supprimées (${erreurSuppressionQuestions.message}).`)
+        return echec("Les anciennes questions n'ont pas pu être supprimées.", erreurSuppressionQuestions)
       }
 
       const { error: erreurSuppressionEtapes } = await supabase.from('etapes_checklist').delete().eq('cours_id', coursId)
       if (erreurSuppressionEtapes) {
-        return echec(`L'ancienne checklist n'a pas pu être supprimée (${erreurSuppressionEtapes.message}).`)
+        return echec("L'ancienne checklist n'a pas pu être supprimée.", erreurSuppressionEtapes)
       }
     } else {
       const { data: coursCree, error: erreurCours } = await supabase
@@ -727,7 +730,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
         .select()
         .single()
 
-      if (erreurCours) return echec(`Le cours n'a pas pu être créé (${erreurCours.message}).`)
+      if (erreurCours) return echec("Le cours n'a pas pu être créé.", erreurCours)
       coursIdActuel = coursCree.id
     }
 
@@ -742,7 +745,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
         .select()
         .single()
 
-      if (erreurQuestion) return echec(`Une question n'a pas pu être enregistrée (${erreurQuestion.message}).`)
+      if (erreurQuestion) return echec("Une question n'a pas pu être enregistrée.", erreurQuestion)
 
       const reponsesAInserer = question.reponses.map((r) => ({
         question_id: questionCreee.id,
@@ -752,7 +755,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
       }))
 
       const { error: erreurReponses } = await supabase.from('reponses').insert(reponsesAInserer)
-      if (erreurReponses) return echec(`Les réponses n'ont pas pu être enregistrées (${erreurReponses.message}).`)
+      if (erreurReponses) return echec("Les réponses n'ont pas pu être enregistrées.", erreurReponses)
     }
 
     if (checklistMode && etapes.length > 0) {
@@ -766,7 +769,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
       }))
 
       const { error: erreurEtapes } = await supabase.from('etapes_checklist').insert(etapesAInserer)
-      if (erreurEtapes) return echec(`La checklist n'a pas pu être enregistrée (${erreurEtapes.message}).`)
+      if (erreurEtapes) return echec("La checklist n'a pas pu être enregistrée.", erreurEtapes)
     }
 
     // Assignation : seules les lignes cours_groupes ajoutées ou retirées sont touchées, pour garder
@@ -777,14 +780,14 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
 
       if (retires.length > 0) {
         const { error } = await supabase.from('cours_groupes').delete().eq('cours_id', coursIdActuel).in('groupe_id', retires)
-        if (error) return echec(`Les groupes retirés n'ont pas pu être mis à jour (${error.message}).`)
+        if (error) return echec("Les groupes retirés n'ont pas pu être mis à jour.", error)
       }
 
       if (ajoutes.length > 0) {
         const { error } = await supabase
           .from('cours_groupes')
           .insert(ajoutes.map((groupeId) => ({ cours_id: coursIdActuel, groupe_id: groupeId })))
-        if (error) return echec(`Les groupes assignés n'ont pas pu être enregistrés (${error.message}).`)
+        if (error) return echec("Les groupes assignés n'ont pas pu être enregistrés.", error)
 
         // Make n°2 : les élèves des groupes nouvellement assignés reçoivent l'email (fire-and-forget)
         notifierMakeNouveauCours(titre.trim(), ajoutes)
@@ -804,7 +807,17 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
     checklist: checklistMode ? `${etapes.length} étape${etapes.length > 1 ? 's' : ''}` : null,
   }
   const compteurCourt = { qcm: questions.length, checklist: checklistMode ? etapes.length : null }
-  const erreurPour = (cible) => (erreur?.cible === cible ? <p className="message message-erreur">{erreur.message}</p> : null)
+  const erreurPour = (cible) =>
+    erreur?.cible === cible ? (
+      <p id={`cc-erreur-${cible}`} className="message message-erreur">
+        {erreur.message}
+      </p>
+    ) : null
+  // Champ lié au message d'erreur : aria-invalid et aria-describedby (contour bordure-erreur)
+  const attributsErreur = (cible, champ, condition = true) =>
+    erreur?.cible === cible && erreur?.champ === champ && condition
+      ? { 'aria-invalid': true, 'aria-describedby': `cc-erreur-${cible}` }
+      : {}
   const erreurUploadPour = (cle) =>
     erreurUpload?.cle === cle ? <p className="message message-erreur">{erreurUpload.message}</p> : null
 
@@ -815,7 +828,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
           <button type="button" className="fm-bouton-rond" onClick={() => quitterVers(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
             <Icone svg={iconeRetour} className="fm-bouton-rond-icone" />
           </button>
-          {erreurChargement ? <p className="message message-erreur">{erreurChargement}</p> : <p className="fm-texte">Chargement…</p>}
+          {erreurChargement ? <p className="message message-erreur">{erreurChargement}</p> : <p className="etat-chargement">Chargement…</p>}
         </div>
       </div>
     )
@@ -898,7 +911,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
             <div className="cc-ligne-champs">
               <label className="champ cc-champ-titre">
                 <span>Titre</span>
-                <ChampAuto valeur={titre} onChange={setTitre} />
+                <ChampAuto valeur={titre} onChange={setTitre} {...attributsErreur('infos', 'titre')} />
               </label>
               <div className="champ">
                 <span id="cc-libelle-theme">Thème</span>
@@ -1131,6 +1144,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                           rows={2}
                           value={question.enonce}
                           onChange={(e) => majQuestion(question.localId, { enonce: e.target.value })}
+                          {...attributsErreur(question.localId, 'enonce')}
                         />
                         <button
                           type="button"
@@ -1192,6 +1206,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                                 placeholder={`Réponse ${lettre}`}
                                 value={reponse.texte}
                                 onChange={(e) => majReponse(question, reponse.localId, 'texte', e.target.value)}
+                                {...attributsErreur(question.localId, 'reponse-vide', reponse.texte.trim().length === 0)}
                               />
                               {/* Vrai input (radio en réponse unique, case en plusieurs réponses), masqué
                                   visuellement sous un repère dessiné ; les flèches du clavier passent d'un
@@ -1388,6 +1403,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                           placeholder={`Étape ${ei + 1}`}
                           valeur={etape.intitule}
                           onChange={(v) => majEtape(etape.localId, { intitule: v })}
+                          {...attributsErreur(etape.localId, 'intitule')}
                         />
                         <span className="cc-etape-outils-desktop">
                           {boutonBloquante}
@@ -1493,9 +1509,15 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                 setErreurVideo(null)
               }}
               onKeyDown={(e) => e.key === 'Enter' && insererVideo()}
+              aria-invalid={erreurVideo ? true : undefined}
+              aria-describedby={erreurVideo ? 'cc-erreur-video' : undefined}
             />
           </label>
-          {erreurVideo && <p className="message message-erreur">{erreurVideo}</p>}
+          {erreurVideo && (
+            <p id="cc-erreur-video" className="message message-erreur">
+              {erreurVideo}
+            </p>
+          )}
         </Modale>
       )}
 
