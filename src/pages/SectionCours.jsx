@@ -76,7 +76,10 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
       .select('id, titre, visibilite, categorie, ordre, contenu, questions(id), etapes_checklist(id)')
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurCours(error.message)
+        if (error) {
+          console.error('cours', error.message)
+          setErreurCours(true)
+        }
         else setCoursListe(data ?? [])
       })
 
@@ -174,16 +177,16 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
           type="search"
           className="entete-page-recherche"
           aria-label="Rechercher un cours"
-          placeholder="Rechercher un cours..."
+          placeholder="Rechercher un cours"
           value={recherche}
           onChange={(e) => setRecherche(e.target.value)}
         />
       </EntetePage>
 
       {erreurCours ? (
-        <p className="message message-erreur">Impossible de charger les cours ({erreurCours}).</p>
+        <p className="message message-erreur">Impossible de charger les cours.</p>
       ) : coursListe === null ? (
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       ) : (
         <>
           {rechercheActive ? (

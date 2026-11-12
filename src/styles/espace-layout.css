@@ -1,3 +1,17 @@
+/* mise-en-page.md, section 5 : haut du contenu d'une page avec navigation, seule source de la
+   valeur ; lue par le haut de .espace-contenu, par la fiche de cours avec la barre du haut et par
+   les cibles d'ancre (scroll-margin-top). Mobile : haut du Conteneur (espacements.md, section 8). */
+:root {
+  --haut-contenu: calc(env(safe-area-inset-top) + 20px);
+}
+
+@media (min-width: 768px) {
+  :root {
+    /* mise-en-page.md, section 5 : sous la barre du haut */
+    --haut-contenu: 104px;
+  }
+}
+
 .espace-layout {
   min-height: 100vh;
   background: var(--fond-page);
@@ -87,8 +101,9 @@
 
 .espace-contenu {
   min-width: 0;
-  /* espacements.md, section 8 : haut du Conteneur (20 + zone de sécurité) et réserve de la tab bar en bas (112) */
-  padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) calc(112px + env(safe-area-inset-bottom));
+  /* haut : mise-en-page.md, section 5 (--haut-contenu) ; bas : espacements.md, section 8, réserve de
+     la tab bar (112) */
+  padding: var(--haut-contenu) var(--espace-marge-page) calc(112px + env(safe-area-inset-bottom));
 }
 
 .espace-nav-menu-wrapper {
@@ -142,7 +157,6 @@
 
 .espace-page {
   width: 100%;
-  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -235,6 +249,7 @@
     /* espacements.md, section 8 : position de la barre du haut */
     top: 12px;
     bottom: auto;
+    /* mise-en-page.md, section 3 : colonne Page (barre alignée sur le contenu) */
     max-width: 1040px;
     margin: 0 auto;
     /* Bloc près du bord (entrées à fond) en haut, à droite et en bas ; côté logo (sans fond) :
@@ -278,11 +293,13 @@
   }
 
   .espace-contenu {
-    /* espacements.md, section 8 : réserve de la barre du haut (104) et marges de page desktop gardées */
-    padding: 104px 40px 40px;
+    /* haut : mise-en-page.md, section 5 (--haut-contenu) ; côtés et bas : espacements.md, section 8,
+       marges de page desktop gardées */
+    padding: var(--haut-contenu) 40px 40px;
   }
 
   .espace-page-etroit {
+    /* mise-en-page.md, section 3 : colonne Page */
     max-width: 1040px;
     /* espacements.md, section 8 : marge de page desktop gardée */
     padding: 0 24px;
