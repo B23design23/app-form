@@ -38,7 +38,7 @@ Le moins de valeurs possible, pour que l'agent n'ait pas à choisir : un rôle p
   |---|---|---|
   | Thèmes de la page Cours | 210 px | 3 colonnes à 800, 4 dès 1040 |
   | Mes groupes | 300 px | mêmes colonnes qu'avant aux largeurs relevées : 2 à 800 et 1040, 3 à 1100 et 1200 |
-  | Grille de la page `/design-system` | choisie pour garder les colonnes actuelles à 1200 ; la carte large garde ses deux colonnes | 4 colonnes à 1200 |
+  | Grille de la page `/design-system` | 240 px (choisie pour garder les colonnes à 1200) ; la carte large garde ses deux colonnes | 2 colonnes à 800, 3 à 1040, 4 à 1200 |
 
   Aucune grille de cartes n'a de seuil à elle : le nombre de colonnes vient de la largeur minimale.
 - **Une règle à 768 qui change une dimension de mise en page est permise** : marges de page desktop, réserves, nombre de colonnes, disposition (en ligne ou empilé).
