@@ -28,8 +28,8 @@
 .dg-ajout-icone {
   position: absolute;
   top: 50%;
-  /* espacements.md, section 7 : position de l'icône dans la réserve du champ */
-  left: 18px;
+  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
+  left: var(--espace-champ);
   width: 20px;
   height: 20px;
   color: var(--texte-secondaire);
@@ -39,9 +39,9 @@
 
 .dg-ajout-champ input {
   width: 100%;
-  min-height: 52px;
-  /* espacements.md, section 7 : champ avec icône à gauche, 48 = réserve de l'icône gardée */
-  padding: 0 var(--espace-champ) 0 48px;
+  min-height: 48px;
+  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
+  padding: 0 var(--espace-champ) 0 44px;
   border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -54,9 +54,23 @@
   outline: none;
 }
 
+/* Champ en erreur (ds-principes-composants.md, Champ) : la règle commune de shared.css a la même
+   spécificité que celle du champ, déclarée après elle */
+.dg-ajout-champ input[aria-invalid='true'] {
+  border-color: var(--bordure-erreur);
+}
+
+/* Autoremplissage : le champ garde son fond (ds-principes-composants.md, Champ) */
+.dg-ajout-champ input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
+  box-shadow: 0 0 0 1000px var(--fond-surface) inset;
+  -webkit-text-fill-color: var(--texte-principal);
+}
+
 .dg-ajout-bouton {
   flex-shrink: 0;
-  min-height: 52px;
+  /* ds-principes-composants.md, Bouton : posé dans la rangée d'un champ, il prend sa hauteur (48) */
+  min-height: 48px;
   margin-top: 0;
 }
 
@@ -99,7 +113,8 @@
   display: flex;
   gap: var(--espace-repetition);
   /* rangée qui défile jusqu'au bord : traverse la marge de page et la reprend (section 6) ;
-     espacements.md, section 8 : 4 en bas, place de l'ombre au défilement */
+     4 en bas : dimension du composant (place de l'ombre des cartes, rognée par le défilement), pas
+     un espacement entre deux éléments ; aucune section ne la nomme (lots-mep.md, lot 12) */
   margin: 0 calc(-1 * var(--espace-marge-page));
   padding: 0 var(--espace-marge-page) 4px;
   overflow-x: auto;
@@ -173,7 +188,26 @@
 }
 
 .dg-recherche {
+  position: relative;
   flex: 1 1 220px;
+}
+
+/* Recherche avec loupe (ds-principes-composants.md, Champ : toute recherche a la loupe) */
+.dg-recherche-icone {
+  position: absolute;
+  top: 50%;
+  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
+  left: var(--espace-champ);
+  width: 20px;
+  height: 20px;
+  color: var(--texte-secondaire);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.dg-recherche input {
+  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
+  padding-left: 44px;
 }
 
 .dg-filtre {

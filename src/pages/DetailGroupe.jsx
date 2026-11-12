@@ -11,6 +11,7 @@ import { relancerParEmail } from '../lib/relance'
 import { typo } from '../lib/typographie'
 import iconeTrash from '../Assets/trash.svg?raw'
 import iconeEnveloppe from '../Assets/enveloppe.svg?raw'
+import iconeLoupe from '../Assets/loupe.svg?raw'
 import '../styles/shared.css'
 import '../components/formateur/Formateur.css'
 import './DetailGroupe.css'
@@ -64,6 +65,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
   const [mesCours, setMesCours] = useState([])
   const [coursChoisis, setCoursChoisis] = useState([])
   const [assignationEnCours, setAssignationEnCours] = useState(false)
+  const [erreurAssignation, setErreurAssignation] = useState(null)
 
   function handleTriColonne(colonne) {
     setTri((prev) => (prev.colonne !== colonne ? { colonne, direction: 'desc' } : { colonne, direction: prev.direction === 'desc' ? 'asc' : 'desc' }))
@@ -72,7 +74,8 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
   async function rechargerMembres() {
     const { data, error } = await supabase.rpc('get_membres_groupe', { p_groupe_id: groupeId })
     if (error) {
-      setErreurSuivi(error.message)
+      console.error('suivi du groupe', error.message)
+      setErreurSuivi(true)
       return []
     }
     setMembres(data ?? [])
@@ -85,7 +88,8 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
       .select('cours(id, titre, visibilite)')
       .eq('groupe_id', groupeId)
     if (erreurCours) {
-      setErreurSuivi(erreurCours.message)
+      console.error('suivi du groupe', erreurCours.message)
+      setErreurSuivi(true)
       return
     }
     const coursData = (coursGroupesData ?? []).map((cg) => cg.cours).filter(Boolean)
@@ -100,13 +104,16 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
         .select('user_id, cours_id, statut')
         .in('user_id', apprenantIds)
         .in('cours_id', coursData.map((c) => c.id))
-      if (erreurProgression) setErreurSuivi(erreurProgression.message)
-      else setProgressionParCle(new Map((progressionData ?? []).map((p) => [`${p.user_id}_${p.cours_id}`, p.statut])))
+      if (erreurProgression) {
+        console.error('suivi du groupe', erreurProgression.message)
+        setErreurSuivi(true)
+      } else setProgressionParCle(new Map((progressionData ?? []).map((p) => [`${p.user_id}_${p.cours_id}`, p.statut])))
     }
 
     const { data: badgesData, error: erreurBadges } = await supabase.from('user_badges').select('user_id').in('user_id', apprenantIds)
     if (erreurBadges) {
-      setErreurSuivi(erreurBadges.message)
+      console.error('suivi du groupe', erreurBadges.message)
+      setErreurSuivi(true)
     } else {
       const compteur = new Map()
       for (const row of badgesData ?? []) compteur.set(row.user_id, (compteur.get(row.user_id) ?? 0) + 1)
@@ -121,7 +128,8 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
       const { data, error } = await supabase.from('groupes').select('id, nom, formateur_id').eq('id', groupeId).maybeSingle()
       if (annule) return
       if (error || !data || data.formateur_id !== authUser.id) {
-        setErreur(error?.message ?? "Ce groupe est introuvable ou ne t'appartient pas.")
+        if (error) console.error('groupe', error.message)
+        setErreur(error ? "Ce groupe n'a pas pu être chargé." : "Ce groupe est introuvable ou ne t'appartient pas.")
         setChargement(false)
         return
       }
@@ -147,7 +155,8 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     const { data: apprenantId, error: erreurRpc } = await supabase.rpc('find_apprenant_id_by_email', { p_email: emailAjout.trim() })
     if (erreurRpc) {
       setAjoutEnCours(false)
-      setErreurAjout(`La recherche a échoué (${erreurRpc.message}).`)
+      console.error('find_apprenant_id_by_email', erreurRpc.message)
+      setErreurAjout('La recherche a échoué.')
       return
     }
     if (!apprenantId) {
@@ -159,7 +168,8 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     const { error: erreurInsert } = await supabase.from('groupe_membres').insert({ groupe_id: groupeId, apprenant_id: apprenantId })
     setAjoutEnCours(false)
     if (erreurInsert) {
-      setErreurAjout(`L'élève n'a pas pu être ajouté (${erreurInsert.message}).`)
+      console.error('groupe_membres', erreurInsert.message)
+      setErreurAjout("L'élève n'a pas pu être ajouté.")
       return
     }
 
@@ -185,7 +195,8 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     if (error) {
       setSuppression(false)
       setConfirmationSuppression(false)
-      setErreurSuppression(`Le groupe n'a pas pu être supprimé (${error.message}).`)
+      console.error('groupes', error.message)
+      setErreurSuppression("Le groupe n'a pas pu être supprimé.")
       return
     }
     onRetour()
@@ -196,16 +207,34 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     const { data } = await supabase.from('cours').select('id, titre, categorie').eq('formateur_id', authUser.id).order('titre')
     setMesCours(data ?? [])
     setCoursChoisis(coursDuGroupe.map((c) => c.id))
+    setErreurAssignation(null)
     setAssignationOuverte(true)
   }
 
   async function validerAssignation() {
     setAssignationEnCours(true)
+    setErreurAssignation(null)
     const actuels = coursDuGroupe.map((c) => c.id)
     const ajouts = coursChoisis.filter((id) => !actuels.includes(id))
     const retraits = actuels.filter((id) => !coursChoisis.includes(id))
-    if (ajouts.length) await supabase.from('cours_groupes').insert(ajouts.map((cours_id) => ({ cours_id, groupe_id: groupeId })))
-    if (retraits.length) await supabase.from('cours_groupes').delete().eq('groupe_id', groupeId).in('cours_id', retraits)
+    const resultatAjouts = ajouts.length
+      ? await supabase.from('cours_groupes').insert(ajouts.map((cours_id) => ({ cours_id, groupe_id: groupeId })))
+      : { error: null }
+    const resultatRetraits = retraits.length
+      ? await supabase.from('cours_groupes').delete().eq('groupe_id', groupeId).in('cours_id', retraits)
+      : { error: null }
+    // Échec : message dans la modale, qui reste ouverte ; aucune notification si l'ajout a échoué
+    if (resultatAjouts.error || resultatRetraits.error) {
+      console.error('cours_groupes', (resultatAjouts.error ?? resultatRetraits.error).message)
+      setErreurAssignation("L'assignation n'a pas pu être enregistrée. Réessaie.")
+      setAssignationEnCours(false)
+      if (!resultatAjouts.error) for (const id of ajouts) {
+        const cours = mesCours.find((c) => c.id === id)
+        if (cours) notifierMakeNouveauCours(cours.titre, [groupeId])
+      }
+      await rechargerSuivi(membres)
+      return
+    }
     // Même notification que la création d'un cours assigné (Make n°2), pour chaque cours ajouté
     for (const id of ajouts) {
       const cours = mesCours.find((c) => c.id === id)
@@ -241,7 +270,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
   if (chargement) {
     return (
       <div className="espace-page espace-page-etroit fm-page">
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       </div>
     )
   }
@@ -306,6 +335,8 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                 aria-label="Email de l'élève"
                 value={emailAjout}
                 onChange={(e) => setEmailAjout(e.target.value)}
+                aria-invalid={erreurAjout ? true : undefined}
+                aria-describedby={erreurAjout ? 'dg-erreur-ajout' : undefined}
               />
             </label>
             <button type="submit" className="bouton-primaire dg-ajout-bouton" disabled={ajoutEnCours || !emailAjout.trim()}>
@@ -313,7 +344,11 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
             </button>
           </form>
         </div>
-        {erreurAjout && <p className="message message-erreur">{erreurAjout}</p>}
+        {erreurAjout && (
+          <p id="dg-erreur-ajout" className="message message-erreur">
+            {erreurAjout}
+          </p>
+        )}
         {erreurSuppression && <p className="message message-erreur">{erreurSuppression}</p>}
 
         {/* Cours assignés */}
@@ -353,6 +388,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
               <div className="dg-eleves-filtres">
                 <label className="champ dg-recherche">
                   <span className="fm-libelle-masque">Rechercher un élève</span>
+                  <Icone svg={iconeLoupe} className="dg-recherche-icone" />
                   <input type="search" placeholder="Nom, prénom ou email" value={rechercheEleve} onChange={(e) => setRechercheEleve(e.target.value)} />
                 </label>
                 <label className="champ dg-filtre">
@@ -364,7 +400,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
           </div>
 
           {erreurSuivi ? (
-            <p className="message message-erreur">Impossible de charger le suivi ({erreurSuivi}).</p>
+            <p className="message message-erreur">Impossible de charger le suivi.</p>
           ) : membres.length === 0 ? (
             <p className="dashboard-etat-vide">Aucun élève dans ce groupe. Ajoute le premier avec son email.</p>
           ) : membresTries.length === 0 ? (
@@ -477,6 +513,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
               onBasculer={(id) => setCoursChoisis((l) => (l.includes(id) ? l.filter((x) => x !== id) : [...l, id]))}
             />
           )}
+          {erreurAssignation && <p className="message message-erreur">{erreurAssignation}</p>}
         </Modale>
       )}
 
