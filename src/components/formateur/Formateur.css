@@ -162,11 +162,6 @@
   }
 }
 
-.fm-retour:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
-}
-
 .fm-retour-icone {
   width: 18px;
   height: 18px;
@@ -252,7 +247,26 @@
 }
 
 .fm-filtres .fm-recherche {
+  position: relative;
   flex: 1 1 260px;
+}
+
+/* Recherche avec loupe (ds-principes-composants.md, Champ : toute recherche a la loupe) */
+.fm-recherche-icone {
+  position: absolute;
+  top: 50%;
+  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
+  left: var(--espace-champ);
+  width: 20px;
+  height: 20px;
+  color: var(--texte-secondaire);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.fm-recherche input {
+  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
+  padding-left: 44px;
 }
 
 .fm-filtres .fm-filtre {
@@ -335,13 +349,6 @@
 
 .fm-menu-item-danger {
   color: var(--texte-erreur);
-}
-
-/* Focus clavier du bouton « … » et des actions : contour de 2 px à l'extérieur, au clavier seulement */
-.fm-bouton-rond:focus-visible,
-.fm-menu-item:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
 }
 
 @media (hover: hover) {

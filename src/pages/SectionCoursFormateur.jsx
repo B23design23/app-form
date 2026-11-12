@@ -6,6 +6,7 @@ import { partiesContenuCours } from '../lib/cours'
 import Icone from '../components/Icone'
 import iconeChevron from '../Assets/chevron-right.svg?raw'
 import iconePlus from '../Assets/plus.svg?raw'
+import iconeLoupe from '../Assets/loupe.svg?raw'
 import { PastillesGroupes } from '../components/formateur/Elements'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
@@ -54,7 +55,10 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
       .order('created_at', { ascending: false })
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreur(error.message)
+        if (error) {
+          console.error('mes cours', error.message)
+          setErreur(true)
+        }
         else setMesCours(data ?? [])
       })
 
@@ -104,6 +108,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
         <div className="fm-filtres">
           <label className="champ fm-champ-blanc fm-recherche">
             <span className="fm-libelle-masque">Rechercher un cours</span>
+            <Icone svg={iconeLoupe} className="fm-recherche-icone" />
             <input type="search" placeholder="Rechercher un cours" value={recherche} onChange={(e) => setRecherche(e.target.value)} />
           </label>
           <label className="champ fm-champ-blanc fm-filtre">
@@ -118,9 +123,9 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
       )}
 
       {erreur ? (
-        <p className="message message-erreur">Impossible de charger tes cours ({erreur}).</p>
+        <p className="message message-erreur">Impossible de charger tes cours.</p>
       ) : mesCours === null ? (
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       ) : mesCours.length === 0 ? (
         <p className="dashboard-etat-vide dashboard-etat-vide-centre">Aucun cours pour le moment.</p>
       ) : coursAffiches.length === 0 ? (

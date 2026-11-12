@@ -63,6 +63,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
   const [mesGroupes, setMesGroupes] = useState([])
   const [groupesChoisis, setGroupesChoisis] = useState([])
   const [assignationEnCours, setAssignationEnCours] = useState(false)
+  const [erreurAssignation, setErreurAssignation] = useState(null)
   const [rechargement, setRechargement] = useState(0)
 
   useEffect(() => {
@@ -84,7 +85,8 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
       if (annule) return
       const premiereErreur = coursRes.error?.message ?? questionsRes.error?.message ?? etapesRes.error?.message ?? coursGroupesRes.error?.message
       if (premiereErreur) {
-        setErreur(premiereErreur)
+        console.error('détail du cours', premiereErreur)
+        setErreur("Ce cours n'a pas pu être chargé.")
         setChargement(false)
         return
       }
@@ -153,7 +155,8 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
     setSuppression(false)
     if (error) {
       setConfirmationSuppression(false)
-      setErreur(`Le cours n'a pas pu être supprimé (${error.message}).`)
+      console.error('cours', error.message)
+      setErreur("Le cours n'a pas pu être supprimé.")
       return
     }
     onRetour()
@@ -163,17 +166,31 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
     const { data } = await supabase.from('groupes').select('id, nom').eq('formateur_id', authUser.id).order('nom')
     setMesGroupes(data ?? [])
     setGroupesChoisis(assignations.map((a) => a.groupes.id))
+    setErreurAssignation(null)
     setAssignationOuverte(true)
   }
 
   async function validerAssignation() {
     setAssignationEnCours(true)
+    setErreurAssignation(null)
     const actuels = assignations.map((a) => a.groupes.id)
     const ajouts = groupesChoisis.filter((id) => !actuels.includes(id))
     const retraits = actuels.filter((id) => !groupesChoisis.includes(id))
-    if (ajouts.length) await supabase.from('cours_groupes').insert(ajouts.map((groupe_id) => ({ cours_id: coursId, groupe_id })))
-    if (retraits.length) await supabase.from('cours_groupes').delete().eq('cours_id', coursId).in('groupe_id', retraits)
-    if (ajouts.length) notifierMakeNouveauCours(cours.titre, ajouts)
+    const resultatAjouts = ajouts.length
+      ? await supabase.from('cours_groupes').insert(ajouts.map((groupe_id) => ({ cours_id: coursId, groupe_id })))
+      : { error: null }
+    const resultatRetraits = retraits.length
+      ? await supabase.from('cours_groupes').delete().eq('cours_id', coursId).in('groupe_id', retraits)
+      : { error: null }
+    // Notification seulement pour un ajout enregistré
+    if (ajouts.length && !resultatAjouts.error) notifierMakeNouveauCours(cours.titre, ajouts)
+    if (resultatAjouts.error || resultatRetraits.error) {
+      console.error('cours_groupes', (resultatAjouts.error ?? resultatRetraits.error).message)
+      setErreurAssignation("L'assignation n'a pas pu être enregistrée. Réessaie.")
+      setAssignationEnCours(false)
+      setRechargement((n) => n + 1)
+      return
+    }
     setAssignationEnCours(false)
     setAssignationOuverte(false)
     setRechargement((n) => n + 1)
@@ -182,7 +199,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
   if (chargement) {
     return (
       <div className="espace-page espace-page-etroit fm-page">
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       </div>
     )
   }
@@ -269,7 +286,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
               )}
             </div>
             {avancement === null ? (
-              <p className="fm-texte">Chargement…</p>
+              <p className="etat-chargement">Chargement…</p>
             ) : (
               <div className="dc-avancement-corps">
                 <div className="dc-avancement-repartition">
@@ -448,6 +465,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
               onBasculer={(id) => setGroupesChoisis((l) => (l.includes(id) ? l.filter((x) => x !== id) : [...l, id]))}
             />
           )}
+          {erreurAssignation && <p className="message message-erreur">{erreurAssignation}</p>}
         </Modale>
       )}
 
