@@ -32,49 +32,6 @@
   align-self: flex-start;
 }
 
-.page-logo-wrapper {
-  width: 100%;
-  /* mise-en-page.md, section 3 : colonne Formulaire */
-  max-width: 440px;
-  align-self: flex-start;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--espace-blocs);
-}
-
-.page-logo {
-  display: block;
-  width: 140px;
-  height: auto;
-}
-
-.page-logo-wrapper .flow-card {
-  width: 100%;
-  margin-top: 0;
-  align-self: stretch;
-}
-
-.flow-card h1 {
-  font: var(--typo-titre-page);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  margin: 0;
-  color: var(--texte-principal);
-}
-
-/* Titre et sous-titre : Deux textes d'un groupe ; la marge négative annule l'écart Entre deux
-   groupes de la carte et le remplace par Deux textes */
-.flow-card p.souscription {
-  margin: calc(var(--espace-textes) - var(--espace-groupes)) 0 0;
-  color: var(--texte-secondaire);
-  font: var(--typo-texte-secondaire);
-}
-
 .champ {
   display: flex;
   flex-direction: column;
@@ -253,51 +210,6 @@
   flex-shrink: 0;
 }
 
-.lien-retour {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--espace-icone);
-  min-height: 44px;
-  min-width: 44px;
-  align-self: flex-start;
-  padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron);
-  border: none;
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-surface);
-  font: var(--typo-bouton);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.lien-retour-icone {
-  width: 18px;
-  height: 18px;
-}
-
-@media (hover: hover) {
-  .lien-retour:hover {
-    background: var(--fond-accent);
-  }
-}
-
-/* Mobile : chevron seul, le libellé reste lu par les lecteurs d'écran (nom accessible : aria-label) */
-@media (max-width: 767px) {
-  .lien-retour {
-    padding: 0 var(--espace-retour-chevron);
-  }
-
-  .lien-retour-libelle {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
-}
-
 .lien-secondaire {
   display: inline-flex;
   align-items: center;
@@ -470,7 +382,6 @@ label {
 .fiche-bouton-rond:active,
 .parcours-bouton-rond:active,
 .theme-retour:active,
-.lien-retour:active,
 .theme-carte:active,
 .profil-carte:active,
 .parcours-choix-ligne:active,
