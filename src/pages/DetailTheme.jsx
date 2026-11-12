@@ -28,7 +28,10 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
       .order('created_at', { ascending: true })
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreur(error.message)
+        if (error) {
+          console.error('cours du thème', error.message)
+          setErreur(true)
+        }
         else setCoursListe(data ?? [])
       })
 
@@ -63,17 +66,20 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
         <img className="theme-entete-objet" src={imageTheme(nom)} alt="" />
         <span className="theme-entete-numero">Thème {index + 1}</span>
         <h1 className="theme-entete-titre">{nom}</h1>
-        <p className="theme-entete-compte">
-          {termines} cours terminé{termines > 1 ? 's' : ''} sur {total}
-        </p>
+        {/* Thème sans cours : en-tête sans le compteur */}
+        {!(coursListe !== null && total === 0) && (
+          <p className="theme-entete-compte">
+            {termines} cours terminé{termines > 1 ? 's' : ''} sur {total}
+          </p>
+        )}
       </div>
 
       {erreur ? (
-        <p className="message message-erreur">Impossible de charger les cours ({erreur}).</p>
+        <p className="message message-erreur">Impossible de charger les cours.</p>
       ) : coursListe === null ? (
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       ) : coursListe.length === 0 ? (
-        <p className="dashboard-etat-vide">Aucun cours pour le moment dans ce thème.</p>
+        <p className="dashboard-etat-vide">Aucun cours dans ce thème.</p>
       ) : (
         // Ordre pédagogique (cours.ordre) : le cours en cours ne remonte pas, sa pastille le signale.
         <ul className="theme-liste">
