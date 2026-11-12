@@ -84,7 +84,8 @@ function useDonneesFormateur(authUser, actif) {
       ])
       if (annule) return
       if (coursRes.error || groupesRes.error) {
-        setErreur(coursRes.error?.message ?? groupesRes.error?.message)
+        console.error('dashboard formateur', coursRes.error?.message ?? groupesRes.error?.message)
+        setErreur(true)
         return
       }
 
@@ -105,7 +106,8 @@ function useDonneesFormateur(authUser, actif) {
       ])
       if (annule) return
       if (membresRes.error || coursGroupesRes.error) {
-        setErreur(membresRes.error?.message ?? coursGroupesRes.error?.message)
+        console.error('dashboard formateur', membresRes.error?.message ?? coursGroupesRes.error?.message)
+        setErreur(true)
         return
       }
 
@@ -128,7 +130,8 @@ function useDonneesFormateur(authUser, actif) {
           : { data: [] }
       if (annule) return
       if (erreurProgression) {
-        setErreur(erreurProgression.message)
+        console.error('dashboard formateur, progression', erreurProgression.message)
+        setErreur(true)
         return
       }
 
@@ -158,7 +161,10 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection, onOuvrir
       .single()
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurProfil(error.message)
+        if (error) {
+          console.error('profil', error.message)
+          setErreurProfil(true)
+        }
         else setProfil(data)
       })
     return () => {
@@ -172,7 +178,7 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection, onOuvrir
   if (erreurProfil) {
     return (
       <div className="espace-page espace-page-etroit formateur-dashboard-page">
-        <p className="message message-erreur">Impossible de charger ton profil ({erreurProfil}).</p>
+        <p className="message message-erreur">Impossible de charger ton profil.</p>
       </div>
     )
   }
@@ -180,7 +186,7 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection, onOuvrir
   if (!profil) {
     return (
       <div className="espace-page espace-page-etroit formateur-dashboard-page">
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       </div>
     )
   }
@@ -237,9 +243,9 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection, onOuvrir
       {entete}
 
       {erreur ? (
-        <p className="message message-erreur">Impossible de charger ton tableau de bord ({erreur}).</p>
+        <p className="message message-erreur">Impossible de charger ton tableau de bord.</p>
       ) : donnees === null ? (
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       ) : premiersPas ? (
         <PremiersPas
           donnees={donnees}
@@ -603,7 +609,7 @@ function CarteActivite({ donnees, idsEleves, onOuvrirGroupe }) {
       </div>
 
       {resultat === null ? (
-        <p className="fm-texte">Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       ) : resultat.lignes.length === 0 ? (
         <p className="fd-vide">
           {rechercheDebouncee.trim() ? `Aucune activité pour « ${rechercheDebouncee.trim()} ».` : 'Pas encore d’activité.'}

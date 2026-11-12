@@ -94,7 +94,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
         {statsIndisponibles ? (
           <p className="fd-vide">Statistiques indisponibles pour le moment.</p>
         ) : stats === null ? (
-          <p className="fm-texte">Chargement…</p>
+          <p className="etat-chargement">Chargement…</p>
         ) : coursSuivis.length === 0 ? (
           <p className="fd-vide">Aucun cours public n'a encore été ouvert.</p>
         ) : (

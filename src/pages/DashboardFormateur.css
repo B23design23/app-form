@@ -489,23 +489,15 @@
 
 .fd-filtres {
   display: flex;
+  /* mise-en-page.md, section 7 : une rangée de contrôles passe à la ligne quand elle ne tient pas */
+  flex-wrap: wrap;
   gap: var(--espace-repetition);
-  /* rangée qui défile jusqu'au bord de la carte : traverse le padding de l'en-tête et celui de la
-     carte de liste, et les reprend (espacements.md, section 6) */
-  margin: 0 calc(-1 * (var(--espace-bord) + var(--espace-ligne)));
-  padding: 0 calc(var(--espace-bord) + var(--espace-ligne));
-  scroll-padding-inline: calc(var(--espace-bord) + var(--espace-ligne));
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.fd-filtres::-webkit-scrollbar {
-  display: none;
 }
 
 .fd-filtre {
   flex-shrink: 0;
-  min-height: 40px;
+  /* ds-principes-composants.md, Champ : posé dans la rangée d'un champ, un choix prend sa hauteur (48) */
+  min-height: 48px;
   padding: 0 var(--espace-choix-horizontal);
   border: none;
   border-radius: var(--rayon-pilule);
@@ -530,10 +522,10 @@
 .fd-recherche-icone {
   position: absolute;
   top: 50%;
-  /* espacements.md, section 7 : position de l'icône dans la réserve du champ */
-  left: 14px;
-  width: 18px;
-  height: 18px;
+  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
+  left: var(--espace-champ);
+  width: 20px;
+  height: 20px;
   color: var(--texte-secondaire);
   transform: translateY(-50%);
   pointer-events: none;
@@ -541,9 +533,9 @@
 
 .fd-recherche input {
   width: 100%;
-  min-height: 40px;
-  /* espacements.md, section 7 : champ avec icône à gauche, 40 = réserve de l'icône gardée */
-  padding: 0 var(--espace-champ) 0 40px;
+  min-height: 48px;
+  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
+  padding: 0 var(--espace-champ) 0 44px;
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) */
   border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
@@ -557,9 +549,17 @@
   outline: none;
 }
 
+/* Autoremplissage : le champ garde son fond (ds-principes-composants.md, Champ) */
+.fd-recherche input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
+  box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
+  -webkit-text-fill-color: var(--texte-principal);
+}
+
 /* Textes et lien posés dans la carte de liste : même retrait que les lignes */
 .fd-activite > .fd-vide,
-.fd-activite > .fm-texte {
+.fd-activite > .fm-texte,
+.fd-activite > .etat-chargement {
   padding: var(--espace-ligne);
 }
 
@@ -886,15 +886,6 @@
   background: var(--fond-accent);
 }
 
-.fd-lien:focus-visible,
-.fd-lien-discret:focus-visible,
-.fd-groupe:focus-visible,
-.fd-filtre:focus-visible,
-.fd-evenement:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
-}
-
 @media (hover: hover) {
   .fd-lien-discret:hover {
     text-decoration: underline;
@@ -978,14 +969,14 @@
     justify-content: space-between;
   }
 
+  /* La rangée filtres + recherche passe à la ligne si elle ne tient pas : la recherche passe sous
+     les filtres (mise-en-page.md, section 7) */
   .fd-activite-controles {
+    flex: 1;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
-  }
-
-  .fd-filtres {
-    margin: 0;
-    padding: 0;
+    justify-content: flex-end;
   }
 
   .fd-recherche {
