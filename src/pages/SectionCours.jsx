@@ -17,8 +17,13 @@ import './SectionCours.css'
 // La recherche se déclenche à partir de 2 caractères ; en dessous, la page reste dans son état normal.
 const LONGUEUR_MIN_RECHERCHE = 2
 
+// Insensible aux accents et à la casse : « detendeur » trouve « détendeur ».
+function normaliser(texte) {
+  return texte.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase()
+}
+
 function correspondRecherche(cours, terme) {
-  return cours.titre.toLowerCase().includes(terme.trim().toLowerCase())
+  return normaliser(cours.titre).includes(normaliser(terme.trim()))
 }
 
 function rangTheme(categorie) {
@@ -120,6 +125,7 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
     .sort(
       (a, b) =>
         RANG_STATUT_FORMATEUR[a.statut] - RANG_STATUT_FORMATEUR[b.statut] ||
+        // À statut égal : assigné le plus récemment d'abord ; sans date ('') en fin de groupe.
         (dateAssignation.get(b.cours.id) ?? '').localeCompare(dateAssignation.get(a.cours.id) ?? '') ||
         a.cours.titre.localeCompare(b.cours.titre)
     )
@@ -140,7 +146,8 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
   // Défilement vers une section demandée depuis le dashboard, une fois les cours chargés.
   useEffect(() => {
     if (!ancre || coursListe === null) return
-    document.getElementById(ancre)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const reduireAnimations = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    document.getElementById(ancre)?.scrollIntoView({ behavior: reduireAnimations ? 'auto' : 'smooth', block: 'start' })
     onAncreAtteinte?.()
   }, [ancre, coursListe, onAncreAtteinte])
 
@@ -182,27 +189,30 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
           {rechercheActive ? (
             // Pendant une recherche : bloc formateur et grille des thèmes masqués.
             <div className="page-cours-section">
-              <h2 className="page-cours-h2">
-                {resultats.length} résultat{resultats.length > 1 ? 's' : ''}
-              </h2>
               {resultats.length === 0 ? (
+                // Sans résultat : la phrase seule, sans titre « 0 résultat ».
                 <p className="page-cours-aucun-resultat">Aucun cours ne correspond à « {recherche.trim()} ».</p>
               ) : (
-                <ListeCours>
-                  {resultats.map((cours) => {
-                    const statut = statutParCoursId.get(cours.id)
-                    const origine = cours.visibilite === 'prive' ? 'De ton formateur' : libelleCourtTheme(cours.categorie)
-                    return (
-                      <LigneCours
-                        key={cours.id}
-                        cours={cours}
-                        meta={[origine, ...partiesContenuCours(cours)].join(' · ')}
-                        statut={statut === 'en_cours' || statut === 'termine' ? statut : null}
-                        onClick={() => onOuvrirCours(cours.id)}
-                      />
-                    )
-                  })}
-                </ListeCours>
+                <>
+                  <h2 className="page-cours-h2">
+                    {resultats.length} résultat{resultats.length > 1 ? 's' : ''}
+                  </h2>
+                  <ListeCours>
+                    {resultats.map((cours) => {
+                      const statut = statutParCoursId.get(cours.id)
+                      const origine = cours.visibilite === 'prive' ? 'De ton formateur' : libelleCourtTheme(cours.categorie)
+                      return (
+                        <LigneCours
+                          key={cours.id}
+                          cours={cours}
+                          meta={[origine, ...partiesContenuCours(cours)].join(' · ')}
+                          statut={statut === 'en_cours' || statut === 'termine' ? statut : null}
+                          onClick={() => onOuvrirCours(cours.id)}
+                        />
+                      )
+                    })}
+                  </ListeCours>
+                </>
               )}
             </div>
           ) : (
