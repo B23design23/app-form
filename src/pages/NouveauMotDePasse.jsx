@@ -1,7 +1,10 @@
 import { useState } from 'react'
+import GabaritParcours, { ChampParcours, TitreParcours } from '../components/GabaritParcours'
 import Logo from '../components/Logo'
-import '../styles/shared.css'
+import './parcours/Parcours.css'
 
+// Même gabarit que la Connexion (ds-principes-composants.md, Conteneur de page) : emplacement du
+// Retour vide (le logo ne bouge pas), titre, champs posés sur la page, bouton dans la zone d'action.
 function NouveauMotDePasse({ onTermine }) {
   const [motDePasse, setMotDePasse] = useState('')
   const [confirmation, setConfirmation] = useState('')
@@ -12,41 +15,39 @@ function NouveauMotDePasse({ onTermine }) {
   }
 
   return (
-    <div className="flow-page">
-      <div className="page-logo-wrapper">
-        <Logo className="page-logo" />
-
-        <form className="flow-card" onSubmit={handleSubmit}>
-          <h1>Nouveau mot de passe</h1>
-
-          <label className="champ">
-            <span>Nouveau mot de passe</span>
-            <input
-              type="password"
-              required
-              value={motDePasse}
-              onChange={(e) => setMotDePasse(e.target.value)}
-              autoComplete="new-password"
-            />
-          </label>
-
-          <label className="champ">
-            <span>Confirmer le mot de passe</span>
-            <input
-              type="password"
-              required
-              value={confirmation}
-              onChange={(e) => setConfirmation(e.target.value)}
-              autoComplete="new-password"
-            />
-          </label>
-
-          <button type="submit" className="bouton-primaire">
-            Réinitialiser le mot de passe
-          </button>
-        </form>
-      </div>
-    </div>
+    <GabaritParcours
+      barre={
+        <div className="connexion-barre">
+          <span className="parcours-bouton-rond connexion-retour-vide" aria-hidden="true" />
+          <Logo className="connexion-barre-logo" />
+        </div>
+      }
+      action={
+        <button type="submit" form="form-nouveau-mdp" className="bouton-primaire parcours-bouton">
+          Réinitialiser le mot de passe
+        </button>
+      }
+    >
+      <TitreParcours titre="Nouveau mot de passe" />
+      <form id="form-nouveau-mdp" className="parcours-formulaire" onSubmit={handleSubmit}>
+        <ChampParcours
+          label="Nouveau mot de passe"
+          type="password"
+          required
+          value={motDePasse}
+          onChange={(e) => setMotDePasse(e.target.value)}
+          autoComplete="new-password"
+        />
+        <ChampParcours
+          label="Confirmer le mot de passe"
+          type="password"
+          required
+          value={confirmation}
+          onChange={(e) => setConfirmation(e.target.value)}
+          autoComplete="new-password"
+        />
+      </form>
+    </GabaritParcours>
   )
 }
 

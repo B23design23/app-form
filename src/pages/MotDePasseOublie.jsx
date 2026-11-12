@@ -1,17 +1,21 @@
 import { useState } from 'react'
+import GabaritParcours, { ChampParcours, TitreParcours } from '../components/GabaritParcours'
 import Logo from '../components/Logo'
 import Icone from '../components/Icone'
 import iconeRetour from '../Assets/chevron-left.svg?raw'
-import '../styles/shared.css'
+import './parcours/Parcours.css'
 
-// Variante Retour du Bouton : remonte à la Connexion. Sur mobile, chevron seul ; le nom accessible
-// contient le libellé visible (« Connexion »).
-function BoutonRetourConnexion({ onRetour }) {
+// Même gabarit que la Connexion (ds-principes-composants.md, Conteneur de page) : Retour rond et
+// logo en rangée, titres, champ posé sur la page, bouton dans la zone d'action. Le Retour remonte à
+// la Connexion : son nom accessible la nomme.
+function BarreRetourConnexion({ onRetour }) {
   return (
-    <button type="button" className="lien-retour" onClick={onRetour} aria-label="Retour à la connexion">
-      <Icone svg={iconeRetour} className="lien-retour-icone" />
-      <span className="lien-retour-libelle">Connexion</span>
-    </button>
+    <div className="connexion-barre">
+      <button type="button" className="parcours-bouton-rond" onClick={onRetour} aria-label="Retour à la connexion">
+        <Icone svg={iconeRetour} className="parcours-bouton-rond-icone" />
+      </button>
+      <Logo className="connexion-barre-logo" />
+    </div>
   )
 }
 
@@ -26,55 +30,44 @@ function MotDePasseOublie({ onRetour, onSimulerLien }) {
 
   if (envoye) {
     return (
-      <div className="flow-page">
-        <div className="page-logo-wrapper">
-          <BoutonRetourConnexion onRetour={onRetour} />
-          <Logo className="page-logo" />
-
-          <div className="flow-card">
-            <h1>Mot de passe oublié</h1>
-
-            <p className="message message-info">Si ce compte existe, un email vient d'être envoyé.</p>
-
-            <button type="button" className="lien-secondaire" onClick={onSimulerLien}>
-              Simuler l'ouverture du lien reçu par email
-            </button>
-          </div>
-        </div>
-      </div>
+      <GabaritParcours
+        barre={<BarreRetourConnexion onRetour={onRetour} />}
+        secondaire={
+          <button type="button" className="lien-secondaire" onClick={onSimulerLien}>
+            Simuler l'ouverture du lien reçu par email
+          </button>
+        }
+      >
+        <TitreParcours titre="Mot de passe oublié" />
+        <p className="message message-info">Si ce compte existe, un email vient d'être envoyé.</p>
+      </GabaritParcours>
     )
   }
 
   return (
-    <div className="flow-page">
-      <div className="page-logo-wrapper">
-        <BoutonRetourConnexion onRetour={onRetour} />
-        <Logo className="page-logo" />
-
-        <form className="flow-card" onSubmit={handleSubmit}>
-          <h1>Mot de passe oublié</h1>
-
-          <p className="souscription">
-            Entre ton email, on t'envoie un lien pour réinitialiser ton mot de passe.
-          </p>
-
-          <label className="champ">
-            <span>Email</span>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="email"
-            />
-          </label>
-
-          <button type="submit" className="bouton-primaire">
-            Envoyer le lien
-          </button>
-        </form>
-      </div>
-    </div>
+    <GabaritParcours
+      barre={<BarreRetourConnexion onRetour={onRetour} />}
+      action={
+        <button type="submit" form="form-mdp-oublie" className="bouton-primaire parcours-bouton">
+          Envoyer le lien
+        </button>
+      }
+    >
+      <TitreParcours
+        titre="Mot de passe oublié"
+        sousTitre="Entre ton email, on t'envoie un lien pour réinitialiser ton mot de passe."
+      />
+      <form id="form-mdp-oublie" className="parcours-formulaire" onSubmit={handleSubmit}>
+        <ChampParcours
+          label="Email"
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
+        />
+      </form>
+    </GabaritParcours>
   )
 }
 
