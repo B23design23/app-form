@@ -3,7 +3,8 @@
 
 .fiche-page {
   min-height: 100vh;
-  padding: calc(env(safe-area-inset-top) + 20px) 16px calc(40px + env(safe-area-inset-bottom));
+  /* marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de sécurité) et bas 40 */
+  padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) calc(40px + env(safe-area-inset-bottom));
   background: var(--fond-page);
   color: var(--texte-principal);
 }
@@ -15,7 +16,7 @@
 .fiche-colonne {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--espace-blocs);
   width: 100%;
   /* leçon, checklist, récap : 880 px max, centrés (le quiz a sa colonne de 680 px) */
   max-width: 880px;
@@ -96,9 +97,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin: calc(-1 * (env(safe-area-inset-top) + 20px)) -16px 16px;
-  padding: calc(env(safe-area-inset-top) + 8px) 16px 8px;
+  gap: var(--espace-rangee);
+  /* bandeau sur toute la largeur : traverse le haut du Conteneur et la marge de page (section 6) ;
+     espacements.md, section 8 : 16 sous le bandeau, 8 en haut (+ zone de sécurité) et en bas */
+  margin: calc(-1 * (env(safe-area-inset-top) + 20px)) calc(-1 * var(--espace-marge-page)) 16px;
+  padding: calc(env(safe-area-inset-top) + 8px) var(--espace-marge-page) 8px;
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
   font: var(--typo-meta);
@@ -107,7 +110,7 @@
 .fiche-apercu-quitter {
   flex-shrink: 0;
   min-height: 40px;
-  padding: 0 16px;
+  padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -118,6 +121,7 @@
 
 @media (min-width: 768px) {
   .fiche-apercu-bandeau {
+    /* espacements.md, section 8 : traverse le padding desktop de la page (40, valeur gardée) */
     margin: -40px -40px 24px;
     padding: 10px 40px;
   }
@@ -132,7 +136,8 @@
   right: 0;
   bottom: 0;
   z-index: 20;
-  padding: 0 16px calc(16px + env(safe-area-inset-bottom));
+  /* barre fixe : marge de page sur les côtés ; espacements.md, section 8 : bas 16 + zone de sécurité */
+  padding: 0 var(--espace-marge-page) calc(16px + env(safe-area-inset-bottom));
   background: var(--fond-barre);
 }
 
@@ -158,9 +163,9 @@
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: var(--espace-6);
+  gap: var(--espace-icone);
   min-height: 44px;
-  padding: 0 var(--espace-20) 0 var(--espace-12);
+  padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -185,15 +190,17 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 22px 20px 20px;
+  gap: var(--espace-textes);
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-accent);
 }
 
 .fiche-entete-objet {
   position: absolute;
+  /* espacements.md, section 8 : position de l'objet 3D dans l'en-tête */
   top: 16px;
+  /* espacements.md, section 8 : position de l'objet 3D */
   right: 16px;
   width: 92px;
   height: 92px;
@@ -203,6 +210,7 @@
 .fiche-entete-theme,
 .fiche-entete-titre,
 .fiche-entete-sous-titre {
+  /* espacements.md, section 8 : réserve de l'objet 3D */
   padding-right: 100px;
 }
 
@@ -224,13 +232,13 @@
 }
 
 .fiche-entete-sous-titre {
-  margin: 0 0 6px;
+  margin: 0 0 var(--espace-groupes);
   font: var(--typo-meta);
   color: var(--texte-sur-accent);
 }
 
 .fiche-entete .reper-etapes {
-  margin-top: 10px;
+  margin-top: var(--espace-groupes);
 }
 
 /* --- Leçon ----------------------------------------------------------------------------------- */
@@ -238,13 +246,13 @@
 .fiche-lecon {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 22px 20px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-surface);
 }
 
 /* Intertitres : Titre de section posé par ContenuMarkdown ; seule la marge est propre à la leçon */
 .fiche-lecon-contenu.contenu-markdown h2 {
-  margin: 28px 0 10px;
+  margin: var(--espace-intertitre-avant) 0 var(--espace-intertitre-apres);
 }
 
 .fiche-lecon-contenu .contenu-markdown-image,
@@ -256,8 +264,8 @@
 .fiche-retenir {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 18px 20px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-element);
   border-radius: var(--rayon-element);
   background: var(--fond-accent);
 }
@@ -265,7 +273,7 @@
 .fiche-retenir-entete {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espace-icone);
 }
 
 .fiche-retenir-entete h2 {
@@ -299,9 +307,9 @@
 .fiche-retenir ul {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--espace-textes);
   margin: 0;
-  padding-left: 22px;
+  padding-left: var(--espace-retrait-puces);
   font: var(--typo-corps-courant);
 }
 
@@ -309,8 +317,8 @@
 .fiche-suivante {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 20px;
+  gap: var(--espace-textes);
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
@@ -319,7 +327,7 @@
 .fiche-suivante-texte {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--espace-textes);
 }
 
 .fiche-suivante-libelle {
@@ -339,7 +347,7 @@
 }
 
 .fiche-suivante-detail {
-  margin-bottom: 10px;
+  margin-bottom: var(--espace-groupes);
   font: var(--typo-meta);
   color: var(--texte-sur-inverse-attenue);
 }
@@ -351,7 +359,8 @@
   justify-content: space-between;
   width: 100%;
   height: 54px;
-  padding: 0 6px 0 22px;
+  /* espacements.md, section 7 : Bouton à flèche, 24 à gauche, rond de la flèche à 6 du bord */
+  padding: 0 6px 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
@@ -388,7 +397,7 @@
 .fiche-quiz-haut {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .fiche-quiz-compteur {
@@ -400,8 +409,8 @@
 .fiche-quiz-question-bloc {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding-top: 8px;
+  gap: var(--espace-textes);
+  padding-top: var(--espace-groupes);
 }
 
 .fiche-quiz-cours {
@@ -433,7 +442,7 @@
 .fiche-reponses {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--espace-repetition);
 }
 
 /* Réponse : bouton blanc, rayon 20, min 56 px, sans contour au repos */
@@ -441,9 +450,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espace-rangee);
   min-height: 56px;
-  padding: 12px 16px;
+  padding: var(--espace-choix-vertical) var(--espace-choix-horizontal);
   border: 2px solid transparent;
   border-radius: var(--rayon-element);
   background: var(--fond-surface);
@@ -576,9 +585,9 @@
 .fiche-reponse-pastille {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--espace-icone);
   flex-shrink: 0;
-  padding: 4px 10px;
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   font: var(--typo-pastille);
   white-space: nowrap;
@@ -604,9 +613,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espace-textes);
+  /* espacements.md, section 8 : débord de l'objet au-dessus du bloc */
   margin-top: 30px;
-  padding: 22px 20px;
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
@@ -615,6 +625,7 @@
 .fiche-feedback-objet {
   position: absolute;
   top: -30px;
+  /* espacements.md, section 8 : position de l'objet 3D */
   right: 16px;
   width: 96px;
   height: 96px;
@@ -627,6 +638,7 @@
   margin: 0;
   /* Réserve = emprise de l'objet qui déborde (96 px + 16 px du bord − 20 px de padding de la carte) :
      aucun mot sous l'objet */
+  /* espacements.md, section 8 : réserve de l'objet */
   padding-right: 92px;
   font: var(--typo-titre-carte);
   hyphens: auto;
@@ -641,6 +653,7 @@
 .fiche-feedback-texte {
   margin: 0;
   /* Même réserve que le titre : emprise de l'objet */
+  /* espacements.md, section 8 : réserve de l'objet */
   padding-right: 92px;
   font: var(--typo-corps-courant);
   color: var(--texte-sur-inverse-attenue);
@@ -668,6 +681,7 @@
 /* Marge basse du quiz = hauteur de la barre fixe (bouton 58 px + marge 16 px) : la correction ne
    passe jamais sous le bouton */
 .fiche-quiz {
+  /* espacements.md, section 8 : réserve de la barre d'action (bouton 58 + 16) */
   padding-bottom: calc(58px + 16px);
 }
 
@@ -675,10 +689,13 @@
 
 .fin-quiz {
   min-height: 100vh;
-  margin: calc(-1 * (env(safe-area-inset-top) + 20px)) -16px calc(-1 * (40px + env(safe-area-inset-bottom)));
+  /* écran plein : traverse le padding de la page (haut, marge de page, bas) et le reprend
+     (espacements.md, section 6 ; haut 20 et bas 40 : section 8) */
+  margin: calc(-1 * (env(safe-area-inset-top) + 20px)) calc(-1 * var(--espace-marge-page)) calc(-1 * (40px + env(safe-area-inset-bottom)));
   /* même marge haute que la fiche (zone de sécurité comprise) : la barre du haut est à la même
      place que pendant le quiz */
-  padding: calc(env(safe-area-inset-top) + 20px) 16px calc(40px + env(safe-area-inset-bottom));
+  /* espacements.md, section 8 : haut 20 + zone de sécurité, bas 40 + zone de sécurité */
+  padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) calc(40px + env(safe-area-inset-bottom));
   background: var(--fond-accent);
 }
 
@@ -722,6 +739,7 @@
   max-width: 420px;
   margin: 0 auto;
   /* hauteur de la barre d'actions (bouton 58 + liens 52 + marge 16) */
+  /* espacements.md, section 8 : réserve de la zone d'action fixe */
   padding-bottom: 126px;
   text-align: center;
 }
@@ -751,7 +769,7 @@
 /* Repère du centre de l'anneau (origine des confettis) */
 .fin-quiz-anneau-repere {
   display: inline-flex;
-  margin-top: 16px;
+  margin-top: var(--espace-groupes);
 }
 
 .fin-quiz-anneau {
@@ -782,7 +800,7 @@
 
 .espace-page .fin-quiz-titre,
 .fin-quiz-titre {
-  margin: 28px 0 0;
+  margin: var(--espace-groupes) 0 0;
   font: var(--typo-titre-page);
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -793,7 +811,7 @@
 }
 
 .fin-quiz-sous-titre {
-  margin: 8px 0 0;
+  margin: var(--espace-textes) 0 0;
   font: var(--typo-texte-secondaire);
   color: var(--texte-sur-accent);
 }
@@ -801,9 +819,9 @@
 .fin-quiz-xp {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 20px;
-  padding: 6px 16px 6px 8px;
+  gap: var(--espace-icone);
+  margin-top: var(--espace-groupes);
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
@@ -822,8 +840,10 @@
   display: flex;
   align-items: center;
   width: 100%;
+  /* espacements.md, section 8 : écart contenu → carte badge et débord de son objet (valeurs gardées) */
   margin-top: calc(32px + 40px);
-  padding: 20px 20px 20px 136px;
+  /* espacements.md, section 8 : 136 à gauche, réserve de l'objet du badge */
+  padding: var(--espace-surface) var(--espace-surface) var(--espace-surface) 136px;
   border-radius: var(--rayon-surface);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
@@ -832,11 +852,13 @@
 }
 
 .fin-quiz-badge + .fin-quiz-badge {
-  margin-top: calc(16px + 40px);
+  /* Répétition + débord de l'objet du badge (espacements.md, section 8 : 40) */
+  margin-top: calc(var(--espace-repetition) + 40px);
 }
 
 .fin-quiz-badge-objet {
   position: absolute;
+  /* espacements.md, section 8 : position de l'objet du badge */
   left: 12px;
   top: -40px;
   width: 116px;
@@ -849,11 +871,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 4px;
+  gap: var(--espace-textes);
 }
 
 .fin-quiz-badge-pastille {
-  padding: 4px 10px;
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
@@ -888,8 +910,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  column-gap: 24px;
-  margin-top: 8px;
+  column-gap: var(--espace-repetition);
+  margin-top: var(--espace-groupes);
 }
 
 .fin-quiz-lien {
@@ -913,9 +935,9 @@
 .fin-quiz-erreurs {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--espace-repetition);
   width: 100%;
-  margin: 16px 0 0;
+  margin: var(--espace-groupes) 0 0;
   padding: 0;
   list-style: none;
   text-align: left;
@@ -924,8 +946,8 @@
 .fin-quiz-erreur {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 18px;
+  gap: var(--espace-textes);
+  padding: var(--espace-surface);
 }
 
 .fin-quiz-erreur-question.contenu-markdown p {
@@ -992,13 +1014,13 @@
 .fiche-checklist-entete {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .fiche-checklist-entete-texte {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -1024,15 +1046,15 @@
 .fiche-checklist-progression {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 18px 20px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-surface);
 }
 
 .fiche-checklist-progression-ligne {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--espace-rangee);
 }
 
 .fiche-checklist-compte {
@@ -1053,12 +1075,15 @@
 .fiche-checklist-liste-carte {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 10px 16px;
+  gap: var(--espace-groupes);
+  padding: var(--espace-bord);
 }
 
 .fiche-checklist-consigne {
-  margin: 8px 0 0;
+  /* en-tête de la carte de liste posé comme une ligne : 12 en haut et sur les côtés, l'écart de la
+     carte (Entre deux groupes, 12) fait le bas (espacements.md, section 5) */
+  margin: 0;
+  padding: var(--espace-ligne) var(--espace-ligne) 0;
   font: var(--typo-corps-courant);
   color: var(--texte-secondaire);
 }
@@ -1066,7 +1091,7 @@
 .fiche-checklist-liste {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1075,8 +1100,8 @@
 .fiche-etape {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 10px 0;
+  gap: var(--espace-rangee);
+  padding: var(--espace-ligne);
 }
 
 .fiche-etape-pastille {
@@ -1127,7 +1152,7 @@
 .fiche-etape-passer {
   align-self: center;
   min-height: 44px;
-  padding: 0 8px;
+  padding: 0 var(--espace-lien);
   border: none;
   background: none;
   font: var(--typo-lien-texte);
@@ -1147,6 +1172,7 @@
 .fiche-etape-intitule {
   flex: 1;
   min-width: 0;
+  /* espacements.md, section 9 : centrage optique de l'intitulé sur la pastille (multiligne) */
   padding-top: 3px;
 }
 
@@ -1161,16 +1187,10 @@
 
 /* Étape en cours : bloc crème qui déborde légèrement de la liste */
 .fiche-etape-courante {
-  margin: 4px -8px;
-  padding: 16px 14px;
+  margin: 0;
+  padding: var(--espace-element);
   border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
-}
-
-/* Première de la liste : 8 px du haut de la carte, comme sur les côtés (coins concentriques,
-   rayons.md section 7). 10px = padding haut de .fiche-checklist-liste-carte. */
-.fiche-etape-courante:first-child {
-  margin-top: calc(var(--espace-8) - 10px);
 }
 
 .fiche-etape-corps {
@@ -1178,17 +1198,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: var(--espace-groupes);
   min-width: 0;
 }
 
 .fiche-etape-courante .fiche-etape-intitule {
+  /* espacements.md, section 9 : centrage optique (étape en cours) */
   padding-top: 2px;
   color: var(--texte-principal);
 }
 
 .fiche-etape-bloquante {
-  padding: 4px 10px;
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
   border-radius: var(--rayon-pilule);
   background: var(--fond-erreur);
   color: var(--texte-erreur);
@@ -1202,7 +1223,7 @@
 }
 
 .fiche-etape-corps .fiche-bouton-large {
-  margin-top: 4px;
+  margin-top: var(--espace-groupes);
 }
 
 .fiche-etape-reorder {
@@ -1211,7 +1232,7 @@
 
 .fiche-etape-fleches {
   display: flex;
-  gap: 6px;
+  gap: var(--espace-repetition);
   flex-shrink: 0;
 }
 
@@ -1261,14 +1282,14 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 6px;
+  gap: var(--espace-rangee);
+  margin-top: var(--espace-textes);
 }
 
 .fiche-recap-xp {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--espace-icone);
   font: var(--typo-pastille);
 }
 
@@ -1279,15 +1300,15 @@
 
 .fiche-recap-liste {
   margin: 0;
-  padding: 4px 18px;
+  padding: var(--espace-bord);
   list-style: none;
 }
 
 .fiche-recap-ligne {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 0;
+  gap: var(--espace-rangee);
+  padding: var(--espace-ligne);
 }
 
 .fiche-recap-ligne + .fiche-recap-ligne {
@@ -1298,7 +1319,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--espace-textes);
   min-width: 0;
 }
 
@@ -1319,7 +1340,7 @@
 
 .fiche-recap-bouton {
   min-height: 44px;
-  padding: 0 18px;
+  padding: 0 var(--espace-bouton);
   font: var(--typo-bouton);
 }
 
@@ -1328,8 +1349,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
-  padding: 22px 20px;
+  gap: var(--espace-textes);
+  padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-marque);
   color: var(--texte-sur-marque);
@@ -1357,17 +1378,19 @@
 }
 
 .fiche-suite-bouton {
-  margin-top: 10px;
+  margin-top: var(--espace-groupes);
 }
 
 /* --- Desktop ---------------------------------------------------------------------------------- */
 
 @media (min-width: 768px) {
   .fiche-page {
+    /* espacements.md, section 8 : padding desktop de la page (valeurs gardées) */
     padding: 40px 40px 56px;
   }
 
   .fiche-page-avec-nav {
+    /* espacements.md, section 8 : réserve de la barre du haut */
     padding-top: 104px;
   }
 
@@ -1375,25 +1398,20 @@
     display: block;
   }
 
-  .fiche-entete {
-    padding: 28px 32px;
-  }
-
   .fiche-entete-objet {
     width: 120px;
     height: 120px;
+    /* espacements.md, section 8 : position de l'objet 3D */
     top: 20px;
+    /* espacements.md, section 8 : position de l'objet 3D */
     right: 24px;
   }
 
   .fiche-entete-theme,
   .fiche-entete-titre,
   .fiche-entete-sous-titre {
+    /* espacements.md, section 8 : réserve de l'objet 3D */
     padding-right: 150px;
-  }
-
-  .fiche-lecon {
-    padding: 32px 36px;
   }
 
   /* Carte « Étape suivante » : texte à gauche, bouton à droite sur la même ligne, centrés
@@ -1402,8 +1420,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    padding: 24px 24px 24px 28px;
+    gap: var(--espace-groupes);
   }
 
   .fiche-suivante-texte {
@@ -1417,8 +1434,7 @@
   .fiche-suivante .fiche-bouton-blanc {
     flex-shrink: 0;
     width: auto;
-    gap: 16px;
-    padding: 0 6px 0 24px;
+    gap: var(--espace-icone);
   }
 
   /* Quiz : colonne centrée de 680 px (question, réponses, correction, bouton) */
@@ -1429,6 +1445,7 @@
   /* Desktop : colonne de 420 px centrée verticalement, actions sous le contenu sans barre fixe */
   .fin-quiz {
     margin: -40px -40px -56px;
+    /* espacements.md, section 8 : padding desktop de la page (valeurs gardées) */
     padding: 40px 40px 56px;
   }
 
@@ -1454,6 +1471,6 @@
   }
 
   .fin-quiz-bouton {
-    margin-top: 32px;
+    margin-top: var(--espace-groupes);
   }
 }
