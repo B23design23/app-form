@@ -37,7 +37,8 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
       const { data: groupes, error } = await supabase.from('groupes').select('id, nom').eq('formateur_id', authUser.id).order('nom')
       if (annule) return
       if (error) {
-        setErreur(error.message)
+        console.error('mes groupes', error.message)
+        setErreur(true)
         return
       }
       const ids = (groupes ?? []).map((g) => g.id)
@@ -88,9 +89,9 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
       </div>
 
       {erreur ? (
-        <p className="message message-erreur">Impossible de charger tes groupes ({erreur}).</p>
+        <p className="message message-erreur">Impossible de charger tes groupes.</p>
       ) : donnees === null ? (
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       ) : donnees.groupes.length === 0 ? (
         <p className="dashboard-etat-vide dashboard-etat-vide-centre">Aucun groupe pour le moment.</p>
       ) : (
