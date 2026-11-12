@@ -35,7 +35,9 @@
 .dash-blocs {
   display: flex;
   flex-direction: column;
-  gap: var(--espace-repetition);
+  /* Entre deux blocs, aux deux largeurs : bloc de tête, badges, quiz flash et « De ton formateur »
+     sont des blocs de natures différentes (pas une Répétition) */
+  gap: var(--espace-blocs);
 }
 
 .dash-cellule {

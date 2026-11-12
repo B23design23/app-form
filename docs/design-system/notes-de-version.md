@@ -96,6 +96,8 @@ Aucune entrée.
 - En-tête lavande de Cours et Terrain sur desktop : l'objet 3D reste dans le cadre (hauteur minimale).
 - Pages hors navigation (Mot de passe oublié, Nouveau mot de passe, Chargement) : dans le Conteneur de page, sans la marge haute de 40 px ; titre et sous-titre en Deux textes d'un groupe.
 - Repère d'étapes : la ligne de liaison va d'un centre de pastille à l'autre, quel que soit le padding.
+- Dashboard apprenant, écart entre les blocs (`.dash-blocs`, mobile et desktop) : Entre deux blocs (20) au lieu de Répétition (8). Rangement contraire à la définition du rôle : bloc de tête, Prochain badge, Quiz flash et « De ton formateur » sont des blocs de natures différentes, Répétition ne vaut que pour des éléments de même nature répétés.
+- Barre du haut desktop (`.espace-nav`) : côté logo, Padding d'une Surface (20) au lieu de Bloc près du bord (8) ; haut, droite et bas restent à 8. Rangement contraire à la définition du rôle : Bloc près du bord ne vise qu'un bloc à fond posé près du bord (les entrées), le logo n'a pas de fond. Tab bar mobile inchangée (exception écrite).
 
 ## 2.1.0 (brouillon, non publiée)
 

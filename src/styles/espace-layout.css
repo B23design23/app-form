@@ -237,7 +237,9 @@
     bottom: auto;
     max-width: 1040px;
     margin: 0 auto;
-    padding: var(--espace-bord);
+    /* Bloc près du bord (entrées à fond) en haut, à droite et en bas ; côté logo (sans fond) :
+       Padding d'une Surface */
+    padding: var(--espace-bord) var(--espace-bord) var(--espace-bord) var(--espace-surface);
   }
 
   .espace-nav-conteneur {
