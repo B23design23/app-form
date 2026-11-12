@@ -114,11 +114,18 @@
   transition: all 0.15s ease;
 }
 
-/* Page Cours, desktop : lignes sur 3 colonnes, pastille sous le titre, séparateurs entre rangées */
+/* Page Cours, desktop : colonnes automatiques, pastille sous le titre, séparateurs entre rangées */
 @media (min-width: 768px) {
+  /* La carte sert de conteneur : le nombre de colonnes se lit sur la largeur de la liste, pour
+     retirer le séparateur de la dernière ligne de chaque colonne */
+  .bloc-formateur-grille {
+    container-type: inline-size;
+  }
+
   .bloc-formateur-grille .bloc-formateur-liste {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* mise-en-page.md, section 6 : ligne à pastille sous le titre, colonnes automatiques, 260 minimum */
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     column-gap: var(--espace-colonnes);
   }
 
@@ -129,12 +136,38 @@
   .bloc-formateur-grille .bloc-formateur-liste li {
     border-bottom: 1px solid var(--bordure-separateur);
   }
+}
 
+/* Dernière rangée sans séparateur. Largeur de liste à partir de laquelle n colonnes tiennent :
+   n × 260 + (n − 1) × 40 (mise-en-page.md, section 6 ; même calcul que auto-fill ci-dessus) */
+@container (max-width: 559.98px) {
+  .bloc-formateur-grille .bloc-formateur-liste li:last-child {
+    border-bottom: none;
+  }
+}
+
+@container (min-width: 560px) and (max-width: 859.98px) {
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(2n + 1):nth-last-child(-n + 2),
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(2n + 1):nth-last-child(-n + 2) ~ li {
+    border-bottom: none;
+  }
+}
+
+@container (min-width: 860px) and (max-width: 1159.98px) {
   .bloc-formateur-grille .bloc-formateur-liste li:nth-child(3n + 1):nth-last-child(-n + 3),
   .bloc-formateur-grille .bloc-formateur-liste li:nth-child(3n + 1):nth-last-child(-n + 3) ~ li {
     border-bottom: none;
   }
+}
 
+@container (min-width: 1160px) {
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(4n + 1):nth-last-child(-n + 4),
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(4n + 1):nth-last-child(-n + 4) ~ li {
+    border-bottom: none;
+  }
+}
+
+@media (min-width: 768px) {
   /* Contenu des lignes aligné en haut (titres d'une rangée à la même hauteur), chevron centré
      sur la vignette de 48 px */
   .bloc-formateur-grille .bloc-formateur-ligne {

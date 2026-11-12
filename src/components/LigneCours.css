@@ -76,11 +76,12 @@
   margin-top: 14px;
 }
 
-/* Desktop : une seule carte, lignes sur 2 colonnes (écart 40 px), contenu aligné en haut,
+/* Desktop : une seule carte, lignes sur 2 colonnes (écart Colonnes), contenu aligné en haut,
    pas de séparateur sous la dernière ligne de chaque colonne */
 @media (min-width: 768px) {
   .liste-cours {
     display: grid;
+    /* mise-en-page.md, section 6 : ligne à pastille à côté du titre, 2 colonnes, nombre fixe */
     grid-template-columns: repeat(2, minmax(0, 1fr));
     /* stretch : les cellules d'une rangée ont la même hauteur (séparateurs alignés) et leur
        contenu reste aligné en haut */

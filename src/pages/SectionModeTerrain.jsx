@@ -34,7 +34,10 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
       .select('id, titre, categorie, ordre, visibilite, etapes_checklist(id)')
       .then(({ data, error }) => {
         if (annule) return
-        if (error) setErreurCours(error.message)
+        if (error) {
+          console.error('checklists', error.message)
+          setErreurCours(true)
+        }
         else setCoursListe(data ?? [])
       })
 
@@ -77,9 +80,9 @@ function SectionModeTerrain({ authUser, onOuvrirCours }) {
       />
 
       {erreurCours ? (
-        <p className="message message-erreur">Impossible de charger les checklists ({erreurCours}).</p>
+        <p className="message message-erreur">Impossible de charger les checklists.</p>
       ) : coursListe === null ? (
-        <p>Chargement…</p>
+        <p className="etat-chargement">Chargement…</p>
       ) : checklists.length === 0 ? (
         <p className="dashboard-etat-vide">Aucune checklist terrain disponible pour le moment.</p>
       ) : (
