@@ -2,7 +2,7 @@
 
 Ce fichier se rédige depuis la documentation du DS (docs/tokens/, docs/design-system/), jamais depuis le code. Quand le code et la documentation divergent, le fichier suit la documentation et l'écart est noté comme dérive à corriger dans le code.
 
-Référence unique du DS pour un agent qui construit un écran, et pour le mainteneur. Version publiée : 2.0.0. Brouillon en cours : 2.1.0 (voir `notes-de-version.md`).
+Référence unique du DS pour un agent qui construit un écran, et pour le mainteneur. Version publiée : 2.0.0. Brouillon en cours : 3.0.0 (voir `notes-de-version.md`).
 
 Ce fichier assemble des règles déjà écrites ailleurs : il n'en crée aucune. Chaque règle renvoie à sa source. Quand deux sources se contredisent, la contradiction est listée dans « À trancher » à la fin, sans être résolue ici.
 
@@ -33,6 +33,7 @@ Une demande d'exception nomme l'écran, la règle concernée, ce que le système
 - Décisions qui expliquent les tokens : `docs/tokens/couleurs.md`, `docs/tokens/espacements.md`.
 - Typographie (police, échelle, graisses, rôles, états, contrôles, italique) : `docs/tokens/typographie.md`. Section 5 « Typographie » de ce fichier.
 - Rayons (rôles, ordre de choix, règles d'usage) : `docs/tokens/rayons.md`. Section 5 « Rayons » de ce fichier.
+- Mise en page (largeurs de colonne, seuils, haut du contenu et ancres, colonnes de lignes, rangées de contrôles, exceptions) : `docs/tokens/mise-en-page.md`. Section 5 « Mise en page » de ce fichier.
 - Principes et composants : `docs/design-system/ds-principes-composants.md`.
 - Gouvernance, registre et versions : `docs/design-system/gouvernance-skillo.md`, `docs/design-system/notes-de-version.md`.
 - Règles transverses de rendu (section 5) : `docs/design-system/ds-principes-composants.md` (séparateur, césure des titres, ponctuation, survol et tactile, navigation, liste déroulante, logo, objet 3D du thème, chevrons, toast de complétion) ; règle des deux ombres et bouton orange unique : registre de `docs/design-system/gouvernance-skillo.md` ; focus : `docs/tokens/couleurs.md` (décision 4).
@@ -264,8 +265,10 @@ Source : `ds-principes-composants.md`.
 ### Conteneur de page
 
 - **Usage** : toute page de l'app s'y place, y compris une page hors navigation.
-- **Ce qu'il fournit** : marges de page, `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page, rôle Marge de page ; réserve de la tab bar en bas sur mobile, de la barre du haut sur desktop ; complété sur desktop par `.espace-page-etroit` (1040 px max) ; écart entre les blocs de la page, `.espace-page`, rôle Entre deux blocs (« Espacements », section 5).
-- **Page hors navigation** : elle se place aussi dans le Conteneur de page et prend le rôle Marge de page (`espacements.md`). L'élément qui fournit ces marges sans la réserve de la tab bar est `.flow-page` (`shared.css` : marge de page sur les côtés, haut du Conteneur avec la zone de sécurité) : Mot de passe oublié, Nouveau mot de passe, écran « Chargement… ».
+- **Ce qu'il fournit** : marges de page, `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page, rôle Marge de page ; réserve de la tab bar en bas sur mobile, de la barre du haut sur desktop ; complété sur desktop par `.espace-page-etroit` (rôle de largeur Page) ; écart entre les blocs de la page, `.espace-page`, rôle Entre deux blocs (« Espacements », section 5).
+- **Largeur de colonne** : la fonction de l'écran décide du rôle, Page, Lecture, Question ou Formulaire, toutes centrées ; exception écrite : Création de cours (« Mise en page », section 5).
+- **Haut du contenu et ancres** : une cible d'ancre s'arrête au même endroit que le haut du contenu, jamais sous la barre du haut (« Mise en page »).
+- **Page hors navigation** : elle se place aussi dans le Conteneur de page et prend le rôle Marge de page (`espacements.md`). Mot de passe oublié et Nouveau mot de passe prennent le gabarit de la Connexion (`GabaritParcours`) : Retour rond et logo en rangée (Nouveau mot de passe : emplacement du Retour vide), titres en `TitreParcours`, champs `ChampParcours` posés sur la page, bouton dans la zone d'action, colonne Formulaire, textes inchangés. L'écran « Chargement… » de l'app reste dans `.flow-page` (`shared.css` : marge de page sur les côtés, haut du Conteneur avec la zone de sécurité) et `.flow-card`, colonne Formulaire.
 - **Règle** : une page ne redéfinit pas l'écart entre ses blocs.
 - **Fichier à réutiliser** : `src/styles/espace-layout.css` (`.espace-contenu`, `.espace-page-etroit`, `.espace-page`).
 
@@ -286,7 +289,8 @@ Source : `ds-principes-composants.md`.
   - principal : l'action attendue de la zone, un seul par zone ;
   - secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision ;
   - lien texte : une action à part, ni attendue ni alternative. Exemples Skillo : Se déconnecter, Mot de passe oublié.
-- **Focus clavier de tous les boutons** : contour de 2 px à l'extérieur du bouton, token de focus (`bordure-focus`), visible au clavier seulement.
+- **Focus clavier de tous les boutons** : contour de 2 px à l'extérieur du bouton, décalé de 2 px, token de focus (`bordure-focus`), visible au clavier seulement (section 5, « Focus »).
+- **Hauteur** : posé dans la rangée d'un champ, un bouton prend la hauteur du champ, et un choix aussi (filtres posés à côté d'une recherche) : une seule hauteur par rangée. Posé seul, un bouton garde sa hauteur (`espacements.md`, section 7).
 - **Tokens par état** (zone cliquable minimale : voir « Accessibilité » du Bouton dans `ds-principes-composants.md`) :
 
 | Variante | Repos | Survol | Actif (appui tactile) | Focus clavier | Désactivé |
@@ -309,7 +313,10 @@ Source : `ds-principes-composants.md`.
 - **Rôle** : À trancher (la documentation décrit les variantes, pas de rôle général).
 - **Quand l'utiliser, quand choisir le voisin** : un champ pour une saisie libre. Le voisin est la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
 - **Typographie** : le libellé du champ prend le rôle Libellé de champ (`--typo-libelle-champ`) ; le texte tapé ou choisi et le texte indicatif (placeholder) du champ vide prennent le rôle Saisie et choix (`--typo-saisie-choix`), seule la couleur change ; 16 px partout, même dans un en-tête dense ou une ligne de filtres (`typographie.md`, sections 5, 6 et 9).
-- **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule blanche avec loupe, résultats dès 2 caractères).
+- **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule avec loupe, fond selon le support, résultats dès 2 caractères ; toute recherche a la loupe).
+- **Dimensions** : champ d'une ligne, 48 px partout ; champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe), 56 px, grand champ compris ; champ multiligne, hauteur par le contenu, hors de cette règle. Un contrôle posé dans la même rangée qu'un champ prend la hauteur du champ.
+- **Icône dans le champ** : 20 px, posée à 16 px du bord, texte à 8 px de l'icône, soit une réserve de 44 px de ce côté (`espacements.md`, section 7).
+- **Texte indicatif** : couleur `texte-secondaire` sur tous les champs (opacité 1), rôle Saisie et choix ; pas de points de suspension à la fin (« Rechercher un cours »).
 - **Tokens par état** :
 
 | État | Tokens |
@@ -317,12 +324,23 @@ Source : `ds-principes-composants.md`.
 | Repos | fond `fond-sur-carte` sur une carte blanche, `fond-surface` sur le fond de page ; jamais de bordure ; texte saisi : À trancher |
 | Survol | À trancher |
 | Actif (saisie) | contour `bordure-focus` (« champ actif »), dessiné à l'intérieur du champ |
-| Focus clavier | contour `bordure-focus`, dessiné à l'intérieur du champ |
-| Désactivé | À trancher (l'état existe, ses tokens ne sont pas documentés) |
-| Erreur | message sous le champ en `texte-erreur` ; contour `bordure-erreur` (« champ en erreur »), jamais la couleur seule |
+| Focus clavier | contour `bordure-focus`, dessiné à l'intérieur du champ, pas de contour à l'extérieur |
+| Désactivé | fond `fond-action-desactive`, texte `texte-action-desactive`, sans opacité (même rendu que le bouton désactivé) |
+| Erreur | message sous le champ en `texte-erreur` ; contour `bordure-erreur` (« champ en erreur ») et `aria-invalid` sur le champ lié au message, jamais la couleur seule. Erreur qui vise une section entière (QCM, checklist de Création de cours) : message sous la section, aucun champ marqué |
+| Autoremplissage | le champ garde son fond, sur tous les champs (ombre intérieure pleine, exception au registre de la section 5, « Ombres ») |
 
 - **DO** : aligner le champ, son libellé et son aide sur le même bord gauche. Dans Création de cours, le champ Titre, son libellé et l'aide qui suit partent du même bord. Aucune marge négative : le champ fait la largeur de sa colonne.
 - **DON'T** : ajouter une bordure pour séparer le champ de la carte, on change son fond. Dans une carte blanche de Création de cours, le champ Titre prend `fond-sur-carte`, pas une bordure grise. Ne pas signaler une erreur par la seule couleur du contour : on écrit le message sous le champ.
+
+### États de page
+
+Source : `ds-principes-composants.md`, « États de page ».
+
+- **Chargement** : « Chargement… » seul, en Texte secondaire, couleur `texte-secondaire`, sans marge, posé à la place du contenu attendu ; l'écart vient du conteneur (Entre deux blocs sous l'en-tête). Ni spinner, ni squelette.
+- **Erreur** : jamais le message technique de la base, qui part en console ; texte, rôle (Texte secondaire) et couleur (`texte-erreur`) inchangés. Quand un message est à écrire : « [Objet] n'a pas pu être [action]. », suivi de « Réessaie. » seulement si l'action peut être relancée.
+- **Enregistrement** : tout enregistrement affiche un message d'erreur s'il échoue, même composant que les autres, près de l'action.
+- **Formulaire** : voir Champ (message sous le champ, contour `bordure-erreur`, `aria-invalid` ; erreur de section : message sous la section, aucun champ marqué).
+- **Vide** : Texte secondaire, couleur `texte-secondaire`, jamais `texte-erreur`.
 
 ### Barre de progression
 
@@ -416,8 +434,10 @@ Deux ombres, et seulement elles (2.1.0). Le contraste vient des couleurs de fond
 ### Focus
 
 - Couleur : `bordure-focus`. Il garde 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, et n'est jamais lié à `action` (`couleurs.md`, décision 4).
+- Tout élément interactif qui n'est pas un champ (bouton, lien, carte ou ligne cliquable, entrée de navigation, case, ligne de choix) : contour de 2 px à l'extérieur, décalé de 2 px, visible au clavier seulement (`:focus-visible`) (`ds-principes-composants.md`, « Focus »).
 - Champ : contour dessiné à l'intérieur (bordure transparente au repos qui prend `bordure-focus` au focus, pas d'`outline` extérieur), pour qu'aucun conteneur qui défile ne le rogne.
-- Boutons : focus visible au clavier seulement (`:focus-visible`).
+- Un conteneur qui défile et que le navigateur rend focusable prend le même contour que les autres éléments.
+- Un seul indicateur de focus par élément : un contrôle dessiné sur un input masqué (« Bonne réponse » de Création de cours) montre le contour de son repère, pas celui de l'input.
 
 ### Ponctuation
 
@@ -557,7 +577,7 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 | Entre deux blocs | `espace-blocs` | 20 px | Deux blocs de nature différente, ou deux sections d'une page, empilés. Retour compris. |
 | Padding d'une Surface | `espace-surface` | 20 px | Bloc posé sur le fond de la page ou flottant : carte, en-tête de page, bloc de tête, modale, feuille, toast. |
 | Bloc près du bord | `espace-bord` | 8 px | Bloc à fond à moins de 20 px du bord de sa Surface : le même en haut, en bas et sur les côtés, y compris en dernier. Aussi le padding d'une carte de liste. |
-| Entre deux groupes | `espace-groupes` | 12 px | Titre et texte, texte et bouton, titre de section et contenu, deux champs, bouton principal et lien dessous. |
+| Entre deux groupes | `espace-groupes` | 12 px | Titre et texte, texte et bouton, titre de section et contenu (dans une Surface ou posé sur la page), deux champs, bouton principal et lien dessous. |
 | Deux textes d'un groupe | `espace-textes` | 4 px | Surtitre et titre, titre et sous-titre ou compteur, titre et méta, libellé et champ, champ et aide, deux puces. |
 | Rangée | `espace-rangee` | 12 px | Éléments différents côte à côte. |
 | Répétition | `espace-repetition` | 8 px | Éléments de même nature répétés, sans séparateur. |
@@ -579,18 +599,53 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 
 **Débords et défilement** (section 6)
 - Une marge négative de débord annule exactement le padding qu'elle traverse et cite son rôle : `calc(-1 * var(--espace-marge-page))`.
-- Une rangée qui défile jusqu'au bord de l'écran reprend la marge de page au début et à la fin.
+- Une rangée de cartes qui défile jusqu'au bord de l'écran reprend la marge de page au début et à la fin.
+- Une rangée de contrôles (filtres, outils, boutons) ne défile pas : elle passe à la ligne (`mise-en-page.md`, section 7). Exception écrite : pastilles collantes du sommaire mobile de Création de cours.
 - Un tableau plus large que sa carte défile horizontalement dans sa carte.
 - La zone de sécurité s'ajoute à la valeur du rôle.
 
-**Cas particuliers de composant** (section 7) : bouton à flèche, 24 à gauche et le rond à 6 du bord à droite ; champ avec icône à gauche, réserve de l'icône gardée ; entrée de liste déroulante, réserve de la coche (30) ; Choix à hauteur fixe, côtés seulement ; « Bonne réponse », gauche à 0 sous 768 ; rangée des CTA du dashboard formateur, passe à la ligne, libellés en `nowrap`.
+**Cas particuliers de composant** (section 7) : bouton à flèche, 24 à gauche et le rond à 6 du bord à droite ; champ avec icône à gauche, réserve de 44 (icône de 20 à 16 du bord, puis 8 jusqu'au texte) ; bouton ou choix posé dans la rangée d'un champ, hauteur du champ ; entrée de liste déroulante, réserve de la coche (30) ; Choix à hauteur fixe, côtés seulement ; « Bonne réponse », gauche à 0 sous 768 ; rangée des CTA du dashboard formateur, passe à la ligne, libellés en `nowrap`.
 
 **Valeurs hors rôle** (sections 8 et 9)
 - Une valeur qui a un rôle prend la valeur du rôle, jamais un arrondi. Une valeur sans rôle et hors échelle : le palier le plus proche, à égalité le supérieur.
-- Une dimension (réserve, débord d'illustration, marge de page desktop, zone d'action) ou une exception écrite s'écrit en px dans le composant, avec un commentaire qui renvoie à la section d'`espacements.md` (8 ou 9). Jamais un primitif `espace-N`, même quand la valeur existe dans l'échelle.
+- Une dimension (réserve, débord d'illustration, marge de page desktop, zone d'action, position d'un élément fixe ou collant, haut du Conteneur) ou une exception écrite s'écrit en px dans le composant, avec un commentaire qui renvoie à la section d'`espacements.md` (8 ou 9). Une largeur de colonne, un seuil ou une exception de mise en page renvoie à `mise-en-page.md`. Jamais un primitif `espace-N`, même quand la valeur existe dans l'échelle.
 - Hauteur minimale d'un en-tête lavande sur desktop (objet 3D centré verticalement) : hauteur de l'objet 3D + 2 × `espace-surface`, en px avec un commentaire qui renvoie à cette section, pour que l'objet reste dans le cadre (même logique que la réserve des illustrations).
 - Tab bar mobile (sous 768) : Côtés de la barre à 12 px (au lieu de la marge de page), padding de la barre 6 px, écart entre entrées 4 px, entrée 6 px en haut et en bas, 4 px sur les côtés. Raison : à 320 px, « Dashboard » en Navigation (14 px, 800) ne tient avec aucun padding d'entrée dans la barre construite avec les rôles, et la typographie interdit de réduire la taille ou le libellé (règle de la tab bar). Desktop : rôles normaux (Entrée de navigation 8 × 16).
 - Implémentation, état du code : des composants lisent encore des primitifs (`var(--espace-N)`) ; ils passent aux rôles avec les lots de migration. Un nouveau code ne lit jamais un primitif.
+
+### Mise en page
+
+Source : `docs/tokens/mise-en-page.md` (section citée entre parenthèses). Pas de token : les valeurs sont des dimensions de mise en page, en px dans le composant avec un commentaire qui renvoie à la section (section 9).
+
+**Largeurs de colonne** (section 3) : la fonction de l'écran décide du rôle, jamais la largeur actuelle. Toutes centrées.
+
+| Rôle | Valeur | Écrans |
+|---|---|---|
+| Page | 1040 px | pages avec navigation |
+| Lecture | 880 px de contenu (la colonne compte son padding en plus) | leçon, checklist, récap ; Détail d'un thème |
+| Question | 680 px | quiz et quiz flash, barre d'action du quiz, haut de la fin de quiz |
+| Formulaire | 440 px | parcours d'entrée, Mot de passe oublié, Nouveau mot de passe, chargement de l'app, colonne et actions de la fin de quiz |
+
+- Exception écrite : Création de cours, 1200 px, seuil 1024. Hors de ce fichier : modales et toast. Les bornes internes (texte des blocs du dashboard, en-têtes du tableau du Détail groupe, champ de recherche de l'en-tête lavande) ne sont pas des colonnes.
+
+**Seuils** (section 4)
+- 768 px est le seul seuil de mise en page, comme pour la typographie.
+- Grilles de cartes : sous 768, rien ne change ; à partir de 768, colonnes automatiques avec une largeur minimale de carte, écart inchangé (thèmes de la page Cours 210 px, Mes groupes 300 px, grille de `/design-system` choisie pour garder ses colonnes à 1200). Aucune grille n'a de seuil à elle.
+- Une règle à 768 qui change une dimension de mise en page est permise ; une règle à 768 qui change la valeur d'un rôle d'espacement est une dérive, sauf exception écrite (`espacements.md`, section 9).
+
+**Haut du contenu et ancres** (section 5) : haut du contenu à 104 px sur desktop, zone de sécurité + 20 px sur mobile ; une cible d'ancre s'arrête au même endroit. Une seule source pour 104 (Conteneur de page). Création de cours garde ses propres valeurs (exception).
+
+**Colonnes de lignes** (section 6) : sous 768, une colonne. À partir de 768 : ligne avec la pastille sous le titre (« De ton formateur » de la page Cours), colonnes automatiques, 260 px minimum ; ligne avec la pastille à côté du titre (Mode terrain, résultats de recherche), 2 colonnes, nombre fixe. Écart : Colonnes (40).
+
+**Rangées de contrôles** (section 7) : une rangée de contrôles passe à la ligne quand elle ne tient pas (filtres d'Activité récente, la recherche passant dessous si besoin ; barre d'outils de l'éditeur). Seules les rangées de cartes défilent.
+
+**Exceptions écrites** (section 8)
+- Création de cours : 1200 px, seuil 1024, arrêts de défilement propres.
+- Pastilles collantes du sommaire mobile de Création de cours : elles défilent.
+- Introduction sous 667 px de haut (`max-height: 666px`) : zone d'action au plus bas (zone de sécurité + 8, rangée des points gardée à 44), barre « Passer » / logo à zone de sécurité + 8 du haut, bloc lavande → titre en Deux textes d'un groupe, bloc lavande réduit jusqu'à ce que les trois slides tiennent à 320 × 568 (environ 82 px), illustration à l'échelle. « Suivant » garde sa place, la police ne change pas.
+- Taux de complétion du dashboard formateur : seuil de 399 px, provisoire (chantier composants).
+
+**Conduite** (section 10) : une largeur, un seuil ou une rangée qu'aucune règle ne couvre se signale « À trancher » ; l'agent n'ajoute ni seuil, ni largeur, ni exception.
 
 ### Icônes
 
@@ -777,7 +832,7 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 - Conforme : `padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron)`.
 
 **Exemple non conforme : marge négative sans rôle**
-- Situation : rangée de filtres qui défile jusqu'au bord de l'écran, dans la page à 16 sur les côtés.
+- Situation : rangée de cartes « Cours assignés » du Détail groupe, qui défile jusqu'au bord de l'écran, dans la page à 16 sur les côtés.
 - Erreur : `margin: 0 -20px; padding: 0 20px`, la rangée dépasse l'écran de 4 px de chaque côté.
 - Pourquoi : une marge négative annule exactement le padding qu'elle traverse et le cite (`espacements.md`, section 6).
 - Conforme : `margin: 0 calc(-1 * var(--espace-marge-page)); padding: 0 var(--espace-marge-page)`.
@@ -822,6 +877,8 @@ La conduite en attente vaut seulement quand aucune règle ne dit quoi faire. Qua
 
 **Rôle d'espacement impossible à choisir** : si aucun rôle ne s'applique, ou si deux rôles s'appliquent sans que l'ordre ne tranche, l'agent construit le reste de l'écran, écrit « À trancher » dans son rapport avec le rôle le plus proche et sa raison, et propose. Il n'utilise jamais un primitif `espace-N` à la place, et n'ajoute aucun rôle ni aucun token (`espacements.md`, section 10).
 
+**Largeur, seuil ou comportement de mise en page impossible à choisir** : si aucune règle de `mise-en-page.md` ne s'applique (largeur de colonne pour une fonction nouvelle, seuil qui semble nécessaire, rangée qui ne rentre dans aucun cas), l'agent construit le reste de l'écran, écrit « À trancher » dans son rapport avec la règle la plus proche et sa raison, et propose. Il n'ajoute ni seuil, ni largeur, ni exception (`mise-en-page.md`, section 10).
+
 **Demande qui touche le DS** (ajouter, modifier ou supprimer un token ou un composant) : s'arrêter avant d'agir et demander. Un agent ne crée ni ne modifie jamais un token.
 
 ## À trancher
@@ -830,7 +887,7 @@ Contradictions et ambiguïtés relevées entre les sources. Chacune demande une 
 
 1. **Rubriques des entrées Bouton, Champ et Conteneur de page absentes de la documentation** (marquées « À trancher » dans la section 4) :
    - Bouton : rôle général ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
-   - Champ : rôle général ; texte saisi ; survol ; tokens de l'état désactivé.
+   - Champ : rôle général ; texte saisi ; survol.
    - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
 2. **Valeurs en pixels sans token** : zone cliquable minimale, épaisseur des deux variantes de barre, épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 3. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.

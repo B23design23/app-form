@@ -30,9 +30,11 @@ Usage
 Toute page de l'app s'y place, y compris une page hors navigation.
 
 Ce qu'il fournit
-- Marges de page : `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page, rôle Marge de page (valeurs dans `docs/tokens/espacements.md`) ; réserve de la tab bar en bas sur mobile, de la barre du haut sur desktop ; complété sur desktop par `.espace-page-etroit` (1040 px max).
+- Marges de page : `.espace-contenu`, posé par `EspaceApprenant` et `EspaceFormateur` autour de la page, rôle Marge de page (valeurs dans `docs/tokens/espacements.md`) ; réserve de la tab bar en bas sur mobile, de la barre du haut sur desktop ; complété sur desktop par `.espace-page-etroit` (rôle de largeur Page).
+- Largeur de colonne : la fonction de l'écran décide du rôle, Page, Lecture, Question ou Formulaire, toutes centrées ; exception écrite : Création de cours (valeurs dans `docs/tokens/mise-en-page.md`, section 3).
+- Haut du contenu et ancres : une cible d'ancre s'arrête au même endroit que le haut du contenu, jamais sous la barre du haut (`docs/tokens/mise-en-page.md`, section 5).
 - Écart entre les blocs de la page : `.espace-page`, rôle Entre deux blocs (valeurs dans `docs/tokens/espacements.md`).
-- Page hors navigation : elle se place aussi dans le Conteneur de page et prend le rôle Marge de page (`docs/tokens/espacements.md`, décision du 11/11). `.espace-contenu` réserve la place de la tab bar et de la barre du haut : l'élément qui fournit ces marges sans réserve reste à créer au moment de la migration (Mot de passe oublié, Nouveau mot de passe).
+- Page hors navigation : elle se place aussi dans le Conteneur de page et prend le rôle Marge de page (`docs/tokens/espacements.md`, décision du 11/11). Mot de passe oublié et Nouveau mot de passe prennent le gabarit de la Connexion (`GabaritParcours`) : Retour rond et logo en rangée (Nouveau mot de passe : emplacement du Retour vide), titres en `TitreParcours`, champs `ChampParcours` posés sur la page, bouton dans la zone d'action, colonne Formulaire, textes inchangés. L'écran « Chargement… » de l'app reste dans `.flow-page` et `.flow-card`, colonne Formulaire.
 
 Règle principale
 Une page ne redéfinit pas l'écart entre ses blocs.
@@ -58,7 +60,7 @@ Choisir entre principal, secondaire et lien texte
 
 États
 Repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué ; toutes les variantes, sauf Retour).
-Focus clavier de tous les boutons : contour de 2 px à l'extérieur du bouton, token de focus (`bordure-focus`), visible au clavier seulement.
+Focus clavier de tous les boutons : contour de 2 px à l'extérieur du bouton, décalé de 2 px, token de focus (`bordure-focus`), visible au clavier seulement (voir Focus).
 
 Accessibilité
 Zone cliquable de 44 px minimum. Focus visible au clavier seulement.
@@ -66,6 +68,7 @@ Zone cliquable de 44 px minimum. Focus visible au clavier seulement.
 DO
 Un seul bouton principal par zone d'action.
 Un bouton qui valide un formulaire est un bouton principal plein, de même hauteur que le champ voisin.
+Posé dans la rangée d'un champ, un bouton prend la hauteur du champ, et un choix aussi (filtres posés à côté d'une recherche) : une seule hauteur par rangée. Posé seul, un bouton garde sa hauteur (`docs/tokens/espacements.md`, section 7).
 
 DON'T
 Utiliser le pointillé pour valider un formulaire. On prend le principal.
@@ -82,15 +85,27 @@ Variantes et usage
 - Texte : saisie courte, en pilule.
 - Mot de passe : texte masqué, aide « 6 caractères minimum » dessous.
 - Multiligne : saisie longue, rayon Élément (rôle dans `docs/tokens/rayons.md`), hauteur ajustée au contenu.
-- Recherche : pilule blanche avec loupe, résultats dès 2 caractères.
+- Recherche : pilule avec loupe, fond selon le support (voir Fond), résultats dès 2 caractères. Toute recherche a la loupe.
 
 Fond (règle principale)
 Sur une carte blanche : fond crème (apprenant) ou gris clair (formateur).
 Sur le fond de page : fond blanc.
 Jamais de bordure au repos.
 
+Dimensions
+- Hauteur d'un champ d'une ligne : 48 px partout. Champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe) : 56 px, grand champ compris. Champ multiligne : hauteur par le contenu, hors de cette règle.
+- Rangée : un contrôle posé dans la même rangée qu'un champ (bouton, filtre) prend la hauteur du champ.
+- Icône dans le champ : 20 px, posée à 16 px du bord, texte à 8 px de l'icône, soit une réserve de 44 px de ce côté (`docs/tokens/espacements.md`, section 7).
+
+Texte indicatif
+Couleur `texte-secondaire` sur tous les champs (opacité 1), rôle Saisie et choix comme le texte tapé (`docs/tokens/typographie.md`). Pas de points de suspension à la fin : « Rechercher un cours ».
+
 États
-Repos, focus (contour violet 2 px à l'intérieur), erreur (message rouge sous le champ), désactivé.
+- Repos.
+- Focus : contour violet 2 px à l'intérieur, pas de contour à l'extérieur.
+- Erreur : message rouge sous le champ, contour `bordure-erreur` et `aria-invalid` sur le champ lié au message. Erreur qui vise une section entière (QCM, checklist de Création de cours) : message sous la section, aucun champ marqué.
+- Désactivé : même rendu que le bouton désactivé, fond `fond-action-desactive`, texte `texte-action-desactive`, sans opacité.
+- Autoremplissage : le champ garde son fond, règle commune à tous les champs.
 
 DO
 Aligner le champ, son libellé et son aide sur le même bord gauche.
@@ -104,6 +119,20 @@ Signaler l'erreur par la seule couleur du contour. Tentant car discret. On écri
 
 Voisin
 La liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
+
+## États de page
+
+Chargement
+« Chargement… » seul, en Texte secondaire, couleur `texte-secondaire`, sans marge, posé à la place du contenu attendu : l'écart vient du conteneur (Entre deux blocs sous l'en-tête). Ni spinner, ni squelette.
+
+Erreur
+- Un message d'erreur n'affiche jamais le message technique de la base. Celui-ci part en console. Texte, rôle (Texte secondaire) et couleur (`texte-erreur`) inchangés.
+- Quand un message est à écrire : « [Objet] n'a pas pu être [action]. », suivi de « Réessaie. » seulement si l'action peut être relancée.
+- Tout enregistrement affiche un message d'erreur s'il échoue, même composant que les autres, près de l'action.
+- Erreur de formulaire : voir Champ (message sous le champ, contour `bordure-erreur`, `aria-invalid` ; erreur de section : message sous la section).
+
+Vide
+Un état vide est en Texte secondaire, couleur `texte-secondaire`, jamais `texte-erreur`.
 
 ## Barre de progression
 
@@ -282,6 +311,13 @@ Fichier
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
 - Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.
+
+## Focus
+
+- Tout élément interactif qui n'est pas un champ (bouton, lien, carte ou ligne cliquable, entrée de navigation, case, ligne de choix) : contour de 2 px à l'extérieur, décalé de 2 px, token de focus (`bordure-focus`), visible au clavier seulement.
+- Champ : contour de 2 px à l'intérieur (bordure), pas de contour à l'extérieur (voir Champ).
+- Un conteneur qui défile et que le navigateur rend focusable prend le même contour que les autres éléments.
+- Un seul indicateur de focus par élément : un contrôle dessiné sur un input masqué (« Bonne réponse » de Création de cours) montre le contour de son repère ou de sa ligne, pas celui de l'input.
 
 ## Toast de complétion
 
