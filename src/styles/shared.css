@@ -14,8 +14,8 @@
   justify-content: center;
   /* Conteneur de page hors navigation (écran « Chargement… » de l'app) : marge de page sur les
      côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de sécurité, comme
-     .espace-contenu) et bas d'une page sans barre fixe (24) */
-  padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) 24px;
+     .espace-contenu) et bas d'une page sans barre fixe (40) */
+  padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) 40px;
   background: var(--fond-page);
 }
 
@@ -407,8 +407,10 @@ label {
   opacity: 1;
 }
 
-/* Champ en erreur : contour bordure-erreur sur le champ lié au message (aria-invalid) */
-:is(input, textarea, select, button)[aria-invalid='true'] {
+/* Champ en erreur : contour bordure-erreur sur le champ lié au message (aria-invalid). Spécificité
+   0-3-1 (sans !important) : elle gagne contre les règles de bordure des champs des écrans (0-1-1 à
+   0-2-1) ; au focus, la bordure de focus reprend la main (:not(:focus), :not(:focus-visible)). */
+:is(input, textarea, select, button)[aria-invalid='true']:not(:focus):not(:focus-visible) {
   border-color: var(--bordure-erreur);
 }
 

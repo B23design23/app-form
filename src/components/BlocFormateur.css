@@ -138,8 +138,10 @@
   }
 }
 
-/* Dernière rangée sans séparateur. Largeur de liste à partir de laquelle n colonnes tiennent :
-   n × 260 + (n − 1) × 40 (mise-en-page.md, section 6 ; même calcul que auto-fill ci-dessus) */
+/* Aucun séparateur sous le dernier élément de chaque colonne, quel que soit le nombre d'éléments :
+   avec n colonnes, ce sont les n derniers éléments de la liste. Largeur de liste à partir de laquelle
+   n colonnes tiennent : n × 260 + (n − 1) × 40 (mise-en-page.md, section 6 ; même calcul que
+   auto-fill ci-dessus) */
 @container (max-width: 559.98px) {
   .bloc-formateur-grille .bloc-formateur-liste li:last-child {
     border-bottom: none;
@@ -147,22 +149,19 @@
 }
 
 @container (min-width: 560px) and (max-width: 859.98px) {
-  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(2n + 1):nth-last-child(-n + 2),
-  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(2n + 1):nth-last-child(-n + 2) ~ li {
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-last-child(-n + 2) {
     border-bottom: none;
   }
 }
 
 @container (min-width: 860px) and (max-width: 1159.98px) {
-  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(3n + 1):nth-last-child(-n + 3),
-  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(3n + 1):nth-last-child(-n + 3) ~ li {
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-last-child(-n + 3) {
     border-bottom: none;
   }
 }
 
 @container (min-width: 1160px) {
-  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(4n + 1):nth-last-child(-n + 4),
-  .bloc-formateur-grille .bloc-formateur-liste li:nth-child(4n + 1):nth-last-child(-n + 4) ~ li {
+  .bloc-formateur-grille .bloc-formateur-liste li:nth-last-child(-n + 4) {
     border-bottom: none;
   }
 }

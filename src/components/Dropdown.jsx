@@ -2,7 +2,9 @@ import { useRef, useState } from 'react'
 import * as Select from '@radix-ui/react-select'
 import './Dropdown.css'
 
-function Dropdown({ value, onChange, options, placeholder = 'Sélectionner', disabled = false, name }) {
+// invalide : champ lié à un message d'erreur (aria-invalid, bordure d'erreur par la règle commune
+// de shared.css) ; idErreur : id du message, lu par aria-describedby.
+function Dropdown({ value, onChange, options, placeholder = 'Sélectionner', disabled = false, name, invalide = false, idErreur }) {
   const triggerRef = useRef(null)
   const [espaceFormateur, setEspaceFormateur] = useState(false)
 
@@ -22,7 +24,12 @@ function Dropdown({ value, onChange, options, placeholder = 'Sélectionner', dis
       disabled={disabled}
       name={name}
     >
-      <Select.Trigger ref={triggerRef} className="dropdown-trigger">
+      <Select.Trigger
+        ref={triggerRef}
+        className="dropdown-trigger"
+        aria-invalid={invalide ? true : undefined}
+        aria-describedby={invalide && idErreur ? idErreur : undefined}
+      >
         <Select.Value placeholder={placeholder} />
         <Select.Icon className="dropdown-chevron">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">

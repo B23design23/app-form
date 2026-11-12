@@ -443,12 +443,6 @@
   padding: var(--espace-element);
 }
 
-.cc-apercu > .fm-texte {
-  /* sans rôle ni renvoi juste (esp3 recommandait de le retirer : 8 px visibles) ; signalé,
-     lots-mep.md, lot 15 */
-  padding: 8px;
-}
-
 /* Étiquettes d'image : miniature 64 × 44, nom du fichier, croix */
 .cc-images-lecon {
   display: flex;
@@ -761,12 +755,6 @@
 .cc-reponse-explication:focus {
   border-color: var(--bordure-focus);
   outline: none;
-}
-
-/* Champ en erreur (ds-principes-composants.md, Champ) : les règles de champ de cet écran ont la
-   spécificité de la règle commune de shared.css et sont déclarées après elle */
-.cc-page [aria-invalid='true'] {
-  border-color: var(--bordure-erreur);
 }
 
 /* Autoremplissage : le champ garde son fond (ds-principes-composants.md, Champ) */

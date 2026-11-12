@@ -4,8 +4,7 @@
 .fiche-page {
   min-height: 100vh;
   /* marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de
-     sécurité) ; bas 40 : sans renvoi juste, même fonction que le bas de .flow-page (24), À trancher
-     (lots-mep.md, lot 6) */
+     sécurité) et bas d'une page sans barre fixe (40) */
   padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) calc(40px + env(safe-area-inset-bottom));
   background: var(--fond-page);
   color: var(--texte-principal);
@@ -688,11 +687,11 @@
 .fin-quiz {
   min-height: 100vh;
   /* écran plein : traverse le padding de la page (haut, marge de page, bas) et le reprend
-     (espacements.md, section 6 ; haut : haut du Conteneur, section 8 ; bas 40 : voir .fiche-page) */
+     (espacements.md, section 6 ; haut du Conteneur et bas d'une page sans barre fixe : section 8) */
   margin: calc(-1 * (env(safe-area-inset-top) + 20px)) calc(-1 * var(--espace-marge-page)) calc(-1 * (40px + env(safe-area-inset-bottom)));
   /* même marge haute que la fiche (zone de sécurité comprise) : la barre du haut est à la même
      place que pendant le quiz */
-  /* haut du Conteneur (espacements.md, section 8) ; bas 40 : voir .fiche-page */
+  /* espacements.md, section 8 : haut du Conteneur et bas d'une page sans barre fixe (40) */
   padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) calc(40px + env(safe-area-inset-bottom));
   background: var(--fond-accent);
 }

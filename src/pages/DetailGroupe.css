@@ -54,12 +54,6 @@
   outline: none;
 }
 
-/* Champ en erreur (ds-principes-composants.md, Champ) : la règle commune de shared.css a la même
-   spécificité que celle du champ, déclarée après elle */
-.dg-ajout-champ input[aria-invalid='true'] {
-  border-color: var(--bordure-erreur);
-}
-
 /* Autoremplissage : le champ garde son fond (ds-principes-composants.md, Champ) */
 .dg-ajout-champ input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
@@ -113,8 +107,7 @@
   display: flex;
   gap: var(--espace-repetition);
   /* rangée qui défile jusqu'au bord : traverse la marge de page et la reprend (section 6) ;
-     4 en bas : dimension du composant (place de l'ombre des cartes, rognée par le défilement), pas
-     un espacement entre deux éléments ; aucune section ne la nomme (lots-mep.md, lot 12) */
+     espacements.md, section 8 : place de l'ombre (4 en bas) */
   margin: 0 calc(-1 * var(--espace-marge-page));
   padding: 0 var(--espace-marge-page) 4px;
   overflow-x: auto;

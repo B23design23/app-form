@@ -915,7 +915,14 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
               </label>
               <div className="champ">
                 <span id="cc-libelle-theme">Thème</span>
-                <Dropdown value={categorie} onChange={setCategorie} options={OPTIONS_THEMES} placeholder="Choisir un thème" />
+                <Dropdown
+                  value={categorie}
+                  onChange={setCategorie}
+                  options={OPTIONS_THEMES}
+                  placeholder="Choisir un thème"
+                  invalide={erreur?.cible === 'infos' && erreur?.champ === 'theme'}
+                  idErreur="cc-erreur-infos"
+                />
               </div>
             </div>
 
