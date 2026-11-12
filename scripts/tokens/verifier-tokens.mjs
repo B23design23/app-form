@@ -161,3 +161,25 @@ export function verifierTransformations() {
     throw new Error(`Transformations impossibles, rien n'a été écrit (${liste.length}) :\n- ${liste.join('\n- ')}`)
   }
 }
+
+// Contrôle anti-primitif (fin des lots d'espacements) : un composant lit toujours un token de rôle
+// (var(--espace-<rôle>)), jamais un primitif d'échelle (var(--espace-<nombre>)). Seul le CSS généré
+// définit les primitifs et les rôles qui les référencent.
+export async function verifierPrimitifsEspacement(dossier = 'src', exclus = ['src/styles/tokens.generes.css']) {
+  const { readdir } = await import('node:fs/promises')
+  const path = await import('node:path')
+  const entrees = await readdir(dossier, { recursive: true, withFileTypes: true })
+  const erreurs = []
+  for (const e of entrees) {
+    if (!e.isFile() || !/\.(css|jsx?|tsx?)$/.test(e.name)) continue
+    const chemin = path.join(e.parentPath ?? e.path, e.name)
+    if (exclus.includes(chemin)) continue
+    const lignes = (await readFile(chemin, 'utf8')).split('\n')
+    lignes.forEach((ligne, i) => {
+      if (/var\(\s*--espace-\d/.test(ligne)) erreurs.push(`${chemin}:${i + 1} lit un primitif d'espacement : ${ligne.trim()}`)
+    })
+  }
+  if (erreurs.length > 0) {
+    throw new Error(`Primitifs d'espacement lus hors du CSS généré (${erreurs.length}) ; utiliser le token de rôle (espacements.md, section 11) :\n- ${erreurs.join('\n- ')}`)
+  }
+}

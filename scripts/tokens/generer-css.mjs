@@ -11,7 +11,7 @@ import StyleDictionary from 'style-dictionary'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname } from 'node:path'
 import { CLE_PRIMITIF, NOM_PREPROCESSEUR, resoudreRefComposantes } from './resoudre-ref-composantes.mjs'
-import { surveillerTransformations, verifierTokens, verifierTransformations } from './verifier-tokens.mjs'
+import { surveillerTransformations, verifierPrimitifsEspacement, verifierTokens, verifierTransformations } from './verifier-tokens.mjs'
 import { FICHIER_COULEURS, FICHIER_REGLES, ecrireListeTokens, ecrireTablesCouleurs } from './lister-tokens-md.mjs'
 
 const SORTIE = 'src/styles/tokens.generes.css'
@@ -106,6 +106,9 @@ await verifierTokens({
   ],
   interdits: ['typo.seuil-desktop'],
 })
+
+// Aucun composant ne lit un primitif d'espacement (var(--espace-<nombre>)), seulement les rôles
+await verifierPrimitifsEspacement()
 
 const racine = await genererBloc({
   source: [...COMMUNS, 'tokens/semantiques-apprenant.tokens.json', TYPO_MOBILE],
