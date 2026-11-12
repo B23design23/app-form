@@ -28,6 +28,7 @@ Le moins de valeurs possible, pour que l'agent n'ait pas à choisir : un rôle p
 - **Exception écrite** : Création de cours, 1200 px, avec son seuil de 1024 px (section 8).
 - **Hors de ce fichier** : les largeurs des modales et du toast (composants).
 - **Bornes internes** : les bornes de texte posées dans un bloc (200 à 210 px dans les blocs du dashboard, 180 px pour les en-têtes du tableau du Détail groupe) et la largeur du champ de recherche de l'en-tête lavande (480 px) ne sont pas des colonnes. Elles restent telles quelles. La réserve à droite de ce champ (`100 % − 200 px`) relève de la réserve de l'illustration (`espacements.md`, section 8).
+- **Axe de la réserve d'une illustration** : la réserve s'applique sur l'axe où l'illustration rencontre l'élément. Sous 768, l'objet de l'en-tête lavande est en haut à droite : la recherche commence sous lui (réserve verticale, égale à son emprise). À partir de 768, l'objet est centré sur toute la hauteur : la réserve est horizontale (200).
 
 ## 4. Seuils
 

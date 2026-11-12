@@ -608,7 +608,7 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 
 **Valeurs hors rôle** (sections 8 et 9)
 - Une valeur qui a un rôle prend la valeur du rôle, jamais un arrondi. Une valeur sans rôle et hors échelle : le palier le plus proche, à égalité le supérieur.
-- Une dimension (réserve, débord d'illustration, marge de page desktop, zone d'action, position d'un élément fixe ou collant, haut du Conteneur, bas d'une page sans barre fixe) ou une exception écrite s'écrit en px dans le composant, avec un commentaire qui renvoie à la section d'`espacements.md` (8 ou 9). Une largeur de colonne, un seuil ou une exception de mise en page renvoie à `mise-en-page.md`. Jamais un primitif `espace-N`, même quand la valeur existe dans l'échelle.
+- Une dimension (réserve, débord d'illustration, marge de page desktop, zone d'action, position d'un élément fixe ou collant, haut du Conteneur, bas d'une page sans barre fixe (40), place de l'ombre d'une rangée qui défile) ou une exception écrite s'écrit en px dans le composant, avec un commentaire qui renvoie à la section d'`espacements.md` (8 ou 9). Une largeur de colonne, un seuil ou une exception de mise en page renvoie à `mise-en-page.md`. Jamais un primitif `espace-N`, même quand la valeur existe dans l'échelle.
 - Hauteur minimale d'un en-tête lavande sur desktop (objet 3D centré verticalement) : hauteur de l'objet 3D + 2 × `espace-surface`, en px avec un commentaire qui renvoie à cette section, pour que l'objet reste dans le cadre (même logique que la réserve des illustrations).
 - Tab bar mobile (sous 768) : Côtés de la barre à 12 px (au lieu de la marge de page), padding de la barre 6 px, écart entre entrées 4 px, entrée 6 px en haut et en bas, 4 px sur les côtés. Raison : à 320 px, « Dashboard » en Navigation (14 px, 800) ne tient avec aucun padding d'entrée dans la barre construite avec les rôles, et la typographie interdit de réduire la taille ou le libellé (règle de la tab bar). Desktop : rôles normaux (Entrée de navigation 8 × 16).
 - Implémentation, état du code : des composants lisent encore des primitifs (`var(--espace-N)`) ; ils passent aux rôles avec les lots de migration. Un nouveau code ne lit jamais un primitif.
@@ -626,7 +626,7 @@ Source : `docs/tokens/mise-en-page.md` (section citée entre parenthèses). Pas 
 | Question | 680 px | quiz et quiz flash, barre d'action du quiz, haut de la fin de quiz |
 | Formulaire | 440 px | parcours d'entrée, Mot de passe oublié, Nouveau mot de passe, chargement de l'app, colonne et actions de la fin de quiz |
 
-- Exception écrite : Création de cours, 1200 px, seuil 1024. Hors de ce fichier : modales et toast. Les bornes internes (texte des blocs du dashboard, en-têtes du tableau du Détail groupe, champ de recherche de l'en-tête lavande) ne sont pas des colonnes.
+- Exception écrite : Création de cours, 1200 px, seuil 1024. Hors de ce fichier : modales et toast. Les bornes internes (texte des blocs du dashboard, en-têtes du tableau du Détail groupe, champ de recherche de l'en-tête lavande) ne sont pas des colonnes. La réserve d'une illustration s'applique sur l'axe où l'illustration rencontre l'élément (section 3).
 
 **Seuils** (section 4)
 - 768 px est le seul seuil de mise en page, comme pour la typographie.
