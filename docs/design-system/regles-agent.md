@@ -114,7 +114,7 @@ Espacements. Primitifs : base 4 px, 11 paliers, liste fermée : 2, 4, 6, 8, 10, 
 | `--espace-blocs` | Entre deux blocs : écart entre deux blocs de nature différente, ou deux sections d'une page, empilés. Retour compris. Deux cartes de même nature répétées relèvent de espace-repetition. |
 | `--espace-surface` | Padding d'une Surface : padding de tout bloc posé directement sur le fond de la page, ou flottant au-dessus (carte, en-tête de page, bloc de tête, modale, feuille, toast), les quatre côtés. |
 | `--espace-bord` | Bloc près du bord : écart entre un bloc à fond et le bord de la Surface qui le contient, quand il est à moins de 20 px de ce bord, le même en haut, en bas et sur les côtés, y compris quand le bloc est le dernier. La Surface prend ce padding, sans calc ni marge négative. Aussi le padding d'une carte de liste. |
-| `--espace-groupes` | Entre deux groupes : écart entre deux groupes d'une Surface (titre et texte, texte et bouton, titre de section et son contenu, deux champs, bouton principal et lien en dessous). |
+| `--espace-groupes` | Entre deux groupes : écart entre deux groupes d'une Surface (titre et texte, texte et bouton, titre de section et son contenu, deux champs, bouton principal et lien en dessous), et entre un titre de section posé sur la page et son contenu. |
 | `--espace-textes` | Deux textes d'un groupe : surtitre et titre, titre et sous-titre ou compteur, titre et méta d'une ligne, libellé et son champ, champ et son aide ou son erreur, deux puces d'une liste. |
 | `--espace-rangee` | Rangée : écart entre des éléments différents posés côte à côte (éléments d'une ligne, titre et action, filtres et recherche, champ et bouton, barre du haut). Aussi le padding horizontal d'une cellule de tableau. |
 | `--espace-repetition` | Répétition : écart entre des éléments de même nature répétés, sans séparateur (cartes d'une grille ou d'une pile, boutons côte à côte, pastilles, filtres, choix d'une liste de réponses, tuiles de badges). |
@@ -123,7 +123,7 @@ Espacements. Primitifs : base 4 px, 11 paliers, liste fermée : 2, 4, 6, 8, 10, 
 | `--espace-bouton` | Padding d'un contrôle, Bouton : padding gauche et droite. La hauteur donne le vertical. Vrais boutons seulement (un filtre, un choix, un onglet est un Choix). |
 | `--espace-retour-chevron` | Padding d'un contrôle, Retour : côté chevron. Sur mobile (chevron seul), les deux côtés. |
 | `--espace-retour-libelle` | Padding d'un contrôle, Retour : côté libellé. |
-| `--espace-champ` | Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde la réserve de l'icône. |
+| `--espace-champ` | Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde une réserve de 44 px de ce côté (icône de 20 à 16 du bord, puis 8 jusqu'au texte). |
 | `--espace-pastille-vertical` | Padding d'un contrôle, Pastille : haut et bas. |
 | `--espace-pastille-horizontal` | Padding d'un contrôle, Pastille : gauche et droite. |
 | `--espace-choix-vertical` | Padding d'un contrôle, Choix (ligne de réponse, case, mode, filtre, onglet) : haut et bas. Un choix à hauteur fixe n'en prend pas. |

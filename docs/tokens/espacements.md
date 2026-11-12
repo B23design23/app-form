@@ -39,7 +39,7 @@ Pour un espacement donné, on se demande dans l'ordre :
    - un bloc à fond posé à moins de 20 px du bord de sa Surface : Bloc près du bord.
 3. **Est-ce l'écart entre deux choses ?**
    - deux blocs de la page, empilés : Entre deux blocs ;
-   - deux groupes d'une Surface : Entre deux groupes ;
+   - deux groupes d'une Surface, ou un titre de section posé sur la page et son contenu : Entre deux groupes ;
    - deux textes d'un même groupe : Deux textes d'un groupe ;
    - des éléments différents côte à côte : Rangée ;
    - des éléments de même nature répétés : Répétition ;
@@ -54,7 +54,7 @@ Pour un espacement donné, on se demande dans l'ordre :
 | **Entre deux blocs** | 20 px | Écart entre deux blocs de nature différente, ou deux sections d'une page, empilés. Retour compris. | Retour et en-tête ; en-tête et « De ton formateur » ; blocs du dashboard apprenant (bloc de tête, quiz flash, badges, « De ton formateur ») ; deux cartes de section du Détail cours ; deux cartes de Création de cours. |
 | **Padding d'une Surface** | 20 px, les quatre côtés | Padding de tout bloc posé directement sur le fond de la page, ou flottant au-dessus (même sens que dans `rayons.md`). | Carte, en-tête de page lavande, bloc de tête du dashboard, blocs d'introduction et « Plus qu'une étape », modale, feuille, toast. |
 | **Bloc près du bord** | 8 px, le même en haut, en bas et sur les côtés | Écart entre un bloc à fond et le bord de la Surface qui le contient, quand il est à moins de 20 px de ce bord. Il vaut aussi quand le bloc est le dernier. | Entrée de menu, entrée de tab bar, étape en cours de la checklist, outils de la barre de l'éditeur. |
-| **Entre deux groupes** | 12 px | Écart entre deux groupes d'une Surface : titre (ou bloc de titres) et texte, texte et bouton, titre de section et son contenu, deux champs (chaque champ avec son libellé et son aide forme un groupe), bouton principal et lien en dessous. Aussi l'écart dans une barre qui n'est pas une rangée. | En-tête et liste de « De ton formateur » ; détail et bouton de « Étape suivante » ; anneau et titre de la fin de quiz ; « Passer » et logo de l'Introduction. |
+| **Entre deux groupes** | 12 px | Écart entre deux groupes d'une Surface : titre (ou bloc de titres) et texte, texte et bouton, titre de section et son contenu, deux champs (chaque champ avec son libellé et son aide forme un groupe), bouton principal et lien en dessous. Aussi l'écart dans une barre qui n'est pas une rangée, et l'écart entre un titre de section posé directement sur la page et son contenu. | En-tête et liste de « De ton formateur » ; détail et bouton de « Étape suivante » ; anneau et titre de la fin de quiz ; « Passer » et logo de l'Introduction ; « Thèmes » de la page Cours et sa grille ; « Cours assignés » du Détail groupe et sa rangée. |
 | **Deux textes d'un groupe** | 4 px | Surtitre et titre ; titre et sous-titre ou compteur (en-tête lavande compris) ; titre et méta d'une ligne ; libellé et son champ ; champ et son aide ou son erreur ; deux puces d'une liste. | « Thème N », titre et compteur du Détail d'un thème ; titre et « Leçon · Quiz » d'une ligne ; libellé « Titre » et son champ. |
 | **Rangée** | 12 px | Écart entre des éléments différents posés côte à côte. | Éléments d'une ligne (vignette, texte, statut, chevron) ; titre et action d'un en-tête de carte ; bloc de titres et action ou recherche ; barre du haut d'un écran ; filtres et recherche ; champ et bouton. |
 | **Répétition** | 8 px | Écart entre des éléments de même nature répétés, sans séparateur. | Cartes d'une grille ou d'une pile (thèmes, Mes cours) ; boutons côte à côte (CTA du dashboard formateur) ; pastilles ; filtres ; choix d'une liste de réponses ; tuiles de badges. |
@@ -62,7 +62,7 @@ Pour un espacement donné, on se demande dans l'ordre :
 | **Icône et libellé** | 8 px | Écart entre une icône et son libellé, dans un bouton, une pastille, une entrée de navigation ou un lien. | Chevron et libellé du Retour ; éclair et « +20 XP » ; icône et libellé d'une entrée de tab bar. |
 | **Padding d'un contrôle** | une valeur par composant (section 7) | Padding interne d'un contrôle. | Bouton, Retour, Champ, Pastille, Choix, Entrée de navigation, Lien texte, Étiquette. |
 | **Rythme du contenu** | section 7 | Écarts du contenu de leçon. | `ContenuMarkdown`, intertitres de leçon, « À retenir ». |
-| **Colonnes** | 40 px | Écart entre deux colonnes d'une liste sur desktop. | Mode terrain et résultats de recherche ; « De ton formateur » de la page Cours. |
+| **Colonnes** | 40 px | Écart entre deux colonnes d'une liste sur desktop. Le nombre de colonnes : `mise-en-page.md`, section 6. | Mode terrain et résultats de recherche ; « De ton formateur » de la page Cours. |
 | **Padding d'un Élément** | 16 px, les quatre côtés | Padding de tout bloc à fond ou à contour posé dans une Surface (même sens que dans `rayons.md`). | Question, étape et repère de Création de cours ; blocs « Tes groupes », relances et « Personne à relancer » ; petites cartes de chiffre du Détail cours ; « À retenir » ; étape en cours ; repère d'étapes ; aperçu de la leçon. |
 
 ### Cas limites entre deux rôles voisins
@@ -81,8 +81,9 @@ Pour un espacement donné, on se demande dans l'ordre :
 
 ## 6. Débords et défilement
 
-- **Une marge négative de débord annule exactement le padding qu'elle traverse et le cite.** Elle n'a pas de valeur propre : c'est l'opposé du token du rôle traversé (Marge de page, Padding d'une Surface). Exemple : la rangée de filtres du dashboard formateur traverse la marge de page de 16, donc −16.
-- **Une rangée qui défile jusqu'au bord de l'écran reprend la marge de page au début et à la fin.** La première carte s'aligne sur la marge de 16 (`scroll-padding-inline`), et seul le bord droit déborde. Exemples : « Cours assignés » du Détail groupe, filtres de l'activité récente.
+- **Une marge négative de débord annule exactement le padding qu'elle traverse et le cite.** Elle n'a pas de valeur propre : c'est l'opposé du token du rôle traversé (Marge de page, Padding d'une Surface). Exemple : la rangée « Cours assignés » du Détail groupe traverse la marge de page de 16, donc −16.
+- **Une rangée qui défile jusqu'au bord de l'écran reprend la marge de page au début et à la fin.** La première carte s'aligne sur la marge de 16 (`scroll-padding-inline`), et seul le bord droit déborde. Exemple : « Cours assignés » du Détail groupe.
+- **Une rangée de contrôles ne défile pas** (filtres, outils, boutons) : elle passe à la ligne quand elle ne tient pas (`mise-en-page.md`, section 7). Seules les rangées de cartes défilent. Exception écrite : les pastilles collantes du sommaire mobile de Création de cours (`mise-en-page.md`, section 8).
 - **Un tableau plus large que sa carte défile horizontalement dans sa carte** (`overflow-x: auto`). La zone qui défile annule le padding de la carte (règle du débord), et le contenu le reprend au début et à la fin. Concernés : le tableau des élèves du Détail groupe et le tableau du dashboard admin, par précaution.
 - **La zone de sécurité** (`env(safe-area-inset-*)`) s'ajoute à la valeur du rôle, elle ne la remplace pas.
 
@@ -92,11 +93,11 @@ Pour un espacement donné, on se demande dans l'ordre :
 
 | Composant | Valeur | Précisions |
 |---|---|---|
-| Bouton | 24 px sur les côtés | La hauteur (44 px) donne le vertical. Pour les vrais boutons seulement : un filtre, un choix, un onglet ou « Bonne réponse » est un Choix. **Bouton à flèche** (bouton blanc « Continuer le cours », « Passer au quiz ») : 24 à gauche ; à droite, le rond de la flèche reste à 6 du bord, c'est la place de l'icône, pas un padding de texte. **Rangée des CTA du dashboard formateur** : la rangée passe à la ligne (Répétition, 8), le libellé de chaque bouton reste sur une ligne (`white-space: nowrap`). |
+| Bouton | 24 px sur les côtés | La hauteur donne le vertical : 44 px pour un bouton posé seul ; **posé dans la rangée d'un champ, il prend la hauteur du champ** (une seule hauteur par rangée, `ds-principes-composants.md`, Champ). Pour les vrais boutons seulement : un filtre, un choix, un onglet ou « Bonne réponse » est un Choix. **Bouton à flèche** (bouton blanc « Continuer le cours », « Passer au quiz ») : 24 à gauche ; à droite, le rond de la flèche reste à 6 du bord, c'est la place de l'icône, pas un padding de texte. **Rangée des CTA du dashboard formateur** : la rangée passe à la ligne (Répétition, 8), le libellé de chaque bouton reste sur une ligne (`white-space: nowrap`). |
 | Retour | 12 px côté chevron, 20 px côté libellé | Sur mobile, chevron seul : 12 des deux côtés. |
-| Champ | 16 px sur les côtés | Champ multiligne compris. **Champ de recherche ou d'ajout avec icône à gauche** : le côté gauche garde la réserve de l'icône (largeur de l'icône et son écart), seul le côté droit prend 16. |
+| Champ | 16 px sur les côtés | Champ multiligne compris. **Champ de recherche ou d'ajout avec icône à gauche** : le côté gauche garde une réserve de **44 px** : l'icône de 20 px posée à 16 px du bord (Padding d'un contrôle, Champ), puis 8 px jusqu'au texte (Icône et libellé). Seul le côté droit prend 16. |
 | Pastille | 4 px en haut et en bas, 10 px sur les côtés | |
-| Choix | 10 px en haut et en bas, 16 px sur les côtés | Ligne de réponse (quiz, parcours, Création de cours), case, mode de checklist, filtre, choix de groupe, type de réponse, onglets « Écrire / Aperçu ». **Choix à hauteur fixe** (filtres, onglets, choix de Création de cours) : 16 sur les côtés seulement, la hauteur donne le vertical. **« Bonne réponse »** : côté gauche à 0 sous 768 px, pour que le contrôle reste aligné sur le champ. |
+| Choix | 10 px en haut et en bas, 16 px sur les côtés | Ligne de réponse (quiz, parcours, Création de cours), case, mode de checklist, filtre, choix de groupe, type de réponse, onglets « Écrire / Aperçu ». **Choix à hauteur fixe** (filtres, onglets, choix de Création de cours) : 16 sur les côtés seulement, la hauteur donne le vertical ; posé dans la rangée d'un champ (filtres d'Activité récente), il prend la hauteur du champ. **« Bonne réponse »** : côté gauche à 0 sous 768 px, pour que le contrôle reste aligné sur le champ. |
 | Entrée de navigation | 8 px en haut et en bas, 16 px sur les côtés | Tab bar, barre du haut, menus, sommaire de Création de cours. **Entrée de liste déroulante** : le côté gauche garde la réserve de la coche (30 px). **Entrée de la tab bar mobile** : 8 × 16 seulement si « Dashboard » tient à 320 px, sinon exception écrite (à mesurer). |
 | Lien texte | 6 px sur les côtés | Zone cliquable autour d'un lien. |
 | Étiquette | 4 px | Étiquette d'image de Création de cours. |
@@ -123,9 +124,13 @@ Restent hors échelle, volontairement, parce que ce sont des dimensions de mise 
 - les réserves pour les objets 3D (padding qui laisse la place à une illustration) ;
 - les débords des illustrations ;
 - les marges de page desktop ;
-- les réserves des zones d'action fixes (bas de page sous une barre d'action) ;
+- les réserves des zones d'action fixes (bas de page sous une barre d'action ou sous la tab bar) ;
 - la place réservée au-dessus d'une carte badge de fin de quiz (débord de l'illustration) ;
-- la hauteur minimale d'un en-tête lavande sur desktop (objet 3D centré verticalement) : hauteur de l'objet 3D + 2 × `espace-surface`, en px avec un commentaire qui renvoie à cette section, pour que l'objet reste dans le cadre (même logique que la réserve des illustrations).
+- la hauteur minimale d'un en-tête lavande sur desktop (objet 3D centré verticalement) : hauteur de l'objet 3D + 2 × `espace-surface`, en px avec un commentaire qui renvoie à cette section, pour que l'objet reste dans le cadre (même logique que la réserve des illustrations) ;
+- les **positions** d'un élément fixe, collant ou posé en absolu : barre du haut, tab bar, menu et carte du menu « … », toast, « Passer », sommaire collant, objet 3D ou illustration dans son cadre, coche d'une entrée de liste déroulante dans sa réserve, bouton posé dans un champ ;
+- le **haut du Conteneur de page** : 20 px + zone de sécurité sous 768 (16 px + zone de sécurité en mode concentré, Création de cours). Le haut du contenu sous la barre du haut et l'arrêt des ancres sont dans `mise-en-page.md`, section 5.
+
+Les largeurs de colonne, les seuils, le haut du contenu sous la barre du haut et les exceptions de mise en page sont dans `mise-en-page.md`, avec leur propre renvoi.
 
 **Écriture d'une valeur hors rôle** (dimension de cette section ou exception de la section 9) : en px dans le composant, avec un commentaire qui renvoie à la section, par exemple `/* espacements.md, section 8 : réserve de l'objet 3D */` ou `/* espacements.md, section 9 : onglets Écrire / Aperçu */`. **Jamais un primitif `espace-N`**, même quand la valeur existe dans l'échelle.
 
