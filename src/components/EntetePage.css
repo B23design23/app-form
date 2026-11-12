@@ -12,7 +12,7 @@
 /* Objet 3D : en haut à droite, dans le cadre (pas de débord, réservé au bloc de tête du dashboard) */
 .entete-page-objet {
   position: absolute;
-  /* espacements.md, section 8 : position de l'objet 3D dans l'en-tête */
+  /* espacements.md, section 8 : position de l'objet 3D dans son cadre */
   top: 12px;
   right: 14px;
   width: 88px;
@@ -28,6 +28,12 @@
   padding-right: 92px;
 }
 
+/* En-tête avec recherche, sous 768 : la recherche commence sous l'objet. espacements.md, section 8 :
+   réserve de l'objet 3D, emprise verticale dans la zone de contenu (12 + 88 − 20 = 80) */
+.entete-page:has(.entete-page-champ) .entete-page-texte {
+  min-height: 80px;
+}
+
 .espace-page .entete-page h1 {
   margin: 0;
 }
@@ -38,10 +44,29 @@
   color: var(--texte-sur-accent);
 }
 
+/* Champ de recherche avec loupe (ds-principes-composants.md, Champ : toute recherche a la loupe) */
+.entete-page-champ {
+  position: relative;
+  display: block;
+}
+
+.entete-page-champ-icone {
+  position: absolute;
+  top: 50%;
+  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
+  left: var(--espace-champ);
+  width: 20px;
+  height: 20px;
+  color: var(--texte-secondaire);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
 .entete-page-recherche {
   width: 100%;
   min-height: 48px;
-  padding: 0 var(--espace-champ);
+  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
+  padding: 0 var(--espace-champ) 0 44px;
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
@@ -65,7 +90,7 @@
   /* Objet centré verticalement, à 48 px du bord droit (152 px Cours, 140 px Terrain) */
   .entete-page-objet {
     top: 50%;
-    /* espacements.md, section 8 : position de l'objet 3D sur desktop */
+    /* espacements.md, section 8 : position de l'objet 3D dans son cadre (desktop) */
     right: 48px;
     width: 152px;
     height: 152px;
@@ -92,7 +117,14 @@
     padding-right: 200px;
   }
 
-  .entete-page-recherche {
+  /* Desktop : l'objet est centré sur toute la hauteur, la réserve est horizontale (ci-dessous) */
+  .entete-page:has(.entete-page-champ) .entete-page-texte {
+    min-height: 0;
+  }
+
+  .entete-page-champ {
+    /* mise-en-page.md, section 3 : borne interne du champ (480) ; espacements.md, section 8 :
+       réserve de l'objet 3D (200) */
     width: 480px;
     max-width: calc(100% - 200px);
   }

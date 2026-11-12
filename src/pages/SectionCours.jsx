@@ -9,6 +9,7 @@ import EntetePage from '../components/EntetePage'
 import Icone from '../components/Icone'
 import StatutBadge from '../components/StatutBadge'
 import iconeChevron from '../Assets/chevron-right.svg?raw'
+import iconeLoupe from '../Assets/loupe.svg?raw'
 import DetailTheme from './DetailTheme'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
@@ -173,14 +174,17 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
         sousTitre={`${nbThemesTermines} thème${nbThemesTermines > 1 ? 's' : ''} terminé${nbThemesTermines > 1 ? 's' : ''} sur ${THEMATIQUES.length}`}
         image={IMAGE_COURS}
       >
-        <input
-          type="search"
-          className="entete-page-recherche"
-          aria-label="Rechercher un cours"
-          placeholder="Rechercher un cours"
-          value={recherche}
-          onChange={(e) => setRecherche(e.target.value)}
-        />
+        <div className="entete-page-champ">
+          <Icone svg={iconeLoupe} className="entete-page-champ-icone" />
+          <input
+            type="search"
+            className="entete-page-recherche"
+            aria-label="Rechercher un cours"
+            placeholder="Rechercher un cours"
+            value={recherche}
+            onChange={(e) => setRecherche(e.target.value)}
+          />
+        </div>
       </EntetePage>
 
       {erreurCours ? (
