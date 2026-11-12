@@ -12,9 +12,9 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  /* Conteneur de page hors navigation (Mot de passe oublié, Nouveau mot de passe, Chargement) :
-     marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de
-     sécurité, comme .espace-contenu) et bas 24 (pas de tab bar à réserver) */
+  /* Conteneur de page hors navigation (écran « Chargement… » de l'app) : marge de page sur les
+     côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de sécurité, comme
+     .espace-contenu) et bas d'une page sans barre fixe (24) */
   padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) 24px;
   background: var(--fond-page);
 }
@@ -96,7 +96,8 @@
 
 .champ textarea {
   min-height: 96px;
-  /* espacements.md, section 7 : le Champ fixe les côtés ; haut et bas du champ multiligne gardés (12) */
+  /* espacements.md, section 7 (Champ) : champ multiligne, vertical de 12 (première ligne placée
+     comme dans un champ d'une ligne de 48) */
   padding: 12px var(--espace-champ);
   /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
   border: 2px solid transparent;
@@ -339,8 +340,8 @@
   background: none;
   border: 2px dashed var(--bordure-action);
   border-radius: var(--rayon-pilule);
-  /* espacements.md, section 7 : le Bouton fixe les côtés ; haut et bas du bouton d'ajout gardés (8) */
-  padding: 8px var(--espace-bouton);
+  /* espacements.md, section 7 (Bouton) : la hauteur donne le vertical */
+  padding: 0 var(--espace-bouton);
   font: var(--typo-bouton);
   color: var(--texte-accent);
   cursor: pointer;
