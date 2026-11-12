@@ -130,6 +130,7 @@
 /* « Passer » : en haut à droite de la colonne, au niveau de la barre */
 .parcours-passer {
   position: absolute;
+  /* espacements.md, section 8 : position de « Passer » (haut du Conteneur, 20 + zone de sécurité) */
   top: calc(env(safe-area-inset-top) + 20px);
   right: 16px;
   min-height: 56px;

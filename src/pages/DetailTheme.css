@@ -48,6 +48,7 @@
 /* Objet du thème : en haut à droite, dans le cadre */
 .theme-entete-objet {
   position: absolute;
+  /* espacements.md, section 8 : position de l'objet 3D dans l'en-tête */
   top: 16px;
   right: 16px;
   width: 92px;

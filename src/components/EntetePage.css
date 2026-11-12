@@ -12,6 +12,7 @@
 /* Objet 3D : en haut à droite, dans le cadre (pas de débord, réservé au bloc de tête du dashboard) */
 .entete-page-objet {
   position: absolute;
+  /* espacements.md, section 8 : position de l'objet 3D dans l'en-tête */
   top: 12px;
   right: 14px;
   width: 88px;
@@ -64,6 +65,7 @@
   /* Objet centré verticalement, à 48 px du bord droit (152 px Cours, 140 px Terrain) */
   .entete-page-objet {
     top: 50%;
+    /* espacements.md, section 8 : position de l'objet 3D sur desktop */
     right: 48px;
     width: 152px;
     height: 152px;

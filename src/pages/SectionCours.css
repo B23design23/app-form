@@ -137,5 +137,6 @@
 
 /* Cible du lien « Tout voir » du dashboard : décalée sous la barre de navigation fixe */
 #cours-formateur {
+  /* espacements.md, section 8 : décalage de la cible sous la barre de navigation fixe */
   scroll-margin-top: 110px;
 }

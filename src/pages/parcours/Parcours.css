@@ -182,6 +182,7 @@
 .compte-bloc-objet {
   position: absolute;
   top: 50%;
+  /* espacements.md, section 8 : position de l'illustration (fusée) */
   right: 16px;
   width: 100px;
   height: 100px;

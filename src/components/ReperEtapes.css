@@ -10,6 +10,7 @@
    Position horizontale calculée dans ReperEtapes.jsx sur la boîte de contenu (padding déduit). */
 .reper-liaison {
   position: absolute;
+  /* espacements.md, section 8 : demi-pastille (dimension) */
   top: calc(var(--espace-element) + 14px - 1.5px);
   height: 3px;
   background: var(--fond-neutre);
