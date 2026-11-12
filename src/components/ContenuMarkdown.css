@@ -27,6 +27,7 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .contenu-markdown.contenu-markdown-role-titre-ligne {
@@ -37,6 +38,7 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 /* Emphase et lien dans une phrase (p, li) : variante -fort du rôle ; rôles à 800 et rôle déjà
@@ -76,6 +78,7 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 /* Emphase et lien dans un titre (800) : la graisse du titre */

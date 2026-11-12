@@ -718,6 +718,7 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
+  text-wrap: balance;
   color: var(--texte-accent);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -890,6 +891,7 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .fin-quiz-badge-condition {
@@ -1065,6 +1067,7 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .fiche-checklist-xp {
@@ -1331,6 +1334,7 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .fiche-recap-ligne-detail {
