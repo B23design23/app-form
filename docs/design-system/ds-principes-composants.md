@@ -68,7 +68,7 @@ Zone cliquable de 44 px minimum. Focus visible au clavier seulement.
 DO
 Un seul bouton principal par zone d'action.
 Un bouton qui valide un formulaire est un bouton principal plein, de même hauteur que le champ voisin.
-Posé dans la rangée d'un champ, un bouton prend la hauteur du champ, et un choix aussi (filtres posés à côté d'une recherche) : une seule hauteur par rangée. Posé seul, un bouton garde sa hauteur (`docs/tokens/espacements.md`, section 7).
+Posé dans la rangée d'un champ, un bouton prend la hauteur du champ, et un choix aussi (filtres posés à côté d'une recherche) : une seule hauteur par rangée. Posé seul, un bouton garde sa hauteur de 48 px (`docs/tokens/espacements.md`, section 7). 44 px est la zone cliquable minimale, pas la hauteur d'un composant.
 
 DON'T
 Utiliser le pointillé pour valider un formulaire. On prend le principal.
@@ -93,7 +93,7 @@ Sur le fond de page : fond blanc.
 Jamais de bordure au repos.
 
 Dimensions
-- Hauteur d'un champ d'une ligne : 48 px partout. Champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe) : 56 px, grand champ compris. Champ multiligne : hauteur par le contenu, hors de cette règle.
+- Hauteur d'un champ d'une ligne : 48 px partout. Champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe) : 56 px, grand champ compris. Champ multiligne : hauteur par le contenu, hors de cette règle ; vertical de 12, qui place la première ligne comme dans un champ d'une ligne de 48 (`docs/tokens/espacements.md`, section 7).
 - Rangée : un contrôle posé dans la même rangée qu'un champ (bouton, filtre) prend la hauteur du champ.
 - Icône dans le champ : 20 px, posée à 16 px du bord, texte à 8 px de l'icône, soit une réserve de 44 px de ce côté (`docs/tokens/espacements.md`, section 7).
 

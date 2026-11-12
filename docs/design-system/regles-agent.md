@@ -290,7 +290,7 @@ Source : `ds-principes-composants.md`.
   - secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision ;
   - lien texte : une action à part, ni attendue ni alternative. Exemples Skillo : Se déconnecter, Mot de passe oublié.
 - **Focus clavier de tous les boutons** : contour de 2 px à l'extérieur du bouton, décalé de 2 px, token de focus (`bordure-focus`), visible au clavier seulement (section 5, « Focus »).
-- **Hauteur** : posé dans la rangée d'un champ, un bouton prend la hauteur du champ, et un choix aussi (filtres posés à côté d'une recherche) : une seule hauteur par rangée. Posé seul, un bouton garde sa hauteur (`espacements.md`, section 7).
+- **Hauteur** : posé dans la rangée d'un champ, un bouton prend la hauteur du champ, et un choix aussi (filtres posés à côté d'une recherche) : une seule hauteur par rangée. Posé seul, un bouton garde sa hauteur de 48 px (`espacements.md`, section 7). 44 px est la zone cliquable minimale, pas la hauteur d'un composant.
 - **Tokens par état** (zone cliquable minimale : voir « Accessibilité » du Bouton dans `ds-principes-composants.md`) :
 
 | Variante | Repos | Survol | Actif (appui tactile) | Focus clavier | Désactivé |
@@ -314,7 +314,7 @@ Source : `ds-principes-composants.md`.
 - **Quand l'utiliser, quand choisir le voisin** : un champ pour une saisie libre. Le voisin est la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
 - **Typographie** : le libellé du champ prend le rôle Libellé de champ (`--typo-libelle-champ`) ; le texte tapé ou choisi et le texte indicatif (placeholder) du champ vide prennent le rôle Saisie et choix (`--typo-saisie-choix`), seule la couleur change ; 16 px partout, même dans un en-tête dense ou une ligne de filtres (`typographie.md`, sections 5, 6 et 9).
 - **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule avec loupe, fond selon le support, résultats dès 2 caractères ; toute recherche a la loupe).
-- **Dimensions** : champ d'une ligne, 48 px partout ; champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe), 56 px, grand champ compris ; champ multiligne, hauteur par le contenu, hors de cette règle. Un contrôle posé dans la même rangée qu'un champ prend la hauteur du champ.
+- **Dimensions** : champ d'une ligne, 48 px partout ; champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe), 56 px, grand champ compris ; champ multiligne, hauteur par le contenu, hors de cette règle, vertical de 12 (la première ligne tombe comme dans un champ d'une ligne de 48). Un contrôle posé dans la même rangée qu'un champ prend la hauteur du champ.
 - **Icône dans le champ** : 20 px, posée à 16 px du bord, texte à 8 px de l'icône, soit une réserve de 44 px de ce côté (`espacements.md`, section 7).
 - **Texte indicatif** : couleur `texte-secondaire` sur tous les champs (opacité 1), rôle Saisie et choix ; pas de points de suspension à la fin (« Rechercher un cours »).
 - **Tokens par état** :
@@ -608,7 +608,7 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 
 **Valeurs hors rôle** (sections 8 et 9)
 - Une valeur qui a un rôle prend la valeur du rôle, jamais un arrondi. Une valeur sans rôle et hors échelle : le palier le plus proche, à égalité le supérieur.
-- Une dimension (réserve, débord d'illustration, marge de page desktop, zone d'action, position d'un élément fixe ou collant, haut du Conteneur) ou une exception écrite s'écrit en px dans le composant, avec un commentaire qui renvoie à la section d'`espacements.md` (8 ou 9). Une largeur de colonne, un seuil ou une exception de mise en page renvoie à `mise-en-page.md`. Jamais un primitif `espace-N`, même quand la valeur existe dans l'échelle.
+- Une dimension (réserve, débord d'illustration, marge de page desktop, zone d'action, position d'un élément fixe ou collant, haut du Conteneur, bas d'une page sans barre fixe) ou une exception écrite s'écrit en px dans le composant, avec un commentaire qui renvoie à la section d'`espacements.md` (8 ou 9). Une largeur de colonne, un seuil ou une exception de mise en page renvoie à `mise-en-page.md`. Jamais un primitif `espace-N`, même quand la valeur existe dans l'échelle.
 - Hauteur minimale d'un en-tête lavande sur desktop (objet 3D centré verticalement) : hauteur de l'objet 3D + 2 × `espace-surface`, en px avec un commentaire qui renvoie à cette section, pour que l'objet reste dans le cadre (même logique que la réserve des illustrations).
 - Tab bar mobile (sous 768) : Côtés de la barre à 12 px (au lieu de la marge de page), padding de la barre 6 px, écart entre entrées 4 px, entrée 6 px en haut et en bas, 4 px sur les côtés. Raison : à 320 px, « Dashboard » en Navigation (14 px, 800) ne tient avec aucun padding d'entrée dans la barre construite avec les rôles, et la typographie interdit de réduire la taille ou le libellé (règle de la tab bar). Desktop : rôles normaux (Entrée de navigation 8 × 16).
 - Implémentation, état du code : des composants lisent encore des primitifs (`var(--espace-N)`) ; ils passent aux rôles avec les lots de migration. Un nouveau code ne lit jamais un primitif.
