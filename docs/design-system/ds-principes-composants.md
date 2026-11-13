@@ -16,7 +16,7 @@ On aurait pu utiliser l'orange pour attirer l'œil sur d'autres boutons. On l'a 
 On aurait pu mettre un bouton Supprimer directement sur la page du cours. On l'a rangé dans le menu « … », en dernier, en rouge, et il demande toujours une confirmation. Le principe ne vise que ce qu'on ne peut pas défaire.
 
 4. La profondeur vient du fond, pas des traits ni des ombres.
-On aurait pu entourer les champs d'une bordure grise et poser une ombre sous les cartes. On a choisi un fond de champ différent de la carte, et une seule ombre, réservée à ce qui flotte au-dessus de la page.
+On aurait pu poser une ombre sous les cartes et séparer les blocs par des traits. On a choisi des fonds différents (champ ou bloc sur une carte, carte sur la page) et une seule ombre, réservée à ce qui flotte au-dessus de la page. Les champs et les contrôles ont en plus une limite de 2 px (`bordure-controle`) : ce n'est pas de la profondeur, c'est ce qui les rend visibles. Sans elle, un champ vide contrastait à 1,1:1 avec son support ; le libellé suffit pour WCAG, pas pour une personne qui voit mal (décision du 12/11).
 
 5. Le statut n'est jamais porté par la couleur seule.
 On aurait pu corriger le quiz avec du vert et du rouge uniquement. On a ajouté les étiquettes « Ta réponse » et « Bonne réponse » avec une icône.
@@ -58,9 +58,13 @@ Choisir entre principal, secondaire et lien texte
 - Secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision.
 - Lien texte : une action à part, ni attendue ni alternative. Exemples Skillo : Se déconnecter, Mot de passe oublié.
 
+Hauteur
+48 px pour toutes les variantes, mobile et desktop : principal, secondaire, sur fond foncé (« Continuer le cours », « Passer au quiz »), orange, supprimer, rouge plein, pointillé, outils de l'éditeur de leçon, boutons de l'en-tête formateur et de « Pour bien démarrer », barre d'enregistrement, barre d'action fixe (« Valider ma réponse »), « Quitter l'aperçu ». Le Retour reste à 44 (composant à part) ; le bouton rond a sa fiche (Bouton rond). Posé dans la rangée d'un champ, il prend la hauteur du champ (voir DO).
+Bouton à flèche (sur fond foncé) : rond encre de la flèche de 36 px, à 6 px du bord en haut, en bas et à droite.
+
 États
-Repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué ; toutes les variantes, sauf Retour).
-Focus clavier de tous les boutons : contour de 2 px à l'extérieur du bouton, décalé de 2 px, token de focus (`bordure-focus`), visible au clavier seulement (voir Focus).
+Repos, survol (souris seulement), appui (tactile), focus clavier, désactivé (lavande, texte atténué ; toutes les variantes, sauf Retour). Appui et désactivé : règles communes (voir Survol et tactile, Désactivé).
+Focus clavier de tous les boutons : contour de 2 px à l'extérieur du bouton, décalé de 2 px, `bordure-focus`, entouré du halo `bordure-focus-halo` de 2 px, visible au clavier seulement (voir Focus).
 
 Accessibilité
 Zone cliquable de 44 px minimum. Focus visible au clavier seulement.
@@ -90,29 +94,37 @@ Variantes et usage
 Fond (règle principale)
 Sur une carte blanche : fond crème (apprenant) ou gris clair (formateur).
 Sur le fond de page : fond blanc.
-Jamais de bordure au repos.
+
+Bordure (décision du 12/11)
+Tout champ (une ligne, multiligne, recherche, liste déroulante) a au repos une bordure de 2 px en `bordure-controle`, le même token et la même épaisseur que les ronds de choix et les cases. Focus : `bordure-focus`. Erreur : `bordure-erreur`. L'épaisseur ne change jamais, rien ne bouge. L'éditeur de leçon de Création de cours porte cette bordure sur son bloc (le texte qu'il contient n'a ni fond ni bordure).
+Ratios de `bordure-controle` : 3,92:1 sur blanc, 3,40 sur crème, 3,57 sur gris, 3,02 sur lavande (recherche de Cours).
+Pourquoi : sans contour, les champs étaient les seuls contrôles qu'on ne voit presque pas (1,1 à 1,3:1) ; le libellé suffit pour WCAG, pas pour une personne qui voit mal.
 
 Dimensions
-- Hauteur d'un champ d'une ligne : 48 px partout. Champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe) : 56 px, grand champ compris. Champ multiligne : hauteur par le contenu, hors de cette règle ; vertical de 12, qui place la première ligne comme dans un champ d'une ligne de 48 (`docs/tokens/espacements.md`, section 7).
+- Hauteur d'un champ d'une ligne : 48 px partout. Champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe) : 56 px, grand champ compris. Champ multiligne : hauteur par le contenu, hors de cette règle ; vertical de 12, qui place la première ligne comme dans un champ d'une ligne de 48 (`docs/tokens/espacements.md`, section 7). Champ multiligne qui contient un bouton (bouton image de l'énoncé d'une question ou d'une étape) : 52 px de hauteur minimale ; le bouton est un Bouton rond de 44, à 4 px du bord extérieur du champ (2 de bordure, 2 de jour).
 - Rangée : un contrôle posé dans la même rangée qu'un champ (bouton, filtre) prend la hauteur du champ.
 - Icône dans le champ : 20 px, posée à 16 px du bord, texte à 8 px de l'icône, soit une réserve de 44 px de ce côté (`docs/tokens/espacements.md`, section 7).
+
+Texte saisi
+Couleur `texte-principal`, rôle Saisie et choix.
 
 Texte indicatif
 Couleur `texte-secondaire` sur tous les champs (opacité 1), rôle Saisie et choix comme le texte tapé (`docs/tokens/typographie.md`). Pas de points de suspension à la fin : « Rechercher un cours ».
 
 États
-- Repos.
-- Focus : contour violet 2 px à l'intérieur, pas de contour à l'extérieur.
+- Repos : bordure 2 px `bordure-controle`.
+- Survol : aucun. Le champ ne change pas au survol.
+- Focus : la bordure de 2 px passe en `bordure-focus` (dessinée à l'intérieur), pas de contour à l'extérieur.
 - Erreur : message rouge sous le champ, contour `bordure-erreur` et `aria-invalid` sur le champ lié au message. Erreur qui vise une section entière (QCM, checklist de Création de cours) : message sous la section, aucun champ marqué.
 - Désactivé : même rendu que le bouton désactivé, fond `fond-action-desactive`, texte `texte-action-desactive`, sans opacité.
-- Autoremplissage : le champ garde son fond, règle commune à tous les champs.
+- Autoremplissage : le champ garde le fond qu'il a au repos, une règle commune à tous les champs, multilignes compris.
 
 DO
 Aligner le champ, son libellé et son aide sur le même bord gauche.
 Aucune marge négative : le champ fait la largeur de sa colonne.
 
 DON'T
-Ajouter une bordure pour séparer le champ de la carte. On change son fond.
+Épaissir la bordure au focus ou en erreur. Le contenu bougerait ; seule la couleur change.
 
 Anti-pattern
 Signaler l'erreur par la seule couleur du contour. Tentant car discret. On écrit le message sous le champ.
@@ -145,10 +157,15 @@ Checklist (« 3 étapes sur 8 »), quiz (« 3 / 5 »), cartes de groupe formateu
 Anatomie
 Piste, remplissage violet, extrémités arrondies, compteur ou pourcentage à côté.
 
-Variantes
-- Fine (8 px) : dans une carte, à côté d'un compteur.
-- Quiz (10 px) : en haut de l'écran, piste blanche.
+Variantes (décision du 13/11)
+- D'écran (14 px) : la barre qui ouvre un écran plein écran, en haut, à côté du compteur : questions du parcours d'entrée, quiz de cours et quiz flash. Piste blanche.
+- Fine (8 px) : toute barre posée dans une carte ou une ligne : dashboard (prochain badge, quiz flash verrouillé), Tes groupes, Mes groupes, Détail groupe, Pour bien démarrer, carte de la checklist, barre empilée du Détail cours (segments terminés / en cours / non commencés, avec leur légende chiffrée).
 La piste change selon le fond : lavande, blanche ou neutre pâle.
+Pourquoi deux épaisseurs : l'agent regarde où la barre est posée, pas quel écran il construit.
+
+Contraste (décision du 12/11)
+- Barre accompagnée de sa valeur écrite (« 2 / 5 », « 0 / 3 », pourcentage) : pas d'exigence de la piste contre son support ; le remplissage tient 3:1 contre la piste.
+- Barre sans valeur écrite : piste à 3:1 contre son support. Aucune aujourd'hui : chaque barre a sa valeur.
 
 DO
 Toujours afficher le chiffre à côté de la barre.
@@ -160,8 +177,7 @@ Anti-pattern
 Une barre seule, sans chiffre. Tentant car épurée. La longueur seule se lit mal, on ajoute le compteur.
 
 Voisin, l'anneau de progression
-L'anneau met en avant une seule valeur, avec le chiffre au centre : un cours en cours, un score de quiz, le taux de complétion d'un formateur. La barre accompagne une ligne parmi d'autres. L'anneau est réservé à la progression, il ne sert jamais de pastille de numéro.
-Rendu : extrémité arrondie, départ en haut, pourcentage au centre ; sans données, piste seule et « — ».
+L'anneau met en avant une seule valeur, la barre accompagne une ligne parmi d'autres. Voir la fiche Anneau.
 
 ## En-tête de page
 
@@ -228,7 +244,9 @@ Quand l'utiliser
 Pour une saisie ou un choix lié à la page en cours. Pour faire confirmer une action qu'on ne peut pas défaire, on prend la Modale de confirmation. Les autres cas : À trancher.
 
 Anatomie
-Voile `fond-voile` derrière. Mobile : feuille qui monte du bas, avec une poignée. Desktop : carte centrée. Ombre `--ombre-flottante`. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative. Le composant sert aux deux modes (apprenant et formateur) et lit les mêmes sémantiques : le mode fournit la valeur.
+Voile `fond-voile` derrière. Mobile : feuille qui monte du bas, avec une poignée. Desktop : carte centrée. Ombre `--ombre-flottante`. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative.
+Deux largeurs sur desktop (décision du 12/11) : étroite, 440 px (Nouveau groupe, Modale de confirmation) ; standard, 520 px (Assigner des cours, Insérer une vidéo, Mes badges). Mobile : feuille pleine largeur.
+Bouton « Fermer » : Bouton rond de 44, le même dans toutes les modales, Mes badges comprise. Le composant sert aux deux modes (apprenant et formateur) et lit les mêmes sémantiques : le mode fournit la valeur.
 
 Comportement
 Échap, clic sur le voile et bouton « Fermer » ferment la modale. Rôle `dialog`, `aria-modal`, nom accessible = titre.
@@ -274,7 +292,7 @@ Rôle
 Ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 3).
 
 Anatomie
-Bouton rond « … » (nom accessible « Plus d'actions »). Mobile : feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre. Desktop : carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
+Bouton rond « … » (nom accessible « Plus d'actions »). Mobile : feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre. Desktop : carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, 48 px de haut (comme le menu de la navigation), survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
 
 Comportement
 Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`.
@@ -292,6 +310,114 @@ Ordre des actions autres que la destructrice.
 Fichier
 `src/components/formateur/MenuActions.jsx`.
 
+## Carte
+
+Rôle
+Regrouper le contenu d'une section posée sur la page : une carte blanche par section (formateur), un bloc d'action (dashboard apprenant), une fiche (leçon, checklist, récap).
+
+Anatomie
+Fond `fond-surface` ; variantes violette (`fond-marque`) et encre (`fond-inverse`) pour un bloc qui pousse à une action. Rayon Surface, padding Surface (rôles dans `docs/tokens/rayons.md` et `docs/tokens/espacements.md`). Ni bordure ni ombre (principe 4).
+- Carte de liste : la carte qui porte des Lignes de liste prend le padding de carte de liste (Ligne de liste).
+- Carte cliquable (carte de thème, carte de Mes cours et de Mes groupes, carte de profil) : toute la carte est le bouton ; son titre est dans un vrai élément de titre (`h2`, `h3`), rendu inchangé ; chevron `texte-secondaire` en haut à droite ; survol et appui `fond-accent` ; focus et désactivé communs.
+
+Règle principale
+Une seule implémentation (classe commune `.carte`, `src/styles/shared.css`) ; une page n'écrit pas sa propre carte.
+
+Voisin
+La Ligne de liste, pour un élément répété à l'intérieur d'une carte ; l'En-tête de page (lavande), qui situe sans agir.
+
+## Ligne de liste
+
+Rôle
+Un élément répété dans une carte : cours (Terrain, recherche, « De ton formateur », Détail d'un thème), événement d'Activité récente, groupe de « Tes groupes », élève à relancer, étape de « Pour bien démarrer ».
+
+Anatomie
+Padding Ligne de liste, rayon Élément, fond transparent, séparateur `bordure-separateur` de 1 px entre deux lignes (voir Séparateur). Variante à fond : fond `fond-sur-carte`, padding de bloc sur carte, sans séparateur. Ligne cliquable : survol et appui `fond-accent`, chevron.
+- Ligne de cours à une colonne (décision du 12/11) : sous 375 px de large, le statut passe sous le titre ; aucun titre coupé au milieu d'un mot à 320 et 375 (césure des titres, section Typographie).
+
+Règle principale
+Une seule implémentation (classe commune `.ligne-liste`, `src/styles/shared.css`).
+
+## Choix
+
+Rôle
+Une option qui reste marquée quand elle est choisie : réponse du quiz, ligne de choix du parcours, choix de Création de cours (type de réponse, mode de checklist, groupe), case de la modale d'assignation, « Bonne réponse ».
+
+Anatomie
+Ligne blanche ou `fond-sur-carte` (selon le support), rayon Élément, padding Choix ; repère de 22 à 24 px à contour 2 px `bordure-controle` (rond pour un choix unique, case rayon Case pour plusieurs). Choisi : `fond-accent` et un seul contour 2 px `bordure-action`, repère violet plein. Rôle Saisie et choix. Vrai `radio` ou case, ou `radiogroup` / `radio` avec `aria-checked`.
+
+DON'T
+Faire avancer un écran au seul choix quand d'autres réponses suivent (« Continuer » valide).
+
+## Onglet et filtre
+
+Rôle
+Changer ce qu'on voit sans agir sur les données : onglets « Écrire / Aperçu », filtres d'Activité récente, pastilles de section de Création de cours (mobile), entrées du sommaire (desktop).
+
+Anatomie
+Pilule, 44 px de haut ; 48 dans la rangée d'un champ (une seule hauteur par rangée, voir Bouton). Rôle Navigation. Actif : `fond-inverse`, texte `texte-sur-inverse` (onglets, filtres, pastilles de section) ; entrée de sommaire active en `fond-accent`. Appui, focus et désactivé communs.
+
+## Pastille
+
+Rôle
+Un texte court posé dans une pilule : groupe, thème, « Bloquante », « Ta réponse » / « Bonne réponse », pastille de statut pas encore ouverte (voir Pastille de statut).
+
+Anatomie
+Pilule, padding Pastille, rôle Pastille ; fond selon le sens (`fond-accent`, `fond-neutre`, `fond-erreur`, `fond-succes`…), texte à 4,5:1 sur son fond. Le fond n'a pas d'exigence de contraste contre son support : le texte porte l'information (décision du 12/11).
+Variante ronde (numéro ou icône dans un rond : étapes, « À retenir », « De ton formateur », initiales) : tailles actuelles gardées (28, 32, 34, 40), sans harmonisation pour l'instant.
+
+Règle principale
+Une seule implémentation (classe commune `.pastille`, `src/styles/shared.css`) ; jamais cliquable.
+
+## Lien texte
+
+Rôle
+Une action écrite sans forme de bouton, ni attendue ni alternative (voir Bouton, « Choisir entre principal, secondaire et lien texte ») : « Tout voir », « Revoir la leçon », « Voir les N autres », « Mot de passe oublié ? », « Passer ».
+
+Anatomie
+Texte `texte-accent`, rôle Lien texte ; survol et appui `texte-accent-survol`. Padding Lien texte (6 px sur les côtés), zone cliquable de 44 px de haut. Dans une phrase : règle du lien dans une phrase de `docs/tokens/typographie.md`, section 6.
+
+Règle principale
+Une seule implémentation (classe commune `.lien-texte`, `src/styles/shared.css`).
+
+## Barre fine
+
+Voir Barre de progression : variante Fine (8 px) et variante d'écran (14 px), selon la place.
+
+## Anneau
+
+Rôle
+Mettre en avant une seule valeur de progression, avec le chiffre au centre : un cours en cours (dashboard apprenant), le taux de complétion (dashboard formateur), un score (fin de quiz). Jamais une pastille de numéro.
+
+Anatomie
+Piste et arc (couleurs selon le fond : tableau « Anneaux de progression selon le fond » de `regles-agent.md`, section 5), extrémité arrondie, départ en haut, valeur au centre ; sans données, piste seule et « — ».
+
+Tailles (décision du 13/11)
+- 78 px sous 768 px de large, valeur en Compteur.
+- 120 px à partir de 768 px, valeur en Chiffre mis en avant standard.
+- Exception écrite : anneau de fin de quiz, 168 px, valeur en Chiffre mis en avant grand. Pourquoi : l'anneau de fin de quiz est le seul contenu de son écran, il prend le rôle Chiffre mis en avant grand.
+
+Règle principale
+Une seule implémentation (`src/components/AnneauProgression.jsx`).
+
+## Bouton rond
+
+Rôle
+Une action représentée par une icône seule : Retour rond (mobile), fermer une modale, menu « … », « Voir comme un élève » (mobile), image dans un champ, relancer un élève, rond « + » de Mes cours (mobile).
+
+Anatomie
+Deux diamètres (décision du 12/11) : 44 px partout ; 56 px dans le parcours d'entrée (barre du haut des questions et des écrans de connexion). Fond : celui de chaque bouton aujourd'hui (blanc ou `fond-sur-carte`) ; le rond « + » est un bouton principal (`fond-action`). Nom accessible obligatoire (`aria-label`). Appui, focus et désactivé communs.
+
+DON'T
+Réduire un bouton rond pour le faire tenir dans un champ : c'est le champ qui grandit (voir Champ, Dimensions).
+
+## Composants d'écran
+
+Ils ne servent qu'à un endroit : ils restent sans fiche, avec les règles communes (focus, appui, désactivé, zone de 44 px). Repère d'étapes, éditeur de leçon, tri de tableau, bandeau Aperçu, visionneuse, confettis, points de l'Introduction, vignettes de badge, carte pointillée « + Assigner un cours » du Détail groupe.
+- Repère d'étapes : la liaison entre les étapes n'a pas d'exigence de contraste (l'état est porté par les pastilles et les libellés) ; le contour `bordure-etape` d'une étape à venir non plus (le numéro porte l'information).
+- Vignettes de badge : le fond de la vignette n'a pas d'exigence (l'image grisée, le cadenas et le nom portent l'état).
+- Zone cliquable de 44 px même quand le rendu est plus petit (vignette de badge de 26, tri de tableau), par le padding, rendu inchangé.
+
 ## Typographie
 
 - Échelle, graisses (500 à 800), seuil de 768 px, rôles et règles d'usage : `docs/tokens/typographie.md`, qui fait foi. Les valeurs ne sont pas recopiées ici.
@@ -307,17 +433,24 @@ Fichier
 ## Survol et tactile
 
 - Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
-- Sur tactile, seul `:active` donne un retour pendant l'appui (boutons principaux, secondaires, orange, boutons ronds, cartes et lignes cliquables).
+- Appui (`:active`, décision du 12/11) : une règle commune à tout bouton et tout lien, comme le focus : boutons de toutes les variantes, boutons ronds, Retour, liens texte, entrées de navigation et de menu, onglets, filtres, entrées de sommaire, choix, cartes et lignes cliquables. L'appui prend le rendu du survol de l'élément (fond ou couleur du texte) ; sur tactile, c'est le seul retour pendant l'appui.
+- Un élément interactif sans survol écrit (points de l'Introduction, vignettes de badge, tri de tableau, « Passer ») prend au survol le rendu de son appui.
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
 - Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.
 
 ## Focus
 
-- Tout élément interactif qui n'est pas un champ (bouton, lien, carte ou ligne cliquable, entrée de navigation, case, ligne de choix) : contour de 2 px à l'extérieur, décalé de 2 px, token de focus (`bordure-focus`), visible au clavier seulement.
+- Un seul style de focus, quelle que soit la surface (décision du 12/11) : tout élément interactif qui n'est pas un champ (bouton, lien, carte ou ligne cliquable, entrée de navigation, case, ligne de choix) prend un contour de 2 px `bordure-focus`, à l'extérieur, décalé de 2 px, entouré d'un halo `bordure-focus-halo` (blanc) de 2 px, visible au clavier seulement. Sur chaque surface, l'une des deux couleurs atteint 3:1 (WCAG 1.4.11 et 2.4.7) : le violet sur les fonds clairs, le blanc sur le violet et l'encre. Aucune règle selon la surface.
+- Pourquoi : l'agent n'a pas à connaître la surface pour choisir le focus ; une surface foncée ajoutée plus tard est couverte sans nouvelle règle.
+- Rendu exact : le halo est une ombre portée (`box-shadow`) de 6 px sous le contour ; il remplit aussi l'écart de 2 px entre l'élément et le contour. On voit donc blanc (0 à 2 px), violet (2 à 4 px), blanc (4 à 6 px). Un parent en `overflow: hidden` rogne le halo comme le contour : un élément focalisable n'y est jamais collé au bord.
 - Champ : contour de 2 px à l'intérieur (bordure), pas de contour à l'extérieur (voir Champ).
 - Un conteneur qui défile et que le navigateur rend focusable prend le même contour que les autres éléments.
 - Un seul indicateur de focus par élément : un contrôle dessiné sur un input masqué (« Bonne réponse » de Création de cours) montre le contour de son repère ou de sa ligne, pas celui de l'input.
+
+## Désactivé
+
+Une règle commune pour tout élément interactif (décision du 12/11) : fond `fond-action-desactive` pour un élément qui a un fond ou un contour (boutons de toutes les variantes, boutons ronds, choix, onglets, filtres, cartes et lignes cliquables, champs, liste déroulante), contour `bordure-action-desactive` s'il a un contour, texte et icône `texte-action-desactive` pour tous (liens compris), sans opacité, curseur « interdit ». Le Retour n'a pas d'état désactivé (il n'apparaît que là où l'on peut remonter).
 
 ## Toast de complétion
 
@@ -325,7 +458,7 @@ Fond `fond-inverse`, texte `texte-sur-inverse`, pastille XP en `fond-recompense`
 
 ## Navigation
 
-- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon Surface (rôle dans `docs/tokens/rayons.md`), position de la barre (côtés alignés sur la marge de page, bas fixé par le composant) et padding des entrées dans `docs/tokens/espacements.md`, 4 entrées de largeur égale avec icône et libellé.
+- Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon Surface (rôle dans `docs/tokens/rayons.md`), position de la barre (côtés à 12 px sous 768, au lieu de la marge de page, et bas à 20 px : exception écrite de `docs/tokens/espacements.md`, section 9) et padding des entrées dans `docs/tokens/espacements.md`, 4 entrées avec icône et libellé, l'entrée Menu plus étroite que les onglets (même exception).
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`.
 - Onglets inactifs : `texte-sur-inverse`.

@@ -47,7 +47,7 @@ Chaque principe tranche entre deux options. La première est retenue, la seconde
 1. **Chaque bloc débouche sur une action.** Des blocs qui proposent tous quelque chose à faire (reprendre un cours, lancer un quiz flash, viser le prochain badge), **contre** des cartes de chiffres et un carrousel de badges.
 2. **Un style réservé garde son sens.** L'orange réservé à la récompense, l'XP et le quiz flash, pour qu'il veuille toujours dire « tu gagnes quelque chose », **contre** l'orange utilisé pour attirer l'œil sur d'autres boutons.
 3. **Ce qui détruit se trouve à un geste de plus.** Supprimer rangé dans le menu « … », en dernier, en rouge, toujours confirmé, **contre** un bouton Supprimer directement sur la page. Le principe ne vise que ce qu'on ne peut pas défaire.
-4. **La profondeur vient du fond, pas des traits ni des ombres.** Un fond de champ différent de la carte et une seule ombre, réservée à ce qui flotte, **contre** une bordure grise autour des champs et une ombre sous les cartes.
+4. **La profondeur vient du fond, pas des traits ni des ombres.** Des fonds différents (champ ou bloc sur une carte, carte sur la page) et une seule ombre, réservée à ce qui flotte, **contre** une ombre sous les cartes et des traits entre les blocs. La bordure de 2 px `bordure-controle` des champs et des contrôles n'est pas de la profondeur : c'est leur limite visible (décision du 12/11, `ds-principes-composants.md`, Champ).
 5. **Le statut n'est jamais porté par la couleur seule.** Des étiquettes (« Ta réponse », « Bonne réponse ») avec une icône, **contre** une correction en vert et rouge uniquement.
 6. **On n'affiche que ce que la donnée sait vraiment.** Le pourcentage seul pour les anciens passages de quiz, **contre** un score « 4/5 » recalculé avec le nombre actuel de questions.
 
@@ -80,7 +80,9 @@ Chaque principe tranche entre deux options. La première est retenue, la seconde
 
 Les sémantiques communs ont la même valeur partout. Les autres changent de valeur selon le mode ; la liste ci-dessous les signale.
 - Mode apprenant : par défaut.
-- Mode formateur : tout ce qui est posé dans `.espace-layout-formateur`, `.flow-page-formateur` ou `.dropdown-content-formateur`.
+- Mode formateur : le document en mode formateur (`html[data-mode='formateur']`, posé par l'app) et tout ce qui est posé dans `.espace-layout-formateur`, `.flow-page-formateur` ou `.dropdown-content-formateur`.
+- Fond du document (décision du 12/11) : `html` et `body` prennent le `fond-page` du mode actif (crème en apprenant, gris en formateur) ; les conteneurs ne reposent plus ce fond. Une surface fixe ou collante (barre d'action du quiz, pastilles de section de Création de cours) et un conteneur qui change de mode (aperçu élève, `.mode-apprenant`) gardent le leur.
+- Couleurs de texte : les mêmes dans les deux modes ; seuls les fonds et les bordures varient (`couleurs.md`, décision 6).
 - *Implémentation* : `.mode-apprenant` rétablit le mode apprenant dans un conteneur formateur (aperçu élève).
 
 Un composant lit toujours le même sémantique dans les deux espaces : c'est le mode qui fournit la valeur.
@@ -91,11 +93,7 @@ Un composant lit toujours un token de rôle `espace-<rôle>` (liste générée c
 
 ### Valeurs sans token
 
-L'ombre n'est pas encore tokenisée. Utiliser la variable CSS existante du `:root` de `src/styles/shared.css` :
-
-| Variable CSS | Rôle | Statut |
-|---|---|---|
-| `--ombre-flottante` | ombre des éléments flottants (voir « Ombres », section 5) | |
+Aucune ombre hors token : `--ombre-flottante` et `--ombre-illustration` sont générés depuis `tokens/ombres.tokens.json` (liste ci-dessous).
 
 Les rayons ont leurs tokens (`--rayon-*`, liste ci-dessous) : voir « Rayons », section 5.
 
@@ -259,7 +257,7 @@ Valeur : taille · graisse · hauteur de ligne. Un élément applique `font: var
 | `--typo-pastille` | 13 px · 800 · 1,2 | Texte d'une pastille, numéros dans une pastille ronde compris, et texte du statut de la Pastille de statut, avec ou sans pilule (« En cours » et « Terminé » compris). |
 | `--typo-chiffre` | 28 px · 800 · 1 | Nombre sujet d'un bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). |
 | `--typo-chiffre-grand` | 48 px · 800 · 1 | Nombre sujet de l'écran entier : l'écran existe pour le montrer (score de fin de quiz, en pourcentage). |
-| `--typo-compteur` | 15 px · 800 · 1,2 | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). |
+| `--typo-compteur` | 15 px · 800 · 1,2 | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau de 78, « +15 XP »). |
 | `--typo-titre-page` | 34 px · 800 · 1,1 (sous 768 px) ; 44 px · 800 · 1,1 (à partir de 768 px) | Nomme l'écran ; un seul par écran, en tête. |
 | `--typo-titre-contenu` | 28 px · 800 · 1,1 (sous 768 px) ; 32 px · 800 · 1,1 (à partir de 768 px) | Nomme l'objet que l'écran présente (cours, thème, question). |
 | `--typo-titre-mis-en-avant` | 24 px · 800 · 1,2 (sous 768 px) ; 28 px · 800 · 1,2 (à partir de 768 px) | Titre de la carte qui porte l'action principale de l'écran, celle que l'écran existe pour faire. Au plus une par écran. Sur le dashboard apprenant, c'est le bloc de tête, quelle que soit sa variante. Un écran qui propose plusieurs choix de même poids n'en a pas. La carte porte une seule action, son bouton principal. Une carte qui regroupe plusieurs actions garde son rôle (exemple : « Pour bien démarrer »). |
@@ -305,14 +303,16 @@ Source : `ds-principes-composants.md`.
 
 | Variante | Repos | Survol | Actif (appui tactile) | Focus clavier | Désactivé |
 |---|---|---|---|---|---|
-| Principal | fond `fond-action`, texte `texte-sur-action` | `fond-action-survol` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
-| Sur fond foncé | fond `fond-surface`, texte `texte-principal` | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
-| Secondaire | contour `bordure-action`, texte À trancher | `fond-accent` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
-| Orange | fond `fond-recompense`, texte `texte-principal` | `fond-recompense-survol` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
-| Supprimer | texte `texte-erreur`, contour `bordure-erreur` (même épaisseur que le secondaire) | `fond-erreur` | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
-| Rouge plein (confirmation) | fond `fond-erreur-accentue`, texte `texte-sur-erreur` | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
-| Pointillé | contour et texte À trancher | À trancher | À trancher | `bordure-focus` | fond `fond-action-desactive`, contour `bordure-action-desactive`, texte `texte-action-desactive` |
+| Principal | fond `fond-action`, texte `texte-sur-action` | `fond-action-survol` | comme le survol (règle commune) | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Sur fond foncé | fond `fond-surface`, texte `texte-principal` | À trancher | comme le survol (règle commune) ; survol encore À trancher (le code pose `fond-accent`) | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Secondaire | contour `bordure-action`, texte À trancher | `fond-accent` | comme le survol (règle commune) | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Orange | fond `fond-recompense`, texte `texte-principal` | `fond-recompense-survol` | comme le survol (règle commune) | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Supprimer | texte `texte-erreur`, contour `bordure-erreur` (même épaisseur que le secondaire) | `fond-erreur` | comme le survol (règle commune) | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Rouge plein (confirmation) | fond `fond-erreur-accentue`, texte `texte-sur-erreur` | À trancher | comme le survol (règle commune) ; survol encore À trancher | `bordure-focus` | fond `fond-action-desactive`, texte `texte-action-desactive` |
+| Pointillé | contour et texte À trancher | À trancher | comme le survol (règle commune) ; survol encore À trancher | `bordure-focus` | fond `fond-action-desactive`, contour `bordure-action-desactive`, texte `texte-action-desactive` |
 | Retour | fond `fond-surface`, texte `texte-principal` | `fond-accent` | `fond-accent` | `bordure-focus` | Sans objet : pas d'état désactivé |
+
+  Hauteur : 48 px pour toutes les variantes, Retour à 44 (`ds-principes-composants.md`, Bouton, Hauteur). Focus : contour `bordure-focus` et halo `bordure-focus-halo` (section 5, Focus). Désactivé : règle commune (section 5, Désactivé).
 
   Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes, sauf Retour) dans `ds-principes-composants.md`, les descriptions des tokens, la note 2.1.0 pour le contour du bouton supprimer.
 - **DO** : un seul bouton principal par zone d'action. Dans la barre d'enregistrement de Création de cours, « Enregistrer » est le seul bouton principal, « Annuler » est un bouton secondaire.
@@ -324,20 +324,20 @@ Source : `ds-principes-composants.md`.
 - **Quand l'utiliser, quand choisir le voisin** : un champ pour une saisie libre. Le voisin est la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
 - **Typographie** : le libellé du champ prend le rôle Libellé de champ (`--typo-libelle-champ`) ; le texte tapé ou choisi et le texte indicatif (placeholder) du champ vide prennent le rôle Saisie et choix (`--typo-saisie-choix`), seule la couleur change ; 16 px partout, même dans un en-tête dense ou une ligne de filtres (`typographie.md`, sections 5, 6 et 9).
 - **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule avec loupe, fond selon le support, résultats dès 2 caractères ; toute recherche a la loupe).
-- **Dimensions** : champ d'une ligne, 48 px partout ; champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe), 56 px, grand champ compris ; champ multiligne, hauteur par le contenu, hors de cette règle, vertical de 12 (la première ligne tombe comme dans un champ d'une ligne de 48). Un contrôle posé dans la même rangée qu'un champ prend la hauteur du champ.
+- **Dimensions** : champ d'une ligne, 48 px partout ; champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe), 56 px, grand champ compris ; champ multiligne, hauteur par le contenu, hors de cette règle, vertical de 12 (la première ligne tombe comme dans un champ d'une ligne de 48) ; champ multiligne qui contient un bouton rond (44) : 52 de hauteur minimale. Un contrôle posé dans la même rangée qu'un champ prend la hauteur du champ.
 - **Icône dans le champ** : 20 px, posée à 16 px du bord, texte à 8 px de l'icône, soit une réserve de 44 px de ce côté (`espacements.md`, section 7).
 - **Texte indicatif** : couleur `texte-secondaire` sur tous les champs (opacité 1), rôle Saisie et choix ; pas de points de suspension à la fin (« Rechercher un cours »).
 - **Tokens par état** :
 
 | État | Tokens |
 |---|---|
-| Repos | fond `fond-sur-carte` sur une carte blanche, `fond-surface` sur le fond de page ; jamais de bordure ; texte saisi : À trancher |
-| Survol | À trancher |
+| Repos | fond `fond-sur-carte` sur une carte blanche, `fond-surface` sur le fond de page ; bordure 2 px `bordure-controle` (champ d'une ligne, multiligne, recherche, liste déroulante ; éditeur de leçon : sur son bloc) ; texte saisi `texte-principal` |
+| Survol | aucun : le champ ne change pas au survol |
 | Actif (saisie) | contour `bordure-focus` (« champ actif »), dessiné à l'intérieur du champ |
 | Focus clavier | contour `bordure-focus`, dessiné à l'intérieur du champ, pas de contour à l'extérieur |
 | Désactivé | fond `fond-action-desactive`, texte `texte-action-desactive`, sans opacité (même rendu que le bouton désactivé) |
 | Erreur | message sous le champ en `texte-erreur` ; contour `bordure-erreur` (« champ en erreur ») et `aria-invalid` sur le champ lié au message, jamais la couleur seule. Erreur qui vise une section entière (QCM, checklist de Création de cours) : message sous la section, aucun champ marqué |
-| Autoremplissage | le champ garde son fond, sur tous les champs (ombre intérieure pleine, exception au registre de la section 5, « Ombres ») |
+| Autoremplissage | le champ garde le fond qu'il a au repos, sur tous les champs, multilignes compris (ombre intérieure pleine, exception au registre de la section 5, « Ombres ») |
 
 - **DO** : aligner le champ, son libellé et son aide sur le même bord gauche. Dans Création de cours, le champ Titre, son libellé et l'aide qui suit partent du même bord. Aucune marge négative : le champ fait la largeur de sa colonne.
 - **DON'T** : ajouter une bordure pour séparer le champ de la carte, on change son fond. Dans une carte blanche de Création de cours, le champ Titre prend `fond-sur-carte`, pas une bordure grise. Ne pas signaler une erreur par la seule couleur du contour : on écrit le message sous le champ.
@@ -355,8 +355,8 @@ Source : `ds-principes-composants.md`, « États de page ».
 ### Barre de progression
 
 - **Rôle** : montrer l'avancement dans une suite ou dans une liste, de façon compacte, à côté d'un compteur.
-- **Quand l'utiliser** : checklist (« 3 étapes sur 8 »), quiz (« 3 / 5 »), cartes de groupe formateur, prochain badge, quiz flash verrouillé. Anatomie : piste, remplissage violet, extrémités arrondies, compteur ou pourcentage à côté. Variantes fine (dans une carte, à côté d'un compteur) et quiz (en haut de l'écran, piste blanche). La piste change selon le fond : lavande, blanche ou neutre pâle.
-- **Voisin à ne pas confondre** : l'anneau de progression, qui met en avant une seule valeur avec le chiffre au centre (un cours en cours, un score de quiz, le taux de complétion d'un formateur). L'anneau est réservé à la progression, il ne sert jamais de pastille de numéro.
+- **Quand l'utiliser** : checklist (« 3 étapes sur 8 »), quiz (« 3 / 5 »), cartes de groupe formateur, prochain badge, quiz flash verrouillé. Anatomie : piste, remplissage violet, extrémités arrondies, compteur ou pourcentage à côté. Variantes selon la place (décision du 13/11) : d'écran, 14 px, la barre qui ouvre un écran plein écran (parcours, quiz de cours et quiz flash), piste blanche ; fine, 8 px, toute barre posée dans une carte ou une ligne (barre empilée du Détail cours comprise). La piste change selon le fond : lavande, blanche ou neutre pâle. Contraste : barre avec sa valeur écrite, pas d'exigence de la piste contre son support, remplissage à 3:1 contre la piste ; barre sans valeur écrite, piste à 3:1 contre son support.
+- **Voisin à ne pas confondre** : l'Anneau (entrée ci-dessous), qui met en avant une seule valeur avec le chiffre au centre.
 - **À faire** : toujours afficher le chiffre à côté de la barre.
 - **À ne pas faire** : une barre pour un résultat isolé comme un score (c'est le rôle de l'anneau) ; une barre seule, sans chiffre.
 
@@ -393,7 +393,7 @@ Source : `ds-principes-composants.md`, « États de page ».
 
 - **Rôle** : afficher un contenu court par-dessus la page sans la quitter : un formulaire ou un choix (créer un groupe, assigner un cours, ajouter une vidéo).
 - **Quand l'utiliser, quand choisir le voisin** : pour une saisie ou un choix lié à la page en cours. Le voisin est la Modale de confirmation, pour faire confirmer une action qu'on ne peut pas défaire. Les autres cas : À trancher.
-- **Anatomie** : voile `fond-voile` derrière ; mobile, feuille qui monte du bas avec une poignée ; desktop, carte centrée ; ombre `--ombre-flottante`. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative. Le composant sert aux deux modes (apprenant et formateur) et lit les mêmes sémantiques : le mode fournit la valeur.
+- **Anatomie** : voile `fond-voile` derrière ; mobile, feuille qui monte du bas avec une poignée ; desktop, carte centrée, deux largeurs : étroite 440 px (Nouveau groupe, Modale de confirmation), standard 520 px (Assigner des cours, Insérer une vidéo, Mes badges) ; ombre `--ombre-flottante`. Titre, sous-titre facultatif, bouton rond « Fermer » de 44 (croix, le même dans toutes les modales), contenu, zone d'actions facultative. Le composant sert aux deux modes (apprenant et formateur) et lit les mêmes sémantiques : le mode fournit la valeur.
 - **Comportement** : Échap, clic sur le voile et bouton « Fermer » ferment la modale. Rôle `dialog`, `aria-modal`, nom accessible = titre.
 - **DO** : laisser les trois façons de fermer (Échap, clic sur le voile, bouton « Fermer »).
 - **DON'T** : À trancher.
@@ -413,12 +413,16 @@ Source : `ds-principes-composants.md`, « États de page ».
 ### Menu d'actions
 
 - **Rôle** : ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 3).
-- **Anatomie** : bouton rond « … » (nom accessible « Plus d'actions ») ; mobile, feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre ; desktop, carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
+- **Anatomie** : bouton rond « … » (nom accessible « Plus d'actions ») ; mobile, feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre ; desktop, carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, 48 px de haut (comme le menu de la navigation), survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
 - **Comportement** : Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`. Entrée ou Espace sur le bouton ouvre le menu et place le focus sur la première action. Les flèches passent d'une action à l'autre. Échap ferme le menu et rend le focus au bouton. Tab et Maj+Tab ne passent pas d’une action à l’autre ; depuis une action, ils ferment le menu et font sortir le focus (W3C, guide des pratiques ARIA, motif Menu and Menubar, Keyboard Interaction). Précision Skillo : le focus va à l’élément suivant (ou précédent) de la page. Un menu à une seule action reste admis pour l'instant.
 - **DO** : placer l'action destructrice en dernier, en rouge, suivie d'une Modale de confirmation.
 - **DON'T** : mettre un bouton Supprimer directement sur la page (principe 3).
 - **À trancher** : ordre des actions autres que la destructrice.
 - **Fichier à réutiliser** : `src/components/formateur/MenuActions.jsx`.
+
+### Carte, Ligne de liste, Choix, Onglet et filtre, Pastille, Lien texte, Anneau, Bouton rond
+
+Entrées ajoutées au catalogue (décision du 12/11) : rôle, anatomie, valeurs et classe commune dans `ds-principes-composants.md`, une fiche par composant. Une seule implémentation par rôle : une page n'écrit pas sa propre carte, ligne, pastille, lien ou recherche, elle prend la classe commune (`.carte`, `.ligne-liste`, `.pastille`, `.lien-texte`, `src/styles/shared.css`). Composants d'écran, sans fiche : repère d'étapes, éditeur de leçon, tri de tableau, bandeau Aperçu, visionneuse, confettis, points de l'Introduction, vignettes de badge, carte pointillée « + Assigner un cours ».
 
 ## 5. Règles transverses
 
@@ -428,26 +432,30 @@ Le trait `bordure-separateur` se place uniquement entre deux éléments consécu
 
 ### Ombres
 
-Deux ombres, et seulement elles (2.1.0). Le contraste vient des couleurs de fond (principe 4).
-- `--ombre-flottante` : les éléments flottants (menus, listes déroulantes, toast, modales).
-- Ombre d'illustration : les objets 3D qui débordent d'une carte. Pas de token.
+Deux ombres, et seulement elles (2.1.0), en token depuis le chantier composants et couleurs (`tokens/ombres.tokens.json`). Le contraste vient des couleurs de fond (principe 4).
+- `--ombre-flottante` : les éléments flottants (menus, listes déroulantes, toast, modales, barre d'enregistrement), en `box-shadow`.
+- `--ombre-illustration` : les objets 3D qui débordent d'une carte, une seule valeur (mobile et desktop, toute carte), en `filter: drop-shadow(var(--ombre-illustration))`.
 - Exception au registre (1.0.0) : l'ombre intérieure pleine qui neutralise l'autoremplissage du navigateur sur un champ (`:-webkit-autofill`), pour que le champ garde son fond.
 
 ### Survol et tactile
 
 - Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
-- Sur tactile, seul `:active` donne un retour pendant l'appui (boutons principaux, secondaires, orange, boutons ronds, cartes et lignes cliquables).
+- Appui (`:active`) : une règle commune à tout bouton et tout lien, comme le focus (boutons de toutes les variantes, boutons ronds, Retour, liens texte, entrées de navigation et de menu, onglets, filtres, entrées de sommaire, choix, cartes et lignes cliquables) : l'appui prend le rendu du survol de l'élément. Sur tactile, c'est le seul retour pendant l'appui (`ds-principes-composants.md`, « Survol et tactile »).
+- Un élément interactif sans survol écrit (points de l'Introduction, vignettes de badge, tri de tableau, « Passer ») prend au survol le rendu de son appui.
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
 - Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.
 
 ### Focus
 
-- Couleur : `bordure-focus`. Il garde 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, et n'est jamais lié à `action` (`couleurs.md`, décision 4).
-- Tout élément interactif qui n'est pas un champ (bouton, lien, carte ou ligne cliquable, entrée de navigation, case, ligne de choix) : contour de 2 px à l'extérieur, décalé de 2 px, visible au clavier seulement (`:focus-visible`) (`ds-principes-composants.md`, « Focus »).
-- Champ : contour dessiné à l'intérieur (bordure transparente au repos qui prend `bordure-focus` au focus, pas d'`outline` extérieur), pour qu'aucun conteneur qui défile ne le rogne.
+- Un seul style, quelle que soit la surface (décision du 12/11) : tout élément interactif qui n'est pas un champ (bouton, lien, carte ou ligne cliquable, entrée de navigation, case, ligne de choix) prend un contour de 2 px `bordure-focus` à l'extérieur, décalé de 2 px, entouré d'un halo `bordure-focus-halo` (blanc) de 2 px, visible au clavier seulement (`:focus-visible`). Sur chaque surface, l'une des deux couleurs atteint 3:1 (WCAG 1.4.11 et 2.4.7). Aucune règle selon la surface. `bordure-focus` n'est jamais lié à `action` (`couleurs.md`, décision 4). Rendu et limite (halo en `box-shadow`, rogné par un parent en `overflow: hidden`) : `ds-principes-composants.md`, « Focus ».
+- Champ : la bordure de 2 px `bordure-controle` du repos prend `bordure-focus` au focus (dessinée à l'intérieur, pas d'`outline` extérieur), pour qu'aucun conteneur qui défile ne la rogne.
 - Un conteneur qui défile et que le navigateur rend focusable prend le même contour que les autres éléments.
 - Un seul indicateur de focus par élément : un contrôle dessiné sur un input masqué (« Bonne réponse » de Création de cours) montre le contour de son repère, pas celui de l'input.
+
+### Désactivé
+
+Une règle commune pour tout élément interactif (décision du 12/11) : fond `fond-action-desactive` (élément à fond ou à contour), contour `bordure-action-desactive` (élément à contour), texte et icône `texte-action-desactive`, sans opacité. Retour : sans objet (`ds-principes-composants.md`, « Désactivé »).
 
 ### Ponctuation
 
@@ -480,13 +488,13 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 - Un texte écrit aujourd'hui dans une autre taille que son rôle n'est pas une exception : c'est une dérive à corriger. La place disponible (intérieur d'un anneau, largeur d'une carte) se vérifie après coup, elle ne choisit pas le rôle.
 - Le rôle ne dépend pas de la balise HTML : le niveau de titre (h1, h2…) donne la structure de la page, le rôle donne l'apparence. Exemple : le nom d'un thème, dans le Détail d'un thème, est un h1 en Titre de contenu.
 - Si la fonction ne permet pas de décider : « À trancher », pas un choix à l'œil (voir section 7 de ce fichier).
-- *Provisoire* : le taux de complétion du dashboard formateur (Chiffre mis en avant, standard) s'affiche en 20,8 px sous 400 px de large, au lieu de 28 px. Raison : 28 px ne tient pas dans l'anneau de 88 px. À retirer quand l'anneau aura ses dimensions (chantier composants).
+- *Anneau* (décision du 13/11) : la valeur au centre suit la taille de l'anneau, Compteur à 78, Chiffre mis en avant standard à 120, grand à 168 (fin de quiz) ; seule place où un conteneur choisit le rôle, et elle est écrite (`typographie.md`, section 7).
 
 **Choisir entre deux rôles voisins** (section 6)
 - **Titre de section ou Titre de carte : test du nom.** Le nom d'une partie de la page ou du contenu, qui annonce ce qui suit (« De ton formateur », « Taux de complétion », intertitres de leçon, « À retenir ») → Titre de section. Le nom d'une chose que la carte présente (cours, thème, groupe, badge, action) ou ce qui dit où l'on en est (« Raté, mais tu vas retenir ça », « Tu as fini les 12 cours »), avec une explication ou une information en dessous (« X étapes sur N », carte de thème, « Quiz flash » en ligne) → Titre de carte. Une carte garde le même rôle de titre quelle que soit sa place dans l'écran (en tête, en colonne ou en ligne), sauf si elle porte l'action principale de l'écran : son titre passe alors en Titre mis en avant. Une modale ou une feuille de menu prend le Titre de section quel que soit son texte : elle tient la place d'un écran.
 - **Titre mis en avant ou Titre de carte.** Titre mis en avant : titre de la carte qui porte l'action principale de l'écran, celle que l'écran existe pour faire. Au plus une par écran. Sur le dashboard apprenant, c'est le bloc de tête, quelle que soit sa variante. Un écran qui propose plusieurs choix de même poids n'en a pas. La carte porte une seule action, son bouton principal. Une carte qui regroupe plusieurs actions garde son rôle (exemple : « Pour bien démarrer »). Exemples : titre du bloc de tête du dashboard apprenant (cours en cours, cours assigné, premier cours ou prochain cours conseillé en tête, « Quiz flash » en tête), « Étape suivante » (leçon, checklist), « Suite du thème » (récap) → `--typo-titre-mis-en-avant`. Restent en Titre de carte : « Quiz flash » en ligne, le prochain cours conseillé hors tête, les deux cartes du Choix du profil (deux choix de même poids). « Pour bien démarrer » reste en Titre de section. Raison : un niveau de titre qui s'applique à plusieurs cartes ne hiérarchise plus rien ; un rôle limité à une carte par écran, lui, hiérarchise (section 6).
 - **Titre de carte ou Titre de ligne : carte ou ligne.** Un élément posé directement sur la page est une carte (Titre de carte). Un élément répété à l'intérieur d'une carte ou d'une modale est une ligne (Titre de ligne), même s'il a un fond. Exemples : groupes de « Tes groupes » et tuiles de la modale Mes badges → Titre de ligne ; cartes de cours assigné du Détail groupe → Titre de carte.
-- **Chiffre mis en avant ou Compteur : test binaire.** Le nombre est le sujet du bloc, le bloc existe pour le montrer (carte de statistique, taux de complétion, score de fin de quiz en pourcentage) → Chiffre mis en avant. Sinon (position, avancement, total ou gain qui accompagne le sujet du bloc : « 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau du bloc « cours en cours », « +15 XP ») → Compteur. Un nombre a un rôle et un seul ; sa forme (pourcentage, fraction, entier) ne décide jamais.
+- **Chiffre mis en avant ou Compteur : test binaire.** Le nombre est le sujet du bloc, le bloc existe pour le montrer (carte de statistique, taux de complétion, score de fin de quiz en pourcentage) → Chiffre mis en avant. Sinon (position, avancement, total ou gain qui accompagne le sujet du bloc : « 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau de 78 du bloc « cours en cours », « +15 XP ») → Compteur. Un nombre a un rôle et un seul ; sa forme (pourcentage, fraction, entier) ne décide jamais. Exception écrite : la valeur au centre d'un anneau suit la taille de l'anneau (Compteur à 78, Chiffre mis en avant standard à 120, grand à 168 ; fiche Anneau, décision du 13/11).
 - **Chiffre mis en avant, standard ou grand.** Grand : le nombre est le sujet de l'écran entier, comme le score de fin de quiz (quiz de cours et quiz flash), affiché en pourcentage. Standard : le sujet d'un bloc.
 - **Corps courant ou Texte de lecture.** Texte de lecture : le texte de la leçon, dans la fiche, dans son aperçu (Création de cours) et dans le Détail cours (premier paragraphe). Corps courant : toutes les autres phrases lues (explications, paragraphes, intitulés d'étape, réponses affichées).
 - **Texte secondaire ou Méta.** Texte secondaire : une phrase complète qui commente un autre élément sans être le contenu principal (sous-titre, état vide, aide, erreur, message, note sous une carte). Méta : une information courte et factuelle sur un élément, lue en passant (contenu « Leçon · Quiz », date, compte, statut, « N min de lecture »). Le sous-titre posé sous le titre d'une page ou d'un contenu est en Texte secondaire, même quand il donne un compte (« x cours terminés sur y » du Détail d'un thème, « X thèmes terminés sur 12 » de la page Cours). Un compte posé sur un élément sans en être le sous-titre reste en Méta (« y cours » de la carte de thème, « N min de lecture »). Raison : le sous-titre fait partie des exemples du Texte secondaire, et la forme du texte ne décide pas du rôle.
@@ -695,7 +703,7 @@ Source : `docs/tokens/mise-en-page.md` (section citée entre parenthèses). Pas 
 
 ### Anneaux de progression selon le fond
 
-Rendu : extrémité arrondie, départ en haut, pourcentage au centre ; sans données, piste seule et « — ». Couleurs : `couleurs.md`, décision 1.
+Rendu : extrémité arrondie, départ en haut, pourcentage au centre ; sans données, piste seule et « — ». Couleurs : `couleurs.md`, décision 1. Tailles (fiche Anneau de `ds-principes-composants.md`) : 78 px sous 768, valeur en Compteur ; 120 px à partir de 768, valeur en Chiffre mis en avant standard ; exception écrite, fin de quiz, 168 px, Chiffre mis en avant grand.
 
 | Fond | Piste | Arc |
 |---|---|---|
@@ -735,9 +743,9 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 
 **Exemple non conforme : champ**
 - Situation : un champ de saisie dans une carte blanche de l'espace formateur.
-- Erreur : une bordure grise pour détacher le champ de la carte.
-- Pourquoi : « Ajouter une bordure pour séparer le champ de la carte. On change son fond. » Jamais de bordure au repos.
-- Conforme : fond `fond-sur-carte` (le mode donne la bonne valeur), sans bordure au repos, focus en `bordure-focus` dessiné à l'intérieur.
+- Erreur : une bordure de 1 px au repos qui passe à 2 px au focus, ou le champ sans bordure parce qu'il a déjà un fond différent de la carte.
+- Pourquoi : « Épaissir la bordure au focus ou en erreur. Le contenu bougerait ; seule la couleur change. » Et tout champ a sa bordure de 2 px `bordure-controle` au repos (décision du 12/11).
+- Conforme : fond `fond-sur-carte` (le mode donne la bonne valeur), bordure 2 px `bordure-controle` au repos, `bordure-focus` au focus, `bordure-erreur` en erreur, toujours 2 px, dessinée à l'intérieur.
 
 **Exemple non conforme : barre de progression**
 - Situation : une carte qui montre l'avancement d'un groupe sur ses cours.
@@ -770,10 +778,10 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 - Conforme : `--typo-corps-courant-fort` (Corps courant, 15 px · 1,45, graisse 600, un cran au-dessus de 500).
 
 **Exemple non conforme : pourcentage de l'anneau**
-- Situation : pourcentage au centre de l'anneau du bloc « cours en cours » du dashboard apprenant.
-- Erreur : Chiffre mis en avant (28 px), parce que c'est un pourcentage et qu'il y a de la place dans l'anneau.
-- Pourquoi : le sujet du bloc décide, jamais la forme du nombre (`typographie.md`, section 6) ; la place disponible ne choisit pas le rôle (section 7). Le sujet du bloc est le cours, le pourcentage dit où l'on en est dans ce cours.
-- Conforme : `--typo-compteur` (Compteur, 15 px · 800 · 1,2).
+- Situation : pourcentage au centre de l'anneau de 78 du bloc « cours en cours » du dashboard apprenant (sous 768 px).
+- Erreur : Chiffre mis en avant (28 px), parce que c'est un pourcentage.
+- Pourquoi : la forme du nombre ne décide jamais (`typographie.md`, section 6) ; exception de l'anneau (section 7) : à 78, la valeur est en Compteur.
+- Conforme : `--typo-compteur` (Compteur, 15 px · 800 · 1,2). À partir de 768 px, l'anneau de 120 prend `--typo-chiffre` (fiche Anneau).
 
 **Exemple non conforme : champ plus petit pour gagner de la place**
 - Situation : champ de recherche dans un en-tête de carte chargé.
@@ -896,8 +904,7 @@ La conduite en attente vaut seulement quand aucune règle ne dit quoi faire. Qua
 Contradictions et ambiguïtés relevées entre les sources. Chacune demande une décision : rien n'est résolu ici.
 
 1. **Rubriques des entrées Bouton, Champ et Conteneur de page absentes de la documentation** (marquées « À trancher » dans la section 4) :
-   - Bouton : rôle général ; token de l'état actif (appui tactile) pour toutes les variantes ; survol du bouton sur fond foncé et du rouge plein ; texte du bouton secondaire ; contour, texte et survol du bouton pointillé au repos.
-   - Champ : rôle général ; texte saisi ; survol.
-   - Écart à corriger dans le code (dérive) : le bouton pointillé désactivé n'a pas le fond lavande des boutons désactivés (« désactivé : lavande, texte atténué ») et ajoute une opacité.
-2. **Valeurs en pixels sans token** : zone cliquable minimale, épaisseur des deux variantes de barre, épaisseur du contour du bouton secondaire, paramètres de l'ombre d'illustration selon la carte et sur desktop (texte dans le commit aba8133). Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
+   - Bouton : rôle général ; survol du bouton sur fond foncé, du rouge plein et du pointillé ; texte du bouton secondaire ; contour et texte du bouton pointillé au repos.
+   - Champ : rôle général.
+2. **Valeurs en pixels sans token** : zone cliquable minimale, épaisseur du contour du bouton secondaire. Ce fichier ne les recopie pas, donc `ds-principes-composants.md` ne peut pas encore être remplacé par un renvoi sans perdre ces valeurs.
 3. **Description de `bordure-erreur`.** Elle cite « Réponse fausse, champ en erreur », pas le contour du bouton supprimer, qui l'utilise désormais.

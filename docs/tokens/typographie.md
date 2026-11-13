@@ -15,9 +15,7 @@ Statut : décidé le 4 novembre 2026, migration en cours, lots 1 à 10 faits. So
 
 **13 · 14 · 15 · 16 · 17 · 18 · 21 · 24 · 28 · 32 · 34 · 44 · 48**
 
-Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px entiers.
-
-Seule exception, provisoire : 20,8 px pour le taux de complétion du dashboard formateur sous 400 px (section 7).
+Règle : **aucune autre taille n'est admise.** Toutes les tailles sont des px entiers, sans exception.
 
 | Taille | Sortie en rem | Rôles |
 |---:|---:|---|
@@ -77,7 +75,7 @@ Chiffre mis en avant a deux niveaux, d'où 20 lignes. Le Titre de carte n'a qu'u
 | Pastille | 13 px | 13 px | 800 | 1,2 | normal | Texte d'une pastille, numéros dans une pastille ronde compris, et texte du statut de la Pastille de statut, avec ou sans pilule (« En cours » et « Terminé » compris). |
 | Chiffre mis en avant, standard | 28 px | 28 px | 800 | 1 | normal | Nombre sujet d'un bloc : le bloc existe pour le montrer (carte de statistique, taux de complétion). |
 | Chiffre mis en avant, grand | 48 px | 48 px | 800 | 1 | normal | Nombre sujet de l'écran entier : l'écran existe pour le montrer (score de fin de quiz, en pourcentage). |
-| Compteur | 15 px | 15 px | 800 | 1,2 | normal | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau, « +15 XP »). |
+| Compteur | 15 px | 15 px | 800 | 1,2 | normal | Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau de 78, « +15 XP »). |
 
 Aucun rôle n'a d'espacement des lettres.
 
@@ -106,7 +104,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 **Chiffre mis en avant, standard ou grand.** Grand : le nombre est le sujet de l'écran entier (l'écran existe pour le montrer), comme le score de fin de quiz (quiz de cours et quiz flash), affiché en pourcentage. Standard : le nombre est le sujet d'un bloc.
 
-**Chiffre mis en avant ou Compteur : test binaire.** Si le nombre est le sujet du bloc (le bloc existe pour le montrer), c'est un Chiffre mis en avant : carte de statistique, taux de complétion, score de fin de quiz (en pourcentage). Sinon, c'est un Compteur : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau du bloc « cours en cours », dont le sujet est le cours, « +15 XP » qui accompagne la complétion). Un nombre a un rôle et un seul. La forme du nombre (pourcentage, fraction, entier) ne décide jamais.
+**Chiffre mis en avant ou Compteur : test binaire.** Si le nombre est le sujet du bloc (le bloc existe pour le montrer), c'est un Chiffre mis en avant : carte de statistique, taux de complétion, score de fin de quiz (en pourcentage). Sinon, c'est un Compteur : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau de 78 du bloc « cours en cours », dont le sujet est le cours, « +15 XP » qui accompagne la complétion). Un nombre a un rôle et un seul. La forme du nombre (pourcentage, fraction, entier) ne décide jamais. Exception écrite : la valeur au centre d'un anneau suit la taille de l'anneau (Compteur à 78, Chiffre mis en avant standard à 120, grand à 168 ; fiche Anneau, décision du 13/11).
 
 **Corps courant ou Texte de lecture.** Texte de lecture : le texte de la leçon, dans la fiche, dans son aperçu (Création de cours) et dans le Détail cours, où le formateur voit le premier paragraphe de la leçon. Corps courant : toutes les autres phrases lues (explications, paragraphes, intitulés d'étape, réponses affichées).
 
@@ -131,7 +129,7 @@ Aucun rôle n'a d'espacement des lettres.
 
 - **Règle générale** : un système typographique décrit des rôles (ce que fait le texte) et non des tailles. Deux textes qui ont la même fonction ont la même typographie, où qu'ils soient.
 - **Précision Skillo** : un texte écrit aujourd'hui dans une autre taille que son rôle n'est pas une exception, c'est une dérive à corriger. La place disponible (intérieur d'un anneau, largeur d'une carte) se vérifie après coup, elle ne choisit pas le rôle. Si la fonction ne permet pas de décider, c'est « À trancher », pas un choix à l'œil.
-- **Provisoire** : le taux de complétion du dashboard formateur (Chiffre mis en avant, standard) s'affiche en 20,8 px sous 400 px de large, au lieu de 28 px. Raison : 28 px ne tient pas dans l'anneau de 88 px. À retirer quand l'anneau aura ses dimensions (chantier composants).
+- **Anneau** (décision du 13/11, fiche Anneau de `ds-principes-composants.md`) : la valeur au centre prend Compteur dans l'anneau de 78 (sous 768) et Chiffre mis en avant standard dans celui de 120 (à partir de 768) ; l'anneau de fin de quiz (168) prend Chiffre mis en avant grand. C'est la seule place où la taille d'un conteneur choisit le rôle, et elle est écrite : l'anneau de 78 est un repère d'avancement dans un bloc, celui de 120 montre le chiffre du bloc. Fin de l'exception à 20,8 px du taux de complétion.
 - **Le rôle typographique ne dépend pas de la balise HTML.** Le niveau de titre (h1, h2…) donne la structure de la page, le rôle donne l'apparence. Exemple : le nom d'un thème, dans le Détail d'un thème, est un h1 en Titre de contenu.
 
 ## 8. États et emphase
@@ -224,10 +222,10 @@ Format : situation, erreur plausible, règle citée, version conforme.
 - Version conforme : Corps courant, 15 px · 1,45, graisse 600 (un cran au-dessus de 500).
 
 **Exemple non conforme : pourcentage de l'anneau**
-- Situation : pourcentage au centre de l'anneau du bloc « cours en cours » du dashboard apprenant.
-- Erreur plausible : Chiffre mis en avant (28 px), parce que c'est un pourcentage et qu'il y a de la place dans l'anneau.
-- Règle citée : section 6, le sujet du bloc décide, jamais la forme du nombre ; section 7, la place disponible ne choisit pas le rôle. Le sujet du bloc est le cours, le pourcentage dit où l'on en est dans ce cours.
-- Version conforme : Compteur, 15 px · 800 · 1,2.
+- Situation : pourcentage au centre de l'anneau de 78 du bloc « cours en cours » du dashboard apprenant (sous 768 px).
+- Erreur plausible : Chiffre mis en avant (28 px), parce que c'est un pourcentage.
+- Règle citée : section 6, la forme du nombre ne décide jamais ; section 7, exception de l'anneau : à 78, la valeur est en Compteur.
+- Version conforme : Compteur, 15 px · 800 · 1,2. À partir de 768 px, l'anneau de 120 prend Chiffre mis en avant standard (fiche Anneau).
 
 **Exemple non conforme : champ plus petit pour gagner de la place**
 - Situation : champ de recherche dans un en-tête de carte chargé.
@@ -261,6 +259,5 @@ Format : situation, erreur plausible, règle citée, version conforme.
 
 ## 13. À trancher
 
-- **Anneau du taux de complétion sur desktop** : à vérifier à l'écran pendant le test (sous 400 px de large : exception provisoire, section 7).
 - **Option choisie d'une Navigation à 800** : vérifier à l'écran pendant le test que le passage à 800 ne décale pas les onglets et filtres voisins.
 - **Textes posés dans des conteneurs de taille fixe**, l'anneau en premier : à vérifier avec la taille de police du navigateur à 200 % (section 1).

@@ -200,9 +200,11 @@ Les confettis lisent `fond-marque`, `fond-recompense`, `fond-inverse`, `fond-sur
 
 *Mise à jour DS 2.1.0 :* `bordure-controle` devient commun et pointe vers `ardoise-450` (3,02:1 au plus bas, contre `fond-accent`). Les valeurs `sable-150` / `ardoise-175` passent à `bordure-etape` et `bordure-action-desactive`, qui n'ont pas d'exigence de contraste.
 
+*Chantier composants et couleurs (12/11) :* `bordure-controle` sert aussi à la bordure de 2 px des champs au repos. Ratios : 3,92:1 sur blanc, 3,40 sur crème, 3,57 sur gris, 3,02 sur lavande (recherche de Cours). La marge sur lavande est faible : un éclaircissement de `violet-100` ou un assombrissement de `ardoise-450` relance ce calcul.
+
 Fait à noter, sans le corriger ici : `sable-150` sur blanc donne un contraste d'environ 1,5:1. C'est sous le minimum de 3:1 exigé pour le contour d'un contrôle (WCAG 1.4.11), et `ardoise-175` fait pareil.
 
-**4. Le focus est détaché de l'action.** Lier les deux, c'est ce que je ne veux pas. Le focus doit garder 3:1 de contraste avec le fond voisin, quelle que soit la couleur du bouton. Il se dessine aussi sur les champs, les cartes et les lignes, pas seulement sur les boutons. Si la marque passe à une teinte claire, un focus lié à `action` cesserait d'être visible sans que personne ne s'en aperçoive. `bordure-focus` pointe aujourd'hui vers le même primitif que `bordure-action`, mais il est réglé à part.
+**4. Le focus est détaché de l'action.** Lier les deux, c'est ce que je ne veux pas. Le focus est un contour `bordure-focus` entouré d'un halo `bordure-focus-halo` (blanc) de 2 px : sur chaque surface, l'une des deux couleurs garde 3:1 avec le fond voisin, quelle que soit la couleur du bouton (décision du 12/11 ; aujourd'hui, le violet seul tombait à 1:1 sur la carte violette et à 2,58:1 sur l'encre). Il se dessine aussi sur les champs, les cartes et les lignes, pas seulement sur les boutons. Si la marque passe à une teinte claire, un focus lié à `action` cesserait d'être visible sans que personne ne s'en aperçoive. `bordure-focus` pointe aujourd'hui vers le même primitif que `bordure-action`, mais il est réglé à part.
 
 **5. Tokens supprimés, ce n'est pas un oubli.**
 - `--color-lavande-pale` (#eeeaff) et `--color-contour-imbrique` (#e4e4ea) disparaissent : 0 utilisation dans `src/`. CLAUDE.md les décrit encore et sera à mettre à jour lors de la migration.
@@ -210,5 +212,13 @@ Fait à noter, sans le corriger ici : `sable-150` sur blanc donne un contraste d
   - sur violet, `violet-75` (3 usages contre 2), qui en plus contraste mieux : 5,4:1 contre 4,6:1 ;
   - sur encre, `ardoise-175` (7 usages contre 1), qui reste à 11:1.
 - Ce point est un changement visible : 2 textes sur carte violette s'éclaircissent et l'explication du quiz sur le bloc encre s'assombrit légèrement.
+
+**6. Couleurs de texte communes aux deux modes (12/11).** Les 16 sémantiques `texte-*` sont communs : seuls les fonds et les bordures varient selon le mode. Le texte saisi d'un champ est `texte-principal`, le texte indicatif `texte-secondaire`.
+
+**7. Fond du document (12/11).** `html` et `body` prennent le `fond-page` du mode actif : crème en apprenant, gris en formateur (`html[data-mode='formateur']`). Les conteneurs ne reposent plus ce fond ; une surface fixe ou collante, et un conteneur qui change de mode (aperçu élève), gardent le leur. Seul changement visible : la zone de rebond derrière l'espace formateur, qui était crème.
+
+**8. Ombres en token (12/11).** `ombre-flottante` (valeur inchangée) et `ombre-illustration` (`ardoise-900` à 35 %, 0 14 px 16 px, une seule valeur à la place des quatre d'avant) dans `tokens/ombres.tokens.json`, type DTCG `shadow`. Leur couleur garde le lien vers le primitif (`color-mix`). Le DTCG impose `spread` : il vaut 0 et n'est pas écrit en CSS (`drop-shadow` refuse un 4e terme). La teinte `rgba(20, 10, 60, …)` de l'ancienne ombre d'illustration n'était pas un primitif : elle disparaît.
+
+**9. Surtitre de thème (13/11).** « Thème N » et le nom de thème en surtitre prennent `texte-accent` partout : carte de thème de la page Cours, Détail d'un thème, en-têtes de la leçon, de la checklist et du quiz (8,05:1 sur blanc).
 
 Si ce tableau te convient, je passe aux espacements.
