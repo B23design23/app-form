@@ -119,6 +119,18 @@
   background: var(--fond-marque);
 }
 
+/* Survol du point inactif (ds-principes-composants.md, Composants d'écran) : fond-controle-survol ;
+   l'appui prend le même rendu ; le point actif ne change pas */
+.introduction-point:not(.introduction-point-actif):active::before {
+  background: var(--fond-controle-survol);
+}
+
+@media (hover: hover) {
+  .introduction-point:not(.introduction-point-actif):hover::before {
+    background: var(--fond-controle-survol);
+  }
+}
+
 /* --- Choix du profil ------------------------------------------------------------------------- */
 
 .profil-cartes {

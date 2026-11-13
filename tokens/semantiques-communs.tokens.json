@@ -130,6 +130,11 @@
       "$type": "color",
       "$value": "{couleur.vert-625}",
       "$description": "Pastille de coche, segment « terminés »."
+    },
+    "controle-survol": {
+      "$type": "color",
+      "$value": "{couleur.ardoise-450}",
+      "$description": "Survol d'un point de contrôle inactif (point de pagination de l'Introduction) : neutre plus foncé que fond-controle, jamais la couleur du point actif. Même primitif que bordure-controle : 3,40:1 sur la crème, 3,57 sur le gris."
     }
   },
   "texte": {

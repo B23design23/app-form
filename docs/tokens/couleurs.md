@@ -58,7 +58,7 @@ Section générée depuis `tokens/` : ne pas la modifier à la main, modifier `t
 | `vert-50` | #dff3e7 | 94,1 |
 | `vert-625` | #17663f | 37,9 |
 
-### Sémantiques (46)
+### Sémantiques (47)
 
 « = » signifie que la valeur est la même dans les deux modes.
 
@@ -82,6 +82,7 @@ Section générée depuis `tokens/` : ne pas la modifier à la main, modifier `t
 | `fond-erreur-accentue` | `rouge-600` | = | Bouton rouge plein, pastille « Ta réponse » fausse. |
 | `fond-succes` | `vert-50` | = | Bonne réponse, « Bon rythme ». |
 | `fond-succes-accentue` | `vert-625` | = | Pastille de coche, segment « terminés ». |
+| `fond-controle-survol` | `ardoise-450` | = | Survol d'un point de contrôle inactif (point de pagination de l'Introduction) : neutre plus foncé que fond-controle, jamais la couleur du point actif. Même primitif que bordure-controle : 3,40:1 sur la crème, 3,57 sur le gris. |
 | `fond-page` | `sable-50` | `ardoise-50` | Fond de page. |
 | `fond-sur-carte` | `sable-50` | `ardoise-50` | Champ, réponse, étape ou bloc posé sur une carte blanche. |
 | `fond-neutre` | `sable-75` | `ardoise-75` | Pastille « Non commencé », piste des barres fines. |
