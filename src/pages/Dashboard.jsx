@@ -95,7 +95,7 @@ function etatCoursEnCours(cours, { quizFait, checklistFaite }) {
 
 function PastilleFormateur() {
   return (
-    <span className="dash-pastille-formateur">
+    <span className="pastille dash-pastille-formateur">
       <Icone svg={iconeFormateur} className="dash-pastille-formateur-icone" />
       De ton formateur
     </span>
@@ -306,7 +306,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
     })
     const pourcentage = Math.round(ratio * 100)
     return (
-      <div className="dash-carte dash-carte-violette dash-carte-tete dash-avec-objet dash-en-cours">
+      <div className="carte dash-carte dash-carte-violette dash-carte-tete dash-avec-objet dash-en-cours">
         <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
         <div className="dash-tete-rangee">
           <AnneauProgression
@@ -336,7 +336,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   // libellé puis titre directement dessous (pas de rangée d'anneau), avec une réserve à droite
   // pour que le texte ne passe pas sous l'objet ; bouton dessous.
   const blocCoursConseilleTete = (c, premier) => (
-    <div className="dash-carte dash-carte-blanche dash-carte-tete dash-avec-objet dash-conseille-tete">
+    <div className="carte dash-carte dash-carte-blanche dash-carte-tete dash-avec-objet dash-conseille-tete">
       <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
       <div className="dash-tete-texte">
         <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
@@ -352,7 +352,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   )
 
   const blocCoursConseille = (c, premier) => (
-    <div className="dash-carte dash-carte-blanche dash-conseille">
+    <div className="carte dash-carte dash-carte-blanche dash-conseille">
       <img className="dash-objet-coin" src={imageTheme(c.categorie)} alt="" />
       <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
       <h2 className="dash-titre-carte">{typo(c.titre)}</h2>
@@ -366,7 +366,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   const blocAssigneEnTete = (c) => {
     const ajoute = libelleAjoute(dateAssignation.get(c.id))
     return (
-      <div className="dash-carte dash-carte-violette dash-carte-tete dash-avec-objet dash-assigne">
+      <div className="carte dash-carte dash-carte-violette dash-carte-tete dash-avec-objet dash-assigne">
         <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
         <div className="dash-tete-rangee">
           <PastilleFormateur />
@@ -398,7 +398,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         lignes={lignes}
         onOuvrirCours={onOuvrirCours}
         actionEntete={
-          <button type="button" className="dash-lien" onClick={onVoirCoursFormateur}>
+          <button type="button" className="lien-texte dash-lien" onClick={onVoirCoursFormateur}>
             Tout voir
           </button>
         }
@@ -407,9 +407,9 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   }
 
   const blocQuizFlashTete = () => (
-    <div className="dash-carte dash-carte-encre dash-carte-tete dash-avec-objet dash-flash-tete">
+    <div className="carte dash-carte dash-carte-encre dash-carte-tete dash-avec-objet dash-flash-tete">
       <img className="dash-objet-deborde dash-objet-incline" src={IMAGE_QUIZ_FLASH} alt="" />
-      <span className="dash-pastille-orange">Défi du jour</span>
+      <span className="pastille dash-pastille-orange">Défi du jour</span>
       <h2 className="dash-flash-tete-titre">Quiz flash</h2>
       <p className="dash-flash-tete-texte">
         10 questions sur tes {nbCoursQuizTermines} cours terminés. 5 bonnes réponses pour gagner 30 XP.
@@ -421,7 +421,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   )
 
   const blocQuizFlashLigne = () => (
-    <div className="dash-carte dash-carte-encre dash-flash-ligne">
+    <div className="carte dash-carte dash-carte-encre dash-flash-ligne">
       <img className="dash-flash-ligne-objet" src={IMAGE_QUIZ_FLASH} alt="" />
       <div className="dash-flash-ligne-texte">
         <h2>Quiz flash</h2>
@@ -438,7 +438,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   )
 
   const blocQuizFlashVerrouille = () => (
-    <div className="dash-carte dash-carte-blanche dash-flash-verrouille">
+    <div className="carte dash-carte dash-carte-blanche dash-flash-verrouille">
       <span className="dash-flash-verrouille-objet">
         <img src={IMAGE_QUIZ_FLASH} alt="" />
         <Cadenas />
@@ -466,7 +466,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   const blocProchainBadge = () => {
     const objectif = objectifBadge(prochainBadge.condition_deblocage, statsBadges)
     return (
-      <div className="dash-carte dash-carte-lavande dash-badge">
+      <div className="carte dash-carte dash-carte-lavande dash-badge">
         <div className="dash-badge-entete">
           <button
             type="button"
@@ -507,7 +507,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
               />
             </button>
           ))}
-          <button type="button" className="dash-lien dash-badge-lien" onClick={() => ouvrirBadges()}>
+          <button type="button" className="lien-texte dash-lien dash-badge-lien" onClick={() => ouvrirBadges()}>
             Mes badges · {nbBadgesObtenus}/{tousBadges.length}
           </button>
         </div>
@@ -516,7 +516,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   }
 
   const blocCollectionVitrine = () => (
-    <div className="dash-carte dash-carte-lavande dash-collection">
+    <div className="carte dash-carte dash-carte-lavande dash-collection">
       <div className="dash-collection-entete">
         <div className="dash-badge-texte">
           <span className="dash-libelle-violet">Collection complète</span>
@@ -524,7 +524,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
             {tousBadges.length} badges sur {tousBadges.length}
           </h2>
         </div>
-        <button type="button" className="dash-lien" onClick={() => ouvrirBadges()}>
+        <button type="button" className="lien-texte dash-lien" onClick={() => ouvrirBadges()}>
           Voir mes badges
         </button>
       </div>
@@ -539,7 +539,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   )
 
   const blocBibliothequeTerminee = () => (
-    <div className="dash-carte dash-carte-blanche dash-bibliotheque">
+    <div className="carte dash-carte dash-carte-blanche dash-bibliotheque">
       <img className="dash-objet-coin" src={IMAGE_BIBLIOTHEQUE_TERMINEE} alt="" />
       <span className="dash-libelle-violet">Bibliothèque terminée</span>
       <h2 className="dash-titre-carte">Tu as fini les {cours.length} cours</h2>
@@ -710,8 +710,8 @@ function ModaleBadges({ badges, idsBadgesObtenus, dateObtentionParBadge, conditi
           <span className="dash-modale-badges-compteur">
             {nbObtenus}/{badges.length}
           </span>
-          <button type="button" className="modal-fermer" onClick={onFermer} aria-label="Fermer">
-            <Icone svg={iconeCroix} className="dash-modale-fermer-icone" />
+          <button type="button" className="bouton-rond" onClick={onFermer} aria-label="Fermer">
+            <Icone svg={iconeCroix} className="bouton-rond-icone" />
           </button>
         </div>
         <ul className="dash-modale-badges-grille">

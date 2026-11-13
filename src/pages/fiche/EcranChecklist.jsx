@@ -43,8 +43,8 @@ function EcranChecklist({
   return (
     <div className="fiche-colonne fiche-checklist">
       <div className="fiche-checklist-entete">
-        <button type="button" className="fiche-bouton-rond fiche-bouton-rond-44" onClick={onRetour} aria-label="Retour">
-          <Icone svg={iconeRetour} className="fiche-bouton-rond-icone" />
+        <button type="button" className="bouton-rond" onClick={onRetour} aria-label="Retour">
+          <Icone svg={iconeRetour} className="bouton-rond-icone" />
         </button>
         <div className="fiche-checklist-entete-texte">
           <span className="fiche-checklist-theme">{cours.categorie}</span>
@@ -124,7 +124,7 @@ function EcranChecklist({
                     <span className="fiche-etape-pastille fiche-etape-pastille-courante">{index + 1}</span>
                     <div className="fiche-etape-corps">
                       <ContenuMarkdown texte={etape.intitule} className="fiche-etape-intitule" roleTypo="corps-courant-fort" />
-                      {etape.bloquante && <span className="fiche-etape-bloquante">Bloquante</span>}
+                      {etape.bloquante && <span className="pastille fiche-etape-bloquante">Bloquante</span>}
                       {etape.critere_validation && <p className="fiche-etape-critere">{typo(etape.critere_validation)}</p>}
                       <button type="button" className="bouton-primaire fiche-bouton-large" onClick={() => onValiderEtape(etape.id)}>
                         Valider l'étape

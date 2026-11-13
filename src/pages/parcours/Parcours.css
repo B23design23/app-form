@@ -72,7 +72,8 @@
   max-width: 80%;
   aspect-ratio: 1;
   object-fit: contain;
-  filter: drop-shadow(0 14px 16px rgba(20, 10, 60, 0.25));
+  /* Ombre d'illustration (regles-agent.md, section 5, Ombres) */
+  filter: drop-shadow(var(--ombre-illustration));
 }
 
 /* Introduction sur un écran bas (mise-en-page.md, section 8 : exception écrite, sous 667 px de
@@ -131,10 +132,7 @@
   align-items: center;
   gap: var(--espace-rangee);
   width: 100%;
-  padding: var(--espace-surface);
   border: none;
-  border-radius: var(--rayon-surface);
-  background: var(--fond-surface);
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
@@ -142,7 +140,7 @@
 }
 
 @media (hover: hover) {
-  .profil-carte:hover {
+  .carte.profil-carte:hover {
     background: var(--fond-accent);
   }
 }

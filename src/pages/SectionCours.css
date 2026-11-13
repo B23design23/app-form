@@ -48,18 +48,16 @@
   align-items: flex-start;
   min-height: 176px;
   min-width: 0;
-  padding: var(--espace-surface);
   border: none;
-  border-radius: var(--rayon-surface);
-  background: var(--fond-surface);
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
+/* Carte cliquable (classe commune .carte) : survol et appui fond-accent */
 @media (hover: hover) {
-  .theme-carte:hover {
+  .carte.theme-carte:hover {
     background: var(--fond-accent);
   }
 }
@@ -77,9 +75,10 @@
   height: 52px;
 }
 
+/* Surtitre « Thème N » : texte-accent, comme le Détail d'un thème (décision 28, C3) */
 .theme-carte-numero {
   font: var(--typo-surtitre);
-  color: var(--texte-secondaire);
+  color: var(--texte-accent);
 }
 
 .theme-carte-titre {

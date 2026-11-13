@@ -48,8 +48,8 @@ function EcranQuiz({
   return (
     <div className="fiche-colonne fiche-quiz">
       <div className="fiche-quiz-haut">
-        <button type="button" className="fiche-bouton-rond" onClick={onQuitter} aria-label={labelQuitter}>
-          <Icone svg={iconeCroix} className="fiche-bouton-rond-icone" />
+        <button type="button" className="bouton-rond" onClick={onQuitter} aria-label={labelQuitter}>
+          <Icone svg={iconeCroix} className="bouton-rond-icone" />
         </button>
         <span className="fiche-barre" role="progressbar" aria-valuemin={0} aria-valuemax={questions.length} aria-valuenow={quiz.index + 1}>
           <span className="fiche-barre-remplissage" style={{ width: `${progression}%` }} />
@@ -92,7 +92,7 @@ function EcranQuiz({
               )}
               <span className="fiche-reponse-texte">{typo(reponse.texte)}</span>
               {statut?.texte && (
-                <span className={`fiche-reponse-pastille fiche-reponse-pastille-${statut.classe}`}>
+                <span className={`pastille fiche-reponse-pastille fiche-reponse-pastille-${statut.classe}`}>
                   <Icone svg={statut.icone} className="fiche-reponse-pastille-icone" />
                   {statut.texte}
                 </span>
@@ -112,7 +112,7 @@ function EcranQuiz({
             </p>
           ))}
           {!resultat.correcte && (
-            <button type="button" className="fiche-feedback-lien" onClick={() => onRevoirLecon(question)}>
+            <button type="button" className="lien-texte fiche-feedback-lien" onClick={() => onRevoirLecon(question)}>
               Revoir la leçon
             </button>
           )}

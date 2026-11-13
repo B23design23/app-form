@@ -39,7 +39,7 @@ const RANG_STATUT_FORMATEUR = { en_cours: 0, nouveau: 1, a_faire: 2, termine: 3 
 function CarteTheme({ nom, index, termines, commences, total, onClick }) {
   const termine = total > 0 && termines === total
   return (
-    <button type="button" className="theme-carte" onClick={onClick}>
+    <button type="button" className="carte theme-carte" onClick={onClick}>
       <span className="theme-carte-haut">
         <img className="theme-carte-objet" src={imageTheme(nom)} alt="" />
         <Icone svg={iconeChevron} className="chevron-ligne" />

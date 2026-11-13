@@ -6,7 +6,6 @@
   /* marge de page sur les côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de
      sécurité) et bas d'une page sans barre fixe (40) */
   padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) calc(40px + env(safe-area-inset-bottom));
-  background: var(--fond-page);
   color: var(--texte-principal);
 }
 
@@ -34,16 +33,19 @@
   margin-top: 0;
 }
 
-/* Barre de progression (quiz : fond blanc 10 px ; checklist : 8 px) */
+/* Barre de progression (ds-principes-composants.md, Barre de progression) : barre d'écran du quiz,
+   14 px, piste blanche ; barre fine de la carte de la checklist, 8 px */
 .fiche-barre {
   flex: 1;
-  height: 10px;
+  height: 14px;
   overflow: hidden;
   border-radius: var(--rayon-pilule);
   background: var(--fond-surface);
 }
 
+/* Posée dans une colonne flex (carte de la checklist) : pas de base 0, la hauteur de 8 compte */
 .fiche-barre-fine {
+  flex: none;
   display: block;
   height: 8px;
   background: var(--fond-neutre);
@@ -55,39 +57,6 @@
   border-radius: var(--rayon-pilule);
   background: var(--fond-marque);
   transition: all 0.3s ease;
-}
-
-/* Bouton rond blanc (quitter le quiz : 46 px ; retour checklist : 44 px) */
-.fiche-bouton-rond {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 46px;
-  height: 46px;
-  padding: 0;
-  border: none;
-  border-radius: var(--rayon-rond);
-  background: var(--fond-surface);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .fiche-bouton-rond:hover {
-    background: var(--fond-accent);
-  }
-}
-
-.fiche-bouton-rond-44 {
-  width: 44px;
-  height: 44px;
-}
-
-.fiche-bouton-rond-icone {
-  width: 20px;
-  height: 20px;
 }
 
 /* Aperçu élève (formateur) : bandeau encre en haut, rien n'est enregistré */
@@ -111,7 +80,8 @@
 
 .fiche-apercu-quitter {
   flex-shrink: 0;
-  min-height: 40px;
+  /* ds-principes-composants.md, Bouton, Hauteur : 48 pour toutes les variantes */
+  min-height: 48px;
   padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
@@ -161,34 +131,7 @@
   margin: 0 auto;
 }
 
-/* --- En-tête leçon / récap ---------------------------------------------------------------- */
-
-.fiche-retour {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--espace-icone);
-  min-height: 44px;
-  padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron);
-  border: none;
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-surface);
-  font: var(--typo-bouton);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .fiche-retour:hover {
-    background: var(--fond-accent);
-  }
-}
-
-.fiche-retour-icone {
-  width: 18px;
-  height: 18px;
-}
+/* --- En-tête leçon / récap (Retour : classe commune .bouton-retour) ------------------------- */
 
 .fiche-entete {
   position: relative;
@@ -355,7 +298,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 54px;
+  /* ds-principes-composants.md, Bouton, Hauteur : 48 pour toutes les variantes */
+  height: 48px;
   /* espacements.md, section 7 : Bouton à flèche, 24 à gauche, rond de la flèche à 6 du bord */
   padding: 0 6px 0 var(--espace-bouton);
   border: none;
@@ -377,8 +321,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  /* ds-principes-composants.md, Bouton : rond de la flèche 36 (48 − 2 × 6) */
+  width: 36px;
+  height: 36px;
   border-radius: var(--rayon-rond);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
@@ -463,12 +408,6 @@
   .fiche-reponse:hover {
     background: var(--fond-accent);
   }
-}
-
-/* Focus visible seulement au clavier (pas après un clic ou un toucher), sélectionnée ou non */
-.fiche-reponse:has(.fiche-reponse-input:focus-visible) {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
 }
 
 /* La case native reste accessible mais masquée : le repère visuel est .fiche-reponse-controle */
@@ -579,15 +518,9 @@
   }
 }
 
+/* Pastille « Ta réponse » / « Bonne réponse » (classe commune .pastille) */
 .fiche-reponse-pastille {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--espace-icone);
   flex-shrink: 0;
-  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
-  border-radius: var(--rayon-pilule);
-  font: var(--typo-pastille);
-  white-space: nowrap;
 }
 
 .fiche-reponse-pastille-correcte {
@@ -627,8 +560,8 @@
   width: 96px;
   height: 96px;
   pointer-events: none;
-  /* Ombre d'illustration : exception réservée aux objets 3D qui débordent */
-  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.4));
+  /* Ombre d'illustration (regles-agent.md, section 5, Ombres) */
+  filter: drop-shadow(var(--ombre-illustration));
 }
 
 .fiche-feedback-titre {
@@ -656,30 +589,23 @@
   color: var(--texte-sur-inverse-attenue);
 }
 
-.fiche-feedback-lien {
+/* « Revoir la leçon » sur le bloc encre (classe commune .lien-texte) : orange souligné */
+.lien-texte.fiche-feedback-lien {
   align-self: flex-start;
-  min-height: 44px;
-  padding: 0;
-  border: none;
-  background: none;
-  font: var(--typo-lien-texte);
   color: var(--texte-recompense);
   text-decoration: underline;
-  cursor: pointer;
 }
 
 .fiche-bouton-quiz {
   width: 100%;
-  min-height: 58px;
   margin-top: 0;
-  font: var(--typo-bouton);
 }
 
-/* Marge basse du quiz = hauteur de la barre fixe (bouton 58 px + marge 16 px) : la correction ne
+/* Marge basse du quiz = hauteur de la barre fixe (bouton 48 px + marge 16 px) : la correction ne
    passe jamais sous le bouton */
 .fiche-quiz {
-  /* espacements.md, section 8 : réserve de la barre d'action (bouton 58 + 16) */
-  padding-bottom: calc(58px + 16px);
+  /* espacements.md, section 8 : réserve de la barre d'action (bouton 48 + 16) */
+  padding-bottom: calc(48px + 16px);
 }
 
 /* --- Fin de quiz ------------------------------------------------------------------------------ */
@@ -738,9 +664,9 @@
   /* mise-en-page.md, section 3 : colonne Formulaire */
   max-width: 440px;
   margin: 0 auto;
-  /* hauteur de la barre d'actions (bouton 58 + liens 52 + marge 16) */
+  /* hauteur de la barre d'actions (bouton 48 + liens 52 + marge 16) */
   /* espacements.md, section 8 : réserve de la zone d'action fixe */
-  padding-bottom: 126px;
+  padding-bottom: 116px;
   text-align: center;
 }
 
@@ -864,7 +790,7 @@
   width: 116px;
   height: 116px;
   pointer-events: none;
-  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(var(--ombre-illustration));
 }
 
 .fin-quiz-badge-texte {
@@ -901,9 +827,7 @@
 /* Bouton principal : largeur de la colonne, 32 px au-dessus */
 .fin-quiz-bouton {
   width: 100%;
-  min-height: 58px;
   margin-top: 0;
-  font: var(--typo-bouton);
 }
 
 /* Liens secondaires : 8 px sous le bouton, sur une seule ligne, séparés de 24 px */
@@ -915,22 +839,9 @@
   margin-top: var(--espace-groupes);
 }
 
-.fin-quiz-lien {
-  min-height: 44px;
-  padding: 0;
-  border: none;
-  background: none;
-  font: var(--typo-lien-texte);
-  color: var(--texte-accent);
+/* Liens secondaires de la fin de quiz (classe commune .lien-texte) : soulignés */
+.lien-texte.fin-quiz-lien {
   text-decoration: underline;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .fin-quiz-lien:hover {
-    color: var(--texte-accent-survol);
-  }
 }
 
 .fin-quiz-erreurs {
@@ -1210,12 +1121,10 @@
   color: var(--texte-principal);
 }
 
+/* Pastille « Bloquante » (classe commune .pastille) */
 .fiche-etape-bloquante {
-  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
-  border-radius: var(--rayon-pilule);
   background: var(--fond-erreur);
   color: var(--texte-erreur);
-  font: var(--typo-pastille);
 }
 
 .fiche-etape-critere {
@@ -1339,12 +1248,6 @@
 .fiche-recap-ligne-detail {
   font: var(--typo-meta);
   color: var(--texte-secondaire);
-}
-
-.fiche-recap-bouton {
-  min-height: 44px;
-  padding: 0 var(--espace-bouton);
-  font: var(--typo-bouton);
 }
 
 /* Carte violette « Suite du thème » (bouton blanc inversé via .surface-foncee) */

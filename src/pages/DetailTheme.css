@@ -8,32 +8,7 @@
   margin-bottom: 0;
 }
 
-.theme-retour {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--espace-icone);
-  min-height: 44px;
-  padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron);
-  border: none;
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-surface);
-  font: var(--typo-bouton);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .theme-retour:hover {
-    background: var(--fond-accent);
-  }
-}
-
-.theme-retour-icone {
-  width: 18px;
-  height: 18px;
-}
+/* Retour : classe commune .bouton-retour */
 
 .theme-entete {
   position: relative;
@@ -89,44 +64,14 @@
   color: var(--texte-sur-accent);
 }
 
+/* Liste des cours : carte de liste (classes communes .carte .carte-liste), lignes .ligne-liste */
 .theme-liste {
   margin: 0;
-  padding: var(--espace-bord);
   list-style: none;
-  border-radius: var(--rayon-surface);
-  background: var(--fond-surface);
 }
 
 .theme-liste li + li {
   border-top: 1px solid var(--bordure-separateur);
-}
-
-.theme-ligne {
-  display: flex;
-  align-items: center;
-  gap: var(--espace-rangee);
-  width: 100%;
-  min-height: 44px;
-  padding: var(--espace-ligne);
-  border: none;
-  /* Survol et appui : la ligne devient un Élément à espace-bord du bord de la carte */
-  border-radius: var(--rayon-element);
-  background: none;
-  -webkit-tap-highlight-color: transparent;
-  text-align: left;
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .theme-ligne:hover {
-    background: var(--fond-accent);
-  }
-}
-
-.theme-ligne:active {
-  background: var(--fond-accent);
 }
 
 .theme-ligne-texte {
@@ -152,6 +97,40 @@
 .theme-ligne-contenu {
   font: var(--typo-meta);
   color: var(--texte-secondaire);
+}
+
+/* Ligne de cours à une colonne (ds-principes-composants.md, Ligne de liste) : jusqu'à 375 px de
+   large, le statut passe sous le titre, et pas de césure automatique (décision 25 : aucun titre
+   coupé au milieu d'un mot à 320 et 375 ; filet overflow-wrap gardé) */
+@media (max-width: 375px) {
+  .ligne-liste.theme-ligne {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'texte chevron'
+      'statut chevron';
+    column-gap: var(--espace-rangee);
+    /* statut sous le texte : Deux textes d'un groupe */
+    row-gap: var(--espace-textes);
+  }
+
+  .theme-ligne-texte {
+    grid-area: texte;
+  }
+
+  .theme-ligne .statut-badge {
+    grid-area: statut;
+    justify-self: start;
+  }
+
+  .theme-ligne .chevron-ligne {
+    grid-area: chevron;
+  }
+
+  .theme-ligne-titre {
+    hyphens: manual;
+    -webkit-hyphens: manual;
+  }
 }
 
 @media (min-width: 768px) {

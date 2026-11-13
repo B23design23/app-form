@@ -51,12 +51,12 @@
 }
 
 /* Cartes */
+/* Bloc du dashboard : classe commune .carte (rayon et padding Surface) ; le fond vient de la
+   variante (deux classes : l'emporte sur le fond de .carte quel que soit l'ordre des feuilles) */
 .dash-carte {
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: var(--rayon-surface);
-  padding: var(--espace-surface);
 }
 
 .dash-page .dash-carte h2 {
@@ -64,28 +64,24 @@
   color: inherit;
 }
 
-.dash-carte-blanche {
+.carte.dash-carte-blanche {
   background: var(--fond-surface);
   color: var(--texte-principal);
 }
 
-.dash-carte-lavande {
+.carte.dash-carte-lavande {
   background: var(--fond-accent);
   color: var(--texte-principal);
 }
 
-.dash-carte-violette {
+.carte.dash-carte-violette {
   background: var(--fond-marque);
   color: var(--texte-sur-marque);
 }
 
-.dash-carte-encre {
+.carte.dash-carte-encre {
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
-}
-
-.dash-carte-tete {
-  border-radius: var(--rayon-surface);
 }
 
 /* Objet 3D qui déborde au-dessus du cadre, en haut à droite (30 px de marge au-dessus du bloc) */
@@ -101,8 +97,8 @@
   width: 128px;
   height: 128px;
   pointer-events: none;
-  /* Ombre d'illustration : seconde exception à la règle « une seule ombre » (objets qui débordent) */
-  filter: drop-shadow(0 14px 16px rgba(20, 10, 60, 0.35));
+  /* Ombre d'illustration (regles-agent.md, section 5, Ombres) */
+  filter: drop-shadow(var(--ombre-illustration));
 }
 
 .dash-objet-incline {
@@ -110,7 +106,6 @@
   width: 140px;
   height: 140px;
   transform: rotate(12deg);
-  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, 0.4));
 }
 
 /* Objet 3D contenu dans la carte, en bas à droite */
@@ -154,37 +149,27 @@
   color: var(--texte-sur-accent);
 }
 
-.dash-lien {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  padding: 0;
-  border: none;
-  background: none;
-  font: var(--typo-lien-texte);
+/* Liens du dashboard (classe commune .lien-texte) : encre souligné ; survol et appui communs */
+.lien-texte.dash-lien {
   color: var(--texte-principal);
   text-decoration: underline;
-  cursor: pointer;
-  transition: all 0.15s ease;
+}
+
+.lien-texte.dash-lien:active {
+  color: var(--texte-accent-survol);
 }
 
 @media (hover: hover) {
-  .dash-lien:hover {
+  .lien-texte.dash-lien:hover {
     color: var(--texte-accent-survol);
   }
 }
 
-/* Pastille encre « De ton formateur » */
+/* Pastille encre « De ton formateur » (classe commune .pastille) */
 .dash-pastille-formateur {
   align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--espace-icone);
-  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
-  border-radius: var(--rayon-pilule);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
-  font: var(--typo-pastille);
 }
 
 .dash-pastille-formateur-icone {
@@ -192,13 +177,11 @@
   height: 14px;
 }
 
+/* Pastille orange « Défi du jour » (classe commune .pastille) */
 .dash-pastille-orange {
   align-self: flex-start;
-  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
-  border-radius: var(--rayon-pilule);
   background: var(--fond-recompense);
   color: var(--texte-principal);
-  font: var(--typo-pastille);
 }
 
 /* Bouton blanc pleine largeur avec pastille encre et flèche (sur carte violette) */
@@ -207,7 +190,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 54px;
+  /* ds-principes-composants.md, Bouton, Hauteur : 48 pour toutes les variantes */
+  height: 48px;
   /* espacements.md, section 7 : Bouton à flèche, 24 à gauche, rond de la flèche à 6 du bord */
   padding: 0 6px 0 var(--espace-bouton);
   border: none;
@@ -229,8 +213,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  /* ds-principes-composants.md, Bouton : rond de la flèche 36 (48 − 2 × 6) */
+  width: 36px;
+  height: 36px;
   border-radius: var(--rayon-rond);
   background: var(--fond-inverse);
   color: var(--texte-sur-inverse);
@@ -243,7 +228,6 @@
 
 .dash-bouton-large {
   width: 100%;
-  min-height: 54px;
   margin-top: auto;
 }
 
@@ -286,8 +270,9 @@
   border-radius: var(--rayon-pilule);
 }
 
+/* Barres posées dans une carte : barre fine de 8 (ds-principes-composants.md, Barre de progression) */
 .dash-barre-fine {
-  height: 6px;
+  height: 8px;
   background: var(--fond-neutre);
 }
 
@@ -296,7 +281,7 @@
 }
 
 .dash-barre-epaisse {
-  height: 10px;
+  height: 8px;
   background: var(--fond-surface);
 }
 
@@ -719,11 +704,6 @@
     top: -30px;
     width: 160px;
     height: 160px;
-    filter: drop-shadow(0 18px 20px rgba(20, 10, 60, 0.35));
-  }
-
-  .dash-objet-incline {
-    filter: drop-shadow(0 18px 20px rgba(0, 0, 0, 0.4));
   }
 
   /* Rangée 2 : le bloc badges prend la hauteur de son voisin */
@@ -827,13 +807,6 @@
     align-self: flex-start;
     width: auto;
     min-width: 320px;
-    height: 56px;
-  }
-
-  .dash-en-cours .dash-bouton-fleche-rond,
-  .dash-assigne .dash-bouton-fleche-rond {
-    width: 44px;
-    height: 44px;
   }
 
   .dash-page .dash-flash-tete-titre {
@@ -875,7 +848,6 @@
 
   .dash-cellule-cote .dash-flash-ligne-bouton {
     margin-top: auto;
-    min-height: 54px;
   }
 
   .dash-cellule-cote .dash-flash-ligne-bouton-court {
@@ -893,7 +865,8 @@
   flex-direction: column;
   gap: var(--espace-groupes);
   width: 100%;
-  max-width: 640px;
+  /* ds-principes-composants.md, Modale : largeur standard 520 */
+  max-width: 520px;
   max-height: calc(100vh - 40px);
   padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
@@ -965,10 +938,10 @@
   background: var(--fond-sur-carte);
 }
 
-/* Croix de fermeture : icône SVG du jeu, comme les autres modales */
-.dash-modale-fermer-icone {
-  width: 20px;
-  height: 20px;
+/* Bouton Fermer : bouton de fermeture standard de la Modale (classe commune .bouton-rond, 44),
+   fond-sur-carte sur la modale blanche */
+.dash-modale-badges .bouton-rond {
+  background: var(--fond-sur-carte);
 }
 
 .dash-modale-badge-pastille img {

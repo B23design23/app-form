@@ -104,8 +104,8 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
 
       {/* Même barre du haut que pendant le quiz : retour à gauche, titre du cours à la place de la barre */}
       <div className="fiche-quiz-haut fin-quiz-haut">
-        <button type="button" className="fiche-bouton-rond" onClick={onRetour} aria-label="Retour">
-          <Icone svg={iconeRetour} className="fiche-bouton-rond-icone" />
+        <button type="button" className="bouton-rond" onClick={onRetour} aria-label="Retour">
+          <Icone svg={iconeRetour} className="bouton-rond-icone" />
         </button>
         <span className="fin-quiz-haut-titre">{typo(titreBarre)}</span>
       </div>
@@ -164,7 +164,7 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
                 {erreurs.length > 0 && (
                   <button
                     type="button"
-                    className="fin-quiz-lien"
+                    className="lien-texte fin-quiz-lien"
                     aria-expanded={erreursOuvertes}
                     onClick={() => setErreursOuvertes((v) => !v)}
                   >
@@ -172,7 +172,7 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
                   </button>
                 )}
                 {liens.map((lien) => (
-                  <button key={lien.bouton} type="button" className="fin-quiz-lien" onClick={lien.onClick}>
+                  <button key={lien.bouton} type="button" className="lien-texte fin-quiz-lien" onClick={lien.onClick}>
                     {lien.bouton}
                   </button>
                 ))}

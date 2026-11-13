@@ -174,12 +174,10 @@
 }
 
 /* Zone cliquable étendue à 44 × 44 px minimum sans changer le rendu des petits boutons icône */
-.modal-fermer,
 .formateur-relance-bouton {
   position: relative;
 }
 
-.modal-fermer::after,
 .formateur-relance-bouton::after {
   content: '';
   position: absolute;
@@ -415,25 +413,6 @@
   }
 }
 
-.modal-fermer {
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  /* espacements.md, section 9 : bouton Fermer (exception écrite, Modale Mes badges) */
-  padding: 2px 8px;
-  border-radius: 8px;
-  color: var(--texte-secondaire);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .modal-fermer:hover {
-    background: var(--fond-accent);
-    color: var(--texte-accent);
-  }
-}
-
 .dashboard-etat-vide {
   margin: 0;
   font: var(--typo-texte-secondaire);
@@ -502,11 +481,8 @@ label {
 .surface-foncee .bouton-secondaire:active:not(:disabled),
 .dash-bouton-fleche:active,
 .fiche-bouton-blanc:active,
-.fiche-retour:active,
-.fiche-bouton-rond:active,
-.theme-retour:active,
-.theme-carte:active,
-.profil-carte:active,
+.carte.theme-carte:active,
+.carte.profil-carte:active,
 .parcours-choix-ligne:active,
 .fiche-reponse:not(.fiche-reponse-correcte):not(.fiche-reponse-fausse):not(.fiche-reponse-neutre):active {
   background: var(--fond-accent);

@@ -481,7 +481,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
     return (
       <div className="fiche-page">
         <div className="fiche-colonne">
-          <button type="button" className="fiche-retour" onClick={onRetour}>
+          <button type="button" className="bouton-retour" onClick={onRetour}>
             Retour
           </button>
           <p className="message message-erreur">Impossible de charger ce cours.</p>

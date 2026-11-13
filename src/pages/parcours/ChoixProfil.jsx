@@ -35,7 +35,7 @@ function ChoixProfil({ onRetour, onChoisir, onSeConnecter }) {
       <TitreParcours titre="Tu viens pour…" sousTitre="Ton espace s'adapte à ce choix." />
       <div className="profil-cartes">
         {PROFILS.map((profil) => (
-          <button key={profil.role} type="button" className="profil-carte" onClick={() => onChoisir(profil.role)}>
+          <button key={profil.role} type="button" className="carte profil-carte" onClick={() => onChoisir(profil.role)}>
             <img className="profil-carte-objet" src={profil.image} alt="" />
             <span className="profil-carte-texte">
               <span className="profil-carte-titre">{profil.titre}</span>

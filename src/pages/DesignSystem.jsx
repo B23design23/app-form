@@ -369,7 +369,7 @@ function Composants() {
           <label className="fiche-reponse fiche-reponse-correcte">
             <input className="fiche-reponse-input" type="radio" name="ds-reponse-2" disabled />
             <span className="fiche-reponse-texte">Correcte</span>
-            <span className="fiche-reponse-pastille fiche-reponse-pastille-correcte">
+            <span className="pastille fiche-reponse-pastille fiche-reponse-pastille-correcte">
               <Icone svg={iconeCoche} className="fiche-reponse-pastille-icone" />
               Bonne réponse
             </span>
@@ -377,7 +377,7 @@ function Composants() {
           <label className="fiche-reponse fiche-reponse-fausse">
             <input className="fiche-reponse-input" type="radio" name="ds-reponse-3" disabled />
             <span className="fiche-reponse-texte">Fausse</span>
-            <span className="fiche-reponse-pastille fiche-reponse-pastille-fausse">
+            <span className="pastille fiche-reponse-pastille fiche-reponse-pastille-fausse">
               <Icone svg={iconeCroix} className="fiche-reponse-pastille-icone" />
               Ta réponse
             </span>

@@ -57,8 +57,8 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
 
   return (
     <div className="espace-page espace-page-etroit page-theme">
-      <button type="button" className="theme-retour" onClick={onRetour} aria-label="Retour à Cours">
-        <Icone svg={iconeRetour} className="theme-retour-icone" />
+      <button type="button" className="bouton-retour" onClick={onRetour} aria-label="Retour à Cours">
+        <Icone svg={iconeRetour} className="bouton-retour-icone" />
         Cours
       </button>
 
@@ -82,10 +82,10 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
         <p className="dashboard-etat-vide">Aucun cours dans ce thème.</p>
       ) : (
         // Ordre pédagogique (cours.ordre) : le cours en cours ne remonte pas, sa pastille le signale.
-        <ul className="theme-liste">
+        <ul className="carte carte-liste theme-liste">
           {coursListe.map((cours) => (
             <li key={cours.id}>
-              <button type="button" className="theme-ligne" onClick={() => onOuvrirCours(cours.id)}>
+              <button type="button" className="ligne-liste theme-ligne" onClick={() => onOuvrirCours(cours.id)}>
                 <span className="theme-ligne-texte">
                   <span className="theme-ligne-titre">{typo(cours.titre)}</span>
                   <span className="theme-ligne-contenu">{contenuCours(cours)}</span>

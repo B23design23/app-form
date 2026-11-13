@@ -126,7 +126,7 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
     return (
       <div className="fiche-page">
         <div className="fiche-colonne">
-          <button type="button" className="fiche-retour" onClick={onRetour}>
+          <button type="button" className="bouton-retour" onClick={onRetour}>
             Retour à l'accueil
           </button>
           {erreur ? (
