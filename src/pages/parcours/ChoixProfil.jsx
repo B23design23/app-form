@@ -27,8 +27,8 @@ function ChoixProfil({ onRetour, onChoisir, onSeConnecter }) {
       barre={<BoutonRetour onRetour={onRetour} />}
       action={null}
       secondaire={
-        <button type="button" className="parcours-lien" onClick={onSeConnecter}>
-          Déjà un compte ? <strong>Se connecter</strong>
+        <button type="button" className="lien-texte parcours-lien" onClick={onSeConnecter}>
+          <span>Déjà un compte ? <strong>Se connecter</strong></span>
         </button>
       }
     >

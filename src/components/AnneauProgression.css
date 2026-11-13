@@ -1,21 +1,43 @@
+/* Anneau de progression (ds-principes-composants.md, fiche Anneau) */
 .anneau-progression {
+  /* fiche Anneau : 108 px sous 768, 120 px à partir de 768 ; piste de 10 px à toutes les tailles */
+  --anneau-taille: 108px;
+  --anneau-piste: 10px;
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  width: var(--anneau-taille);
+  height: var(--anneau-taille);
+}
+
+@media (min-width: 768px) {
+  .anneau-progression {
+    --anneau-taille: 120px;
+  }
 }
 
 .anneau-progression-svg {
   width: 100%;
   height: 100%;
   display: block;
+  /* départ de l'arc en haut */
+  transform: rotate(-90deg);
 }
 
-.anneau-progression-contenu {
+.anneau-progression-svg circle {
+  r: calc(50% - var(--anneau-piste) / 2);
+  stroke-width: var(--anneau-piste);
+}
+
+/* Valeur au centre : Chiffre mis en avant standard, rôle fixé par la fiche Anneau */
+.anneau-progression-valeur {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  font: var(--typo-chiffre);
+  white-space: nowrap;
 }

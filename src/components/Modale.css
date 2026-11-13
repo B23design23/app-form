@@ -64,31 +64,7 @@
   color: var(--texte-secondaire);
 }
 
-/* Bouton rond « Fermer » : fond posé sur la carte blanche */
-.modale-fermer {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: none;
-  border-radius: var(--rayon-rond);
-  background: var(--fond-sur-carte);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.modale-fermer-icone {
-  width: 20px;
-  height: 20px;
-}
-
-.modale-fermer:active {
-  background: var(--fond-accent);
-}
+/* Bouton « Fermer » : classe commune .bouton-rond (fond-sur-carte sur la modale blanche) */
 
 .modale-contenu {
   display: flex;
@@ -116,13 +92,6 @@
   margin-top: 0;
 }
 
-.modale .bouton-secondaire:disabled {
-  background: var(--fond-action-desactive);
-  border-color: var(--bordure-action-desactive);
-  color: var(--texte-action-desactive);
-  cursor: not-allowed;
-}
-
 /* Bouton rouge plein qui confirme une action destructrice */
 .modale-bouton-danger {
   min-height: 48px;
@@ -134,25 +103,6 @@
   font: var(--typo-bouton);
   cursor: pointer;
   transition: all 0.15s ease;
-}
-
-.modale-bouton-danger:disabled {
-  background: var(--fond-action-desactive);
-  color: var(--texte-action-desactive);
-  cursor: not-allowed;
-}
-
-/* Focus clavier des boutons : contour de 2 px à l'extérieur, visible au clavier seulement */
-.modale-fermer:focus-visible,
-.modale-bouton-danger:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
-}
-
-@media (hover: hover) {
-  .modale-fermer:hover {
-    background: var(--fond-accent);
-  }
 }
 
 @media (min-width: 768px) {

@@ -353,22 +353,6 @@
   overflow-wrap: break-word;
 }
 
-.dash-anneau {
-  position: relative;
-  display: inline-flex;
-  width: 78px;
-  height: 78px;
-}
-
-.dash-anneau-valeur {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font: var(--typo-compteur);
-}
-
 .dash-en-cours-phrase {
   margin: var(--espace-textes) 0 0;
   font: var(--typo-texte-secondaire);
@@ -830,11 +814,6 @@
     min-height: 110px;
     /* espacements.md, section 8 : réserve de l'objet 3D */
     padding-right: 200px;
-  }
-
-  .dash-anneau {
-    width: 120px;
-    height: 120px;
   }
 
   /* B en tête, desktop : réserve à droite portée à la largeur de l'objet (160 px) */

@@ -196,7 +196,8 @@
   flex-shrink: 0;
 }
 
-.lien-secondaire {
+/* Lien texte (ds-principes-composants.md, fiche Lien texte) : une seule implémentation */
+.lien-texte {
   display: inline-flex;
   align-items: center;
   /* ds-principes-composants.md, Lien texte : zone cliquable de 44 */
@@ -212,9 +213,151 @@
 }
 
 @media (hover: hover) {
-  .lien-secondaire:hover {
+  .lien-texte:hover {
     color: var(--texte-accent-survol);
   }
+}
+
+/* Carte (ds-principes-composants.md, fiche Carte) : fond blanc, rayon et padding Surface, ni bordure
+   ni ombre. La carte de liste prend le padding de carte de liste. */
+.carte {
+  padding: var(--espace-surface);
+  border-radius: var(--rayon-surface);
+  background: var(--fond-surface);
+}
+
+.carte-liste {
+  padding: var(--espace-bord);
+}
+
+/* Ligne de liste (ds-principes-composants.md, fiche Ligne de liste) : élément répété dans une carte,
+   cliquable ; au survol et à l'appui, la ligne devient un Élément à espace-bord du bord de la carte */
+.ligne-liste {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-rangee);
+  width: 100%;
+  /* ds-principes-composants.md, Ligne de liste : zone cliquable de 44 au moins */
+  min-height: 44px;
+  padding: var(--espace-ligne);
+  border: none;
+  border-radius: var(--rayon-element);
+  background: none;
+  text-align: left;
+  color: var(--texte-principal);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+@media (hover: hover) {
+  .ligne-liste:hover {
+    background: var(--fond-accent);
+  }
+}
+
+/* Pastille (ds-principes-composants.md, fiche Pastille) : texte court dans une pilule, jamais
+   cliquable ; le fond vient de la variante */
+.pastille {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espace-icone);
+  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
+  border-radius: var(--rayon-pilule);
+  font: var(--typo-pastille);
+  white-space: nowrap;
+}
+
+/* Bouton rond (ds-principes-composants.md, fiche Bouton rond) : 44 partout, 56 dans le parcours
+   (variante de GabaritParcours.css). Fond blanc sur le fond de page, fond-sur-carte sur une surface
+   blanche (carte, modale, feuille de menu). */
+.bouton-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  /* ds-principes-composants.md, Bouton rond : diamètre 44 */
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: var(--rayon-rond);
+  background: var(--fond-surface);
+  color: var(--texte-principal);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.carte .bouton-rond,
+.modale .bouton-rond,
+.fm-menu-carte .bouton-rond {
+  background: var(--fond-sur-carte);
+}
+
+.bouton-rond-icone {
+  /* ds-principes-composants.md, Bouton rond : icône 20 */
+  width: 20px;
+  height: 20px;
+}
+
+@media (hover: hover) {
+  .bouton-rond:hover:not(:disabled) {
+    background: var(--fond-accent);
+  }
+}
+
+/* Retour (ds-principes-composants.md, Bouton, variante Retour) : pilule blanche, chevron et libellé
+   du niveau du dessus, 44 de haut */
+.bouton-retour {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espace-icone);
+  /* ds-principes-composants.md, Bouton : le Retour reste à 44 */
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron);
+  border: none;
+  border-radius: var(--rayon-pilule);
+  background: var(--fond-surface);
+  font: var(--typo-bouton);
+  color: var(--texte-principal);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+@media (hover: hover) {
+  .bouton-retour:hover {
+    background: var(--fond-accent);
+  }
+}
+
+.bouton-retour-icone {
+  width: 18px;
+  height: 18px;
+}
+
+/* Recherche (ds-principes-composants.md, Champ, variante Recherche) : champ .champ avec la loupe */
+.recherche {
+  position: relative;
+}
+
+.recherche-icone {
+  position: absolute;
+  top: 50%;
+  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
+  left: var(--espace-champ);
+  width: 20px;
+  height: 20px;
+  color: var(--texte-secondaire);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.recherche input {
+  width: 100%;
+  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
+  padding-left: 44px;
 }
 
 .message {
@@ -361,7 +504,6 @@ label {
 .fiche-bouton-blanc:active,
 .fiche-retour:active,
 .fiche-bouton-rond:active,
-.parcours-bouton-rond:active,
 .theme-retour:active,
 .theme-carte:active,
 .profil-carte:active,
@@ -379,8 +521,14 @@ label {
   border-style: solid;
 }
 
-.lien-secondaire:active {
+.lien-texte:active {
   color: var(--texte-accent-survol);
+}
+
+.ligne-liste:active,
+.bouton-rond:active:not(:disabled),
+.bouton-retour:active {
+  background: var(--fond-accent);
 }
 
 .espace-nav-item:active:not(.espace-nav-item-actif) {
@@ -403,7 +551,7 @@ html :is(button, input, textarea, select):disabled,
   cursor: not-allowed;
 }
 
-html .lien-secondaire:disabled {
+html .lien-texte:disabled {
   background: none;
 }
 
@@ -416,6 +564,15 @@ html .lien-secondaire:disabled {
   /* Halo de 2 px autour du contour (ds-principes-composants.md, Focus) : l'ombre de 6 px passe sous
      le contour ; on voit blanc (0 à 2), violet (2 à 4), blanc (4 à 6). Sur chaque surface, l'une des
      deux couleurs atteint 3:1. */
+  box-shadow: 0 0 0 6px var(--bordure-focus-halo);
+}
+
+/* Choix dont la case ou le rond natif est masqué (case de la modale d'assignation, réponse du quiz) :
+   le focus clavier de l'input se dessine sur sa ligne, même contour et même halo que la règle
+   commune (ds-principes-composants.md, Focus) */
+:where(label:has(> input:is([type='checkbox'], [type='radio']):focus-visible)) {
+  outline: 2px solid var(--bordure-focus);
+  outline-offset: 2px;
   box-shadow: 0 0 0 6px var(--bordure-focus-halo);
 }
 

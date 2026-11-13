@@ -21,7 +21,7 @@ const MINIATURES_MAX = 4
 // Section repliable : carte avec un bouton rond chevron à droite du titre.
 function SectionRepliable({ titre, meta, ouverte, onBasculer, children }) {
   return (
-    <section className="fm-carte dc-section">
+    <section className="carte fm-carte dc-section">
       <div className="dc-section-entete">
         {/* Mobile : la ligne d'info passe sous le titre ; desktop : à droite */}
         <div className="dc-section-titres">
@@ -30,12 +30,12 @@ function SectionRepliable({ titre, meta, ouverte, onBasculer, children }) {
         </div>
         <button
           type="button"
-          className={`fm-bouton-rond fm-bouton-rond-40 dc-chevron${ouverte ? ' dc-chevron-ouvert' : ''}`}
+          className={`bouton-rond dc-chevron${ouverte ? ' dc-chevron-ouvert' : ''}`}
           onClick={onBasculer}
           aria-expanded={ouverte}
           aria-label={ouverte ? `Replier ${titre}` : `Déplier ${titre}`}
         >
-          <Icone svg={iconeChevron} className="fm-bouton-rond-icone" />
+          <Icone svg={iconeChevron} className="bouton-rond-icone" />
         </button>
       </div>
       {ouverte && children}
@@ -244,7 +244,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
           <div className="dc-entete-texte">
             <h1 className="dc-titre">{typo(cours.titre)}</h1>
             <div className="fm-pastilles dc-entete-pastilles">
-              <span className="fm-pastille fm-pastille-blanche">{cours.categorie}</span>
+              <span className="pastille fm-pastille-blanche">{cours.categorie}</span>
               {parties.length > 0 && <span className="fm-meta">{parties.join(' · ')}</span>}
               {parties.length > 0 && (
                 <span className="fm-meta" aria-hidden="true">
@@ -275,7 +275,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
 
         {/* Avancement des élèves */}
         {groupes.length > 0 ? (
-          <section className="fm-carte dc-avancement">
+          <section className="carte fm-carte dc-avancement">
             <div className="fm-carte-entete">
               <h2>Avancement des élèves</h2>
               {avancement && (
@@ -334,7 +334,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
           </section>
         ) : (
           estProprietaire && (
-            <section className="fm-carte dc-non-assigne">
+            <section className="carte fm-carte dc-non-assigne">
               <p className="fm-texte">Assigne ce cours à un groupe pour suivre l'avancement des élèves.</p>
               <button type="button" className="bouton-secondaire" onClick={ouvrirAssignation}>
                 Assigner à un groupe
@@ -432,7 +432,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
                 <li key={etape.id} className="dc-etape">
                   <span className="dc-numero">{i + 1}</span>
                   <ContenuMarkdown texte={etape.intitule} className="dc-etape-intitule" roleTypo="corps-courant" />
-                  {etape.bloquante && cours.checklist_mode !== 'reorder' && <span className="fm-pastille fm-pastille-erreur">Bloquante</span>}
+                  {etape.bloquante && cours.checklist_mode !== 'reorder' && <span className="pastille fm-pastille-erreur">Bloquante</span>}
                 </li>
               ))}
             </ol>

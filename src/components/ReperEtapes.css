@@ -97,6 +97,11 @@ button.reper-bouton {
   }
 }
 
+/* Appui commun (ds-principes-composants.md, Survol et tactile) : l'appui prend le rendu du survol */
+.reper-etape-faite button.reper-bouton:active .reper-libelle {
+  color: var(--texte-accent-survol);
+}
+
 /* Étape à venir : pastille blanche, contour 2 px */
 .reper-etape-a-venir .reper-pastille {
   border: 2px solid var(--bordure-etape);

@@ -222,11 +222,6 @@
   gap: var(--espace-repetition);
 }
 
-.ds-anneau-valeur {
-  font: var(--typo-compteur);
-  color: var(--texte-principal);
-}
-
 .ds-sur-fond {
   justify-content: center;
 }

@@ -351,8 +351,8 @@ function Composants() {
       <div className="ds-groupe">
         <h3>Anneau de progression</h3>
         <div className="espace-carte ds-carte ds-centre">
-          <AnneauProgression size={112} radius={46} strokeWidth={12} ratio={0.6}>
-            <span className="anneau-progression-contenu ds-anneau-valeur">60 %</span>
+          <AnneauProgression ratio={0.6}>
+            <span className="anneau-progression-valeur">60 %</span>
           </AnneauProgression>
         </div>
         <Regles titre="Voisin de la barre" lignes={barre.voisinAnneau} />

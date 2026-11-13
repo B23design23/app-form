@@ -18,10 +18,11 @@
   color: var(--texte-secondaire);
 }
 
-.parcours-lien-droite {
+/* « Mot de passe oublié ? » à droite (classe commune .lien-texte, padding Lien texte) ; deux
+   classes : l'emporte sur l'alignement de .lien-texte quel que soit l'ordre des feuilles */
+.lien-texte.parcours-lien-droite {
   align-self: flex-end;
   margin-top: var(--espace-textes);
-  padding: 0;
 }
 
 /* --- Introduction ----------------------------------------------------------------------------- */

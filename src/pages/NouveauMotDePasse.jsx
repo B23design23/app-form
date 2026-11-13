@@ -18,7 +18,7 @@ function NouveauMotDePasse({ onTermine }) {
     <GabaritParcours
       barre={
         <div className="connexion-barre">
-          <span className="parcours-bouton-rond connexion-retour-vide" aria-hidden="true" />
+          <span className="bouton-rond parcours-bouton-rond connexion-retour-vide" aria-hidden="true" />
           <Logo className="connexion-barre-logo" />
         </div>
       }

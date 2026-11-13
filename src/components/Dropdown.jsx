@@ -4,7 +4,8 @@ import './Dropdown.css'
 
 // invalide : champ lié à un message d'erreur (aria-invalid, bordure d'erreur par la règle commune
 // de shared.css) ; idErreur : id du message, lu par aria-describedby.
-function Dropdown({ value, onChange, options, placeholder = 'Sélectionner', disabled = false, name, invalide = false, idErreur }) {
+// idLibelle : id du libellé visible, lu par aria-labelledby (libellé relié à la liste déroulante).
+function Dropdown({ value, onChange, options, placeholder = 'Sélectionner', disabled = false, name, invalide = false, idErreur, idLibelle }) {
   const triggerRef = useRef(null)
   const [espaceFormateur, setEspaceFormateur] = useState(false)
 
@@ -27,6 +28,7 @@ function Dropdown({ value, onChange, options, placeholder = 'Sélectionner', dis
       <Select.Trigger
         ref={triggerRef}
         className="dropdown-trigger"
+        aria-labelledby={idLibelle}
         aria-invalid={invalide ? true : undefined}
         aria-describedby={invalide && idErreur ? idErreur : undefined}
       >

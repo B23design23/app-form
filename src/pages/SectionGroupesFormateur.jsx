@@ -117,7 +117,7 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
                     </span>
                     <BarreFine ratio={stats.ratio ?? 0} />
                   </span>
-                  {etat && <span className={`fm-pastille ${etat.classe}`}>{etat.texte}</span>}
+                  {etat && <span className={`pastille ${etat.classe}`}>{etat.texte}</span>}
                 </button>
               </li>
             )

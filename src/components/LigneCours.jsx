@@ -9,13 +9,13 @@ import { typo } from '../lib/typographie'
 // vignette crème + objet du thème, titre, sous-ligne, statut optionnel, chevron. Desktop :
 // 2 colonnes, contenu des lignes aligné en haut.
 export function ListeCours({ children }) {
-  return <ul className="liste-cours">{children}</ul>
+  return <ul className="carte carte-liste liste-cours">{children}</ul>
 }
 
 export function LigneCours({ cours, meta, statut, onClick }) {
   return (
     <li>
-      <button type="button" className="ligne-cours" onClick={onClick}>
+      <button type="button" className="ligne-liste ligne-cours" onClick={onClick}>
         <span className="vignette-theme ligne-cours-vignette">
           <img src={imageTheme(cours.categorie)} alt="" />
         </span>

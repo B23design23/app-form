@@ -199,15 +199,9 @@
   padding: var(--espace-surface);
 }
 
+/* Pastille de statut (classe commune .pastille, shared.css) */
 .statut-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--espace-icone);
   flex-shrink: 0;
-  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
-  border-radius: var(--rayon-pilule);
-  font: var(--typo-pastille);
-  white-space: nowrap;
 }
 
 .statut-badge-non_commence,
@@ -221,10 +215,10 @@
   color: var(--texte-accent);
 }
 
-/* Cours déjà ouvert : mention sans fond ni pilule, icône 14 px + mot */
-.statut-badge-en_cours,
-.statut-badge-termine {
-  gap: var(--espace-icone);
+/* Cours déjà ouvert : mention sans fond ni pilule, icône 14 px + mot (deux classes : l'emporte sur
+   le padding de .pastille quel que soit l'ordre des feuilles) */
+.pastille.statut-badge-en_cours,
+.pastille.statut-badge-termine {
   padding: 0;
   background: none;
 }

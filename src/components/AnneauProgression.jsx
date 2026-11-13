@@ -1,39 +1,33 @@
 import './AnneauProgression.css'
 
-// Composant générique, extrait de l'anneau du Dashboard apprenant. `size` fixe à la fois la
-// taille affichée (px) et le viewBox du SVG, donc strokeWidth/radius s'expriment directement en px.
+// Anneau de progression (fiche Anneau, ds-principes-composants.md) : une seule implémentation.
+// La taille et l'épaisseur de piste viennent du CSS (--anneau-taille, --anneau-piste) : 108 px sous
+// 768, 120 px au-dessus, piste de 10 px à toutes les tailles. Le SVG n'a pas de viewBox : le rayon
+// se calcule en px (50 % − la moitié de la piste) et pathLength="100" exprime l'arc en pourcentage.
+// `className` ajoute une classe de l'écran (position, exception de taille de la fin de quiz).
 function AnneauProgression({
-  size,
-  radius = 42,
-  strokeWidth = 9,
   ratio = 0,
   afficherTrait = true,
   trackColor = 'var(--fond-accent)',
   progressColor = 'var(--fond-marque)',
-  wrapperClassName = 'anneau-progression',
-  svgClassName = 'anneau-progression-svg',
+  className = '',
   children,
 }) {
-  const viewBoxSize = size ?? radius * 2 + strokeWidth
-  const centre = viewBoxSize / 2
-  const circonference = 2 * Math.PI * radius
-
   return (
-    <div className={wrapperClassName} style={size ? { width: size, height: size } : undefined}>
-      <svg viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`} className={svgClassName} aria-hidden="true">
-        <circle cx={centre} cy={centre} r={radius} stroke={trackColor} strokeWidth={strokeWidth} fill="none" />
+    <div className={`anneau-progression${className ? ` ${className}` : ''}`}>
+      <svg className="anneau-progression-svg" aria-hidden="true">
+        <circle cx="50%" cy="50%" stroke={trackColor} fill="none" />
         {afficherTrait && (
           <circle
-            cx={centre}
-            cy={centre}
-            r={radius}
+            className="anneau-progression-arc"
+            cx="50%"
+            cy="50%"
             stroke={progressColor}
-            strokeWidth={strokeWidth}
             fill="none"
-            strokeDasharray={circonference}
-            strokeDashoffset={circonference * (1 - ratio)}
+            pathLength="100"
+            strokeDasharray="100"
+            strokeDashoffset={100 * (1 - ratio)}
             strokeLinecap="round"
-            transform={`rotate(-90 ${centre} ${centre})`}
           />
         )}
       </svg>

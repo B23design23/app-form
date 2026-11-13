@@ -53,8 +53,8 @@ function Modale({ titre, sousTitre, onFermer, children, actions, etroite = false
             <h2>{titre}</h2>
             {sousTitre && <p>{sousTitre}</p>}
           </div>
-          <button type="button" className="modale-fermer" onClick={onFermer} aria-label="Fermer">
-            <Icone svg={iconeCroix} className="modale-fermer-icone" />
+          <button type="button" className="bouton-rond" onClick={onFermer} aria-label="Fermer">
+            <Icone svg={iconeCroix} className="bouton-rond-icone" />
           </button>
         </div>
         <div className="modale-contenu">{children}</div>

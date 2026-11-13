@@ -381,7 +381,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
         </section>
 
         {/* Élèves : liste et suivi fusionnés */}
-        <section className="fm-carte dg-eleves">
+        <section className="carte fm-carte dg-eleves">
           <div className="dg-eleves-entete">
             <h2>Élèves</h2>
             {membres.length > 0 && (

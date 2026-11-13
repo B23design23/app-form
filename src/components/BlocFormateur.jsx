@@ -11,7 +11,7 @@ import { typo } from '../lib/typographie'
 // `lignes` : [{ cours, statut }] déjà triées ; `actionEntete` : élément affiché à droite du titre.
 function BlocFormateur({ id, lignes, actionEntete, avecChevron = false, grille = false, onOuvrirCours }) {
   return (
-    <div id={id} className={`bloc-formateur${grille ? ' bloc-formateur-grille' : ''}`}>
+    <div id={id} className={`carte carte-liste bloc-formateur${grille ? ' bloc-formateur-grille' : ''}`}>
       <div className="bloc-formateur-entete">
         <span className="bloc-formateur-pastille">
           <Icone svg={iconeFormateur} className="bloc-formateur-pastille-icone" />
@@ -22,7 +22,7 @@ function BlocFormateur({ id, lignes, actionEntete, avecChevron = false, grille =
       <ul className="bloc-formateur-liste">
         {lignes.map(({ cours, statut }) => (
           <li key={cours.id}>
-            <button type="button" className="bloc-formateur-ligne" onClick={() => onOuvrirCours(cours.id)}>
+            <button type="button" className="ligne-liste bloc-formateur-ligne" onClick={() => onOuvrirCours(cours.id)}>
               <span className="vignette-theme">
                 <img src={imageTheme(cours.categorie)} alt="" />
               </span>

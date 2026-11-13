@@ -42,13 +42,11 @@
   color: var(--texte-secondaire);
 }
 
+/* Carte d'une section (classe commune .carte pour le fond, le rayon et le padding) */
 .fm-carte {
   display: flex;
   flex-direction: column;
   gap: var(--espace-groupes);
-  padding: var(--espace-surface);
-  border-radius: var(--rayon-surface);
-  background: var(--fond-surface);
 }
 
 .espace-page .fm-carte h2,
@@ -81,7 +79,7 @@
   color: var(--texte-secondaire);
 }
 
-/* Bouton principal de page (« + Créer un cours ») : pilule violette, rond « + » de 52 px sur mobile */
+/* Bouton principal de page (« + Créer un cours ») : pilule violette, rond « + » de 44 px sur mobile */
 .fm-bouton-principal {
   flex-shrink: 0;
   margin-top: 0;
@@ -91,82 +89,8 @@
   display: none;
 }
 
-/* Boutons ronds (menu « … », fermeture, retour mobile) */
-.fm-bouton-rond {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  border: none;
-  border-radius: var(--rayon-rond);
-  background: var(--fond-surface);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.fm-carte .fm-bouton-rond {
-  background: var(--fond-sur-carte);
-}
-
-.fm-bouton-rond-40 {
-  width: 40px;
-  height: 40px;
-}
-
-.fm-bouton-rond-icone {
-  width: 20px;
-  height: 20px;
-}
-
-.fm-bouton-rond:active {
-  background: var(--fond-accent);
-}
-
-@media (hover: hover) {
-  .fm-bouton-rond:hover {
-    background: var(--fond-accent);
-  }
-}
-
-/* Retour : variante Retour du Bouton (pilule blanche, chevron, libellé = niveau du dessus) ;
-   chevron seul sous 768 px, le libellé reste dans le nom accessible */
-.fm-retour {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--espace-icone);
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0 var(--espace-retour-libelle) 0 var(--espace-retour-chevron);
-  border: none;
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-surface);
-  font: var(--typo-bouton);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.fm-retour:active {
-  background: var(--fond-accent);
-}
-
-@media (hover: hover) {
-  .fm-retour:hover {
-    background: var(--fond-accent);
-  }
-}
-
-.fm-retour-icone {
-  width: 18px;
-  height: 18px;
-}
-
+/* Retour de l'espace formateur (classe commune .bouton-retour) : chevron seul sous 768 px, le
+   libellé reste dans le nom accessible */
 @media (max-width: 767px) {
   .fm-retour {
     padding: 0 var(--espace-retour-chevron);
@@ -187,15 +111,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--espace-repetition);
-}
-
-.fm-pastille {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
-  border-radius: var(--rayon-pilule);
-  font: var(--typo-pastille);
-  white-space: nowrap;
 }
 
 .fm-pastille-groupe {
@@ -246,27 +161,9 @@
   gap: var(--espace-rangee);
 }
 
-.fm-filtres .fm-recherche {
-  position: relative;
+/* Recherche (classe commune .recherche) */
+.fm-filtres .recherche {
   flex: 1 1 260px;
-}
-
-/* Recherche avec loupe (ds-principes-composants.md, Champ : toute recherche a la loupe) */
-.fm-recherche-icone {
-  position: absolute;
-  top: 50%;
-  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
-  left: var(--espace-champ);
-  width: 20px;
-  height: 20px;
-  color: var(--texte-secondaire);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.fm-recherche input {
-  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
-  padding-left: 44px;
 }
 
 .fm-filtres .fm-filtre {
@@ -274,9 +171,11 @@
   min-width: 160px;
 }
 
+/* Champ posé sur le fond de page : fond blanc (Champ, Fond), relu par l'autoremplissage */
 .fm-champ-blanc input,
 .fm-champ-blanc .dropdown-trigger {
-  background: var(--fond-surface);
+  --fond-champ: var(--fond-surface);
+  background: var(--fond-champ);
 }
 
 /* Menu « … » : carte flottante (desktop), feuille depuis le bas (mobile) */
@@ -357,19 +256,13 @@
   }
 }
 
-/* Bouton désactivé (règle du design system) : lavande, texte atténué */
-.fm-page .bouton-primaire:disabled {
-  background: var(--fond-action-desactive);
-  color: var(--texte-action-desactive);
-  opacity: 1;
-}
-
 /* Bouton supprimer : texte et contour erreur (même épaisseur que le bouton secondaire), survol fond erreur */
 .fm-bouton-texte-danger {
   display: inline-flex;
   align-items: center;
   gap: var(--espace-icone);
-  min-height: 44px;
+  /* ds-principes-composants.md, Bouton, Hauteur : 48 pour toutes les variantes */
+  min-height: 48px;
   padding: 0 var(--espace-bouton);
   border: 2px solid var(--bordure-erreur);
   border-radius: var(--rayon-pilule);
@@ -381,12 +274,12 @@
 }
 
 @media (hover: hover) {
-  .fm-bouton-texte-danger:hover {
+  .fm-bouton-texte-danger:hover:not(:disabled) {
     background: var(--fond-erreur);
   }
 }
 
-.fm-bouton-texte-danger:active {
+.fm-bouton-texte-danger:active:not(:disabled) {
   background: var(--fond-erreur);
 }
 
@@ -423,11 +316,6 @@
   width: 1px;
   height: 1px;
   opacity: 0;
-}
-
-.fm-case:has(input:focus-visible) {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
 }
 
 .fm-case-choisie {
@@ -506,12 +394,12 @@
   }
 }
 
-/* Mobile : bouton principal de page en rond « + » de 52 px */
+/* Mobile : bouton principal de page en rond « + » (fiche Bouton rond : diamètre 44) */
 @media (max-width: 767px) {
   .fm-bouton-principal {
-    width: 52px;
-    height: 52px;
-    min-height: 52px;
+    width: 44px;
+    height: 44px;
+    min-height: 44px;
     padding: 0;
     border-radius: var(--rayon-rond);
   }
@@ -522,7 +410,7 @@
 
   .fm-bouton-principal-icone {
     display: block;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
 }

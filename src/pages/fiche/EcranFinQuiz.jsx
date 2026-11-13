@@ -117,12 +117,10 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
 
           <span ref={anneauRef} className="fin-quiz-anneau-repere">
             <AnneauProgression
-              radius={76}
-              strokeWidth={16}
               ratio={ratioAffiche}
               trackColor="var(--fond-surface)"
               progressColor="var(--fond-marque)"
-              wrapperClassName="fin-quiz-anneau"
+              className="fin-quiz-anneau"
             >
               {/* Score du passage en pourcentage seul (pas de « 4/5 » sur cet écran) */}
               <span className="fin-quiz-anneau-centre" aria-label={`Score : ${score} %`}>

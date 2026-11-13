@@ -26,7 +26,7 @@ function Connexion({ messageConfirmation, onRetour, onCreerCompte, onMotDePasseO
       barre={
         <div className="connexion-barre">
           {/* Sans retour (arrivée par « Passer ») : emplacement vide de même taille, le logo ne bouge pas */}
-          {onRetour ? <BoutonRetour onRetour={onRetour} /> : <span className="parcours-bouton-rond connexion-retour-vide" aria-hidden="true" />}
+          {onRetour ? <BoutonRetour onRetour={onRetour} /> : <span className="bouton-rond parcours-bouton-rond connexion-retour-vide" aria-hidden="true" />}
           <Logo className="connexion-barre-logo" />
         </div>
       }
@@ -41,8 +41,8 @@ function Connexion({ messageConfirmation, onRetour, onCreerCompte, onMotDePasseO
         </button>
       }
       secondaire={
-        <button type="button" className="parcours-lien" onClick={onCreerCompte}>
-          Pas encore de compte ? <strong>Créer mon compte</strong>
+        <button type="button" className="lien-texte parcours-lien" onClick={onCreerCompte}>
+          <span>Pas encore de compte ? <strong>Créer mon compte</strong></span>
         </button>
       }
     >
@@ -76,7 +76,7 @@ function Connexion({ messageConfirmation, onRetour, onCreerCompte, onMotDePasseO
             {erreur}
           </p>
         )}
-        <button type="button" className="parcours-lien parcours-lien-accent parcours-lien-droite" onClick={onMotDePasseOublie}>
+        <button type="button" className="lien-texte parcours-lien parcours-lien-accent parcours-lien-droite" onClick={onMotDePasseOublie}>
           Mot de passe oublié ?
         </button>
       </form>

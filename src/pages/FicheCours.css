@@ -773,14 +773,13 @@
   margin-top: var(--espace-groupes);
 }
 
-.fin-quiz-anneau {
-  position: relative;
-  display: inline-flex;
-  width: 168px;
-  height: 168px;
+/* Fiche Anneau, exception écrite : anneau de fin de quiz, 168 px, piste 16 px (toutes largeurs) */
+.anneau-progression.fin-quiz-anneau {
+  --anneau-taille: 168px;
+  --anneau-piste: 16px;
 }
 
-.fin-quiz-anneau circle + circle {
+.fin-quiz-anneau .anneau-progression-arc {
   transition: stroke-dashoffset 0.7s ease-out;
 }
 
@@ -1006,7 +1005,7 @@
     animation: none;
   }
 
-  .fin-quiz-anneau circle + circle {
+  .fin-quiz-anneau .anneau-progression-arc {
     transition: none;
   }
 }

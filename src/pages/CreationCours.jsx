@@ -825,8 +825,8 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
     return (
       <div className="cc-page flow-page-formateur">
         <div className="cc-etat">
-          <button type="button" className="fm-bouton-rond" onClick={() => quitterVers(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
-            <Icone svg={iconeRetour} className="fm-bouton-rond-icone" />
+          <button type="button" className="bouton-rond" onClick={() => quitterVers(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
+            <Icone svg={iconeRetour} className="bouton-rond-icone" />
           </button>
           {erreurChargement ? <p className="message message-erreur">{erreurChargement}</p> : <p className="etat-chargement">Chargement…</p>}
         </div>
@@ -840,16 +840,16 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
 
       {/* En-tête mobile et tablette */}
       <header className="cc-entete-mobile">
-        <button type="button" className="fm-bouton-rond" onClick={() => demanderQuitter(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
-          <Icone svg={iconeRetour} className="fm-bouton-rond-icone" />
+        <button type="button" className="bouton-rond" onClick={() => demanderQuitter(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
+          <Icone svg={iconeRetour} className="bouton-rond-icone" />
         </button>
         <div className="cc-entete-mobile-titres">
           <h1>{titrePage}</h1>
           {titre.trim() && <p>{typo(titre.trim())}</p>}
         </div>
         {modeEdition && onApercu && (
-          <button type="button" className="fm-bouton-rond" onClick={() => demanderQuitter(onApercu)} aria-label="Voir comme un élève">
-            <Icone svg={iconeOeil} className="fm-bouton-rond-icone" />
+          <button type="button" className="bouton-rond" onClick={() => demanderQuitter(onApercu)} aria-label="Voir comme un élève">
+            <Icone svg={iconeOeil} className="bouton-rond-icone" />
           </button>
         )}
       </header>
@@ -920,6 +920,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                   onChange={setCategorie}
                   options={OPTIONS_THEMES}
                   placeholder="Choisir un thème"
+                  idLibelle="cc-libelle-theme"
                   invalide={erreur?.cible === 'infos' && erreur?.champ === 'theme'}
                   idErreur="cc-erreur-infos"
                 />
@@ -1135,7 +1136,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                       )}
                       <button
                         type="button"
-                        className="fm-bouton-rond fm-bouton-rond-40"
+                        className="bouton-rond"
                         aria-label={`Replier la question ${numero}`}
                         aria-expanded="true"
                         onClick={() => majQuestion(question.localId, { estOuverte: false })}

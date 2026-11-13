@@ -50,7 +50,7 @@ function IconeProgression() {
 
 function StatutBadge({ statut }) {
   return (
-    <span className={`statut-badge statut-badge-${statut}`}>
+    <span className={`pastille statut-badge statut-badge-${statut}`}>
       {statut === 'en_cours' && <IconeProgression />}
       {statut === 'termine' && <IconeCheck />}
       {LABEL_STATUT[statut]}

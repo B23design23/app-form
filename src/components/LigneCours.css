@@ -1,10 +1,8 @@
-/* Liste de cours en lignes (Mode terrain, résultats de recherche) */
+/* Liste de cours en lignes (Mode terrain, résultats de recherche) : carte de liste (classes
+   communes .carte .carte-liste), lignes .ligne-liste */
 .liste-cours {
   margin: 0;
-  padding: var(--espace-bord);
   list-style: none;
-  border-radius: var(--rayon-surface);
-  background: var(--fond-surface);
 }
 
 .liste-cours li + li {
@@ -13,32 +11,8 @@
 
 /* Contenu aligné en haut : vignette, texte et statut démarrent au même niveau ; le chevron
    reste centré sur la vignette (48 px → décalage de 14 px pour un chevron de 20 px). */
-.ligne-cours {
-  display: flex;
+.ligne-liste.ligne-cours {
   align-items: flex-start;
-  gap: var(--espace-rangee);
-  width: 100%;
-  min-height: 44px;
-  padding: var(--espace-ligne);
-  border: none;
-  /* Survol et appui : la ligne devient un Élément à espace-bord du bord de la carte */
-  border-radius: var(--rayon-element);
-  background: none;
-  -webkit-tap-highlight-color: transparent;
-  text-align: left;
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .ligne-cours:hover {
-    background: var(--fond-accent);
-  }
-}
-
-.ligne-cours:active {
-  background: var(--fond-accent);
 }
 
 .ligne-cours-texte {
@@ -74,6 +48,46 @@
 .ligne-cours-chevron {
   /* espacements.md, section 9 : centrage optique du chevron sur la vignette de 48 px ((48 − 20) / 2) */
   margin-top: 14px;
+}
+
+/* Ligne de cours à une colonne (ds-principes-composants.md, Ligne de liste) : jusqu'à 375 px de
+   large, le statut passe sous le titre, pour qu'aucun titre ne soit coupé au milieu d'un mot */
+@media (max-width: 375px) {
+  /* Aucun titre coupé au milieu d'un mot à 320 et 375 (décision 25) : pas de césure automatique,
+     qui coupe aussi un mot qui tiendrait sur la ligne suivante ; filet : coupure sans tiret plutôt
+     que débordement (overflow-wrap) */
+  .ligne-cours-titre {
+    hyphens: manual;
+    -webkit-hyphens: manual;
+  }
+
+  .ligne-liste.ligne-cours:has(.ligne-cours-statut) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      'vignette texte chevron'
+      'vignette statut chevron';
+    column-gap: var(--espace-rangee);
+    /* statut sous le texte : Deux textes d'un groupe */
+    row-gap: var(--espace-textes);
+  }
+
+  .ligne-cours-vignette {
+    grid-area: vignette;
+  }
+
+  .ligne-cours-texte {
+    grid-area: texte;
+  }
+
+  .ligne-cours-statut {
+    grid-area: statut;
+    justify-self: start;
+  }
+
+  .ligne-cours-chevron {
+    grid-area: chevron;
+  }
 }
 
 /* Desktop : une seule carte, lignes sur 2 colonnes (écart Colonnes), contenu aligné en haut,

@@ -72,7 +72,7 @@
   gap: var(--espace-groupes);
 }
 
-.fl-carte-groupe .fm-pastille {
+.fl-carte-groupe .pastille {
   align-self: flex-start;
 }
 

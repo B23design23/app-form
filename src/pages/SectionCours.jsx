@@ -174,8 +174,8 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
         sousTitre={`${nbThemesTermines} thème${nbThemesTermines > 1 ? 's' : ''} terminé${nbThemesTermines > 1 ? 's' : ''} sur ${THEMATIQUES.length}`}
         image={IMAGE_COURS}
       >
-        <div className="entete-page-champ">
-          <Icone svg={iconeLoupe} className="entete-page-champ-icone" />
+        <div className="champ recherche entete-page-champ">
+          <Icone svg={iconeLoupe} className="recherche-icone" />
           <input
             type="search"
             className="entete-page-recherche"

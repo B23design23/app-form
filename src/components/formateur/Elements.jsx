@@ -8,8 +8,8 @@ import './Formateur.css'
 // contient le libellé visible.
 export function RetourFormateur({ libelle, onRetour }) {
   return (
-    <button type="button" className="fm-retour" onClick={onRetour} aria-label={`Retour à ${libelle}`}>
-      <Icone svg={iconeRetour} className="fm-retour-icone" />
+    <button type="button" className="bouton-retour fm-retour" onClick={onRetour} aria-label={`Retour à ${libelle}`}>
+      <Icone svg={iconeRetour} className="bouton-retour-icone" />
       <span className="fm-retour-libelle">{libelle}</span>
     </button>
   )
@@ -17,9 +17,9 @@ export function RetourFormateur({ libelle, onRetour }) {
 
 // Pastille de groupe (lavande) ou « Non assigné » (neutre).
 export function PastillesGroupes({ groupes }) {
-  if (!groupes || groupes.length === 0) return <span className="fm-pastille fm-pastille-neutre">Non assigné</span>
+  if (!groupes || groupes.length === 0) return <span className="pastille fm-pastille-neutre">Non assigné</span>
   return groupes.map((g) => (
-    <span key={g.id ?? g.nom} className="fm-pastille fm-pastille-groupe">
+    <span key={g.id ?? g.nom} className="pastille fm-pastille-groupe">
       {typo(g.nom)}
     </span>
   ))

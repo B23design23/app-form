@@ -106,9 +106,9 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
 
       {mesCours && mesCours.length > 0 && (
         <div className="fm-filtres">
-          <label className="champ fm-champ-blanc fm-recherche">
+          <label className="champ fm-champ-blanc recherche">
             <span className="fm-libelle-masque">Rechercher un cours</span>
-            <Icone svg={iconeLoupe} className="fm-recherche-icone" />
+            <Icone svg={iconeLoupe} className="recherche-icone" />
             <input type="search" placeholder="Rechercher un cours" value={recherche} onChange={(e) => setRecherche(e.target.value)} />
           </label>
           <label className="champ fm-champ-blanc fm-filtre">

@@ -62,13 +62,13 @@ function MenuActions({ titre, actions, label = 'Plus d’actions' }) {
       <button
         ref={refBouton}
         type="button"
-        className="fm-bouton-rond fm-bouton-rond-40"
+        className="bouton-rond"
         aria-label={label}
         aria-haspopup="menu"
         aria-expanded={ouvert}
         onClick={() => setOuvert((v) => !v)}
       >
-        <Icone svg={iconePoints} className="fm-bouton-rond-icone" />
+        <Icone svg={iconePoints} className="bouton-rond-icone" />
       </button>
       {ouvert && (
         <>

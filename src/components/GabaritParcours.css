@@ -1,11 +1,11 @@
 /* Gabarit du parcours d'entrée (Introduction, Connexion, Choix du profil, questions, Création
    du compte) : même mise en page sur mobile et desktop, colonne de 440 px. */
 
+/* Le fond est celui du document (html, body : fond-page du mode actif) */
 .parcours {
-  /* hauteur réelle de la zone d'action, mesurée en JS (repli : bouton 58 + écart 10 + 58) */
-  --hauteur-actions: 126px;
+  /* hauteur réelle de la zone d'action, mesurée en JS (repli : bouton 48 + Entre deux groupes 12 + 48) */
+  --hauteur-actions: 108px;
   min-height: 100vh;
-  background: var(--fond-page);
   color: var(--texte-principal);
 }
 
@@ -70,41 +70,32 @@
   height: 44px;
 }
 
+/* Emplacements de la zone d'action : la hauteur du bouton (ds-principes-composants.md, Bouton,
+   Hauteur : 48 pour toutes les variantes) */
 .parcours-action-principale,
 .parcours-action-secondaire {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 58px;
+  height: 48px;
 }
 
 .parcours-bouton {
   width: 100%;
-  min-height: 58px;
   margin-top: 0;
-  font: var(--typo-bouton);
-}
-
-/* Bouton désactivé (rien choisi, champ vide) : lavande, texte atténué, non cliquable */
-.parcours-bouton.bouton-primaire:disabled {
-  background: var(--fond-action-desactive);
-  color: var(--texte-action-desactive);
-  opacity: 1;
 }
 
 .parcours-bouton.bouton-secondaire {
   background: transparent;
 }
 
-.parcours-lien {
-  min-height: 44px;
-  padding: 0 var(--espace-lien);
-  border: none;
-  background: none;
-  font: var(--typo-lien-texte);
+/* Lien du parcours (classe commune .lien-texte) : phrase en texte secondaire, partie d'action en
+   gras violet souligné (« Pas encore de compte ? Créer mon compte »). Deux classes : l'emporte sur
+   .lien-texte quel que soit l'ordre des feuilles. */
+.lien-texte.parcours-lien,
+.lien-texte.parcours-lien:hover,
+.lien-texte.parcours-lien:active {
   color: var(--texte-secondaire);
-  cursor: pointer;
-  transition: all 0.15s ease;
 }
 
 .parcours-lien strong {
@@ -114,32 +105,40 @@
   text-decoration: underline;
 }
 
-/* Lien seul, sans partie en gras (« Mot de passe oublié ? ») : Lien texte, violet souligné */
-.parcours-lien-accent {
-  color: var(--texte-accent);
-  text-decoration: underline;
+.parcours-lien:active strong {
+  color: var(--texte-accent-survol);
 }
 
 @media (hover: hover) {
-  .parcours-lien-accent:hover,
   .parcours-lien:hover strong {
     color: var(--texte-accent-survol);
   }
 }
 
-/* « Passer » : en haut à droite de la colonne, au niveau de la barre */
-.parcours-passer {
+/* Lien seul, sans partie en gras (« Mot de passe oublié ? ») : Lien texte, violet souligné */
+.lien-texte.parcours-lien-accent {
+  color: var(--texte-accent);
+  text-decoration: underline;
+}
+
+.lien-texte.parcours-lien-accent:active {
+  color: var(--texte-accent-survol);
+}
+
+@media (hover: hover) {
+  .lien-texte.parcours-lien-accent:hover {
+    color: var(--texte-accent-survol);
+  }
+}
+
+/* « Passer » (classe commune .lien-texte) : en haut à droite de la colonne, à la hauteur de la
+   rangée de la barre (56, celle du bouton rond du parcours) */
+.lien-texte.parcours-passer {
   position: absolute;
   /* espacements.md, section 8 : position de « Passer » (haut du Conteneur, 20 + zone de sécurité) */
   top: calc(env(safe-area-inset-top) + 20px);
   right: 16px;
   min-height: 56px;
-  padding: 0 var(--espace-lien);
-  border: none;
-  background: none;
-  font: var(--typo-lien-texte);
-  color: var(--texte-accent);
-  cursor: pointer;
 }
 
 /* Barre du haut des questions (identique au quiz) */
@@ -150,26 +149,11 @@
   width: 100%;
 }
 
+/* Bouton rond du parcours (classe commune .bouton-rond) : diamètre 56 (fiche Bouton rond) */
+.bouton-rond.parcours-bouton-rond,
 .parcours-bouton-rond {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
   width: 56px;
   height: 56px;
-  padding: 0;
-  border: none;
-  border-radius: var(--rayon-rond);
-  background: var(--fond-surface);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .parcours-bouton-rond:hover {
-    background: var(--fond-accent);
-  }
 }
 
 .parcours-bouton-rond-icone {
@@ -222,17 +206,7 @@
   color: var(--texte-secondaire);
 }
 
-/* Champs */
-.parcours-champ {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espace-textes);
-}
-
-.parcours-champ-libelle {
-  font: var(--typo-libelle-champ);
-}
-
+/* Champs : classe commune .champ (libellé, écart, police) */
 .parcours-champ-libelle-masque {
   position: absolute;
   width: 1px;
@@ -241,27 +215,12 @@
   clip: rect(0 0 0 0);
 }
 
-.parcours-input {
+/* Champ du parcours (classe commune .champ) : posé sur le fond de page, fond blanc ; 56 de haut
+   (ds-principes-composants.md, Champ, Dimensions) */
+.parcours-champ .parcours-input {
+  --fond-champ: var(--fond-surface);
   width: 100%;
   min-height: 56px;
-  padding: 0 var(--espace-champ);
-  /* contour de focus à l'intérieur du champ (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-surface);
-  font: var(--typo-saisie-choix);
-  color: var(--texte-principal);
-}
-
-.parcours-input:focus {
-  border-color: var(--bordure-focus);
-  outline: none;
-}
-
-.parcours-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
-  box-shadow: 0 0 0 1000px var(--fond-surface) inset;
-  -webkit-text-fill-color: var(--texte-principal);
 }
 
 /* Lignes de choix (radiogroup) */

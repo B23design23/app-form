@@ -328,14 +328,8 @@ function CarteCompletion({ taux }) {
   const valeur = taux ?? null
   return (
     <div className="espace-carte formateur-taux-carte fd-zone-taux">
-      <AnneauProgression
-        radius={46}
-        strokeWidth={12}
-        ratio={(valeur ?? 0) / 100}
-        afficherTrait={valeur !== null}
-        wrapperClassName="formateur-taux-anneau"
-      >
-        <span className="formateur-taux-valeur">{valeur === null ? '—' : `${valeur} %`}</span>
+      <AnneauProgression ratio={(valeur ?? 0) / 100} afficherTrait={valeur !== null}>
+        <span className="anneau-progression-valeur">{valeur === null ? '—' : `${valeur} %`}</span>
       </AnneauProgression>
       <div className="formateur-taux-texte">
         <span className="formateur-taux-label">Taux de complétion</span>

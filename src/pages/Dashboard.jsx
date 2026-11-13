@@ -310,14 +310,11 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
         <div className="dash-tete-rangee">
           <AnneauProgression
-            radius={32}
-            strokeWidth={9}
             ratio={ratio}
             trackColor="var(--fond-marque-accentue)"
             progressColor="var(--fond-surface)"
-            wrapperClassName="dash-anneau"
           >
-            <span className="dash-anneau-valeur" aria-label={`${pourcentage} % du cours`}>
+            <span className="anneau-progression-valeur" aria-label={`${pourcentage} % du cours`}>
               {pourcentage} %
             </span>
           </AnneauProgression>

@@ -44,46 +44,9 @@
   color: var(--texte-sur-accent);
 }
 
-/* Champ de recherche avec loupe (ds-principes-composants.md, Champ : toute recherche a la loupe) */
-.entete-page-champ {
-  position: relative;
-  display: block;
-}
-
-.entete-page-champ-icone {
-  position: absolute;
-  top: 50%;
-  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
-  left: var(--espace-champ);
-  width: 20px;
-  height: 20px;
-  color: var(--texte-secondaire);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.entete-page-recherche {
-  width: 100%;
-  min-height: 48px;
-  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
-  padding: 0 var(--espace-champ) 0 44px;
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-surface);
-  font: var(--typo-saisie-choix);
-  color: var(--texte-principal);
-}
-
-.entete-page-recherche:focus {
-  border-color: var(--bordure-focus);
-  outline: none;
-}
-
-.entete-page-recherche:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
-  box-shadow: 0 0 0 1000px var(--fond-surface) inset;
-  -webkit-text-fill-color: var(--texte-principal);
+/* Champ de recherche avec loupe (classes communes .champ et .recherche), posé sur l'en-tête lavande : fond blanc (Champ, Fond), relu par l'autoremplissage */
+.entete-page-champ .entete-page-recherche {
+  --fond-champ: var(--fond-surface);
 }
 
 @media (min-width: 768px) {

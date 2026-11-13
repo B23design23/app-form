@@ -162,21 +162,11 @@
   border-radius: var(--rayon-surface);
 }
 
-/* Anneau de progression : piste lavande, arc violet, pourcentage au centre */
-.formateur-taux-anneau {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 120px;
-  height: 120px;
-  flex-shrink: 0;
-}
-
-@media (max-width: 399px) {
-  .formateur-taux-anneau {
-    width: 88px;
-    height: 88px;
+/* Sous 768 : écart réduit entre l'anneau (108) et le texte, pour que « Taux de complétion » tienne
+   sur une ligne à 375 (décision C8 révisée, point de revue du lot 1) */
+@media (max-width: 767px) {
+  .formateur-taux-carte {
+    gap: var(--espace-textes);
   }
 }
 
@@ -187,22 +177,6 @@
   justify-content: center;
   gap: var(--espace-textes);
   text-align: center;
-}
-
-.formateur-taux-valeur {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font: var(--typo-chiffre);
-  color: var(--texte-principal);
-}
-
-@media (max-width: 399px) {
-  .formateur-taux-valeur {
-    font-size: 1.3rem;
-  }
 }
 
 .formateur-taux-label {

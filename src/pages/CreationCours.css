@@ -632,7 +632,7 @@
   overflow-wrap: break-word;
 }
 
-.cc-question-entete .fm-bouton-rond {
+.cc-question-entete .bouton-rond {
   background: var(--fond-surface);
 }
 
@@ -963,7 +963,7 @@
   outline: none;
 }
 
-.cc-etape .fm-menu .fm-bouton-rond {
+.cc-etape .fm-menu .bouton-rond {
   background: var(--fond-surface);
 }
 

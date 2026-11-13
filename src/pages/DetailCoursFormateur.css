@@ -188,12 +188,12 @@
   min-width: 0;
 }
 
-.dc-chevron .fm-bouton-rond-icone {
+.dc-chevron .bouton-rond-icone {
   transform: rotate(90deg);
   transition: all 0.15s ease;
 }
 
-.dc-chevron-ouvert .fm-bouton-rond-icone {
+.dc-chevron-ouvert .bouton-rond-icone {
   transform: rotate(-90deg);
 }
 

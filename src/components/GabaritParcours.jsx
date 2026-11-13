@@ -37,7 +37,7 @@ function GabaritParcours({ formateur = false, barre, onPasser, points, action, s
           <div className="parcours-action-secondaire">{secondaire}</div>
         </div>
         {onPasser && (
-          <button type="button" className="parcours-passer" onClick={onPasser}>
+          <button type="button" className="lien-texte parcours-passer" onClick={onPasser}>
             Passer
           </button>
         )}
@@ -63,7 +63,7 @@ export function BarreEtapes({ courante, total, onRetour }) {
 
 export function BoutonRetour({ onRetour }) {
   return (
-    <button type="button" className="parcours-bouton-rond" onClick={onRetour} aria-label="Retour">
+    <button type="button" className="bouton-rond parcours-bouton-rond" onClick={onRetour} aria-label="Retour">
       <Icone svg={iconeRetour} className="parcours-bouton-rond-icone" />
     </button>
   )
@@ -82,8 +82,8 @@ export function TitreParcours({ titre, sousTitre }) {
 // grand : champ de saisie principal d'une question (64 px, rayon 20, texte 20 px 700).
 export function ChampParcours({ label, grand = false, ...props }) {
   return (
-    <label className={`parcours-champ${grand ? ' parcours-champ-grand' : ''}`}>
-      <span className={grand ? 'parcours-champ-libelle-masque' : 'parcours-champ-libelle'}>{label}</span>
+    <label className={`champ parcours-champ${grand ? ' parcours-champ-grand' : ''}`}>
+      <span className={grand ? 'parcours-champ-libelle-masque' : undefined}>{label}</span>
       <input className="parcours-input" {...props} />
     </label>
   )

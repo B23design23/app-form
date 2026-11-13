@@ -6,8 +6,9 @@
   width: 100%;
   min-height: 48px;
   padding: 0 var(--espace-champ);
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
+  /* ds-principes-composants.md, Champ : bordure de 2 px au repos, même épaisseur au focus et en
+     erreur (dessinée à l'intérieur : jamais rognée, rien ne bouge) */
+  border: 2px solid var(--bordure-controle);
   border-radius: var(--rayon-pilule);
   font: var(--typo-saisie-choix);
   background: var(--fond-sur-carte);
@@ -22,13 +23,6 @@
 
 .dropdown-trigger[data-placeholder] {
   color: var(--texte-secondaire);
-}
-
-/* Champ désactivé : même rendu que le bouton désactivé, sans opacité (ds-principes-composants.md, Champ) */
-.dropdown-trigger:disabled {
-  background: var(--fond-action-desactive);
-  color: var(--texte-action-desactive);
-  cursor: not-allowed;
 }
 
 .dropdown-chevron {

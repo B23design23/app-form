@@ -11,7 +11,7 @@ import './parcours/Parcours.css'
 function BarreRetourConnexion({ onRetour }) {
   return (
     <div className="connexion-barre">
-      <button type="button" className="parcours-bouton-rond" onClick={onRetour} aria-label="Retour à la connexion">
+      <button type="button" className="bouton-rond parcours-bouton-rond" onClick={onRetour} aria-label="Retour à la connexion">
         <Icone svg={iconeRetour} className="parcours-bouton-rond-icone" />
       </button>
       <Logo className="connexion-barre-logo" />
@@ -33,7 +33,7 @@ function MotDePasseOublie({ onRetour, onSimulerLien }) {
       <GabaritParcours
         barre={<BarreRetourConnexion onRetour={onRetour} />}
         secondaire={
-          <button type="button" className="lien-secondaire" onClick={onSimulerLien}>
+          <button type="button" className="lien-texte" onClick={onSimulerLien}>
             Simuler l'ouverture du lien reçu par email
           </button>
         }

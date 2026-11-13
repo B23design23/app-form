@@ -1,12 +1,10 @@
-/* Bloc « De ton formateur » (dashboard apprenant et page Cours) */
+/* Bloc « De ton formateur » (dashboard apprenant et page Cours) : carte de liste (classes communes
+   .carte .carte-liste), lignes .ligne-liste */
 .bloc-formateur {
   display: flex;
   flex-direction: column;
   /* en-tête posé comme une ligne : aucun écart en plus avec la liste (espacements.md, section 5) */
   gap: 0;
-  padding: var(--espace-bord);
-  border-radius: var(--rayon-surface);
-  background: var(--fond-surface);
   color: var(--texte-principal);
 }
 
@@ -62,34 +60,6 @@
   border-top: 1px solid var(--bordure-separateur);
 }
 
-.bloc-formateur-ligne {
-  display: flex;
-  align-items: center;
-  gap: var(--espace-rangee);
-  width: 100%;
-  min-height: 44px;
-  padding: var(--espace-ligne);
-  border: none;
-  /* Survol et appui : la ligne devient un Élément à espace-bord du bord de la carte */
-  border-radius: var(--rayon-element);
-  background: none;
-  -webkit-tap-highlight-color: transparent;
-  text-align: left;
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .bloc-formateur-ligne:hover {
-    background: var(--fond-accent);
-  }
-}
-
-.bloc-formateur-ligne:active {
-  background: var(--fond-accent);
-}
-
 /* Mobile (et dashboard) : titre puis pastille sur la même ligne */
 .bloc-formateur-texte {
   flex: 1;
@@ -112,6 +82,30 @@
   overflow-wrap: break-word;
   text-wrap: balance;
   transition: all 0.15s ease;
+}
+
+/* Ligne de cours à une colonne (ds-principes-composants.md, Ligne de liste) : jusqu'à 375 px de
+   large, le statut passe sous le titre, pour qu'aucun titre ne soit coupé au milieu d'un mot */
+@media (max-width: 375px) {
+  /* Aucun titre coupé au milieu d'un mot à 320 et 375 (décision 25) : pas de césure automatique,
+     qui coupe aussi un mot qui tiendrait sur la ligne suivante ; filet : coupure sans tiret plutôt
+     que débordement (overflow-wrap) */
+  .bloc-formateur-titre {
+    hyphens: manual;
+    -webkit-hyphens: manual;
+  }
+
+  .bloc-formateur-texte {
+    flex-direction: column;
+    align-items: flex-start;
+    /* statut sous le titre : Deux textes d'un groupe */
+    gap: var(--espace-textes);
+  }
+
+  .bloc-formateur-titre {
+    flex: none;
+    align-self: stretch;
+  }
 }
 
 /* Page Cours, desktop : colonnes automatiques, pastille sous le titre, séparateurs entre rangées */
