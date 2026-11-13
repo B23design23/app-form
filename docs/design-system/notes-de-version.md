@@ -137,7 +137,7 @@ Aucune entrée.
   - `/design-system` : grille en colonnes automatiques (240) ; 3 colonnes à 1040 (2 avant), la carte large sur deux colonnes dès 768.
   - Lot 17 : « De ton formateur » sans séparateur sous le dernier élément de chaque colonne, quel que soit le nombre de cours (avant : un trait restait sous un cours seul dans sa colonne) ; Thème de Création de cours marqué en erreur ; écran « Chargement… » de l'app, bas de page à 40 ; aperçu vide de Création de cours, texte à 16 du bord de l'aperçu (24 avant) ; Connexion, message d'authentification inconnu : « La connexion n'a pas pu se faire. Réessaie. » au lieu du message anglais.
 
-### Composants et couleurs (chantier cpc, lots 0a à 6)
+### Composants et couleurs (chantier cpc, lots 0a à 7)
 
 **Ajouté**
 
@@ -155,6 +155,7 @@ Aucune entrée.
 - Barre : 14 pour la barre qui ouvre un écran plein (parcours, quiz : 10 → 14), 8 pour une barre posée dans une carte ou une ligne (dashboard, Tes groupes, Mes groupes, Détail groupe, Pour bien démarrer, carte de la checklist, barre empilée du Détail cours).
 - Anneau : 108 sous 768, 120 au-dessus, piste de 10 à toutes les tailles, valeur en Chiffre mis en avant standard (rôle fixé par la fiche) ; fin de quiz 168, exception écrite. Le rôle d'un texte de composant est fixé par sa fiche ; « la fonction décide, jamais la place » vaut pour le texte libre.
 - Modale : deux largeurs, 440 (étroite) et 520 (standard) ; Mes badges passe de 640 à 520 et prend le bouton Fermer standard (44).
+- Point de revue final (lot 7) : carte cliquable, structure écrite dans la fiche Carte (vrai titre qui contient le bouton, zone cliquable étendue à la carte, focus sur la carte ; code au lot 8) ; bouton rond, l'icône suit le diamètre (20 pour 44, 22 pour 56) ; survol écrit des vignettes de badge (contour 2 px `bordure-action`) et des points de l'Introduction (`bordure-controle`) ; grille de Mes badges en colonnes automatiques, tuile de 132 au moins (1 colonne à 320, 2 à 375, 3 à partir de 800) ; « Passer » de l'Introduction dans la rangée de la barre, zone de 44 du Lien texte, centré sur le logo ; taux de complétion, écart anneau / texte en Rangée (12) à toutes les largeurs, le titre passe sur deux lignes à 320, 375 et 800 ; `.fiche-carte` remplacée par la carte commune (aucun contenu à bord perdu, pas de variante).
 - Lien texte : padding horizontal 6, zone de 44 (lien dans une phrase : zone de 44 sans changer la phrase).
 - Ligne de cours à une colonne : jusqu'à 375 px, le statut passe sous le titre, sans césure automatique du titre.
 - Surtitre « Thème N » : `texte-accent` partout.
@@ -178,6 +179,7 @@ Aucune entrée.
 - Lot 4, écrans formateur : en-tête du dashboard (48), relances (bouton rond 44), liens, recherche « Un élève », Pour bien démarrer, Détail groupe (champ email), Détail cours (barre empilée 8).
 - Lot 5, Création de cours : champs et éditeur bordés, énoncé à bouton (52 / 44), croix 44, onglets et pastilles 44, outils et barre d'enregistrement 48.
 - Lot 6, `/design-system` : vitrine des fiches, ombres lues dans les tokens.
+- Lot 7, point de revue final : champs multilignes de Création de cours (énoncé, « À retenir », éditeur de leçon) sans poignée de redimensionnement, hauteur ajustée au contenu (la poignée mordait l'arrondi de la bordure) ; « Image » d'une étape 40 → 48 (outil) et pilule « Bloquante » 40 → 44 (choix) ; Mes badges à 320 (« Persévérant » n'est plus coupé, une colonne).
 
 ## 2.1.0 (brouillon, non publiée)
 
