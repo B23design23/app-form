@@ -392,10 +392,14 @@ Mettre en avant une seule valeur de progression, avec le chiffre au centre : un 
 Anatomie
 Piste et arc (couleurs selon le fond : tableau « Anneaux de progression selon le fond » de `regles-agent.md`, section 5), extrémité arrondie, départ en haut, valeur au centre ; sans données, piste seule et « — ».
 
-Tailles (décision du 13/11)
-- 78 px sous 768 px de large, valeur en Compteur.
-- 120 px à partir de 768 px, valeur en Chiffre mis en avant standard.
-- Exception écrite : anneau de fin de quiz, 168 px, valeur en Chiffre mis en avant grand. Pourquoi : l'anneau de fin de quiz est le seul contenu de son écran, il prend le rôle Chiffre mis en avant grand.
+Valeur au centre (décision C8 révisée, 13/11)
+Chiffre mis en avant standard (28 px), à toutes les tailles. Ce rôle est fixé par cette fiche : le rôle d'un texte de composant vient de sa fiche (`typographie.md`, section 7). Pourquoi : la valeur d'un anneau est le chiffre qu'on vient chercher ; c'est l'anneau qui s'agrandit pour la contenir.
+
+Tailles
+- 108 px sous 768 px de large. Raison : plus petit multiple de 4 où « 100 % » en Chiffre mis en avant standard garde 8 px de jour de chaque côté avec la piste de 10 px.
+- 120 px à partir de 768 px.
+- Piste : 10 px, la même pour tous les anneaux et à toutes les tailles ; le trait ne grandit pas avec l'anneau.
+- Exception écrite : anneau de fin de quiz, 168 px, piste 16 px, valeur en Chiffre mis en avant grand. Pourquoi : l'anneau de fin de quiz est le seul contenu de son écran, le score est le sujet de l'écran entier (`typographie.md`, section 6).
 
 Règle principale
 Une seule implémentation (`src/components/AnneauProgression.jsx`).

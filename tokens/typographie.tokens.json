@@ -444,7 +444,7 @@
         "lineHeight": "{typo.interligne.1-2}",
         "letterSpacing": "{typo.espacement-lettres.0}"
       },
-      "$description": "Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, pourcentage de l'anneau de 78, « +15 XP »)."
+      "$description": "Nombre qui n'est pas le sujet de son bloc : position, avancement, total ou gain qui accompagne le sujet du bloc (« 3 / 5 » d'un quiz, XP de l'en-tête, « +15 XP »)."
     }
   }
 }
