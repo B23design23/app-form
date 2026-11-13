@@ -173,21 +173,6 @@
   }
 }
 
-/* Zone cliquable étendue à 44 × 44 px minimum sans changer le rendu des petits boutons icône */
-.formateur-relance-bouton {
-  position: relative;
-}
-
-.formateur-relance-bouton::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: max(100%, 44px);
-  height: max(100%, 44px);
-  transform: translate(-50%, -50%);
-}
-
 .cta-icone {
   width: 18px;
   height: 18px;
@@ -251,6 +236,14 @@
   .ligne-liste:hover {
     background: var(--fond-accent);
   }
+}
+
+/* Ligne de liste à fond (ds-principes-composants.md, Ligne de liste, variante à fond) : fond
+   fond-sur-carte, padding Élément, rayon Élément, sans séparateur */
+.ligne-fond {
+  padding: var(--espace-element);
+  border-radius: var(--rayon-element);
+  background: var(--fond-sur-carte);
 }
 
 /* Pastille (ds-principes-composants.md, fiche Pastille) : texte court dans une pilule, jamais

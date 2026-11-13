@@ -326,8 +326,8 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
             </p>
           </div>
           <form className="dg-ajout" onSubmit={handleAjouterEleve}>
-            <label className="dg-ajout-champ">
-              <Icone svg={iconeEnveloppe} className="dg-ajout-icone" />
+            <label className="champ recherche dg-ajout-champ">
+              <Icone svg={iconeEnveloppe} className="recherche-icone" />
               <input
                 type="email"
                 required
@@ -355,7 +355,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
         <section className="dg-cours">
           <div className="dg-cours-entete">
             <h2>Cours assignés</h2>
-            <button type="button" className="dg-lien-assigner" onClick={ouvrirAssignation}>
+            <button type="button" className="lien-texte dg-lien-assigner" onClick={ouvrirAssignation}>
               + Assigner
             </button>
           </div>
@@ -446,7 +446,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
               {/* Mobile : une carte par élève */}
               <ul className="dg-eleves-cartes">
                 {membresAffiches.map((membre) => (
-                  <li key={membre.id} className="dg-eleve-carte">
+                  <li key={membre.id} className="ligne-fond dg-eleve-carte">
                     <div className="dg-eleve-carte-haut">
                       <span className="dg-eleve-carte-texte">
                         <span className="dg-eleve-nom">{nomComplet(membre)}</span>
@@ -472,7 +472,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
               </ul>
 
               {nbMasques > 0 && (
-                <button type="button" className="dg-voir-plus" onClick={() => setTousLesEleves(true)}>
+                <button type="button" className="lien-texte dg-voir-plus" onClick={() => setTousLesEleves(true)}>
                   Voir les {nbMasques} autres élèves
                 </button>
               )}

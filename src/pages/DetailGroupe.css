@@ -20,45 +20,14 @@
 }
 
 .dg-ajout-champ {
-  position: relative;
   flex: 1;
   min-width: 0;
 }
 
-.dg-ajout-icone {
-  position: absolute;
-  top: 50%;
-  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
-  left: var(--espace-champ);
-  width: 20px;
-  height: 20px;
-  color: var(--texte-secondaire);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
+/* Champ « Email de l'élève » (classes communes .champ et .recherche, icône enveloppe) : posé sur le
+   fond de page, fond blanc relu par l'autoremplissage */
 .dg-ajout-champ input {
-  width: 100%;
-  min-height: 48px;
-  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
-  padding: 0 var(--espace-champ) 0 44px;
-  border: 2px solid transparent;
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-surface);
-  font: var(--typo-saisie-choix);
-  color: var(--texte-principal);
-}
-
-.dg-ajout-champ input:focus {
-  border-color: var(--bordure-focus);
-  outline: none;
-}
-
-/* Autoremplissage : le champ garde son fond (ds-principes-composants.md, Champ) */
-.dg-ajout-champ input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
-  box-shadow: 0 0 0 1000px var(--fond-surface) inset;
-  -webkit-text-fill-color: var(--texte-principal);
+  --fond-champ: var(--fond-surface);
 }
 
 .dg-ajout-bouton {
@@ -92,15 +61,7 @@
   overflow-wrap: break-word;
 }
 
-.dg-lien-assigner {
-  min-height: 44px;
-  padding: 0 var(--espace-lien);
-  border: none;
-  background: none;
-  font: var(--typo-lien-texte);
-  color: var(--texte-accent);
-  cursor: pointer;
-}
+/* « + Assigner » : classe commune .lien-texte (survol et appui communs) */
 
 /* Mobile : cartes de 200 px en défilement horizontal */
 .dg-cours-liste {
@@ -157,8 +118,9 @@
   transition: all 0.15s ease;
 }
 
+/* Appui commun : le rendu du survol (bordure pleine), comme le bouton pointillé */
 .dg-cours-ajout:active {
-  background: var(--fond-accent);
+  border-style: solid;
 }
 
 @media (hover: hover) {
@@ -246,9 +208,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--espace-groupes);
-  padding: var(--espace-element);
-  border-radius: var(--rayon-element);
-  background: var(--fond-sur-carte);
 }
 
 .dg-eleve-carte-haut {
@@ -287,23 +246,7 @@
   border-top: 1px solid var(--bordure-separateur);
 }
 
-.dg-voir-plus {
-  align-self: center;
-  min-height: 44px;
-  border: none;
-  background: none;
-  font: var(--typo-lien-texte);
-  color: var(--texte-accent);
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-@media (hover: hover) {
-  .dg-voir-plus:hover {
-    color: var(--texte-accent-survol);
-  }
-}
+/* « Voir les N autres » : classe commune .lien-texte */
 
 .dg-suppression {
   display: none;
@@ -405,6 +348,7 @@
   }
 
   .dg-tri {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: var(--espace-icone);
@@ -414,6 +358,30 @@
     font: inherit;
     color: inherit;
     cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  /* Zone cliquable de 44 de haut, rendu inchangé (C13) */
+  .dg-tri::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    /* ds-principes-composants.md, Lien texte : zone cliquable de 44 */
+    height: 44px;
+    transform: translateY(-50%);
+  }
+
+  /* Survol et appui (C14, appui commun des liens) */
+  .dg-tri:active {
+    color: var(--texte-accent-survol);
+  }
+
+  @media (hover: hover) {
+    .dg-tri:hover {
+      color: var(--texte-accent-survol);
+    }
   }
 
   .dg-tri span {

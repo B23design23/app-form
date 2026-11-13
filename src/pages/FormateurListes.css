@@ -15,27 +15,20 @@
   gap: var(--espace-groupes);
   width: 100%;
   height: 100%;
-  padding: var(--espace-surface);
   border: none;
-  border-radius: var(--rayon-surface);
-  background: var(--fond-surface);
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
-.fl-carte:active {
+/* Carte cliquable (classe commune .carte) : survol et appui fond-accent ; focus par la règle commune */
+.carte.fl-carte:active {
   background: var(--fond-accent);
 }
 
-.fl-carte:focus-visible {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
-}
-
 @media (hover: hover) {
-  .fl-carte:hover {
+  .carte.fl-carte:hover {
     background: var(--fond-accent);
   }
 }

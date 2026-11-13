@@ -72,7 +72,8 @@
   display: flex;
   /* espacements.md, section 9 : écart entre deux segments de la barre empilée (exception) */
   gap: 4px;
-  height: 14px;
+  /* ds-principes-composants.md, Barre de progression : barre posée dans une carte, 8 (variante empilée, C18) */
+  height: 8px;
 }
 
 .dc-segment {

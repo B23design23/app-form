@@ -134,7 +134,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
         <ul className="fl-grille fl-grille-cours">
           {coursAffiches.map((cours) => (
             <li key={cours.id}>
-              <button type="button" className="fl-carte" onClick={() => onOuvrirCours(cours.id)}>
+              <button type="button" className="carte fl-carte" onClick={() => onOuvrirCours(cours.id)}>
                 <span className="fl-carte-texte">
                   <span className="fl-carte-titre fl-carte-titre-cours">{typo(cours.titre)}</span>
                   <span className="fl-carte-meta">

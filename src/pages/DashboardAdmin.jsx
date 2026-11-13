@@ -62,7 +62,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
         <div className="fd-titres">
           <h1>{titre}</h1>
           <p className="fd-sous-titre fd-sous-titre-admin">
-            <span className="fd-pastille-officiel">Compte officiel</span>
+            <span className="pastille fd-pastille-officiel">Compte officiel</span>
             {nbCoursPublics !== null && <span>{nbCoursPublics} cours public{nbCoursPublics > 1 ? 's' : ''}</span>}
           </p>
         </div>
@@ -86,7 +86,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
       <section className="espace-carte fd-carte">
         <div className="fd-carte-entete">
           <h2>Cours les plus suivis</h2>
-          <button type="button" className="fd-lien" onClick={() => onChangerSection('cours')}>
+          <button type="button" className="lien-texte fd-lien" onClick={() => onChangerSection('cours')}>
             Tous les cours
           </button>
         </div>

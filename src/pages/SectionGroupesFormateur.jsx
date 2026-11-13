@@ -101,7 +101,7 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
             const etat = pastilleEtat(stats)
             return (
               <li key={groupe.id}>
-                <button type="button" className="fl-carte fl-carte-groupe" onClick={() => onOuvrirGroupe(groupe.id)}>
+                <button type="button" className="carte fl-carte fl-carte-groupe" onClick={() => onOuvrirGroupe(groupe.id)}>
                   <span className="fl-carte-groupe-haut">
                     <span className="fl-carte-titre fl-carte-titre-groupe">{typo(groupe.nom)}</span>
                     <Icone svg={iconeChevron} className="chevron-ligne" />

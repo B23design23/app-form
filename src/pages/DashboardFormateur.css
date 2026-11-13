@@ -32,14 +32,28 @@
   color: var(--texte-secondaire);
 }
 
-/* Lien posé dans la phrase du sous-titre : rôle de la phrase en variante -fort */
+/* Lien posé dans la phrase du sous-titre : rôle de la phrase en variante -fort. Zone cliquable
+   de 44 (ds-principes-composants.md, Lien texte, avec 6 de chaque côté) portée par un pseudo-élément :
+   la phrase garde ses espaces et sa hauteur de ligne */
 .fd-lien-discret {
+  position: relative;
   padding: 0;
   border: none;
   background: none;
   font: var(--typo-texte-secondaire-fort);
   color: inherit;
   cursor: pointer;
+}
+
+.fd-lien-discret::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * var(--espace-lien));
+  right: calc(-1 * var(--espace-lien));
+  /* ds-principes-composants.md, Lien texte : zone cliquable de 44 */
+  height: 44px;
+  transform: translateY(-50%);
 }
 
 .fd-sous-titre-admin {
@@ -49,13 +63,9 @@
   gap: var(--espace-icone);
 }
 
+/* Pastille « Compte officiel » (classe commune .pastille) */
 .fd-pastille-officiel {
-  display: inline-flex;
-  align-items: center;
-  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
-  border-radius: var(--rayon-pilule);
   background: var(--fond-accent);
-  font: var(--typo-pastille);
   color: var(--texte-accent);
 }
 
@@ -71,10 +81,9 @@
   flex: 1 1 auto;
 }
 
+/* Hauteur du bouton (48) : ds-principes-composants.md, Bouton, Hauteur */
 .fd-bouton-entete {
-  min-height: 46px;
   margin-top: 0;
-  padding: 0 var(--espace-bouton);
   white-space: nowrap;
 }
 
@@ -102,18 +111,6 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
-}
-
-.fd-lien {
-  min-height: 40px;
-  padding: 0;
-  border: none;
-  background: none;
-  font: var(--typo-lien-texte);
-  color: var(--texte-accent);
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.15s ease;
 }
 
 .fd-relances-suite {
@@ -238,10 +235,7 @@
   flex-direction: column;
   gap: var(--espace-groupes);
   width: 100%;
-  padding: var(--espace-element);
   border: none;
-  border-radius: var(--rayon-element);
-  background: var(--fond-sur-carte);
   text-align: left;
   color: var(--texte-principal);
   cursor: pointer;
@@ -319,9 +313,6 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--espace-rangee);
-  padding: var(--espace-element);
-  border-radius: var(--rayon-element);
-  background: var(--fond-sur-carte);
   color: var(--texte-principal);
 }
 
@@ -352,25 +343,10 @@
   color: var(--texte-accent);
 }
 
-.formateur-relance-bouton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: none;
-  border-radius: var(--rayon-rond);
+/* Bouton d'envoi (classe commune .bouton-rond, 44) : sans fond au repos, icône violette */
+.bouton-rond.formateur-relance-bouton {
   background: none;
   color: var(--texte-accent);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.formateur-relance-bouton-icone {
-  width: 18px;
-  height: 18px;
 }
 
 /* État vide : encadré succès */
@@ -488,47 +464,7 @@
   color: var(--texte-sur-inverse);
 }
 
-.fd-recherche {
-  position: relative;
-  display: block;
-}
-
-.fd-recherche-icone {
-  position: absolute;
-  top: 50%;
-  /* espacements.md, section 7 (Champ) : icône de 20 px posée à 16 px du bord */
-  left: var(--espace-champ);
-  width: 20px;
-  height: 20px;
-  color: var(--texte-secondaire);
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.fd-recherche input {
-  width: 100%;
-  min-height: 48px;
-  /* espacements.md, section 7 (Champ) : réserve de 44 du côté de l'icône */
-  padding: 0 var(--espace-champ) 0 44px;
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) */
-  border: 2px solid transparent;
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-sur-carte);
-  font: var(--typo-saisie-choix);
-  color: var(--texte-principal);
-}
-
-.fd-recherche input:focus {
-  border-color: var(--bordure-focus);
-  outline: none;
-}
-
-/* Autoremplissage : le champ garde son fond (ds-principes-composants.md, Champ) */
-.fd-recherche input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
-  box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
-  -webkit-text-fill-color: var(--texte-principal);
-}
+/* Recherche « Un élève » : classes communes .champ et .recherche (fond-sur-carte sur la carte) */
 
 /* Textes et lien posés dans la carte de liste : même retrait que les lignes */
 .fd-activite > .fd-vide,
@@ -684,9 +620,6 @@
   grid-template-columns: 40px minmax(0, 1fr);
   align-items: center;
   gap: var(--espace-rangee);
-  padding: var(--espace-element);
-  border-radius: var(--rayon-element);
-  background: var(--fond-sur-carte);
 }
 
 .fd-etape-rond {
@@ -743,20 +676,9 @@
   justify-self: start;
 }
 
+/* Hauteur 48 et désactivé : règles communes du Bouton */
 .fd-etape-action {
-  min-height: 44px;
   margin-top: 0;
-  padding: 0 var(--espace-bouton);
-}
-
-/* Bouton désactivé (plein ou contour) : lavande, texte atténué */
-.fd-etape-action:disabled,
-.fd-etape-action:disabled:hover {
-  opacity: 1;
-  border-color: transparent;
-  background: var(--fond-action-desactive);
-  color: var(--texte-action-desactive);
-  cursor: not-allowed;
 }
 
 /* --- Admin : chiffres et tableau ------------------------------------------------------------------ */
@@ -856,23 +778,15 @@
   background: var(--fond-accent);
 }
 
-.formateur-relance-bouton:active {
-  background: var(--fond-accent);
-}
-
 @media (hover: hover) {
   .fd-lien-discret:hover {
     text-decoration: underline;
     text-underline-offset: 3px;
   }
 
-  .fd-lien:hover {
-    color: var(--texte-accent-survol);
-  }
-
   .fd-groupe:hover,
   .fd-filtre:not(.fd-filtre-actif):hover,
-  .formateur-relance-bouton:hover {
+  .bouton-rond.formateur-relance-bouton:hover {
     background: var(--fond-accent);
   }
 
@@ -894,10 +808,6 @@
   .fd-entete-actions {
     display: flex;
     flex-shrink: 0;
-  }
-
-  .fd-bouton-entete {
-    min-height: 50px;
   }
 
   .fd-grille {

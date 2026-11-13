@@ -355,7 +355,7 @@ function CarteGroupes({ donnees, onChangerSection, onOuvrirGroupe }) {
     <section className="espace-carte fd-carte fd-zone-groupes">
       <div className="fd-carte-entete">
         <h2>Tes groupes</h2>
-        <button type="button" className="fd-lien" onClick={() => onChangerSection('groupes')}>
+        <button type="button" className="lien-texte fd-lien" onClick={() => onChangerSection('groupes')}>
           Tout voir
         </button>
       </div>
@@ -364,7 +364,7 @@ function CarteGroupes({ donnees, onChangerSection, onOuvrirGroupe }) {
           const stats = statsGroupe(groupe, donnees.membres, donnees.coursGroupes, donnees.progression)
           return (
             <li key={groupe.id}>
-              <button type="button" className="fd-groupe" onClick={() => onOuvrirGroupe(groupe.id)}>
+              <button type="button" className="ligne-fond fd-groupe" onClick={() => onOuvrirGroupe(groupe.id)}>
                 <span className="fd-groupe-haut">
                   <span className="fd-groupe-titres">
                     <span className="fd-groupe-nom">{typo(groupe.nom)}</span>
@@ -430,7 +430,7 @@ function CarteRelances({ relances }) {
         <>
           <ul className="formateur-relance-liste">
             {affichees.map((eleve) => (
-              <li key={eleve.id} className="formateur-relance-ligne">
+              <li key={eleve.id} className="ligne-fond formateur-relance-ligne">
                 <div className="formateur-relance-info">
                   <span className="formateur-relance-texte">
                     <strong>{eleve.prenom}</strong> n'a pas commencé <strong>{typo(eleve.titreCours)}</strong>
@@ -443,11 +443,11 @@ function CarteRelances({ relances }) {
                 </div>
                 <button
                   type="button"
-                  className="formateur-relance-bouton"
+                  className="bouton-rond formateur-relance-bouton"
                   onClick={() => relancer(eleve)}
                   aria-label={`Relancer ${eleve.prenom}`}
                 >
-                  <Icone svg={iconeSend} className="formateur-relance-bouton-icone" />
+                  <Icone svg={iconeSend} className="bouton-rond-icone" />
                 </button>
               </li>
             ))}
@@ -455,7 +455,7 @@ function CarteRelances({ relances }) {
           {masquees > 0 && (
             // Desktop : la zone occupe l'espace libre sous la dernière ligne et y centre le lien
             <div className="fd-relances-suite">
-              <button type="button" className="fd-lien fd-lien-centre" onClick={() => setEtendue(true)}>
+              <button type="button" className="lien-texte fd-lien fd-lien-centre" onClick={() => setEtendue(true)}>
                 Voir les {masquees} autres
               </button>
             </div>
@@ -589,8 +589,8 @@ function CarteActivite({ donnees, idsEleves, onOuvrirGroupe }) {
               </button>
             ))}
           </div>
-          <label className="fd-recherche">
-            <Icone svg={iconeLoupe} className="fd-recherche-icone" />
+          <label className="champ recherche fd-recherche">
+            <Icone svg={iconeLoupe} className="recherche-icone" />
             <input
               type="search"
               aria-label="Rechercher un élève"
@@ -645,7 +645,7 @@ function CarteActivite({ donnees, idsEleves, onOuvrirGroupe }) {
             </div>
           ))}
           {resultat.encore && (
-            <button type="button" className="fd-lien fd-lien-centre" onClick={() => setLimite((l) => l + PAGE_ACTIVITE)}>
+            <button type="button" className="lien-texte fd-lien fd-lien-centre" onClick={() => setLimite((l) => l + PAGE_ACTIVITE)}>
               Voir plus
             </button>
           )}
@@ -702,7 +702,7 @@ function PremiersPas({ donnees, onCreerCours, onCreerGroupe, onOuvrirGroupe }) {
       <BarreFine ratio={faites / 3} />
       <ol className="fd-etapes">
         {etapes.map((etape, i) => (
-          <li key={etape.titre} className={`fd-etape${etape.faite ? ' fd-etape-faite' : ''}`}>
+          <li key={etape.titre} className={`ligne-fond fd-etape${etape.faite ? ' fd-etape-faite' : ''}`}>
             <span className="fd-etape-rond">{etape.faite ? <Icone svg={iconeCoche} className="fd-etape-coche" /> : i + 1}</span>
             <span className="fd-etape-textes">
               <span className="fd-etape-titre">{etape.titre}</span>
