@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+/* Fond du document (couleurs.md, décision 7) : html et body prennent le fond-page du mode actif
+   (html[data-mode='formateur'] porte le mode formateur) ; les conteneurs ne le reposent plus. */
+html {
+  background: var(--fond-page);
+}
+
 body {
   margin: 0;
   background: var(--fond-page);

@@ -8,7 +8,6 @@
      côtés ; espacements.md, section 8 : haut du Conteneur (20 + zone de sécurité, comme
      .espace-contenu) et bas d'une page sans barre fixe (40) */
   padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) 40px;
-  background: var(--fond-page);
 }
 
 .flow-card {
@@ -33,26 +32,30 @@
 }
 
 .champ input {
+  /* fond du champ au repos, relu par l'autoremplissage (règle commune plus bas) */
+  --fond-champ: var(--fond-sur-carte);
   min-height: 48px;
   padding: 0 var(--espace-champ);
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
+  /* ds-principes-composants.md, Champ : bordure de 2 px au repos, même épaisseur au focus et en
+     erreur (dessinée à l'intérieur : jamais rognée, rien ne bouge) */
+  border: 2px solid var(--bordure-controle);
   border-radius: var(--rayon-pilule);
   font: var(--typo-saisie-choix);
-  background: var(--fond-sur-carte);
+  background: var(--fond-champ);
   color: var(--texte-principal);
 }
 
 .champ textarea {
+  --fond-champ: var(--fond-sur-carte);
   min-height: 96px;
   /* espacements.md, section 7 (Champ) : champ multiligne, vertical de 12 (première ligne placée
      comme dans un champ d'une ligne de 48) */
   padding: 12px var(--espace-champ);
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
+  /* ds-principes-composants.md, Champ : bordure de 2 px au repos (voir .champ input) */
+  border: 2px solid var(--bordure-controle);
   border-radius: var(--rayon-element);
   font: var(--typo-saisie-choix);
-  background: var(--fond-sur-carte);
+  background: var(--fond-champ);
   color: var(--texte-principal);
   resize: vertical;
 }
@@ -71,23 +74,20 @@
 .creation-bloc .champ input,
 .creation-bloc .champ textarea,
 .creation-bloc .dropdown-trigger {
-  background: var(--fond-surface);
+  --fond-champ: var(--fond-surface);
+  background: var(--fond-champ);
 }
 
-/* Autoremplissage navigateur : neutralise le fond jaune, le champ garde son fond (--fond-sur-carte
-   sur carte blanche, blanc sur fond non blanc) et le texte encre. Le box-shadow inset est le seul
-   moyen de recouvrir ce fond : c'est un aplat, pas une ombre. */
-.champ input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
-  box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
+/* Autoremplissage navigateur, règle commune à tous les champs, multilignes compris
+   (ds-principes-composants.md, Champ) : neutralise le fond jaune, le champ garde le fond qu'il a au
+   repos (--fond-champ, posé par la règle du champ ; à défaut fond-sur-carte) et le texte encre.
+   Le box-shadow inset est le seul moyen de recouvrir ce fond : c'est un aplat, pas une ombre
+   (regles-agent.md, section 5, Ombres, exception au registre). */
+:is(input, textarea):-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--fond-champ, var(--fond-sur-carte)) inset;
+  box-shadow: 0 0 0 1000px var(--fond-champ, var(--fond-sur-carte)) inset;
   -webkit-text-fill-color: var(--texte-principal);
   caret-color: var(--texte-principal);
-}
-
-.espace-page > .champ input:-webkit-autofill,
-.creation-bloc .champ input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--fond-surface) inset;
-  box-shadow: 0 0 0 1000px var(--fond-surface) inset;
 }
 
 .bouton-primaire {
@@ -111,12 +111,6 @@
   .bouton-primaire:hover:not(:disabled) {
     background: var(--fond-action-survol);
   }
-}
-
-.bouton-primaire:disabled {
-  background: var(--fond-action-desactive);
-  color: var(--texte-action-desactive);
-  cursor: not-allowed;
 }
 
 .bouton-secondaire {
@@ -205,11 +199,12 @@
 .lien-secondaire {
   display: inline-flex;
   align-items: center;
+  /* ds-principes-composants.md, Lien texte : zone cliquable de 44 */
   min-height: 44px;
   align-self: center;
   background: none;
   border: none;
-  padding: 0;
+  padding: 0 var(--espace-lien);
   color: var(--texte-accent);
   font: var(--typo-lien-texte);
   cursor: pointer;
@@ -238,7 +233,8 @@
 .bouton-ajouter {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  /* ds-principes-composants.md, Bouton, Hauteur : 48 pour toutes les variantes */
+  min-height: 48px;
   gap: var(--espace-icone);
   align-self: flex-start;
   background: none;
@@ -256,13 +252,6 @@
   .bouton-ajouter:hover:not(:disabled) {
     border-style: solid;
   }
-}
-
-.bouton-ajouter:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  border-color: var(--bordure-action-desactive);
-  color: var(--texte-action-desactive);
 }
 
 .modal-overlay {
@@ -385,12 +374,49 @@ label {
   background: var(--fond-recompense-survol);
 }
 
+/* Appui commun (ds-principes-composants.md, Survol et tactile) : l'appui prend le rendu du survol */
+.bouton-ajouter:active:not(:disabled) {
+  border-style: solid;
+}
+
+.lien-secondaire:active {
+  color: var(--texte-accent-survol);
+}
+
+.espace-nav-item:active:not(.espace-nav-item-actif) {
+  background: var(--fond-inverse-survol);
+}
+
+.espace-menu-item:active {
+  background: var(--fond-accent);
+}
+
+/* Désactivé commun (ds-principes-composants.md, Désactivé) : tout élément interactif, sans opacité.
+   Spécificité 0-1-2 (html + élément + :disabled) : elle gagne contre la règle d'un composant (0-1-0),
+   pas contre un état écrit sur deux classes. Un lien texte désactivé ne prend pas de fond. */
+html :is(button, input, textarea, select):disabled,
+.surface-foncee :is(.bouton-primaire, .bouton-secondaire):disabled {
+  background: var(--fond-action-desactive);
+  border-color: var(--bordure-action-desactive);
+  color: var(--texte-action-desactive);
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+html .lien-secondaire:disabled {
+  background: none;
+}
+
 /* Focus clavier de tout élément interactif qui n'est pas un champ (ds-principes-composants.md, Focus) :
    contour de 2 px à l'extérieur, décalé de 2 px, visible au clavier seulement. Spécificité nulle
    (:where) : un champ garde son focus dessiné à l'intérieur (bordure), défini dans sa propre règle. */
-:where(:not(input, textarea, select):focus-visible) {
+:where(:not(input, textarea, select, .dropdown-trigger):focus-visible) {
   outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
+  /* Halo de 2 px autour du contour (ds-principes-composants.md, Focus) : l'ombre de 6 px passe sous
+     le contour ; on voit blanc (0 à 2), violet (2 à 4), blanc (4 à 6). Sur chaque surface, l'une des
+     deux couleurs atteint 3:1. */
+  box-shadow: 0 0 0 6px var(--bordure-focus-halo);
 }
 
 /* Texte indicatif de tous les champs (ds-principes-composants.md, Champ) */

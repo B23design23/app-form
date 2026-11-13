@@ -48,6 +48,15 @@ function App() {
   const [sectionApprenant, setSectionApprenant] = useState('dashboard')
   const [sectionFormateur, setSectionFormateur] = useState('dashboard')
   const [coursSelectionneId, setCoursSelectionneId] = useState(null)
+
+  // Mode du document (couleurs.md, décision 7) : html et body prennent le fond-page du mode actif,
+  // y compris la zone de rebond. Le mode suit le rôle du compte connecté (apprenant par défaut) ;
+  // l'aperçu élève (« Voir comme un élève », écran plein hors de l'espace formateur) reste en mode
+  // apprenant : le formateur voit la fiche telle que l'élève la verra.
+  const modeDocument = authUser?.role === 'formateur' && ecran !== 'apercu-cours' ? 'formateur' : 'apprenant'
+  useEffect(() => {
+    document.documentElement.dataset.mode = modeDocument
+  }, [modeDocument])
   const [themeCoursIndex, setThemeCoursIndex] = useState(null)
   const [sectionInitiale, setSectionInitiale] = useState(null)
   const [coursSelectionneIdFormateur, setCoursSelectionneIdFormateur] = useState(null)

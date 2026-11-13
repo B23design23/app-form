@@ -14,7 +14,6 @@
 
 .espace-layout {
   min-height: 100vh;
-  background: var(--fond-page);
 }
 
 /* Mobile : tab bar flottante encre, entrées icône + libellé. Les onglets prennent une part égale
@@ -138,7 +137,8 @@
 }
 
 .espace-menu-item {
-  min-height: 44px;
+  /* ds-principes-composants.md, Menu d'actions : une ligne par action, 48 px (même hauteur dans les deux menus) */
+  min-height: 48px;
   text-align: left;
   background: none;
   border: none;
