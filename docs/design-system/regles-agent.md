@@ -441,7 +441,7 @@ Deux ombres, et seulement elles (2.1.0), en token depuis le chantier composants 
 
 - Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
 - Appui (`:active`) : une règle commune à tout bouton et tout lien, comme le focus (boutons de toutes les variantes, boutons ronds, Retour, liens texte, entrées de navigation et de menu, onglets, filtres, entrées de sommaire, choix, cartes et lignes cliquables) : l'appui prend le rendu du survol de l'élément. Sur tactile, c'est le seul retour pendant l'appui (`ds-principes-composants.md`, « Survol et tactile »).
-- Un élément interactif sans survol écrit (tri de tableau) prend au survol le rendu de son appui. Points de l'Introduction (neutre plus foncé, `bordure-controle`) et vignettes de badge (contour 2 px `bordure-action`) : survol écrit, `ds-principes-composants.md`, « Composants d'écran ».
+- Un élément interactif sans survol écrit (tri de tableau) prend au survol le rendu de son appui. Vignettes de badge : contour de 2 px `bordure-action` dessiné à l'intérieur ; points de l'Introduction : À trancher (`ds-principes-composants.md`, « Composants d'écran »).
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
 - Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.

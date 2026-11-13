@@ -552,15 +552,17 @@
 }
 
 /* Survol (ds-principes-composants.md, Composants d'écran) : contour 2 px bordure-action, dessiné à
-   l'intérieur (rien ne bouge, le cadenas reste en place) ; l'appui prend le même rendu. Au focus
-   clavier, le focus commun (contour et halo) reste seul. */
+   l'intérieur (outline décalé de -2 : rien ne bouge, le cadenas reste en place) ; l'appui prend le
+   même rendu. Au focus clavier, le focus commun (contour et halo) reste seul. */
 .dash-badge-vignette:not(:focus-visible):active {
-  box-shadow: inset 0 0 0 2px var(--bordure-action);
+  outline: 2px solid var(--bordure-action);
+  outline-offset: -2px;
 }
 
 @media (hover: hover) {
   .dash-badge-vignette:not(:focus-visible):hover {
-    box-shadow: inset 0 0 0 2px var(--bordure-action);
+    outline: 2px solid var(--bordure-action);
+    outline-offset: -2px;
   }
 }
 

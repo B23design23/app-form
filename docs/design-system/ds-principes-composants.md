@@ -425,8 +425,8 @@ Ils ne servent qu'à un endroit : ils restent sans fiche, avec les règles commu
 - Repère d'étapes : la liaison entre les étapes n'a pas d'exigence de contraste (l'état est porté par les pastilles et les libellés) ; le contour `bordure-etape` d'une étape à venir non plus (le numéro porte l'information).
 - Vignettes de badge : le fond de la vignette n'a pas d'exigence (l'image grisée, le cadenas et le nom portent l'état).
 - Survol (décision du 13/11), l'appui prend le même rendu :
-  - vignette de badge : contour 2 px `bordure-action`, dessiné à l'intérieur (rien ne bouge) ; au focus clavier, seul le focus commun s'affiche ;
-  - point de l'Introduction : un neutre plus foncé que le point au repos, `bordure-controle` (au lieu de `fond-controle`), jamais la couleur du point actif ; le point actif ne change pas.
+  - vignette de badge : contour de 2 px `bordure-action` dessiné à l'intérieur du bord de la vignette (un contour, pas une ombre : `outline` décalé de -2 px), qui ne déplace rien ; au focus clavier, seul le focus commun s'affiche ;
+  - point de l'Introduction : À trancher. Il faut un fond neutre plus foncé que le point au repos, à 3:1 contre la crème, jamais la couleur du point actif ; aucun rôle de fond existant ne convient. En attendant, pas de survol.
 - Zone cliquable de 44 px même quand le rendu est plus petit (vignette de badge de 26, tri de tableau), par le padding, rendu inchangé.
 
 ## Typographie
@@ -445,7 +445,7 @@ Ils ne servent qu'à un endroit : ils restent sans fiche, avec les règles commu
 
 - Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
 - Appui (`:active`, décision du 12/11) : une règle commune à tout bouton et tout lien, comme le focus : boutons de toutes les variantes, boutons ronds, Retour, liens texte, entrées de navigation et de menu, onglets, filtres, entrées de sommaire, choix, cartes et lignes cliquables. L'appui prend le rendu du survol de l'élément (fond ou couleur du texte) ; sur tactile, c'est le seul retour pendant l'appui.
-- Un élément interactif sans survol écrit (tri de tableau) prend au survol le rendu de son appui. Les points de l'Introduction et les vignettes de badge ont leur survol écrit (Composants d'écran).
+- Un élément interactif sans survol écrit (tri de tableau) prend au survol le rendu de son appui. Les vignettes de badge ont leur survol écrit ; celui des points de l'Introduction est à trancher (Composants d'écran).
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
 - Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.
