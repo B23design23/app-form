@@ -198,6 +198,22 @@
   box-shadow: var(--ombre-flottante);
 }
 
+/* Objet 3D de l'échantillon d'ombre d'illustration */
+.ds-ombre-objet {
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(var(--ombre-illustration));
+}
+
+.ds-liste {
+  margin: 0;
+  list-style: none;
+}
+
+.ds-liste li + li {
+  border-top: 1px solid var(--bordure-separateur);
+}
+
 .ds-regles,
 .ds-dodont {
   display: flex;

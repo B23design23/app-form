@@ -6,11 +6,12 @@ import Icone from '../components/Icone'
 import iconeCoche from '../Assets/check.svg?raw'
 import iconeCroix from '../Assets/croix.svg?raw'
 import iconeTrash from '../Assets/trash.svg?raw'
+import iconeRetour from '../Assets/chevron-left.svg?raw'
 import {
   composant,
   espacements,
   nbSemantiquesAMode,
-  ombreFlottante,
+  ombres,
   ponctuation,
   primitifs,
   principe5,
@@ -256,14 +257,15 @@ function Formes() {
           </article>
         ))}
       </div>
-      <p className="ds-meta">Ombre : provisoire, pas encore tokenisée</p>
       <div className="ds-grille">
-        {ombreFlottante && (
-          <article className="espace-carte ds-carte ds-ombre-flottante">
-            <code className="ds-nom">{ombreFlottante.nom}</code>
-            <span className="ds-meta">{ombreFlottante.valeur}</span>
+        {ombres.map((o) => (
+          <article key={o.nom} className={`espace-carte ds-carte ds-ombre ds${o.nom.slice(1)}`}>
+            {o.nom === '--ombre-illustration' && <img className="ds-ombre-objet" src="/illustrations/quiz-flash.png" alt="" />}
+            <code className="ds-nom">{o.nom}</code>
+            <span className="ds-meta">{o.valeur}</span>
+            <span className="ds-meta">{o.description}</span>
           </article>
-        )}
+        ))}
       </div>
       <Regles titre="Ombres" lignes={[regleOmbres]} />
     </Section>
@@ -280,6 +282,12 @@ function Composants() {
   const pastille = composant('Pastille de statut')
   const separateur = composant('Séparateur')
   const barre = composant('Barre de progression')
+  const carte = composant('Carte')
+  const ligne = composant('Ligne de liste')
+  const pastilleTexte = composant('Pastille')
+  const lien = composant('Lien texte')
+  const rond = composant('Bouton rond')
+  const anneau = composant('Anneau')
   return (
     <Section numero="05" surtitre="COMPOSANTS" titre="Composants" intention="Les vrais composants de l'app, avec leurs règles.">
       <div className="ds-groupe">
@@ -349,13 +357,84 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
+        <h3>Carte</h3>
+        <div className="ds-grille">
+          <article className="carte ds-carte">
+            <span className="ds-nom">Carte</span>
+            <span className="ds-meta">Fond blanc, rayon et padding Surface</span>
+          </article>
+        </div>
+        <Regles titre="Rôle" lignes={carte.role} />
+        <Regles titre="Règle" lignes={carte.regle} />
+      </div>
+
+      <div className="ds-groupe">
+        <h3>Ligne de liste</h3>
+        <ul className="carte carte-liste ds-liste">
+          {['Nettoyage du filtre', 'Le split mural'].map((t) => (
+            <li key={t}>
+              <button type="button" className="ligne-liste">
+                <span className="ds-nom">{t}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div className="carte ds-carte">
+          <div className="ligne-fond">
+            <span className="ds-meta">Variante à fond</span>
+          </div>
+        </div>
+        <Regles titre="Rôle" lignes={ligne.role} />
+        <Regles titre="Règle" lignes={ligne.regle} />
+      </div>
+
+      <div className="ds-groupe">
+        <h3>Pastille</h3>
+        <div className="espace-carte ds-carte ds-pastilles">
+          <span className="pastille fm-pastille-groupe">Promo A</span>
+          <span className="pastille fm-pastille-neutre">Non assigné</span>
+          <span className="pastille fm-pastille-erreur">Bloquante</span>
+          <span className="pastille fm-pastille-succes">Bon rythme</span>
+        </div>
+        <Regles titre="Rôle" lignes={pastilleTexte.role} />
+        <Regles titre="Règle" lignes={pastilleTexte.regle} />
+      </div>
+
+      <div className="ds-groupe">
+        <h3>Lien texte, bouton rond, retour</h3>
+        <div className="carte ds-carte ds-pastilles">
+          <button type="button" className="lien-texte">Tout voir</button>
+          <button type="button" className="bouton-rond" aria-label="Fermer">
+            <Icone svg={iconeCroix} className="bouton-rond-icone" />
+          </button>
+          <button type="button" className="bouton-retour">
+            <Icone svg={iconeRetour} className="bouton-retour-icone" />
+            Cours
+          </button>
+        </div>
+        <Regles titre="Lien texte" lignes={lien.regle} />
+        <Regles titre="Bouton rond" lignes={rond.role} />
+      </div>
+
+      <div className="ds-groupe">
+        <h3>Barre fine</h3>
+        <div className="espace-carte ds-carte">
+          <span className="fm-barre" aria-hidden="true">
+            <span className="fm-barre-remplissage" style={{ width: '62%' }} />
+          </span>
+          <span className="ds-meta">62 % · 8 px dans une carte, 14 px en tête d'un écran plein</span>
+        </div>
+        <Regles titre="Voisin" lignes={barre.voisinAnneau} />
+      </div>
+
+      <div className="ds-groupe">
         <h3>Anneau de progression</h3>
         <div className="espace-carte ds-carte ds-centre">
           <AnneauProgression ratio={0.6}>
             <span className="anneau-progression-valeur">60 %</span>
           </AnneauProgression>
         </div>
-        <Regles titre="Voisin de la barre" lignes={barre.voisinAnneau} />
+        <Regles titre="Rôle" lignes={anneau.role} />
       </div>
 
       <div className="ds-groupe">

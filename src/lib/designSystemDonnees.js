@@ -1,16 +1,15 @@
-// Données de la page /design-system, lues au build : tokens/ (valeurs, descriptions), la
-// documentation du DS (règles reprises telles quelles) et le :root de shared.css pour les valeurs
-// pas encore tokenisées. Aucune valeur n'est écrite à la main ici.
+// Données de la page /design-system, lues au build : tokens/ (valeurs, descriptions) et la
+// documentation du DS (règles reprises telles quelles). Aucune valeur n'est écrite à la main ici.
 import primitifsJson from '../../tokens/primitifs-couleurs.tokens.json'
 import espacementsJson from '../../tokens/espacements.tokens.json'
 import rayonsJson from '../../tokens/rayons.tokens.json'
+import ombresJson from '../../tokens/ombres.tokens.json'
 import communsJson from '../../tokens/semantiques-communs.tokens.json'
 import apprenantJson from '../../tokens/semantiques-apprenant.tokens.json'
 import formateurJson from '../../tokens/semantiques-formateur.tokens.json'
 import principesMd from '../../docs/design-system/ds-principes-composants.md?raw'
 import couleursMd from '../../docs/tokens/couleurs.md?raw'
 import notesMd from '../../docs/design-system/notes-de-version.md?raw'
-import sharedCss from '../styles/shared.css?raw'
 
 const estToken = (noeud) => noeud && typeof noeud === 'object' && '$value' in noeud
 const entrees = (groupe) => Object.entries(groupe ?? {}).filter(([nom, v]) => !nom.startsWith('$') && estToken(v))
@@ -94,17 +93,14 @@ export const rayons = entrees(rayonsJson.rayon).map(([nom, token]) => ({
   description: token.$description,
 }))
 
-// --- Valeurs pas encore tokenisées (:root de shared.css) -----------------------------------------
+// --- Ombres (tokens/ombres.tokens.json) -----------------------------------------------------------
 
-function variablesRoot(css, prefixe) {
-  const racine = css.match(/:root\s*\{([^}]*)\}/)?.[1] ?? ''
-  const desktop = css.match(/@media \(min-width: 768px\)\s*\{\s*:root\s*\{([^}]*)\}/)?.[1] ?? ''
-  const lire = (bloc) => Object.fromEntries([...bloc.matchAll(new RegExp(`(--${prefixe}[a-z-]*)\\s*:\\s*([^;]+);`, 'g'))].map((m) => [m[1], m[2].trim()]))
-  const base = lire(racine)
-  const large = lire(desktop)
-  return Object.entries(base).map(([nom, valeur]) => ({ nom, valeur, valeurDesktop: large[nom] ?? null }))
-}
-export const ombreFlottante = variablesRoot(sharedCss, 'ombre-')[0] ?? null
+const px = (d) => `${d.value}${d.value ? d.unit : ''}`
+export const ombres = entrees(ombresJson.ombre).map(([nom, token]) => ({
+  nom: `--ombre-${nom}`,
+  valeur: `${px(token.$value.offsetX)} ${px(token.$value.offsetY)} ${px(token.$value.blur)} · ardoise-900 à ${Math.round(token.$value.color.alpha * 100)} %`,
+  description: token.$description,
+}))
 
 // --- Documentation ---------------------------------------------------------------------------------
 
@@ -129,6 +125,7 @@ const puces = (texte) => texte.split('\n').filter((l) => l.startsWith('- ')).map
 export function composant(titre) {
   const texte = section(principesMd, titre)
   return {
+    role: bloc(texte, 'Rôle'),
     regle: bloc(texte, 'Règle principale'),
     fond: bloc(texte, 'Fond (règle principale)'),
     faire: bloc(texte, 'DO'),
