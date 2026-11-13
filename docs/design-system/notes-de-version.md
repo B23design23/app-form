@@ -137,6 +137,48 @@ Aucune entrée.
   - `/design-system` : grille en colonnes automatiques (240) ; 3 colonnes à 1040 (2 avant), la carte large sur deux colonnes dès 768.
   - Lot 17 : « De ton formateur » sans séparateur sous le dernier élément de chaque colonne, quel que soit le nombre de cours (avant : un trait restait sous un cours seul dans sa colonne) ; Thème de Création de cours marqué en erreur ; écran « Chargement… » de l'app, bas de page à 40 ; aperçu vide de Création de cours, texte à 16 du bord de l'aperçu (24 avant) ; Connexion, message d'authentification inconnu : « La connexion n'a pas pu se faire. Réessaie. » au lieu du message anglais.
 
+### Composants et couleurs (chantier cpc, lots 0a à 6)
+
+**Ajouté**
+
+- Catalogue : fiches Carte, Ligne de liste (et variante à fond), Choix, Onglet et filtre, Pastille, Lien texte, Barre fine, Anneau, Bouton rond (`ds-principes-composants.md`) ; liste des composants d'écran sans fiche (repère d'étapes, éditeur de leçon, tri de tableau, bandeau Aperçu, visionneuse, confettis, points de l'Introduction, vignettes de badge, carte pointillée « + Assigner un cours »). Vitrine sur `/design-system`.
+- Une implémentation par rôle, dans `src/styles/shared.css` : `.carte` / `.carte-liste`, `.ligne-liste`, `.ligne-fond`, `.pastille`, `.lien-texte` (ex-`.lien-secondaire`), `.bouton-rond`, `.bouton-retour`, `.recherche`, famille du champ (`.champ input`, `.champ textarea`, `.champ-saisie`). Les copies locales des écrans sont retirées.
+- Tokens d'ombre (`tokens/ombres.tokens.json`) : `--ombre-flottante` (valeur inchangée) et `--ombre-illustration` (ardoise-900 à 35 %, `0 14px 16px`, une valeur pour toutes les cartes et toutes les largeurs) ; token `bordure-focus-halo`.
+- Règle Désactivé commune : fond `fond-action-desactive`, texte `texte-action-desactive`, contour `bordure-action-desactive` s'il y en a un, sans opacité.
+
+**Modifié**
+
+- Focus : contour `bordure-focus` de 2 px décalé de 2, entouré d'un halo blanc de 2 px, sur toute surface ; l'une des deux couleurs atteint 3:1. Les choix à input masqué (case d'assignation, réponse du quiz, « Bonne réponse ») portent le focus sur leur ligne. Les champs gardent leur focus sur la bordure.
+- Bordure des champs : tout champ (une ligne, multiligne, recherche, liste déroulante, bloc de l'éditeur de leçon) a au repos une bordure de 2 px `bordure-controle` ; focus `bordure-focus`, erreur `bordure-erreur`, épaisseur fixe. Survol : aucun. Texte saisi : `texte-principal`. Autoremplissage : une règle commune, au fond du champ au repos.
+- Appui commun : l'appui prend le rendu du survol (boutons, liens, entrées de navigation et de menu, pointillés, repère d'étapes, tri).
+- Hauteurs : bouton 48 pour toutes les variantes (Retour 44) ; bouton rond 44, 56 dans le parcours ; rond des boutons à flèche 36, à 6 du bord ; onglet, filtre et entrée de sommaire 44 (48 dans une rangée de champ) ; item de menu 48 ; champ multiligne à bouton 52.
+- Barre : 14 pour la barre qui ouvre un écran plein (parcours, quiz : 10 → 14), 8 pour une barre posée dans une carte ou une ligne (dashboard, Tes groupes, Mes groupes, Détail groupe, Pour bien démarrer, carte de la checklist, barre empilée du Détail cours).
+- Anneau : 108 sous 768, 120 au-dessus, piste de 10 à toutes les tailles, valeur en Chiffre mis en avant standard (rôle fixé par la fiche) ; fin de quiz 168, exception écrite. Le rôle d'un texte de composant est fixé par sa fiche ; « la fonction décide, jamais la place » vaut pour le texte libre.
+- Modale : deux largeurs, 440 (étroite) et 520 (standard) ; Mes badges passe de 640 à 520 et prend le bouton Fermer standard (44).
+- Lien texte : padding horizontal 6, zone de 44 (lien dans une phrase : zone de 44 sans changer la phrase).
+- Ligne de cours à une colonne : jusqu'à 375 px, le statut passe sous le titre, sans césure automatique du titre.
+- Surtitre « Thème N » : `texte-accent` partout.
+- Fond du document : `html` et `body` prennent le `fond-page` du mode actif (`html[data-mode]`), y compris pendant les questions du parcours formateur ; les conteneurs ne reposent plus ce fond ; une surface fixe ou collante le garde.
+
+**Corrigé**
+
+- Barre de la carte de la checklist rendue à 0 px (base flex nulle) : rendue à 8, piste visible.
+- Exception provisoire du taux de complétion à 20,8 px retirée (anneau de 108, valeur en 28).
+- Carte de l'ombre flottante absente de `/design-system` depuis le passage de l'ombre en token.
+
+**Retiré**
+
+- Exceptions « bouton Fermer de Mes badges (2 × 8, rayon 8) » et variante « Quiz (10 px) » de la Barre ; règles locales de focus, de désactivé (opacités 0,35 à 0,6) et d'autoremplissage des écrans.
+
+**Écrans corrigés (composants et couleurs)**
+
+- Lot 1, socle : focus double, champs `.champ` bordés, appui et désactivé communs, menus à 48, pointillés à 48, fond du document.
+- Lot 2, composants partagés : parcours (bouton 48, champs bordés, liens), recherche de Cours, listes déroulantes, modales, lignes de cours et « De ton formateur », menus « … » et rond « + » à 44, anneaux (dashboard apprenant, taux de complétion, `/design-system`).
+- Lot 3, écrans apprenant : dashboard (boutons à flèche, barres, ombre, liens), leçon, quiz (barre 14, bouton 48), checklist (barre visible), Mes badges (520), carte de thème, Détail d'un thème, Introduction (ombre), aperçu élève (« Quitter l'aperçu » 48).
+- Lot 4, écrans formateur : en-tête du dashboard (48), relances (bouton rond 44), liens, recherche « Un élève », Pour bien démarrer, Détail groupe (champ email), Détail cours (barre empilée 8).
+- Lot 5, Création de cours : champs et éditeur bordés, énoncé à bouton (52 / 44), croix 44, onglets et pastilles 44, outils et barre d'enregistrement 48.
+- Lot 6, `/design-system` : vitrine des fiches, ombres lues dans les tokens.
+
 ## 2.1.0 (brouillon, non publiée)
 
 Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui n'ont pas d'exigence de contraste.
