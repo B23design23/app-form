@@ -97,6 +97,8 @@
 .theme-carte-bas {
   margin-top: auto; /* ancré en bas : alignement identique quelle que soit la longueur du titre */
   padding-top: var(--espace-groupes);
+  /* rôle du texte qu'il porte (Méta) : la ligne garde sa hauteur, la carte n'étant plus un bouton */
+  font: var(--typo-meta);
 }
 
 .theme-carte-compte {

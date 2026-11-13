@@ -321,6 +321,8 @@ Fond `fond-surface` ; variantes violette (`fond-marque`) et encre (`fond-inverse
 - Carte cliquable (carte de thème, carte de Mes cours et de Mes groupes, carte de profil ; décision 16, structure du 13/11) : la carte n'est pas un bouton. Son titre est un vrai élément de titre (`h2`, `h3`) qui contient le bouton (ou le lien) ; la zone cliquable de ce bouton est étendue à toute la carte par un pseudo-élément (carte en `position: relative`, pseudo-élément du bouton en `position: absolute; inset: 0`) : un clic n'importe où sur la carte l'active. Le reste du contenu (thème, compteurs, pastilles) reste du texte, lu après le titre. Un seul élément focalisable par carte.
   - Focus : dessiné sur la carte, pas sur le titre (contour et halo communs, posés sur la carte quand son bouton a le focus clavier, `:has(:focus-visible)`) ; le bouton n'en dessine pas.
   - Rendu inchangé : chevron `texte-secondaire` en haut à droite ; survol et appui `fond-accent` sur la carte ; désactivé commun.
+  - Classes communes : `.carte-cliquable` sur la carte, `.carte-cliquable-bouton` sur le bouton du titre (`src/styles/shared.css`). Le bouton prend la typographie de son titre ; le bas d'une carte qui porte du texte inline déclare le rôle de ce texte (la carte n'étant plus un bouton, il n'hérite plus de sa police).
+  - Un autre contrôle posé dans la carte (menu « … », lien) se place au-dessus de la zone étendue (`position: relative` et `z-index`) pour rester cliquable et focalisable. Aucune des cartes actuelles n'en a.
   - Pourquoi : le contenu d'un `<button>` est présentationnel (ARIA) ; un titre posé dedans n'est pas exposé comme titre.
 
 Règle principale

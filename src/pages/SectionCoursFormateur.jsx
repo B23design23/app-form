@@ -134,9 +134,13 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
         <ul className="fl-grille fl-grille-cours">
           {coursAffiches.map((cours) => (
             <li key={cours.id}>
-              <button type="button" className="carte fl-carte" onClick={() => onOuvrirCours(cours.id)}>
+              <div className="carte carte-cliquable fl-carte">
                 <span className="fl-carte-texte">
-                  <span className="fl-carte-titre fl-carte-titre-cours">{typo(cours.titre)}</span>
+                  <h2 className="fl-carte-titre fl-carte-titre-cours">
+                    <button type="button" className="carte-cliquable-bouton" onClick={() => onOuvrirCours(cours.id)}>
+                      {typo(cours.titre)}
+                    </button>
+                  </h2>
                   <span className="fl-carte-meta">
                     {[libelleCourtTheme(cours.categorie), ...partiesContenuCours(cours)].join(' · ')}
                   </span>
@@ -145,7 +149,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
                   </span>
                 </span>
                 <Icone svg={iconeChevron} className="chevron-ligne" />
-              </button>
+              </div>
             </li>
           ))}
         </ul>

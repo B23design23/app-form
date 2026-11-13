@@ -39,13 +39,17 @@ const RANG_STATUT_FORMATEUR = { en_cours: 0, nouveau: 1, a_faire: 2, termine: 3 
 function CarteTheme({ nom, index, termines, commences, total, onClick }) {
   const termine = total > 0 && termines === total
   return (
-    <button type="button" className="carte theme-carte" onClick={onClick}>
+    <div className="carte carte-cliquable theme-carte">
       <span className="theme-carte-haut">
         <img className="theme-carte-objet" src={imageTheme(nom)} alt="" />
         <Icone svg={iconeChevron} className="chevron-ligne" />
       </span>
       <span className="theme-carte-numero">Thème {index + 1}</span>
-      <span className="theme-carte-titre">{nom}</span>
+      <h3 className="theme-carte-titre">
+        <button type="button" className="carte-cliquable-bouton" onClick={onClick}>
+          {nom}
+        </button>
+      </h3>
       <span className="theme-carte-bas">
         {termine ? (
           <StatutBadge statut="termine" />
@@ -57,7 +61,7 @@ function CarteTheme({ nom, index, termines, commences, total, onClick }) {
           <span className="theme-carte-compte">{total} cours</span>
         )}
       </span>
-    </button>
+    </div>
   )
 }
 

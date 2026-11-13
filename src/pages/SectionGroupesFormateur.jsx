@@ -101,9 +101,13 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
             const etat = pastilleEtat(stats)
             return (
               <li key={groupe.id}>
-                <button type="button" className="carte fl-carte fl-carte-groupe" onClick={() => onOuvrirGroupe(groupe.id)}>
+                <div className="carte carte-cliquable fl-carte fl-carte-groupe">
                   <span className="fl-carte-groupe-haut">
-                    <span className="fl-carte-titre fl-carte-titre-groupe">{typo(groupe.nom)}</span>
+                    <h2 className="fl-carte-titre fl-carte-titre-groupe">
+                      <button type="button" className="carte-cliquable-bouton" onClick={() => onOuvrirGroupe(groupe.id)}>
+                        {typo(groupe.nom)}
+                      </button>
+                    </h2>
                     <Icone svg={iconeChevron} className="chevron-ligne" />
                   </span>
                   <span className="fl-carte-meta">
@@ -118,7 +122,7 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
                     <BarreFine ratio={stats.ratio ?? 0} />
                   </span>
                   {etat && <span className={`pastille ${etat.classe}`}>{etat.texte}</span>}
-                </button>
+                </div>
               </li>
             )
           })}

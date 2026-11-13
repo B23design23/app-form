@@ -35,14 +35,18 @@ function ChoixProfil({ onRetour, onChoisir, onSeConnecter }) {
       <TitreParcours titre="Tu viens pour…" sousTitre="Ton espace s'adapte à ce choix." />
       <div className="profil-cartes">
         {PROFILS.map((profil) => (
-          <button key={profil.role} type="button" className="carte profil-carte" onClick={() => onChoisir(profil.role)}>
+          <div key={profil.role} className="carte carte-cliquable profil-carte">
             <img className="profil-carte-objet" src={profil.image} alt="" />
             <span className="profil-carte-texte">
-              <span className="profil-carte-titre">{profil.titre}</span>
+              <h2 className="profil-carte-titre">
+                <button type="button" className="carte-cliquable-bouton" onClick={() => onChoisir(profil.role)}>
+                  {profil.titre}
+                </button>
+              </h2>
               <span className="profil-carte-description">{typo(profil.texte)}</span>
             </span>
             <Icone svg={iconeChevron} className="chevron-ligne" />
-          </button>
+          </div>
         ))}
       </div>
     </GabaritParcours>

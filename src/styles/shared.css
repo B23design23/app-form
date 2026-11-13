@@ -218,6 +218,48 @@
   padding: var(--espace-bord);
 }
 
+/* Carte cliquable (ds-principes-composants.md, fiche Carte, décision 16) : la carte n'est pas un
+   bouton ; son titre (h2, h3) contient le bouton, dont la zone cliquable est étendue à toute la carte
+   par un pseudo-élément. Le focus se dessine sur la carte (règle commune du focus) ; survol et appui
+   restent posés sur la carte par chaque écran (:hover et :active gagnent les ancêtres du bouton). */
+.carte-cliquable {
+  position: relative;
+}
+
+.carte-cliquable :where(h2, h3) {
+  margin: 0;
+}
+
+/* Le bouton prend la typographie de son titre, sans rien ajouter */
+.carte-cliquable-bouton {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Le focus se dessine sur la carte (règle commune du focus) : pas d'anneau natif sur le bouton */
+.carte-cliquable-bouton:focus-visible {
+  outline: none;
+}
+
+.carte-cliquable-bouton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* zone cliquable de la forme de la carte (rayon Surface), comme l'ancien bouton */
+  border-radius: var(--rayon-surface);
+}
+
 /* Ligne de liste (ds-principes-composants.md, fiche Ligne de liste) : élément répété dans une carte,
    cliquable ; au survol et à l'appui, la ligne devient un Élément à espace-bord du bord de la carte */
 .ligne-liste {
@@ -531,8 +573,10 @@ html .lien-texte:disabled {
 
 /* Focus clavier de tout élément interactif qui n'est pas un champ (ds-principes-composants.md, Focus) :
    contour de 2 px à l'extérieur, décalé de 2 px, visible au clavier seulement. Spécificité nulle
-   (:where) : un champ garde son focus dessiné à l'intérieur (bordure), défini dans sa propre règle. */
-:where(:not(input, textarea, select, .dropdown-trigger):focus-visible) {
+   (:where) : un champ garde son focus dessiné à l'intérieur (bordure), défini dans sa propre règle.
+   Carte cliquable : le focus du bouton du titre se dessine sur la carte (fiche Carte). */
+:where(:not(input, textarea, select, .dropdown-trigger, .carte-cliquable-bouton):focus-visible),
+:where(.carte-cliquable:has(.carte-cliquable-bouton:focus-visible)) {
   outline: 2px solid var(--bordure-focus);
   outline-offset: 2px;
   /* Halo de 2 px autour du contour (ds-principes-composants.md, Focus) : l'ombre de 6 px passe sous
