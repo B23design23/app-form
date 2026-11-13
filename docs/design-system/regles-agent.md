@@ -152,6 +152,15 @@ Rayon des coins. Le rôle se choisit par la forme puis par la place de l'éléme
 | `--rayon-surface` | Bloc posé directement sur le fond de la page, ou flottant au-dessus. Toujours plus arrondi que rayon-element. En feuille mobile, sur les deux coins du haut seulement. |
 | `--rayon-element` | Bloc à fond ou à contour posé dans une surface, à n'importe quelle profondeur. Aussi : choix de réponse en ligne, champ multiligne, image, vidéo ou tableau de contenu, où qu'ils soient. |
 
+#### Ombres (`ombre`)
+
+Ombres : deux, et seulement elles. La profondeur vient des fonds ; une ombre marque ce qui flotte au-dessus de la page ou un objet 3D qui déborde de sa carte. En CSS, un spread nul n'est pas écrit (drop-shadow refuse un 4e terme).
+
+| Variable CSS | Description |
+|---|---|
+| `--ombre-flottante` | Éléments flottants : menus, listes déroulantes, toast, modales, barre d'enregistrement. Lue par box-shadow. |
+| `--ombre-illustration` | Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz, Introduction). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration)). |
+
 #### Sémantiques `fond`
 
 Sémantiques de fond : background, ou piste / arc / barre de progression en SVG. Ne pas changer de propriété : jamais en color ni en bordure.
@@ -205,13 +214,14 @@ Sémantiques de texte : color ; les icônes en héritent via currentColor. Ne pa
 
 #### Sémantiques `bordure`
 
-Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer de propriété : jamais en background ni en color.
+Sémantiques de bordure : border, outline, trait de contour SVG, halo du focus (box-shadow). Ne pas changer de propriété : jamais en background ni en color.
 
 | Variable CSS | Mode | Description |
 |---|---|---|
 | `--bordure-action` | commun | Contour du bouton secondaire, réponse ou choix sélectionné. |
-| `--bordure-focus` | commun | Contour de focus clavier, champ actif. Réglé à part de bordure-action : il doit garder 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, ne jamais le lier à action. |
-| `--bordure-controle` | commun | Contour d'un contrôle interactif sans texte (case, rond de choix, bascule). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur. |
+| `--bordure-focus` | commun | Contour de focus clavier (2 px, décalé de 2), champ actif. Réglé à part de bordure-action, jamais lié à action. Avec bordure-focus-halo autour, l'une des deux couleurs atteint 3:1 sur toute surface. |
+| `--bordure-focus-halo` | commun | Halo de 2 px autour du contour de focus (box-shadow) : sur une surface foncée (violet, encre), c'est lui qui atteint 3:1. |
+| `--bordure-controle` | commun | Contour d'un contrôle interactif : case, rond de choix, et bordure de 2 px d'un champ au repos (une ligne, multiligne, recherche, liste déroulante). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur. |
 | `--bordure-erreur` | commun | Réponse fausse, champ en erreur. |
 | `--bordure-succes` | commun | Bonne réponse. |
 | `--bordure-separateur` | varie selon le mode | Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. |

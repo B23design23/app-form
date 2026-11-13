@@ -58,7 +58,7 @@ Section générée depuis `tokens/` : ne pas la modifier à la main, modifier `t
 | `vert-50` | #dff3e7 | 94,1 |
 | `vert-625` | #17663f | 37,9 |
 
-### Sémantiques (45)
+### Sémantiques (46)
 
 « = » signifie que la valeur est la même dans les deux modes.
 
@@ -105,13 +105,23 @@ Section générée depuis `tokens/` : ne pas la modifier à la main, modifier `t
 | `texte-recompense` | `orange-250` | = | Titre et lien de correction sur le bloc encre du quiz. |
 | **Bordures** | | | |
 | `bordure-action` | `violet-600` | = | Contour du bouton secondaire, réponse ou choix sélectionné. |
-| `bordure-focus` | `violet-600` | = | Contour de focus clavier, champ actif. Réglé à part de bordure-action : il doit garder 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, ne jamais le lier à action. |
-| `bordure-controle` | `ardoise-450` | = | Contour d'un contrôle interactif sans texte (case, rond de choix, bascule). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur. |
+| `bordure-focus` | `violet-600` | = | Contour de focus clavier (2 px, décalé de 2), champ actif. Réglé à part de bordure-action, jamais lié à action. Avec bordure-focus-halo autour, l'une des deux couleurs atteint 3:1 sur toute surface. |
+| `bordure-focus-halo` | `blanc` | = | Halo de 2 px autour du contour de focus (box-shadow) : sur une surface foncée (violet, encre), c'est lui qui atteint 3:1. |
+| `bordure-controle` | `ardoise-450` | = | Contour d'un contrôle interactif : case, rond de choix, et bordure de 2 px d'un champ au repos (une ligne, multiligne, recherche, liste déroulante). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur. |
 | `bordure-erreur` | `rouge-600` | = | Réponse fausse, champ en erreur. |
 | `bordure-succes` | `vert-625` | = | Bonne réponse. |
 | `bordure-separateur` | `sable-75` | `ardoise-75` | Le trait bordure-separateur se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. |
 | `bordure-etape` | `sable-150` | `ardoise-175` | Contour d'une pastille d'étape à venir ou passée, non interactive. Pas d'exigence de contraste, l'état est porté par le remplissage et le libellé. |
 | `bordure-action-desactive` | `sable-150` | `ardoise-175` | Contour d'une action désactivée. Va avec texte-action-desactive. |
+
+### Ombres (2)
+
+Communes aux deux modes. En CSS, un étalement nul n'est pas écrit.
+
+| Ombre | x · y · flou · étalement | Couleur | Rôle |
+|---|---|---|---|
+| `ombre-flottante` | 0 px · 12 px · 32 px · 0 px | `ardoise-900` à 16 % | Éléments flottants : menus, listes déroulantes, toast, modales, barre d'enregistrement. Lue par box-shadow. |
+| `ombre-illustration` | 0 px · 14 px · 16 px · 0 px | `ardoise-900` à 35 % | Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz, Introduction). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration)). |
 
 <!-- couleurs:fin -->
 

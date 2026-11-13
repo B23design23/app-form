@@ -1,0 +1,43 @@
+{
+  "ombre": {
+    "$description": "Ombres : deux, et seulement elles. La profondeur vient des fonds ; une ombre marque ce qui flotte au-dessus de la page ou un objet 3D qui déborde de sa carte. En CSS, un spread nul n'est pas écrit (drop-shadow refuse un 4e terme).",
+    "flottante": {
+      "$type": "shadow",
+      "$value": {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            { "$ref": "#/couleur/ardoise-900/$value/components/0" },
+            { "$ref": "#/couleur/ardoise-900/$value/components/1" },
+            { "$ref": "#/couleur/ardoise-900/$value/components/2" }
+          ],
+          "alpha": 0.16
+        },
+        "offsetX": { "value": 0, "unit": "px" },
+        "offsetY": { "value": 12, "unit": "px" },
+        "blur": { "value": 32, "unit": "px" },
+        "spread": { "value": 0, "unit": "px" }
+      },
+      "$description": "Éléments flottants : menus, listes déroulantes, toast, modales, barre d'enregistrement. Lue par box-shadow."
+    },
+    "illustration": {
+      "$type": "shadow",
+      "$value": {
+        "color": {
+          "colorSpace": "srgb",
+          "components": [
+            { "$ref": "#/couleur/ardoise-900/$value/components/0" },
+            { "$ref": "#/couleur/ardoise-900/$value/components/1" },
+            { "$ref": "#/couleur/ardoise-900/$value/components/2" }
+          ],
+          "alpha": 0.35
+        },
+        "offsetX": { "value": 0, "unit": "px" },
+        "offsetY": { "value": 14, "unit": "px" },
+        "blur": { "value": 16, "unit": "px" },
+        "spread": { "value": 0, "unit": "px" }
+      },
+      "$description": "Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz, Introduction). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration))."
+    }
+  }
+}

@@ -23,7 +23,7 @@
     }
   },
   "bordure": {
-    "$description": "Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer de propriété : jamais en background ni en color.",
+    "$description": "Sémantiques de bordure : border, outline, trait de contour SVG, halo du focus (box-shadow). Ne pas changer de propriété : jamais en background ni en color.",
     "separateur": {
       "$type": "color",
       "$value": "{couleur.sable-75}",

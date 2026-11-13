@@ -216,7 +216,7 @@
     }
   },
   "bordure": {
-    "$description": "Sémantiques de bordure : border, outline, trait de contour SVG. Ne pas changer de propriété : jamais en background ni en color.",
+    "$description": "Sémantiques de bordure : border, outline, trait de contour SVG, halo du focus (box-shadow). Ne pas changer de propriété : jamais en background ni en color.",
     "action": {
       "$type": "color",
       "$value": "{couleur.violet-600}",
@@ -225,12 +225,17 @@
     "focus": {
       "$type": "color",
       "$value": "{couleur.violet-600}",
-      "$description": "Contour de focus clavier, champ actif. Réglé à part de bordure-action : il doit garder 3:1 de contraste avec le fond voisin quelle que soit la couleur du bouton, ne jamais le lier à action."
+      "$description": "Contour de focus clavier (2 px, décalé de 2), champ actif. Réglé à part de bordure-action, jamais lié à action. Avec bordure-focus-halo autour, l'une des deux couleurs atteint 3:1 sur toute surface."
+    },
+    "focus-halo": {
+      "$type": "color",
+      "$value": "{couleur.blanc}",
+      "$description": "Halo de 2 px autour du contour de focus (box-shadow) : sur une surface foncée (violet, encre), c'est lui qui atteint 3:1."
     },
     "controle": {
       "$type": "color",
       "$value": "{couleur.ardoise-450}",
-      "$description": "Contour d'un contrôle interactif sans texte (case, rond de choix, bascule). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur."
+      "$description": "Contour d'un contrôle interactif : case, rond de choix, et bordure de 2 px d'un champ au repos (une ligne, multiligne, recherche, liste déroulante). Au moins 3:1 contre chaque fond voisin, survol compris. Jamais pour un élément non interactif ni pour un séparateur."
     },
     "erreur": {
       "$type": "color",

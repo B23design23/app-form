@@ -8,7 +8,8 @@
 // Les fichiers de tokens/ ne sont pas modifiés : la résolution se fait en mémoire, sur l'arbre
 // fusionné de toutes les sources (les $ref visent le fichier des primitifs).
 // Pour que le CSS garde le lien vers le primitif, le chemin du primitif d'origine est noté sur le
-// token (CLE_PRIMITIF), quand ses trois composantes viennent du même primitif.
+// token (CLE_PRIMITIF), quand ses trois composantes viennent du même primitif. Même traitement pour la
+// couleur d'une ombre ($type shadow), posée un niveau plus bas ($value.color).
 
 export const NOM_PREPROCESSEUR = 'skillo/resoudre-ref-composantes'
 export const CLE_PRIMITIF = 'skillo.composantes-de'
@@ -40,21 +41,33 @@ function resoudre(racine, valeur, chaine) {
   return valeur
 }
 
+// Résout les $ref d'une couleur en composantes ; rend le chemin du primitif d'origine quand ses trois
+// composantes viennent du même primitif (sinon null).
+function resoudreCouleur(racine, couleur) {
+  const refs = couleur.components.map((c) => c?.$ref).filter(Boolean)
+  if (refs.length === 0) return null
+  const primitifs = new Set(refs.map((ref) => ref.match(REF_COMPOSANTE)?.[1]))
+  couleur.components = couleur.components.map((c) => resoudre(racine, c, []))
+  if (refs.length !== couleur.components.length || primitifs.size !== 1) return null
+  const [primitif] = primitifs
+  return primitif ? primitif.split('/').join('.') : null
+}
+
+const noterPrimitif = (noeud, primitif) => {
+  if (primitif) noeud.$extensions = { ...noeud.$extensions, [CLE_PRIMITIF]: primitif }
+}
+
 function parcourir(racine, noeud) {
   if (!noeud || typeof noeud !== 'object') return
   const valeur = noeud.$value
+  // Couleur : composantes directement dans $value
   if (valeur && typeof valeur === 'object' && Array.isArray(valeur.components)) {
-    const refs = valeur.components.map((c) => c?.$ref).filter(Boolean)
-    if (refs.length > 0) {
-      const primitifs = new Set(refs.map((ref) => ref.match(REF_COMPOSANTE)?.[1]))
-      valeur.components = valeur.components.map((c) => resoudre(racine, c, []))
-      if (refs.length === valeur.components.length && primitifs.size === 1) {
-        const [primitif] = primitifs
-        if (primitif) {
-          noeud.$extensions = { ...noeud.$extensions, [CLE_PRIMITIF]: primitif.split('/').join('.') }
-        }
-      }
-    }
+    noterPrimitif(noeud, resoudreCouleur(racine, valeur))
+    return
+  }
+  // Ombre : la couleur est un niveau plus bas ($value.color), le primitif est noté sur le token
+  if (valeur && typeof valeur === 'object' && Array.isArray(valeur.color?.components)) {
+    noterPrimitif(noeud, resoudreCouleur(racine, valeur.color))
     return
   }
   for (const [cle, enfant] of Object.entries(noeud)) {

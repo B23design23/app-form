@@ -51,6 +51,13 @@ async function construireListe() {
     lignes.push('')
   }
 
+  // Ombres : tokens communs, lus par box-shadow ou filter: drop-shadow() (noms et descriptions)
+  for (const [groupe, { description, tokens }] of Object.entries(parGroupe(await lire('tokens/ombres.tokens.json')))) {
+    lignes.push(`#### Ombres (\`${groupe}\`)`, '', description, '', '| Variable CSS | Description |', '|---|---|')
+    for (const [nom, desc] of Object.entries(tokens)) lignes.push(`| \`--${groupe}-${nom}\` | ${cellule(desc)} |`)
+    lignes.push('')
+  }
+
   const groupes = [...new Set([...Object.keys(communs), ...Object.keys(apprenant)])]
   for (const groupe of groupes) {
     const description = communs[groupe]?.description || apprenant[groupe]?.description || ''
@@ -175,6 +182,15 @@ async function construireTablesCouleurs() {
       groupeCourant = groupe
     }
     lignes.push(`| \`${groupe}-${nom}\` | ${valApprenant} | ${valFormateur} | ${cellule(description)} |`)
+  }
+  // Ombres : géométrie, primitif et opacité de la couleur
+  const ombres = (await lire('tokens/ombres.tokens.json')).ombre
+  const nomsOmbres = Object.keys(ombres).filter((n) => !n.startsWith('$') && estToken(ombres[n]))
+  lignes.push('', `### Ombres (${nomsOmbres.length})`, '', 'Communes aux deux modes. En CSS, un étalement nul n\'est pas écrit.', '', '| Ombre | x · y · flou · étalement | Couleur | Rôle |', '|---|---|---|---|')
+  for (const nom of nomsOmbres) {
+    const { color, offsetX, offsetY, blur, spread } = ombres[nom].$value
+    const geometrie = [offsetX, offsetY, blur, spread].map((d) => `${d.value} ${d.unit}`).join(' · ')
+    lignes.push(`| \`ombre-${nom}\` | ${geometrie} | ${valeurSemantique({ $value: color })} | ${cellule(ombres[nom].$description ?? '')} |`)
   }
   return lignes.join('\n')
 }

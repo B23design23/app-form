@@ -1,7 +1,8 @@
 // Génère src/styles/tokens.generes.css depuis les fichiers DTCG de tokens/.
 // Usage : npm run tokens
-// :root reçoit les primitifs, les espacements, les sémantiques communs et les valeurs apprenant ;
-// les valeurs formateur sont redéfinies sous les classes qui portent l'espace formateur, et
+// :root reçoit les primitifs, les espacements, les sémantiques communs, les ombres et les valeurs apprenant ;
+// les valeurs formateur sont redéfinies sur le document en mode formateur (html[data-mode]) et sous les
+// classes qui portent l'espace formateur, et
 // .mode-apprenant redéclare les valeurs apprenant pour un aperçu élève posé dans l'espace formateur.
 // Les sémantiques restent des var(--primitif) (outputReferences), jamais des valeurs brutes.
 // Typographie : primitifs et rôles communs dans :root, avec les rôles à deux tailles en version
@@ -15,7 +16,7 @@ import { surveillerTransformations, verifierPrimitifsEspacement, verifierTokens,
 import { FICHIER_COULEURS, FICHIER_REGLES, ecrireListeTokens, ecrireTablesCouleurs } from './lister-tokens-md.mjs'
 
 const SORTIE = 'src/styles/tokens.generes.css'
-const SELECTEUR_FORMATEUR = '.espace-layout-formateur,\n.flow-page-formateur,\n.dropdown-content-formateur'
+const SELECTEUR_FORMATEUR = "html[data-mode='formateur'],\n.espace-layout-formateur,\n.flow-page-formateur,\n.dropdown-content-formateur"
 const SELECTEUR_APPRENANT = '.mode-apprenant'
 const ENTETE = 'Fichier généré depuis tokens/. Ne pas modifier à la main.'
 
@@ -24,6 +25,7 @@ const COMMUNS = [
   'tokens/espacements.tokens.json',
   'tokens/rayons.tokens.json',
   'tokens/semantiques-communs.tokens.json',
+  'tokens/ombres.tokens.json',
   'tokens/typographie.tokens.json',
 ]
 const TYPO_MOBILE = 'tokens/typographie-mobile.tokens.json'
@@ -50,6 +52,26 @@ StyleDictionary.registerTransform({
   },
 })
 
+// Ombre (DTCG shadow) : x y flou [étalement] couleur. La couleur garde le lien vers son primitif
+// (color-mix, comme les couleurs avec alpha) ; un étalement nul n'est pas écrit, car drop-shadow()
+// refuse un 4e terme et box-shadow le vaut 0 par défaut. Le DTCG impose spread : il reste dans tokens/.
+const dimensionCss = (d) => (d.value === 0 ? '0' : `${d.value}${d.unit}`)
+StyleDictionary.registerTransform({
+  name: 'skillo/ombre-reference',
+  type: 'value',
+  filter: (token) => (token.$type ?? token.type) === 'shadow',
+  transform: (token) => {
+    const { color, offsetX, offsetY, blur, spread } = token.original.$value
+    const primitif = token.$extensions?.[CLE_PRIMITIF]
+    if (!primitif) throw new Error('couleur d\'ombre sans primitif unique : écrire ses composantes en $ref vers un primitif')
+    const pourcentage = Math.round((color.alpha ?? 1) * 10000) / 100
+    const couleur = `color-mix(in srgb, var(--${primitif.split('.').join('-')}) ${pourcentage}%, transparent)`
+    const longueurs = [offsetX, offsetY, blur].map(dimensionCss)
+    if (spread && spread.value !== 0) longueurs.push(dimensionCss(spread))
+    return `${longueurs.join(' ')} ${couleur}`
+  },
+})
+
 // Tailles typographiques en rem (base 16 px) : la transformation size/pxToRem de Style Dictionary,
 // limitée aux tokens typo.taille.*. Les autres dimensions (espacements…) restent en px.
 const pxToRem = StyleDictionary.hooks.transforms['size/pxToRem']
@@ -65,6 +87,7 @@ StyleDictionary.registerTransform({
 const TRANSFORMS = surveillerTransformations(StyleDictionary, [
   ...StyleDictionary.hooks.transformGroups.css,
   'skillo/couleur-alpha-reference',
+  'skillo/ombre-reference',
   'skillo/typo-taille-rem',
 ])
 

@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&display=swap');
 
-:root {
-  /* Les couleurs et les espacements viennent de tokens.generes.css (généré depuis tokens/).
-     Restent ici les valeurs qui n'ont pas encore de token. */
-
-  /* Seule ombre de l'app, réservée aux éléments flottants (menu de la nav, listes déroulantes, toast) */
-  --ombre-flottante: 0 12px 32px rgba(30, 26, 51, 0.16);
-}
-
 .flow-page {
   min-height: 100vh;
   display: flex;
