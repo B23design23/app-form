@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { THEMATIQUES } from '../lib/thematiques'
 import Dropdown from '../components/Dropdown'
@@ -108,28 +108,40 @@ function libelleEleves(n) {
   return `${n} élève${n > 1 ? 's' : ''}`
 }
 
-// Hauteur d'un champ multiligne ajustée à son contenu (titre sur mobile, intitulés d'étape).
-// Avec box-sizing: border-box, scrollHeight n'inclut pas la bordure (2 × 2 px transparents) : sans
-// elle, la dernière ligne était rognée. Recalculée aussi quand la largeur change (rotation, polices
-// chargées après coup). Renvoie true si le texte tient sur plusieurs lignes.
-function ajusterHauteur(el) {
+// Hauteur d'un champ multiligne ajustée à son contenu (fiche Champ : multiligne, hauteur ajustée au
+// contenu, sans poignée de redimensionnement) : titre, intitulés d'étape, énoncé, « À retenir »,
+// éditeur de leçon. Avec box-sizing: border-box, scrollHeight n'inclut pas la bordure : sans elle,
+// la dernière ligne était rognée. La hauteur minimale du CSS reste le plancher. Le défilement de la
+// page est rétabli (le passage par height: auto raccourcit la page un instant). Renvoie true si le
+// texte tient sur plusieurs lignes. Avec garderNaturelle, un texte qui tient dans la hauteur
+// naturelle du champ (rows, hauteur minimale) la garde : scrollHeight est arrondi à l'entier, une
+// hauteur calculée décalerait d'une fraction de px tout ce qui suit.
+function ajusterHauteur(el, { garderNaturelle = false } = {}) {
   if (!el) return false
   const style = window.getComputedStyle(el)
   const bordures = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth)
+  const page = document.scrollingElement
+  const defilement = page?.scrollTop
   el.style.height = 'auto'
-  el.style.height = `${el.scrollHeight + bordures}px`
+  if (!garderNaturelle || el.scrollHeight > el.clientHeight) el.style.height = `${el.scrollHeight + bordures}px`
+  else el.style.height = ''
+  if (page && page.scrollTop !== defilement) page.scrollTop = defilement
   const ligne = parseFloat(style.lineHeight) || parseFloat(style.fontSize) * 1.35
   const interieur = el.scrollHeight - parseFloat(style.paddingTop) - parseFloat(style.paddingBottom)
   return interieur > ligne * 1.5
 }
 
-function ChampAuto({ valeur, onChange, className, ...props }) {
-  const ref = useRef(null)
-  const [multiligne, setMultiligne] = useState(false)
+// Recalcule la hauteur quand le texte change et quand la largeur change (rotation, polices chargées
+// après coup) ; surAjustement reçoit le résultat d'ajusterHauteur.
+function useHauteurAjustee(ref, valeur, surAjustement, options) {
+  const rappel = useRef(surAjustement)
+  rappel.current = surAjustement
 
   useEffect(() => {
-    setMultiligne(ajusterHauteur(ref.current))
-  }, [valeur])
+    const multiligne = ajusterHauteur(ref.current, options)
+    rappel.current?.(multiligne)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref, valeur])
 
   useEffect(() => {
     const el = ref.current
@@ -138,11 +150,21 @@ function ChampAuto({ valeur, onChange, className, ...props }) {
     const observateur = new ResizeObserver(() => {
       if (el.clientWidth === largeur) return
       largeur = el.clientWidth
-      setMultiligne(ajusterHauteur(el))
+      const multiligne = ajusterHauteur(el, options)
+      rappel.current?.(multiligne)
     })
     observateur.observe(el)
     return () => observateur.disconnect()
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref])
+}
+
+// Champ d'une seule ligne logique qui passe à la ligne si besoin (titre, intitulés d'étape) : pas de
+// retour à la ligne saisi.
+function ChampAuto({ valeur, onChange, className, ...props }) {
+  const ref = useRef(null)
+  const [multiligne, setMultiligne] = useState(false)
+  useHauteurAjustee(ref, valeur, setMultiligne)
 
   return (
     <textarea
@@ -156,6 +178,18 @@ function ChampAuto({ valeur, onChange, className, ...props }) {
     />
   )
 }
+
+// Champ multiligne libre (énoncé, « À retenir », éditeur de leçon), hauteur ajustée au contenu.
+const ZoneTexte = forwardRef(function ZoneTexte({ value, ...props }, refExterne) {
+  const ref = useRef(null)
+  useHauteurAjustee(ref, value, undefined, { garderNaturelle: true })
+  const poserRef = (el) => {
+    ref.current = el
+    if (typeof refExterne === 'function') refExterne(el)
+    else if (refExterne) refExterne.current = el
+  }
+  return <textarea ref={poserRef} value={value} {...props} />
+})
 
 function Miniatures({ images, onRetirer }) {
   if (images.length === 0) return null
@@ -1019,7 +1053,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
 
               <div id="cc-panneau-lecon" role="tabpanel" aria-labelledby={`cc-onglet-${ongletLecon}`}>
                 {ongletLecon === 'ecrire' ? (
-                  <textarea
+                  <ZoneTexte
                     ref={contenuTextareaRef}
                     className="cc-editeur-texte"
                     aria-label="Contenu de la leçon"
@@ -1033,7 +1067,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                   // mode-apprenant : l'aperçu montre la leçon telle que l'élève la verra
                   <div className="cc-apercu mode-apprenant">
                     {contenu.trim() || aRetenir.trim() ? (
-                      <article className="fiche-carte fiche-lecon">
+                      <article className="carte fiche-lecon">
                         <ContenuMarkdown texte={developperImages(contenu, tableImages.current)} className="fiche-lecon-contenu" roleTypo="texte-lecture" />
                         {aRetenir.trim() && (
                           <aside className="fiche-retenir">
@@ -1078,7 +1112,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                 <span>À retenir</span>
                 <span className="cc-aide">Un point par ligne, 3 à 5 conseillés</span>
               </span>
-              <textarea value={aRetenir} onChange={(e) => setARetenir(e.target.value)} />
+              <ZoneTexte value={aRetenir} onChange={(e) => setARetenir(e.target.value)} />
             </label>
           </section>
 
@@ -1148,7 +1182,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                     <label className="champ">
                       <span>Énoncé</span>
                       <span className="cc-champ-avec-bouton">
-                        <textarea
+                        <ZoneTexte
                           rows={2}
                           value={question.enonce}
                           onChange={(e) => majQuestion(question.localId, { enonce: e.target.value })}

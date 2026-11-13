@@ -28,7 +28,7 @@ function EcranLecon({
         {reper && <ReperEtapes etapes={reper} />}
       </EnteteFiche>
 
-      <article className="fiche-carte fiche-lecon">
+      <article className="carte fiche-lecon">
         <ContenuMarkdown texte={cours.contenu} className="fiche-lecon-contenu" roleTypo="texte-lecture" />
 
         {pointsARetenir.length > 0 && (

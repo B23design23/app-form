@@ -29,18 +29,21 @@ function GabaritParcours({ formateur = false, barre, onPasser, points, action, s
   return (
     <div ref={racineRef} className={`parcours${formateur ? ' parcours-formateur flow-page-formateur' : ''}`}>
       <main className="parcours-colonne">
-        <div className="parcours-barre">{barre}</div>
+        {/* « Passer » dans la rangée de la barre : la rangée le centre verticalement sur le logo */}
+        <div className="parcours-barre">
+          {barre}
+          {onPasser && (
+            <button type="button" className="lien-texte parcours-passer" onClick={onPasser}>
+              Passer
+            </button>
+          )}
+        </div>
         <div className="parcours-contenu">{children}</div>
         <div ref={actionsRef} className="parcours-actions">
           {points && <div className="parcours-points">{points}</div>}
           <div className="parcours-action-principale">{action}</div>
           <div className="parcours-action-secondaire">{secondaire}</div>
         </div>
-        {onPasser && (
-          <button type="button" className="lien-texte parcours-passer" onClick={onPasser}>
-            Passer
-          </button>
-        )}
       </main>
     </div>
   )

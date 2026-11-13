@@ -159,14 +159,6 @@
   border-radius: var(--rayon-surface);
 }
 
-/* Sous 768 : écart réduit entre l'anneau (108) et le texte, pour que « Taux de complétion » tienne
-   sur une ligne à 375 (décision C8 révisée, point de revue du lot 1) */
-@media (max-width: 767px) {
-  .formateur-taux-carte {
-    gap: var(--espace-textes);
-  }
-}
-
 .formateur-taux-texte {
   display: flex;
   flex-direction: column;

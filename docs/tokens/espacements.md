@@ -127,7 +127,7 @@ Restent hors échelle, volontairement, parce que ce sont des dimensions de mise 
 - les réserves des zones d'action fixes (bas de page sous une barre d'action ou sous la tab bar) ;
 - la place réservée au-dessus d'une carte badge de fin de quiz (débord de l'illustration) ;
 - la hauteur minimale d'un en-tête lavande sur desktop (objet 3D centré verticalement) : hauteur de l'objet 3D + 2 × `espace-surface`, en px avec un commentaire qui renvoie à cette section, pour que l'objet reste dans le cadre (même logique que la réserve des illustrations) ;
-- les **positions** d'un élément fixe, collant ou posé en absolu : barre du haut, tab bar, menu et carte du menu « … », toast, « Passer », sommaire collant, objet 3D ou illustration dans son cadre, coche d'une entrée de liste déroulante dans sa réserve, bouton posé dans un champ ;
+- les **positions** d'un élément fixe, collant ou posé en absolu : barre du haut, tab bar, menu et carte du menu « … », toast, sommaire collant, objet 3D ou illustration dans son cadre, coche d'une entrée de liste déroulante dans sa réserve, bouton posé dans un champ ;
 - le **bas d'une page sans barre fixe** : 40 px (`.flow-page`, fiche de cours : rien à réserver en bas, ni tab bar, ni zone d'action) ;
 - la **place de l'ombre** sous une rangée qui défile : 4 px en bas (« Cours assignés » du Détail groupe), pour que le défilement ne rogne pas l'ombre des cartes ;
 - le **haut du Conteneur de page** : 20 px + zone de sécurité sous 768 (16 px + zone de sécurité en mode concentré, Création de cours). Le haut du contenu sous la barre du haut et l'arrêt des ancres sont dans `mise-en-page.md`, section 5.

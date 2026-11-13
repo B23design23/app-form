@@ -59,7 +59,7 @@ Choisir entre principal, secondaire et lien texte
 - Lien texte : une action à part, ni attendue ni alternative. Exemples Skillo : Se déconnecter, Mot de passe oublié.
 
 Hauteur
-48 px pour toutes les variantes, mobile et desktop : principal, secondaire, sur fond foncé (« Continuer le cours », « Passer au quiz »), orange, supprimer, rouge plein, pointillé, outils de l'éditeur de leçon, boutons de l'en-tête formateur et de « Pour bien démarrer », barre d'enregistrement, barre d'action fixe (« Valider ma réponse »), « Quitter l'aperçu ». Le Retour reste à 44 (composant à part) ; le bouton rond a sa fiche (Bouton rond). Posé dans la rangée d'un champ, il prend la hauteur du champ (voir DO).
+48 px pour toutes les variantes, mobile et desktop : principal, secondaire, sur fond foncé (« Continuer le cours », « Passer au quiz »), orange, supprimer, rouge plein, pointillé, outils de l'éditeur de leçon et « Image » d'une étape (Création de cours), boutons de l'en-tête formateur et de « Pour bien démarrer », barre d'enregistrement, barre d'action fixe (« Valider ma réponse »), « Quitter l'aperçu ». Le Retour reste à 44 (composant à part) ; le bouton rond a sa fiche (Bouton rond). Posé dans la rangée d'un champ, il prend la hauteur du champ (voir DO).
 Bouton à flèche (sur fond foncé) : rond encre de la flèche de 36 px, à 6 px du bord en haut, en bas et à droite.
 
 États
@@ -88,7 +88,7 @@ Le lien texte, pour une action secondaire qui ne mérite pas de zone.
 Variantes et usage
 - Texte : saisie courte, en pilule.
 - Mot de passe : texte masqué, aide « 6 caractères minimum » dessous.
-- Multiligne : saisie longue, rayon Élément (rôle dans `docs/tokens/rayons.md`), hauteur ajustée au contenu.
+- Multiligne : saisie longue, rayon Élément (rôle dans `docs/tokens/rayons.md`), hauteur ajustée au contenu : le champ grandit avec le texte, sans poignée de redimensionnement (`resize: none`), sa hauteur minimale reste le plancher (décision du 13/11 ; Chromium dessinait la poignée sur l'arrondi de la bordure).
 - Recherche : pilule avec loupe, fond selon le support (voir Fond), résultats dès 2 caractères. Toute recherche a la loupe.
 
 Fond (règle principale)
@@ -318,7 +318,10 @@ Regrouper le contenu d'une section posée sur la page : une carte blanche par se
 Anatomie
 Fond `fond-surface` ; variantes violette (`fond-marque`) et encre (`fond-inverse`) pour un bloc qui pousse à une action. Rayon Surface, padding Surface (rôles dans `docs/tokens/rayons.md` et `docs/tokens/espacements.md`). Ni bordure ni ombre (principe 4).
 - Carte de liste : la carte qui porte des Lignes de liste prend le padding de carte de liste (Ligne de liste).
-- Carte cliquable (carte de thème, carte de Mes cours et de Mes groupes, carte de profil) : toute la carte est le bouton ; son titre est dans un vrai élément de titre (`h2`, `h3`), rendu inchangé ; chevron `texte-secondaire` en haut à droite ; survol et appui `fond-accent` ; focus et désactivé communs.
+- Carte cliquable (carte de thème, carte de Mes cours et de Mes groupes, carte de profil ; décision 16, structure du 13/11) : la carte n'est pas un bouton. Son titre est un vrai élément de titre (`h2`, `h3`) qui contient le bouton (ou le lien) ; la zone cliquable de ce bouton est étendue à toute la carte par un pseudo-élément (carte en `position: relative`, pseudo-élément du bouton en `position: absolute; inset: 0`) : un clic n'importe où sur la carte l'active. Le reste du contenu (thème, compteurs, pastilles) reste du texte, lu après le titre. Un seul élément focalisable par carte.
+  - Focus : dessiné sur la carte, pas sur le titre (contour et halo communs, posés sur la carte quand son bouton a le focus clavier, `:has(:focus-visible)`) ; le bouton n'en dessine pas.
+  - Rendu inchangé : chevron `texte-secondaire` en haut à droite ; survol et appui `fond-accent` sur la carte ; désactivé commun.
+  - Pourquoi : le contenu d'un `<button>` est présentationnel (ARIA) ; un titre posé dedans n'est pas exposé comme titre.
 
 Règle principale
 Une seule implémentation (classe commune `.carte`, `src/styles/shared.css`) ; une page n'écrit pas sa propre carte.
@@ -345,6 +348,7 @@ Une option qui reste marquée quand elle est choisie : réponse du quiz, ligne d
 
 Anatomie
 Ligne blanche ou `fond-sur-carte` (selon le support), rayon Élément, padding Choix ; repère de 22 à 24 px à contour 2 px `bordure-controle` (rond pour un choix unique, case rayon Case pour plusieurs). Choisi : `fond-accent` et un seul contour 2 px `bordure-action`, repère violet plein. Rôle Saisie et choix. Vrai `radio` ou case, ou `radiogroup` / `radio` avec `aria-checked`.
+- Pilule « Bloquante » d'une étape (Création de cours) : choix à bascule en pilule (`aria-pressed`), 44 px de haut, la hauteur de l'Onglet et filtre (décision du 13/11).
 
 DON'T
 Faire avancer un écran au seul choix quand d'autres réponses suivent (« Continuer » valide).
@@ -410,7 +414,7 @@ Rôle
 Une action représentée par une icône seule : Retour rond (mobile), fermer une modale, menu « … », « Voir comme un élève » (mobile), image dans un champ, relancer un élève, rond « + » de Mes cours (mobile).
 
 Anatomie
-Deux diamètres (décision du 12/11) : 44 px partout ; 56 px dans le parcours d'entrée (barre du haut des questions et des écrans de connexion). Fond : celui de chaque bouton aujourd'hui (blanc ou `fond-sur-carte`) ; le rond « + » est un bouton principal (`fond-action`). Nom accessible obligatoire (`aria-label`). Appui, focus et désactivé communs.
+Deux diamètres (décision du 12/11) : 44 px partout ; 56 px dans le parcours d'entrée (barre du haut des questions et des écrans de connexion). L'icône suit le diamètre : 20 px dans le bouton de 44, 22 px dans celui de 56 (décision du 13/11). Fond : celui de chaque bouton aujourd'hui (blanc ou `fond-sur-carte`) ; le rond « + » est un bouton principal (`fond-action`). Nom accessible obligatoire (`aria-label`). Appui, focus et désactivé communs.
 
 DON'T
 Réduire un bouton rond pour le faire tenir dans un champ : c'est le champ qui grandit (voir Champ, Dimensions).
@@ -420,6 +424,9 @@ Réduire un bouton rond pour le faire tenir dans un champ : c'est le champ qui g
 Ils ne servent qu'à un endroit : ils restent sans fiche, avec les règles communes (focus, appui, désactivé, zone de 44 px). Repère d'étapes, éditeur de leçon, tri de tableau, bandeau Aperçu, visionneuse, confettis, points de l'Introduction, vignettes de badge, carte pointillée « + Assigner un cours » du Détail groupe.
 - Repère d'étapes : la liaison entre les étapes n'a pas d'exigence de contraste (l'état est porté par les pastilles et les libellés) ; le contour `bordure-etape` d'une étape à venir non plus (le numéro porte l'information).
 - Vignettes de badge : le fond de la vignette n'a pas d'exigence (l'image grisée, le cadenas et le nom portent l'état).
+- Survol (décision du 13/11), l'appui prend le même rendu :
+  - vignette de badge : contour 2 px `bordure-action`, dessiné à l'intérieur (rien ne bouge) ; au focus clavier, seul le focus commun s'affiche ;
+  - point de l'Introduction : un neutre plus foncé que le point au repos, `bordure-controle` (au lieu de `fond-controle`), jamais la couleur du point actif ; le point actif ne change pas.
 - Zone cliquable de 44 px même quand le rendu est plus petit (vignette de badge de 26, tri de tableau), par le padding, rendu inchangé.
 
 ## Typographie
@@ -438,7 +445,7 @@ Ils ne servent qu'à un endroit : ils restent sans fiche, avec les règles commu
 
 - Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
 - Appui (`:active`, décision du 12/11) : une règle commune à tout bouton et tout lien, comme le focus : boutons de toutes les variantes, boutons ronds, Retour, liens texte, entrées de navigation et de menu, onglets, filtres, entrées de sommaire, choix, cartes et lignes cliquables. L'appui prend le rendu du survol de l'élément (fond ou couleur du texte) ; sur tactile, c'est le seul retour pendant l'appui.
-- Un élément interactif sans survol écrit (points de l'Introduction, vignettes de badge, tri de tableau, « Passer ») prend au survol le rendu de son appui.
+- Un élément interactif sans survol écrit (tri de tableau) prend au survol le rendu de son appui. Les points de l'Introduction et les vignettes de badge ont leur survol écrit (Composants d'écran).
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
 - Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.

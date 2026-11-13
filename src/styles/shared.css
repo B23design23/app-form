@@ -59,7 +59,9 @@
      comme dans un champ d'une ligne de 48) */
   padding: 12px var(--espace-champ);
   border-radius: var(--rayon-element);
-  resize: vertical;
+  /* ds-principes-composants.md, Champ : multiligne, hauteur ajustée au contenu, sans poignée */
+  overflow: hidden;
+  resize: none;
 }
 
 .champ input:focus,

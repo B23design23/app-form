@@ -430,7 +430,9 @@
   background: transparent;
   font: var(--typo-saisie-choix);
   color: var(--texte-principal);
-  resize: vertical;
+  /* ds-principes-composants.md, Champ : hauteur ajustée au contenu, sans poignée */
+  overflow: hidden;
+  resize: none;
 }
 
 .cc-editeur-texte:focus {
@@ -642,7 +644,9 @@
   /* espacements.md, section 7 (Champ) : réserve du côté du bouton posé dans le champ (bouton de 44 à
      4 du bord, plus l'écart jusqu'au texte) */
   padding-right: 60px;
-  resize: vertical;
+  /* ds-principes-composants.md, Champ : hauteur ajustée au contenu, sans poignée */
+  overflow: hidden;
+  resize: none;
 }
 
 /* Bouton image dans le champ (classe commune .bouton-rond, 44) */
@@ -938,7 +942,8 @@
 .cc-bloquante {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  /* ds-principes-composants.md, Onglet et filtre : un choix en pilule, 44 */
+  min-height: 44px;
   padding: 0 var(--espace-pastille-horizontal);
   border: 2px solid var(--bordure-controle);
   border-radius: var(--rayon-pilule);
@@ -960,8 +965,9 @@
   align-items: center;
   justify-content: center;
   gap: var(--espace-icone);
-  min-width: 40px;
-  min-height: 40px;
+  /* ds-principes-composants.md, Bouton, Hauteur : 48 (outil, comme les outils de l'éditeur) */
+  min-width: 48px;
+  min-height: 48px;
   padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
@@ -1154,7 +1160,8 @@
   }
 
   .cc-etape-outils-desktop .cc-bouton-etape-image {
-    width: 40px;
+    /* ds-principes-composants.md, Bouton, Hauteur : 48, icône seule */
+    width: 48px;
     padding: 0;
   }
 

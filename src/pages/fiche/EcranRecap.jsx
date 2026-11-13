@@ -45,7 +45,7 @@ function EcranRecap({
         </div>
       </EnteteFiche>
 
-      <ul className="fiche-carte fiche-recap-liste">
+      <ul className="carte carte-liste fiche-recap-liste">
         {parties.map((partie) => {
           const ligne = lignes[partie]
           return (

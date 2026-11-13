@@ -23,11 +23,6 @@
   margin: 0 auto;
 }
 
-.fiche-carte {
-  border-radius: var(--rayon-surface);
-  background: var(--fond-surface);
-}
-
 .fiche-bouton-large {
   width: 100%;
   margin-top: 0;
@@ -187,7 +182,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--espace-groupes);
-  padding: var(--espace-surface);
 }
 
 /* Intertitres : Titre de section posé par ContenuMarkdown ; seule la marge est propre à la leçon */
@@ -859,7 +853,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--espace-textes);
-  padding: var(--espace-surface);
 }
 
 .fin-quiz-erreur-question.contenu-markdown p {
@@ -959,7 +952,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--espace-groupes);
-  padding: var(--espace-surface);
 }
 
 .fiche-checklist-progression-ligne {
@@ -989,7 +981,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--espace-groupes);
-  padding: var(--espace-bord);
 }
 
 .fiche-checklist-consigne {
@@ -1211,7 +1202,6 @@
 
 .fiche-recap-liste {
   margin: 0;
-  padding: var(--espace-bord);
   list-style: none;
 }
 

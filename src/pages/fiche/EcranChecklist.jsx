@@ -54,7 +54,7 @@ function EcranChecklist({
 
       {reper && <ReperEtapes etapes={reper} />}
 
-      <div className="fiche-carte fiche-checklist-progression">
+      <div className="carte fiche-checklist-progression">
         <div className="fiche-checklist-progression-ligne">
           <span className="fiche-checklist-compte">
             {nbFaites} étape{nbFaites > 1 ? 's' : ''} sur {etapes.length}
@@ -67,7 +67,7 @@ function EcranChecklist({
       </div>
 
       {modeReorder ? (
-        <div className="fiche-carte fiche-checklist-liste-carte">
+        <div className="carte carte-liste fiche-checklist-liste-carte">
           <p className="fiche-checklist-consigne">Remets les étapes dans le bon ordre, puis valide.</p>
           <ol className="fiche-checklist-liste">
             {ordreApprenant.map((etapeId, index) => {
@@ -113,7 +113,7 @@ function EcranChecklist({
           )}
         </div>
       ) : (
-        <div className="fiche-carte fiche-checklist-liste-carte">
+        <div className="carte carte-liste fiche-checklist-liste-carte">
           <ol className="fiche-checklist-liste">
             {etapes.map((etape, index) => {
               const faite = checklistFaite || etapesValidees.includes(etape.id)

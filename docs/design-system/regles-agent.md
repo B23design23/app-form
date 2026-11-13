@@ -323,7 +323,7 @@ Source : `ds-principes-composants.md`.
 - **Rôle** : À trancher (la documentation décrit les variantes, pas de rôle général).
 - **Quand l'utiliser, quand choisir le voisin** : un champ pour une saisie libre. Le voisin est la liste déroulante, quand les réponses possibles sont connues et peu nombreuses.
 - **Typographie** : le libellé du champ prend le rôle Libellé de champ (`--typo-libelle-champ`) ; le texte tapé ou choisi et le texte indicatif (placeholder) du champ vide prennent le rôle Saisie et choix (`--typo-saisie-choix`), seule la couleur change ; 16 px partout, même dans un en-tête dense ou une ligne de filtres (`typographie.md`, sections 5, 6 et 9).
-- **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu) ; recherche (pilule avec loupe, fond selon le support, résultats dès 2 caractères ; toute recherche a la loupe).
+- **Variantes** : texte (saisie courte, en pilule) ; mot de passe (texte masqué, aide « 6 caractères minimum » dessous) ; multiligne (saisie longue, hauteur ajustée au contenu, sans poignée : `resize: none`) ; recherche (pilule avec loupe, fond selon le support, résultats dès 2 caractères ; toute recherche a la loupe).
 - **Dimensions** : champ d'une ligne, 48 px partout ; champ du parcours d'entrée (Connexion, Création du compte, Mot de passe oublié, Nouveau mot de passe), 56 px, grand champ compris ; champ multiligne, hauteur par le contenu, hors de cette règle, vertical de 12 (la première ligne tombe comme dans un champ d'une ligne de 48) ; champ multiligne qui contient un bouton rond (44) : 52 de hauteur minimale. Un contrôle posé dans la même rangée qu'un champ prend la hauteur du champ.
 - **Icône dans le champ** : 20 px, posée à 16 px du bord, texte à 8 px de l'icône, soit une réserve de 44 px de ce côté (`espacements.md`, section 7).
 - **Texte indicatif** : couleur `texte-secondaire` sur tous les champs (opacité 1), rôle Saisie et choix ; pas de points de suspension à la fin (« Rechercher un cours »).
@@ -441,7 +441,7 @@ Deux ombres, et seulement elles (2.1.0), en token depuis le chantier composants 
 
 - Tous les styles `:hover` sont dans `@media (hover: hover)` (souris uniquement).
 - Appui (`:active`) : une règle commune à tout bouton et tout lien, comme le focus (boutons de toutes les variantes, boutons ronds, Retour, liens texte, entrées de navigation et de menu, onglets, filtres, entrées de sommaire, choix, cartes et lignes cliquables) : l'appui prend le rendu du survol de l'élément. Sur tactile, c'est le seul retour pendant l'appui (`ds-principes-composants.md`, « Survol et tactile »).
-- Un élément interactif sans survol écrit (points de l'Introduction, vignettes de badge, tri de tableau, « Passer ») prend au survol le rendu de son appui.
+- Un élément interactif sans survol écrit (tri de tableau) prend au survol le rendu de son appui. Points de l'Introduction (neutre plus foncé, `bordure-controle`) et vignettes de badge (contour 2 px `bordure-action`) : survol écrit, `ds-principes-composants.md`, « Composants d'écran ».
 - Pas de surlignage natif au tap (`-webkit-tap-highlight-color: transparent`).
 - Transition `all 0.15s ease` sur tous les CTA. Survol : principal → `fond-action-survol` ; secondaire et contour → `fond-accent` ; supprimer → `fond-erreur` ; orange → `fond-recompense-survol` ; cartes et lignes cliquables (celles de la section Chevrons) → `fond-accent`, au survol et à l'appui.
 - Tout nouveau style de survol suit ces règles.

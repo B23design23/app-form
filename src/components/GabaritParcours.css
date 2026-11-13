@@ -131,14 +131,10 @@
   }
 }
 
-/* « Passer » (classe commune .lien-texte) : en haut à droite de la colonne, à la hauteur de la
-   rangée de la barre (56, celle du bouton rond du parcours) */
+/* « Passer » (classe commune .lien-texte, zone de 44) : à droite dans la rangée de la barre, qui le
+   centre verticalement sur le logo et le bouton rond */
 .lien-texte.parcours-passer {
-  position: absolute;
-  /* espacements.md, section 8 : position de « Passer » (haut du Conteneur, 20 + zone de sécurité) */
-  top: calc(env(safe-area-inset-top) + 20px);
-  right: 16px;
-  min-height: 56px;
+  margin-left: auto;
 }
 
 /* Barre du haut des questions (identique au quiz) */
@@ -318,11 +314,6 @@
     /* mise-en-page.md, section 8 : Introduction, écran bas */
     bottom: calc(env(safe-area-inset-bottom) + 8px);
   }
-
-  .parcours:has(.intro-slide) .parcours-passer {
-    /* mise-en-page.md, section 8 : Introduction, écran bas */
-    top: calc(env(safe-area-inset-top) + 8px);
-  }
 }
 
 /* Desktop (≥ 768 px) : même mise en page que sur mobile, colonne de 440 px centrée, hauteur fixe
@@ -366,10 +357,5 @@
   .parcours-action-principale:empty,
   .parcours-action-secondaire:empty {
     display: none;
-  }
-
-  .parcours-passer {
-    top: 0;
-    right: 0;
   }
 }

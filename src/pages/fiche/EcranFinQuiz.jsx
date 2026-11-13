@@ -44,7 +44,7 @@ function ListeErreurs({ erreurs }) {
         const bonnesReponses = question.reponses.filter((r) => r.est_correcte)
         const explications = choisies.filter((r) => !r.est_correcte && r.explication).map((r) => typo(r.explication))
         return (
-          <li key={question.id} className="fiche-carte fin-quiz-erreur">
+          <li key={question.id} className="carte fin-quiz-erreur">
             <ContenuMarkdown texte={question.enonce} className="fin-quiz-erreur-question" roleTypo="titre-ligne" />
             <p className="fin-quiz-erreur-ligne fin-quiz-erreur-fausse">
               Ta réponse : {typo(choisies.map((r) => r.texte).join(', ')) || '—'}

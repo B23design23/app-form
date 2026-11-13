@@ -551,6 +551,19 @@
   background: var(--fond-surface);
 }
 
+/* Survol (ds-principes-composants.md, Composants d'écran) : contour 2 px bordure-action, dessiné à
+   l'intérieur (rien ne bouge, le cadenas reste en place) ; l'appui prend le même rendu. Au focus
+   clavier, le focus commun (contour et halo) reste seul. */
+.dash-badge-vignette:not(:focus-visible):active {
+  box-shadow: inset 0 0 0 2px var(--bordure-action);
+}
+
+@media (hover: hover) {
+  .dash-badge-vignette:not(:focus-visible):hover {
+    box-shadow: inset 0 0 0 2px var(--bordure-action);
+  }
+}
+
 .dash-badge-gris {
   width: 48px;
   height: 48px;
@@ -859,7 +872,7 @@
   }
 }
 
-/* Modale « Mes badges » : grille de tous les badges (3 colonnes desktop, 2 mobile) */
+/* Modale « Mes badges » : grille de tous les badges, colonnes automatiques */
 .dash-modale-badges {
   display: flex;
   flex-direction: column;
@@ -900,7 +913,10 @@
 
 .dash-modale-badges-grille {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* mise-en-page.md, section 4 : colonnes automatiques, largeur minimale de tuile 132 (libellé le
+     plus long, « Sur le terrain », 94,4 en Titre de ligne arrondi à 96, + padding Élément 2 × 16
+     + bordure 2 × 2) */
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
   gap: var(--espace-repetition);
   margin: 0;
   /* espacements.md, section 9 : marge du contour de mise en évidence (Modale Mes badges) */
@@ -971,9 +987,3 @@
   color: var(--texte-succes);
 }
 
-@media (min-width: 768px) {
-
-  .dash-modale-badges-grille {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}

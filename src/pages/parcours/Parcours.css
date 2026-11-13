@@ -119,6 +119,18 @@
   background: var(--fond-marque);
 }
 
+/* Survol (ds-principes-composants.md, Composants d'écran) : un neutre plus foncé que le point au
+   repos, jamais la couleur du point actif ; l'appui prend le même rendu */
+.introduction-point:not(.introduction-point-actif):active::before {
+  background: var(--bordure-controle);
+}
+
+@media (hover: hover) {
+  .introduction-point:not(.introduction-point-actif):hover::before {
+    background: var(--bordure-controle);
+  }
+}
+
 /* --- Choix du profil ------------------------------------------------------------------------- */
 
 .profil-cartes {
