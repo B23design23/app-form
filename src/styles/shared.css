@@ -31,37 +31,40 @@
   color: var(--texte-principal);
 }
 
-.champ input {
+/* Champ (ds-principes-composants.md, fiche Champ) : une seule famille. Bordure, police, fond et
+   couleur communs à tout champ, qu'il soit dans un libellé .champ ou posé seul (.champ-saisie :
+   réponses et intitulés d'étape de Création de cours) ; chaque champ seul garde sa taille. */
+.champ input,
+.champ textarea,
+.champ-saisie {
   /* fond du champ au repos, relu par l'autoremplissage (règle commune plus bas) */
   --fond-champ: var(--fond-sur-carte);
-  min-height: 48px;
-  padding: 0 var(--espace-champ);
   /* ds-principes-composants.md, Champ : bordure de 2 px au repos, même épaisseur au focus et en
      erreur (dessinée à l'intérieur : jamais rognée, rien ne bouge) */
   border: 2px solid var(--bordure-controle);
-  border-radius: var(--rayon-pilule);
   font: var(--typo-saisie-choix);
   background: var(--fond-champ);
   color: var(--texte-principal);
 }
 
+.champ input {
+  min-height: 48px;
+  padding: 0 var(--espace-champ);
+  border-radius: var(--rayon-pilule);
+}
+
 .champ textarea {
-  --fond-champ: var(--fond-sur-carte);
   min-height: 96px;
   /* espacements.md, section 7 (Champ) : champ multiligne, vertical de 12 (première ligne placée
      comme dans un champ d'une ligne de 48) */
   padding: 12px var(--espace-champ);
-  /* ds-principes-composants.md, Champ : bordure de 2 px au repos (voir .champ input) */
-  border: 2px solid var(--bordure-controle);
   border-radius: var(--rayon-element);
-  font: var(--typo-saisie-choix);
-  background: var(--fond-champ);
-  color: var(--texte-principal);
   resize: vertical;
 }
 
 .champ input:focus,
-.champ textarea:focus {
+.champ textarea:focus,
+.champ-saisie:focus {
   border-color: var(--bordure-focus);
   outline: none;
 }

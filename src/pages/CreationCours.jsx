@@ -167,7 +167,7 @@ function Miniatures({ images, onRetirer }) {
           <span className="cc-etiquette-nom">{image.alt || 'Image'}</span>
           <button
             type="button"
-            className="cc-bouton-croix"
+            className="bouton-rond cc-bouton-croix"
             aria-label={`Retirer l’image ${image.alt || ''}`.trim()}
             onClick={() => onRetirer(i)}
           >
@@ -1156,7 +1156,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                         />
                         <button
                           type="button"
-                          className="cc-bouton-image-interne"
+                          className="bouton-rond cc-bouton-image-interne"
                           aria-label="Ajouter une image à l’énoncé"
                           disabled={uploadCibleEnCours === `enonce-${question.localId}`}
                           onClick={() =>
@@ -1209,7 +1209,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                               </span>
                               <input
                                 type="text"
-                                className="cc-reponse-texte"
+                                className="champ-saisie cc-reponse-texte"
                                 aria-label={`Réponse ${lettre}`}
                                 placeholder={`Réponse ${lettre}`}
                                 value={reponse.texte}
@@ -1239,7 +1239,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                               </label>
                               <button
                                 type="button"
-                                className="cc-bouton-croix"
+                                className="bouton-rond cc-bouton-croix"
                                 aria-label={`Supprimer la réponse ${lettre}`}
                                 disabled={question.reponses.length <= 2}
                                 onClick={() =>
@@ -1254,7 +1254,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                             {!reponse.estCorrecte && (
                               <input
                                 type="text"
-                                className="cc-reponse-explication"
+                                className="champ-saisie cc-reponse-explication"
                                 aria-label={`Explication de la réponse ${lettre}`}
                                 placeholder="Explication si l’élève choisit cette réponse (facultatif)"
                                 value={reponse.explication}
@@ -1406,7 +1406,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                         </span>
                         <span className={`cc-numero${active ? ' cc-numero-actif' : ''}`}>{ei + 1}</span>
                         <ChampAuto
-                          className="cc-etape-intitule"
+                          className="champ-saisie cc-etape-intitule"
                           aria-label={`Intitulé de l’étape ${ei + 1}`}
                           placeholder={`Étape ${ei + 1}`}
                           valeur={etape.intitule}

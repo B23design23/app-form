@@ -8,7 +8,6 @@
   /* marge de page sur les côtés ; espacements.md, section 8 : haut de la page en mode concentré (16 + zone de
      sécurité) et réserve de la barre d'enregistrement en bas (150) */
   padding: calc(env(safe-area-inset-top) + 16px) var(--espace-marge-page) calc(150px + env(safe-area-inset-bottom));
-  background: var(--fond-page);
   color: var(--texte-principal);
 }
 
@@ -94,7 +93,8 @@
   align-items: center;
   gap: var(--espace-icone);
   flex-shrink: 0;
-  min-height: 40px;
+  /* ds-principes-composants.md, Onglet et filtre : 44 */
+  min-height: 44px;
   padding: 0 var(--espace-navigation-horizontal);
   border: none;
   border-radius: var(--rayon-pilule);
@@ -347,9 +347,10 @@
 
 /* --- Leçon : éditeur ----------------------------------------------------------------------- */
 
+/* L'éditeur est un champ multiligne : la bordure de 2 px bordure-controle est sur le bloc (C10) */
 .cc-editeur {
   overflow: hidden;
-  border: 2px solid transparent;
+  border: 2px solid var(--bordure-controle);
   border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);
   transition: border-color 0.15s ease;
@@ -379,7 +380,8 @@
 }
 
 .cc-onglet {
-  min-height: 40px;
+  /* ds-principes-composants.md, Onglet et filtre : 44 */
+  min-height: 44px;
   padding: 0 var(--espace-choix-horizontal);
   border: none;
   border-radius: var(--rayon-pilule);
@@ -406,8 +408,9 @@
   align-items: center;
   justify-content: center;
   gap: var(--espace-icone);
-  min-width: 44px;
-  min-height: 44px;
+  /* ds-principes-composants.md, Bouton, Hauteur : 48 (outils de l'éditeur) */
+  min-width: 48px;
+  min-height: 48px;
   padding: 0 var(--espace-bouton);
   border: none;
   border-radius: var(--rayon-pilule);
@@ -416,11 +419,6 @@
   color: var(--texte-principal);
   cursor: pointer;
   transition: all 0.15s ease;
-}
-
-.cc-bouton-outil:disabled {
-  opacity: 0.6;
-  cursor: wait;
 }
 
 .cc-editeur-texte {
@@ -490,25 +488,11 @@
   text-overflow: ellipsis;
 }
 
-.cc-bouton-croix {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: none;
-  border-radius: var(--rayon-rond);
+/* Croix (classe commune .bouton-rond, 44) : sans fond au repos, icône secondaire ; désactivée :
+   règle commune du désactivé */
+.bouton-rond.cc-bouton-croix:not(:disabled) {
   background: none;
   color: var(--texte-secondaire);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.cc-bouton-croix:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
 }
 
 .cc-libelle-ligne {
@@ -641,7 +625,8 @@
 .cc-question .champ input,
 .cc-etape .champ input,
 .cc-etape-intitule {
-  background: var(--fond-surface);
+  --fond-champ: var(--fond-surface);
+  background: var(--fond-champ);
 }
 
 .cc-champ-avec-bouton {
@@ -652,30 +637,21 @@
 .cc-champ-avec-bouton textarea {
   display: block;
   width: 100%;
-  min-height: 56px;
-  /* espacements.md, section 7 (Champ) : réserve du côté du bouton posé dans le champ (bouton de 40 à
-     6 du bord, section 8, plus l'écart jusqu'au texte) */
+  /* ds-principes-composants.md, Champ, Dimensions : champ multiligne qui contient un bouton, 52 */
+  min-height: 52px;
+  /* espacements.md, section 7 (Champ) : réserve du côté du bouton posé dans le champ (bouton de 44 à
+     4 du bord, plus l'écart jusqu'au texte) */
   padding-right: 60px;
   resize: vertical;
 }
 
-.cc-bouton-image-interne {
+/* Bouton image dans le champ (classe commune .bouton-rond, 44) */
+.bouton-rond.cc-bouton-image-interne {
   position: absolute;
-  /* espacements.md, section 8 : position d'un bouton posé dans un champ */
-  top: 6px;
-  right: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: none;
-  border-radius: var(--rayon-rond);
+  /* ds-principes-composants.md, Champ, Dimensions : bouton à 4 du bord extérieur (2 de bordure, 2 de jour) */
+  top: 4px;
+  right: 4px;
   background: var(--fond-sur-carte);
-  color: var(--texte-principal);
-  cursor: pointer;
-  transition: all 0.15s ease;
 }
 
 .cc-type-reponse {
@@ -731,6 +707,8 @@
   color: var(--texte-accent);
 }
 
+/* Réponse et explication : champs d'une ligne (classe commune .champ-saisie pour la bordure, la
+   police, le fond et le focus) */
 .cc-reponse-texte,
 .cc-reponse-explication {
   flex: 1;
@@ -738,30 +716,12 @@
   /* ds-principes-composants.md, Champ : champ d'une ligne, 48 */
   min-height: 48px;
   padding: 0 var(--espace-champ);
-  /* contour de focus dessiné à l'intérieur (bordure transparente au repos) : jamais rogné */
-  border: 2px solid transparent;
   border-radius: var(--rayon-pilule);
-  background: var(--fond-sur-carte);
-  font: var(--typo-saisie-choix);
-  color: var(--texte-principal);
 }
 
 .cc-reponse-explication {
   /* décalé sous le texte de la réponse, pas sous la lettre : retrait calculé, lettre 40 + Rangée */
   margin-left: calc(40px + var(--espace-rangee));
-}
-
-.cc-reponse-texte:focus,
-.cc-reponse-explication:focus {
-  border-color: var(--bordure-focus);
-  outline: none;
-}
-
-/* Autoremplissage : le champ garde son fond (ds-principes-composants.md, Champ) */
-.cc-page input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
-  box-shadow: 0 0 0 1000px var(--fond-sur-carte) inset;
-  -webkit-text-fill-color: var(--texte-principal);
 }
 
 /* Contrôle « Bonne réponse » : vrai input (radio / case) masqué sous un repère dessiné */
@@ -824,16 +784,6 @@
 .cc-bonne-cochee .cc-bonne-libelle {
   font: var(--typo-libelle-champ-fort);
   color: var(--texte-succes);
-}
-
-/* Focus clavier : un seul indicateur, le contour du repère (l'input masqué n'a pas de contour) */
-.cc-bonne-input:focus-visible {
-  outline: none;
-}
-
-.cc-bonne-input:focus-visible + .cc-bonne-repere {
-  outline: 2px solid var(--bordure-focus);
-  outline-offset: 2px;
 }
 
 .cc-ajouter-reponse {
@@ -942,25 +892,18 @@
   display: none;
 }
 
+/* Intitulé d'étape : champ multiligne (classe commune .champ-saisie) */
 .cc-etape-intitule {
   flex: 1;
   min-width: 0;
   /* espacements.md, section 7 (Champ) : champ multiligne, vertical de 12 */
   padding: 12px var(--espace-champ);
-  border: 2px solid transparent;
   border-radius: var(--rayon-element);
-  font: var(--typo-saisie-choix);
-  color: var(--texte-principal);
 }
 
 .cc-etape-intitule.cc-champ-multiligne,
 .cc-champ-titre textarea.cc-champ-multiligne {
   border-radius: var(--rayon-element);
-}
-
-.cc-etape-intitule:focus {
-  border-color: var(--bordure-focus);
-  outline: none;
 }
 
 .cc-etape .fm-menu .bouton-rond {
@@ -1073,21 +1016,10 @@
   gap: var(--espace-repetition);
 }
 
+/* Hauteur 48 (Bouton) et désactivé : règles communes */
 .cc-barre-actions .cc-enregistrer {
   flex: 1;
-  min-height: 52px;
   margin-top: 0;
-}
-
-/* « Annuler » : bouton secondaire, même hauteur que le bouton d'enregistrement */
-.cc-barre-actions .cc-annuler {
-  min-height: 52px;
-}
-
-.cc-enregistrer:disabled {
-  background: var(--fond-action-desactive);
-  color: var(--texte-action-desactive);
-  opacity: 1;
 }
 
 /* --- Retours tactiles et survol --------------------------------------------------------------- */
@@ -1099,7 +1031,6 @@
 .cc-onglet:not(.cc-onglet-actif):active,
 .cc-bouton-outil:active,
 .cc-bouton-etape-image:active,
-.cc-bouton-image-interne:active,
 .cc-question-repliee:active {
   background: var(--fond-accent);
 }
@@ -1121,7 +1052,6 @@
   .cc-onglet:not(.cc-onglet-actif):hover,
   .cc-bouton-outil:hover:not(:disabled),
   .cc-bouton-etape-image:hover:not(:disabled),
-  .cc-bouton-image-interne:hover:not(:disabled),
   .cc-question-repliee:hover {
     background: var(--fond-accent);
   }
@@ -1260,7 +1190,6 @@
   .cc-barre-actions .cc-enregistrer,
   .cc-barre-actions .cc-annuler {
     flex: none;
-    min-height: 48px;
   }
 }
 
