@@ -995,11 +995,8 @@
 
 .dash-modale-badge-nom {
   font: var(--typo-titre-ligne);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
+  hyphens: manual;
+  -webkit-hyphens: manual;
   overflow-wrap: break-word;
   text-wrap: balance;
   color: var(--texte-principal);
