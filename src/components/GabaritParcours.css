@@ -272,8 +272,9 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  /* ds-principes-composants.md, Choix : repère de 22 px, même taille une fois choisi */
+  width: 22px;
+  height: 22px;
   border: 2px solid var(--bordure-controle);
   border-radius: var(--rayon-rond);
   background: var(--fond-surface);
@@ -282,8 +283,6 @@
 }
 
 .parcours-choix-ligne-choisie .parcours-choix-rond {
-  width: 28px;
-  height: 28px;
   border: none;
   background: var(--fond-action);
 }

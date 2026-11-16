@@ -350,7 +350,7 @@ Rôle
 Une option qui reste marquée quand elle est choisie : réponse du quiz, ligne de choix du parcours, choix de Création de cours (type de réponse, mode de checklist, groupe), case de la modale d'assignation, « Bonne réponse ».
 
 Anatomie
-Ligne blanche ou `fond-sur-carte` (selon le support), rayon Élément, padding Choix ; repère de 22 à 24 px à contour 2 px `bordure-controle` (rond pour un choix unique, case rayon Case pour plusieurs). Choisi : `fond-accent` et un seul contour 2 px `bordure-action`, repère violet plein. Rôle Saisie et choix. Vrai `radio` ou case, ou `radiogroup` / `radio` avec `aria-checked`.
+Ligne blanche ou `fond-sur-carte` (selon le support), rayon Élément, padding Choix ; repère de 22 px à contour 2 px `bordure-controle` (rond pour un choix unique, case rayon Case pour plusieurs). Choisi : `fond-accent` et un seul contour 2 px `bordure-action`, repère violet plein ; la taille du repère ne change pas une fois choisi, seul son remplissage marque le choix. Rôle Saisie et choix. Vrai `radio` ou case, ou `radiogroup` / `radio` avec `aria-checked`.
 - Pilule « Bloquante » d'une étape (Création de cours) : choix à bascule en pilule (`aria-pressed`), 44 px de haut, la hauteur de l'Onglet et filtre (décision du 13/11).
 
 DON'T

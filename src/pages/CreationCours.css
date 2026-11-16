@@ -312,6 +312,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  /* ds-principes-composants.md, Choix : repère de 22 px, même taille une fois choisi */
   width: 22px;
   height: 22px;
   border: 2px solid var(--bordure-controle);
@@ -747,6 +748,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  /* ds-principes-composants.md, Choix : repère de 22 px, même taille une fois choisi */
   width: 22px;
   height: 22px;
   border: 2px solid var(--bordure-controle);
