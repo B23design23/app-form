@@ -64,7 +64,7 @@ function Modale({ titre, sousTitre, onFermer, children, actions, etroite = false
   )
 }
 
-// Confirmation d'une action qu'on ne peut pas défaire : « Annuler » en bouton secondaire + bouton
+// Confirmation d'une action qu'on ne peut plus retrouver : « Annuler » en bouton secondaire + bouton
 // rouge plein. libelleConfirmer (obligatoire) nomme le verbe et l'objet (« Supprimer le cours »).
 // À l'ouverture, le focus va sur Annuler ; Tab reste dans la modale ; Échap la ferme.
 export function ModaleConfirmation({ titre, texte, libelleConfirmer, enCours = false, onConfirmer, onFermer }) {

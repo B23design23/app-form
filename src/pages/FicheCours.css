@@ -140,7 +140,7 @@
 
 .fiche-entete-objet {
   /* Sous 768 : au-dessus du texte, aligné à droite ; le thème, le titre et la durée prennent toute
-     la largeur (CLAUDE.md, Leçon). Objet → thème : Entre deux groupes (le bloc a un écart de Deux
+     la largeur (docs/ecrans/fiche.md, Leçon). Objet → thème : Entre deux groupes (le bloc a un écart de Deux
      textes d'un groupe) */
   align-self: flex-end;
   margin-bottom: calc(var(--espace-groupes) - var(--espace-textes));
@@ -163,7 +163,6 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
-  text-wrap: balance;
 }
 
 .fiche-entete-sous-titre {
@@ -1083,9 +1082,8 @@
   color: var(--texte-secondaire);
 }
 
-/* Étape en cours : bloc crème qui déborde légèrement de la liste */
+/* Étape en cours : bloc crème */
 .fiche-etape-courante {
-  margin: 0;
   padding: var(--espace-element);
   border-radius: var(--rayon-element);
   background: var(--fond-sur-carte);

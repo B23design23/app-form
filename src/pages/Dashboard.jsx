@@ -16,7 +16,7 @@ import './Dashboard.css'
 import { typo } from '../lib/typographie'
 
 // Dashboard apprenant : une suite de blocs qui poussent chacun à une action. Les blocs affichés
-// et leur ordre dépendent de la situation de l'élève (voir determinerBlocs et CLAUDE.md).
+// et leur ordre dépendent de la situation de l'élève (voir determinerBlocs et CLAUDE.md, Règles métier, Situation du dashboard apprenant).
 
 const SEUIL_QUIZ_FLASH = 3
 

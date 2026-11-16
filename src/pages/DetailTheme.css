@@ -55,7 +55,6 @@
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
   color: var(--texte-principal);
-  text-wrap: balance;
 }
 
 .theme-entete-compte {

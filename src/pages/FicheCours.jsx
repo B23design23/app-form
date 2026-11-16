@@ -15,7 +15,7 @@ import './FicheCours.css'
 import { tempsLecture } from '../lib/cours'
 
 // Fiche de cours en parcours guidé : Leçon → Quiz → (fin de quiz) → Checklist, puis récap.
-// Les étapes dépendent du contenu du cours. Voir CLAUDE.md, section « Fiche de cours ».
+// Les étapes dépendent du contenu du cours. Voir docs/ecrans/fiche.md, Fiche de cours, parcours guidé.
 
 const XP_QUIZ = 20
 const XP_CHECKLIST = 15

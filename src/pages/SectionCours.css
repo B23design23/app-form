@@ -96,7 +96,6 @@
   -webkit-hyphenate-limit-before: 4;
   -webkit-hyphenate-limit-after: 4;
   overflow-wrap: break-word;
-  text-wrap: balance;
 }
 
 .theme-carte-bas {
