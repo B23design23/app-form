@@ -72,11 +72,12 @@ Tout est fonctionnel et déployé sur Vercel : parcours d'entrée, espaces appre
 - `role` (enum : `apprenant` | `formateur`)
 - `xp_total` (int, défaut 0)
 - `prenom` (obligatoire à l'inscription, tous rôles)
-- `tranche_age` (enum, obligatoire si `role = apprenant` uniquement — nullable en base, validé côté app). Reste obligatoire à l'inscription comme donnée interne pour des statistiques futures ; pas affichée dans l'app pour l'instant.
-- `profession` (enum, obligatoire si `role = apprenant` uniquement — nullable en base, validé côté app)
-- `motivation` (texte, obligatoire si `role = apprenant` uniquement — nullable en base, validé côté app)
-- `organisme` (texte, obligatoire si `role = formateur` uniquement)
-- `specialite` (texte, obligatoire si `role = formateur` uniquement)
+- `tranche_age` (enum, obligatoire si `role = apprenant` uniquement — nullable en base d'après ce fichier, `not null` dans 0001 : à vérifier avec la base de test ; validé côté app). Reste obligatoire à l'inscription comme donnée interne pour des statistiques futures ; pas affichée dans l'app pour l'instant.
+- `profession` (enum, obligatoire si `role = apprenant` uniquement — nullable en base d'après ce fichier, `not null` dans 0001 : à vérifier avec la base de test ; validé côté app)
+- `motivation` (texte, obligatoire si `role = apprenant` uniquement — nullable en base d'après ce fichier, `not null` dans 0001 : à vérifier avec la base de test ; validé côté app)
+- `organisme` (texte, nullable, obligatoire si `role = formateur` uniquement, migration 0009)
+- `specialite` (texte, nullable, obligatoire si `role = formateur` uniquement, migration 0009)
+- `est_admin` (bool, défaut false, migration 0009 — compte officiel : dashboard admin, pas d'entrée « Groupes »)
 - `created_at`
 
 ### `cours`
@@ -144,6 +145,7 @@ Tout est fonctionnel et déployé sur Vercel : parcours d'entrée, espaces appre
 ### `groupes`
 
 - `id`, `nom`, `formateur_id` (FK → profiles)
+- `created_at` (timestamptz, migration 0009 — tri de « Tes groupes »)
 
 ### `groupe_membres` (table de liaison)
 
