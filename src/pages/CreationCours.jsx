@@ -978,23 +978,25 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                 ) : (
                   <>
                     <div className="cc-groupes-liste" role="group" aria-labelledby="cc-libelle-groupes">
+                      {/* Vraies cases à cocher avec libellé (fiche Choix), masquées sous le repère dessiné,
+                          comme « Bonne réponse » ; le focus clavier se dessine sur la ligne (règle commune) */}
                       {mesGroupes.map((groupe) => {
                         const choisi = groupeIdsSelectionnes.includes(groupe.id)
                         return (
-                          <button
-                            key={groupe.id}
-                            type="button"
-                            className={`cc-choix-groupe${choisi ? ' cc-choisi' : ''}`}
-                            aria-pressed={choisi}
-                            onClick={() =>
-                              setGroupeIdsSelectionnes((prev) =>
-                                choisi ? prev.filter((id) => id !== groupe.id) : [...prev, groupe.id]
-                              )
-                            }
-                          >
-                            <span className="cc-rond">{choisi && <Coche />}</span>
+                          <label key={groupe.id} className={`cc-choix-groupe${choisi ? ' cc-choisi' : ''}`}>
+                            <input
+                              type="checkbox"
+                              className="cc-choix-groupe-input"
+                              checked={choisi}
+                              onChange={() =>
+                                setGroupeIdsSelectionnes((prev) =>
+                                  choisi ? prev.filter((id) => id !== groupe.id) : [...prev, groupe.id]
+                                )
+                              }
+                            />
+                            <span className="cc-rond" aria-hidden="true">{choisi && <Coche />}</span>
                             {typo(groupe.nom)} · {libelleEleves(groupe.nbEleves)}
-                          </button>
+                          </label>
                         )
                       })}
                     </div>

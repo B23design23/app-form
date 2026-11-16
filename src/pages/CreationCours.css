@@ -304,7 +304,19 @@
 }
 
 .cc-choix-groupe {
+  position: relative;
   padding-left: var(--espace-choix-horizontal);
+}
+
+/* Vraie case masquée sous la ligne dessinée (modèle de .cc-bonne-input) */
+.cc-choix-groupe-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .cc-rond {
@@ -733,6 +745,14 @@
   cursor: pointer;
 }
 
+/* ds-principes-composants.md, Bouton, Accessibilité, et Composants d'écran : zone cliquable de 44 px
+   (40 + 2 × 2), dessin et hauteur de ligne inchangés */
+.cc-bonne-controle::before {
+  content: '';
+  position: absolute;
+  inset: -2px 0;
+}
+
 .cc-bonne-input {
   position: absolute;
   inset: 0;
@@ -1127,6 +1147,7 @@
   }
 
   .cc-poignee {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1135,6 +1156,14 @@
     height: 40px;
     color: var(--texte-secondaire);
     cursor: grab;
+  }
+
+  /* ds-principes-composants.md, Composants d'écran : zone cliquable de 44 px (28 + 2 × 8, 40 + 2 × 2),
+     dessin inchangé */
+  .cc-poignee::before {
+    content: '';
+    position: absolute;
+    inset: -2px -8px;
   }
 
   .cc-poignee:active {
