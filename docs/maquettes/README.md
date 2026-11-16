@@ -42,4 +42,3 @@ Les badges gardent leurs illustrations actuelles pour l'instant. Les objets de t
 | apprenant-mobile-etat-7-cours-perso-et-formateur | Cours perso en cours et cours assignés par le formateur |
 | apprenant-mobile-etat-8-cours-formateur-en-tete | Rien en cours, cours assigné en tête |
 | apprenant-desktop-etat-7 | Version desktop de l'état 7 |
-| formateur-desktop-dashboard | Dashboard formateur (fond #F4F4F6, pastille de statut sous le taux) |
