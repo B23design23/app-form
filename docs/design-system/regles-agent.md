@@ -674,7 +674,7 @@ Source : `docs/tokens/mise-en-page.md` (section citée entre parenthèses). Pas 
 - Les tracés utilisent `currentColor`.
 - *Implémentation* : SVG importés en `?raw` et rendus inline par `src/components/Icone.jsx`.
 - La couleur se pilote par la propriété `color` du parent (exemple : `texte-principal` sur le bouton orange). Pas de filtre CSS.
-- Exception : les illustrations multicolores (`Assets/badge/`, onboarding) restent en `<img>`.
+- Exception : les illustrations multicolores (objets 3D des thèmes et des badges, `public/illustrations/`, onboarding) restent en `<img>`.
 
 ### Navigation
 

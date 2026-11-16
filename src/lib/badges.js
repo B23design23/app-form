@@ -1,6 +1,5 @@
 // Objets 3D des badges (Fluent Emoji, Microsoft, licence MIT), servis depuis public/illustrations.
-// Choisis par condition de déblocage (stable), pas par la colonne badges.icone. Les anciennes
-// illustrations SVG (src/Assets/badge/) restent dans le dépôt mais ne sont plus utilisées.
+// Choisis par condition de déblocage (stable) , pas par la colonne badges.icone.
 const IMAGES_BADGE = {
   premier_quiz_complete: 'chaussure-course',
   premiere_checklist_completee: 'sur-le-terrain',
