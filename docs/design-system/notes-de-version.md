@@ -187,6 +187,26 @@ Aucune entrée.
 - Lot 7, point de revue final : champs multilignes de Création de cours (énoncé, « À retenir », éditeur de leçon) sans poignée de redimensionnement, hauteur ajustée au contenu (la poignée mordait l'arrondi de la bordure) ; « Image » d'une étape 40 → 48 (outil) et pilule « Bloquante » 40 → 44 (choix) ; Mes badges à 320 (« Persévérant » n'est plus coupé, une colonne).
 - Lot 8, cartes cliquables : carte de thème, de profil, de Mes cours et de Mes groupes sur `.carte-cliquable` (titre `h2` / `h3` qui contient le bouton nommé par lui, zone cliquable étendue à la carte, focus sur la carte). Rendu, focus et appui inchangés au pixel.
 
+### Nettoyage (lots net 1 à 9)
+
+**Modifié**
+
+- Choix : repère d'une seule valeur, 22 px, au repos et choisi ; l'état choisi se voit au remplissage, jamais à la taille (la fiche disait « repère de 22 à 24 px »).
+- Champ : le focus de la liste déroulante suit le clavier, comme un bouton (`:focus-visible`) ; la liste déroulante rejoint la règle commune des champs pour le fond (`--fond-champ`), la bordure et la police.
+- Titre de section : le rôle est porté par une classe commune (`.titre-section`, `shared.css`), plus par la balise ; la règle `.espace-page h2` est retirée (typographie.md, section 7 : le rôle ne dépend pas de la balise).
+
+**Retiré**
+
+- Règle `.espace-page h2` (`src/styles/espace-layout.css`) ; illustrations SVG inutilisées de `src/Assets/badge/` ; lecture des colonnes `badges.icone` et `badges.description` (non utilisées).
+
+**Écrans corrigés (nettoyage)**
+
+- Dashboard formateur, Activité récente : pastille du groupe en lavande (classe commune `.fm-pastille-groupe`) au lieu du gris.
+- Introduction : plus d'ombre d'illustration sous l'objet, qui ne déborde pas du bloc.
+- Parcours d'entrée (statut, tranche d'âge, motivation) : rond de 22 px au repos et choisi (24 / 28 avant) ; la grille des tranches d'âge ne grandit plus au choix à 320. Modale d'assignation des cours : case de 22 px (24 avant).
+- Création de cours : choix des groupes en vraies cases à cocher avec libellé, dessinées comme avant ; « Bonne réponse » et poignée de glisser-déposer avec une zone cliquable de 44 px, dessin et hauteur des lignes inchangés.
+- `/design-system` : un échantillon par rôle typographique, tiré des tokens `typo-…` ; la barre de l'échelle des espacements ne déborde plus à 320 et 375.
+
 ## 2.1.0 (brouillon, non publiée)
 
 Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui n'ont pas d'exigence de contraste.
