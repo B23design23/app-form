@@ -16,16 +16,17 @@
 }
 
 .ligne-cours-texte {
-  flex: 1;
+  flex: 1 1 auto;
+  width: min-content;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--espace-textes);
-  min-width: 0;
 }
 
 .ligne-cours-titre {
   font: var(--typo-titre-ligne);
-  /* jamais coupé au milieu d'un mot : voir « Ligne de cours » plus bas */
+  /* Titre de ligne : pas de césure automatique (typographie.md, section 5) ; voir « Ligne de cours » */
   hyphens: manual;
   -webkit-hyphens: manual;
   overflow-wrap: break-word;
@@ -34,6 +35,8 @@
 }
 
 .ligne-cours-meta {
+  /* ne compte pas dans la largeur minimale du texte (seul le titre décide du passage du statut) */
+  contain: inline-size;
   font: var(--typo-meta);
   color: var(--texte-secondaire);
 }
@@ -49,35 +52,20 @@
 }
 
 /* Ligne de cours (ds-principes-composants.md, Ligne de liste) : le titre n'est jamais coupé au milieu
-   d'un mot (pas de césure automatique, qui coupe aussi un mot qui tiendrait sur la ligne suivante ;
-   filet : coupure sans tiret plutôt que débordement, overflow-wrap) ; le statut passe sous le titre
-   dès que le titre devrait couper un mot, à toutes les largeurs (classe posée par useStatutSousTitre) */
-.ligne-liste.ligne-cours.statut-sous-titre:has(.ligne-cours-statut) {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  grid-template-areas:
-    'vignette texte chevron'
-    'vignette statut chevron';
+   d'un mot (Titre de ligne, typographie.md, section 5 : pas de césure automatique). Texte et statut
+   sont dans une rangée qui passe à la ligne ; le texte ne descend jamais sous la largeur du mot le plus
+   long du titre (largeur de base min-content, le contenu secondaire ne compte pas : contain), donc le
+   statut passe sous le titre seulement quand un mot serait coupé, à toutes les largeurs. Filet : si un
+   mot ne tient pas même seul sur la ligne, le texte rétrécit (min-width 0) et overflow-wrap le coupe. */
+.ligne-cours-corps {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  /* statut à côté du titre : Rangée ; sous le titre : Deux textes d'un groupe */
   column-gap: var(--espace-rangee);
-  /* statut sous le texte : Deux textes d'un groupe */
   row-gap: var(--espace-textes);
-}
-
-.statut-sous-titre .ligne-cours-vignette {
-  grid-area: vignette;
-}
-
-.statut-sous-titre .ligne-cours-texte {
-  grid-area: texte;
-}
-
-.statut-sous-titre .ligne-cours-statut {
-  grid-area: statut;
-  justify-self: start;
-}
-
-.statut-sous-titre .ligne-cours-chevron {
-  grid-area: chevron;
 }
 
 /* Desktop : une seule carte, lignes sur 2 colonnes (écart Colonnes), contenu aligné en haut,

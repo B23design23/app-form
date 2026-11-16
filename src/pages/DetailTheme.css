@@ -74,12 +74,30 @@
   border-top: 1px solid var(--bordure-separateur);
 }
 
-.theme-ligne-texte {
+/* Ligne de cours (ds-principes-composants.md, Ligne de liste) : le titre n'est jamais coupé au milieu
+   d'un mot (Titre de ligne, typographie.md, section 5 : pas de césure automatique). Texte et statut
+   sont dans une rangée qui passe à la ligne ; le texte ne descend jamais sous la largeur du mot le plus
+   long du titre (largeur de base min-content, le contenu secondaire ne compte pas : contain), donc le
+   statut passe sous le titre seulement quand un mot serait coupé, à toutes les largeurs. Filet : si un
+   mot ne tient pas même seul sur la ligne, le texte rétrécit (min-width 0) et overflow-wrap le coupe. */
+.theme-ligne-corps {
   flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* statut à côté du titre : Rangée ; sous le titre : Deux textes d'un groupe */
+  column-gap: var(--espace-rangee);
+  row-gap: var(--espace-textes);
+}
+
+.theme-ligne-texte {
+  flex: 1 1 auto;
+  width: min-content;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--espace-textes);
-  min-width: 0;
 }
 
 .theme-ligne-titre {
@@ -92,35 +110,10 @@
 }
 
 .theme-ligne-contenu {
+  /* ne compte pas dans la largeur minimale du texte (seul le titre décide du passage du statut) */
+  contain: inline-size;
   font: var(--typo-meta);
   color: var(--texte-secondaire);
-}
-
-/* Ligne de cours (ds-principes-composants.md, Ligne de liste) : le titre n'est jamais coupé au milieu
-   d'un mot (pas de césure automatique ; filet overflow-wrap) ; le statut passe sous le titre dès que
-   le titre devrait couper un mot, à toutes les largeurs (classe posée par useStatutSousTitre) */
-.ligne-liste.theme-ligne.statut-sous-titre {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas:
-    'texte chevron'
-    'statut chevron';
-  column-gap: var(--espace-rangee);
-  /* statut sous le texte : Deux textes d'un groupe */
-  row-gap: var(--espace-textes);
-}
-
-.statut-sous-titre .theme-ligne-texte {
-  grid-area: texte;
-}
-
-.statut-sous-titre.theme-ligne .statut-badge {
-  grid-area: statut;
-  justify-self: start;
-}
-
-.statut-sous-titre.theme-ligne .chevron-ligne {
-  grid-area: chevron;
 }
 
 @media (min-width: 768px) {

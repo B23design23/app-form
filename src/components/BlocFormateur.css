@@ -60,18 +60,27 @@
   border-top: 1px solid var(--bordure-separateur);
 }
 
-/* Mobile (et dashboard) : titre puis pastille sur la même ligne */
+/* Ligne de cours (ds-principes-composants.md, Ligne de liste) : le titre n'est jamais coupé au milieu
+   d'un mot (Titre de ligne, typographie.md, section 5 : pas de césure automatique). Texte et statut
+   sont dans une rangée qui passe à la ligne ; le texte ne descend jamais sous la largeur du mot le plus
+   long du titre (largeur de base min-content, le contenu secondaire ne compte pas : contain), donc le
+   statut passe sous le titre seulement quand un mot serait coupé, à toutes les largeurs. Filet : si un
+   mot ne tient pas même seul sur la ligne, le texte rétrécit (min-width 0) et overflow-wrap le coupe. */
+/* Mobile (et dashboard) : titre puis pastille sur la même ligne, pastille dessous si besoin */
 .bloc-formateur-texte {
   flex: 1;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  /* titre et pastille côte à côte : Rangée */
-  gap: var(--espace-rangee);
+  /* titre et pastille côte à côte : Rangée ; pastille sous le titre : Deux textes d'un groupe */
+  column-gap: var(--espace-rangee);
+  row-gap: var(--espace-textes);
   min-width: 0;
 }
 
 .bloc-formateur-titre {
-  flex: 1;
+  flex: 1 1 auto;
+  width: min-content;
   min-width: 0;
   font: var(--typo-titre-ligne);
   hyphens: manual;
@@ -79,22 +88,6 @@
   overflow-wrap: break-word;
   text-wrap: balance;
   transition: all 0.15s ease;
-}
-
-/* Ligne de cours (ds-principes-composants.md, Ligne de liste) : le titre n'est jamais coupé au milieu
-   d'un mot (pas de césure automatique ; filet overflow-wrap) ; le statut passe sous le titre dès que
-   le titre devrait couper un mot, à toutes les largeurs (classe posée par useStatutSousTitre) */
-.statut-sous-titre .bloc-formateur-texte {
-  flex-direction: column;
-  align-items: flex-start;
-  /* statut sous le titre : Deux textes d'un groupe */
-  gap: var(--espace-textes);
-}
-
-/* Pas de changement de flex sur le titre : sa transition (all) fausserait la mesure du hook ; en colonne,
-   flex: 1 n'a pas d'effet sur la hauteur */
-.statut-sous-titre .bloc-formateur-titre {
-  align-self: stretch;
 }
 
 /* Page Cours, desktop : colonnes automatiques, pastille sous le titre, séparateurs entre rangées */
@@ -170,5 +163,6 @@
 
   .bloc-formateur-grille .bloc-formateur-titre {
     flex: none;
+    width: auto;
   }
 }

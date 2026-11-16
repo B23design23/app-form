@@ -425,7 +425,7 @@ Source : `ds-principes-composants.md`, « États de page ».
 
 Entrées ajoutées au catalogue (décision du 12/11) : rôle, anatomie, valeurs et classe commune dans `ds-principes-composants.md`, une fiche par composant. Une seule implémentation par rôle : une page n'écrit pas sa propre carte, ligne, pastille, lien ou recherche, elle prend la classe commune (`.carte`, `.ligne-liste`, `.pastille`, `.lien-texte`, `src/styles/shared.css`). Composants d'écran, sans fiche : repère d'étapes, éditeur de leçon, tri de tableau, bandeau Aperçu, visionneuse, confettis, points de l'Introduction, vignettes de badge, carte pointillée « + Assigner un cours ».
 
-- **Ligne de cours** (fiche Ligne de liste) : le statut passe sous le titre dès que le titre devrait couper un mot, à toutes les largeurs ; sinon il reste à côté. Le titre n'est jamais coupé au milieu d'un mot (pas de césure automatique ; filet : coupure sans tiret si un mot ne tient pas sur toute la largeur du texte). Aucune largeur d'écran dans la règle. Code : `useStatutSousTitre` + classe `statut-sous-titre`.
+- **Ligne de cours** (fiche Ligne de liste) : le statut passe sous le titre dès que le titre devrait couper un mot, à toutes les largeurs ; sinon il reste à côté. Le titre n'est jamais coupé au milieu d'un mot (pas de césure automatique ; filet : coupure sans tiret si un mot ne tient pas sur toute la largeur du texte). Aucune largeur d'écran dans la règle. Code : CSS seul, rangée texte + statut en `flex-wrap`, texte en `width: min-content` (largeur du mot le plus long du titre), contenu secondaire en `contain: inline-size`, `min-width: 0` pour le filet.
 
 ## 5. Règles transverses
 
