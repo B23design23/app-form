@@ -1,6 +1,6 @@
 # Écrans du parcours d'entrée
 
-Faits produit du parcours d'entrée : textes affichés, ordre, conditions d'affichage, composants et fichiers de code. Règles de calcul et données lues : `CLAUDE.md`, section Règles métier, sauf celles encore écrites ici.
+Faits produit du parcours d'entrée : textes affichés, ordre, conditions d'affichage, composants et fichiers de code. Règles de calcul et données lues : `CLAUDE.md`, section Règles métier.
 Pour l'apparence, lis `docs/design-system/regles-agent.md` jusqu'à la fin : il fait foi. « Fiche X » renvoie à la section X de `docs/design-system/ds-principes-composants.md`.
 
 ```
