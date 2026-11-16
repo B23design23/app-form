@@ -14,6 +14,8 @@ Avant de toucher un écran, lis le fichier de son espace dans `docs/ecrans/` :
 | Formateur | `docs/ecrans/formateur.md` | `EspaceFormateur.jsx`, `DashboardFormateur.jsx`, `DashboardAdmin.jsx`, `SectionCoursFormateur.jsx`, `SectionGroupesFormateur.jsx`, `DetailGroupe.jsx`, `DetailCoursFormateur.jsx`, `FormateurListes.css`, `src/components/formateur/` |
 | Création de cours (formateur) | `docs/ecrans/creation.md` | `CreationCours.jsx` |
 
+Si l'écran que tu crées ou modifies n'a pas de description dans `docs/ecrans/`, écris-la dans le fichier de son espace, au même format que les autres, et ajoute en tête « À valider ». Ce que le DS ne couvre pas (composant, rôle, valeur), ne le crée pas : liste-le sous « À trancher » à la fin de ta réponse.
+
 Fichiers sans espace : `src/pages/DesignSystem.jsx` (vitrine du DS) et les composants du DS (`NavigationEspace`, `Logo`, `Modale`, `Dropdown`, `Icone`, `StatutBadge`, `AnneauProgression`), décrits dans le DS. Les règles de calcul et les données lues par les écrans sont plus bas, section « Règles métier ».
 
 ## Stack
@@ -75,9 +77,9 @@ Tout est fonctionnel et déployé sur Vercel : parcours d'entrée, espaces appre
 - `tranche_age` (enum, obligatoire si `role = apprenant` uniquement — nullable en base d'après ce fichier, `not null` dans 0001 : à vérifier avec la base de test ; validé côté app). Reste obligatoire à l'inscription comme donnée interne pour des statistiques futures ; pas affichée dans l'app pour l'instant.
 - `profession` (enum, obligatoire si `role = apprenant` uniquement — nullable en base d'après ce fichier, `not null` dans 0001 : à vérifier avec la base de test ; validé côté app)
 - `motivation` (texte, obligatoire si `role = apprenant` uniquement — nullable en base d'après ce fichier, `not null` dans 0001 : à vérifier avec la base de test ; validé côté app)
-- `organisme` (texte, nullable, obligatoire si `role = formateur` uniquement, migration 0009)
-- `specialite` (texte, nullable, obligatoire si `role = formateur` uniquement, migration 0009)
-- `est_admin` (bool, défaut false, migration 0009 — compte officiel : dashboard admin, pas d'entrée « Groupes »)
+- `organisme` (texte, nullable, obligatoire si `role = formateur` uniquement) (migration 0009, non exécutée)
+- `specialite` (texte, nullable, obligatoire si `role = formateur` uniquement) (migration 0009, non exécutée)
+- `est_admin` (bool, défaut false — compte officiel : dashboard admin, pas d'entrée « Groupes ») (migration 0009, non exécutée)
 - `created_at`
 
 ### `cours`
@@ -145,7 +147,7 @@ Tout est fonctionnel et déployé sur Vercel : parcours d'entrée, espaces appre
 ### `groupes`
 
 - `id`, `nom`, `formateur_id` (FK → profiles)
-- `created_at` (timestamptz, migration 0009 — tri de « Tes groupes »)
+- `created_at` (timestamptz — tri de « Tes groupes ») (migration 0009, non exécutée)
 
 ### `groupe_membres` (table de liaison)
 
