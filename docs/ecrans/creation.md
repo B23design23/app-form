@@ -1,6 +1,6 @@
 # Création et modification d'un cours
 
-Faits produit de l'écran Créer / modifier un cours (espace formateur) : textes affichés, ordre, conditions d'affichage, composants et fichiers de code.
+Faits produit de l'écran Créer / modifier un cours (espace formateur) : textes affichés, ordre, conditions d'affichage, composants et fichiers de code. Règles de calcul et données lues : `CLAUDE.md`, section Règles métier, sauf celles encore écrites ici.
 Pour l'apparence, lis `docs/design-system/regles-agent.md` jusqu'à la fin : il fait foi. « Fiche X » renvoie à la section X de `docs/design-system/ds-principes-composants.md`.
 
 Code : `src/pages/CreationCours.jsx` + `CreationCours.css` (classes `cc-`). Même écran pour « Créer un cours » et « Modifier le cours » (seuls le H1 et le bouton d'enregistrement changent). **Mode concentré** : ni barre du haut ni tab bar. Titre de page sur le fond de page, puis une carte blanche par section (fiche Carte) : **Infos**, **Leçon**, **QCM**, **Checklist terrain**.
