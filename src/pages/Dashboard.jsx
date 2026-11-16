@@ -185,7 +185,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
 
     supabase
       .from('badges')
-      .select('id, nom, icone, description, condition_deblocage')
+      .select('id, nom, condition_deblocage')
       .then(({ data, error }) => {
         if (annule) return
         if (!error) setTousBadges(data ?? [])

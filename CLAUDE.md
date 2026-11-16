@@ -137,8 +137,8 @@ Tout est fonctionnel et déployé sur Vercel : parcours d'entrée, espaces appre
 
 ### `badges`
 
-- `id`, `nom`, `condition_deblocage` (texte), `icone` (plus utilisé pour l'affichage : l'image d'un badge est choisie par `condition_deblocage`, voir `iconeBadge(badge)` dans `src/lib/badges.js`)
-- `description` (texte lisible, lue par `Dashboard.jsx`, affichée nulle part)
+- `id`, `nom`, `condition_deblocage` (texte), `icone` (non lue par le code : l'image d'un badge est choisie par `condition_deblocage`, voir `iconeBadge(badge)` dans `src/lib/badges.js`)
+- `description` (texte lisible, non lue par le code)
 
 ### `user_badges`
 

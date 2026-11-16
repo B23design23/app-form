@@ -8,7 +8,7 @@ export async function ajouterXp(authUser, montant) {
 
 export async function verifierBadges(authUser) {
   const [badgesRes, userBadgesRes, scoresRes, progressionRes] = await Promise.all([
-    supabase.from('badges').select('id, nom, icone, condition_deblocage'),
+    supabase.from('badges').select('id, nom, condition_deblocage'),
     supabase.from('user_badges').select('badge_id').eq('user_id', authUser.id),
     supabase.from('scores').select('type, score').eq('user_id', authUser.id),
     supabase.from('progression').select('statut, checklist_terminee').eq('user_id', authUser.id),

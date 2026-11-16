@@ -1,5 +1,5 @@
 // Objets 3D des badges (Fluent Emoji, Microsoft, licence MIT), servis depuis public/illustrations.
-// Choisis par condition de déblocage (stable) , pas par la colonne badges.icone.
+// Choisis par condition de déblocage (stable), pas par la colonne badges.icone (non lue).
 const IMAGES_BADGE = {
   premier_quiz_complete: 'chaussure-course',
   premiere_checklist_completee: 'sur-le-terrain',
