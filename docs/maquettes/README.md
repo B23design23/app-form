@@ -7,7 +7,7 @@ Ces fichiers sont des **références visuelles**, pas du code à copier.
 - Lis la disposition dans le HTML. Les valeurs (couleurs, rayons, espacements, typographie) viennent du DS, pas de la maquette.
 - Reconstruis avec les composants React et les tokens CSS existants du projet. Ne recopie pas les styles en ligne.
 - Les données affichées sont fictives (prénoms, titres de cours, XP, compteurs) : les vraies viennent de Supabase.
-- Les règles écrites (CLAUDE.md et instructions du lot) restent la source de vérité. Une maquette montre un état figé. Elle ne dit pas quand un bloc apparaît, disparaît ou passe en tête.
+- Les règles écrites (`docs/ecrans/`, `CLAUDE.md` et instructions du lot) restent la source de vérité. Une maquette montre un état figé. Elle ne dit pas quand un bloc apparaît, disparaît ou passe en tête.
 - En cas d'écart entre une maquette et une instruction, suis l'instruction et signale l'écart.
 
 ## Images
