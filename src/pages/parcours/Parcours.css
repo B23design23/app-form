@@ -72,8 +72,6 @@
   max-width: 80%;
   aspect-ratio: 1;
   object-fit: contain;
-  /* Ombre d'illustration (regles-agent.md, section 5, Ombres) */
-  filter: drop-shadow(var(--ombre-illustration));
 }
 
 /* Introduction sur un écran bas (mise-en-page.md, section 8 : exception écrite, sous 667 px de
