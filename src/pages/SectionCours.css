@@ -75,13 +75,18 @@
   height: 52px;
 }
 
+/* Ordre à l'écran : objet (ordre 0, par défaut), « Thème N », nom, état. Dans le DOM, le nom (h3) vient avant « Thème N »
+   pour être lu en premier (ds-principes-composants.md, Carte cliquable : le reste du contenu est lu
+   après le titre) */
 /* Surtitre « Thème N » : texte-accent, comme le Détail d'un thème (décision 28, C3) */
 .theme-carte-numero {
+  order: 1;
   font: var(--typo-surtitre);
   color: var(--texte-accent);
 }
 
 .theme-carte-titre {
+  order: 2;
   width: 100%;
   margin-top: var(--espace-textes);
   font: var(--typo-titre-carte);
@@ -95,6 +100,7 @@
 }
 
 .theme-carte-bas {
+  order: 3;
   margin-top: auto; /* ancré en bas : alignement identique quelle que soit la longueur du titre */
   padding-top: var(--espace-groupes);
   /* rôle du texte qu'il porte (Méta) : la ligne garde sa hauteur, la carte n'étant plus un bouton */

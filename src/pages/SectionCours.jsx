@@ -44,12 +44,13 @@ function CarteTheme({ nom, index, termines, commences, total, onClick }) {
         <img className="theme-carte-objet" src={imageTheme(nom)} alt="" />
         <Icone svg={iconeChevron} className="chevron-ligne" />
       </span>
-      <span className="theme-carte-numero">Thème {index + 1}</span>
+      {/* Titre avant « Thème N » dans le DOM (lu d'abord, fiche Carte) ; l'ordre à l'écran est rétabli en CSS */}
       <h3 className="theme-carte-titre">
         <button type="button" className="carte-cliquable-bouton" onClick={onClick}>
           {nom}
         </button>
       </h3>
+      <span className="theme-carte-numero">Thème {index + 1}</span>
       <span className="theme-carte-bas">
         {termine ? (
           <StatutBadge statut="termine" />
