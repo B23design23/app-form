@@ -716,6 +716,8 @@ Rendu : extrémité arrondie, départ en haut, pourcentage au centre ; sans donn
 
 Fond `fond-inverse`, texte `texte-sur-inverse`, pastille XP en `fond-recompense` avec texte `texte-principal`.
 
+Un toast informatif n'a aucune action ni élément focalisable ; il est annoncé par `role="status"` et se ferme seul ; la fermeture au clic n'est qu'un raccourci.
+
 ### Pastille « Bloquante »
 
 Texte `texte-erreur` sur fond `fond-erreur`.

@@ -469,6 +469,8 @@ Une règle commune pour tout élément interactif (décision du 12/11) : fond `f
 
 Fond `fond-inverse`, texte `texte-sur-inverse`, pastille XP en `fond-recompense` avec texte `texte-principal`.
 
+Un toast informatif n'a aucune action ni élément focalisable ; il est annoncé par `role="status"` et se ferme seul ; la fermeture au clic n'est qu'un raccourci.
+
 ## Navigation
 
 - Mobile : tab bar flottante en bas, fond `fond-inverse`, rayon Surface (rôle dans `docs/tokens/rayons.md`), position de la barre (côtés à 12 px sous 768, au lieu de la marge de page, et bas à 20 px : exception écrite de `docs/tokens/espacements.md`, section 9) et padding des entrées dans `docs/tokens/espacements.md`, 4 entrées avec icône et libellé, l'entrée Menu plus étroite que les onglets (même exception).
