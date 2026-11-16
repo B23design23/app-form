@@ -25,11 +25,9 @@
 
 .ligne-cours-titre {
   font: var(--typo-titre-ligne);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
+  /* jamais coupé au milieu d'un mot : voir « Ligne de cours » plus bas */
+  hyphens: manual;
+  -webkit-hyphens: manual;
   overflow-wrap: break-word;
   text-wrap: balance;
   transition: all 0.15s ease;
@@ -50,44 +48,36 @@
   margin-top: 14px;
 }
 
-/* Ligne de cours à une colonne (ds-principes-composants.md, Ligne de liste) : jusqu'à 375 px de
-   large, le statut passe sous le titre, pour qu'aucun titre ne soit coupé au milieu d'un mot */
-@media (max-width: 375px) {
-  /* Aucun titre coupé au milieu d'un mot à 320 et 375 (décision 25) : pas de césure automatique,
-     qui coupe aussi un mot qui tiendrait sur la ligne suivante ; filet : coupure sans tiret plutôt
-     que débordement (overflow-wrap) */
-  .ligne-cours-titre {
-    hyphens: manual;
-    -webkit-hyphens: manual;
-  }
+/* Ligne de cours (ds-principes-composants.md, Ligne de liste) : le titre n'est jamais coupé au milieu
+   d'un mot (pas de césure automatique, qui coupe aussi un mot qui tiendrait sur la ligne suivante ;
+   filet : coupure sans tiret plutôt que débordement, overflow-wrap) ; le statut passe sous le titre
+   dès que le titre devrait couper un mot, à toutes les largeurs (classe posée par useStatutSousTitre) */
+.ligne-liste.ligne-cours.statut-sous-titre:has(.ligne-cours-statut) {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'vignette texte chevron'
+    'vignette statut chevron';
+  column-gap: var(--espace-rangee);
+  /* statut sous le texte : Deux textes d'un groupe */
+  row-gap: var(--espace-textes);
+}
 
-  .ligne-liste.ligne-cours:has(.ligne-cours-statut) {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
-    grid-template-areas:
-      'vignette texte chevron'
-      'vignette statut chevron';
-    column-gap: var(--espace-rangee);
-    /* statut sous le texte : Deux textes d'un groupe */
-    row-gap: var(--espace-textes);
-  }
+.statut-sous-titre .ligne-cours-vignette {
+  grid-area: vignette;
+}
 
-  .ligne-cours-vignette {
-    grid-area: vignette;
-  }
+.statut-sous-titre .ligne-cours-texte {
+  grid-area: texte;
+}
 
-  .ligne-cours-texte {
-    grid-area: texte;
-  }
+.statut-sous-titre .ligne-cours-statut {
+  grid-area: statut;
+  justify-self: start;
+}
 
-  .ligne-cours-statut {
-    grid-area: statut;
-    justify-self: start;
-  }
-
-  .ligne-cours-chevron {
-    grid-area: chevron;
-  }
+.statut-sous-titre .ligne-cours-chevron {
+  grid-area: chevron;
 }
 
 /* Desktop : une seule carte, lignes sur 2 colonnes (écart Colonnes), contenu aligné en haut,

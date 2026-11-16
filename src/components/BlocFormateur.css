@@ -74,38 +74,27 @@
   flex: 1;
   min-width: 0;
   font: var(--typo-titre-ligne);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
+  hyphens: manual;
+  -webkit-hyphens: manual;
   overflow-wrap: break-word;
   text-wrap: balance;
   transition: all 0.15s ease;
 }
 
-/* Ligne de cours à une colonne (ds-principes-composants.md, Ligne de liste) : jusqu'à 375 px de
-   large, le statut passe sous le titre, pour qu'aucun titre ne soit coupé au milieu d'un mot */
-@media (max-width: 375px) {
-  /* Aucun titre coupé au milieu d'un mot à 320 et 375 (décision 25) : pas de césure automatique,
-     qui coupe aussi un mot qui tiendrait sur la ligne suivante ; filet : coupure sans tiret plutôt
-     que débordement (overflow-wrap) */
-  .bloc-formateur-titre {
-    hyphens: manual;
-    -webkit-hyphens: manual;
-  }
+/* Ligne de cours (ds-principes-composants.md, Ligne de liste) : le titre n'est jamais coupé au milieu
+   d'un mot (pas de césure automatique ; filet overflow-wrap) ; le statut passe sous le titre dès que
+   le titre devrait couper un mot, à toutes les largeurs (classe posée par useStatutSousTitre) */
+.statut-sous-titre .bloc-formateur-texte {
+  flex-direction: column;
+  align-items: flex-start;
+  /* statut sous le titre : Deux textes d'un groupe */
+  gap: var(--espace-textes);
+}
 
-  .bloc-formateur-texte {
-    flex-direction: column;
-    align-items: flex-start;
-    /* statut sous le titre : Deux textes d'un groupe */
-    gap: var(--espace-textes);
-  }
-
-  .bloc-formateur-titre {
-    flex: none;
-    align-self: stretch;
-  }
+/* Pas de changement de flex sur le titre : sa transition (all) fausserait la mesure du hook ; en colonne,
+   flex: 1 n'a pas d'effet sur la hauteur */
+.statut-sous-titre .bloc-formateur-titre {
+  align-self: stretch;
 }
 
 /* Page Cours, desktop : colonnes automatiques, pastille sous le titre, séparateurs entre rangées */

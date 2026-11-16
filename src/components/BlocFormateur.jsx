@@ -5,6 +5,26 @@ import iconeFormateur from '../Assets/graduation.svg?raw'
 import iconeChevron from '../Assets/chevron-right.svg?raw'
 import './BlocFormateur.css'
 import { typo } from '../lib/typographie'
+import { useStatutSousTitre } from './useStatutSousTitre'
+
+// Ligne de cours du bloc : le statut passe sous le titre dès que le titre devrait couper un mot
+function LigneFormateur({ cours, statut, avecChevron, onOuvrirCours }) {
+  const ref = useStatutSousTitre('.bloc-formateur-titre', cours.titre)
+  return (
+    <li>
+      <button ref={ref} type="button" className="ligne-liste bloc-formateur-ligne" onClick={() => onOuvrirCours(cours.id)}>
+        <span className="vignette-theme">
+          <img src={imageTheme(cours.categorie)} alt="" />
+        </span>
+        <span className="bloc-formateur-texte">
+          <span className="bloc-formateur-titre">{typo(cours.titre)}</span>
+          <StatutBadge statut={statut} />
+        </span>
+        {avecChevron && <Icone svg={iconeChevron} className="chevron-ligne" />}
+      </button>
+    </li>
+  )
+}
 
 // Bloc « De ton formateur » partagé : dashboard apprenant (cours à faire, lien « Tout voir ») et
 // page Cours (bibliothèque complète, compteur, chevrons, 3 colonnes sur desktop).
@@ -21,18 +41,7 @@ function BlocFormateur({ id, lignes, actionEntete, avecChevron = false, grille =
       </div>
       <ul className="bloc-formateur-liste">
         {lignes.map(({ cours, statut }) => (
-          <li key={cours.id}>
-            <button type="button" className="ligne-liste bloc-formateur-ligne" onClick={() => onOuvrirCours(cours.id)}>
-              <span className="vignette-theme">
-                <img src={imageTheme(cours.categorie)} alt="" />
-              </span>
-              <span className="bloc-formateur-texte">
-                <span className="bloc-formateur-titre">{typo(cours.titre)}</span>
-                <StatutBadge statut={statut} />
-              </span>
-              {avecChevron && <Icone svg={iconeChevron} className="chevron-ligne" />}
-            </button>
-          </li>
+          <LigneFormateur key={cours.id} cours={cours} statut={statut} avecChevron={avecChevron} onOuvrirCours={onOuvrirCours} />
         ))}
       </ul>
     </div>

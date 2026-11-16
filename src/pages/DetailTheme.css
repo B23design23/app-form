@@ -84,11 +84,8 @@
 
 .theme-ligne-titre {
   font: var(--typo-titre-ligne);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
+  hyphens: manual;
+  -webkit-hyphens: manual;
   overflow-wrap: break-word;
   text-wrap: balance;
   transition: all 0.15s ease;
@@ -99,38 +96,31 @@
   color: var(--texte-secondaire);
 }
 
-/* Ligne de cours à une colonne (ds-principes-composants.md, Ligne de liste) : jusqu'à 375 px de
-   large, le statut passe sous le titre, et pas de césure automatique (décision 25 : aucun titre
-   coupé au milieu d'un mot à 320 et 375 ; filet overflow-wrap gardé) */
-@media (max-width: 375px) {
-  .ligne-liste.theme-ligne {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      'texte chevron'
-      'statut chevron';
-    column-gap: var(--espace-rangee);
-    /* statut sous le texte : Deux textes d'un groupe */
-    row-gap: var(--espace-textes);
-  }
+/* Ligne de cours (ds-principes-composants.md, Ligne de liste) : le titre n'est jamais coupé au milieu
+   d'un mot (pas de césure automatique ; filet overflow-wrap) ; le statut passe sous le titre dès que
+   le titre devrait couper un mot, à toutes les largeurs (classe posée par useStatutSousTitre) */
+.ligne-liste.theme-ligne.statut-sous-titre {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'texte chevron'
+    'statut chevron';
+  column-gap: var(--espace-rangee);
+  /* statut sous le texte : Deux textes d'un groupe */
+  row-gap: var(--espace-textes);
+}
 
-  .theme-ligne-texte {
-    grid-area: texte;
-  }
+.statut-sous-titre .theme-ligne-texte {
+  grid-area: texte;
+}
 
-  .theme-ligne .statut-badge {
-    grid-area: statut;
-    justify-self: start;
-  }
+.statut-sous-titre.theme-ligne .statut-badge {
+  grid-area: statut;
+  justify-self: start;
+}
 
-  .theme-ligne .chevron-ligne {
-    grid-area: chevron;
-  }
-
-  .theme-ligne-titre {
-    hyphens: manual;
-    -webkit-hyphens: manual;
-  }
+.statut-sous-titre.theme-ligne .chevron-ligne {
+  grid-area: chevron;
 }
 
 @media (min-width: 768px) {

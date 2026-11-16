@@ -338,7 +338,7 @@ Un élément répété dans une carte : cours (Terrain, recherche, « De ton for
 
 Anatomie
 Padding Ligne de liste, rayon Élément, fond transparent, séparateur `bordure-separateur` de 1 px entre deux lignes (voir Séparateur). Variante à fond : fond `fond-sur-carte`, padding de bloc sur carte, sans séparateur. Ligne cliquable : survol et appui `fond-accent`, chevron.
-- Ligne de cours à une colonne (décision du 12/11) : sous 375 px de large, le statut passe sous le titre ; aucun titre coupé au milieu d'un mot à 320 et 375 (césure des titres, section Typographie).
+- Ligne de cours à une colonne (décision du 12/11, révisée le 16/11) : le statut passe sous le titre dès que le titre devrait couper un mot, à toutes les largeurs ; sinon il reste à côté du titre. Le titre n'est jamais coupé au milieu d'un mot : pas de césure automatique ; filet, coupure sans tiret plutôt que débordement, seulement si un mot ne tient pas sur toute la largeur du texte. Même règle pour une ligne de cours posée dans une liste en colonnes (Terrain, résultats de recherche). Dans le code : `useStatutSousTitre` (`src/components/useStatutSousTitre.js`) pose la classe `statut-sous-titre` sur la ligne.
 
 Règle principale
 Une seule implémentation (classe commune `.ligne-liste`, `src/styles/shared.css`).

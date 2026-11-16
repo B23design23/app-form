@@ -10,6 +10,24 @@ import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './DetailTheme.css'
 import { typo } from '../lib/typographie'
+import { useStatutSousTitre } from '../components/useStatutSousTitre'
+
+// Ligne de cours du thème : le statut passe sous le titre dès que le titre devrait couper un mot
+function LigneTheme({ cours, statut, onOuvrirCours }) {
+  const ref = useStatutSousTitre('.theme-ligne-titre', cours.titre)
+  return (
+    <li>
+      <button ref={ref} type="button" className="ligne-liste theme-ligne" onClick={() => onOuvrirCours(cours.id)}>
+        <span className="theme-ligne-texte">
+          <span className="theme-ligne-titre">{typo(cours.titre)}</span>
+          <span className="theme-ligne-contenu">{contenuCours(cours)}</span>
+        </span>
+        <StatutBadge statut={statut} />
+        <Icone svg={iconeChevron} className="chevron-ligne" />
+      </button>
+    </li>
+  )
+}
 
 function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
   const [coursListe, setCoursListe] = useState(null)
@@ -84,16 +102,12 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
         // Ordre pédagogique (cours.ordre) : le cours en cours ne remonte pas, sa pastille le signale.
         <ul className="carte carte-liste theme-liste">
           {coursListe.map((cours) => (
-            <li key={cours.id}>
-              <button type="button" className="ligne-liste theme-ligne" onClick={() => onOuvrirCours(cours.id)}>
-                <span className="theme-ligne-texte">
-                  <span className="theme-ligne-titre">{typo(cours.titre)}</span>
-                  <span className="theme-ligne-contenu">{contenuCours(cours)}</span>
-                </span>
-                <StatutBadge statut={statutParCoursId.get(cours.id) ?? 'non_commence'} />
-                <Icone svg={iconeChevron} className="chevron-ligne" />
-              </button>
-            </li>
+            <LigneTheme
+              key={cours.id}
+              cours={cours}
+              statut={statutParCoursId.get(cours.id) ?? 'non_commence'}
+              onOuvrirCours={onOuvrirCours}
+            />
           ))}
         </ul>
       )}
