@@ -393,7 +393,7 @@ Source : `ds-principes-composants.md`, « États de page ».
 ### Modale
 
 - **Rôle** : afficher un contenu court par-dessus la page sans la quitter : un formulaire ou un choix (créer un groupe, assigner un cours, ajouter une vidéo).
-- **Quand l'utiliser, quand choisir le voisin** : pour une saisie ou un choix lié à la page en cours. Le voisin est la Modale de confirmation, pour faire confirmer une action qu'on ne peut pas défaire. Les autres cas : À trancher.
+- **Quand l'utiliser, quand choisir le voisin** : pour une saisie ou un choix lié à la page en cours. Le voisin est la Modale de confirmation, pour faire confirmer une action qu'on ne peut plus retrouver. Les autres cas : À trancher.
 - **Anatomie** : voile `fond-voile` derrière ; mobile, feuille qui monte du bas avec une poignée ; desktop, carte centrée, deux largeurs : étroite 440 px (Nouveau groupe, Modale de confirmation), standard 520 px (Assigner des cours, Insérer une vidéo, Mes badges) ; ombre `--ombre-flottante`. Titre, sous-titre facultatif, bouton rond « Fermer » de 44 (croix, le même dans toutes les modales), contenu, zone d'actions facultative. Le composant sert aux deux modes (apprenant et formateur) et lit les mêmes sémantiques : le mode fournit la valeur.
 - **Comportement** : Échap, clic sur le voile et bouton « Fermer » ferment la modale. Rôle `dialog`, `aria-modal`, nom accessible = titre.
 - **DO** : laisser les trois façons de fermer (Échap, clic sur le voile, bouton « Fermer »).
@@ -403,12 +403,12 @@ Source : `ds-principes-composants.md`, « États de page ».
 
 ### Modale de confirmation
 
-- **Rôle** : faire confirmer une action qu'on ne peut pas défaire (principe 2).
+- **Rôle** : faire confirmer une action qu'on ne peut plus retrouver (principe 2).
 - **Quand l'utiliser** : avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
 - **Anatomie** : une Modale étroite ; titre (la question posée), texte facultatif, « Annuler », puis le bouton qui confirme (libellé « Supprimer » par défaut). Annuler en secondaire, confirmation en rouge plein. Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
 - **Comportement** : Le bouton qui confirme nomme le verbe et l'objet de l'action (Supprimer mon compte, Supprimer le cours). À l'ouverture, le focus va sur Annuler, l'action la moins destructrice. Tab reste dans la modale. Échap la ferme.
 - **DO** : toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
-- **DON'T** : lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 2).
+- **DON'T** : lancer une action qu'on ne peut plus retrouver sans cette confirmation (principe 2).
 - **Fichier à réutiliser** : `src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
 
 ### Menu d'actions

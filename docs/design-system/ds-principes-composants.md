@@ -242,7 +242,7 @@ Rôle
 Afficher un contenu court par-dessus la page sans la quitter : un formulaire ou un choix (créer un groupe, assigner un cours, ajouter une vidéo).
 
 Quand l'utiliser
-Pour une saisie ou un choix lié à la page en cours. Pour faire confirmer une action qu'on ne peut pas défaire, on prend la Modale de confirmation. Les autres cas : À trancher.
+Pour une saisie ou un choix lié à la page en cours. Pour faire confirmer une action qu'on ne peut plus retrouver, on prend la Modale de confirmation. Les autres cas : À trancher.
 
 Anatomie
 Voile `fond-voile` derrière. Mobile : feuille qui monte du bas, avec une poignée. Desktop : carte centrée. Ombre `--ombre-flottante`. Titre, sous-titre facultatif, bouton rond « Fermer » (croix), contenu, zone d'actions facultative.
@@ -267,7 +267,7 @@ Fichier
 ## Modale de confirmation
 
 Rôle
-Faire confirmer une action qu'on ne peut pas défaire (principe 2).
+Faire confirmer une action qu'on ne peut plus retrouver (principe 2).
 
 Quand l'utiliser
 Avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
@@ -282,7 +282,7 @@ DO
 Toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
 
 DON'T
-Lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 2).
+Lancer une action qu'on ne peut plus retrouver sans cette confirmation (principe 2).
 
 Fichier
 `src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
