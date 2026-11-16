@@ -353,7 +353,10 @@
 
 .dash-conseille .dash-titre-carte,
 .dash-conseille .dash-sous-texte {
-  max-width: 210px;
+  /* Borne interne de 210 (mise-en-page.md, section 3) ; sous 768, l'objet en bas à droite est à côté
+     du texte : réserve horizontale (mise-en-page.md, section 3, axe de la réserve ; espacements.md,
+     section 8 : réserve de l'objet 3D, emprise dans la zone de contenu 108 − 6 − 20 = 82) */
+  max-width: min(210px, 100% - 82px);
 }
 
 .dash-conseille-bouton {
@@ -681,11 +684,21 @@
 
 .dash-bibliotheque .dash-titre-carte,
 .dash-bibliotheque .dash-sous-texte {
-  max-width: 210px;
+  /* Même réserve que B (objet en bas à droite, à côté du texte sous 768) */
+  max-width: min(210px, 100% - 82px);
 }
 
 /* Desktop */
 @media (min-width: 768px) {
+
+  /* B et K : à partir de 768, l'objet est sous le texte (carte étirée à la hauteur de sa voisine) ou
+     loin de lui (pleine largeur) : pas de réserve horizontale, la borne interne de 210 suffit */
+  .dash-conseille .dash-titre-carte,
+  .dash-conseille .dash-sous-texte,
+  .dash-bibliotheque .dash-titre-carte,
+  .dash-bibliotheque .dash-sous-texte {
+    max-width: 210px;
+  }
 
   .dash-xp img {
     width: 30px;
