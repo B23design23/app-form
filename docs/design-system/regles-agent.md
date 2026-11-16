@@ -335,7 +335,7 @@ Source : `ds-principes-composants.md`.
 | Repos | fond `fond-sur-carte` sur une carte blanche, `fond-surface` sur le fond de page ; bordure 2 px `bordure-controle` (champ d'une ligne, multiligne, recherche, liste déroulante ; éditeur de leçon : sur son bloc) ; texte saisi `texte-principal` |
 | Survol | aucun : le champ ne change pas au survol |
 | Actif (saisie) | contour `bordure-focus` (« champ actif »), dessiné à l'intérieur du champ |
-| Focus clavier | contour `bordure-focus`, dessiné à l'intérieur du champ, pas de contour à l'extérieur |
+| Focus clavier | contour `bordure-focus`, dessiné à l'intérieur du champ, pas de contour à l'extérieur ; liste déroulante : au clavier seulement (`:focus-visible`), comme un bouton |
 | Désactivé | fond `fond-action-desactive`, texte `texte-action-desactive`, sans opacité (même rendu que le bouton désactivé) |
 | Erreur | message sous le champ en `texte-erreur` ; contour `bordure-erreur` (« champ en erreur ») et `aria-invalid` sur le champ lié au message, jamais la couleur seule. Erreur qui vise une section entière (QCM, checklist de Création de cours) : message sous la section, aucun champ marqué |
 | Autoremplissage | le champ garde le fond qu'il a au repos, sur tous les champs, multilignes compris (ombre intérieure pleine, exception au registre de la section 5, « Ombres ») |

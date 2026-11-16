@@ -6,16 +6,12 @@
   width: 100%;
   min-height: 48px;
   padding: 0 var(--espace-champ);
-  /* ds-principes-composants.md, Champ : bordure de 2 px au repos, même épaisseur au focus et en
-     erreur (dessinée à l'intérieur : jamais rognée, rien ne bouge) */
-  border: 2px solid var(--bordure-controle);
+  /* Bordure, police, fond (--fond-champ) et couleur : règle commune des champs (shared.css) */
   border-radius: var(--rayon-pilule);
-  font: var(--typo-saisie-choix);
-  background: var(--fond-sur-carte);
-  color: var(--texte-principal);
   cursor: pointer;
 }
 
+/* ds-principes-composants.md, Champ : le focus de la liste déroulante suit le clavier, comme un bouton */
 .dropdown-trigger:focus-visible {
   border-color: var(--bordure-focus);
   outline: none;

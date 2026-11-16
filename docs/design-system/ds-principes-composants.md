@@ -113,7 +113,7 @@ Couleur `texte-secondaire` sur tous les champs (opacité 1), rôle Saisie et cho
 États
 - Repos : bordure 2 px `bordure-controle`.
 - Survol : aucun. Le champ ne change pas au survol.
-- Focus : la bordure de 2 px passe en `bordure-focus` (dessinée à l'intérieur), pas de contour à l'extérieur.
+- Focus : la bordure de 2 px passe en `bordure-focus` (dessinée à l'intérieur), pas de contour à l'extérieur. Le focus de la liste déroulante suit le clavier, comme un bouton (`:focus-visible`) : la bordure ne change pas au clic de souris.
 - Erreur : message rouge sous le champ, contour `bordure-erreur` et `aria-invalid` sur le champ lié au message. Erreur qui vise une section entière (QCM, checklist de Création de cours) : message sous la section, aucun champ marqué.
 - Désactivé : même rendu que le bouton désactivé, fond `fond-action-desactive`, texte `texte-action-desactive`, sans opacité.
 - Autoremplissage : le champ garde le fond qu'il a au repos, une règle commune à tous les champs, multilignes compris.
