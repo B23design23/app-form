@@ -630,7 +630,7 @@ function CarteActivite({ donnees, idsEleves, onOuvrirGroupe }) {
                         <strong>{typo(ligne.titreCours)}</strong>
                       </span>
                       <span className="fd-evenement-details">
-                        {ligne.groupe && <span className="fd-pastille-groupe">{typo(ligne.groupe.nom)}</span>}
+                        {ligne.groupe && <span className="pastille fm-pastille-groupe">{typo(ligne.groupe.nom)}</span>}
                         <span className="fd-evenement-statut">
                           <StatutBadge statut={ligne.statut === 'termine' ? 'termine' : 'en_cours'} />
                           {/* Meilleur score à côté du statut, hors du composant */}

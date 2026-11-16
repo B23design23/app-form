@@ -544,15 +544,6 @@
   display: none;
 }
 
-.fd-pastille-groupe {
-  padding: var(--espace-pastille-vertical) var(--espace-pastille-horizontal);
-  border-radius: var(--rayon-pilule);
-  background: var(--fond-sur-carte);
-  font: var(--typo-pastille);
-  color: var(--texte-secondaire);
-  white-space: nowrap;
-}
-
 .fd-evenement-statut {
   display: inline-flex;
   align-items: center;
