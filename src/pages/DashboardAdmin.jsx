@@ -85,7 +85,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
 
       <section className="espace-carte fd-carte">
         <div className="fd-carte-entete">
-          <h2>Cours les plus suivis</h2>
+          <h2 className="titre-section">Cours les plus suivis</h2>
           <button type="button" className="lien-texte fd-lien" onClick={() => onChangerSection('cours')}>
             Tous les cours
           </button>

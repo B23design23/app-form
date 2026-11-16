@@ -181,18 +181,6 @@
   gap: var(--espace-groupes);
 }
 
-.espace-page h2 {
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  margin: 0;
-  color: var(--texte-principal);
-}
-
 .espace-carte {
   background: var(--fond-surface);
   border-radius: var(--rayon-surface);

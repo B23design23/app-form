@@ -15,7 +15,7 @@
   padding: var(--espace-ligne);
 }
 
-.espace-page .bloc-formateur-entete h2 {
+.bloc-formateur-entete h2 {
   flex: 1;
   margin: 0;
   font: var(--typo-titre-section);

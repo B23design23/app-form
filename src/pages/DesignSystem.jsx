@@ -40,7 +40,7 @@ function Section({ numero, surtitre, titre, intention, children }) {
       <span className="fiche-entete-theme">
         {numero} · {surtitre}
       </span>
-      <h2 id={`ds-${numero}`}>{titre}</h2>
+      <h2 id={`ds-${numero}`} className="titre-section">{titre}</h2>
       <p className="ds-intention">{intention}</p>
       {children}
     </section>

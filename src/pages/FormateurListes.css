@@ -42,8 +42,8 @@
   min-width: 0;
 }
 
-/* Titre de la carte (h2) : deux classes, pour l'emporter sur le titre de section de .espace-page h2 */
-.fl-carte .fl-carte-titre {
+/* Titre de la carte (h2) */
+.fl-carte-titre {
   font: var(--typo-titre-carte);
   hyphens: auto;
   -webkit-hyphens: auto;

@@ -354,7 +354,7 @@ function CarteGroupes({ donnees, onChangerSection, onOuvrirGroupe }) {
   return (
     <section className="espace-carte fd-carte fd-zone-groupes">
       <div className="fd-carte-entete">
-        <h2>Tes groupes</h2>
+        <h2 className="titre-section">Tes groupes</h2>
         <button type="button" className="lien-texte fd-lien" onClick={() => onChangerSection('groupes')}>
           Tout voir
         </button>
@@ -413,7 +413,7 @@ function CarteRelances({ relances }) {
   return (
     <section className="espace-carte fd-carte fd-zone-relances">
       <div className="fd-carte-entete">
-        <h2>Élèves à relancer</h2>
+        <h2 className="titre-section">Élèves à relancer</h2>
       </div>
 
       {relances.length === 0 ? (
@@ -574,7 +574,7 @@ function CarteActivite({ donnees, idsEleves, onOuvrirGroupe }) {
   return (
     <section className="espace-carte fd-carte fd-activite">
       <div className="fd-activite-entete">
-        <h2>Activité récente</h2>
+        <h2 className="titre-section">Activité récente</h2>
         <div className="fd-activite-controles">
           <div className="fd-filtres" role="group" aria-label="Filtrer l’activité">
             {FILTRES_ACTIVITE.map((f) => (
@@ -694,7 +694,7 @@ function PremiersPas({ donnees, onCreerCours, onCreerGroupe, onOuvrirGroupe }) {
   return (
     <section className="fd-demarrage">
       <div className="fd-carte-entete">
-        <h2>Pour bien démarrer</h2>
+        <h2 className="titre-section">Pour bien démarrer</h2>
         <span className="fd-demarrage-compteur">
           {faites} étape{faites > 1 ? 's' : ''} sur 3
         </span>

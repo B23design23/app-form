@@ -103,16 +103,6 @@
   gap: var(--espace-rangee);
 }
 
-.espace-page .fd-carte-entete h2 {
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 .fd-relances-suite {
   display: flex;
   justify-content: center;
@@ -406,16 +396,6 @@
   padding: var(--espace-ligne);
 }
 
-.espace-page .fd-activite-entete h2 {
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 .fd-activite-controles {
   display: flex;
   flex-direction: column;
@@ -565,16 +545,6 @@
   padding: var(--espace-surface);
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
-}
-
-.espace-page .fd-demarrage h2 {
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .fd-demarrage-compteur {

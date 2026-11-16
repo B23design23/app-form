@@ -15,7 +15,7 @@
   gap: var(--espace-groupes);
 }
 
-.espace-page .page-cours-h2 {
+.page-cours-h2 {
   margin: 0;
   font: var(--typo-titre-section);
   hyphens: auto;

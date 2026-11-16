@@ -59,7 +59,7 @@
   flex-direction: column;
 }
 
-.dash-page .dash-carte h2 {
+.dash-carte h2 {
   margin: 0;
   color: inherit;
 }
@@ -129,7 +129,7 @@
   color: var(--texte-sur-marque-attenue);
 }
 
-.dash-page .dash-titre-carte {
+.dash-titre-carte {
   font: var(--typo-titre-carte);
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -323,7 +323,7 @@
 }
 
 /* Titre du bloc de tête : Titre mis en avant, 3 lignes max, césure des titres */
-.dash-page .dash-titre-tete {
+.dash-titre-tete {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -390,7 +390,7 @@
   padding: var(--espace-surface);
 }
 
-.dash-page .dash-flash-tete-titre {
+.dash-flash-tete-titre {
   max-width: 200px;
   font: var(--typo-titre-mis-en-avant);
   hyphens: auto;
@@ -434,7 +434,7 @@
   min-width: 0;
 }
 
-.dash-page .dash-flash-ligne-texte h2 {
+.dash-flash-ligne-texte h2 {
   font: var(--typo-titre-carte);
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -507,7 +507,7 @@
   min-width: 0;
 }
 
-.dash-page .dash-flash-verrouille-texte h2 {
+.dash-flash-verrouille-texte h2 {
   font: var(--typo-titre-carte);
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -850,7 +850,7 @@
     min-width: 320px;
   }
 
-  .dash-page .dash-flash-tete-titre {
+  .dash-flash-tete-titre {
     max-width: calc(100% - 200px);
   }
 

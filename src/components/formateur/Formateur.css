@@ -49,7 +49,6 @@
   gap: var(--espace-groupes);
 }
 
-.espace-page .fm-carte h2,
 .fm-carte h2 {
   margin: 0;
   font: var(--typo-titre-section);
