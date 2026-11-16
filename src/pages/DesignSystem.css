@@ -161,9 +161,28 @@
   border-radius: var(--rayon-pilule);
 }
 
-.ds-corps {
+/* Échantillon d'un rôle typographique : le rôle est posé par l'attribut style (font: var(--typo-…)) */
+.ds-typo-echantillon {
   margin: 0;
-  font: var(--typo-corps-courant);
+  color: var(--texte-principal);
+}
+
+/* Rôles de titre : césure des titres (docs/tokens/typographie.md, section 11) */
+.ds-typo-echantillon-titre {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+/* Titre de ligne : pas de césure automatique (docs/tokens/typographie.md, section 11) */
+.ds-typo-echantillon-ligne {
+  hyphens: manual;
+  overflow-wrap: break-word;
+  text-wrap: balance;
 }
 
 .ds-echelle {
@@ -177,12 +196,15 @@
 
 .ds-echelle li {
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  /* la colonne de la barre ne s'élargit pas pour elle (la barre est plafonnée, voir .ds-barre) */
+  grid-template-columns: 80px minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--espace-rangee);
 }
 
 .ds-barre {
+  /* barre plafonnée à la largeur de sa colonne : pas de débord sous 768 */
+  max-width: 100%;
   height: 8px;
   border-radius: var(--rayon-pilule);
   background: var(--fond-marque);

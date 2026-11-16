@@ -18,6 +18,7 @@ import {
   rayons,
   regleLecturePrimitif,
   regleOmbres,
+  rolesTypo,
   semantiquesParRole,
   typographie,
   versionActuelle,
@@ -31,8 +32,6 @@ import './DesignSystem.css'
 // Extrait du Design System, route /design-system (sans connexion, hors navigation). Valeurs, noms et
 // descriptions lus au build (tokens/, docs/, :root de shared.css) ; éléments rendus avec les vrais
 // composants et classes de l'app, stylés par tokens.generes.css.
-
-const PROVISOIRE = 'Provisoire, pas encore tokenisé'
 
 function Section({ numero, surtitre, titre, intention, children }) {
   return (
@@ -170,27 +169,39 @@ function Couleurs() {
 
 // --- 02 Typographie -------------------------------------------------------------------------------
 
-const ECHANTILLONS_TYPO = [
-  { nom: 'H1, titre de page', large: true, rendu: (ref) => <h1 ref={ref}>Salut Léa</h1> },
-  { nom: 'Titre de cours', large: true, rendu: (ref) => <p ref={ref} className="fiche-entete-titre">Le split mural</p> },
-  { nom: 'Question de quiz', large: true, rendu: (ref) => <p ref={ref} className="fiche-quiz-question">Quel fluide a le plus faible GWP ?</p> },
-  { nom: 'Corps', rendu: (ref) => <p ref={ref} className="ds-corps">Une leçon courte, puis le quiz et la checklist.</p> },
-  { nom: 'Étiquette', rendu: (ref) => <span ref={ref} className="fiche-entete-theme">Thermodynamique</span> },
-]
+// Texte d'exemple selon le rôle (les nombres pour les rôles de nombre)
+const TEXTE_ECHANTILLON = {
+  'typo-chiffre': '80\u202F%',
+  'typo-chiffre-grand': '80\u202F%',
+  'typo-compteur': '3 / 5',
+  'typo-pastille': 'En cours',
+  'typo-bouton': 'Continuer le cours',
+  'typo-lien-texte': 'Tout voir',
+  'typo-navigation': 'Cours',
+  'typo-libelle-champ': 'Email',
+  'typo-saisie-choix': 'Rechercher un cours',
+  'typo-surtitre': 'Thermodynamique',
+  'typo-meta': 'Leçon · Quiz · 5 min',
+}
+const TEXTE_DEFAUT = 'Le split mural, du montage au premier démarrage'
 
-// Taille et graisse lues sur l'élément rendu (pas de token de typographie à lire au build)
-function EchantillonTypo({ nom, large, rendu }) {
+// Un échantillon par rôle (rolesTypo, tiré des tokens typo-…) ; taille et graisse lues sur l'élément rendu
+function EchantillonTypo({ token, nom }) {
   const ref = useRef(null)
   const [mesure, setMesure] = useState('')
   useLayoutEffect(() => {
     const cs = getComputedStyle(ref.current)
     setMesure(`${cs.fontSize} · ${cs.fontWeight}`)
   }, [])
+  const titre = token.startsWith('typo-titre-')
+  const variante = token === 'typo-titre-ligne' ? ' ds-typo-echantillon-ligne' : titre ? ' ds-typo-echantillon-titre' : ''
   return (
-    <article className={`espace-carte ds-carte${large ? ' ds-carte-large' : ''}`}>
-      {rendu(ref)}
+    <article className={`espace-carte ds-carte${titre ? ' ds-carte-large' : ''}`}>
+      <p ref={ref} className={`ds-typo-echantillon${variante}`} style={{ font: `var(--${token})` }}>
+        {TEXTE_ECHANTILLON[token] ?? TEXTE_DEFAUT}
+      </p>
       <span className="ds-meta">
-        {nom} · {mesure}
+        {nom} · <code className="ds-nom">--{token}</code> · {mesure}
       </span>
     </article>
   )
@@ -199,10 +210,9 @@ function EchantillonTypo({ nom, large, rendu }) {
 function Typographie() {
   return (
     <Section numero="02" surtitre="TYPOGRAPHIE" titre="Typographie" intention="Urbanist partout ; une taille par usage.">
-      <p className="ds-meta">{PROVISOIRE}</p>
       <div className="ds-grille">
-        {ECHANTILLONS_TYPO.map((e) => (
-          <EchantillonTypo key={e.nom} {...e} />
+        {rolesTypo.map((r) => (
+          <EchantillonTypo key={r.token} {...r} />
         ))}
       </div>
       <Regles titre="Typographie" lignes={typographie} />

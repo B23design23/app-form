@@ -7,6 +7,9 @@ import ombresJson from '../../tokens/ombres.tokens.json'
 import communsJson from '../../tokens/semantiques-communs.tokens.json'
 import apprenantJson from '../../tokens/semantiques-apprenant.tokens.json'
 import formateurJson from '../../tokens/semantiques-formateur.tokens.json'
+import typoJson from '../../tokens/typographie.tokens.json'
+import typoMobileJson from '../../tokens/typographie-mobile.tokens.json'
+import typographieMd from '../../docs/tokens/typographie.md?raw'
 import principesMd from '../../docs/design-system/ds-principes-composants.md?raw'
 import couleursMd from '../../docs/tokens/couleurs.md?raw'
 import notesMd from '../../docs/design-system/notes-de-version.md?raw'
@@ -101,6 +104,19 @@ export const ombres = entrees(ombresJson.ombre).map(([nom, token]) => ({
   valeur: `${px(token.$value.offsetX)} ${px(token.$value.offsetY)} ${px(token.$value.blur)} · ardoise-900 à ${Math.round(token.$value.color.alpha * 100)} %`,
   description: token.$description,
 }))
+
+// --- Typographie ----------------------------------------------------------------------------------
+
+// Un échantillon par rôle : les tokens composés typo-<rôle> (hors variante -fort) des fichiers commun et
+// mobile (les rôles qui changent au seuil ont le même nom dans le fichier desktop), nom du rôle lu dans la
+// table « Rôles » de docs/tokens/typographie.md, section 11, dans l'ordre de cette table.
+const nomsRoles = [...typographieMd.matchAll(/^\| `(typo-[a-z-]+)` \| ([^|]+?) \|/gm)].map((m) => [m[1], m[2].trim()])
+const tokensRoles = new Set(
+  [...entrees(typoJson.typo), ...entrees(typoMobileJson.typo)]
+    .filter(([nom, token]) => token.$type === 'typography' && !nom.endsWith('-fort'))
+    .map(([nom]) => `typo-${nom}`)
+)
+export const rolesTypo = nomsRoles.filter(([token]) => tokensRoles.has(token)).map(([token, nom]) => ({ token, nom }))
 
 // --- Documentation ---------------------------------------------------------------------------------
 
