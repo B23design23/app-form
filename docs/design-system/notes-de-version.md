@@ -66,6 +66,7 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - Règle de rangée (évolution du Bouton et du Choix) : posé dans la rangée d'un champ, un bouton ou un choix prend la hauteur du champ (« Ajouter » du Détail groupe 52 → 48, filtres d'Activité récente 40 → 48). Posé seul, un bouton fait 48 ; 44 reste la zone tactile minimale, pas la hauteur d'un composant.
 - Champ en erreur : la règle commune de `shared.css` gagne contre les règles de bordure des champs des écrans (sans `!important`) ; au focus, la bordure de focus garde la main.
 - Mot de passe oublié et Nouveau mot de passe : gabarit de la Connexion (`GabaritParcours`, Retour rond et logo en rangée, champs du parcours, bouton dans la zone d'action), textes inchangés. `.flow-card` ne sert plus qu'à l'écran « Chargement… » de l'app.
+- Documentation de l'agent : descriptions d'écrans déplacées de `CLAUDE.md` dans `docs/ecrans/` (un fichier par espace) ; `CLAUDE.md` porte deux mentions, lire `regles-agent.md` avant toute modification d'interface et lire le fichier de l'espace dans `docs/ecrans/` avant de toucher un écran. Côté écran : rien à faire.
 
 **Corrigé**
 
