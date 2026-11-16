@@ -9,12 +9,12 @@ import iconeTrash from '../Assets/trash.svg?raw'
 import iconeRetour from '../Assets/chevron-left.svg?raw'
 import {
   composant,
+  contrainteAccessibilite,
   espacements,
   nbSemantiquesAMode,
   ombres,
   ponctuation,
   primitifs,
-  principe5,
   rayons,
   regleLecturePrimitif,
   regleOmbres,
@@ -462,7 +462,7 @@ function Composants() {
             </span>
           </label>
         </div>
-        <Regles titre="Principe" lignes={principe5} />
+        <Regles titre="Contrainte d'accessibilité" lignes={contrainteAccessibilite} />
       </div>
     </Section>
   )

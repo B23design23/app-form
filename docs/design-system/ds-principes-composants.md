@@ -6,23 +6,22 @@ Projet personnel, sans validation utilisateur. Session 2 de la formation Design 
 
 La direction artistique est chaleureuse et motivante : fonds crème (`fond-page` en mode apprenant), violet franc (`fond-marque`, `fond-action`), orange réservé à la récompense (`fond-recompense`).
 
-1. Chaque bloc débouche sur une action.
-On aurait pu garder les cartes de chiffres et le carrousel de badges sur le dashboard apprenant. On a choisi des blocs qui proposent tous quelque chose à faire, reprendre un cours, lancer un quiz flash, viser le prochain badge.
-
-2. Un style réservé garde son sens.
+1. Un style réservé garde son sens.
 On aurait pu utiliser l'orange pour attirer l'œil sur d'autres boutons. On l'a réservé à la récompense, l'XP et le quiz flash, pour que l'orange veuille toujours dire « tu gagnes quelque chose ».
 
-3. Ce qui détruit se trouve à un geste de plus.
-On aurait pu mettre un bouton Supprimer directement sur la page du cours. On l'a rangé dans le menu « … », en dernier, en rouge, et il demande toujours une confirmation. Le principe ne vise que ce qu'on ne peut pas défaire.
+2. Ce qu'on ne peut plus retrouver après l'action n'est jamais à un seul geste.
+On aurait pu mettre un bouton Supprimer directement sur la page du cours. On a choisi de le ranger dans le menu « … », en dernier, en rouge, avec une confirmation : une étape de plus, même pour un petit objet, plutôt qu'une perte définitive en un geste. Le test : après l'action, peut-on retrouver ce qui était là, y compris ce que l'objet emporte (la progression des élèves, par exemple) ? Ce qui se retrouve n'est pas concerné par ce principe : une confirmation y reste un choix d'écran. Retirer un cours ou un élève d'un groupe, par exemple, n'efface ni progression, ni score, ni badge.
 
-4. La profondeur vient du fond, pas des traits ni des ombres.
-On aurait pu poser une ombre sous les cartes et séparer les blocs par des traits. On a choisi des fonds différents (champ ou bloc sur une carte, carte sur la page) et une seule ombre, réservée à ce qui flotte au-dessus de la page. Les champs et les contrôles ont en plus une limite de 2 px (`bordure-controle`) : ce n'est pas de la profondeur, c'est ce qui les rend visibles. Sans elle, un champ vide contrastait à 1,1:1 avec son support ; le libellé suffit pour WCAG, pas pour une personne qui voit mal (décision du 12/11).
+3. La profondeur vient du fond, pas des traits ni des ombres.
+On aurait pu poser une ombre sous les cartes et séparer les blocs par des traits. On a choisi des fonds différents (champ ou bloc sur une carte, carte sur la page) et une seule ombre de profondeur, `ombre-flottante`, réservée à ce qui flotte au-dessus de la page. L'ombre d'illustration (`ombre-illustration`) appartient à l'objet 3D qui déborde de sa carte : elle ne crée pas de profondeur. Les champs et les contrôles ont en plus une limite de 2 px (`bordure-controle`) : ce n'est pas de la profondeur, c'est ce qui les rend visibles. Sans elle, un champ vide contrastait à 1,1:1 avec son support ; le libellé suffit pour WCAG, pas pour une personne qui voit mal (décision du 12/11).
 
-5. Le statut n'est jamais porté par la couleur seule.
-On aurait pu corriger le quiz avec du vert et du rouge uniquement. On a ajouté les étiquettes « Ta réponse » et « Bonne réponse » avec une icône.
-
-6. On n'affiche que ce que la donnée sait vraiment.
+4. On n'affiche que ce que la donnée sait vraiment.
 On aurait pu recalculer un score « 4/5 » pour les anciens passages de quiz à partir du nombre actuel de questions. On affiche le pourcentage seul, parce que le nombre de questions a pu changer depuis.
+
+## Contrainte d'accessibilité
+
+Le statut n'est jamais porté par la couleur seule (WCAG 1.4.1, Utilisation de la couleur).
+Exemple : la correction du quiz ne se lit pas au seul vert et rouge ; elle ajoute les étiquettes « Ta réponse » et « Bonne réponse », avec une icône. C'est un minimum d'accessibilité, pas un choix de Skillo.
 
 ## Conteneur de page
 
@@ -212,7 +211,9 @@ Périmètre : le statut d'un cours pour un élève, partout où il apparaît. Ne
 
 Un cours pas encore ouvert s'affiche en pilule. Non commencé et À faire en texte-secondaire sur fond-neutre. Nouveau en texte-accent sur fond-accent. Un cours déjà ouvert s'affiche sans pilule, en texte avec une icône. En cours en texte-accent avec l'icône de progression. Terminé en texte-succes avec la coche. Aucune pastille n'utilise fond-action, fond-marque ni fond-recompense.
 
-Principes : 2 (un style réservé garde son sens) et 5 (le statut n'est jamais porté par la couleur seule).
+Le mot porte le statut : pas de point de couleur avant le texte. L'icône d'En cours et la coche de Terminé accompagnent le mot, elles ne le remplacent pas.
+
+Principe : 1 (un style réservé garde son sens) ; contrainte d'accessibilité (le statut n'est jamais porté par la couleur seule, WCAG 1.4.1).
 
 DO
 Utiliser la même pastille partout où un statut de cours apparaît.
@@ -233,7 +234,7 @@ Le trait bordure-separateur se place uniquement entre deux éléments consécuti
 
 Épaisseur : 1 px.
 
-Principe : 4 (la profondeur vient du fond, pas des traits ni des ombres).
+Principe : 3 (la profondeur vient du fond, pas des traits ni des ombres).
 
 ## Modale
 
@@ -266,7 +267,7 @@ Fichier
 ## Modale de confirmation
 
 Rôle
-Faire confirmer une action qu'on ne peut pas défaire (principe 3).
+Faire confirmer une action qu'on ne peut pas défaire (principe 2).
 
 Quand l'utiliser
 Avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
@@ -281,7 +282,7 @@ DO
 Toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
 
 DON'T
-Lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
+Lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 2).
 
 Fichier
 `src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
@@ -289,7 +290,7 @@ Fichier
 ## Menu d'actions
 
 Rôle
-Ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 3).
+Ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 2).
 
 Anatomie
 Bouton rond « … » (nom accessible « Plus d'actions »). Mobile : feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre. Desktop : carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, 48 px de haut (comme le menu de la navigation), survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
@@ -302,7 +303,7 @@ DO
 Placer l'action destructrice en dernier, en rouge, suivie d'une Modale de confirmation.
 
 DON'T
-Mettre un bouton Supprimer directement sur la page (principe 3).
+Mettre un bouton Supprimer directement sur la page (principe 2).
 
 À trancher
 Ordre des actions autres que la destructrice.
@@ -316,7 +317,7 @@ Rôle
 Regrouper le contenu d'une section posée sur la page : une carte blanche par section (formateur), un bloc d'action (dashboard apprenant), une fiche (leçon, checklist, récap).
 
 Anatomie
-Fond `fond-surface` ; variantes violette (`fond-marque`) et encre (`fond-inverse`) pour un bloc qui pousse à une action. Rayon Surface, padding Surface (rôles dans `docs/tokens/rayons.md` et `docs/tokens/espacements.md`). Ni bordure ni ombre (principe 4).
+Fond `fond-surface` ; variantes violette (`fond-marque`) et encre (`fond-inverse`) pour un bloc qui pousse à une action. Rayon Surface, padding Surface (rôles dans `docs/tokens/rayons.md` et `docs/tokens/espacements.md`). Ni bordure ni ombre (principe 3).
 - Carte de liste : la carte qui porte des Lignes de liste prend le padding de carte de liste (Ligne de liste).
 - Carte cliquable (carte de thème, carte de Mes cours et de Mes groupes, carte de profil ; décision 16, structure du 13/11) : la carte n'est pas un bouton. Son titre est un vrai élément de titre (`h2`, `h3`) qui contient le bouton (ou le lien) ; la zone cliquable de ce bouton est étendue à toute la carte par un pseudo-élément (carte en `position: relative`, pseudo-élément du bouton en `position: absolute; inset: 0`) : un clic n'importe où sur la carte l'active. Le reste du contenu (thème, compteurs, pastilles) reste du texte, lu après le titre. Un seul élément focalisable par carte.
   - Focus : dessiné sur la carte, pas sur le titre (contour et halo communs, posés sur la carte quand son bouton a le focus clavier, `:has(:focus-visible)`) ; le bouton n'en dessine pas.

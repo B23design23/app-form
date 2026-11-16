@@ -44,12 +44,12 @@ La direction artistique est chaleureuse et motivante : fonds crème (`fond-page`
 
 Chaque principe tranche entre deux options. La première est retenue, la seconde écartée (`ds-principes-composants.md`).
 
-1. **Chaque bloc débouche sur une action.** Des blocs qui proposent tous quelque chose à faire (reprendre un cours, lancer un quiz flash, viser le prochain badge), **contre** des cartes de chiffres et un carrousel de badges.
-2. **Un style réservé garde son sens.** L'orange réservé à la récompense, l'XP et le quiz flash, pour qu'il veuille toujours dire « tu gagnes quelque chose », **contre** l'orange utilisé pour attirer l'œil sur d'autres boutons.
-3. **Ce qui détruit se trouve à un geste de plus.** Supprimer rangé dans le menu « … », en dernier, en rouge, toujours confirmé, **contre** un bouton Supprimer directement sur la page. Le principe ne vise que ce qu'on ne peut pas défaire.
-4. **La profondeur vient du fond, pas des traits ni des ombres.** Des fonds différents (champ ou bloc sur une carte, carte sur la page) et une seule ombre, réservée à ce qui flotte, **contre** une ombre sous les cartes et des traits entre les blocs. La bordure de 2 px `bordure-controle` des champs et des contrôles n'est pas de la profondeur : c'est leur limite visible (décision du 12/11, `ds-principes-composants.md`, Champ).
-5. **Le statut n'est jamais porté par la couleur seule.** Des étiquettes (« Ta réponse », « Bonne réponse ») avec une icône, **contre** une correction en vert et rouge uniquement.
-6. **On n'affiche que ce que la donnée sait vraiment.** Le pourcentage seul pour les anciens passages de quiz, **contre** un score « 4/5 » recalculé avec le nombre actuel de questions.
+1. **Un style réservé garde son sens.** L'orange réservé à la récompense, l'XP et le quiz flash, pour qu'il veuille toujours dire « tu gagnes quelque chose », **contre** l'orange utilisé pour attirer l'œil sur d'autres boutons.
+2. **Ce qu'on ne peut plus retrouver après l'action n'est jamais à un seul geste.** Supprimer rangé dans le menu « … », en dernier, en rouge, avec une confirmation, une étape de plus même pour un petit objet, **contre** un bouton Supprimer directement sur la page, une perte définitive en un geste. Test : après l'action, peut-on retrouver ce qui était là, y compris ce que l'objet emporte (la progression des élèves, par exemple) ? Ce qui se retrouve n'est pas concerné : une confirmation y reste un choix d'écran (retirer un cours ou un élève d'un groupe n'efface ni progression, ni score, ni badge).
+3. **La profondeur vient du fond, pas des traits ni des ombres.** Des fonds différents (champ ou bloc sur une carte, carte sur la page) et une seule ombre de profondeur (`ombre-flottante`), réservée à ce qui flotte, **contre** une ombre sous les cartes et des traits entre les blocs. L'ombre d'illustration (`ombre-illustration`) appartient à l'objet 3D et ne crée pas de profondeur. La bordure de 2 px `bordure-controle` des champs et des contrôles n'est pas de la profondeur : c'est leur limite visible (décision du 12/11, `ds-principes-composants.md`, Champ).
+4. **On n'affiche que ce que la donnée sait vraiment.** Le pourcentage seul pour les anciens passages de quiz, **contre** un score « 4/5 » recalculé avec le nombre actuel de questions.
+
+**Contrainte d'accessibilité.** Le statut n'est jamais porté par la couleur seule (WCAG 1.4.1) : des étiquettes (« Ta réponse », « Bonne réponse ») avec une icône, jamais une correction en vert et rouge uniquement. C'est un minimum, pas un choix de Skillo.
 
 ## 3. Tokens
 
@@ -373,7 +373,7 @@ Source : `ds-principes-composants.md`, « États de page ».
 
 - **Rôle** : dire où en est l'apprenant sur un cours.
 - **Quand l'utiliser** : le statut d'un cours pour un élève, partout où il apparaît. Pas pour le repère d'étapes, la mention Checklist terminée ni les compteurs (x / y cours, X terminés sur N, barre d'avancement).
-- **Règle** : un cours pas encore ouvert s'affiche en pilule (Non commencé et À faire en `texte-secondaire` sur `fond-neutre`, Nouveau en `texte-accent` sur `fond-accent`). Un cours déjà ouvert s'affiche sans pilule, en texte avec une icône (En cours en `texte-accent` avec l'icône de progression, Terminé en `texte-succes` avec la coche). Aucune pastille n'utilise `fond-action`, `fond-marque` ni `fond-recompense`. Principes 2 et 5.
+- **Règle** : un cours pas encore ouvert s'affiche en pilule (Non commencé et À faire en `texte-secondaire` sur `fond-neutre`, Nouveau en `texte-accent` sur `fond-accent`). Un cours déjà ouvert s'affiche sans pilule, en texte avec une icône (En cours en `texte-accent` avec l'icône de progression, Terminé en `texte-succes` avec la coche). Aucune pastille n'utilise `fond-action`, `fond-marque` ni `fond-recompense`. Le mot porte le statut : pas de point de couleur avant le texte (l'icône d'En cours et la coche de Terminé accompagnent le mot, elles ne le remplacent pas). Principe 1 et contrainte d'accessibilité.
 - **Typographie** : le texte du statut prend le rôle Pastille (`--typo-pastille`), avec ou sans pilule (« En cours » et « Terminé » compris) : la fonction décide du rôle, pas la forme (`typographie.md`, sections 5 et 6).
 - **Voisin à ne pas confondre** : la pastille de groupe (lavande) de l'espace formateur, qui nomme un groupe et ne dit rien de l'avancement.
 - **À faire** : utiliser la même pastille (`StatutBadge`) partout où un statut de cours apparaît.
@@ -388,7 +388,7 @@ Source : `ds-principes-composants.md`, « États de page ».
 - **Ligne d'en-tête d'un tableau** : la règle de la 2.1.0 la règle explicitement (« Un en-tête de colonnes […] n'est pas un élément répété : il se sépare par l'espacement »). Aujourd'hui, le code ne pose pas de trait sous l'en-tête (Détail groupe, tableau du dashboard admin, tableaux des leçons, corrigés en 2.1.0).
 - **Liste en plusieurs colonnes** : Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur.
 - **DO** : dans le tableau des élèves du Détail groupe, un trait entre deux lignes d'élèves, et l'espacement sous l'en-tête.
-- **DON'T** : un trait avant le premier élément ou après le dernier, sous un en-tête, autour d'un titre ou entre deux sections. Dans Activité récente, pas de trait sous l'intertitre d'un jour (« Aujourd'hui », « Hier »). Principe 4.
+- **DON'T** : un trait avant le premier élément ou après le dernier, sous un en-tête, autour d'un titre ou entre deux sections. Dans Activité récente, pas de trait sous l'intertitre d'un jour (« Aujourd'hui », « Hier »). Principe 3.
 
 ### Modale
 
@@ -403,21 +403,21 @@ Source : `ds-principes-composants.md`, « États de page ».
 
 ### Modale de confirmation
 
-- **Rôle** : faire confirmer une action qu'on ne peut pas défaire (principe 3).
+- **Rôle** : faire confirmer une action qu'on ne peut pas défaire (principe 2).
 - **Quand l'utiliser** : avant toute action destructrice : supprimer un cours, un groupe, une question ou une étape, retirer un élève, quitter sans enregistrer.
 - **Anatomie** : une Modale étroite ; titre (la question posée), texte facultatif, « Annuler », puis le bouton qui confirme (libellé « Supprimer » par défaut). Annuler en secondaire, confirmation en rouge plein. Pendant l'action, les deux boutons sont désactivés et le bouton rouge affiche « Un instant… ».
 - **Comportement** : Le bouton qui confirme nomme le verbe et l'objet de l'action (Supprimer mon compte, Supprimer le cours). À l'ouverture, le focus va sur Annuler, l'action la moins destructrice. Tab reste dans la modale. Échap la ferme.
 - **DO** : toujours confirmer une action destructrice, quel que soit l'endroit d'où elle part.
-- **DON'T** : lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 3).
+- **DON'T** : lancer une action qu'on ne peut pas défaire sans cette confirmation (principe 2).
 - **Fichier à réutiliser** : `src/components/Modale.jsx` (export nommé `ModaleConfirmation`).
 
 ### Menu d'actions
 
-- **Rôle** : ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 3).
+- **Rôle** : ranger les actions d'un élément qui ne méritent pas un bouton sur la page, dont l'action destructrice (principe 2).
 - **Anatomie** : bouton rond « … » (nom accessible « Plus d'actions ») ; mobile, feuille depuis le bas sur le voile `fond-voile`, avec une poignée et le nom de l'élément en titre ; desktop, carte flottante sous le bouton, alignée à droite, `--ombre-flottante`, sans voile visible. Une ligne par action, 48 px de haut (comme le menu de la navigation), survol et appui en `fond-sur-carte`. L'action destructrice est en `texte-erreur`, en dernier.
 - **Comportement** : Échap, clic hors du menu et choix d'une action ferment le menu. Rôles `menu` et `menuitem`. Entrée ou Espace sur le bouton ouvre le menu et place le focus sur la première action. Les flèches passent d'une action à l'autre. Échap ferme le menu et rend le focus au bouton. Tab et Maj+Tab ne passent pas d’une action à l’autre ; depuis une action, ils ferment le menu et font sortir le focus (W3C, guide des pratiques ARIA, motif Menu and Menubar, Keyboard Interaction). Précision Skillo : le focus va à l’élément suivant (ou précédent) de la page. Un menu à une seule action reste admis pour l'instant.
 - **DO** : placer l'action destructrice en dernier, en rouge, suivie d'une Modale de confirmation.
-- **DON'T** : mettre un bouton Supprimer directement sur la page (principe 3).
+- **DON'T** : mettre un bouton Supprimer directement sur la page (principe 2).
 - **À trancher** : ordre des actions autres que la destructrice.
 - **Fichier à réutiliser** : `src/components/formateur/MenuActions.jsx`.
 
@@ -435,7 +435,7 @@ Le trait `bordure-separateur` se place uniquement entre deux éléments consécu
 
 ### Ombres
 
-Deux ombres, et seulement elles (2.1.0), en token depuis le chantier composants et couleurs (`tokens/ombres.tokens.json`). Le contraste vient des couleurs de fond (principe 4).
+Deux ombres, et seulement elles (2.1.0), en token depuis le chantier composants et couleurs (`tokens/ombres.tokens.json`). Le contraste vient des couleurs de fond (principe 3).
 - `--ombre-flottante` : les éléments flottants (menus, listes déroulantes, toast, modales, barre d'enregistrement), en `box-shadow`.
 - `--ombre-illustration` : les objets 3D qui débordent d'une carte, une seule valeur (mobile et desktop, toute carte), en `filter: drop-shadow(var(--ombre-illustration))`.
 - Exception au registre (1.0.0) : l'ombre intérieure pleine qui neutralise l'autoremplissage du navigateur sur un champ (`:-webkit-autofill`), pour que le champ garde son fond.
@@ -732,13 +732,13 @@ Format : situation, erreur, pourquoi (règle citée), conforme.
 **Exemple non conforme : bouton orange**
 - Situation : bloc « Cours en cours » du dashboard apprenant.
 - Erreur : « Continuer le cours » en bouton orange, parce que c'est l'action la plus motivante de l'écran.
-- Pourquoi : principe 2, l'orange est réservé à la récompense. Continuer un cours n'en donne pas directement. L'élève ne saurait plus quel bouton mène au quiz flash.
+- Pourquoi : principe 1, l'orange est réservé à la récompense. Continuer un cours n'en donne pas directement. L'élève ne saurait plus quel bouton mène au quiz flash.
 - Conforme : bouton blanc sur carte violette (bouton sur fond foncé).
 
 **Exemple non conforme : séparateur**
 - Situation : tableau des élèves du Détail groupe.
 - Erreur : un trait sous la ligne d'en-tête, parce que la plupart des tableaux en ont un.
-- Pourquoi : l'en-tête nomme les colonnes, ce n'est pas un élément répété. Principe 4, la profondeur vient du fond et de l'espacement, pas des traits.
+- Pourquoi : l'en-tête nomme les colonnes, ce n'est pas un élément répété. Principe 3, la profondeur vient du fond et de l'espacement, pas des traits.
 - Conforme : espacement sous l'en-tête, trait seulement entre deux lignes d'élèves.
 
 **Exemple non conforme : bouton**

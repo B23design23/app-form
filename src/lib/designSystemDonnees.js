@@ -135,11 +135,10 @@ export function composant(titre) {
 }
 export const typographie = puces(section(principesMd, 'Typographie'))
 export const ponctuation = puces(section(principesMd, 'Ponctuation'))
-export const principe5 = (() => {
-  const lignes = section(principesMd, 'Principes').split('\n')
-  const i = lignes.findIndex((l) => l.startsWith('5. '))
-  return i === -1 ? [] : [lignes[i], lignes[i + 1]]
-})()
+// Contrainte d'accessibilité (statut jamais porté par la couleur seule), lue dans la doc
+export const contrainteAccessibilite = section(principesMd, "Contrainte d'accessibilité")
+  .split('\n')
+  .filter((l) => l.trim() !== '')
 export const regleLecturePrimitif = couleursMd.split('\n').find((l) => l.includes('Un composant ne lit jamais un primitif'))?.replace(/^- /, '') ?? ''
 export const regleOmbres = notesMd.split('\n').find((l) => l.startsWith('- Règle des ombres'))?.replace(/^- /, '') ?? ''
 
