@@ -579,8 +579,11 @@
   gap: var(--espace-textes);
 }
 
+/* Rangée de contrôles (6 badges + lien « Mes badges ») : passe à la ligne quand elle ne tient pas,
+   ne déborde pas de la carte (mise-en-page.md, section 7) ; le lien passe alors entier dessous */
 .dash-badge-rangee {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--espace-repetition);
 }
@@ -786,7 +789,6 @@
   }
 
   .dash-cellule-badges-verticale .dash-badge-rangee {
-    flex-wrap: wrap;
     margin-top: auto;
   }
 
