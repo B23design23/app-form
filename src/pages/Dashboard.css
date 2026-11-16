@@ -582,12 +582,23 @@
   gap: var(--espace-textes);
 }
 
-/* Rangée de contrôles (6 badges + lien « Mes badges ») : passe à la ligne quand elle ne tient pas,
-   ne déborde pas de la carte (mise-en-page.md, section 7) ; le lien passe alors entier dessous */
+/* Rangée des badges (ds-principes-composants.md, Composants d'écran, vignettes de badge) : pas une
+   rangée de contrôles. Les six badges sur une ligne s'ils tiennent, sinon deux rangées égales de trois
+   (deux trios qui passent à la ligne) ; le lien « Mes badges » seul sur sa ligne, dessous, à droite */
 .dash-badge-rangee {
   display: flex;
+  flex-direction: column;
+  gap: var(--espace-repetition);
+}
+
+.dash-badge-minis {
+  display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  gap: var(--espace-repetition);
+}
+
+.dash-badge-trio {
+  display: flex;
   gap: var(--espace-repetition);
 }
 
@@ -629,7 +640,7 @@
 }
 
 .dash-badge-lien {
-  margin-left: auto;
+  align-self: flex-end;
 }
 
 /* I. Collection complète, vitrine (permanente) */

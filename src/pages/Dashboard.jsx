@@ -491,22 +491,30 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
             {objectif.valeur} / {objectif.cible} {objectif.unite}
           </span>
         </div>
+        {/* Rangée des badges (pas une rangée de contrôles) : six sur une ligne s'ils tiennent, sinon deux
+            rangées égales de trois ; le lien « Mes badges » toujours seul sur sa ligne, dessous */}
         <div className="dash-badge-rangee">
-          {badgesTries.map((b) => (
-            <button
-              key={b.id}
-              type="button"
-              className="dash-badge-mini-bouton"
-              aria-label={idsBadgesObtenus.has(b.id) ? b.nom : `${b.nom}, verrouillé`}
-              onClick={() => ouvrirBadges(b)}
-            >
-              <img
-                className={`dash-badge-mini${idsBadgesObtenus.has(b.id) ? '' : ' dash-badge-mini-verrouille'}`}
-                src={iconeBadge(b)}
-                alt=""
-              />
-            </button>
-          ))}
+          <div className="dash-badge-minis">
+            {[badgesTries.slice(0, 3), badgesTries.slice(3)].map((trio, i) => (
+              <span key={i} className="dash-badge-trio">
+                {trio.map((b) => (
+                  <button
+                    key={b.id}
+                    type="button"
+                    className="dash-badge-mini-bouton"
+                    aria-label={idsBadgesObtenus.has(b.id) ? b.nom : `${b.nom}, verrouillé`}
+                    onClick={() => ouvrirBadges(b)}
+                  >
+                    <img
+                      className={`dash-badge-mini${idsBadgesObtenus.has(b.id) ? '' : ' dash-badge-mini-verrouille'}`}
+                      src={iconeBadge(b)}
+                      alt=""
+                    />
+                  </button>
+                ))}
+              </span>
+            ))}
+          </div>
           <button type="button" className="lien-texte dash-lien dash-badge-lien" onClick={() => ouvrirBadges()}>
             Mes badges · {nbBadgesObtenus}/{tousBadges.length}
           </button>
