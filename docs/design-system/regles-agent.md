@@ -628,6 +628,7 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 - La zone de sécurité s'ajoute à la valeur du rôle.
 
 **Cas particuliers de composant** (section 7) : bouton à flèche, 24 à gauche et le rond à 6 du bord à droite ; champ avec icône à gauche, réserve de 44 (icône de 20 px, à 16 px du bord, puis 8 jusqu'au texte) ; bouton ou choix posé dans la rangée d'un champ, hauteur du champ ; entrée de liste déroulante, réserve de la coche (30) ; Choix à hauteur fixe, côtés seulement ; « Bonne réponse », gauche à 0 sous 768 ; rangée des CTA du dashboard formateur, passe à la ligne, libellés en `nowrap`.
+- Centrages optiques : liste fermée (`espacements.md`, section 9). Un nouveau centrage optique ne se crée pas : il se signale en « À trancher ».
 
 **Valeurs hors rôle** (sections 8 et 9)
 - Une valeur qui a un rôle prend la valeur du rôle, jamais un arrondi. Une valeur sans rôle et hors échelle : le palier le plus proche, à égalité le supérieur.
