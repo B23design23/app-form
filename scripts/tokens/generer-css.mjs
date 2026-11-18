@@ -133,7 +133,7 @@ await verifierTokens({
 // Aucun composant ne lit un primitif d'espacement (var(--espace-<nombre>)), seulement les rôles
 await verifierPrimitifsEspacement()
 const titresEnAttente = await verifierTitres()
-if (titresEnAttente.length > 0) console.warn(`Titres en attente de décision (${titresEnAttente.length}, rapport net 12) :\n- ${titresEnAttente.join('\n- ')}`)
+if (titresEnAttente.length > 0) console.warn(`Titres en attente de décision (${titresEnAttente.length}, rapports de nettoyage net 12 et 13) :\n- ${titresEnAttente.join('\n- ')}`)
 
 const racine = await genererBloc({
   source: [...COMMUNS, 'tokens/semantiques-apprenant.tokens.json', TYPO_MOBILE],
