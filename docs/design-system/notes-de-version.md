@@ -1,6 +1,6 @@
 # Notes de version du design system
 
-## 3.0.0 (brouillon, non publiée)
+## 3.0.0 (18 novembre 2026)
 
 Version majeure : des règles changent au point que des écrans conformes ne le sont plus, et la Modale change d'emplacement dans le code. Les écrans concernés sont listés sous chaque entrée ; ceux qui sont déjà corrigés figurent sous « Écrans corrigés ».
 

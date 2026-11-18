@@ -1,4 +1,4 @@
-Statut : brouillon 3.0.0, validé le 11 novembre 2026 (critères v3, rangement `rayons2.md`). Tokens : `tokens/rayons.tokens.json`, créés à l'étape suivante. Ce fichier dit quel rôle prendre ; il ne recopie pas le code.
+Statut : publié en 3.0.0 le 18 novembre 2026, validé le 11 novembre 2026 (critères v3, rangement `rayons2.md`). Tokens : `tokens/rayons.tokens.json`, créés à l'étape suivante. Ce fichier dit quel rôle prendre ; il ne recopie pas le code.
 
 # Rayons
 

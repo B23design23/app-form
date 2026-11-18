@@ -1,4 +1,4 @@
-Statut : brouillon 3.0.0, validé le 12 novembre 2026 (critères `criteres-mep.md` v2, rangement `mep2.md`). Pas de token : les valeurs de ce fichier sont des dimensions de mise en page, écrites en px dans le composant avec un commentaire qui renvoie à la section (section 9). Ce fichier dit quelle largeur, quel seuil et quel comportement prendre ; il ne recopie pas le code.
+Statut : publié en 3.0.0 le 18 novembre 2026, validé le 12 novembre 2026 (critères `criteres-mep.md` v2, rangement `mep2.md`). Pas de token : les valeurs de ce fichier sont des dimensions de mise en page, écrites en px dans le composant avec un commentaire qui renvoie à la section (section 9). Ce fichier dit quelle largeur, quel seuil et quel comportement prendre ; il ne recopie pas le code.
 
 # Mise en page
 
