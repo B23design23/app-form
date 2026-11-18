@@ -4,6 +4,6 @@
   gap: var(--espace-blocs);
 }
 
-.espace-page.page-terrain > *:first-child {
+.page-terrain > *:first-child {
   margin-bottom: 0;
 }

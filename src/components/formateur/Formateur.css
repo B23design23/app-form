@@ -6,7 +6,7 @@
   gap: var(--espace-blocs);
 }
 
-.espace-page.fm-page > *:first-child {
+.fm-page > *:first-child {
   margin-bottom: 0;
 }
 

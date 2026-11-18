@@ -4,7 +4,7 @@
   gap: var(--espace-blocs);
 }
 
-.espace-page.page-theme > *:first-child {
+.page-theme > *:first-child {
   margin-bottom: 0;
 }
 

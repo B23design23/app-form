@@ -7,7 +7,7 @@
   gap: var(--espace-blocs);
 }
 
-.espace-page.formateur-dashboard-page > *:first-child {
+.formateur-dashboard-page > *:first-child {
   margin-bottom: 0;
 }
 
@@ -448,7 +448,7 @@
   flex-direction: column;
 }
 
-.espace-page .fd-jour-titre {
+.fd-jour-titre {
   margin: 0;
   padding: var(--espace-ligne);
   font: var(--typo-surtitre);
