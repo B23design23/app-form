@@ -44,7 +44,7 @@ Le moins de valeurs possible, pour que l'agent n'ait pas à choisir : un rôle p
   Aucune grille de cartes n'a de seuil à elle : le nombre de colonnes vient de la largeur minimale.
 - **Grille de la modale Mes badges** (décision du 13/11) : colonnes automatiques à toutes les largeurs. Règle : la largeur minimale d'une tuile est la largeur du libellé de badge le plus long sur une ligne (Titre de ligne, arrondie au px pair supérieur) + le padding Élément des deux côtés (2 × 16) + la bordure de mise en évidence des deux côtés (2 × 2). Valeur actuelle : **132 px** (« Sur le terrain », 94,4 px arrondi à 96). Rendu actuel : 1 colonne à 320, 2 à 375, 3 à partir de 800 (modale standard de 520). Pas de seuil à elle, pas de padding réduit. Un badge ajouté dont le nom est plus long change la valeur, pas la règle.
 - **Une règle à 768 qui change une dimension de mise en page est permise** : marges de page desktop, réserves, nombre de colonnes, disposition (en ligne ou empilé).
-- **Une règle à 768 qui change la valeur d'un rôle d'espacement est une dérive**, sauf exception écrite dans `espacements.md`, section 9 (Retour chevron seul, tab bar). Les rôles d'espacement n'ont pas de seuil (`espacements.md`, section 3).
+- **Une règle à 768 qui change la valeur d'un rôle d'espacement est une dérive**, sauf quand le tableau des rôles le prévoit (`espacements.md`, section 7 : Retour en chevron seul sous 768) ou qu'une exception est écrite (`espacements.md`, section 9 : tab bar). Les rôles d'espacement n'ont pas de seuil (`espacements.md`, section 3).
 - **Autres seuils** : exceptions écrites seulement (section 8).
 
 ## 5. Haut du contenu et ancres

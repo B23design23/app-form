@@ -659,7 +659,7 @@ Source : `docs/tokens/mise-en-page.md` (section citée entre parenthèses). Pas 
 **Seuils** (section 4)
 - 768 px est le seul seuil de mise en page, comme pour la typographie.
 - Grilles de cartes : sous 768, rien ne change ; à partir de 768, colonnes automatiques avec une largeur minimale de carte, écart inchangé (thèmes de la page Cours 210 px, Mes groupes 300 px, grille de `/design-system` choisie pour garder ses colonnes à 1200). Aucune grille n'a de seuil à elle.
-- Une règle à 768 qui change une dimension de mise en page est permise ; une règle à 768 qui change la valeur d'un rôle d'espacement est une dérive, sauf exception écrite (`espacements.md`, section 9).
+- Une règle à 768 qui change une dimension de mise en page est permise ; une règle à 768 qui change la valeur d'un rôle d'espacement est une dérive, sauf quand le tableau des rôles le prévoit (`espacements.md`, section 7 : Retour en chevron seul sous 768) ou qu'une exception est écrite (`espacements.md`, section 9 : tab bar).
 
 **Haut du contenu et ancres** (section 5) : haut du contenu à 104 px sur desktop, zone de sécurité + 20 px sur mobile ; une cible d'ancre s'arrête au même endroit. Une seule source pour 104 (Conteneur de page). Création de cours garde ses propres valeurs (exception).
 
