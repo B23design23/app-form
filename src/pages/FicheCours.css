@@ -246,15 +246,9 @@
   color: var(--texte-sur-inverse-attenue);
 }
 
-.fiche-suivante-titre {
-  margin: 0;
-  font: var(--typo-titre-mis-en-avant);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
+/* Couleur du titre posée par le support (typographie.md, section 7, Classe des titres) */
+.fiche-suivante .fiche-suivante-titre {
+  color: var(--texte-sur-inverse);
 }
 
 .fiche-suivante-detail {
@@ -525,18 +519,14 @@
 }
 
 .fiche-feedback-titre {
-  margin: 0;
   /* Réserve = emprise de l'objet qui déborde (96 px + 16 px du bord − 20 px de padding de la carte) :
      aucun mot sous l'objet */
   /* espacements.md, section 8 : réserve de l'objet */
   padding-right: 92px;
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
+}
+
+/* Couleur du titre posée par le support, carte encre de la correction (typographie.md, section 7) */
+.fiche-feedback .fiche-feedback-titre {
   color: var(--texte-recompense);
 }
 
@@ -595,14 +585,13 @@
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-  color: var(--texte-accent);
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+/* Couleur du titre posée par le support, barre lavande de la fin de quiz (typographie.md, section 7) */
+.fin-quiz-haut .fin-quiz-haut-titre {
+  color: var(--texte-accent);
 }
 
 /* Colonne Formulaire centrée (mobile et desktop) ; espacements fixés par le lot retouches-quiz.
@@ -757,15 +746,9 @@
   font: var(--typo-pastille);
 }
 
-.fin-quiz-badge-nom {
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  text-wrap: balance;
+/* Couleur du titre posée par le support (typographie.md, section 7, Classe des titres) */
+.fin-quiz-badge .fin-quiz-badge-nom {
+  color: var(--texte-sur-inverse);
 }
 
 .fin-quiz-badge-condition {
@@ -1182,15 +1165,9 @@
   color: var(--texte-sur-marque-attenue);
 }
 
-.fiche-suite-titre {
-  margin: 0;
-  font: var(--typo-titre-mis-en-avant);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
+/* Couleur du titre posée par le support (typographie.md, section 7, Classe des titres) */
+.fiche-suite .fiche-suite-titre {
+  color: var(--texte-sur-marque);
 }
 
 .fiche-suite-contenu {

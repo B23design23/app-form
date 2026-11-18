@@ -322,7 +322,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
         <div className="dash-tete-texte">
           {c.visibilite === 'prive' && <PastilleFormateur />}
           <span className="dash-libelle-sur-violet">Tu en es là</span>
-          <h2 className="dash-titre-tete" title={typo(c.titre)}>
+          <h2 className="titre-mis-en-avant dash-titre-tete" title={typo(c.titre)}>
             {typo(c.titre)}
           </h2>
           <p className="dash-en-cours-phrase">{phrase}</p>
@@ -340,7 +340,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
       <img className="dash-objet-deborde" src={imageTheme(c.categorie)} alt="" />
       <div className="dash-tete-texte">
         <span className="dash-libelle-violet">{premier ? 'Ton premier cours' : 'Prochain cours conseillé'}</span>
-        <h2 className="dash-titre-tete" title={typo(c.titre)}>
+        <h2 className="titre-mis-en-avant dash-titre-tete" title={typo(c.titre)}>
           {typo(c.titre)}
         </h2>
         <span className="dash-sous-texte">{c.categorie}</span>
@@ -372,7 +372,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
           <PastilleFormateur />
         </div>
         <div className="dash-tete-texte">
-          <h2 className="dash-titre-tete" title={typo(c.titre)}>
+          <h2 className="titre-mis-en-avant dash-titre-tete" title={typo(c.titre)}>
             {typo(c.titre)}
           </h2>
           <p className="dash-assigne-meta">{ajoute ? `${c.categorie} · ${ajoute}` : c.categorie}</p>

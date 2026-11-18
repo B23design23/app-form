@@ -105,7 +105,7 @@ function EcranQuiz({
       {resultat && (
         <div className="fiche-feedback">
           <img className="fiche-feedback-objet" src={resultat.correcte ? IMAGE_CIBLE : imageQuestion(question)} alt="" />
-          <h2 className="fiche-feedback-titre">{resultat.correcte ? 'Bien vu' : 'Raté, mais tu vas retenir ça'}</h2>
+          <h2 className="titre-carte fiche-feedback-titre">{resultat.correcte ? 'Bien vu' : 'Raté, mais tu vas retenir ça'}</h2>
           {explications.map((texte) => (
             <p key={texte} className="fiche-feedback-texte">
               {texte}

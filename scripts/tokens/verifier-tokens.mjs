@@ -191,14 +191,7 @@ export async function verifierPrimitifsEspacement(dossier = 'src', exclus = ['sr
 // .titre-ligne et .titre-page). EN_ATTENTE : règles laissées « À trancher » (rapport net 12), une
 // par une ; elles ne sont pas des exceptions et sortent de la liste quand la décision est prise.
 const TITRES_EN_ATTENTE = [
-  // couleur du support (texte-sur-marque, texte-sur-inverse…) ou autre que texte-principal
-  ['src/pages/Dashboard.css', '.dash-titre-tete'],
-  ['src/pages/FicheCours.css', '.fiche-suivante-titre'],
-  ['src/pages/FicheCours.css', '.fiche-suite-titre'],
-  ['src/pages/FicheCours.css', '.fiche-feedback-titre'],
-  ['src/pages/FicheCours.css', '.fin-quiz-haut-titre'],
-  ['src/pages/FicheCours.css', '.fin-quiz-badge-nom'],
-  ['src/components/CompletionToast.css', '.completion-toast-titre'],
+  // rôle non titre proposé (net 13, point 2), à décider
   ['src/pages/DashboardFormateur.css', '.formateur-taux-label'],
   ['src/pages/DashboardFormateur.css', '.fd-succes-textes strong'],
   // /design-system : noms de tokens et échantillons, rôle de titre à confirmer

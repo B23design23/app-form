@@ -312,20 +312,18 @@
   min-width: 0;
 }
 
-/* Titre du bloc de tête : Titre mis en avant, 3 lignes max, césure des titres */
+/* Titre du bloc de tête (classe .titre-mis-en-avant) : 3 lignes max */
 .dash-titre-tete {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   overflow: hidden;
-  font: var(--typo-titre-mis-en-avant);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
+}
+
+/* Couleur du titre posée par le support (typographie.md, section 7, Classe des titres) */
+.dash-carte-violette .dash-titre-tete {
+  color: var(--texte-sur-marque);
 }
 
 .dash-en-cours-phrase {

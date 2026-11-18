@@ -65,7 +65,7 @@ function EcranRecap({
       {suiteTheme && (
         <div className="fiche-suite surface-foncee">
           <span className="fiche-suite-libelle">Suite du thème</span>
-          <h2 className="fiche-suite-titre">{typo(suiteTheme.titre)}</h2>
+          <h2 className="titre-mis-en-avant fiche-suite-titre">{typo(suiteTheme.titre)}</h2>
           <span className="fiche-suite-contenu">{contenuCours(suiteTheme)}</span>
           <button type="button" className="bouton-primaire fiche-suite-bouton" onClick={() => onOuvrirCours(suiteTheme.id)}>
             Commencer

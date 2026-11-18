@@ -8,7 +8,7 @@ function CarteEtapeSuivante({ etape }) {
     <div className="fiche-suivante">
       <div className="fiche-suivante-texte">
         <span className="fiche-suivante-libelle">{etape.libelle ?? 'Étape suivante'}</span>
-        <h2 className="fiche-suivante-titre">{etape.titre}</h2>
+        <h2 className="titre-mis-en-avant fiche-suivante-titre">{etape.titre}</h2>
         <span className="fiche-suivante-detail">{etape.detail}</span>
       </div>
       <button type="button" className="fiche-bouton-blanc" onClick={etape.onClick}>

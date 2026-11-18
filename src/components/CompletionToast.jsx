@@ -22,7 +22,7 @@ function CompletionToast({ overlay, onFermer }) {
           onClick={onFermer}
         >
           <div className="completion-toast-ligne">
-            <span className="completion-toast-titre">{overlay.titre}</span>
+            <span className="titre-carte completion-toast-titre">{overlay.titre}</span>
             {overlay.xp != null && <span className="completion-toast-xp">+{overlay.xp} XP</span>}
           </div>
           {(overlay.badges ?? []).map((badge) => (

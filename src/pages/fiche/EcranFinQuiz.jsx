@@ -107,7 +107,7 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
         <button type="button" className="bouton-rond" onClick={onRetour} aria-label="Retour">
           <Icone svg={iconeRetour} className="bouton-rond-icone" />
         </button>
-        <span className="fin-quiz-haut-titre">{typo(titreBarre)}</span>
+        <span className="titre-ligne fin-quiz-haut-titre">{typo(titreBarre)}</span>
       </div>
 
       <div className="fin-quiz-colonne">
@@ -143,7 +143,7 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
               <img className="fin-quiz-badge-objet" src={iconeBadge(badge)} alt="" />
               <div className="fin-quiz-badge-texte">
                 <span className="fin-quiz-badge-pastille">Nouveau badge</span>
-                <span className="fin-quiz-badge-nom">{badge.nom}</span>
+                <span className="titre-carte fin-quiz-badge-nom">{badge.nom}</span>
                 <span className="fin-quiz-badge-condition">{conditionCourteBadge(badge.condition_deblocage)}</span>
               </div>
             </div>
