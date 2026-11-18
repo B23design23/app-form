@@ -45,7 +45,7 @@ function CarteTheme({ nom, index, termines, commences, total, onClick }) {
         <Icone svg={iconeChevron} className="chevron-ligne" />
       </span>
       {/* Titre avant « Thème N » dans le DOM (lu d'abord, fiche Carte) ; l'ordre à l'écran est rétabli en CSS */}
-      <h3 className="theme-carte-titre">
+      <h3 className="titre-carte theme-carte-titre">
         <button type="button" className="carte-cliquable-bouton" onClick={onClick}>
           {nom}
         </button>
@@ -206,7 +206,7 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
                 <p className="page-cours-aucun-resultat">Aucun cours ne correspond à « {recherche.trim()} ».</p>
               ) : (
                 <>
-                  <h2 className="page-cours-h2">
+                  <h2 className="titre-section page-cours-h2">
                     {resultats.length} résultat{resultats.length > 1 ? 's' : ''}
                   </h2>
                   <ListeCours>
@@ -241,7 +241,7 @@ function SectionCours({ authUser, onOuvrirCours, themeSelectionneIndex, onChange
               )}
 
               <div className="page-cours-section">
-                <h2 className="page-cours-h2">Thèmes</h2>
+                <h2 className="titre-section page-cours-h2">Thèmes</h2>
                 <div className="cours-grille-themes">
                   {etatThemes.map((theme, index) => (
                     <CarteTheme

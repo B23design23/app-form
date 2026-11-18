@@ -105,7 +105,7 @@ function Introduction({ slideInitiale = 0, onCreerCompte, onSeConnecter, onPasse
           <img className="intro-objet" src={slide.objet} alt="" />
         </div>
         <div className="parcours-titres">
-          <h1 className="parcours-titre">{typo(slide.titre)}</h1>
+          <h1 className="titre-page parcours-titre">{typo(slide.titre)}</h1>
           <p className="parcours-sous-titre">{typo(slide.texte)}</p>
         </div>
       </div>

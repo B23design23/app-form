@@ -211,7 +211,7 @@ function Inscription({ authUser, onRetourChoixProfil, onSeConnecter, onProfilCre
           <>
             <div className="compte-bloc">
               <img className="compte-bloc-objet" src={IMAGE_CREATION_COMPTE} alt="" />
-              <h1 className="compte-bloc-titre">{typo(`Plus qu'une étape, ${prenom}`)}</h1>
+              <h1 className="titre-page compte-bloc-titre">{typo(`Plus qu'une étape, ${prenom}`)}</h1>
               <p className="compte-bloc-texte">Ton compte garde ta progression, tes XP et tes badges.</p>
             </div>
             <ChampParcours

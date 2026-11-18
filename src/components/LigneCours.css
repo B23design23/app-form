@@ -25,12 +25,6 @@
 }
 
 .ligne-cours-titre {
-  font: var(--typo-titre-ligne);
-  /* Titre de ligne : pas de césure automatique (typographie.md, section 5) ; voir « Ligne de cours » */
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
   transition: all 0.15s ease;
 }
 

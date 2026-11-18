@@ -169,16 +169,6 @@
   min-width: 0;
 }
 
-.profil-carte-titre {
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 .profil-carte-description {
   font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
@@ -206,17 +196,6 @@
   height: 100px;
   transform: translateY(-50%);
   pointer-events: none;
-}
-
-.compte-bloc-titre {
-  margin: 0;
-  font: var(--typo-titre-page);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .compte-bloc-texte {

@@ -38,7 +38,7 @@ function ChoixProfil({ onRetour, onChoisir, onSeConnecter }) {
           <div key={profil.role} className="carte carte-cliquable profil-carte">
             <img className="profil-carte-objet" src={profil.image} alt="" />
             <span className="profil-carte-texte">
-              <h2 className="profil-carte-titre">
+              <h2 className="titre-carte profil-carte-titre">
                 <button type="button" className="carte-cliquable-bouton" onClick={() => onChoisir(profil.role)}>
                   {profil.titre}
                 </button>

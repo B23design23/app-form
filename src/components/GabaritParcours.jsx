@@ -75,7 +75,7 @@ export function BoutonRetour({ onRetour }) {
 export function TitreParcours({ titre, sousTitre }) {
   return (
     <div className="parcours-titres">
-      <h1 className="parcours-titre">{typo(titre)}</h1>
+      <h1 className="titre-page parcours-titre">{typo(titre)}</h1>
       {sousTitre && <p className="parcours-sous-titre">{typo(sousTitre)}</p>}
     </div>
   )

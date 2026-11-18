@@ -19,25 +19,6 @@
   font: var(--typo-corps-courant-fort);
 }
 
-.contenu-markdown.contenu-markdown-role-titre-contenu {
-  font: var(--typo-titre-contenu);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-}
-
-.contenu-markdown.contenu-markdown-role-titre-ligne {
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-}
-
 /* Emphase et lien dans une phrase (p, li) : variante -fort du rôle ; rôles à 800 et rôle déjà
    -fort : ils gardent la graisse du rôle. font remet font-style à zéro : l'italique est rendue. */
 .contenu-markdown.contenu-markdown-role-texte-lecture :is(p, li) :is(strong, a) {
@@ -68,14 +49,6 @@
 .contenu-markdown h3,
 .contenu-markdown h4 {
   margin: var(--espace-intertitre-avant) 0 var(--espace-intertitre-apres);
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  text-wrap: balance;
 }
 
 /* Emphase et lien dans un titre (800) : la graisse du titre */

@@ -367,7 +367,7 @@ function CarteGroupes({ donnees, onChangerSection, onOuvrirGroupe }) {
               <button type="button" className="ligne-fond fd-groupe" onClick={() => onOuvrirGroupe(groupe.id)}>
                 <span className="fd-groupe-haut">
                   <span className="fd-groupe-titres">
-                    <span className="fd-groupe-nom">{typo(groupe.nom)}</span>
+                    <span className="titre-ligne fd-groupe-nom">{typo(groupe.nom)}</span>
                     <span className="fd-groupe-meta">
                       {pluriel(stats.nbEleves, 'élève')} · {pluriel(stats.nbCours, 'cours', 'cours')}
                     </span>
@@ -705,7 +705,7 @@ function PremiersPas({ donnees, onCreerCours, onCreerGroupe, onOuvrirGroupe }) {
           <li key={etape.titre} className={`ligne-fond fd-etape${etape.faite ? ' fd-etape-faite' : ''}`}>
             <span className="fd-etape-rond">{etape.faite ? <Icone svg={iconeCoche} className="fd-etape-coche" /> : i + 1}</span>
             <span className="fd-etape-textes">
-              <span className="fd-etape-titre">{etape.titre}</span>
+              <span className="titre-ligne fd-etape-titre">{etape.titre}</span>
               {!etape.faite && <span className="fd-etape-texte">{etape.texte}</span>}
             </span>
             {!etape.faite && (

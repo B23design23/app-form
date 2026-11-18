@@ -154,17 +154,6 @@
   color: var(--texte-accent);
 }
 
-.fiche-entete-titre {
-  margin: 0;
-  font: var(--typo-titre-contenu);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 .fiche-entete-sous-titre {
   margin: 0 0 var(--espace-groupes);
   font: var(--typo-meta);
@@ -207,17 +196,6 @@
   display: flex;
   align-items: center;
   gap: var(--espace-icone);
-}
-
-.fiche-retenir-entete h2 {
-  margin: 0;
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .fiche-retenir-pastille {
@@ -351,18 +329,6 @@
 .fiche-quiz-cours {
   font: var(--typo-surtitre);
   color: var(--texte-accent);
-}
-
-/* Même rôle que ContenuMarkdown (titre-contenu) : la règle sert aussi la page /design-system */
-.fiche-quiz-question {
-  font: var(--typo-titre-contenu);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  text-wrap: balance;
 }
 
 .fiche-quiz-question.contenu-markdown p {
@@ -717,13 +683,6 @@
 
 .fin-quiz-titre {
   margin: var(--espace-groupes) 0 0;
-  font: var(--typo-titre-page);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .fin-quiz-sous-titre {
@@ -933,10 +892,6 @@
 .fiche-checklist-titre {
   margin: 0;
   overflow: hidden;
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -952,17 +907,6 @@
   align-items: baseline;
   justify-content: space-between;
   gap: var(--espace-rangee);
-}
-
-.fiche-checklist-compte {
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  text-wrap: balance;
 }
 
 .fiche-checklist-xp {
@@ -1214,14 +1158,6 @@
   flex-direction: column;
   gap: var(--espace-textes);
   min-width: 0;
-}
-
-.fiche-recap-ligne-titre {
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
 }
 
 .fiche-recap-ligne-detail {

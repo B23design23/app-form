@@ -16,7 +16,7 @@ function BlocFormateur({ id, lignes, actionEntete, avecChevron = false, grille =
         <span className="bloc-formateur-pastille">
           <Icone svg={iconeFormateur} className="bloc-formateur-pastille-icone" />
         </span>
-        <h2>De ton formateur</h2>
+        <h2 className="titre-section">De ton formateur</h2>
         {actionEntete}
       </div>
       <ul className="bloc-formateur-liste">
@@ -27,7 +27,7 @@ function BlocFormateur({ id, lignes, actionEntete, avecChevron = false, grille =
                 <img src={imageTheme(cours.categorie)} alt="" />
               </span>
               <span className="bloc-formateur-texte">
-                <span className="bloc-formateur-titre">{typo(cours.titre)}</span>
+                <span className="titre-ligne bloc-formateur-titre">{typo(cours.titre)}</span>
                 <StatutBadge statut={statut} />
               </span>
               {avecChevron && <Icone svg={iconeChevron} className="chevron-ligne" />}

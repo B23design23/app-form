@@ -878,7 +878,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
           <Icone svg={iconeRetour} className="bouton-rond-icone" />
         </button>
         <div className="cc-entete-mobile-titres">
-          <h1>{titrePage}</h1>
+          <h1 className="titre-ligne">{titrePage}</h1>
           {titre.trim() && <p>{typo(titre.trim())}</p>}
         </div>
         {modeEdition && onApercu && (
@@ -933,14 +933,14 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
 
         <main className="cc-contenu">
           <div className="cc-entete-desktop">
-            <h1>{titrePage}</h1>
+            <h1 className="titre-page">{titrePage}</h1>
             {titre.trim() && <p className="fm-sous-titre">{typo(titre.trim())}</p>}
           </div>
           {estAdmin && <p className="creation-badge-officiel">Compte officiel : ce cours sera public</p>}
 
           {/* Infos */}
           <section id="cc-section-infos" data-section="infos" className="cc-carte" aria-labelledby="cc-titre-infos">
-            <h2 id="cc-titre-infos">Infos</h2>
+            <h2 id="cc-titre-infos" className="titre-section">Infos</h2>
 
             <div className="cc-ligne-champs">
               <label className="champ cc-champ-titre">
@@ -1012,7 +1012,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
 
           {/* Leçon */}
           <section id="cc-section-lecon" data-section="lecon" className="cc-carte" aria-labelledby="cc-titre-lecon">
-            <h2 id="cc-titre-lecon">Leçon</h2>
+            <h2 id="cc-titre-lecon" className="titre-section">Leçon</h2>
 
             <div className="cc-editeur">
               <div className="cc-editeur-outils">
@@ -1077,7 +1077,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                               <span className="fiche-retenir-pastille">
                                 <Icone svg={iconeAmpoule} className="fiche-retenir-icone" />
                               </span>
-                              <h2>À retenir</h2>
+                              <h2 className="titre-section">À retenir</h2>
                             </div>
                             <ul>
                               {aRetenir
@@ -1121,7 +1121,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
           {/* QCM */}
           <section id="cc-section-qcm" data-section="qcm" className="cc-carte" aria-labelledby="cc-titre-qcm">
             <div className="cc-carte-entete">
-              <h2 id="cc-titre-qcm">QCM</h2>
+              <h2 id="cc-titre-qcm" className="titre-section">QCM</h2>
               <span className="fm-meta">{compteurs.qcm}</span>
             </div>
 
@@ -1140,7 +1140,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                         onClick={() => majQuestion(question.localId, { estOuverte: true })}
                       >
                         <span className="cc-numero">{numero}</span>
-                        <span className="cc-question-enonce">{typo(question.enonce.trim()) || `Question ${numero}`}</span>
+                        <span className="titre-ligne cc-question-enonce">{typo(question.enonce.trim()) || `Question ${numero}`}</span>
                         <span className="cc-question-meta">
                           {type.long} · {question.reponses.length} réponse{question.reponses.length > 1 ? 's' : ''}
                         </span>
@@ -1155,7 +1155,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
                   <div key={question.localId} id={`cc-element-${question.localId}`} className="cc-question">
                     <div className="cc-question-entete">
                       <span className="cc-numero cc-numero-actif">{numero}</span>
-                      <h3>Question {numero}</h3>
+                      <h3 className="titre-ligne">Question {numero}</h3>
                       {questions.length > 1 && (
                         <MenuActions
                           titre={`Question ${numero}`}
@@ -1324,7 +1324,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
           {/* Checklist terrain */}
           <section id="cc-section-checklist" data-section="checklist" className="cc-carte" aria-labelledby="cc-titre-checklist">
             <div className="cc-carte-entete">
-              <h2 id="cc-titre-checklist">Checklist terrain</h2>
+              <h2 id="cc-titre-checklist" className="titre-section">Checklist terrain</h2>
               {compteurs.checklist && <span className="fm-meta">{compteurs.checklist}</span>}
             </div>
 

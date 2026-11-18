@@ -238,14 +238,6 @@
   min-width: 0;
 }
 
-.fd-groupe-nom {
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-}
-
 .fd-groupe-meta {
   font: var(--typo-meta);
   color: var(--texte-secondaire);
@@ -602,14 +594,6 @@
   min-width: 0;
 }
 
-.fd-etape-titre {
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-}
-
 .fd-etape-texte {
   font: var(--typo-texte-secondaire);
   color: var(--texte-secondaire);
@@ -686,15 +670,6 @@
 
 .fd-tableau td {
   display: none;
-}
-
-.fd-tableau-titre {
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-  color: var(--texte-principal);
 }
 
 .fd-tableau-theme {

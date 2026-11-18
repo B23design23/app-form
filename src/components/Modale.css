@@ -47,17 +47,6 @@
   gap: var(--espace-textes);
 }
 
-.modale-titres h2 {
-  margin: 0;
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 .modale-titres p {
   margin: 0;
   font: var(--typo-texte-secondaire);

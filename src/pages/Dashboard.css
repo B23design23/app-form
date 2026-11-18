@@ -129,16 +129,6 @@
   color: var(--texte-sur-marque-attenue);
 }
 
-.dash-titre-carte {
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 .dash-sous-texte {
   font: var(--typo-meta);
   color: var(--texte-secondaire);
@@ -393,13 +383,6 @@
 .dash-flash-tete-titre {
   /* mise-en-page.md, section 3 : borne de texte de 210 px des blocs du dashboard */
   max-width: 210px;
-  font: var(--typo-titre-mis-en-avant);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .dash-flash-tete-texte {
@@ -433,16 +416,6 @@
   flex-direction: column;
   gap: var(--espace-textes);
   min-width: 0;
-}
-
-.dash-flash-ligne-texte h2 {
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .dash-flash-ligne-meta {
@@ -506,16 +479,6 @@
   flex-direction: column;
   gap: var(--espace-textes);
   min-width: 0;
-}
-
-.dash-flash-verrouille-texte h2 {
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .dash-flash-verrouille-consigne {
@@ -922,18 +885,6 @@
   gap: var(--espace-rangee);
 }
 
-.dash-modale-badges-entete h2 {
-  margin: 0;
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  color: var(--texte-principal);
-}
-
 .dash-modale-badges-compteur {
   flex: 1;
   font: var(--typo-compteur);
@@ -992,15 +943,6 @@
 .dash-modale-badge-pastille img {
   width: 72px;
   height: 72px;
-}
-
-.dash-modale-badge-nom {
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-  color: var(--texte-principal);
 }
 
 .dash-modale-badge-condition {

@@ -48,7 +48,7 @@ function EcranChecklist({
         </button>
         <div className="fiche-checklist-entete-texte">
           <span className="fiche-checklist-theme">{cours.categorie}</span>
-          <h1 className="fiche-checklist-titre">{typo(cours.titre)}</h1>
+          <h1 className="titre-ligne fiche-checklist-titre">{typo(cours.titre)}</h1>
         </div>
       </div>
 
@@ -56,7 +56,7 @@ function EcranChecklist({
 
       <div className="carte fiche-checklist-progression">
         <div className="fiche-checklist-progression-ligne">
-          <span className="fiche-checklist-compte">
+          <span className="titre-carte fiche-checklist-compte">
             {nbFaites} étape{nbFaites > 1 ? 's' : ''} sur {etapes.length}
           </span>
           <span className="fiche-checklist-xp">{checklistFaite ? 'Checklist terminée' : '+15 XP à la fin'}</span>

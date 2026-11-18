@@ -25,7 +25,7 @@ function SectionRepliable({ titre, meta, ouverte, onBasculer, children }) {
       <div className="dc-section-entete">
         {/* Mobile : la ligne d'info passe sous le titre ; desktop : à droite */}
         <div className="dc-section-titres">
-          <h2>{titre}</h2>
+          <h2 className="titre-section">{titre}</h2>
           {meta && <span className="fm-meta">{meta}</span>}
         </div>
         <button
@@ -242,7 +242,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
         {/* En-tête */}
         <div className="dc-entete">
           <div className="dc-entete-texte">
-            <h1 className="dc-titre">{typo(cours.titre)}</h1>
+            <h1 className="titre-contenu dc-titre">{typo(cours.titre)}</h1>
             <div className="fm-pastilles dc-entete-pastilles">
               <span className="pastille fm-pastille-blanche">{cours.categorie}</span>
               {parties.length > 0 && <span className="fm-meta">{parties.join(' · ')}</span>}
@@ -277,7 +277,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
         {groupes.length > 0 ? (
           <section className="carte fm-carte dc-avancement">
             <div className="fm-carte-entete">
-              <h2>Avancement des élèves</h2>
+              <h2 className="titre-section">Avancement des élèves</h2>
               {avancement && (
                 <span className="fm-meta">
                   {groupes.length === 1 ? typo(groupes[0].nom) : `${groupes.length} groupes`} · {avancement.total} élève
@@ -373,7 +373,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
                   <span className="dc-retenir-pastille">
                     <Icone svg={iconeAmpoule} className="dc-retenir-icone" />
                   </span>
-                  <h3>À retenir</h3>
+                  <h3 className="titre-section">À retenir</h3>
                 </div>
                 <ul>
                   {pointsARetenir.map((point) => (

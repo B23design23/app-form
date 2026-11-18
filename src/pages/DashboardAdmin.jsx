@@ -112,7 +112,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
               {coursSuivis.map((c) => (
                 <tr key={c.id}>
                   <th scope="row">
-                    <span className="fd-tableau-titre">{typo(c.titre)}</span>
+                    <span className="titre-ligne fd-tableau-titre">{typo(c.titre)}</span>
                     <span className="fd-tableau-theme">{libelleCourtTheme(c.categorie)}</span>
                     {/* Mobile : les chiffres passent sous le titre, en une ligne */}
                     <span className="fd-tableau-resume">

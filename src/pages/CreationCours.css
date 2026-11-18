@@ -48,14 +48,6 @@
   min-width: 0;
 }
 
-.cc-entete-mobile h1 {
-  margin: 0;
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-}
-
 .cc-entete-mobile p {
   margin: var(--espace-textes) 0 0;
   overflow: hidden;
@@ -220,17 +212,6 @@
   /* mise-en-page.md, section 8 : arrêt de défilement propre à Création de cours, sous la rangée
      collante (exception écrite) */
   scroll-margin-top: calc(env(safe-area-inset-top) + 76px);
-}
-
-.cc-carte h2 {
-  margin: 0;
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .cc-carte-entete {
@@ -582,11 +563,6 @@
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -616,10 +592,6 @@
 .cc-question-entete h3 {
   flex: 1;
   margin: 0;
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
 }
 
 .cc-question-entete .bouton-rond {
@@ -1302,17 +1274,6 @@
     gap: var(--espace-textes);
     /* espacements.md, section 9 : centrage optique du titre sur le bouton retour du sommaire */
     margin-top: 4px;
-  }
-
-  .cc-entete-desktop h1 {
-    margin: 0;
-    font: var(--typo-titre-page);
-    hyphens: auto;
-    -webkit-hyphens: auto;
-    hyphenate-limit-chars: 10 4 4;
-    -webkit-hyphenate-limit-before: 4;
-    -webkit-hyphenate-limit-after: 4;
-    overflow-wrap: break-word;
   }
 
   .cc-contenu {

@@ -37,7 +37,7 @@ function EcranLecon({
               <span className="fiche-retenir-pastille">
                 <Icone svg={iconeAmpoule} className="fiche-retenir-icone" />
               </span>
-              <h2>À retenir</h2>
+              <h2 className="titre-section">À retenir</h2>
             </div>
             <ul>
               {pointsARetenir.map((point) => (

@@ -79,7 +79,7 @@ function avecRetoursALaLigne(children) {
 
 function titre(Balise) {
   return function Titre({ children }) {
-    return <Balise>{avecRetoursALaLigne(children)}</Balise>
+    return <Balise className="titre-section">{avecRetoursALaLigne(children)}</Balise>
   }
 }
 
@@ -96,7 +96,8 @@ function ContenuMarkdown({ texte, className = '', roleTypo }) {
 
   if (!texte) return null
 
-  const classeRole = ROLES_TYPO.includes(roleTypo) ? `contenu-markdown-role-${roleTypo}` : ''
+  // Rôle de titre : en plus, la classe commune du rôle (shared.css), le texte du Markdown est le titre
+  const classeRole = ROLES_TYPO.includes(roleTypo) ? `contenu-markdown-role-${roleTypo}${roleTypo.startsWith('titre-') ? ` ${roleTypo}` : ''}` : ''
 
   return (
     <div className={`contenu-markdown ${classeRole} ${className}`.replace(/\s+/g, ' ').trim()}>

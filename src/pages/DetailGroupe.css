@@ -50,17 +50,6 @@
   justify-content: space-between;
 }
 
-.dg-cours-entete h2 {
-  margin: 0;
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 /* « + Assigner » : classe commune .lien-texte (survol et appui communs) */
 
 /* Mobile : cartes de 200 px en défilement horizontal */
@@ -88,17 +77,6 @@
   border-radius: var(--rayon-surface);
   background: var(--fond-surface);
   scroll-snap-align: start;
-}
-
-.dg-cours-titre {
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  text-wrap: balance;
 }
 
 .dg-cours-ajout-element {
@@ -176,12 +154,6 @@
 
 .dg-eleve-nom {
   display: block;
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-  color: var(--texte-principal);
 }
 
 .dg-eleve-email {

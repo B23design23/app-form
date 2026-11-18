@@ -319,7 +319,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
 
         <div className="fm-entete dg-entete">
           <div className="fm-titres">
-            <h1>{typo(groupe.nom)}</h1>
+            <h1 className="titre-page">{typo(groupe.nom)}</h1>
             <p className="fm-sous-titre">
               {membres.length} élève{membres.length > 1 ? 's' : ''} · {coursDuGroupe.length} cours assigné
               {coursDuGroupe.length > 1 ? 's' : ''}
@@ -354,7 +354,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
         {/* Cours assignés */}
         <section className="dg-cours">
           <div className="dg-cours-entete">
-            <h2>Cours assignés</h2>
+            <h2 className="titre-section">Cours assignés</h2>
             <button type="button" className="lien-texte dg-lien-assigner" onClick={ouvrirAssignation}>
               + Assigner
             </button>
@@ -364,7 +364,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
               const termines = membres.filter((m) => statutDe(m, cours) === 'termine').length
               return (
                 <li key={cours.id} className="dg-cours-carte">
-                  <span className="dg-cours-titre">{typo(cours.titre)}</span>
+                  <span className="titre-carte dg-cours-titre">{typo(cours.titre)}</span>
                   <BarreFine ratio={membres.length ? termines / membres.length : 0} />
                   <span className="fm-meta">
                     {termines} terminé{termines > 1 ? 's' : ''} sur {membres.length}
@@ -383,7 +383,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
         {/* Élèves : liste et suivi fusionnés */}
         <section className="carte fm-carte dg-eleves">
           <div className="dg-eleves-entete">
-            <h2>Élèves</h2>
+            <h2 className="titre-section">Élèves</h2>
             {membres.length > 0 && (
               <div className="dg-eleves-filtres">
                 <label className="champ dg-recherche">
@@ -426,7 +426,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                   {membresAffiches.map((membre) => (
                     <tr key={membre.id}>
                       <td>
-                        <span className="dg-eleve-nom">{nomComplet(membre)}</span>
+                        <span className="titre-ligne dg-eleve-nom">{nomComplet(membre)}</span>
                         <span className="dg-eleve-email">{membre.email}</span>
                       </td>
                       {coursDuGroupe.map((cours) => (
@@ -449,7 +449,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
                   <li key={membre.id} className="ligne-fond dg-eleve-carte">
                     <div className="dg-eleve-carte-haut">
                       <span className="dg-eleve-carte-texte">
-                        <span className="dg-eleve-nom">{nomComplet(membre)}</span>
+                        <span className="titre-ligne dg-eleve-nom">{nomComplet(membre)}</span>
                         <span className="dg-eleve-email">
                           {membre.email} · {membre.xp_total} XP · {badgesParApprenant.get(membre.id) ?? 0} badge
                           {(badgesParApprenant.get(membre.id) ?? 0) > 1 ? 's' : ''}

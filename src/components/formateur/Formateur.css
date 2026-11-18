@@ -24,17 +24,6 @@
   min-width: 0;
 }
 
-.fm-titres h1 {
-  margin: 0;
-  font: var(--typo-titre-page);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 .fm-sous-titre {
   margin: 0;
   font: var(--typo-texte-secondaire);
@@ -46,17 +35,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--espace-groupes);
-}
-
-.fm-carte h2 {
-  margin: 0;
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .fm-carte-entete {
@@ -216,15 +194,6 @@
 .fm-menu-titre {
   margin: 0 0 var(--espace-textes);
   padding: 0 var(--espace-bord);
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-  color: var(--texte-principal);
 }
 
 .fm-menu-item {

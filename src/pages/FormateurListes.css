@@ -42,17 +42,6 @@
   min-width: 0;
 }
 
-/* Titre de la carte (h2) */
-.fl-carte-titre {
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-}
-
 .fl-carte-meta {
   font: var(--typo-meta);
   color: var(--texte-secondaire);

@@ -18,14 +18,6 @@
 .bloc-formateur-entete h2 {
   flex: 1;
   margin: 0;
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  color: var(--texte-principal);
 }
 
 .bloc-formateur-pastille {
@@ -82,11 +74,6 @@
   flex: 1 1 auto;
   width: min-content;
   min-width: 0;
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
   transition: all 0.15s ease;
 }
 

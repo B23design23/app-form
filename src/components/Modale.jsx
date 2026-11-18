@@ -50,7 +50,7 @@ function Modale({ titre, sousTitre, onFermer, children, actions, etroite = false
         <span className="modale-poignee" aria-hidden="true" />
         <div className="modale-entete">
           <div className="modale-titres">
-            <h2>{titre}</h2>
+            <h2 className="titre-section">{titre}</h2>
             {sousTitre && <p>{sousTitre}</p>}
           </div>
           <button type="button" className="bouton-rond" onClick={onFermer} aria-label="Fermer">

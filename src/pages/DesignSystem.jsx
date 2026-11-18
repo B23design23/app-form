@@ -130,7 +130,7 @@ function Couleurs() {
       <p className="ds-intention">{nbSemantiquesAMode} sémantiques changent de valeur avec le mode : leurs deux valeurs sont côte à côte (apprenant / formateur).</p>
       {semantiquesParRole.map(({ role, tokens }) => (
         <div key={role} className="ds-groupe">
-          <h3>{role}</h3>
+          <h3 className="titre-section">{role}</h3>
           <div className="ds-grille">
             {tokens.map((t) => (
               <CarteSemantique key={t.nom} token={t} />
@@ -139,7 +139,7 @@ function Couleurs() {
         </div>
       ))}
       <div className="ds-groupe">
-        <h3>Fonds de page</h3>
+        <h3 className="titre-section">Fonds de page</h3>
         <div className="espace-carte ds-fonds-page">
           {['apprenant', 'formateur'].map((m) => (
             <div key={m} className={`ds-fond-page ${m === 'apprenant' ? 'mode-apprenant' : 'flow-page-formateur'}`}>
@@ -150,7 +150,7 @@ function Couleurs() {
         </div>
       </div>
       <div className="ds-groupe">
-        <h3>Primitifs</h3>
+        <h3 className="titre-section">Primitifs</h3>
         <p className="ds-intention">{regleLecturePrimitif}</p>
         <div className="ds-primitifs">
           {primitifs.map((p) => (
@@ -301,7 +301,7 @@ function Composants() {
   return (
     <Section numero="05" surtitre="COMPOSANTS" titre="Composants" intention="Les vrais composants de l'app, avec leurs règles.">
       <div className="ds-groupe">
-        <h3>Boutons</h3>
+        <h3 className="titre-section">Boutons</h3>
         <div className="ds-grille">
           <div className="espace-carte ds-carte ds-centre"><button type="button" className="bouton-primaire">Principal</button></div>
           <div className="espace-carte ds-carte ds-centre"><button type="button" className="bouton-secondaire">Secondaire</button></div>
@@ -322,7 +322,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Champ</h3>
+        <h3 className="titre-section">Champ</h3>
         <div className="ds-grille">
           <div className="espace-carte ds-carte">
             <label className="champ">
@@ -348,7 +348,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Pastilles de statut</h3>
+        <h3 className="titre-section">Pastilles de statut</h3>
         <div className="espace-carte ds-carte ds-pastilles">
           {['non_commence', 'a_faire', 'nouveau', 'en_cours', 'termine'].map((s) => (
             <StatutBadge key={s} statut={s} />
@@ -359,7 +359,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Séparateur</h3>
+        <h3 className="titre-section">Séparateur</h3>
         <div className="espace-carte ds-carte">
           <ContenuMarkdown texte={TABLEAU_SEPARATEUR} roleTypo="corps-courant" />
         </div>
@@ -367,7 +367,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Carte</h3>
+        <h3 className="titre-section">Carte</h3>
         <div className="ds-grille">
           <article className="carte ds-carte">
             <span className="ds-nom">Carte</span>
@@ -379,7 +379,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Ligne de liste</h3>
+        <h3 className="titre-section">Ligne de liste</h3>
         <ul className="carte carte-liste ds-liste">
           {['Nettoyage du filtre', 'Le split mural'].map((t) => (
             <li key={t}>
@@ -399,7 +399,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Pastille</h3>
+        <h3 className="titre-section">Pastille</h3>
         <div className="espace-carte ds-carte ds-pastilles">
           <span className="pastille fm-pastille-groupe">Promo A</span>
           <span className="pastille fm-pastille-neutre">Non assigné</span>
@@ -411,7 +411,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Lien texte, bouton rond, retour</h3>
+        <h3 className="titre-section">Lien texte, bouton rond, retour</h3>
         <div className="carte ds-carte ds-pastilles">
           <button type="button" className="lien-texte">Tout voir</button>
           <button type="button" className="bouton-rond" aria-label="Fermer">
@@ -427,7 +427,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Barre fine</h3>
+        <h3 className="titre-section">Barre fine</h3>
         <div className="espace-carte ds-carte">
           <span className="fm-barre" aria-hidden="true">
             <span className="fm-barre-remplissage" style={{ width: '62%' }} />
@@ -438,7 +438,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Anneau de progression</h3>
+        <h3 className="titre-section">Anneau de progression</h3>
         <div className="espace-carte ds-carte ds-centre">
           <AnneauProgression ratio={0.6}>
             <span className="anneau-progression-valeur">60 %</span>
@@ -448,7 +448,7 @@ function Composants() {
       </div>
 
       <div className="ds-groupe">
-        <h3>Réponse de quiz</h3>
+        <h3 className="titre-section">Réponse de quiz</h3>
         <div className="fiche-reponses ds-reponses">
           <label className="fiche-reponse fiche-reponse-selectionnee">
             <input className="fiche-reponse-input" type="radio" name="ds-reponse" defaultChecked />

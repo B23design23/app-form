@@ -91,7 +91,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
     <div className="espace-page espace-page-etroit fm-page">
       <div className="fm-entete">
         <div className="fm-titres">
-          <h1>Mes cours</h1>
+          <h1 className="titre-page">Mes cours</h1>
           {mesCours && (
             <p className="fm-sous-titre">
               {mesCours.length} cours · {nbAssignes} assigné{nbAssignes > 1 ? 's' : ''}
@@ -136,7 +136,7 @@ function SectionCoursFormateur({ authUser, onOuvrirCours, onCreerCours }) {
             <li key={cours.id}>
               <div className="carte carte-cliquable fl-carte">
                 <span className="fl-carte-texte">
-                  <h2 className="fl-carte-titre fl-carte-titre-cours">
+                  <h2 className="titre-carte fl-carte-titre fl-carte-titre-cours">
                     <button type="button" className="carte-cliquable-bouton" onClick={() => onOuvrirCours(cours.id)}>
                       {typo(cours.titre)}
                     </button>

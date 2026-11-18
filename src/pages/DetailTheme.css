@@ -47,14 +47,6 @@
   margin: 0;
   /* espacements.md, section 8 : réserve de l'objet 3D */
   padding-right: 100px;
-  font: var(--typo-titre-contenu);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  color: var(--texte-principal);
 }
 
 .theme-entete-compte {
@@ -100,11 +92,6 @@
 }
 
 .theme-ligne-titre {
-  font: var(--typo-titre-ligne);
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
   transition: all 0.15s ease;
 }
 

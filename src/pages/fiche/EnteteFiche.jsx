@@ -15,7 +15,7 @@ function EnteteFiche({ cours, sousTitre, onRetour, children }) {
       <div className="fiche-entete">
         <img className="fiche-entete-objet" src={imageTheme(cours.categorie)} alt="" />
         <span className="fiche-entete-theme">{cours.categorie}</span>
-        <h1 className="fiche-entete-titre">{typo(cours.titre)}</h1>
+        <h1 className="titre-contenu fiche-entete-titre">{typo(cours.titre)}</h1>
         {sousTitre && <p className="fiche-entete-sous-titre">{sousTitre}</p>}
         {children}
       </div>

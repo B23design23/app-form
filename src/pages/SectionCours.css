@@ -15,18 +15,6 @@
   gap: var(--espace-groupes);
 }
 
-.page-cours-h2 {
-  margin: 0;
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  color: var(--texte-principal);
-}
-
 .page-cours-aucun-resultat {
   margin: 0;
   text-align: center;
@@ -89,13 +77,6 @@
   order: 2;
   width: 100%;
   margin-top: var(--espace-textes);
-  font: var(--typo-titre-carte);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
 }
 
 .theme-carte-bas {

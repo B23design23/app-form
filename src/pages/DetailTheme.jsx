@@ -65,7 +65,7 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
       <div className="theme-entete">
         <img className="theme-entete-objet" src={imageTheme(nom)} alt="" />
         <span className="theme-entete-numero">Thème {index + 1}</span>
-        <h1 className="theme-entete-titre">{nom}</h1>
+        <h1 className="titre-contenu theme-entete-titre">{nom}</h1>
         {/* Thème sans cours : en-tête sans le compteur */}
         {!(coursListe !== null && total === 0) && (
           <p className="theme-entete-compte">
@@ -89,7 +89,7 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
                 {/* Texte et statut : le statut passe sous le texte seulement si le titre devrait couper un mot */}
                 <span className="theme-ligne-corps">
                   <span className="theme-ligne-texte">
-                    <span className="theme-ligne-titre">{typo(cours.titre)}</span>
+                    <span className="titre-ligne theme-ligne-titre">{typo(cours.titre)}</span>
                     <span className="theme-ligne-contenu">{contenuCours(cours)}</span>
                   </span>
                   <StatutBadge statut={statutParCoursId.get(cours.id) ?? 'non_commence'} />

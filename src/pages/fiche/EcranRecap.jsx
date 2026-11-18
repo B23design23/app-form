@@ -51,7 +51,7 @@ function EcranRecap({
           return (
             <li key={partie} className="fiche-recap-ligne">
               <span className="fiche-recap-ligne-texte">
-                <span className="fiche-recap-ligne-titre">{ligne.titre}</span>
+                <span className="titre-ligne fiche-recap-ligne-titre">{ligne.titre}</span>
                 <span className="fiche-recap-ligne-detail">{ligne.detail}</span>
               </span>
               <button type="button" className="bouton-secondaire fiche-recap-bouton" onClick={ligne.onClick}>

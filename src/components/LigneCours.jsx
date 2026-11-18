@@ -22,7 +22,7 @@ export function LigneCours({ cours, meta, statut, onClick }) {
         {/* Texte et statut : le statut passe sous le texte seulement si le titre devrait couper un mot */}
         <span className="ligne-cours-corps">
           <span className="ligne-cours-texte">
-            <span className="ligne-cours-titre">{typo(cours.titre)}</span>
+            <span className="titre-ligne ligne-cours-titre">{typo(cours.titre)}</span>
             <span className="ligne-cours-meta">{meta}</span>
           </span>
           {statut && (

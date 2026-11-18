@@ -75,7 +75,7 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
     <div className="espace-page espace-page-etroit fm-page">
       <div className="fm-entete">
         <div className="fm-titres">
-          <h1>Mes groupes</h1>
+          <h1 className="titre-page">Mes groupes</h1>
           {donnees && (
             <p className="fm-sous-titre">
               {donnees.groupes.length} groupe{donnees.groupes.length > 1 ? 's' : ''} · {nbEleves} élève{nbEleves > 1 ? 's' : ''}
@@ -103,7 +103,7 @@ function SectionGroupesFormateur({ authUser, onOuvrirGroupe }) {
               <li key={groupe.id}>
                 <div className="carte carte-cliquable fl-carte fl-carte-groupe">
                   <span className="fl-carte-groupe-haut">
-                    <h2 className="fl-carte-titre fl-carte-titre-groupe">
+                    <h2 className="titre-carte fl-carte-titre fl-carte-titre-groupe">
                       <button type="button" className="carte-cliquable-bouton" onClick={() => onOuvrirGroupe(groupe.id)}>
                         {typo(groupe.nom)}
                       </button>

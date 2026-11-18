@@ -129,7 +129,7 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
             </AnneauProgression>
           </span>
 
-          <h1 className="fin-quiz-titre">{titre ?? titreScore(score)}</h1>
+          <h1 className="titre-page fin-quiz-titre">{titre ?? titreScore(score)}</h1>
           <p className="fin-quiz-sous-titre">{sousTitre ?? sousTitreErreurs(erreurs.length)}</p>
 
           {xpGagne > 0 && (

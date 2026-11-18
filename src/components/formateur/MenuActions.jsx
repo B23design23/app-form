@@ -75,7 +75,7 @@ function MenuActions({ titre, actions, label = 'Plus d’actions' }) {
           <div className="fm-menu-voile" onClick={() => setOuvert(false)} />
           <div ref={refMenu} className="fm-menu-carte" role="menu" onKeyDown={surToucheMenu}>
             <span className="fm-poignee" aria-hidden="true" />
-            {titre && <p className="fm-menu-titre">{titre}</p>}
+            {titre && <p className="titre-section fm-menu-titre">{titre}</p>}
             {actions.map((action, index) => (
               <button
                 key={action.libelle}
