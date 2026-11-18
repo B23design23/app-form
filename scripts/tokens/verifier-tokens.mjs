@@ -191,8 +191,6 @@ export async function verifierPrimitifsEspacement(dossier = 'src', exclus = ['sr
 // .titre-ligne et .titre-page). EN_ATTENTE : règles laissées « À trancher » (rapport net 12), une
 // par une ; elles ne sont pas des exceptions et sortent de la liste quand la décision est prise.
 const TITRES_EN_ATTENTE = [
-  // rôle non titre proposé (net 13, point 2), à décider
-  ['src/pages/DashboardFormateur.css', '.fd-succes-textes strong'],
   // /design-system : échantillons « Aa », aucun rôle non titre de même typographie (net 13, point 3)
   ['src/pages/DesignSystem.css', '.ds-echantillon-texte'],
 ]

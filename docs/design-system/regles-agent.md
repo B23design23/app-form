@@ -514,6 +514,7 @@ Source : `docs/tokens/typographie.md` (section citée entre parenthèses). Les r
 - L'emphase dans une phrase (`strong`, gras Markdown, nom en gras dans un fil d'activité) suit la même règle qu'un état.
 - Dans les rôles à 800, l'emphase reste invisible, et c'est accepté : 800 est la graisse la plus forte, ces rôles n'ont pas de variante `-fort`.
 - En-tête de tableau (`th`) : il prend le rôle du tableau qu'il coiffe, en variante `-fort` (un tableau en Corps courant : en-têtes en Corps courant fort). Si ce rôle est à 800, l'en-tête reste à 800.
+- La première ligne d'un message d'état prend le rôle du message, en variante `-fort`.
 - *Implémentation* : `ContenuMarkdown` exige le prop `roleTypo` (`texte-lecture`, `corps-courant`, `corps-courant-fort`, `titre-contenu`, `titre-ligne`), le rôle du texte qu'il affiche. Le composant pose `font: var(--typo-<rôle>)`. `strong` et `a` d'une phrase y prennent la variante `-fort`, sauf pour un rôle à 800 ou déjà `-fort`. Les titres Markdown (h1 à h4) sont en Titre de section ; le tableau est en Corps courant, ses `th` en Corps courant fort.
 
 **Contrôles** (section 9)

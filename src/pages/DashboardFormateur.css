@@ -345,13 +345,11 @@
   gap: var(--espace-textes);
 }
 
+/* Première ligne d'un message d'état : rôle du message (état vide : Texte secondaire), variante -fort
+   (typographie.md, section 8) ; couleur de l'état */
 .fd-succes-textes strong {
-  font: var(--typo-titre-ligne);
+  font: var(--typo-texte-secondaire-fort);
   font-style: inherit;
-  hyphens: manual;
-  -webkit-hyphens: manual;
-  overflow-wrap: break-word;
-  text-wrap: balance;
   color: var(--texte-succes);
 }
 
