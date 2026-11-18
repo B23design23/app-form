@@ -345,7 +345,7 @@
   gap: var(--espace-textes);
 }
 
-/* Première ligne d'un message d'état : rôle du message (état vide : Texte secondaire), variante -fort
+/* Première ligne d'un état de page (Vide) : rôle du message (Texte secondaire), variante -fort
    (typographie.md, section 8) ; couleur de l'état */
 .fd-succes-textes strong {
   font: var(--typo-texte-secondaire-fort);
