@@ -4,6 +4,8 @@
 
 Version majeure : des règles changent au point que des écrans conformes ne le sont plus, et la Modale change d'emplacement dans le code. Les écrans concernés sont listés sous chaque entrée ; ceux qui sont déjà corrigés figurent sous « Écrans corrigés ».
 
+Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui n'ont pas d'exigence de contraste.
+
 **Ajouté**
 
 - Variante Retour du Bouton : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages ; en haut à gauche, avant l'en-tête ; pilule blanche, chevron à gauche, texte encre ; chevron seul sur mobile ; nom accessible « Retour à <libellé> » quand le libellé visible nomme le niveau du dessus (WCAG 2.5.3, Label in Name) ; survol et appui en `fond-accent` ; zone cliquable de 44 px minimum. Côté écran, à mettre en conformité :
@@ -32,7 +34,6 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - Tokens `rayon-*` (`tokens/rayons.tokens.json`) : `rayon-pilule`, `rayon-rond`, `rayon-case`, `rayon-surface`, `rayon-element`, un seul niveau, sans primitif ; CSS généré par `npm run tokens` dans `src/styles/tokens.generes.css`, liste générée dans `regles-agent.md`. Un élément applique son rôle par `border-radius: var(--rayon-<rôle>)`.
 - Règle d'écart de l'Élément près du bord : un Élément posé à moins de 20 px du bord de sa Surface garde le même écart en haut, en bas et sur les côtés, et cet écart vaut 8 px ; les coins sont alors concentriques. Côté écran : fait pour l'étape en cours de la checklist (voir « Écrans corrigés »).
 - Exception provisoire : le bouton « Fermer » de la modale Mes badges (`.modal-fermer`) garde un rayon de 8 px. Il n'est pas carré, un Rond en ferait une ellipse. À régler au chantier mise en page, en passant Mes badges sur le composant Modale.
-
 - Mise en page (`docs/tokens/mise-en-page.md`, qui fait foi ; chantier mise en page, formulaires, états de page) :
   - Rôles de largeur de colonne : Page (1040), Lecture (880 de contenu, la colonne compte son padding en plus), Question (680), Formulaire (440), toutes centrées ; la fonction de l'écran décide du rôle. Exception écrite : Création de cours (1200, seuil 1024).
   - Seuil unique : 768 px est le seul seuil de mise en page. Grilles de cartes en colonnes automatiques avec une largeur minimale de carte : thèmes 210, Mes groupes 300, `/design-system` 240.
@@ -46,6 +47,20 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - Valeurs hors rôle (`espacements.md`, section 8) : positions d'un élément fixe, collant ou posé en absolu, haut du Conteneur de page, bas d'une page sans barre fixe (40, une seule valeur pour `.flow-page` et la fiche de cours), place de l'ombre sous une rangée qui défile (4).
 - Réserve d'une illustration (`mise-en-page.md`, section 3) : elle s'applique sur l'axe où l'illustration rencontre l'élément (recherche de Cours : verticale sous 768, horizontale au-dessus).
 - Liste déroulante : props `invalide` et `idErreur` (`aria-invalid`, `aria-describedby`), bordure d'erreur par la règle commune.
+- Catalogue : fiches Carte, Ligne de liste (et variante à fond), Choix, Onglet et filtre, Pastille, Lien texte, Barre fine, Anneau, Bouton rond (`ds-principes-composants.md`) ; liste des composants d'écran sans fiche (repère d'étapes, éditeur de leçon, tri de tableau, bandeau Aperçu, visionneuse, confettis, points de l'Introduction, vignettes de badge, carte pointillée « + Assigner un cours »). Vitrine sur `/design-system`.
+- Une implémentation par rôle, dans `src/styles/shared.css` : `.carte` / `.carte-liste`, `.ligne-liste`, `.ligne-fond`, `.pastille`, `.lien-texte` (ex-`.lien-secondaire`), `.bouton-rond`, `.bouton-retour`, `.recherche`, famille du champ (`.champ input`, `.champ textarea`, `.champ-saisie`). Les copies locales des écrans sont retirées.
+- Tokens d'ombre (`tokens/ombres.tokens.json`) : `--ombre-flottante` (valeur inchangée) et `--ombre-illustration` (ardoise-900 à 35 %, `0 14px 16px`, une valeur pour toutes les cartes et toutes les largeurs) ; token `bordure-focus-halo`.
+- Token `fond-controle-survol` (évolution mineure) : `ardoise-450`, commun aux deux modes (même primitif que `bordure-controle`, 3,40:1 sur la crème) ; survol du point inactif de l'Introduction. Côté écran : fait (`Parcours.css`).
+- Règle Désactivé commune : fond `fond-action-desactive`, texte `texte-action-desactive`, contour `bordure-action-desactive` s'il y en a un, sans opacité.
+- Règle du libellé d'une information affichée sans être modifiable (évolution mineure) : posé au-dessus de sa valeur, il est en Méta, couleur `texte-secondaire` (typographie.md, section 6 ; regles-agent.md). Aucune règle sur la valeur, dont le rôle vient de sa fonction. Les libellés des cartes de statistique (dashboard admin, Détail cours) la suivent déjà. Côté écran : rien à faire.
+- Entrée Menu de la navigation (évolution mineure) : quand l'écran affiché a été ouvert depuis une entrée du Menu, l'entrée Menu est marquée active, avec l'état de l'onglet actif (ds-principes-composants.md, fiche Navigation ; regles-agent.md). Aucune entrée du Menu n'ouvre d'écran aujourd'hui. Côté écran : rien à faire.
+- Primitif `ardoise-450` (#847d97, L* 53,8). Côté écran : rien à faire.
+- `bordure-etape` (`sable-150` en apprenant, `ardoise-175` en formateur) : contour d'une pastille d'étape à venir ou passée, non interactive. Côté écran : une pastille d'étape utilise `bordure-etape`, jamais `bordure-controle` (déjà fait pour le repère d'étapes et la checklist).
+- `bordure-action-desactive` (mêmes valeurs) : contour d'une action désactivée, avec `texte-action-desactive`. Côté écran : déjà fait pour `.bouton-ajouter:disabled`.
+- Rôle `etape` dans la liste fermée des rôles de `docs/tokens/couleurs.md`, pour `bordure-etape`. Côté écran : rien à faire.
+- Règle des ombres : deux ombres, `--ombre-flottante` pour les éléments flottants (menus, listes déroulantes, toast, modales), ombre d'illustration pour les objets 3D qui débordent d'une carte. Pas de token. Côté écran : rien à faire.
+- Règle « Un seul bouton orange par écran » (évolution mineure). Vérifiée sur toutes les situations du dashboard apprenant, mobile et desktop : aucun écran n'en affiche deux aujourd'hui. Côté écran : rien à faire.
+- Composants Modale, Modale de confirmation et Menu d'actions documentés dans `ds-principes-composants.md` (évolution mineure), rédigés depuis le code existant (`src/components/formateur/Modale.jsx`, `MenuActions.jsx`) et le principe 2 ; ce que le code ne tranche pas est marqué « À trancher ». Sans changement de rendu. Côté écran : rien à faire.
 
 **Modifié**
 
@@ -53,24 +68,55 @@ Version majeure : des règles changent au point que des écrans conformes ne le 
 - Espacements : toutes les déclarations d'espacement de `src/` (796 lignes de l'inventaire, dont 395 au rendu inchangé, 186 discrètes et 206 visibles) lisent un token de rôle ou une valeur hors rôle commentée. Version majeure : chaque déclaration est renommée.
 - Focus clavier de tous les boutons : contour de 2 px à l'extérieur du bouton, `bordure-focus`, visible au clavier seulement. Côté écran : fait (voir « Écrans corrigés »).
 - Critère de choix entre principal, secondaire et lien texte (secondaire seulement sur la même rangée que le principal, pour l'autre issue de la même décision ; lien texte pour une action à part). Côté écran : fait (voir « Écrans corrigés »).
-
 - Modale : composant partagé des deux espaces, déplacé de `src/components/formateur/Modale.jsx` vers `src/components/Modale.jsx`, styles dans `src/components/Modale.css` (classes `modale-*` au lieu de `fm-*`) ; ombre `--ombre-flottante`, comme le veut la règle des ombres. Côté écran : importer `Modale` et `ModaleConfirmation` depuis `src/components/Modale.jsx` (fait pour Création de cours, Détail cours, Détail groupe, Nouveau groupe).
-
 - Césure des titres : l'ancienne règle (pas de coupure) est remplacée par la césure à la syllabe, avec coupure sans tiret en filet. Raison : débordement des titres de carte à 18 px sur mobile. Précisée ensuite : la coupure ne se fait que dans un mot de 10 lettres ou plus, avec au moins 4 lettres de chaque côté du tiret (`hyphenate-limit-chars: 10 4 4`, et `-webkit-hyphenate-limit-before` / `-after: 4` pour WebKit) ; limites acceptées : Firefox ne met pas de tiret dans un mot à majuscule initiale, et peut couper un mot qui tenait pour équilibrer les lignes. Raison : sans limite, des coupures courtes et inutiles (« fri- / gorifique ») dans des mots qui tenaient sur la ligne. `text-wrap: balance` est gardé sur les titres. Côté écran : fait, chaque règle de titre du code porte `hyphens: auto`, les limites et `overflow-wrap: break-word` (60 règles), et `index.css` ne met plus `hyphens: manual` sur h1, h2, h3.
-
 - Césure du Texte de lecture par rôle : `hyphens: auto` est posé par `ContenuMarkdown` sur les paragraphes et les éléments de liste quand `roleTypo` vaut `texte-lecture`, partout où le Texte de lecture apparaît (leçon de la fiche, aperçu de Création de cours, premier paragraphe du Détail cours), et non plus sur `.fiche-lecon-contenu`. Le tableau du Markdown (Corps courant) ne se coupe pas. Côté écran : fait.
 - `body` en Corps courant (`font: var(--typo-corps-courant)`, 15 px · 500 · 1,45) au lieu d'Urbanist 500 à la taille du navigateur (16 px, interligne `normal`) : tout texte sans rôle déclaré prend le Corps courant. Côté écran : rien à faire, aucun texte visible ne dépendait de cette valeur (mesuré au lot 14, hors « Chargement… »).
 - `h1` à `h6` sans rôle par défaut (`font: inherit`) au lieu d'Urbanist 800 à la taille du navigateur avec `hyphens: manual` : chaque titre déclare son rôle et sa césure. `text-wrap: balance` reste sur `h1`, `h2`, `h3`. Côté écran : fait, tous les titres de l'app ont leur rôle.
-
 - Hauteur des champs d'une ligne (évolution du Champ) : 48 px partout ; champ du parcours d'entrée 56 px (grand champ compris, 64 → 56) ; champ multiligne hors de la règle. Écrans dont le rendu change : questions du parcours (Prénom, Organisme, Spécialité), recherche et filtres d'Activité récente (40 → 48), email de l'élève du Détail groupe (52 → 48), Réponse (44 → 48) et Explication (40 → 48) de Création de cours.
 - Règle de rangée (évolution du Bouton et du Choix) : posé dans la rangée d'un champ, un bouton ou un choix prend la hauteur du champ (« Ajouter » du Détail groupe 52 → 48, filtres d'Activité récente 40 → 48). Posé seul, un bouton fait 48 ; 44 reste la zone tactile minimale, pas la hauteur d'un composant.
 - Champ en erreur : la règle commune de `shared.css` gagne contre les règles de bordure des champs des écrans (sans `!important`) ; au focus, la bordure de focus garde la main.
 - Mot de passe oublié et Nouveau mot de passe : gabarit de la Connexion (`GabaritParcours`, Retour rond et logo en rangée, champs du parcours, bouton dans la zone d'action), textes inchangés. `.flow-card` ne sert plus qu'à l'écran « Chargement… » de l'app.
 - Documentation de l'agent : descriptions d'écrans déplacées de `CLAUDE.md` dans `docs/ecrans/` (un fichier par espace) ; `CLAUDE.md` porte deux mentions, lire `regles-agent.md` avant toute modification d'interface et lire le fichier de l'espace dans `docs/ecrans/` avant de toucher un écran. Côté écran : rien à faire.
+- Focus : contour `bordure-focus` de 2 px décalé de 2, entouré d'un halo blanc de 2 px, sur toute surface ; l'une des deux couleurs atteint 3:1. Les choix à input masqué (case d'assignation, réponse du quiz, « Bonne réponse ») portent le focus sur leur ligne. Les champs gardent leur focus sur la bordure.
+- Bordure des champs : tout champ (une ligne, multiligne, recherche, liste déroulante, bloc de l'éditeur de leçon) a au repos une bordure de 2 px `bordure-controle` ; focus `bordure-focus`, erreur `bordure-erreur`, épaisseur fixe. Survol : aucun. Texte saisi : `texte-principal`. Autoremplissage : une règle commune, au fond du champ au repos.
+- Appui commun : l'appui prend le rendu du survol (boutons, liens, entrées de navigation et de menu, pointillés, repère d'étapes, tri).
+- Hauteurs : bouton 48 pour toutes les variantes (Retour 44) ; bouton rond 44, 56 dans le parcours ; rond des boutons à flèche 36, à 6 du bord ; onglet, filtre et entrée de sommaire 44 (48 dans une rangée de champ) ; item de menu 48 ; champ multiligne à bouton 52.
+- Barre : 14 pour la barre qui ouvre un écran plein (parcours, quiz : 10 → 14), 8 pour une barre posée dans une carte ou une ligne (dashboard, Tes groupes, Mes groupes, Détail groupe, Pour bien démarrer, carte de la checklist, barre empilée du Détail cours).
+- Anneau : 108 sous 768, 120 au-dessus, piste de 10 à toutes les tailles, valeur en Chiffre mis en avant standard (rôle fixé par la fiche) ; fin de quiz 168, exception écrite. Le rôle d'un texte de composant est fixé par sa fiche ; « la fonction décide, jamais la place » vaut pour le texte libre.
+- Modale : deux largeurs, 440 (étroite) et 520 (standard) ; Mes badges passe de 640 à 520 et prend le bouton Fermer standard (44).
+- Point de revue final (lot 7) : carte cliquable, structure écrite dans la fiche Carte (vrai titre qui contient le bouton, zone cliquable étendue à la carte, focus sur la carte) ; bouton rond, l'icône suit le diamètre (20 pour 44, 22 pour 56) ; survol écrit des vignettes de badge (contour de 2 px `bordure-action` dessiné à l'intérieur) et des points inactifs de l'Introduction (`fond-controle-survol`) ; grille de Mes badges en colonnes automatiques, tuile au moins aussi large que le libellé le plus long + padding + bordure (132 aujourd'hui) (1 colonne à 320, 2 à 375, 3 à partir de 800) ; « Passer » de l'Introduction dans la rangée de la barre, zone de 44 du Lien texte, centré sur le logo ; taux de complétion, écart anneau / texte en Rangée (12) à toutes les largeurs, le titre passe sur deux lignes à 320, 375 et 800 ; `.fiche-carte` remplacée par la carte commune (aucun contenu à bord perdu, pas de variante).
+- Lien texte : padding horizontal 6, zone de 44 (lien dans une phrase : zone de 44 sans changer la phrase).
+- Ligne de cours à une colonne : le statut passe sous le titre dès que le titre devrait couper un mot, à toutes les largeurs (plus de seuil à 375 px) ; titre sans césure automatique à toutes les largeurs. Côté écran : fait (« De ton formateur », Terrain, résultats de recherche, Détail d'un thème).
+- Rangée des badges de la carte « Prochain badge » : les vignettes ne sont pas des contrôles (la règle des rangées de contrôles ne s'y applique pas) ; les six badges restent sur une ligne quand ils tiennent, sinon ils passent en deux rangées égales de trois ; le lien « Mes badges · X/6 » est toujours seul sur sa ligne, sous les badges, à droite. Règle : `ds-principes-composants.md`, Composants d'écran. Côté écran : fait (dashboard apprenant, versions horizontale et verticale).
+- Rôle Titre de ligne : pas de césure automatique, c'est la règle du rôle (et non une exception) ; dans une ligne, c'est le statut qui passe sous le titre (fiche Ligne de liste) ; filet : coupure sans tiret si un mot ne tient pas sur toute la largeur. La césure des titres vaut pour les titres de page, de contenu, de section, mis en avant et de carte. Règle : `docs/tokens/typographie.md`, sections 5 et 11. Côté écran : fait (toutes les règles au rôle Titre de ligne en `hyphens: manual`).
+- Principes : quatre au lieu de six ; « Chaque bloc débouche sur une action » sort des principes (fait produit, décrit dans `docs/ecrans/apprenant.md`, dashboard apprenant) ; « Le statut n'est jamais porté par la couleur seule » devient une contrainte d'accessibilité (WCAG 1.4.1), écrite après les principes ; nouvel énoncé du principe 2, « Ce qu'on ne peut plus retrouver après l'action n'est jamais à un seul geste » ; le principe 3 précise que l'ombre d'illustration (`ombre-illustration`) appartient à l'objet 3D et ne crée pas de profondeur ; numéros changés (2 → 1, 3 → 2, 4 → 3, 6 → 4) et citations mises à jour ; les fiches Modale et Modale de confirmation reprennent les mots du principe 2 (« une action qu'on ne peut plus retrouver » au lieu de « qu'on ne peut pas défaire »). Côté écran : /design-system seulement (« Contrainte d'accessibilité » à la place de « Principe »).
+- Surtitre « Thème N » : `texte-accent` partout.
+- Fond du document : `html` et `body` prennent le `fond-page` du mode actif (`html[data-mode]`), y compris pendant les questions du parcours formateur ; les conteneurs ne reposent plus ce fond ; une surface fixe ou collante le garde.
+- Choix : repère d'une seule valeur, 22 px, au repos et choisi ; l'état choisi se voit au remplissage, jamais à la taille (la fiche disait « repère de 22 à 24 px »).
+- Champ : le focus de la liste déroulante suit le clavier, comme un bouton (`:focus-visible`) ; la liste déroulante rejoint la règle commune des champs pour le fond (`--fond-champ`), la bordure et la police.
+- Titre de section : le rôle est porté par une classe commune (`.titre-section`, `shared.css`), plus par la balise ; la règle `.espace-page h2` est retirée (typographie.md, section 7 : le rôle ne dépend pas de la balise).
+- Titre de page : même traitement, classe commune `.titre-page` (`shared.css`) ; la règle `.espace-page h1` est retirée et les sélecteurs à deux classes écrits pour lui échapper redeviennent simples (`.dc-titre`, `.theme-entete-titre`, `.fm-titres h1`, `.fin-quiz-titre`). Aucun titre ne change.
+- Classe des titres : chaque titre porte la classe commune de son rôle, sans condition (`.titre-page`, `.titre-contenu`, `.titre-mis-en-avant`, `.titre-section`, `.titre-carte`, `.titre-ligne`, `shared.css`) ; la classe écrit seule la typographie du rôle (avec `text-wrap: balance`), la règle propre d'un titre ne garde que sa place (typographie.md, section 7 ; regles-agent.md). 30 règles propres devenues vides sont supprimées ; aucun titre ne change. `npm run tokens` échoue si un token `--typo-titre-…` est lu hors de sa classe.
+- Couleur d'un titre : la classe du rôle pose `texte-principal` ; quand le fond ou un état l'impose, la règle propre change la couleur, et seulement elle, par un rôle de couleur de texte (typographie.md, section 7 ; regles-agent.md). Le bloc de tête du dashboard, Étape suivante, Suite du thème, la correction du quiz, la barre et la carte badge de la fin de quiz et le toast prennent ainsi la classe de leur rôle ; les noms de tokens de `/design-system` aussi (`.titre-carte`, `.titre-ligne`), avec la césure du rôle. `text-wrap: balance` est porté par la classe du rôle (typographie.md, regles-agent.md, ds-principes-composants.md). Au lot 14, les derniers titres en attente prennent leur rôle : « Taux de complétion » (`.titre-carte`), les échantillons « Aa » et le nom de la ligne de démonstration de `/design-system` (`.titre-ligne`) ; « Personne à relancer » sort des titres (première ligne d'un état de page, ci-dessous). Plus aucune règle en attente dans le contrôle des titres.
+- Première ligne d'un état de page : la première ligne d'un état de page (Chargement, Erreur, Vide) prend le rôle du message, en variante `-fort` (typographie.md, section 8 ; regles-agent.md ; renvoi dans ds-principes-composants.md, États de page). La liste est fermée : un titre de carte n'est pas concerné. « Taux de complétion » quitte les exemples du Titre de section pour ceux du Titre de carte (typographie.md, section 6 ; regles-agent.md).
+- Sélecteurs où `.espace-page` précédait une classe : `.fd-jour-titre` et les règles `… > *:first-child` des pages (`fm-page`, `page-theme`, `dash-page`, `formateur-dashboard-page`, `page-terrain`, `page-cours`) redeviennent simples, styles calculés identiques. La règle des champs posés sur la page (`.espace-page > .champ …`) garde son sélecteur.
+- Bornes de texte des blocs du dashboard : une seule valeur, 210 px (mise-en-page.md, section 3, disait « 200 à 210 px ») ; le titre « Quiz flash », seul à 200, ne l'atteignait pas.
+- Centrages optiques (espacements.md, section 9) : la plage « 2 à 8 px » est remplacée par une liste fermée de quatre cas ; un nouveau centrage optique ne se crée pas, il se signale en « À trancher » (aussi dans regles-agent.md, section 5). Les chevrons à 14 et 16 px des lignes sur plusieurs colonnes n'en font pas partie : le chevron est centré sur la vignette, ces valeurs en sont le résultat (apprenant.md, Lignes sur plusieurs colonnes).
+- Descriptions de tokens (valeurs inchangées) : `ombre-illustration` ne cite plus l'Introduction ; `espace-champ` dit « icône de 20 px, à 16 px du bord ».
+- `bordure-controle` devient commun aux deux modes : retiré des fichiers de mode, déclaré dans `semantiques-communs`. Côté écran : rien à faire.
+- Règle des pastilles de statut (applique la décision 1.1.0, règle dans `ds-principes-composants.md`) : un cours pas encore ouvert s'affiche en pilule (Non commencé et À faire en `texte-secondaire` sur `fond-neutre`, Nouveau en `texte-accent` sur `fond-accent`) ; un cours déjà ouvert s'affiche sans pilule, en texte avec une icône (En cours en `texte-accent` avec l'icône de progression, Terminé en `texte-succes` avec la coche). Aucune pastille n'utilise `fond-action`, `fond-marque` ni `fond-recompense`. Côté écran : rien à faire, `StatutBadge` porte la règle ; un statut de cours s'affiche toujours avec `StatutBadge` (fait pour l'Activité récente du dashboard formateur, le score « Quiz N % » restant à côté, hors du composant).
+- Règles remontées dans la documentation (`ds-principes-composants.md`) depuis `regles-agent.md`, sans changement : typographie, ponctuation, survol et tactile, toast de complétion, texte de l'onglet inactif de la navigation, texte de l'option sélectionnée d'une liste déroulante, tokens de texte des deux variantes du logo. Sans changement de rendu. Côté écran : rien à faire.
+- Règle des séparateurs précisée (évolution mineure) : Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. Sans changement de rendu. Côté écran : rien à faire.
+- Description de `bordure-separateur` complétée avec la même phrase (valeur inchangée). Côté écran : rien à faire.
+- Conduite de l'agent (`regles-agent.md`, section 7, évolution mineure) : quand une information manque (un état, une valeur, un détail), l'agent n'écrit rien à cet endroit, laisse un commentaire EN ATTENTE et propose l'option la plus proche dans son rapport, sans l'appliquer. Côté écran : rien à faire.
 
 **Corrigé**
 
-Aucune entrée.
+- Barre de la carte de la checklist rendue à 0 px (base flex nulle) : rendue à 8, piste visible.
+- Exception provisoire du taux de complétion à 20,8 px retirée (anneau de 108, valeur en 28).
+- Carte de l'ombre flottante absente de `/design-system` depuis le passage de l'ombre en token.
+- `bordure-controle` pointe vers `ardoise-450` : au moins 3:1 contre chaque fond voisin d'un contrôle (3,92 sur blanc, 3,40 sur `fond-page` apprenant, 3,57 formateur, 3,02 sur le survol lavande). Applique la décision 1.0.1. Côté écran : rien à faire, les contrôles interactifs lisent déjà `bordure-controle`.
 
 **Déprécié**
 
@@ -85,6 +131,8 @@ Aucune entrée.
 - Mise en page : `.espace-page { max-width: 1400px }` (jamais atteinte), seuils 1100 des thèmes, de Mes groupes et de `/design-system`, débord et défilement des filtres d'Activité récente, règles locales de focus devenues redondantes (carte de thème, lignes de choix et cartes du parcours, Formateur, dashboard formateur, Création de cours), opacité de la liste déroulante désactivée. Liste exacte dans les messages des commits « Mise en page, lot N ».
 - Lot 17 : copies locales de la règle du champ en erreur (Détail groupe, Création de cours) ; padding de 8 du texte de l'aperçu de Création de cours.
 - Code mort après le passage de Mot de passe oublié et Nouveau mot de passe au gabarit du parcours : `.page-logo-wrapper`, `.page-logo`, `.flow-card h1`, `.flow-card p.souscription`, `.lien-retour` et ses variantes (`shared.css`).
+- Exceptions « bouton Fermer de Mes badges (2 × 8, rayon 8) » et variante « Quiz (10 px) » de la Barre ; règles locales de focus, de désactivé (opacités 0,35 à 0,6) et d'autoremplissage des écrans.
+- Règles `.espace-page h2` et `.espace-page h1` (`src/styles/espace-layout.css`) ; illustrations SVG inutilisées de `src/Assets/badge/` ; lecture des colonnes `badges.icone` et `badges.description` (non utilisées).
 
 **Écrans corrigés**
 
@@ -137,47 +185,6 @@ Aucune entrée.
   - Toute l'app : texte indicatif en `texte-secondaire` ; « Chargement… » en Texte secondaire ; messages d'erreur sans le message technique de la base ; colonne Formulaire 440 pour l'écran de chargement de l'app ; option de la liste déroulante avec le contour de focus au clavier.
   - `/design-system` : grille en colonnes automatiques (240) ; 3 colonnes à 1040 (2 avant), la carte large sur deux colonnes dès 768.
   - Lot 17 : « De ton formateur » sans séparateur sous le dernier élément de chaque colonne, quel que soit le nombre de cours (avant : un trait restait sous un cours seul dans sa colonne) ; Thème de Création de cours marqué en erreur ; écran « Chargement… » de l'app, bas de page à 40 ; aperçu vide de Création de cours, texte à 16 du bord de l'aperçu (24 avant) ; Connexion, message d'authentification inconnu : « La connexion n'a pas pu se faire. Réessaie. » au lieu du message anglais.
-
-### Composants et couleurs (chantier cpc, lots 0a à 7)
-
-**Ajouté**
-
-- Catalogue : fiches Carte, Ligne de liste (et variante à fond), Choix, Onglet et filtre, Pastille, Lien texte, Barre fine, Anneau, Bouton rond (`ds-principes-composants.md`) ; liste des composants d'écran sans fiche (repère d'étapes, éditeur de leçon, tri de tableau, bandeau Aperçu, visionneuse, confettis, points de l'Introduction, vignettes de badge, carte pointillée « + Assigner un cours »). Vitrine sur `/design-system`.
-- Une implémentation par rôle, dans `src/styles/shared.css` : `.carte` / `.carte-liste`, `.ligne-liste`, `.ligne-fond`, `.pastille`, `.lien-texte` (ex-`.lien-secondaire`), `.bouton-rond`, `.bouton-retour`, `.recherche`, famille du champ (`.champ input`, `.champ textarea`, `.champ-saisie`). Les copies locales des écrans sont retirées.
-- Tokens d'ombre (`tokens/ombres.tokens.json`) : `--ombre-flottante` (valeur inchangée) et `--ombre-illustration` (ardoise-900 à 35 %, `0 14px 16px`, une valeur pour toutes les cartes et toutes les largeurs) ; token `bordure-focus-halo`.
-- Token `fond-controle-survol` (évolution mineure) : `ardoise-450`, commun aux deux modes (même primitif que `bordure-controle`, 3,40:1 sur la crème) ; survol du point inactif de l'Introduction. Côté écran : fait (`Parcours.css`).
-- Règle Désactivé commune : fond `fond-action-desactive`, texte `texte-action-desactive`, contour `bordure-action-desactive` s'il y en a un, sans opacité.
-
-**Modifié**
-
-- Focus : contour `bordure-focus` de 2 px décalé de 2, entouré d'un halo blanc de 2 px, sur toute surface ; l'une des deux couleurs atteint 3:1. Les choix à input masqué (case d'assignation, réponse du quiz, « Bonne réponse ») portent le focus sur leur ligne. Les champs gardent leur focus sur la bordure.
-- Bordure des champs : tout champ (une ligne, multiligne, recherche, liste déroulante, bloc de l'éditeur de leçon) a au repos une bordure de 2 px `bordure-controle` ; focus `bordure-focus`, erreur `bordure-erreur`, épaisseur fixe. Survol : aucun. Texte saisi : `texte-principal`. Autoremplissage : une règle commune, au fond du champ au repos.
-- Appui commun : l'appui prend le rendu du survol (boutons, liens, entrées de navigation et de menu, pointillés, repère d'étapes, tri).
-- Hauteurs : bouton 48 pour toutes les variantes (Retour 44) ; bouton rond 44, 56 dans le parcours ; rond des boutons à flèche 36, à 6 du bord ; onglet, filtre et entrée de sommaire 44 (48 dans une rangée de champ) ; item de menu 48 ; champ multiligne à bouton 52.
-- Barre : 14 pour la barre qui ouvre un écran plein (parcours, quiz : 10 → 14), 8 pour une barre posée dans une carte ou une ligne (dashboard, Tes groupes, Mes groupes, Détail groupe, Pour bien démarrer, carte de la checklist, barre empilée du Détail cours).
-- Anneau : 108 sous 768, 120 au-dessus, piste de 10 à toutes les tailles, valeur en Chiffre mis en avant standard (rôle fixé par la fiche) ; fin de quiz 168, exception écrite. Le rôle d'un texte de composant est fixé par sa fiche ; « la fonction décide, jamais la place » vaut pour le texte libre.
-- Modale : deux largeurs, 440 (étroite) et 520 (standard) ; Mes badges passe de 640 à 520 et prend le bouton Fermer standard (44).
-- Point de revue final (lot 7) : carte cliquable, structure écrite dans la fiche Carte (vrai titre qui contient le bouton, zone cliquable étendue à la carte, focus sur la carte) ; bouton rond, l'icône suit le diamètre (20 pour 44, 22 pour 56) ; survol écrit des vignettes de badge (contour de 2 px `bordure-action` dessiné à l'intérieur) et des points inactifs de l'Introduction (`fond-controle-survol`) ; grille de Mes badges en colonnes automatiques, tuile au moins aussi large que le libellé le plus long + padding + bordure (132 aujourd'hui) (1 colonne à 320, 2 à 375, 3 à partir de 800) ; « Passer » de l'Introduction dans la rangée de la barre, zone de 44 du Lien texte, centré sur le logo ; taux de complétion, écart anneau / texte en Rangée (12) à toutes les largeurs, le titre passe sur deux lignes à 320, 375 et 800 ; `.fiche-carte` remplacée par la carte commune (aucun contenu à bord perdu, pas de variante).
-- Lien texte : padding horizontal 6, zone de 44 (lien dans une phrase : zone de 44 sans changer la phrase).
-- Ligne de cours à une colonne : le statut passe sous le titre dès que le titre devrait couper un mot, à toutes les largeurs (plus de seuil à 375 px) ; titre sans césure automatique à toutes les largeurs. Côté écran : fait (« De ton formateur », Terrain, résultats de recherche, Détail d'un thème).
-- Rangée des badges de la carte « Prochain badge » : les vignettes ne sont pas des contrôles (la règle des rangées de contrôles ne s'y applique pas) ; les six badges restent sur une ligne quand ils tiennent, sinon ils passent en deux rangées égales de trois ; le lien « Mes badges · X/6 » est toujours seul sur sa ligne, sous les badges, à droite. Règle : `ds-principes-composants.md`, Composants d'écran. Côté écran : fait (dashboard apprenant, versions horizontale et verticale).
-- Rôle Titre de ligne : pas de césure automatique, c'est la règle du rôle (et non une exception) ; dans une ligne, c'est le statut qui passe sous le titre (fiche Ligne de liste) ; filet : coupure sans tiret si un mot ne tient pas sur toute la largeur. La césure des titres vaut pour les titres de page, de contenu, de section, mis en avant et de carte. Règle : `docs/tokens/typographie.md`, sections 5 et 11. Côté écran : fait (toutes les règles au rôle Titre de ligne en `hyphens: manual`).
-- Principes : quatre au lieu de six ; « Chaque bloc débouche sur une action » sort des principes (fait produit, décrit dans `docs/ecrans/apprenant.md`, dashboard apprenant) ; « Le statut n'est jamais porté par la couleur seule » devient une contrainte d'accessibilité (WCAG 1.4.1), écrite après les principes ; nouvel énoncé du principe 2, « Ce qu'on ne peut plus retrouver après l'action n'est jamais à un seul geste » ; le principe 3 précise que l'ombre d'illustration (`ombre-illustration`) appartient à l'objet 3D et ne crée pas de profondeur ; numéros changés (2 → 1, 3 → 2, 4 → 3, 6 → 4) et citations mises à jour ; les fiches Modale et Modale de confirmation reprennent les mots du principe 2 (« une action qu'on ne peut plus retrouver » au lieu de « qu'on ne peut pas défaire »). Côté écran : /design-system seulement (« Contrainte d'accessibilité » à la place de « Principe »).
-- Surtitre « Thème N » : `texte-accent` partout.
-- Fond du document : `html` et `body` prennent le `fond-page` du mode actif (`html[data-mode]`), y compris pendant les questions du parcours formateur ; les conteneurs ne reposent plus ce fond ; une surface fixe ou collante le garde.
-
-**Corrigé**
-
-- Barre de la carte de la checklist rendue à 0 px (base flex nulle) : rendue à 8, piste visible.
-- Exception provisoire du taux de complétion à 20,8 px retirée (anneau de 108, valeur en 28).
-- Carte de l'ombre flottante absente de `/design-system` depuis le passage de l'ombre en token.
-
-**Retiré**
-
-- Exceptions « bouton Fermer de Mes badges (2 × 8, rayon 8) » et variante « Quiz (10 px) » de la Barre ; règles locales de focus, de désactivé (opacités 0,35 à 0,6) et d'autoremplissage des écrans.
-
-**Écrans corrigés (composants et couleurs)**
-
 - Lot 1, socle : focus double, champs `.champ` bordés, appui et désactivé communs, menus à 48, pointillés à 48, fond du document.
 - Lot 2, composants partagés : parcours (bouton 48, champs bordés, liens), recherche de Cours, listes déroulantes, modales, lignes de cours et « De ton formateur », menus « … » et rond « + » à 44, anneaux (dashboard apprenant, taux de complétion, `/design-system`).
 - Lot 3, écrans apprenant : dashboard (boutons à flèche, barres, ombre, liens), leçon, quiz (barre 14, bouton 48), checklist (barre visible), Mes badges (520), carte de thème, Détail d'un thème, Introduction (ombre), aperçu élève (« Quitter l'aperçu » 48).
@@ -186,29 +193,6 @@ Aucune entrée.
 - Lot 6, `/design-system` : vitrine des fiches, ombres lues dans les tokens.
 - Lot 7, point de revue final : champs multilignes de Création de cours (énoncé, « À retenir », éditeur de leçon) sans poignée de redimensionnement, hauteur ajustée au contenu (la poignée mordait l'arrondi de la bordure) ; « Image » d'une étape 40 → 48 (outil) et pilule « Bloquante » 40 → 44 (choix) ; Mes badges à 320 (« Persévérant » n'est plus coupé, une colonne).
 - Lot 8, cartes cliquables : carte de thème, de profil, de Mes cours et de Mes groupes sur `.carte-cliquable` (titre `h2` / `h3` qui contient le bouton nommé par lui, zone cliquable étendue à la carte, focus sur la carte). Rendu, focus et appui inchangés au pixel.
-
-### Nettoyage (lots net 1 à 15)
-
-**Modifié**
-
-- Choix : repère d'une seule valeur, 22 px, au repos et choisi ; l'état choisi se voit au remplissage, jamais à la taille (la fiche disait « repère de 22 à 24 px »).
-- Champ : le focus de la liste déroulante suit le clavier, comme un bouton (`:focus-visible`) ; la liste déroulante rejoint la règle commune des champs pour le fond (`--fond-champ`), la bordure et la police.
-- Titre de section : le rôle est porté par une classe commune (`.titre-section`, `shared.css`), plus par la balise ; la règle `.espace-page h2` est retirée (typographie.md, section 7 : le rôle ne dépend pas de la balise).
-- Titre de page : même traitement, classe commune `.titre-page` (`shared.css`) ; la règle `.espace-page h1` est retirée et les sélecteurs à deux classes écrits pour lui échapper redeviennent simples (`.dc-titre`, `.theme-entete-titre`, `.fm-titres h1`, `.fin-quiz-titre`). Aucun titre ne change.
-- Classe des titres : chaque titre porte la classe commune de son rôle, sans condition (`.titre-page`, `.titre-contenu`, `.titre-mis-en-avant`, `.titre-section`, `.titre-carte`, `.titre-ligne`, `shared.css`) ; la classe écrit seule la typographie du rôle (avec `text-wrap: balance`), la règle propre d'un titre ne garde que sa place (typographie.md, section 7 ; regles-agent.md). 30 règles propres devenues vides sont supprimées ; aucun titre ne change. `npm run tokens` échoue si un token `--typo-titre-…` est lu hors de sa classe.
-- Couleur d'un titre : la classe du rôle pose `texte-principal` ; quand le fond ou un état l'impose, la règle propre change la couleur, et seulement elle, par un rôle de couleur de texte (typographie.md, section 7 ; regles-agent.md). Le bloc de tête du dashboard, Étape suivante, Suite du thème, la correction du quiz, la barre et la carte badge de la fin de quiz et le toast prennent ainsi la classe de leur rôle ; les noms de tokens de `/design-system` aussi (`.titre-carte`, `.titre-ligne`), avec la césure du rôle. `text-wrap: balance` est porté par la classe du rôle (typographie.md, regles-agent.md, ds-principes-composants.md). Au lot 14, les derniers titres en attente prennent leur rôle : « Taux de complétion » (`.titre-carte`), les échantillons « Aa » et le nom de la ligne de démonstration de `/design-system` (`.titre-ligne`) ; « Personne à relancer » sort des titres (première ligne d'un état de page, ci-dessous). Plus aucune règle en attente dans le contrôle des titres.
-- Première ligne d'un état de page : la première ligne d'un état de page (Chargement, Erreur, Vide) prend le rôle du message, en variante `-fort` (typographie.md, section 8 ; regles-agent.md ; renvoi dans ds-principes-composants.md, États de page). La liste est fermée : un titre de carte n'est pas concerné. « Taux de complétion » quitte les exemples du Titre de section pour ceux du Titre de carte (typographie.md, section 6 ; regles-agent.md).
-- Sélecteurs où `.espace-page` précédait une classe : `.fd-jour-titre` et les règles `… > *:first-child` des pages (`fm-page`, `page-theme`, `dash-page`, `formateur-dashboard-page`, `page-terrain`, `page-cours`) redeviennent simples, styles calculés identiques. La règle des champs posés sur la page (`.espace-page > .champ …`) garde son sélecteur.
-- Bornes de texte des blocs du dashboard : une seule valeur, 210 px (mise-en-page.md, section 3, disait « 200 à 210 px ») ; le titre « Quiz flash », seul à 200, ne l'atteignait pas.
-- Centrages optiques (espacements.md, section 9) : la plage « 2 à 8 px » est remplacée par une liste fermée de quatre cas ; un nouveau centrage optique ne se crée pas, il se signale en « À trancher » (aussi dans regles-agent.md, section 5). Les chevrons à 14 et 16 px des lignes sur plusieurs colonnes n'en font pas partie : le chevron est centré sur la vignette, ces valeurs en sont le résultat (apprenant.md, Lignes sur plusieurs colonnes).
-- Descriptions de tokens (valeurs inchangées) : `ombre-illustration` ne cite plus l'Introduction ; `espace-champ` dit « icône de 20 px, à 16 px du bord ».
-
-**Retiré**
-
-- Règles `.espace-page h2` et `.espace-page h1` (`src/styles/espace-layout.css`) ; illustrations SVG inutilisées de `src/Assets/badge/` ; lecture des colonnes `badges.icone` et `badges.description` (non utilisées).
-
-**Écrans corrigés (nettoyage)**
-
 - Dashboard formateur, Activité récente : pastille du groupe en lavande (classe commune `.fm-pastille-groupe`) au lieu du gris.
 - Introduction : plus d'ombre d'illustration sous l'objet, qui ne déborde pas du bloc.
 - Parcours d'entrée (statut, tranche d'âge, motivation) : rond de 22 px au repos et choisi (24 / 28 avant) ; la grille des tranches d'âge ne grandit plus au choix à 320. Modale d'assignation des cours : case de 22 px (24 avant).
@@ -218,51 +202,6 @@ Aucune entrée.
 - Dashboard formateur, « Personne à relancer » (Élèves à relancer vide) : Texte secondaire fort (14 px · 700, `texte-succes` gardé) au lieu de 16 px · 800, rôle de la première ligne d'un état de page.
 - Dashboard formateur, « Tous tes élèves ont commencé les cours assignés. » (Élèves à relancer vide) : Texte secondaire (14 px · 600, `texte-secondaire`) au lieu de Méta (13 px · 600, `texte-principal`), règle de l'état vide ; contraste 6,0:1 sur `fond-succes`.
 - `/design-system`, Ligne de liste : nom de la ligne de démonstration (« Nettoyage du filtre ») en Titre de ligne (16 px · 800 · 1,2) au lieu de la police du bouton (13,33 px).
-
-### Libellé en lecture seule et entrée Menu (18 novembre)
-
-**Ajouté**
-
-- Règle du libellé d'une information affichée sans être modifiable (évolution mineure) : posé au-dessus de sa valeur, il est en Méta, couleur `texte-secondaire` (typographie.md, section 6 ; regles-agent.md). Aucune règle sur la valeur, dont le rôle vient de sa fonction. Les libellés des cartes de statistique (dashboard admin, Détail cours) la suivent déjà. Côté écran : rien à faire.
-- Entrée Menu de la navigation (évolution mineure) : quand l'écran affiché a été ouvert depuis une entrée du Menu, l'entrée Menu est marquée active, avec l'état de l'onglet actif (ds-principes-composants.md, fiche Navigation ; regles-agent.md). Aucune entrée du Menu n'ouvre d'écran aujourd'hui. Côté écran : rien à faire.
-
-## 2.1.0 (brouillon, non publiée)
-
-Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui n'ont pas d'exigence de contraste.
-
-**Ajouté**
-
-- Primitif `ardoise-450` (#847d97, L* 53,8). Côté écran : rien à faire.
-- `bordure-etape` (`sable-150` en apprenant, `ardoise-175` en formateur) : contour d'une pastille d'étape à venir ou passée, non interactive. Côté écran : une pastille d'étape utilise `bordure-etape`, jamais `bordure-controle` (déjà fait pour le repère d'étapes et la checklist).
-- `bordure-action-desactive` (mêmes valeurs) : contour d'une action désactivée, avec `texte-action-desactive`. Côté écran : déjà fait pour `.bouton-ajouter:disabled`.
-- Rôle `etape` dans la liste fermée des rôles de `docs/tokens/couleurs.md`, pour `bordure-etape`. Côté écran : rien à faire.
-- Règle des ombres : deux ombres, `--ombre-flottante` pour les éléments flottants (menus, listes déroulantes, toast, modales), ombre d'illustration pour les objets 3D qui débordent d'une carte. Pas de token. Côté écran : rien à faire.
-- Règle « Un seul bouton orange par écran » (évolution mineure). Vérifiée sur toutes les situations du dashboard apprenant, mobile et desktop : aucun écran n'en affiche deux aujourd'hui. Côté écran : rien à faire.
-- Composants Modale, Modale de confirmation et Menu d'actions documentés dans `ds-principes-composants.md` (évolution mineure), rédigés depuis le code existant (`src/components/formateur/Modale.jsx`, `MenuActions.jsx`) et le principe 2 ; ce que le code ne tranche pas est marqué « À trancher ». Sans changement de rendu. Côté écran : rien à faire.
-
-**Modifié**
-
-- `bordure-controle` devient commun aux deux modes : retiré des fichiers de mode, déclaré dans `semantiques-communs`. Côté écran : rien à faire.
-- Règle des pastilles de statut (applique la décision 1.1.0, règle dans `ds-principes-composants.md`) : un cours pas encore ouvert s'affiche en pilule (Non commencé et À faire en `texte-secondaire` sur `fond-neutre`, Nouveau en `texte-accent` sur `fond-accent`) ; un cours déjà ouvert s'affiche sans pilule, en texte avec une icône (En cours en `texte-accent` avec l'icône de progression, Terminé en `texte-succes` avec la coche). Aucune pastille n'utilise `fond-action`, `fond-marque` ni `fond-recompense`. Côté écran : rien à faire, `StatutBadge` porte la règle ; un statut de cours s'affiche toujours avec `StatutBadge` (fait pour l'Activité récente du dashboard formateur, le score « Quiz N % » restant à côté, hors du composant).
-- Règles remontées dans la documentation (`ds-principes-composants.md`) depuis `regles-agent.md`, sans changement : typographie, ponctuation, survol et tactile, toast de complétion, texte de l'onglet inactif de la navigation, texte de l'option sélectionnée d'une liste déroulante, tokens de texte des deux variantes du logo. Sans changement de rendu. Côté écran : rien à faire.
-- Règle des séparateurs précisée (évolution mineure) : Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur. Sans changement de rendu. Côté écran : rien à faire.
-- Description de `bordure-separateur` complétée avec la même phrase (valeur inchangée). Côté écran : rien à faire.
-- Conduite de l'agent (`regles-agent.md`, section 7, évolution mineure) : quand une information manque (un état, une valeur, un détail), l'agent n'écrit rien à cet endroit, laisse un commentaire EN ATTENTE et propose l'option la plus proche dans son rapport, sans l'appliquer. Côté écran : rien à faire.
-
-**Corrigé**
-
-- `bordure-controle` pointe vers `ardoise-450` : au moins 3:1 contre chaque fond voisin d'un contrôle (3,92 sur blanc, 3,40 sur `fond-page` apprenant, 3,57 formateur, 3,02 sur le survol lavande). Applique la décision 1.0.1. Côté écran : rien à faire, les contrôles interactifs lisent déjà `bordure-controle`.
-
-**Déprécié**
-
-Aucune entrée.
-
-**Retiré**
-
-Aucune entrée.
-
-**Écrans corrigés**
-
 - Séparateurs (règle précisée, sens inchangé) : `bordure-separateur` seulement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc ; un en-tête, un titre ou une section se sépare par l'espacement. Écrans : tableau des élèves du Détail groupe (desktop), tableau « Cours les plus suivis » du dashboard admin (desktop), tableaux du contenu des leçons, barre d'outils de l'éditeur de leçon (Création de cours).
 - Barre d'enregistrement de Création de cours (desktop et mobile) : le point orange devant « Modifications non enregistrées » est retiré, le texte seul porte l'état. `fond-recompense` est réservé à la récompense.
 - Bouton supprimer (« Supprimer ce groupe », Détail groupe) : contour `bordure-erreur` ajouté, de la même épaisseur que le bouton secondaire, et survol `fond-erreur`, comme le veut la règle du bouton supprimer.
