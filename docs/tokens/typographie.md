@@ -112,6 +112,8 @@ Aucun rôle n'a d'espacement des lettres.
 
 **Texte secondaire ou Méta.** Texte secondaire : une phrase complète qui commente un autre élément sans être le contenu principal (sous-titre, état vide, aide, erreur, message, note sous une carte). Méta : une information courte et factuelle sur un élément, lue en passant (contenu « Leçon · Quiz », date, compte, statut, « N min de lecture »). Le sous-titre posé sous le titre d'une page ou d'un contenu est en Texte secondaire, même quand il donne un compte (« x cours terminés sur y » du Détail d'un thème, « X thèmes terminés sur 12 » de la page Cours). Un compte posé sur un élément sans en être le sous-titre reste en Méta (« y cours » de la carte de thème, « N min de lecture »). Raison : le sous-titre fait partie des exemples du Texte secondaire, et la forme du texte ne décide pas du rôle.
 
+**Libellé d'une information affichée sans être modifiable.** Le libellé d'une information affichée sans être modifiable, posé au-dessus de sa valeur, est en Méta, couleur `texte-secondaire`. Exemples : « Apprenants actifs », « Cours terminés », « Score moyen au quiz » (dashboard admin), « Pas commencé (7 j) » (Détail cours).
+
 **Lien texte ou Navigation.**
 - Navigation : une option reste marquée comme choisie, et le choix change ce qu'on voit (écran, vue, filtre) sans agir sur les données. Exemples : barre d'onglets, onglets « Écrire / Aperçu », filtres, entrées de menu qui mènent à un écran ou à une vue et restent marquées comme choisies, repère d'étapes.
 - Lien texte : une action écrite sans forme de bouton, sans état choisi, qui agit ou mène ailleurs une fois. Exemples : « Tout voir », « Revoir la leçon », « Passer cette étape », « Voir comme un élève ».

@@ -481,6 +481,7 @@ Un toast informatif n'a aucune action ni élément focalisable ; il est annoncé
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`.
 - Onglets inactifs : `texte-sur-inverse`.
+- Entrée Menu : quand l'écran affiché a été ouvert depuis une entrée du Menu, l'entrée Menu est marquée active, avec l'état de l'onglet actif.
 
 ## Liste déroulante
 
