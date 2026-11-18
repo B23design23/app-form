@@ -85,7 +85,6 @@ Une exception est attachée à son écran ou à son composant. Elle se signale, 
 | Création de cours | Colonne de **1200 px** et seuil de **1024 px** (grille éditeur + sommaire) ; valeurs d'arrêt de défilement propres, liées à la rangée collante | Un seul écran, deux colonnes de mise en page qui ne tiennent pas à 768 |
 | Création de cours, sommaire mobile (`.cc-pastilles`) | Les pastilles collantes **défilent** au lieu de passer à la ligne | Rangée de navigation collante : la passer à la ligne réduirait la zone de contenu. Un seul endroit |
 | Introduction, écran bas | Sous **667 px de haut** (`max-height: 666px`) : voir ci-dessous | Les trois slides doivent tenir sans défiler à 320 × 568 |
-| Taux de complétion (dashboard formateur) | Seuil de **399 px** | Provisoire, chantier composants |
 
 **Introduction sur un écran bas.** Sous 667 px de haut seulement :
 1. la zone d'action descend au plus bas : bas à **zone de sécurité + 8 px**, **sans réduire la rangée des points** (zone tactile de 44 px gardée) ;

@@ -99,7 +99,7 @@ Si aucune étape de la section 4 ne donne un rôle, ou si deux étapes donnent d
 
 ## 11. Provisoire et hors chantier
 
-- Bouton Fermer de la modale Mes badges (`.modal-fermer`, 8 px) : laissé tel quel. Il n'est pas carré, un Rond en ferait une ellipse. À régler au chantier mise en page en passant Mes badges sur le composant Modale.
+Aucun.
 
 ## 12. Vérifications à l'écran
 

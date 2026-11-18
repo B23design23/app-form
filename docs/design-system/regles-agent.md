@@ -584,7 +584,7 @@ Dans cet ordre, on s'arrête à la première réponse.
 - Implémentation, état du code : les variables `--radius-*` ont été retirées de `shared.css` (chantier rayons, a12a3f2). Tous les rayons lisent `--rayon-*`.
 
 **Provisoire et hors chantier** (section 11)
-- *Provisoire* : Bouton Fermer de la modale Mes badges (`.modal-fermer`, 8 px) : laissé tel quel. Il n'est pas carré, un Rond en ferait une ellipse. À régler au chantier mise en page en passant Mes badges sur le composant Modale.
+Aucun.
 
 ### Espacements
 
@@ -670,7 +670,6 @@ Source : `docs/tokens/mise-en-page.md` (section citée entre parenthèses). Pas 
 - Création de cours : 1200 px, seuil 1024, arrêts de défilement propres.
 - Pastilles collantes du sommaire mobile de Création de cours : elles défilent.
 - Introduction sous 667 px de haut (`max-height: 666px`) : zone d'action au plus bas (zone de sécurité + 8, rangée des points gardée à 44), barre « Passer » / logo à zone de sécurité + 8 du haut, bloc lavande → titre en Deux textes d'un groupe, bloc lavande réduit jusqu'à ce que les trois slides tiennent à 320 × 568 (environ 82 px), illustration à l'échelle. « Suivant » garde sa place, la police ne change pas.
-- Taux de complétion du dashboard formateur : seuil de 399 px, provisoire (chantier composants).
 
 **Conduite** (section 10) : une largeur, un seuil ou une rangée qu'aucune règle ne couvre se signale « À trancher » ; l'agent n'ajoute ni seuil, ni largeur, ni exception.
 
