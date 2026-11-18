@@ -332,7 +332,7 @@ function CarteCompletion({ taux }) {
         <span className="anneau-progression-valeur">{valeur === null ? '—' : `${valeur} %`}</span>
       </AnneauProgression>
       <div className="formateur-taux-texte">
-        <span className="formateur-taux-label">Taux de complétion</span>
+        <span className="titre-carte">Taux de complétion</span>
         <span className="formateur-taux-souscription">Sur l'ensemble de tes groupes</span>
         {valeur !== null && valeur < 40 && (
           <span className="formateur-taux-pastille formateur-taux-pastille-alerte">

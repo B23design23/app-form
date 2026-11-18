@@ -158,18 +158,6 @@
   text-align: center;
 }
 
-.formateur-taux-label {
-  font: var(--typo-titre-section);
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphenate-limit-chars: 10 4 4;
-  -webkit-hyphenate-limit-before: 4;
-  -webkit-hyphenate-limit-after: 4;
-  overflow-wrap: break-word;
-  text-wrap: balance;
-  color: var(--texte-secondaire);
-}
-
 .formateur-taux-souscription {
   font: var(--typo-meta);
   color: var(--texte-secondaire);
