@@ -642,7 +642,7 @@ function Dashboard({ authUser, onOuvrirCours, onOuvrirQuizFlash, onChangerSectio
   return (
     <div className="espace-page espace-page-etroit dash-page">
       <header className="dash-entete">
-        <h1>Salut {profil.prenom}</h1>
+        <h1 className="titre-page">Salut {profil.prenom}</h1>
         <span className="dash-xp">
           <img src={IMAGE_QUIZ_FLASH} alt="" />
           {profil.xp_total} XP

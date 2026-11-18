@@ -296,6 +296,20 @@
 
 /* Pastille (ds-principes-composants.md, fiche Pastille) : texte court dans une pilule, jamais
    cliquable ; le fond vient de la variante */
+/* Titre de page (docs/tokens/typographie.md, sections 5 et 11) : rôle porté par la classe, pas par
+   la balise. Un titre de page qui n'a pas sa propre règle prend cette classe. */
+.titre-page {
+  margin: 0;
+  font: var(--typo-titre-page);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+  -webkit-hyphenate-limit-before: 4;
+  -webkit-hyphenate-limit-after: 4;
+  overflow-wrap: break-word;
+  color: var(--texte-principal);
+}
+
 /* Titre de section (docs/tokens/typographie.md, sections 5 et 11) : rôle porté par la classe, pas
    par la balise. Un titre de section qui n'a pas sa propre règle prend cette classe. */
 .titre-section {

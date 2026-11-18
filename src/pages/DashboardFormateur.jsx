@@ -206,7 +206,7 @@ function DashboardFormateur({ authUser, onCreerCours, onChangerSection, onOuvrir
   const entete = (
     <div className="fd-entete">
       <div className="fd-titres">
-        <h1>{titre}</h1>
+        <h1 className="titre-page">{titre}</h1>
         {donnees &&
           (premiersPas ? (
             <p className="fd-sous-titre">Bienvenue sur Skillo</p>

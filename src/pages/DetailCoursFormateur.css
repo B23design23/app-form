@@ -20,8 +20,7 @@
   min-width: 0;
 }
 
-/* .espace-page devant : l'emporte sur .espace-page h1 (Titre de page) */
-.espace-page .dc-titre {
+.dc-titre {
   margin: 0;
   font: var(--typo-titre-contenu);
   hyphens: auto;

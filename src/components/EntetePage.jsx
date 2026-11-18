@@ -7,7 +7,7 @@ function EntetePage({ titre, sousTitre, image, variante, children }) {
     <div className={`entete-page${variante ? ` entete-page-${variante}` : ''}`}>
       <img className="entete-page-objet" src={image} alt="" />
       <div className="entete-page-texte">
-        <h1>{titre}</h1>
+        <h1 className="titre-page">{titre}</h1>
         {sousTitre && <p className="entete-page-sous-titre">{sousTitre}</p>}
       </div>
       {children}

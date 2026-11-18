@@ -34,10 +34,6 @@
   min-height: 80px;
 }
 
-.espace-page .entete-page h1 {
-  margin: 0;
-}
-
 .entete-page-sous-titre {
   margin: 0;
   font: var(--typo-texte-secondaire);

@@ -43,7 +43,7 @@
 }
 
 /* Le nom ne passe jamais sous l'objet (92 px + marges) */
-.espace-page .theme-entete-titre {
+.theme-entete-titre {
   margin: 0;
   /* espacements.md, section 8 : réserve de l'objet 3D */
   padding-right: 100px;

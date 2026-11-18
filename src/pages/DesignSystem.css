@@ -8,10 +8,6 @@
   padding: calc(env(safe-area-inset-top) + 20px) var(--espace-marge-page) 40px;
 }
 
-.ds-entete h1 {
-  margin: 0;
-}
-
 .ds-intention,
 .ds-description,
 .ds-meta {

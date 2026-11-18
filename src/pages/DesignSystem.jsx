@@ -483,7 +483,7 @@ function DesignSystem() {
     <div className="ds-page">
       <main className="espace-page espace-page-etroit">
         <header className="ds-entete">
-          <h1>Design System Skillo</h1>
+          <h1 className="titre-page">Design System Skillo</h1>
           <p className="ds-intention">
             Version {versionActuelle} · Projet personnel
           </p>

@@ -715,7 +715,6 @@
   white-space: nowrap;
 }
 
-.espace-page .fin-quiz-titre,
 .fin-quiz-titre {
   margin: var(--espace-groupes) 0 0;
   font: var(--typo-titre-page);

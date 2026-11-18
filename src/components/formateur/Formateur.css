@@ -24,7 +24,6 @@
   min-width: 0;
 }
 
-.espace-page .fm-titres h1,
 .fm-titres h1 {
   margin: 0;
   font: var(--typo-titre-page);

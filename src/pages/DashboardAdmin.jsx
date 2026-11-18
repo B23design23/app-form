@@ -60,7 +60,7 @@ function DashboardAdmin({ titre, onCreerCours, onChangerSection }) {
     <div className="espace-page espace-page-etroit formateur-dashboard-page">
       <div className="fd-entete">
         <div className="fd-titres">
-          <h1>{titre}</h1>
+          <h1 className="titre-page">{titre}</h1>
           <p className="fd-sous-titre fd-sous-titre-admin">
             <span className="pastille fd-pastille-officiel">Compte officiel</span>
             {nbCoursPublics !== null && <span>{nbCoursPublics} cours public{nbCoursPublics > 1 ? 's' : ''}</span>}
