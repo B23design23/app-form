@@ -45,7 +45,7 @@
   --fond-voile: color-mix(in srgb, var(--couleur-ardoise-900) 45%, transparent); /** Derrière une modale ou un menu (encre à 45 %). Composantes de couleur.ardoise-900, opacité 45 % portée par ce sémantique. */
   --fond-voile-accentue: color-mix(in srgb, var(--couleur-ardoise-900) 85%, transparent); /** Visionneuse d'images, miniature « +N » (encre à 85 %, garantit la lisibilité du « +N » blanc sur une image quelconque). Composantes de couleur.ardoise-900, opacité 85 % portée par ce sémantique. */
   --ombre-flottante: 0 12px 32px color-mix(in srgb, var(--couleur-ardoise-900) 16%, transparent); /** Éléments flottants : menus, listes déroulantes, toast, modales, barre d'enregistrement. Lue par box-shadow. */
-  --ombre-illustration: 0 14px 16px color-mix(in srgb, var(--couleur-ardoise-900) 35%, transparent); /** Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz, Introduction). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration)). */
+  --ombre-illustration: 0 14px 16px color-mix(in srgb, var(--couleur-ardoise-900) 35%, transparent); /** Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration)). */
   --typo-famille: Urbanist, sans-serif; /** Famille unique : Urbanist, avec sans-serif en secours. */
   --typo-taille-13: 0.8125rem; /** Taille de 13 px, sortie en rem (base 16 px). */
   --typo-taille-14: 0.875rem; /** Taille de 14 px, sortie en rem (base 16 px). */
@@ -83,7 +83,7 @@
   --espace-bouton: var(--espace-24); /** Padding d'un contrôle, Bouton : padding gauche et droite. La hauteur donne le vertical. Vrais boutons seulement (un filtre, un choix, un onglet est un Choix). */
   --espace-retour-chevron: var(--espace-12); /** Padding d'un contrôle, Retour : côté chevron. Sur mobile (chevron seul), les deux côtés. */
   --espace-retour-libelle: var(--espace-20); /** Padding d'un contrôle, Retour : côté libellé. */
-  --espace-champ: var(--espace-16); /** Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde une réserve de 44 px de ce côté (icône de 20 à 16 du bord, puis 8 jusqu'au texte). */
+  --espace-champ: var(--espace-16); /** Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde une réserve de 44 px de ce côté (icône de 20 px, à 16 px du bord, puis 8 jusqu'au texte). */
   --espace-pastille-vertical: var(--espace-4); /** Padding d'un contrôle, Pastille : haut et bas. */
   --espace-pastille-horizontal: var(--espace-10); /** Padding d'un contrôle, Pastille : gauche et droite. */
   --espace-choix-vertical: var(--espace-10); /** Padding d'un contrôle, Choix (ligne de réponse, case, mode, filtre, onglet) : haut et bas. Un choix à hauteur fixe n'en prend pas. */

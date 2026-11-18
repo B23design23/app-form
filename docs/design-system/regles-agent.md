@@ -122,7 +122,7 @@ Espacements. Primitifs : base 4 px, 11 paliers, liste fermée : 2, 4, 6, 8, 10, 
 | `--espace-bouton` | Padding d'un contrôle, Bouton : padding gauche et droite. La hauteur donne le vertical. Vrais boutons seulement (un filtre, un choix, un onglet est un Choix). |
 | `--espace-retour-chevron` | Padding d'un contrôle, Retour : côté chevron. Sur mobile (chevron seul), les deux côtés. |
 | `--espace-retour-libelle` | Padding d'un contrôle, Retour : côté libellé. |
-| `--espace-champ` | Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde une réserve de 44 px de ce côté (icône de 20 à 16 du bord, puis 8 jusqu'au texte). |
+| `--espace-champ` | Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde une réserve de 44 px de ce côté (icône de 20 px, à 16 px du bord, puis 8 jusqu'au texte). |
 | `--espace-pastille-vertical` | Padding d'un contrôle, Pastille : haut et bas. |
 | `--espace-pastille-horizontal` | Padding d'un contrôle, Pastille : gauche et droite. |
 | `--espace-choix-vertical` | Padding d'un contrôle, Choix (ligne de réponse, case, mode, filtre, onglet) : haut et bas. Un choix à hauteur fixe n'en prend pas. |
@@ -157,7 +157,7 @@ Ombres : deux, et seulement elles. La profondeur vient des fonds ; une ombre mar
 | Variable CSS | Description |
 |---|---|
 | `--ombre-flottante` | Éléments flottants : menus, listes déroulantes, toast, modales, barre d'enregistrement. Lue par box-shadow. |
-| `--ombre-illustration` | Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz, Introduction). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration)). |
+| `--ombre-illustration` | Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration)). |
 
 #### Sémantiques `fond`
 
@@ -626,7 +626,7 @@ Source : `docs/tokens/espacements.md` (section citée entre parenthèses). Les t
 - Un tableau plus large que sa carte défile horizontalement dans sa carte.
 - La zone de sécurité s'ajoute à la valeur du rôle.
 
-**Cas particuliers de composant** (section 7) : bouton à flèche, 24 à gauche et le rond à 6 du bord à droite ; champ avec icône à gauche, réserve de 44 (icône de 20 à 16 du bord, puis 8 jusqu'au texte) ; bouton ou choix posé dans la rangée d'un champ, hauteur du champ ; entrée de liste déroulante, réserve de la coche (30) ; Choix à hauteur fixe, côtés seulement ; « Bonne réponse », gauche à 0 sous 768 ; rangée des CTA du dashboard formateur, passe à la ligne, libellés en `nowrap`.
+**Cas particuliers de composant** (section 7) : bouton à flèche, 24 à gauche et le rond à 6 du bord à droite ; champ avec icône à gauche, réserve de 44 (icône de 20 px, à 16 px du bord, puis 8 jusqu'au texte) ; bouton ou choix posé dans la rangée d'un champ, hauteur du champ ; entrée de liste déroulante, réserve de la coche (30) ; Choix à hauteur fixe, côtés seulement ; « Bonne réponse », gauche à 0 sous 768 ; rangée des CTA du dashboard formateur, passe à la ligne, libellés en `nowrap`.
 
 **Valeurs hors rôle** (sections 8 et 9)
 - Une valeur qui a un rôle prend la valeur du rôle, jamais un arrondi. Une valeur sans rôle et hors échelle : le palier le plus proche, à égalité le supérieur.

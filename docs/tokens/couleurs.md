@@ -122,7 +122,7 @@ Communes aux deux modes. En CSS, un étalement nul n'est pas écrit.
 | Ombre | x · y · flou · étalement | Couleur | Rôle |
 |---|---|---|---|
 | `ombre-flottante` | 0 px · 12 px · 32 px · 0 px | `ardoise-900` à 16 % | Éléments flottants : menus, listes déroulantes, toast, modales, barre d'enregistrement. Lue par box-shadow. |
-| `ombre-illustration` | 0 px · 14 px · 16 px · 0 px | `ardoise-900` à 35 % | Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz, Introduction). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration)). |
+| `ombre-illustration` | 0 px · 14 px · 16 px · 0 px | `ardoise-900` à 35 % | Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration)). |
 
 <!-- couleurs:fin -->
 

@@ -157,7 +157,7 @@
     "champ": {
       "$type": "dimension",
       "$value": "{espace.16}",
-      "$description": "Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde une réserve de 44 px de ce côté (icône de 20 à 16 du bord, puis 8 jusqu'au texte)."
+      "$description": "Padding d'un contrôle, Champ : padding gauche et droite (champ multiligne compris). Un champ avec icône à gauche garde une réserve de 44 px de ce côté (icône de 20 px, à 16 px du bord, puis 8 jusqu'au texte)."
     },
     "pastille-vertical": {
       "$type": "dimension",

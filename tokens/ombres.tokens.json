@@ -37,7 +37,7 @@
         "blur": { "value": 16, "unit": "px" },
         "spread": { "value": 0, "unit": "px" }
       },
-      "$description": "Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz, Introduction). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration))."
+      "$description": "Objet 3D qui déborde d'une carte (bloc de tête du dashboard, correction du quiz, carte badge de fin de quiz). Une seule valeur, mobile et desktop. Lue par filter: drop-shadow(var(--ombre-illustration))."
     }
   }
 }
