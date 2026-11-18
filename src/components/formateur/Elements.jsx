@@ -8,9 +8,9 @@ import './Formateur.css'
 // contient le libellé visible.
 export function RetourFormateur({ libelle, onRetour }) {
   return (
-    <button type="button" className="bouton-retour fm-retour" onClick={onRetour} aria-label={`Retour à ${libelle}`}>
+    <button type="button" className="bouton-retour" onClick={onRetour} aria-label={`Retour à ${libelle}`}>
       <Icone svg={iconeRetour} className="bouton-retour-icone" />
-      <span className="fm-retour-libelle">{libelle}</span>
+      <span className="bouton-retour-libelle">{libelle}</span>
     </button>
   )
 }

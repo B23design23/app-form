@@ -3,6 +3,8 @@ import { supabase } from '../lib/supabaseClient'
 import { ajouterXp, verifierBadges } from '../lib/gamification'
 import { melanger } from '../lib/shuffle'
 import { imageTheme } from '../lib/thematiques'
+import Icone from '../components/Icone'
+import iconeRetour from '../Assets/chevron-left.svg?raw'
 import EcranQuiz from './fiche/EcranQuiz'
 import EcranFinQuiz, { SEUIL_REUSSITE } from './fiche/EcranFinQuiz'
 import { useQuiz } from './fiche/useQuiz'
@@ -127,7 +129,8 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
       <div className="fiche-page">
         <div className="fiche-colonne">
           <button type="button" className="bouton-retour" onClick={onRetour}>
-            Retour à l'accueil
+            <Icone svg={iconeRetour} className="bouton-retour-icone" />
+            <span className="bouton-retour-libelle">Retour à l'accueil</span>
           </button>
           {erreur ? (
             <p className="message message-erreur">Impossible de charger le quiz flash.</p>

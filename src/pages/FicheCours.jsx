@@ -4,6 +4,8 @@ import { ajouterXp, verifierBadges } from '../lib/gamification'
 import { melanger } from '../lib/shuffle'
 import { imageTheme } from '../lib/thematiques'
 import CompletionToast from '../components/CompletionToast'
+import Icone from '../components/Icone'
+import iconeRetour from '../Assets/chevron-left.svg?raw'
 import EcranLecon from './fiche/EcranLecon'
 import EcranQuiz from './fiche/EcranQuiz'
 import EcranFinQuiz, { SEUIL_REUSSITE } from './fiche/EcranFinQuiz'
@@ -482,7 +484,8 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
       <div className="fiche-page">
         <div className="fiche-colonne">
           <button type="button" className="bouton-retour" onClick={onRetour}>
-            Retour
+            <Icone svg={iconeRetour} className="bouton-retour-icone" />
+            <span className="bouton-retour-libelle">Retour</span>
           </button>
           <p className="message message-erreur">Impossible de charger ce cours.</p>
         </div>

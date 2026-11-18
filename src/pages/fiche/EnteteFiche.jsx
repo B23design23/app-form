@@ -10,7 +10,7 @@ function EnteteFiche({ cours, sousTitre, onRetour, children }) {
     <>
       <button type="button" className="bouton-retour" onClick={onRetour} aria-label={`Retour à ${libelleCourtTheme(cours.categorie)}`}>
         <Icone svg={iconeRetour} className="bouton-retour-icone" />
-        {libelleCourtTheme(cours.categorie)}
+        <span className="bouton-retour-libelle">{libelleCourtTheme(cours.categorie)}</span>
       </button>
       <div className="fiche-entete">
         <img className="fiche-entete-objet" src={imageTheme(cours.categorie)} alt="" />

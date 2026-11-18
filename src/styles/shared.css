@@ -461,6 +461,23 @@
   height: 18px;
 }
 
+/* Retour : chevron seul sous 768 px (espacements.md, section 7, Retour), le libellé reste dans le nom
+   accessible */
+@media (max-width: 767px) {
+  .bouton-retour {
+    padding: 0 var(--espace-retour-chevron);
+  }
+
+  .bouton-retour-libelle {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
 /* Recherche (ds-principes-composants.md, Champ, variante Recherche) : champ .champ avec la loupe */
 .recherche {
   position: relative;

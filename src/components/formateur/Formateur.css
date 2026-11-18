@@ -65,23 +65,6 @@
   display: none;
 }
 
-/* Retour de l'espace formateur (classe commune .bouton-retour) : chevron seul sous 768 px, le
-   libellé reste dans le nom accessible */
-@media (max-width: 767px) {
-  .fm-retour {
-    padding: 0 var(--espace-retour-chevron);
-  }
-
-  .fm-retour-libelle {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
-}
-
 /* Pastilles de groupe */
 .fm-pastilles {
   display: flex;

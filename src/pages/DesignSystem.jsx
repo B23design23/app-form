@@ -419,7 +419,7 @@ function Composants() {
           </button>
           <button type="button" className="bouton-retour">
             <Icone svg={iconeRetour} className="bouton-retour-icone" />
-            Cours
+            <span className="bouton-retour-libelle">Cours</span>
           </button>
         </div>
         <Regles titre="Lien texte" lignes={lien.regle} />
