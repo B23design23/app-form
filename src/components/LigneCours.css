@@ -47,7 +47,7 @@
 }
 
 .ligne-cours-chevron {
-  /* espacements.md, section 9 : centrage optique du chevron sur la vignette de 48 px ((48 − 20) / 2) */
+  /* chevron centré sur la vignette de 48 px ((48 − 20) / 2), docs/ecrans/apprenant.md, Lignes sur plusieurs colonnes */
   margin-top: 14px;
 }
 
@@ -105,7 +105,7 @@
   }
 
   .ligne-cours-chevron {
-    /* espacements.md, section 9 : centrage optique sur la vignette de 52 px ((52 − 20) / 2) */
+    /* chevron centré sur la vignette de 52 px ((52 − 20) / 2), docs/ecrans/apprenant.md, Lignes sur plusieurs colonnes */
     margin-top: 16px;
   }
 }
