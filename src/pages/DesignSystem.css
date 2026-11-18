@@ -87,7 +87,8 @@
 }
 
 .ds-echantillon-texte {
-  font: var(--typo-titre-ligne);
+  /* L'échantillon montre la couleur posée sur un titre (.titre-ligne) ; sa couleur, en style en ligne,
+     est la valeur montrée par la page. */
 }
 
 .ds-echantillon-bordure {

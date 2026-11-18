@@ -89,7 +89,7 @@ function Echantillon({ token }) {
   if (token.propriete === 'texte') {
     const fond = FOND_DU_TEXTE[token.nom] ?? 'fond-surface'
     return (
-      <span className="ds-echantillon ds-echantillon-texte" style={{ background: `var(--${fond})`, color: v }}>
+      <span className="titre-ligne ds-echantillon ds-echantillon-texte" style={{ background: `var(--${fond})`, color: v }}>
         Aa
       </span>
     )
@@ -384,7 +384,7 @@ function Composants() {
           {['Nettoyage du filtre', 'Le split mural'].map((t) => (
             <li key={t}>
               <button type="button" className="ligne-liste">
-                <span className="ds-nom">{t}</span>
+                <span className="titre-ligne ds-nom">{t}</span>
               </button>
             </li>
           ))}
