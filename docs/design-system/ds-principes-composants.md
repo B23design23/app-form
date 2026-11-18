@@ -145,7 +145,7 @@ Erreur
 Vide
 Un état vide est en Texte secondaire, couleur `texte-secondaire`, jamais `texte-erreur`.
 
-Première ligne d'un état de page (Chargement, Erreur, Vide) : voir `typographie.md`, section 8.
+Première ligne d'un état de page (Chargement, Erreur, Vide) : voir `typographie.md`, section 8. Un état de page d'une seule ligne, comme « Chargement… », n'a pas de première ligne et garde le rôle du message sans variante `-fort` ; la variante `-fort` ne vaut que lorsqu'une autre ligne suit.
 
 ## Barre de progression
 

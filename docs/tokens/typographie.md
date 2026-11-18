@@ -150,7 +150,7 @@ Aucun rôle n'a d'espacement des lettres.
   - l'emphase dans une phrase (`strong`, gras Markdown, nom en gras dans un fil d'activité) suit la même règle qu'un état ;
   - **dans les rôles à 800, l'emphase reste invisible, et c'est accepté** : 800 est la graisse la plus forte, rien n'est chargé au-dessus ;
   - **en-tête de tableau (`th`)** : il prend le rôle du tableau qu'il coiffe, en variante `-fort` (un tableau en Corps courant : en-têtes en Corps courant fort). Si ce rôle est à 800, l'en-tête reste à 800 ;
-  - **état de page** : la première ligne d'un état de page (Chargement, Erreur, Vide) prend le rôle du message, en variante `-fort`.
+  - **état de page** : la première ligne d'un état de page (Chargement, Erreur, Vide) prend le rôle du message, en variante `-fort`. Un état de page d'une seule ligne, comme « Chargement… », n'a pas de première ligne et garde le rôle du message sans variante `-fort` ; la variante `-fort` ne vaut que lorsqu'une autre ligne suit.
 
 ## 9. Contrôles
 
