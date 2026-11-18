@@ -219,6 +219,13 @@ Aucune entrée.
 - Dashboard formateur, « Tous tes élèves ont commencé les cours assignés. » (Élèves à relancer vide) : Texte secondaire (14 px · 600, `texte-secondaire`) au lieu de Méta (13 px · 600, `texte-principal`), règle de l'état vide ; contraste 6,0:1 sur `fond-succes`.
 - `/design-system`, Ligne de liste : nom de la ligne de démonstration (« Nettoyage du filtre ») en Titre de ligne (16 px · 800 · 1,2) au lieu de la police du bouton (13,33 px).
 
+### Libellé en lecture seule et entrée Menu (18 novembre)
+
+**Ajouté**
+
+- Règle du libellé d'une information affichée sans être modifiable (évolution mineure) : posé au-dessus de sa valeur, il est en Méta, couleur `texte-secondaire` (typographie.md, section 6 ; regles-agent.md). Aucune règle sur la valeur, dont le rôle vient de sa fonction. Les libellés des cartes de statistique (dashboard admin, Détail cours) la suivent déjà. Côté écran : rien à faire.
+- Entrée Menu de la navigation (évolution mineure) : quand l'écran affiché a été ouvert depuis une entrée du Menu, l'entrée Menu est marquée active, avec l'état de l'onglet actif (ds-principes-composants.md, fiche Navigation ; regles-agent.md). Aucune entrée du Menu n'ouvre d'écran aujourd'hui. Côté écran : rien à faire.
+
 ## 2.1.0 (brouillon, non publiée)
 
 Applique la correction 1.0.1 sur `bordure-controle` et sépare les contours qui n'ont pas d'exigence de contraste.
