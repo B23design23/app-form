@@ -118,7 +118,7 @@ function CarteSemantique({ token }) {
           <span className="ds-meta">{valeur(token.valeur)}</span>
         </>
       )}
-      <code className="ds-nom">{token.nom}</code>
+      <code className="titre-carte ds-nom">{token.nom}</code>
       <p className="ds-description">{token.description}</p>
     </article>
   )
@@ -143,7 +143,7 @@ function Couleurs() {
         <div className="espace-carte ds-fonds-page">
           {['apprenant', 'formateur'].map((m) => (
             <div key={m} className={`ds-fond-page ${m === 'apprenant' ? 'mode-apprenant' : 'flow-page-formateur'}`}>
-              <code className="ds-nom">fond-page</code>
+              <code className="titre-ligne ds-nom">fond-page</code>
               <span className="ds-meta">{m}</span>
             </div>
           ))}
@@ -157,7 +157,7 @@ function Couleurs() {
             <div key={p.nom} className="ds-primitif">
               {/* Valeur lue dans tokens/ au build : un composant ne lit pas la variable d'un primitif */}
               <span className="ds-primitif-pastille" style={{ background: p.hex }} />
-              <code className="ds-nom">{p.nom}</code>
+              <code className="titre-ligne ds-nom">{p.nom}</code>
               <span className="ds-meta">{p.hex}</span>
             </div>
           ))}
@@ -201,7 +201,7 @@ function EchantillonTypo({ token, nom }) {
         {TEXTE_ECHANTILLON[token] ?? TEXTE_DEFAUT}
       </p>
       <span className="ds-meta">
-        {nom} · <code className="ds-nom">--{token}</code> · {mesure}
+        {nom} · <code className="titre-carte ds-nom">--{token}</code> · {mesure}
       </span>
     </article>
   )
@@ -230,7 +230,7 @@ function Espacements() {
         <ul className="ds-echelle">
           {espacements.paliers.map((p) => (
             <li key={p.nom}>
-              <code className="ds-nom">{p.nom}</code>
+              <code className="titre-ligne ds-nom">{p.nom}</code>
               <span className="ds-barre" style={{ width: `calc(var(--${p.nom}) * 6)` }} />
               <span className="ds-meta">{p.valeur}</span>
             </li>
@@ -242,7 +242,7 @@ function Espacements() {
         <ul className="ds-echelle">
           {espacements.roles.map((r) => (
             <li key={r.nom}>
-              <code className="ds-nom">{r.nom}</code>
+              <code className="titre-ligne ds-nom">{r.nom}</code>
               <span className="ds-barre" style={{ width: `calc(var(--${r.nom}) * 6)` }} />
               <span className="ds-meta">{r.primitif} · {r.valeur}</span>
             </li>
@@ -262,7 +262,7 @@ function Formes() {
         {rayons.map((r) => (
           <article key={r.nom} className="espace-carte ds-carte">
             <span className="ds-rayon" style={{ borderRadius: `var(${r.nom})` }} />
-            <code className="ds-nom">{r.nom}</code>
+            <code className="titre-carte ds-nom">{r.nom}</code>
             <span className="ds-meta">{r.valeur}</span>
           </article>
         ))}
@@ -271,7 +271,7 @@ function Formes() {
         {ombres.map((o) => (
           <article key={o.nom} className={`espace-carte ds-carte ds-ombre ds${o.nom.slice(1)}`}>
             {o.nom === '--ombre-illustration' && <img className="ds-ombre-objet" src="/illustrations/quiz-flash.png" alt="" />}
-            <code className="ds-nom">{o.nom}</code>
+            <code className="titre-carte ds-nom">{o.nom}</code>
             <span className="ds-meta">{o.valeur}</span>
             <span className="ds-meta">{o.description}</span>
           </article>
@@ -370,7 +370,7 @@ function Composants() {
         <h3 className="titre-section">Carte</h3>
         <div className="ds-grille">
           <article className="carte ds-carte">
-            <span className="ds-nom">Carte</span>
+            <span className="titre-carte ds-nom">Carte</span>
             <span className="ds-meta">Fond blanc, rayon et padding Surface</span>
           </article>
         </div>

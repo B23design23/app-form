@@ -68,21 +68,13 @@
   justify-content: center;
 }
 
-/* Nom de token (code) : Urbanist, rôle selon la place ; overflow-wrap: anywhere pour les noms longs */
-.ds-nom {
+/* Nom de token : titre par sa fonction, classe du rôle selon la place (.titre-carte dans une carte,
+   .titre-ligne dans une échelle, un primitif ou un fond de page). Le nom de la ligne de démonstration
+   (Ligne de liste) n'a pas encore de rôle : il garde ses valeurs (rapport net 13, À trancher). */
+.ds-liste .ds-nom {
   font-weight: 800;
   color: var(--texte-principal);
   overflow-wrap: anywhere;
-}
-
-.ds-carte .ds-nom {
-  font: var(--typo-titre-carte);
-}
-
-.ds-echelle .ds-nom,
-.ds-primitif .ds-nom,
-.ds-fond-page .ds-nom {
-  font: var(--typo-titre-ligne);
 }
 
 /* Échantillons : chaque token dans sa propriété (fond, texte, bordure) */

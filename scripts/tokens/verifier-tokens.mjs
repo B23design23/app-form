@@ -194,9 +194,7 @@ const TITRES_EN_ATTENTE = [
   // rôle non titre proposé (net 13, point 2), à décider
   ['src/pages/DashboardFormateur.css', '.formateur-taux-label'],
   ['src/pages/DashboardFormateur.css', '.fd-succes-textes strong'],
-  // /design-system : noms de tokens et échantillons, rôle de titre à confirmer
-  ['src/pages/DesignSystem.css', '.ds-carte .ds-nom'],
-  ['src/pages/DesignSystem.css', '.ds-echelle .ds-nom, .ds-primitif .ds-nom, .ds-fond-page .ds-nom'],
+  // /design-system : échantillons « Aa », aucun rôle non titre de même typographie (net 13, point 3)
   ['src/pages/DesignSystem.css', '.ds-echantillon-texte'],
 ]
 
