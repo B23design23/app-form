@@ -187,7 +187,7 @@ Aucune entrée.
 - Lot 7, point de revue final : champs multilignes de Création de cours (énoncé, « À retenir », éditeur de leçon) sans poignée de redimensionnement, hauteur ajustée au contenu (la poignée mordait l'arrondi de la bordure) ; « Image » d'une étape 40 → 48 (outil) et pilule « Bloquante » 40 → 44 (choix) ; Mes badges à 320 (« Persévérant » n'est plus coupé, une colonne).
 - Lot 8, cartes cliquables : carte de thème, de profil, de Mes cours et de Mes groupes sur `.carte-cliquable` (titre `h2` / `h3` qui contient le bouton nommé par lui, zone cliquable étendue à la carte, focus sur la carte). Rendu, focus et appui inchangés au pixel.
 
-### Nettoyage (lots net 1 à 10)
+### Nettoyage (lots net 1 à 11)
 
 **Modifié**
 
@@ -195,8 +195,10 @@ Aucune entrée.
 - Champ : le focus de la liste déroulante suit le clavier, comme un bouton (`:focus-visible`) ; la liste déroulante rejoint la règle commune des champs pour le fond (`--fond-champ`), la bordure et la police.
 - Titre de section : le rôle est porté par une classe commune (`.titre-section`, `shared.css`), plus par la balise ; la règle `.espace-page h2` est retirée (typographie.md, section 7 : le rôle ne dépend pas de la balise).
 - Titre de page : même traitement, classe commune `.titre-page` (`shared.css`) ; la règle `.espace-page h1` est retirée et les sélecteurs à deux classes écrits pour lui échapper redeviennent simples (`.dc-titre`, `.theme-entete-titre`, `.fm-titres h1`, `.fin-quiz-titre`). Aucun titre ne change.
+- Classe des titres : typographie.md (section 7) et regles-agent.md nomment la classe que porte un Titre de page (`.titre-page`) et un Titre de section (`.titre-section`), sauf s'il a sa propre règle.
+- Sélecteurs où `.espace-page` précédait une classe : `.fd-jour-titre` et les règles `… > *:first-child` des pages (`fm-page`, `page-theme`, `dash-page`, `formateur-dashboard-page`, `page-terrain`, `page-cours`) redeviennent simples, styles calculés identiques. La règle des champs posés sur la page (`.espace-page > .champ …`) garde son sélecteur.
 - Bornes de texte des blocs du dashboard : une seule valeur, 210 px (mise-en-page.md, section 3, disait « 200 à 210 px ») ; le titre « Quiz flash », seul à 200, ne l'atteignait pas.
-- Centrages optiques (espacements.md, section 9) : la plage « 2 à 8 px » est remplacée par la liste fermée des six cas ; un nouveau centrage optique se signale en « À trancher ».
+- Centrages optiques (espacements.md, section 9) : la plage « 2 à 8 px » est remplacée par une liste fermée de quatre cas ; un nouveau centrage optique ne se crée pas, il se signale en « À trancher » (aussi dans regles-agent.md, section 5). Les chevrons à 14 et 16 px des lignes sur plusieurs colonnes n'en font pas partie : le chevron est centré sur la vignette, ces valeurs en sont le résultat (apprenant.md, Lignes sur plusieurs colonnes).
 - Descriptions de tokens (valeurs inchangées) : `ombre-illustration` ne cite plus l'Introduction ; `espace-champ` dit « icône de 20 px, à 16 px du bord ».
 
 **Retiré**
