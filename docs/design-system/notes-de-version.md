@@ -187,17 +187,21 @@ Aucune entrée.
 - Lot 7, point de revue final : champs multilignes de Création de cours (énoncé, « À retenir », éditeur de leçon) sans poignée de redimensionnement, hauteur ajustée au contenu (la poignée mordait l'arrondi de la bordure) ; « Image » d'une étape 40 → 48 (outil) et pilule « Bloquante » 40 → 44 (choix) ; Mes badges à 320 (« Persévérant » n'est plus coupé, une colonne).
 - Lot 8, cartes cliquables : carte de thème, de profil, de Mes cours et de Mes groupes sur `.carte-cliquable` (titre `h2` / `h3` qui contient le bouton nommé par lui, zone cliquable étendue à la carte, focus sur la carte). Rendu, focus et appui inchangés au pixel.
 
-### Nettoyage (lots net 1 à 9)
+### Nettoyage (lots net 1 à 10)
 
 **Modifié**
 
 - Choix : repère d'une seule valeur, 22 px, au repos et choisi ; l'état choisi se voit au remplissage, jamais à la taille (la fiche disait « repère de 22 à 24 px »).
 - Champ : le focus de la liste déroulante suit le clavier, comme un bouton (`:focus-visible`) ; la liste déroulante rejoint la règle commune des champs pour le fond (`--fond-champ`), la bordure et la police.
 - Titre de section : le rôle est porté par une classe commune (`.titre-section`, `shared.css`), plus par la balise ; la règle `.espace-page h2` est retirée (typographie.md, section 7 : le rôle ne dépend pas de la balise).
+- Titre de page : même traitement, classe commune `.titre-page` (`shared.css`) ; la règle `.espace-page h1` est retirée et les sélecteurs à deux classes écrits pour lui échapper redeviennent simples (`.dc-titre`, `.theme-entete-titre`, `.fm-titres h1`, `.fin-quiz-titre`). Aucun titre ne change.
+- Bornes de texte des blocs du dashboard : une seule valeur, 210 px (mise-en-page.md, section 3, disait « 200 à 210 px ») ; le titre « Quiz flash », seul à 200, ne l'atteignait pas.
+- Centrages optiques (espacements.md, section 9) : la plage « 2 à 8 px » est remplacée par la liste fermée des six cas ; un nouveau centrage optique se signale en « À trancher ».
+- Descriptions de tokens (valeurs inchangées) : `ombre-illustration` ne cite plus l'Introduction ; `espace-champ` dit « icône de 20 px, à 16 px du bord ».
 
 **Retiré**
 
-- Règle `.espace-page h2` (`src/styles/espace-layout.css`) ; illustrations SVG inutilisées de `src/Assets/badge/` ; lecture des colonnes `badges.icone` et `badges.description` (non utilisées).
+- Règles `.espace-page h2` et `.espace-page h1` (`src/styles/espace-layout.css`) ; illustrations SVG inutilisées de `src/Assets/badge/` ; lecture des colonnes `badges.icone` et `badges.description` (non utilisées).
 
 **Écrans corrigés (nettoyage)**
 
