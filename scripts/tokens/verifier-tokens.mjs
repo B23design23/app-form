@@ -183,3 +183,65 @@ export async function verifierPrimitifsEspacement(dossier = 'src', exclus = ['sr
     throw new Error(`Primitifs d'espacement lus hors du CSS généré (${erreurs.length}) ; utiliser le token de rôle (espacements.md, section 11) :\n- ${erreurs.join('\n- ')}`)
   }
 }
+
+// Contrôle des titres (nettoyage net 12, typographie.md, section 7) : chaque titre porte la classe
+// commune de son rôle ; un token de rôle de titre (var(--typo-titre-<rôle>)) n'est lu que par la
+// classe .titre-<rôle> de shared.css. Exceptions écrites dans la doc : aucune à ce jour (la fin de quiz
+// a son exception sur l'anneau, pas sur un titre ; les deux en-têtes de Création de cours prennent
+// .titre-ligne et .titre-page). EN_ATTENTE : règles laissées « À trancher » (rapport net 12), une
+// par une ; elles ne sont pas des exceptions et sortent de la liste quand la décision est prise.
+const TITRES_EN_ATTENTE = [
+  // couleur du support (texte-sur-marque, texte-sur-inverse…) ou autre que texte-principal
+  ['src/pages/Dashboard.css', '.dash-titre-tete'],
+  ['src/pages/FicheCours.css', '.fiche-suivante-titre'],
+  ['src/pages/FicheCours.css', '.fiche-suite-titre'],
+  ['src/pages/FicheCours.css', '.fiche-feedback-titre'],
+  ['src/pages/FicheCours.css', '.fin-quiz-haut-titre'],
+  ['src/pages/FicheCours.css', '.fin-quiz-badge-nom'],
+  ['src/components/CompletionToast.css', '.completion-toast-titre'],
+  ['src/pages/DashboardFormateur.css', '.formateur-taux-label'],
+  ['src/pages/DashboardFormateur.css', '.fd-succes-textes strong'],
+  // /design-system : noms de tokens et échantillons, rôle de titre à confirmer
+  ['src/pages/DesignSystem.css', '.ds-carte .ds-nom'],
+  ['src/pages/DesignSystem.css', '.ds-echelle .ds-nom, .ds-primitif .ds-nom, .ds-fond-page .ds-nom'],
+  ['src/pages/DesignSystem.css', '.ds-echantillon-texte'],
+]
+
+// Règles CSS d'un texte (commentaires retirés) : [{ selecteur, corps, ligne }], @media compris
+function reglesCss(texte) {
+  const t = texte.replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, ' '))
+  const res = [], pile = []
+  let debut = 0
+  for (let i = 0; i < t.length; i++) {
+    if (t[i] === '{') { pile.push({ selecteur: t.slice(debut, i).trim().replace(/\s+/g, ' '), ouv: i }); debut = i + 1 }
+    else if (t[i] === '}') {
+      const r = pile.pop(); debut = i + 1
+      if (r) res.push({ selecteur: r.selecteur, corps: t.slice(r.ouv + 1, i), ligne: t.slice(0, r.ouv).split('\n').length })
+    }
+  }
+  return res
+}
+
+export async function verifierTitres(dossier = 'src') {
+  const { readdir } = await import('node:fs/promises')
+  const path = await import('node:path')
+  const entrees = await readdir(dossier, { recursive: true, withFileTypes: true })
+  const erreurs = [], attente = new Set(), vus = new Set()
+  for (const e of entrees) {
+    if (!e.isFile() || !e.name.endsWith('.css')) continue
+    const chemin = path.join(e.parentPath ?? e.path, e.name)
+    if (chemin === path.join(dossier, 'styles/tokens.generes.css')) continue
+    for (const r of reglesCss(await readFile(chemin, 'utf8'))) {
+      if (r.corps.includes('{')) continue
+      for (const m of r.corps.matchAll(/var\(\s*--typo-titre-([a-z-]+?)(?:-fort)?\s*\)/g)) {
+        if (chemin === path.join(dossier, 'styles/shared.css') && r.selecteur === `.titre-${m[1]}`) continue
+        const cle = `${chemin}|${r.selecteur}`
+        if (TITRES_EN_ATTENTE.some(([f, s]) => `${f}|${s}` === cle)) { attente.add(`${chemin}:${r.ligne} ${r.selecteur}`); vus.add(cle); continue }
+        erreurs.push(`${chemin}:${r.ligne} « ${r.selecteur} » lit --typo-titre-${m[1]} : poser la classe .titre-${m[1]} sur le titre et retirer la typographie de sa règle (typographie.md, section 7).`)
+      }
+    }
+  }
+  for (const [f, s] of TITRES_EN_ATTENTE) if (!vus.has(`${f}|${s}`)) erreurs.push(`Règle en attente introuvable ou qui ne lit plus de token de titre : ${f} « ${s} » ; la retirer de TITRES_EN_ATTENTE.`)
+  if (erreurs.length > 0) throw new Error(`Titres hors de leur classe commune (${erreurs.length}) :\n- ${erreurs.join('\n- ')}`)
+  return [...attente]
+}
