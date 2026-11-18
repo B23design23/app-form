@@ -391,7 +391,8 @@
 }
 
 .dash-flash-tete-titre {
-  max-width: 200px;
+  /* mise-en-page.md, section 3 : borne de texte de 210 px des blocs du dashboard */
+  max-width: 210px;
   font: var(--typo-titre-mis-en-avant);
   hyphens: auto;
   -webkit-hyphens: auto;
