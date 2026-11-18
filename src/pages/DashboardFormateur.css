@@ -353,9 +353,10 @@
   color: var(--texte-succes);
 }
 
+/* État vide : Texte secondaire, couleur texte-secondaire (ds-principes-composants.md, États de page) */
 .fd-succes-textes span {
-  font: var(--typo-meta);
-  color: var(--texte-principal);
+  font: var(--typo-texte-secondaire);
+  color: var(--texte-secondaire);
 }
 
 /* --- Activité récente ---------------------------------------------------------------------------- */
