@@ -179,7 +179,7 @@ Variables `--color-*` (et valeurs écrites en dur) que chaque sémantique a remp
 | `bordure-succes` | `success` (en `border`) |
 
 **Cas isolés migrés à la main.** Usages où l'ancienne variable ne correspondait pas à son nom :
-- `bouton-ajouter:disabled` prenait `text-secondary` comme bordure : `bordure-action-desactive` (2.1.0) ;
+- `bouton-ajouter:disabled` prenait `text-secondary` comme bordure : `bordure-action-desactive` (3.0.0) ;
 - `cc-bloquante-active` prenait `error-fond` comme bordure, de la couleur du fond : bordure `transparent` (2.0.0) ;
 - `fd-etape-action:disabled:hover` prenait `lavande` comme bordure, de la couleur du fond : bordure `transparent` (2.0.0).
 
@@ -199,7 +199,7 @@ Les confettis lisent `fond-marque`, `fond-recompense`, `fond-inverse`, `fond-sur
 
 **3. `bordure-controle` en formateur : `ardoise-175`.** J'applique la règle d'insertion. Un `ardoise-150` aurait la clarté de `sable-150` (L\* 84,4), soit 0,7 point d'`ardoise-175` (83,7) : trop proche, on garde l'existant. `fond-controle` suit le même mode.
 
-*Mise à jour DS 2.1.0 :* `bordure-controle` devient commun et pointe vers `ardoise-450` (3,02:1 au plus bas, contre `fond-accent`). Les valeurs `sable-150` / `ardoise-175` passent à `bordure-etape` et `bordure-action-desactive`, qui n'ont pas d'exigence de contraste.
+*Mise à jour DS 3.0.0 :* `bordure-controle` devient commun et pointe vers `ardoise-450` (3,02:1 au plus bas, contre `fond-accent`). Les valeurs `sable-150` / `ardoise-175` passent à `bordure-etape` et `bordure-action-desactive`, qui n'ont pas d'exigence de contraste.
 
 *Chantier composants et couleurs (12/11) :* `bordure-controle` sert aussi à la bordure de 2 px des champs au repos. Ratios : 3,92:1 sur blanc, 3,40 sur crème, 3,57 sur gris, 3,02 sur lavande (recherche de Cours). La marge sur lavande est faible : un éclaircissement de `violet-100` ou un assombrissement de `ardoise-450` relance ce calcul.
 

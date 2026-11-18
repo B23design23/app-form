@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Avant / après 2.1.0</title>
+<title>Avant / après 3.0.0, couleurs</title>
 <style>
   :root { --fond: #f4f4f6; --carte: #ffffff; --encre: #1e1a33; --secondaire: #5c566e; --ligne: #ececf0; --ok: #17663f; --ok-fond: #dff3e7; --ko: #b4232a; --ko-fond: #fde3e1; --lavande: #e4deff; }
   * { box-sizing: border-box; }
@@ -44,7 +44,7 @@
 </head>
 <body>
 <main>
-<h1>Avant / après 2.1.0</h1>
+<h1>Avant / après 3.0.0, couleurs</h1>
 <p class="intro">Avant : commit 1700bcd. Après : branche tokens-couleurs-ds-2.0.0. Captures faites dans l'app (Chromium, ×2). « Écran réel » : l'élément tel qu'il existe dans ce mode. « Mode forcé » : l'élément n'existe pas dans ce mode ; la classe de mode (<code>.flow-page-formateur</code> ou <code>.mode-apprenant</code>) est posée sur son conteneur pour montrer la valeur du token. Contraste : le plus faible entre la bordure et ses fonds voisins (remplissage du contrôle et fond du conteneur, survol compris), seuil 3:1.</p>
 <section class="choix-icone">
   <h2>Icône de progression « En cours » : à choisir</h2>
@@ -308,7 +308,7 @@
 </section>
 <section>
   <h2>Pastilles de statut</h2>
-  <p class="note">Règle 1.1.0, appliquée en 2.1.0 : pilule pour un cours pas encore ouvert, mention avec icône pour un cours déjà ouvert. Avant : commit ed26825 (règle 1.1.0 décidée, pas appliquée). Contraste du texte sur son fond (blanc de la carte quand la mention n'a pas de fond), seuil 4,5:1.</p>
+  <p class="note">Règle 1.1.0, appliquée en 3.0.0 : pilule pour un cours pas encore ouvert, mention avec icône pour un cours déjà ouvert. Avant : commit ed26825 (règle 1.1.0 décidée, pas appliquée). Contraste du texte sur son fond (blanc de la carte quand la mention n'a pas de fond), seuil 4,5:1.</p>
   <div class="grille grille-pastilles"><article class="paire">
   <header><span class="mode">apprenant</span><span class="badge reel">écran réel</span></header>
   <p class="legende">Les 5 états (balisage de <code>StatutBadge</code> de chaque version, dans une carte blanche de la vraie page)</p>
@@ -339,7 +339,7 @@
 </section>
 <section>
   <h2>Séparateurs</h2>
-  <p class="note">Règle précisée en 2.1.0 : <code>bordure-separateur</code> seulement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc, jamais avant le premier ni après le dernier ; un en-tête, un titre ou une section se sépare par l'espacement. Quatre dérives corrigées, aucune valeur de couleur ne change.</p>
+  <p class="note">Règle précisée en 3.0.0 : <code>bordure-separateur</code> seulement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc, jamais avant le premier ni après le dernier ; un en-tête, un titre ou une section se sépare par l'espacement. Quatre dérives corrigées, aucune valeur de couleur ne change.</p>
   <div class="grille grille-pastilles"><article class="paire">
   <header><span class="mode" style="text-transform:none">Détail groupe, tableau des élèves</span><span class="badge reel">formateur, desktop</span></header>
   <div class="images">

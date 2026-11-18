@@ -239,7 +239,7 @@ Aucune entrée.
 
 Évolution mineure de la règle des pastilles de statut (registre de `gouvernance-skillo.md`).
 
-Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 2.1.0.
+Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 3.0.0.
 
 **Ajouté**
 
@@ -264,7 +264,7 @@ Aucune entrée.
 
 ## 1.0.1 (20 octobre 2026)
 
-Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 2.1.0.
+Statut : décidée le 20 octobre 2026, pas appliquée à cette date. Appliquée en 3.0.0.
 
 **Ajouté**
 

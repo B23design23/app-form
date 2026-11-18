@@ -315,7 +315,7 @@ Source : `ds-principes-composants.md`.
 
   Hauteur : 48 px pour toutes les variantes, Retour à 44 (`ds-principes-composants.md`, Bouton, Hauteur). Focus : contour `bordure-focus` et halo `bordure-focus-halo` (section 5, Focus). Désactivé : règle commune (section 5, Désactivé).
 
-  Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes, sauf Retour) dans `ds-principes-composants.md`, les descriptions des tokens, la note 2.1.0 pour le contour du bouton supprimer.
+  Sources : les états du Bouton (« désactivé : lavande, texte atténué », valable pour toutes les variantes, sauf Retour) dans `ds-principes-composants.md`, les descriptions des tokens, la note 3.0.0 pour le contour du bouton supprimer.
 - **DO** : un seul bouton principal par zone d'action. Dans la barre d'enregistrement de Création de cours, « Enregistrer » est le seul bouton principal, « Annuler » est un bouton secondaire.
 - **DON'T** : utiliser le pointillé pour valider un formulaire. Dans Détail groupe, « Ajouter » un élève par son email est un bouton principal, pas un pointillé. Ne pas non plus donner à une pastille de statut l'air d'un bouton (pas de survol, pas de curseur main, plus petite que le bouton).
 
@@ -386,7 +386,7 @@ Source : `ds-principes-composants.md`, « États de page ».
 - **Quand l'utiliser, quand choisir le voisin** : un trait seulement entre deux éléments répétés. Le voisin est l'espacement, pour un en-tête de colonnes, un titre ou une section, qui ne sont pas des éléments répétés.
 - **Variantes** : une seule, le trait `bordure-separateur` (valeur selon le mode). Épaisseur : 1 px.
 - **Tokens par état** : repos `bordure-separateur`. Survol, actif, focus clavier, désactivé : sans objet, le séparateur n'est pas interactif.
-- **Ligne d'en-tête d'un tableau** : la règle de la 2.1.0 la règle explicitement (« Un en-tête de colonnes […] n'est pas un élément répété : il se sépare par l'espacement »). Aujourd'hui, le code ne pose pas de trait sous l'en-tête (Détail groupe, tableau du dashboard admin, tableaux des leçons, corrigés en 2.1.0).
+- **Ligne d'en-tête d'un tableau** : la règle de la 3.0.0 la règle explicitement (« Un en-tête de colonnes […] n'est pas un élément répété : il se sépare par l'espacement »). Aujourd'hui, le code ne pose pas de trait sous l'en-tête (Détail groupe, tableau du dashboard admin, tableaux des leçons, corrigés en 3.0.0).
 - **Liste en plusieurs colonnes** : Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur.
 - **DO** : dans le tableau des élèves du Détail groupe, un trait entre deux lignes d'élèves, et l'espacement sous l'en-tête.
 - **DON'T** : un trait avant le premier élément ou après le dernier, sous un en-tête, autour d'un titre ou entre deux sections. Dans Activité récente, pas de trait sous l'intertitre d'un jour (« Aujourd'hui », « Hier »). Principe 3.
@@ -430,13 +430,13 @@ Entrées ajoutées au catalogue (décision du 12/11) : rôle, anatomie, valeurs 
 
 ## 5. Règles transverses
 
-### Séparateurs (2.1.0)
+### Séparateurs (3.0.0)
 
 Le trait `bordure-separateur` se place uniquement entre deux éléments consécutifs de même nature qui se répètent dans un même bloc (lignes d'un tableau, lignes d'une liste), jamais avant le premier ni après le dernier. Un en-tête de colonnes, un titre ou une section n'est pas un élément répété : il se sépare par l'espacement. Dans une liste disposée en plusieurs colonnes, le dernier élément de chaque colonne n'a pas de séparateur.
 
 ### Ombres
 
-Deux ombres, et seulement elles (2.1.0), en token depuis le chantier composants et couleurs (`tokens/ombres.tokens.json`). Le contraste vient des couleurs de fond (principe 3).
+Deux ombres, et seulement elles (3.0.0), en token depuis le chantier composants et couleurs (`tokens/ombres.tokens.json`). Le contraste vient des couleurs de fond (principe 3).
 - `--ombre-flottante` : les éléments flottants (menus, listes déroulantes, toast, modales, barre d'enregistrement), en `box-shadow`.
 - `--ombre-illustration` : les objets 3D qui débordent d'une carte, une seule valeur (mobile et desktop, toute carte), en `filter: drop-shadow(var(--ombre-illustration))`.
 - Exception au registre (1.0.0) : l'ombre intérieure pleine qui neutralise l'autoremplissage du navigateur sur un champ (`:-webkit-autofill`), pour que le champ garde son fond.
@@ -471,7 +471,7 @@ Une règle commune pour tout élément interactif (décision du 12/11) : fond `f
 
 - Uniquement pour lancer le quiz flash. Texte encre (`texte-principal`), jamais blanc.
 - Fond `fond-recompense`, survol `fond-recompense-survol`.
-- Un seul bouton orange par écran (2.1.0, brouillon).
+- Un seul bouton orange par écran (3.0.0).
 
 ### Typographie
 
