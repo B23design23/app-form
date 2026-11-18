@@ -14,7 +14,7 @@ Avant de toucher un écran, lis le fichier de son espace dans `docs/ecrans/` :
 | Formateur | `docs/ecrans/formateur.md` | `EspaceFormateur.jsx`, `DashboardFormateur.jsx`, `DashboardAdmin.jsx`, `SectionCoursFormateur.jsx`, `SectionGroupesFormateur.jsx`, `DetailGroupe.jsx`, `DetailCoursFormateur.jsx`, `FormateurListes.css`, `src/components/formateur/` |
 | Création de cours (formateur) | `docs/ecrans/creation.md` | `CreationCours.jsx` |
 
-Si l'écran que tu crées ou modifies n'a pas de description dans `docs/ecrans/`, écris-la dans le fichier de son espace, au même format que les autres, et ajoute en tête « À valider ». Ce que le DS ne couvre pas (composant, rôle, valeur), ne le crée pas : liste-le sous « À trancher » à la fin de ta réponse.
+Si l'écran que tu crées ou modifies n'a pas de description dans `docs/ecrans/`, écris-la d'abord, avant tout code, dans le fichier de son espace, au même format que les autres, avec « À valider » en tête. Tout fait produit que ton travail ajoute ou change (navigation, menu, section Commun, règles métier) va dans cette description, jamais dans CLAUDE.md : ne modifie pas CLAUDE.md. Ce que le DS ne couvre pas (composant, rôle, valeur, état), ne le crée pas : liste-le sous « À trancher » à la fin de ta réponse.
 
 Fichiers sans espace : `src/pages/DesignSystem.jsx` (vitrine du DS) et les composants du DS (`NavigationEspace`, `Logo`, `Modale`, `Dropdown`, `Icone`, `StatutBadge`, `AnneauProgression`), décrits dans le DS. Les règles de calcul et les données lues par les écrans sont plus bas, section « Règles métier ».
 
