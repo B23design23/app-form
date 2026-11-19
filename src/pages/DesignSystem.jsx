@@ -417,7 +417,7 @@ function Composants() {
           <button type="button" className="bouton-rond" aria-label="Fermer">
             <Icone svg={iconeCroix} className="bouton-rond-icone" />
           </button>
-          <button type="button" className="bouton-retour">
+          <button type="button" className="bouton-retour" aria-label="Retour à Cours">
             <Icone svg={iconeRetour} className="bouton-retour-icone" />
             <span className="bouton-retour-libelle">Cours</span>
           </button>
