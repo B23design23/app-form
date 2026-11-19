@@ -396,15 +396,18 @@ function App() {
   }
 
   if (ecran === 'detail-groupe') {
+    // Origine : la section ouverte au moment du clic (Dashboard ou Mes groupes), que le Détail
+    // groupe ne change pas ; Retour et suppression du groupe y reviennent, son entrée reste active.
+    const origineGroupe = sectionFormateur === 'dashboard' ? 'dashboard' : 'groupes'
     return (
-      <EspaceFormateur authUser={authUser} section="groupes" onChangerSection={allerSectionFormateur}>
+      <EspaceFormateur authUser={authUser} section={origineGroupe} onChangerSection={allerSectionFormateur}>
         <DetailGroupe
           authUser={authUser}
           groupeId={groupeSelectionneId}
-          libelleRetour="Mes groupes"
+          libelleRetour={origineGroupe === 'dashboard' ? 'Dashboard' : 'Mes groupes'}
           onRetour={() => {
             setGroupeSelectionneId(null)
-            allerSectionFormateur('groupes')
+            allerSectionFormateur(origineGroupe)
           }}
         />
       </EspaceFormateur>
