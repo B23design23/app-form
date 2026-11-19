@@ -1,6 +1,6 @@
 Gouvernance du Design System de Skillo
 
-Version actuelle 3.0.0. Mainteneur et seul décideur, Benjamin Berthelot. Projet personnel, sans équipe ni utilisateurs mesurés. Mise à jour le 18/11/2026.
+Version actuelle 4.0.0. Mainteneur et seul décideur, Benjamin Berthelot. Projet personnel, sans équipe ni utilisateurs mesurés. Mise à jour le 19/11/2026.
 
 1. Numérotation
 Majeure. Un token ou un composant est retiré ou renommé, ou un comportement change au point qu'un écran conforme ne l'est plus. Exemple, le retrait des variables --color-* (2.0.0).
@@ -47,6 +47,6 @@ Date    Cas    Type    Décision    Critère appliqué    Version    La règle �
 16/11/2026    Nettoyage (lots net 1 à 15)    Évolution majeure    Classes communes des rôles de titre, règles locales retirées, première ligne d'un état de page    Un comportement change au point qu'un écran conforme ne l'est plus (Numérotation, Majeure)    3.0.0    Oui, typographie et composants    appliqué (note 3.0.0)
 18/11/2026    Libellé d'une information affichée sans être modifiable (463b7c1, a5f82ed)    Évolution mineure    Libellé en Méta, couleur texte-secondaire    On ajoute un élément sans obliger à modifier les écrans (Numérotation, Mineure)    3.0.0    Oui, typographie    appliqué (note 3.0.0)
 18/11/2026    Entrée Menu de la navigation marquée active quand l'écran a été ouvert depuis le Menu (463b7c1, a5f82ed)    Évolution mineure    État de l'onglet actif sur l'entrée Menu    On ajoute un élément sans obliger à modifier les écrans (Numérotation, Mineure)    3.0.0    Oui, navigation    appliqué (note 3.0.0)
-19/11/2026    Chantier Retour : nom « Retour à <libellé> » pour tout Retour, Retour dans tous les états d'une page de niveau 1 ou plus, pilule ou rond selon la rangée, ce qui n'est pas un Retour, entrée de la section d'origine active    Évolution majeure    Règles ajoutées et modifiées (fiches Bouton, Bouton rond, États de page, Navigation)    Un comportement change au point qu'un écran conforme ne l'est plus (Numérotation, Majeure) : un écran conforme à la 3.0.0 ne l'est plus (Retours ronds nommés « Retour », chargements sans Retour)    4.0.0    Oui, composants et navigation    décidé
+19/11/2026    Chantier Retour : nom « Retour à <libellé> » pour tout Retour, Retour dans tous les états d'une page de niveau 1 ou plus, pilule ou rond selon la rangée, ce qui n'est pas un Retour, entrée de la section d'origine active    Évolution majeure    Règles ajoutées et modifiées (fiches Bouton, Bouton rond, États de page, Navigation)    Un comportement change au point qu'un écran conforme ne l'est plus (Numérotation, Majeure) : un écran conforme à la 3.0.0 ne l'est plus (Retours ronds nommés « Retour », chargements sans Retour)    4.0.0    Oui, composants et navigation    appliqué (note 4.0.0)
 6. Questions ouvertes
 Aucune. Réglé : couleurs.md est généré depuis tokens/ (npm run tokens).
