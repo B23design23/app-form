@@ -283,23 +283,17 @@ function App() {
         sectionInitiale={sectionInitiale}
         libelleRetour={libelleOrigine}
         onRetour={() => setEcran('espace-apprenant')}
-        // Retour de fin de quiz : détail du thème du cours (Cours → thème)
-        onRetourTheme={(categorie) => {
-          const index = THEMATIQUES.indexOf(categorie)
-          setSectionApprenant('cours')
-          setThemeCoursIndex(index === -1 ? null : index)
-          setEcran('espace-apprenant')
-        }}
         onOuvrirCours={(coursId) => {
           setCoursSelectionneId(coursId)
           setSectionInitiale(null)
         }}
-        // Barre encre du haut conservée sur desktop (masquée sur mobile : pas de tab bar dans la fiche)
+        // Barre encre du haut conservée sur desktop (masquée sur mobile : pas de tab bar dans la fiche),
+        // entrée de la section d'origine active
         navigationDesktop={
           <NavigationEspace
             onglets={ONGLETS}
             iconeMenu={ICONE_MENU_APPRENANT}
-            section={null}
+            section={sectionApprenant}
             onChangerSection={(s) => {
               setSectionApprenant(s)
               setThemeCoursIndex(null)
@@ -396,7 +390,6 @@ function App() {
         sectionInitiale="lecon"
         libelleRetour={retourApercu === 'creation-cours' ? 'Modifier le cours' : 'Détail du cours'}
         onRetour={() => setEcran(retourApercu)}
-        onRetourTheme={() => setEcran(retourApercu)}
         onOuvrirCours={() => {}}
       />
     )

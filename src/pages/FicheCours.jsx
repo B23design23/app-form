@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { ajouterXp, verifierBadges } from '../lib/gamification'
 import { melanger } from '../lib/shuffle'
-import { imageTheme, libelleCourtTheme } from '../lib/thematiques'
+import { imageTheme } from '../lib/thematiques'
 import CompletionToast from '../components/CompletionToast'
 import Retour from '../components/Retour'
 import EcranLecon from './fiche/EcranLecon'
@@ -140,7 +140,7 @@ function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire, libelleR
 // apercu : « Voir comme un élève » (formateur) — vraie fiche, mais aucune écriture dans
 // progression, scores, user_badges ni dans le stockage du navigateur ; bandeau en haut.
 // libelleRetour : nom d'écran de la page d'où la fiche a été ouverte (destination du Retour)
-function FicheCours({ authUser, coursId, sectionInitiale, libelleRetour, onRetour, onRetourTheme, onOuvrirCours, navigationDesktop, apercu = false }) {
+function FicheCours({ authUser, coursId, sectionInitiale, libelleRetour, onRetour, onOuvrirCours, navigationDesktop, apercu = false }) {
   // Enregistrement de la progression qui échoue : message affiché, message technique en console
   const [erreurEnregistrement, setErreurEnregistrement] = useState(false)
   function echecProgression(error) {
@@ -628,8 +628,8 @@ function FicheCours({ authUser, coursId, sectionInitiale, libelleRetour, onRetou
               : { bouton: 'Terminer le cours', onClick: () => setEcran('recap') }
           }
           onRefaire={() => ouvrirQuiz({ recommencer: true })}
-          libelleRetour={apercu ? libelleRetour : libelleCourtTheme(cours.categorie)}
-          onRetour={() => onRetourTheme(cours.categorie)}
+          libelleRetour={libelleRetour}
+          onRetour={onRetour}
         />
       )}
 
