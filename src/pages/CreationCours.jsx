@@ -216,7 +216,8 @@ function Coche() {
   return <Icone svg={iconeCoche} className="cc-coche" />
 }
 
-function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCreerGroupe }) {
+// libelleRetour : nom d'écran de la page d'où l'écran a été ouvert (destination du Retour)
+function CreationCours({ authUser, coursId, libelleRetour, onTermine, onRetour, onApercu, onCreerGroupe }) {
   const modeEdition = Boolean(coursId)
 
   const [titre, setTitre] = useState('')
@@ -833,7 +834,6 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
 
   // --- Rendu -------------------------------------------------------------------------------------
 
-  const libelleRetour = modeEdition ? 'Détail du cours' : 'Mes cours'
   const titrePage = modeEdition ? 'Modifier le cours' : 'Créer un cours'
   const compteurs = {
     qcm: `${questions.length} question${questions.length > 1 ? 's' : ''}`,

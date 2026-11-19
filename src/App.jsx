@@ -323,14 +323,17 @@ function App() {
     )
   }
 
-  // Création : retour sur « Mes cours » ; modification : retour sur le détail du cours
-  function quitterCreationCours() {
-    if (coursSelectionneIdFormateur) {
-      setEcran('detail-cours-formateur')
-    } else {
-      setSectionFormateur('cours')
-      setEcran('dashboard-formateur')
-    }
+  // Modification : Retour et fin vers le Détail du cours. Création : le Retour (avec « Annuler » et le
+  // précédent du navigateur) remonte à la section d'où l'écran a été ouvert (Mes cours ou Dashboard,
+  // inchangée pendant la création) ; « Créer le cours » mène toujours à Mes cours (chemin distinct).
+  const enModification = Boolean(coursSelectionneIdFormateur)
+  function retourCreationCours() {
+    if (enModification) setEcran('detail-cours-formateur')
+    else setEcran('dashboard-formateur')
+  }
+  function finCreationCours() {
+    if (!enModification) setSectionFormateur('cours')
+    retourCreationCours()
   }
 
   if (ecran === 'creation-cours') {
@@ -338,8 +341,9 @@ function App() {
       <CreationCours
         authUser={authUser}
         coursId={coursSelectionneIdFormateur}
-        onTermine={quitterCreationCours}
-        onRetour={quitterCreationCours}
+        libelleRetour={enModification ? 'Détail du cours' : sectionFormateur === 'dashboard' ? 'Dashboard' : 'Mes cours'}
+        onTermine={finCreationCours}
+        onRetour={retourCreationCours}
         // « Voir comme un élève » (cours déjà enregistré) : l'aperçu ramène à la modification
         onApercu={() => {
           setRetourApercu('creation-cours')
