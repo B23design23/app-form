@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react'
-import Icone from './Icone'
-import iconeRetour from '../Assets/chevron-left.svg?raw'
+import Retour from './Retour'
 import { typo } from '../lib/typographie'
 import './GabaritParcours.css'
 
@@ -50,10 +49,10 @@ function GabaritParcours({ formateur = false, barre, onPasser, points, action, s
 }
 
 // Barre du haut des questions, identique à celle du quiz : retour rond 56 px, progression, « 2 / 5 ».
-export function BarreEtapes({ courante, total, onRetour }) {
+export function BarreEtapes({ courante, total, onRetour, libelleRetour, nomRetour }) {
   return (
     <div className="parcours-barre-etapes">
-      <BoutonRetour onRetour={onRetour} />
+      <BoutonRetour libelle={libelleRetour} nom={nomRetour} onRetour={onRetour} />
       <span className="parcours-progression" role="progressbar" aria-valuemin={0} aria-valuemax={total} aria-valuenow={courante}>
         <span className="parcours-progression-remplissage" style={{ width: `${(courante / total) * 100}%` }} />
       </span>
@@ -64,12 +63,9 @@ export function BarreEtapes({ courante, total, onRetour }) {
   )
 }
 
-export function BoutonRetour({ onRetour }) {
-  return (
-    <button type="button" className="bouton-rond parcours-bouton-rond" onClick={onRetour} aria-label="Retour">
-      <Icone svg={iconeRetour} className="parcours-bouton-rond-icone" />
-    </button>
-  )
+// Retour rond du parcours (56 px, fiche Bouton rond) ; sans onRetour, emplacement vide invisible
+export function BoutonRetour({ libelle, nom, onRetour }) {
+  return <Retour rond libelle={libelle} nom={nom} onRetour={onRetour} className="parcours-bouton-rond" classeIcone="parcours-bouton-rond-icone" />
 }
 
 export function TitreParcours({ titre, sousTitre }) {

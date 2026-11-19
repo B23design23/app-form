@@ -461,6 +461,11 @@
   height: 18px;
 }
 
+/* Retour absent (page de niveau 0) là où sa rangée doit garder sa place : emplacement vide invisible */
+.retour-vide {
+  visibility: hidden;
+}
+
 /* Retour : chevron seul sous 768 px (espacements.md, section 7, Retour), le libellé reste dans le nom
    accessible */
 @media (max-width: 767px) {

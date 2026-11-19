@@ -118,7 +118,16 @@ function Inscription({ authUser, onRetourChoixProfil, onSeConnecter, onProfilCre
   return (
     <GabaritParcours
       formateur={formateur}
-      barre={<BarreEtapes courante={Math.min(etape, total)} total={total} onRetour={retour} />}
+      barre={
+        <BarreEtapes
+          courante={Math.min(etape, total)}
+          total={total}
+          onRetour={retour}
+          // Étape 1 de Compléter le profil : le rond ferme la session, ce n'est pas un Retour
+          libelleRetour={etape > 1 ? "l'étape précédente" : 'Choix du profil'}
+          nomRetour={etape <= 1 && authUser ? 'Se déconnecter' : undefined}
+        />
+      }
       action={
         <button type="submit" form="form-inscription" className="bouton-primaire parcours-bouton" disabled={!valide || envoi}>
           {envoi ? 'Un instant…' : cle === 'compte' ? 'Créer mon compte' : derniere ? 'Terminer' : 'Continuer'}

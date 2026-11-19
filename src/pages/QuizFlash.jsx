@@ -3,8 +3,7 @@ import { supabase } from '../lib/supabaseClient'
 import { ajouterXp, verifierBadges } from '../lib/gamification'
 import { melanger } from '../lib/shuffle'
 import { imageTheme } from '../lib/thematiques'
-import Icone from '../components/Icone'
-import iconeRetour from '../Assets/chevron-left.svg?raw'
+import Retour from '../components/Retour'
 import EcranQuiz from './fiche/EcranQuiz'
 import EcranFinQuiz, { SEUIL_REUSSITE } from './fiche/EcranFinQuiz'
 import { useQuiz } from './fiche/useQuiz'
@@ -119,7 +118,10 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
   if (chargement) {
     return (
       <div className="fiche-page">
-        <p className="etat-chargement">Chargement…</p>
+        <div className="fiche-colonne">
+          <Retour libelle="Accueil" onRetour={onRetour} />
+          <p className="etat-chargement">Chargement…</p>
+        </div>
       </div>
     )
   }
@@ -128,10 +130,7 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
     return (
       <div className="fiche-page">
         <div className="fiche-colonne">
-          <button type="button" className="bouton-retour" onClick={onRetour}>
-            <Icone svg={iconeRetour} className="bouton-retour-icone" />
-            <span className="bouton-retour-libelle">Retour à l'accueil</span>
-          </button>
+          <Retour libelle="Accueil" onRetour={onRetour} />
           {erreur ? (
             <p className="message message-erreur">Impossible de charger le quiz flash.</p>
           ) : (
@@ -155,6 +154,7 @@ function QuizFlash({ authUser, onRetour, onOuvrirLecon }) {
         )}
         <EcranFinQuiz
           titreBarre="Quiz flash"
+          libelleRetour="Accueil"
           onRetour={onRetour}
           resultat={resultat}
           titre={reussi ? undefined : 'Tu y es presque'}

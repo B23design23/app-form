@@ -25,8 +25,8 @@ function Connexion({ messageConfirmation, onRetour, onCreerCompte, onMotDePasseO
       // Point d'entrée direct d'un utilisateur qui revient : petit logo centré dans la ligne du retour
       barre={
         <div className="connexion-barre">
-          {/* Sans retour (arrivée par « Passer ») : emplacement vide de même taille, le logo ne bouge pas */}
-          {onRetour ? <BoutonRetour onRetour={onRetour} /> : <span className="bouton-rond parcours-bouton-rond connexion-retour-vide" aria-hidden="true" />}
+          {/* Sans Retour (niveau 0) : emplacement vide de même taille, le logo ne bouge pas */}
+          <BoutonRetour libelle="Introduction" onRetour={onRetour} />
           <Logo className="connexion-barre-logo" />
         </div>
       }

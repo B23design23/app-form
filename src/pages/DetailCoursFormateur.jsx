@@ -4,7 +4,8 @@ import ContenuMarkdown from '../components/ContenuMarkdown'
 import Icone from '../components/Icone'
 import Modale, { ModaleConfirmation } from '../components/Modale'
 import MenuActions from '../components/formateur/MenuActions'
-import { ListeCases, PastillesGroupes, RetourFormateur } from '../components/formateur/Elements'
+import { ListeCases, PastillesGroupes } from '../components/formateur/Elements'
+import Retour from '../components/Retour'
 import { partiesContenuCours, tempsLecture, imagesLecon, premierParagraphe } from '../lib/cours'
 import { notifierMakeNouveauCours } from '../lib/notificationsMake'
 import { typo } from '../lib/typographie'
@@ -198,8 +199,11 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
 
   if (chargement) {
     return (
-      <div className="espace-page espace-page-etroit fm-page">
-        <p className="etat-chargement">Chargement…</p>
+      <div className="fm-detail">
+        <div className="espace-page espace-page-etroit fm-page">
+          <Retour libelle="Mes cours" onRetour={onRetour} />
+          <p className="etat-chargement">Chargement…</p>
+        </div>
       </div>
     )
   }
@@ -208,7 +212,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
     return (
       <div className="fm-detail">
         <div className="espace-page espace-page-etroit fm-page">
-          <RetourFormateur libelle="Mes cours" onRetour={onRetour} />
+          <Retour libelle="Mes cours" onRetour={onRetour} />
           <p className="message message-erreur">{erreur}</p>
         </div>
       </div>
@@ -231,7 +235,7 @@ function DetailCoursFormateur({ authUser, coursId, onModifier, onRetour, onAperc
     <div className="fm-detail">
       <div className="espace-page espace-page-etroit fm-page">
         <div className="dc-barre-haut">
-          <RetourFormateur libelle="Mes cours" onRetour={onRetour} />
+          <Retour libelle="Mes cours" onRetour={onRetour} />
           {estProprietaire && (
             <div className="dc-menu-mobile">
               <MenuActions titre={cours.titre} actions={actionsMenu} />

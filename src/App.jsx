@@ -8,7 +8,7 @@ import { useParcours } from './pages/parcours/ParcoursContext'
 import MotDePasseOublie from './pages/MotDePasseOublie'
 import NouveauMotDePasse from './pages/NouveauMotDePasse'
 import EspaceApprenant, { ONGLETS, ICONE_MENU_APPRENANT } from './pages/EspaceApprenant'
-import { THEMATIQUES } from './lib/thematiques'
+import { THEMATIQUES, libelleCourtTheme } from './lib/thematiques'
 import NavigationEspace from './components/NavigationEspace'
 import EspaceFormateur from './pages/EspaceFormateur'
 import CreationCours from './pages/CreationCours'
@@ -213,6 +213,7 @@ function App() {
   if (ecran === 'choix-profil') {
     return (
       <ChoixProfil
+        libelleRetour={retourChoixProfil === 'connexion' ? 'Connexion' : 'Introduction'}
         onRetour={() => {
           setSlideIntroduction(2)
           setEcran(retourChoixProfil)
@@ -268,12 +269,22 @@ function App() {
   }
 
   if (ecran === 'fiche-cours') {
+    // Retour de la fiche : la section d'où elle a été ouverte, avec son thème (nom d'écran)
+    const libelleOrigine =
+      sectionApprenant === 'mode-terrain'
+        ? 'Terrain'
+        : sectionApprenant === 'cours'
+          ? themeCoursIndex != null
+            ? libelleCourtTheme(THEMATIQUES[themeCoursIndex])
+            : 'Cours'
+          : 'Accueil'
     return (
       <FicheCours
         key={coursSelectionneId}
         authUser={authUser}
         coursId={coursSelectionneId}
         sectionInitiale={sectionInitiale}
+        libelleRetour={libelleOrigine}
         onRetour={() => setEcran('espace-apprenant')}
         // Retour de fin de quiz : détail du thème du cours (Cours → thème)
         onRetourTheme={(categorie) => {
@@ -386,6 +397,7 @@ function App() {
         authUser={authUser}
         coursId={coursSelectionneIdFormateur}
         sectionInitiale="lecon"
+        libelleRetour={retourApercu === 'creation-cours' ? 'Modifier le cours' : 'Détail du cours'}
         onRetour={() => setEcran(retourApercu)}
         onRetourTheme={() => setEcran(retourApercu)}
         onOuvrirCours={() => {}}
@@ -399,6 +411,7 @@ function App() {
         <DetailGroupe
           authUser={authUser}
           groupeId={groupeSelectionneId}
+          libelleRetour="Mes groupes"
           onRetour={() => {
             setGroupeSelectionneId(null)
             allerSectionFormateur('groupes')

@@ -5,7 +5,7 @@ import { contenuCours } from '../lib/cours'
 import Icone from '../components/Icone'
 import StatutBadge from '../components/StatutBadge'
 import iconeChevron from '../Assets/chevron-right.svg?raw'
-import iconeRetour from '../Assets/chevron-left.svg?raw'
+import Retour from '../components/Retour'
 import '../styles/shared.css'
 import '../styles/espace-layout.css'
 import './DetailTheme.css'
@@ -57,10 +57,7 @@ function DetailTheme({ authUser, nom, index, onRetour, onOuvrirCours }) {
 
   return (
     <div className="espace-page espace-page-etroit page-theme">
-      <button type="button" className="bouton-retour" onClick={onRetour} aria-label="Retour à Cours">
-        <Icone svg={iconeRetour} className="bouton-retour-icone" />
-        <span className="bouton-retour-libelle">Cours</span>
-      </button>
+      <Retour libelle="Cours" onRetour={onRetour} />
 
       <div className="theme-entete">
         <img className="theme-entete-objet" src={imageTheme(nom)} alt="" />

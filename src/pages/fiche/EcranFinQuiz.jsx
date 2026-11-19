@@ -4,8 +4,7 @@ import { ConfettiPastilles, salvesConfettiScore } from '../../components/Confett
 import ContenuMarkdown from '../../components/ContenuMarkdown'
 import { iconeBadge, conditionCourteBadge } from '../../lib/badges'
 import { IMAGE_QUIZ_FLASH } from '../../lib/thematiques'
-import Icone from '../../components/Icone'
-import iconeRetour from '../../Assets/chevron-left.svg?raw'
+import Retour from '../../components/Retour'
 import { typo } from '../../lib/typographie'
 
 // Fin de quiz (quiz de cours et quiz flash) : écran complet. Animation ~1,5 s :
@@ -30,7 +29,7 @@ function sousTitreErreurs(nbErreurs) {
   return `${nbErreurs} erreurs à revoir.`
 }
 
-// titreBarre : texte de la barre du haut (titre du cours, une ligne) ; onRetour : bouton retour
+// titreBarre : texte de la barre du haut (titre du cours, une ligne) ; onRetour, libelleRetour : Retour rond
 // rond de la barre (thème du cours / dashboard) ; libelle : petit libellé au-dessus de l'anneau ;
 // titre / sousTitre : remplacent les textes par défaut ;
 // actionPrincipale : { bouton, onClick } ; liens : liens secondaires ({ bouton, onClick }), affichés
@@ -64,7 +63,7 @@ function ListeErreurs({ erreurs }) {
   )
 }
 
-function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resultat, titre, sousTitre, actionPrincipale, liens = [] }) {
+function EcranFinQuiz({ titreBarre, libelleRetour, onRetour, libelle = 'Quiz terminé', resultat, titre, sousTitre, actionPrincipale, liens = [] }) {
   const { score, xpGagne, badges, historique } = resultat
   const reduit = mouvementReduit()
   const [compteur, setCompteur] = useState(reduit ? score : 0)
@@ -104,9 +103,7 @@ function EcranFinQuiz({ titreBarre, onRetour, libelle = 'Quiz terminé', resulta
 
       {/* Même barre du haut que pendant le quiz : retour à gauche, titre du cours à la place de la barre */}
       <div className="fiche-quiz-haut fin-quiz-haut">
-        <button type="button" className="bouton-rond" onClick={onRetour} aria-label="Retour">
-          <Icone svg={iconeRetour} className="bouton-rond-icone" />
-        </button>
+        <Retour rond libelle={libelleRetour} onRetour={onRetour} />
         <span className="titre-ligne fin-quiz-haut-titre">{typo(titreBarre)}</span>
       </div>
 

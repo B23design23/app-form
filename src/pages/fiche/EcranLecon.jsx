@@ -15,6 +15,7 @@ function EcranLecon({
   coursTermine,
   onTerminerCours,
   onVoirRecap,
+  libelleRetour,
   onRetour,
 }) {
   const pointsARetenir = (cours.a_retenir ?? '')
@@ -24,7 +25,7 @@ function EcranLecon({
 
   return (
     <div className="fiche-colonne">
-      <EnteteFiche cours={cours} sousTitre={`${minutesLecture} min de lecture`} onRetour={onRetour}>
+      <EnteteFiche cours={cours} sousTitre={`${minutesLecture} min de lecture`} libelleRetour={libelleRetour} onRetour={onRetour}>
         {reper && <ReperEtapes etapes={reper} />}
       </EnteteFiche>
 

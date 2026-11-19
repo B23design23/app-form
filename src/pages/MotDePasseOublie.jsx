@@ -1,8 +1,6 @@
 import { useState } from 'react'
-import GabaritParcours, { ChampParcours, TitreParcours } from '../components/GabaritParcours'
+import GabaritParcours, { BoutonRetour, ChampParcours, TitreParcours } from '../components/GabaritParcours'
 import Logo from '../components/Logo'
-import Icone from '../components/Icone'
-import iconeRetour from '../Assets/chevron-left.svg?raw'
 import './parcours/Parcours.css'
 
 // Même gabarit que la Connexion (ds-principes-composants.md, Conteneur de page) : Retour rond et
@@ -11,9 +9,7 @@ import './parcours/Parcours.css'
 function BarreRetourConnexion({ onRetour }) {
   return (
     <div className="connexion-barre">
-      <button type="button" className="bouton-rond parcours-bouton-rond" onClick={onRetour} aria-label="Retour à la connexion">
-        <Icone svg={iconeRetour} className="parcours-bouton-rond-icone" />
-      </button>
+      <BoutonRetour libelle="Connexion" onRetour={onRetour} />
       <Logo className="connexion-barre-logo" />
     </div>
   )

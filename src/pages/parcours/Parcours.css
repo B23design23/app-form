@@ -212,10 +212,6 @@
   width: 100%;
 }
 
-.connexion-retour-vide {
-  visibility: hidden;
-}
-
 .connexion-barre-logo {
   position: absolute;
   left: 50%;

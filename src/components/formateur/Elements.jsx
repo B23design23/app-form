@@ -1,19 +1,5 @@
-import Icone from '../Icone'
-import iconeRetour from '../../Assets/chevron-left.svg?raw'
 import { typo } from '../../lib/typographie'
 import './Formateur.css'
-
-// Retour de l'espace formateur : variante Retour du Bouton. Pilule blanche, chevron et libellé du
-// niveau du dessus (« Mes cours », « Mes groupes ») ; chevron seul sous 768 px. Le nom accessible
-// contient le libellé visible.
-export function RetourFormateur({ libelle, onRetour }) {
-  return (
-    <button type="button" className="bouton-retour" onClick={onRetour} aria-label={`Retour à ${libelle}`}>
-      <Icone svg={iconeRetour} className="bouton-retour-icone" />
-      <span className="bouton-retour-libelle">{libelle}</span>
-    </button>
-  )
-}
 
 // Pastille de groupe (lavande) ou « Non assigné » (neutre).
 export function PastillesGroupes({ groupes }) {

@@ -1,7 +1,8 @@
 import Icone from '../../components/Icone'
 import iconeChevron from '../../Assets/chevron-right.svg?raw'
 import { typo } from '../../lib/typographie'
-import GabaritParcours, { BoutonRetour, TitreParcours } from '../../components/GabaritParcours'
+import GabaritParcours, { TitreParcours } from '../../components/GabaritParcours'
+import Retour from '../../components/Retour'
 import { IMAGE_APPRENDRE, IMAGE_FORMER } from './images'
 import './Parcours.css'
 
@@ -20,11 +21,12 @@ const PROFILS = [
   },
 ]
 
-// Choix du profil : pas de bouton principal, le choix d'une carte fait avancer.
-function ChoixProfil({ onRetour, onChoisir, onSeConnecter }) {
+// Choix du profil : pas de bouton principal, le choix d'une carte fait avancer. Retour pilule, seul
+// sur sa rangée ; sans Retour, la rangée reste vide et invisible (le titre ne remonte pas).
+function ChoixProfil({ libelleRetour, onRetour, onChoisir, onSeConnecter }) {
   return (
     <GabaritParcours
-      barre={<BoutonRetour onRetour={onRetour} />}
+      barre={<Retour libelle={libelleRetour} onRetour={onRetour} />}
       action={null}
       secondaire={
         <button type="button" className="lien-texte parcours-lien" onClick={onSeConnecter}>

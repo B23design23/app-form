@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import GabaritParcours, { ChampParcours, TitreParcours } from '../components/GabaritParcours'
+import GabaritParcours, { BoutonRetour, ChampParcours, TitreParcours } from '../components/GabaritParcours'
 import Logo from '../components/Logo'
 import './parcours/Parcours.css'
 
@@ -18,7 +18,7 @@ function NouveauMotDePasse({ onTermine }) {
     <GabaritParcours
       barre={
         <div className="connexion-barre">
-          <span className="bouton-rond parcours-bouton-rond connexion-retour-vide" aria-hidden="true" />
+          <BoutonRetour />
           <Logo className="connexion-barre-logo" />
         </div>
       }

@@ -18,6 +18,7 @@ function EcranRecap({
   onRefaireQuiz,
   onRevoirChecklist,
   onOuvrirCours,
+  libelleRetour,
   onRetour,
 }) {
   const lignes = {
@@ -33,7 +34,7 @@ function EcranRecap({
 
   return (
     <div className="fiche-colonne">
-      <EnteteFiche cours={cours} onRetour={onRetour}>
+      <EnteteFiche cours={cours} libelleRetour={libelleRetour} onRetour={onRetour}>
         <div className="fiche-recap-statut">
           <StatutBadge statut="termine" />
           {xpGagnes > 0 && (

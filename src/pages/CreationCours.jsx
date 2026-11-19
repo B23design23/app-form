@@ -5,9 +5,8 @@ import Dropdown from '../components/Dropdown'
 import ContenuMarkdown, { obtenirUrlEmbedVideo } from '../components/ContenuMarkdown'
 import Icone from '../components/Icone'
 import MenuActions from '../components/formateur/MenuActions'
-import { RetourFormateur } from '../components/formateur/Elements'
+import Retour from '../components/Retour'
 import Modale, { ModaleConfirmation } from '../components/Modale'
-import iconeRetour from '../Assets/chevron-left.svg?raw'
 import iconeChevron from '../Assets/chevron-right.svg?raw'
 import iconeOeil from '../Assets/oeil.svg?raw'
 import iconeImage from '../Assets/image.svg?raw'
@@ -859,9 +858,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
     return (
       <div className="cc-page flow-page-formateur">
         <div className="cc-etat">
-          <button type="button" className="bouton-rond" onClick={() => quitterVers(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
-            <Icone svg={iconeRetour} className="bouton-rond-icone" />
-          </button>
+          <Retour libelle={libelleRetour} onRetour={() => quitterVers(onRetour)} />
           {erreurChargement ? <p className="message message-erreur">{erreurChargement}</p> : <p className="etat-chargement">Chargement…</p>}
         </div>
       </div>
@@ -874,9 +871,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
 
       {/* En-tête mobile et tablette */}
       <header className="cc-entete-mobile">
-        <button type="button" className="bouton-rond" onClick={() => demanderQuitter(onRetour)} aria-label={`Retour à ${libelleRetour}`}>
-          <Icone svg={iconeRetour} className="bouton-rond-icone" />
-        </button>
+        <Retour rond libelle={libelleRetour} onRetour={() => demanderQuitter(onRetour)} />
         <div className="cc-entete-mobile-titres">
           <h1 className="titre-ligne">{titrePage}</h1>
           {titre.trim() && <p>{typo(titre.trim())}</p>}
@@ -906,7 +901,7 @@ function CreationCours({ authUser, coursId, onTermine, onRetour, onApercu, onCre
       <div className="cc-grille">
         {/* Colonne de gauche (desktop) : retour, sommaire, aperçu */}
         <aside className="cc-cote">
-          <RetourFormateur libelle={libelleRetour} onRetour={() => demanderQuitter(onRetour)} />
+          <Retour libelle={libelleRetour} onRetour={() => demanderQuitter(onRetour)} />
 
           <nav className="cc-sommaire" aria-label="Sommaire du cours">
             {SECTIONS.map((s) => (

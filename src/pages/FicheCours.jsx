@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import { ajouterXp, verifierBadges } from '../lib/gamification'
 import { melanger } from '../lib/shuffle'
-import { imageTheme } from '../lib/thematiques'
+import { imageTheme, libelleCourtTheme } from '../lib/thematiques'
 import CompletionToast from '../components/CompletionToast'
-import Icone from '../components/Icone'
-import iconeRetour from '../Assets/chevron-left.svg?raw'
+import Retour from '../components/Retour'
 import EcranLecon from './fiche/EcranLecon'
 import EcranQuiz from './fiche/EcranQuiz'
 import EcranFinQuiz, { SEUIL_REUSSITE } from './fiche/EcranFinQuiz'
@@ -124,11 +123,12 @@ function effacerChecklistLocale(userId, coursId) {
 
 // Fin de quiz de cours : étape suivante en bouton principal ; sous 50 %, « Refaire le quiz »
 // passe en principal et l'étape suivante en lien.
-function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire, onRetour }) {
+function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire, libelleRetour, onRetour }) {
   const reussi = resultat.score >= SEUIL_REUSSITE
   return (
     <EcranFinQuiz
       titreBarre={cours.titre}
+      libelleRetour={libelleRetour}
       onRetour={onRetour}
       resultat={resultat}
       actionPrincipale={reussi ? etapeSuivante : { bouton: 'Refaire le quiz', onClick: onRefaire }}
@@ -139,7 +139,8 @@ function EcranFinQuizCours({ cours, resultat, etapeSuivante, onRefaire, onRetour
 
 // apercu : « Voir comme un élève » (formateur) — vraie fiche, mais aucune écriture dans
 // progression, scores, user_badges ni dans le stockage du navigateur ; bandeau en haut.
-function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourTheme, onOuvrirCours, navigationDesktop, apercu = false }) {
+// libelleRetour : nom d'écran de la page d'où la fiche a été ouverte (destination du Retour)
+function FicheCours({ authUser, coursId, sectionInitiale, libelleRetour, onRetour, onRetourTheme, onOuvrirCours, navigationDesktop, apercu = false }) {
   // Enregistrement de la progression qui échoue : message affiché, message technique en console
   const [erreurEnregistrement, setErreurEnregistrement] = useState(false)
   function echecProgression(error) {
@@ -483,10 +484,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
     return (
       <div className="fiche-page">
         <div className="fiche-colonne">
-          <button type="button" className="bouton-retour" onClick={onRetour}>
-            <Icone svg={iconeRetour} className="bouton-retour-icone" />
-            <span className="bouton-retour-libelle">Retour</span>
-          </button>
+          <Retour libelle={libelleRetour} onRetour={onRetour} />
           <p className="message message-erreur">Impossible de charger ce cours.</p>
         </div>
       </div>
@@ -496,7 +494,10 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
   if (chargement || !ecran) {
     return (
       <div className="fiche-page">
-        <p className="etat-chargement">Chargement…</p>
+        <div className="fiche-colonne">
+          <Retour libelle={libelleRetour} onRetour={onRetour} />
+          <p className="etat-chargement">Chargement…</p>
+        </div>
       </div>
     )
   }
@@ -596,6 +597,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
           coursTermine={coursTermine}
           onTerminerCours={terminerCoursSansQuizNiChecklist}
           onVoirRecap={() => setEcran('recap')}
+          libelleRetour={libelleRetour}
           onRetour={onRetour}
         />
       )}
@@ -626,6 +628,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
               : { bouton: 'Terminer le cours', onClick: () => setEcran('recap') }
           }
           onRefaire={() => ouvrirQuiz({ recommencer: true })}
+          libelleRetour={apercu ? libelleRetour : libelleCourtTheme(cours.categorie)}
           onRetour={() => onRetourTheme(cours.categorie)}
         />
       )}
@@ -645,6 +648,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
           onPasserEtape={passerEtape}
           onDeplacer={deplacerEtape}
           onValiderOrdre={validerOrdre}
+          libelleRetour={libelleRetour}
           onRetour={onRetour}
         />
       )}
@@ -662,6 +666,7 @@ function FicheCours({ authUser, coursId, sectionInitiale, onRetour, onRetourThem
           onRefaireQuiz={() => ouvrirQuiz({ recommencer: true })}
           onRevoirChecklist={() => setEcran('checklist')}
           onOuvrirCours={onOuvrirCours}
+          libelleRetour={libelleRetour}
           onRetour={onRetour}
         />
       )}

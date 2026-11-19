@@ -5,7 +5,8 @@ import Icone from '../components/Icone'
 import StatutBadge from '../components/StatutBadge'
 import Modale, { ModaleConfirmation } from '../components/Modale'
 import MenuActions from '../components/formateur/MenuActions'
-import { BarreFine, ListeCases, RetourFormateur } from '../components/formateur/Elements'
+import { BarreFine, ListeCases } from '../components/formateur/Elements'
+import Retour from '../components/Retour'
 import { notifierMakeNouveauCours, notifierMakeNouvelEleve } from '../lib/notificationsMake'
 import { relancerParEmail } from '../lib/relance'
 import { typo } from '../lib/typographie'
@@ -35,7 +36,8 @@ const nomComplet = (m) => `${m.prenom ?? ''} ${m.nom ?? ''}`.trim()
 
 // Détail d'un groupe : en-tête (ajout d'élève), cours assignés, une seule carte « Élèves » qui
 // fusionne la liste et le suivi, suppression du groupe tout en bas (menu « … » sur mobile).
-function DetailGroupe({ authUser, groupeId, onRetour }) {
+// libelleRetour : nom d'écran de la page d'où le Détail groupe a été ouvert
+function DetailGroupe({ authUser, groupeId, libelleRetour, onRetour }) {
   const [chargement, setChargement] = useState(true)
   const [erreur, setErreur] = useState(null)
 
@@ -269,8 +271,11 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
 
   if (chargement) {
     return (
-      <div className="espace-page espace-page-etroit fm-page">
-        <p className="etat-chargement">Chargement…</p>
+      <div className="fm-detail">
+        <div className="espace-page espace-page-etroit fm-page">
+          <Retour libelle={libelleRetour} onRetour={onRetour} />
+          <p className="etat-chargement">Chargement…</p>
+        </div>
       </div>
     )
   }
@@ -279,7 +284,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     return (
       <div className="fm-detail">
         <div className="espace-page espace-page-etroit fm-page">
-          <RetourFormateur libelle="Mes groupes" onRetour={onRetour} />
+          <Retour libelle={libelleRetour} onRetour={onRetour} />
           <p className="message message-erreur">{erreur}</p>
         </div>
       </div>
@@ -308,7 +313,7 @@ function DetailGroupe({ authUser, groupeId, onRetour }) {
     <div className="fm-detail">
       <div className="espace-page espace-page-etroit fm-page">
         <div className="dg-barre-haut">
-          <RetourFormateur libelle="Mes groupes" onRetour={onRetour} />
+          <Retour libelle={libelleRetour} onRetour={onRetour} />
           <div className="dg-menu-mobile">
             <MenuActions
               titre={groupe.nom}

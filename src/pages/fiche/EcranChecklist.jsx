@@ -2,6 +2,7 @@ import ContenuMarkdown from '../../components/ContenuMarkdown'
 import ReperEtapes from '../../components/ReperEtapes'
 import Icone from '../../components/Icone'
 import iconeRetour from '../../Assets/chevron-left.svg?raw'
+import Retour from '../../components/Retour'
 import iconePasser from '../../Assets/fleche-passer.svg?raw'
 import CarteEtapeSuivante from './CarteEtapeSuivante'
 import '../../styles/quiz.css'
@@ -33,6 +34,7 @@ function EcranChecklist({
   onPasserEtape,
   onDeplacer,
   onValiderOrdre,
+  libelleRetour,
   onRetour,
 }) {
   const traitee = (e) => etapesValidees.includes(e.id) || etapesPassees.includes(e.id)
@@ -43,9 +45,7 @@ function EcranChecklist({
   return (
     <div className="fiche-colonne fiche-checklist">
       <div className="fiche-checklist-entete">
-        <button type="button" className="bouton-rond" onClick={onRetour} aria-label="Retour">
-          <Icone svg={iconeRetour} className="bouton-rond-icone" />
-        </button>
+        <Retour rond libelle={libelleRetour} onRetour={onRetour} />
         <div className="fiche-checklist-entete-texte">
           <span className="fiche-checklist-theme">{cours.categorie}</span>
           <h1 className="titre-ligne fiche-checklist-titre">{typo(cours.titre)}</h1>
