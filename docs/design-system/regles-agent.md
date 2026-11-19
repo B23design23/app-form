@@ -2,7 +2,7 @@
 
 Ce fichier se rédige depuis la documentation du DS (docs/tokens/, docs/design-system/), jamais depuis le code. Quand le code et la documentation divergent, le fichier suit la documentation et l'écart est noté comme dérive à corriger dans le code.
 
-Référence unique du DS pour un agent qui construit un écran, et pour le mainteneur. Version publiée : 3.0.0. Brouillon en cours : 3.1.0 (voir `notes-de-version.md`).
+Référence unique du DS pour un agent qui construit un écran, et pour le mainteneur. Version publiée : 3.0.0. Brouillon en cours : 4.0.0 (voir `notes-de-version.md`).
 
 Ce fichier assemble des règles déjà écrites ailleurs : il n'en crée aucune. Chaque règle renvoie à sa source. Quand deux sources se contredisent, la contradiction est listée dans « À trancher » à la fin, sans être résolue ici.
 
@@ -293,7 +293,12 @@ Source : `ds-principes-composants.md`.
   - orange (texte encre) : lancer le quiz flash, rien d'autre ;
   - supprimer (rouge) : action destructrice, dans un menu, toujours confirmée ;
   - pointillé : ajouter un élément dans la création de cours (question, réponse, étape) ;
-  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et le nom accessible du bouton ne change pas. Quand le libellé visible nomme le niveau du dessus, le nom accessible est « Retour à <libellé> » (WCAG 2.5.3, Label in Name : le nom accessible contient le libellé visible). Exemples : Mot de passe oublié (libellé « Connexion », nom « Retour à la connexion »), espace formateur (« Retour à Mes cours », « Retour à Mes groupes »), Création de cours (« Retour à Mes cours », « Retour à Détail du cours »). Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding en `espace-retour-chevron` côté chevron et `espace-retour-libelle` côté libellé ; écart entre le chevron et le libellé en `espace-icone` (« Espacements », section 5) ; chevron de 18 px. Libellé : rôle Bouton (`--typo-bouton`), car la variante Retour a une forme de bouton (`typographie.md`, section 6).
+  - retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et le nom accessible du bouton ne change pas. Zone cliquable de 44 px minimum. Dimensions : padding en `espace-retour-chevron` côté chevron et `espace-retour-libelle` côté libellé ; écart entre le chevron et le libellé en `espace-icone` (« Espacements », section 5) ; chevron de 18 px. Libellé : rôle Bouton (`--typo-bouton`), car la variante Retour a une forme de bouton (`typographie.md`, section 6). Source : `ds-principes-composants.md`, Bouton, variante Retour.
+    - Présence : le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Sur une page de niveau 1 ou plus, il apparaît dans tous les états de la page, chargement, erreur et vide compris (« États de page »). Il n'a donc pas d'état désactivé.
+    - Pilule ou rond : la variante Retour (pilule) quand elle est seule sur sa rangée là où son libellé s'affiche (à partir de 768). Le Retour rond (Bouton rond) quand il partage sa rangée avec d'autres éléments (logo, barre de progression, titre, œil). Sous 768, la pilule passe en chevron seul et peut alors partager sa rangée.
+    - Nom accessible : tout Retour, pilule ou rond, avec ou sans libellé visible, a pour nom accessible « Retour à <libellé> ». Le libellé est le nom exact affiché par la destination : l'entrée de navigation pour une page de niveau 0 (« Accueil », « Mes cours »), le titre de la page sinon. Pas d'article ajouté. Quand la pilule montre un libellé, c'est ce même libellé (WCAG 2.5.3, Label in Name : le nom accessible contient le libellé visible). Quand la destination dépend de l'origine, le libellé et le nom suivent la destination réelle. Exemples : Détail d'un thème (libellé « Cours », nom « Retour à Cours »), espace formateur (« Retour à Mes cours », « Retour à Mes groupes »), Création de cours (« Retour à Mes cours », « Retour à Détail du cours »), leçon ouverte depuis l'Accueil (libellé « Accueil », nom « Retour à Accueil »).
+    - Étape d'un parcours : le Retour d'une étape d'un parcours en plusieurs étapes (Inscription, étape 2 et suivantes) remonte d'une étape, pas d'une page. Nom : « Retour à l'étape précédente ».
+    - Ce qui n'est pas un Retour : un bouton qui ne remonte pas d'un niveau (quitter un mode, fermer la session) n'est pas un Retour : il est nommé par son effet, même s'il a la forme d'un rond.
 - **Choisir entre principal, secondaire et lien texte** :
   - principal : l'action attendue de la zone, un seul par zone ;
   - secondaire : seulement s'il est sur la même rangée que le principal et que c'est l'autre issue de la même décision ;
@@ -352,6 +357,7 @@ Source : `ds-principes-composants.md`, « États de page ».
 - **Enregistrement** : tout enregistrement affiche un message d'erreur s'il échoue, même composant que les autres, près de l'action.
 - **Formulaire** : voir Champ (message sous le champ, contour `bordure-erreur`, `aria-invalid` ; erreur de section : message sous la section, aucun champ marqué).
 - **Vide** : Texte secondaire, couleur `texte-secondaire`, jamais `texte-erreur`.
+- **Retour** : sur une page de niveau 1 ou plus, le Retour reste affiché dans chaque état (chargement, erreur, vide), au-dessus du message : voir Bouton, variante Retour.
 - **Une seule ligne** : Un état de page d'une seule ligne, comme « Chargement… », n'a pas de première ligne et garde le rôle du message sans variante `-fort` ; la variante `-fort` ne vaut que lorsqu'une autre ligne suit.
 
 ### Barre de progression
@@ -427,6 +433,7 @@ Source : `ds-principes-composants.md`, « États de page ».
 Entrées ajoutées au catalogue (décision du 12/11) : rôle, anatomie, valeurs et classe commune dans `ds-principes-composants.md`, une fiche par composant. Une seule implémentation par rôle : une page n'écrit pas sa propre carte, ligne, pastille, lien ou recherche, elle prend la classe commune (`.carte`, `.ligne-liste`, `.pastille`, `.lien-texte`, `src/styles/shared.css`). Composants d'écran, sans fiche : repère d'étapes, éditeur de leçon, tri de tableau, bandeau Aperçu, visionneuse, confettis, points de l'Introduction, vignettes de badge, carte pointillée « + Assigner un cours ».
 
 - **Ligne de cours** (fiche Ligne de liste) : le statut passe sous le titre dès que le titre devrait couper un mot, à toutes les largeurs ; sinon il reste à côté. Le titre n'est jamais coupé au milieu d'un mot (pas de césure automatique ; filet : coupure sans tiret si un mot ne tient pas sur toute la largeur du texte). Aucune largeur d'écran dans la règle. Code : CSS seul, rangée texte + statut en `flex-wrap`, texte en `width: min-content` (largeur du mot le plus long du titre), contenu secondaire en `contain: inline-size`, `min-width: 0` pour le filet.
+- **Retour rond** (fiche Bouton rond) : quand le Retour partage sa rangée avec d'autres éléments (logo, barre de progression, titre, œil) ; seul sur sa rangée, c'est la variante Retour (pilule) du Bouton. Nom accessible « Retour à <libellé> », présence et cas qui ne sont pas des Retours : Bouton, variante Retour.
 
 ## 5. Règles transverses
 
@@ -550,7 +557,7 @@ Source : `docs/tokens/rayons.md` (section citée entre parenthèses). Les tokens
 | Rôle | Token | Valeur | S'applique à |
 |---|---|---|---|
 | Pilule | `rayon-pilule` | 999 px | Élément dont les deux bouts sont des demi-cercles. Bouton, champ d'une ligne, pastille, filtre, barre de progression et son remplissage, entrée de tab bar. |
-| Rond | `rayon-rond` | 999 px | Élément carré rendu circulaire. Bouton rond (Retour mobile, « … », « + », Fermer), initiales, repère d'étape, radio, icône dans un rond, vignette carrée d'une liste (objet du thème, badge de la collection). |
+| Rond | `rayon-rond` | 999 px | Élément carré rendu circulaire. Bouton rond (Retour rond, « … », « + », Fermer), initiales, repère d'étape, radio, icône dans un rond, vignette carrée d'une liste (objet du thème, badge de la collection). |
 | Case | `rayon-case` | 6 px | Case à cocher, repère « Bonne réponse » en plusieurs réponses. |
 | Surface | `rayon-surface` | 30 px | Bloc posé directement sur le fond de la page, ou flottant au-dessus. Carte, en-tête de page, bloc de tête du dashboard, blocs d'introduction et « Plus qu'une étape », liste en carte, carte pointillée d'action, tab bar, modale, toast, menu déroulant, menu « … ». |
 | Élément | `rayon-element` | 22 px | Bloc à fond ou à contour posé dans une Surface, à n'importe quelle profondeur. Ligne à fond, « À retenir », carte de question, entrée de menu, miniature (non carrée), repère d'étapes, case de badge. |
@@ -687,6 +694,8 @@ Source : `docs/tokens/mise-en-page.md` (section citée entre parenthèses). Pas 
 - Desktop : même barre en haut, logo en variante foncée à gauche, entrées en pilules à droite.
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`. Onglets inactifs : `texte-sur-inverse`. Survol d'une entrée : `fond-inverse-survol`.
 - Entrée Menu : quand l'écran affiché a été ouvert depuis une entrée du Menu, l'entrée Menu est marquée active, avec l'état de l'onglet actif (fond `fond-accent`, texte et icône `texte-principal`).
+- Page de niveau 1 ou plus : l'entrée de la section d'origine reste active, avec l'état de l'onglet actif.
+- Retour : pas de Retour sur une page de niveau 0 (Bouton, variante Retour).
 
 ### Listes déroulantes
 

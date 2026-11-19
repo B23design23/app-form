@@ -19,7 +19,7 @@ Plancher : trois rôles de forme et deux rôles de niveau. Un bloc posé dans un
 | Rôle | Token | Valeur | S'applique à |
 |---|---|---|---|
 | Pilule | `rayon-pilule` | 999 px | Élément dont les deux bouts sont des demi-cercles. Bouton, champ d'une ligne, pastille, filtre, barre de progression et son remplissage, entrée de tab bar. |
-| Rond | `rayon-rond` | 999 px | Élément carré rendu circulaire. Bouton rond (Retour mobile, « … », « + », Fermer), initiales, repère d'étape, radio, icône dans un rond, vignette carrée d'une liste (objet du thème, badge de la collection). |
+| Rond | `rayon-rond` | 999 px | Élément carré rendu circulaire. Bouton rond (Retour rond, « … », « + », Fermer), initiales, repère d'étape, radio, icône dans un rond, vignette carrée d'une liste (objet du thème, badge de la collection). |
 | Case | `rayon-case` | 6 px | Case à cocher, repère « Bonne réponse » en plusieurs réponses. |
 | Surface | `rayon-surface` | 30 px | Bloc posé directement sur le fond de la page, ou flottant au-dessus. Carte, en-tête de page, bloc de tête du dashboard, blocs d'introduction et « Plus qu'une étape », liste en carte, carte pointillée d'action, tab bar, modale, toast, menu déroulant, menu « … ». |
 | Élément | `rayon-element` | 22 px | Bloc à fond ou à contour posé dans une Surface, à n'importe quelle profondeur. Ligne à fond, « À retenir », carte de question, entrée de menu, miniature (non carrée), repère d'étapes, case de badge. |

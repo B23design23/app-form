@@ -50,7 +50,12 @@ Variantes et usage
 - Orange (texte encre) : lancer le quiz flash, rien d'autre.
 - Supprimer (rouge) : action destructrice, dans un menu, toujours confirmée.
 - Pointillé : ajouter un élément dans la création de cours (question, réponse, étape).
-- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et le nom accessible du bouton ne change pas. Quand le libellé visible nomme le niveau du dessus, le nom accessible est « Retour à <libellé> » (WCAG 2.5.3, Label in Name : le nom accessible contient le libellé visible). Exemples : Mot de passe oublié (libellé « Connexion », nom « Retour à la connexion »), espace formateur (« Retour à Mes cours », « Retour à Mes groupes »), Création de cours (« Retour à Mes cours », « Retour à Détail du cours »). États : survol et appui en fond-accent. Zone cliquable de 44 px minimum. Le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Il n'a donc pas d'état désactivé. Dimensions : padding en rôle Padding d'un contrôle (Retour), écart entre le chevron et le libellé en rôle Icône et libellé (valeurs dans `docs/tokens/espacements.md`) ; chevron de 18 px. Libellé : rôle Bouton (valeurs dans `docs/tokens/typographie.md`).
+- Retour : revenir au niveau du dessus quand on est descendu d'un niveau dans les pages. Place : en haut à gauche, avant l'en-tête. Rendu : pilule blanche, chevron à gauche, texte encre. Sur mobile, chevron seul, et le nom accessible du bouton ne change pas. États : survol et appui en fond-accent. Zone cliquable de 44 px minimum. Dimensions : padding en rôle Padding d'un contrôle (Retour), écart entre le chevron et le libellé en rôle Icône et libellé (valeurs dans `docs/tokens/espacements.md`) ; chevron de 18 px. Libellé : rôle Bouton (valeurs dans `docs/tokens/typographie.md`).
+  - Présence : le bouton Retour remonte d'un niveau dans l'arborescence des pages. Il n'apparaît pas sur une page de niveau 0, atteinte depuis la navigation principale (tab bar sur mobile, barre de navigation sur desktop). Sur une page de niveau 1 ou plus, il apparaît dans tous les états de la page, chargement, erreur et vide compris (voir États de page). Il n'a donc pas d'état désactivé.
+  - Pilule ou rond : la variante Retour (pilule) quand elle est seule sur sa rangée là où son libellé s'affiche (à partir de 768). Le Retour rond (fiche Bouton rond) quand il partage sa rangée avec d'autres éléments (logo, barre de progression, titre, œil). Sous 768, la pilule passe en chevron seul et peut alors partager sa rangée.
+  - Nom accessible : tout Retour, pilule ou rond, avec ou sans libellé visible, a pour nom accessible « Retour à <libellé> ». Le libellé est le nom exact affiché par la destination : l'entrée de navigation pour une page de niveau 0 (« Accueil », « Mes cours »), le titre de la page sinon. Pas d'article ajouté. Quand la pilule montre un libellé, c'est ce même libellé (WCAG 2.5.3, Label in Name : le nom accessible contient le libellé visible). Quand la destination dépend de l'origine, le libellé et le nom suivent la destination réelle. Exemples : Détail d'un thème (libellé « Cours », nom « Retour à Cours »), espace formateur (« Retour à Mes cours », « Retour à Mes groupes »), Création de cours (« Retour à Mes cours », « Retour à Détail du cours »), leçon ouverte depuis l'Accueil (libellé « Accueil », nom « Retour à Accueil »).
+  - Étape d'un parcours : le Retour d'une étape d'un parcours en plusieurs étapes (Inscription, étape 2 et suivantes) remonte d'une étape, pas d'une page. Nom : « Retour à l'étape précédente ».
+  - Ce qui n'est pas un Retour : un bouton qui ne remonte pas d'un niveau (quitter un mode, fermer la session) n'est pas un Retour : il est nommé par son effet, même s'il a la forme d'un rond.
 
 Choisir entre principal, secondaire et lien texte
 - Principal : l'action attendue de la zone. Un seul par zone.
@@ -144,6 +149,9 @@ Erreur
 
 Vide
 Un état vide est en Texte secondaire, couleur `texte-secondaire`, jamais `texte-erreur`.
+
+Retour
+Sur une page de niveau 1 ou plus, le Retour reste affiché dans chaque état (chargement, erreur, vide), au-dessus du message : voir Bouton, variante Retour.
 
 Première ligne d'un état de page (Chargement, Erreur, Vide) : voir `typographie.md`, section 8. Un état de page d'une seule ligne, comme « Chargement… », n'a pas de première ligne et garde le rôle du message sans variante `-fort` ; la variante `-fort` ne vaut que lorsqu'une autre ligne suit.
 
@@ -416,10 +424,11 @@ Une seule implémentation (`src/components/AnneauProgression.jsx`).
 ## Bouton rond
 
 Rôle
-Une action représentée par une icône seule : Retour rond (mobile), fermer une modale, menu « … », « Voir comme un élève » (mobile), image dans un champ, relancer un élève, rond « + » de Mes cours (mobile).
+Une action représentée par une icône seule : Retour rond, fermer une modale, menu « … », « Voir comme un élève » (mobile), image dans un champ, relancer un élève, rond « + » de Mes cours (mobile).
+Retour rond : quand le Retour partage sa rangée avec d'autres éléments (logo, barre de progression, titre, œil) ; seul sur sa rangée, c'est la variante Retour (pilule) de la fiche Bouton. Nom accessible, présence et cas qui ne sont pas des Retours : fiche Bouton, variante Retour.
 
 Anatomie
-Deux diamètres (décision du 12/11) : 44 px partout ; 56 px dans le parcours d'entrée (barre du haut des questions et des écrans de connexion). L'icône suit le diamètre : 20 px dans le bouton de 44, 22 px dans celui de 56 (décision du 13/11). Fond : celui de chaque bouton aujourd'hui (blanc ou `fond-sur-carte`) ; le rond « + » est un bouton principal (`fond-action`). Nom accessible obligatoire (`aria-label`). Appui, focus et désactivé communs.
+Deux diamètres (décision du 12/11) : 44 px partout ; 56 px dans le parcours d'entrée (barre du haut des questions et des écrans de connexion). L'icône suit le diamètre : 20 px dans le bouton de 44, 22 px dans celui de 56 (décision du 13/11). Fond : celui de chaque bouton aujourd'hui (blanc ou `fond-sur-carte`) ; le rond « + » est un bouton principal (`fond-action`). Nom accessible obligatoire (`aria-label`) ; pour un Retour rond, « Retour à <libellé> » (fiche Bouton, variante Retour). Appui, focus et désactivé communs.
 
 DON'T
 Réduire un bouton rond pour le faire tenir dans un champ : c'est le champ qui grandit (voir Champ, Dimensions).
@@ -482,6 +491,8 @@ Un toast informatif n'a aucune action ni élément focalisable ; il est annoncé
 - Onglet actif : fond `fond-accent`, texte et icône `texte-principal`.
 - Onglets inactifs : `texte-sur-inverse`.
 - Entrée Menu : quand l'écran affiché a été ouvert depuis une entrée du Menu, l'entrée Menu est marquée active, avec l'état de l'onglet actif.
+- Page de niveau 1 ou plus : l'entrée de la section d'origine reste active, avec l'état de l'onglet actif.
+- Retour : pas de Retour sur une page de niveau 0 (fiche Bouton, variante Retour).
 
 ## Liste déroulante
 
