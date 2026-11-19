@@ -44,7 +44,10 @@ function App() {
   const [authUser, setAuthUser] = useState(null)
   const parcours = useParcours()
   const [slideIntroduction, setSlideIntroduction] = useState(0)
-  const [retourChoixProfil, setRetourChoixProfil] = useState('introduction')
+  // Parcours d'entrée : la branche en cours (Connexion ou Choix du profil et inscription) a-t-elle été
+  // ouverte depuis l'Introduction ? Une bascule entre les deux branches garde ce Retour ; l'ouverture
+  // de l'app, une déconnexion, « Passer » et un nouveau mot de passe n'en donnent pas (niveau 0).
+  const [retourIntroduction, setRetourIntroduction] = useState(false)
   const [sectionApprenant, setSectionApprenant] = useState('dashboard')
   const [sectionFormateur, setSectionFormateur] = useState('dashboard')
   const [coursSelectionneId, setCoursSelectionneId] = useState(null)
@@ -66,8 +69,6 @@ function App() {
   const [groupeSelectionneId, setGroupeSelectionneId] = useState(null)
   const [retourApercu, setRetourApercu] = useState('detail-cours-formateur')
   const [messageConnexion, setMessageConnexion] = useState(null)
-  // Connexion atteinte par « Passer » dans l'intro : pas de flèche de retour
-  const [connexionSansRetour, setConnexionSansRetour] = useState(false)
 
   useEffect(() => {
     let annule = false
@@ -82,6 +83,7 @@ function App() {
       if (!user) {
         if (annule) return
         setAuthUser(null)
+        setRetourIntroduction(false)
         setEcran((actuel) => {
           if (!ECRANS_PROTEGES.includes(actuel)) return actuel
           return estPremiereResolution && !introductionDejaVue() ? 'introduction' : 'connexion'
@@ -171,37 +173,34 @@ function App() {
       <Introduction
         slideInitiale={slideIntroduction}
         onCreerCompte={() => {
-          setRetourChoixProfil('introduction')
+          setRetourIntroduction(true)
           setEcran('choix-profil')
         }}
         onSeConnecter={() => {
-          setConnexionSansRetour(false)
+          setRetourIntroduction(true)
           setEcran('connexion')
         }}
         onPasser={() => {
-          setConnexionSansRetour(true)
+          setRetourIntroduction(false)
           setEcran('connexion')
         }}
       />
     )
   }
 
+  const retourVersIntroduction = retourIntroduction
+    ? () => {
+        setSlideIntroduction(2)
+        setEcran('introduction')
+      }
+    : undefined
+
   if (ecran === 'connexion') {
     return (
       <Connexion
         messageConfirmation={messageConnexion}
-        onRetour={
-          connexionSansRetour
-            ? undefined
-            : () => {
-                setSlideIntroduction(2)
-                setEcran('introduction')
-              }
-        }
-        onCreerCompte={() => {
-          setRetourChoixProfil('connexion')
-          setEcran('choix-profil')
-        }}
+        onRetour={retourVersIntroduction}
+        onCreerCompte={() => setEcran('choix-profil')}
         onMotDePasseOublie={() => {
           setMessageConnexion(null)
           setEcran('mot-de-passe-oublie')
@@ -213,11 +212,8 @@ function App() {
   if (ecran === 'choix-profil') {
     return (
       <ChoixProfil
-        libelleRetour={retourChoixProfil === 'connexion' ? 'Connexion' : 'Introduction'}
-        onRetour={() => {
-          setSlideIntroduction(2)
-          setEcran(retourChoixProfil)
-        }}
+        libelleRetour="Introduction"
+        onRetour={retourVersIntroduction}
         onChoisir={(role) => {
           if (parcours.role !== role) parcours.choisirRole(role)
           setEcran('inscription')
@@ -262,6 +258,7 @@ function App() {
       <NouveauMotDePasse
         onTermine={() => {
           setMessageConnexion('Mot de passe mis à jour, tu peux te connecter.')
+          setRetourIntroduction(false)
           setEcran('connexion')
         }}
       />
