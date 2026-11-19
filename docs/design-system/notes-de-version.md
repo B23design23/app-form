@@ -1,5 +1,31 @@
 # Notes de version du design system
 
+## 3.1.0 (brouillon, non publiée)
+
+**Ajouté**
+
+Aucune entrée.
+
+**Modifié**
+
+Aucune entrée.
+
+**Corrigé**
+
+Aucune entrée.
+
+**Déprécié**
+
+Aucune entrée.
+
+**Retiré**
+
+Aucune entrée.
+
+**Écrans corrigés**
+
+- Vitrine `/design-system`, spécimen de la variante Retour : nom accessible « Retour à Cours » (le libellé visible « Cours » nomme le niveau du dessus).
+
 ## 3.0.0 (18 novembre 2026)
 
 Version majeure : des règles changent au point que des écrans conformes ne le sont plus, et la Modale change d'emplacement dans le code. Les écrans concernés sont listés sous chaque entrée ; ceux qui sont déjà corrigés figurent sous « Écrans corrigés ».
