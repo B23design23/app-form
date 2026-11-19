@@ -11,7 +11,7 @@
 
 **Modifié**
 
-- Variante Retour, nom accessible : tout Retour, pilule ou rond, avec ou sans libellé visible, a pour nom « Retour à <libellé> ». Le libellé est le nom exact affiché par la destination : l'entrée de navigation pour une page de niveau 0, le titre de la page sinon, sans article ajouté ; la pilule montre ce même libellé ; quand la destination dépend de l'origine, libellé et nom suivent la destination réelle. Retour d'une étape d'un parcours en plusieurs étapes : « Retour à l'étape précédente ». Remplace « nom accessible « Retour à <libellé> » quand le libellé visible nomme le niveau du dessus ». Côté écran : à faire, renommer les Retours nommés « Retour » seul (parcours, checklist, fin de quiz, erreur de la fiche, aperçu élève) et ceux dont le nom ajoute un article.
+- Variante Retour, nom accessible : tout Retour, pilule ou rond, avec ou sans libellé visible, a pour nom « Retour à <libellé> ». Le libellé est le nom d'écran de la destination : chaque écran qui peut être la destination d'un Retour a un nom d'écran, écrit une seule fois dans sa description (`docs/ecrans/`), et un nouvel écran de ce type écrit son nom d'écran dans sa description, avant le code ; pas d'article ajouté ; la pilule montre ce même libellé ; quand la destination dépend de l'origine, libellé et nom suivent la destination réelle. Retour d'une étape d'un parcours en plusieurs étapes : « Retour à l'étape précédente ». Remplace « nom accessible « Retour à <libellé> » quand le libellé visible nomme le niveau du dessus ». Côté écran : à faire, renommer les Retours nommés « Retour » seul (parcours, checklist, fin de quiz, erreur de la fiche, aperçu élève) et ceux dont le nom ajoute un article.
 
 **Corrigé**
 
