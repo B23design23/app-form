@@ -1,14 +1,17 @@
 # Notes de version du design system
 
-## 3.1.0 (brouillon, non publiée)
+## 4.0.0 (brouillon, non publiée)
 
 **Ajouté**
 
-Aucune entrée.
+- Variante Retour, présence : sur une page de niveau 1 ou plus, un Retour dans tous les états de la page, chargement, erreur et vide compris ; toujours pas de Retour sur une page de niveau 0. La fiche États de page renvoie à la fiche Bouton. Côté écran : à faire, ajouter le Retour aux états de chargement de la fiche de cours, du quiz flash, du Détail cours et du Détail groupe.
+- Variante Retour et Bouton rond, critère de choix : la pilule quand elle est seule sur sa rangée là où son libellé s'affiche (à partir de 768) ; le rond quand il partage sa rangée avec d'autres éléments (logo, barre de progression, titre, œil) ; sous 768, la pilule passe en chevron seul et peut alors partager sa rangée. Renvoi de chaque fiche à l'autre ; « (mobile) » et « Retour mobile » retirés là où ils désignaient le rond. Côté écran : à faire, Choix du profil et états de chargement et d'erreur de Création de cours passent en pilule.
+- Ce qui n'est pas un Retour : un bouton qui ne remonte pas d'un niveau (quitter un mode, fermer la session) est nommé par son effet, même s'il a la forme d'un rond. Côté écran : à faire, le rond de l'étape 1 de Compléter le profil devient « Se déconnecter ».
+- Navigation : sur une page de niveau 1 ou plus, l'entrée de la section d'origine reste active ; la fiche Navigation renvoie à la règle du niveau 0 de la fiche Bouton. Côté écran : à faire, barre du haut de la leçon, de la checklist et du récap à partir de 768.
 
 **Modifié**
 
-Aucune entrée.
+- Variante Retour, nom accessible : tout Retour, pilule ou rond, avec ou sans libellé visible, a pour nom « Retour à <libellé> ». Le libellé est le nom exact affiché par la destination : l'entrée de navigation pour une page de niveau 0, le titre de la page sinon, sans article ajouté ; la pilule montre ce même libellé ; quand la destination dépend de l'origine, libellé et nom suivent la destination réelle. Retour d'une étape d'un parcours en plusieurs étapes : « Retour à l'étape précédente ». Remplace « nom accessible « Retour à <libellé> » quand le libellé visible nomme le niveau du dessus ». Côté écran : à faire, renommer les Retours nommés « Retour » seul (parcours, checklist, fin de quiz, erreur de la fiche, aperçu élève) et ceux dont le nom ajoute un article.
 
 **Corrigé**
 
@@ -25,6 +28,7 @@ Aucune entrée.
 **Écrans corrigés**
 
 - Vitrine `/design-system`, spécimen de la variante Retour : nom accessible « Retour à Cours » (le libellé visible « Cours » nomme le niveau du dessus).
+- Leçon et récap de la fiche de cours, aperçu élève compris : le libellé du Retour nommait le thème du cours au lieu du niveau du dessus (règle 3.0.0) ; libellé et nom suivent désormais l'origine de la fiche. Côté écran : à faire (lot Retour).
 
 ## 3.0.0 (18 novembre 2026)
 
