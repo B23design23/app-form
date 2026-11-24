@@ -77,10 +77,7 @@
    côté apprenant, gris côté formateur) ; posé directement sur un fond non blanc (page, bloc), il
    prend le fond blanc. */
 .espace-page > .champ input,
-.espace-page > .champ .dropdown-trigger,
-.creation-bloc .champ input,
-.creation-bloc .champ textarea,
-.creation-bloc .dropdown-trigger {
+.espace-page > .champ .dropdown-trigger {
   --fond-champ: var(--fond-surface);
   background: var(--fond-champ);
 }

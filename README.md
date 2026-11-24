@@ -1,6 +1,6 @@
 # Skillo
 
-Application de formation (React/Vite + Supabase). Contexte technique : voir `CLAUDE.md` ; produit : voir `PRD-app-formation-climatisation.md`.
+Application de formation (React/Vite + Supabase). Contexte technique : voir `CLAUDE.md` ; produit : voir `skillo-PRD.md`.
 
 ## Crédits
 
